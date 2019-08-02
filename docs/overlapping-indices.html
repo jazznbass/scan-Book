@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Overlapping indices | Analyzing single-case data with R and scan</title>
+  <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Overlapping indices | Analyzing single-case data with R and scan" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Overlapping indices | Analyzing single-case data with R and scan" />
+  
+  <meta name="twitter:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  
+
+<meta name="author" content="Jürgen Wilbert" />
+
+
+<meta name="date" content="2019-08-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="describe-and-manipulate-single-case-data-frames.html">
+<link rel="next" href="piecewise-linear-regressions.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a><ul>
+<li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
+<li class="chapter" data-level="2.2" data-path="some-things-about-r.html"><a href="some-things-about-r.html#installing-the-scan-package"><i class="fa fa-check"></i><b>2.2</b> Installing the <em>scan</em> package</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>3</b> Managing single-case data</a><ul>
+<li class="chapter" data-level="3.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>3.1</b> A <strong><em>single-case data frame</em></strong></a></li>
+<li class="chapter" data-level="3.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>3.2</b> Creating scdfs</a></li>
+<li class="chapter" data-level="3.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>3.3</b> Saving and reading <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="3.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>3.4</b> Import and export <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="3.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-and-manipulating-scdf-files"><i class="fa fa-check"></i><b>3.5</b> Displaying and manipulating scdf-files</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>4</b> Creating a single-case data plot</a><ul>
+<li class="chapter" data-level="4.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>4.1</b> Graphical styles of a plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>5</b> Describe and manipulate single-case data frames</a><ul>
+<li class="chapter" data-level="5.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>5.1</b> Describing and summarizing</a></li>
+<li class="chapter" data-level="5.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>5.2</b> Autoregression and trendanalyses</a></li>
+<li class="chapter" data-level="5.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>5.3</b> Missing values</a></li>
+<li class="chapter" data-level="5.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>5.4</b> Outlieranalysis</a></li>
+<li class="chapter" data-level="5.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>5.5</b> Smoothing data</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>6</b> Overlapping indices</a><ul>
+<li class="chapter" data-level="6.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>6.1</b> Percentage non-overlapping data (PND)</a></li>
+<li class="chapter" data-level="6.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>6.2</b> Percentage exceeding the median (PEM)</a></li>
+<li class="chapter" data-level="6.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>6.3</b> Percentage exceeding the regression trend (PET)</a></li>
+<li class="chapter" data-level="6.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>6.4</b> Percentage of all non-overlapping data (PAND)</a></li>
+<li class="chapter" data-level="6.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>6.5</b> Nonoverlap of all pairs (NAP)</a></li>
+<li class="chapter" data-level="6.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>6.6</b> Tau-U</a></li>
+<li class="chapter" data-level="6.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>6.7</b> Reliable change index</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>7</b> Piecewise linear regressions</a><ul>
+<li class="chapter" data-level="7.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>7.1</b> The basic plm function</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>7.1.1</b> Dummy model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#different-modells"><i class="fa fa-check"></i><b>7.2</b> Different modells</a></li>
+<li class="chapter" data-level="7.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#modelling-autoregression"><i class="fa fa-check"></i><b>7.3</b> Modelling autoregression</a></li>
+<li class="chapter" data-level="7.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>7.4</b> Adding additional predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multilevel-regression-analyses.html"><a href="multilevel-regression-analyses.html"><i class="fa fa-check"></i><b>8</b> Multilevel regression analyses</a><ul>
+<li class="chapter" data-level="8.1" data-path="multilevel-regression-analyses.html"><a href="multilevel-regression-analyses.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>8.1</b> Adding additional L2-variables</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>9</b> Randomization tests</a></li>
+<li class="chapter" data-level="10" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>10</b> Exporting <em>scan</em> results</a><ul>
+<li class="chapter" data-level="10.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>10.1</b> Single case data files</a></li>
+<li class="chapter" data-level="10.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>10.2</b> Descriptive stats</a></li>
+<li class="chapter" data-level="10.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>10.3</b> Overlap indices</a></li>
+<li class="chapter" data-level="10.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>10.4</b> Piecewise linear models</a></li>
+<li class="chapter" data-level="10.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>10.5</b> Hierarchical piecewise regressions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyzing single-case data with R and scan</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="overlapping-indices" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Overlapping indices</h1>
+<p><code>overlapSC</code> provides a table with some of the most important overlap indices for each case of an <em>scdf</em>. For calculating overlap indicators is is important to know if a decrease or an increase of values is expected between phases. By default <code>overlapSC</code> assumes an increase in values. If the argument <code>decreasing = TRUE</code> is set, calculation will be based on the assumption of decreasing values.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">overlapSC</span>(exampleAB)</a></code></pre></div>
+<pre><code>## Overlap Indices
+## 
+## Design:  A B 
+## Comparing phase 1 against phase 2 
+## 
+##              Johanna Karolina   Anja
+## PND           100.00    86.67  93.33
+## PEM           100.00   100.00 100.00
+## PET           100.00    93.33 100.00
+## NAP           100.00    96.67  98.00
+## NAP.rescaled  100.00    93.33  96.00
+## PAND          100.00    90.00  90.00
+## TAU_U           0.76     0.78   0.63
+## Base_Tau        0.63     0.59   0.61
+## Diff_mean      19.53    21.67  20.47
+## Diff_trend      1.53     0.54   2.50
+## SMD             8.11     3.17   6.71</code></pre>
+<p>Overlap measures refer to a comparison of two phases within a single-case data-set. By default, overlapSC compares a Phase A to a Phase B. The <code>phases</code> argument is needed if the phases of the <em>scdf</em> do not include phases named A and B or a comparison between other phases in wanted.<br />
+The <code>phases</code> argument takes a list with two elements. One element for each of the two phases that should be compared. The elements could contain either the name of the two phases or the number of the position within the <em>scdf</em>. If you want to compare the first to the third phase you can set <code>phases = list(1,3)</code>. If the phases of your case are named ‘A’, ‘B’, and ‘C’ you could alternatively set <code>phases = list(&quot;A&quot;,&quot;C&quot;)</code>.<br />
+It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the <code>c</code> command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases <code>phases = list( c(1,3), c(2,4) )</code> will do the trick.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">overlapSC</span>(exampleA1B1A2B2, <span class="dt">phases =</span> <span class="kw">list</span>( <span class="kw">c</span>(<span class="st">&quot;A1&quot;</span>,<span class="st">&quot;A2&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;B1&quot;</span>,<span class="st">&quot;B2&quot;</span>)))</a></code></pre></div>
+<pre><code>## Overlap Indices
+## 
+## Design:  A1 B1 A2 B2 
+## Comparing phases 1 + 3 against phases 2 + 4 
+## 
+##               Pawel Moritz Jannis
+## PND           55.00  77.78  71.43
+## PEM          100.00 100.00 100.00
+## PET          100.00 100.00 100.00
+## NAP           94.50  96.84  98.35
+## NAP.rescaled  89.00  93.69  96.70
+## PAND          82.50  85.00  90.00
+## TAU_U          0.44   0.45   0.37
+## Base_Tau       0.65   0.67   0.68
+## Diff_mean     12.25  13.58  15.27
+## Diff_trend    -0.05   0.00  -0.54
+## SMD            2.68   3.27   3.62</code></pre>
+<div id="percentage-non-overlapping-data-pnd" class="section level2">
+<h2><span class="header-section-number">6.1</span> Percentage non-overlapping data (PND)</h2>
+<p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation">Scruggs, Mastropieri, &amp; Casto (<a href="#ref-scruggs_quantitative_1987">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
+<div class="figure"><span id="fig:unnamed-chunk-26"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-26-1.png" alt="Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A." width="384" />
+<p class="caption">
+Figure 6.1: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A.
+</p>
+</div>
+<p>The function <code>pnd</code> provides the PND for each case as well as the mean of all PNDs of that <em>scdf</em>. When you expect decreasing values set <code>decreasing = TRUE</code>. When there are more than two phases or phases are not named A and B, use the <code>phases</code> argument as described at the beginning of this chapter.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">pnd</span>(exampleAB)</a></code></pre></div>
+<pre><code>## Percent Non-Overlapping Data
+## 
+##      Case    PND Total Exceeds
+##   Johanna   100%    15      15
+##  Karolina 86.67%    15      13
+##      Anja 93.33%    15      14
+## 
+## Mean  : 93.33 %</code></pre>
+</div>
+<div id="percentage-exceeding-the-median-pem" class="section level2">
+<h2><span class="header-section-number">6.2</span> Percentage exceeding the median (PEM)</h2>
+<p>The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.</p>
+<div class="figure"><span id="fig:unnamed-chunk-28"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-28-1.png" alt="Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A." width="384" />
+<p class="caption">
+Figure 6.2: Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A.
+</p>
+</div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">pem</span>(exampleAB)</a></code></pre></div>
+<pre><code>## Percent Exceeding the Median
+## 
+##          PEM positives total binom.p
+## Johanna  100        15    15       0
+## Karolina 100        15    15       0
+## Anja     100        15    15       0
+## 
+## Alternative hypothesis: true probability &gt; 50%</code></pre>
+</div>
+<div id="percentage-exceeding-the-regression-trend-pet" class="section level2">
+<h2><span class="header-section-number">6.3</span> Percentage exceeding the regression trend (PET)</h2>
+<p>The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent confidence interval of the predicted progress is computed.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="kw">pet</span>(exampleAB)</a></code></pre></div>
+<pre><code>## Percent Exceeding the Trend
+## 
+## N cases =  3 
+## 
+##              PET binom.p  PET CI
+## Johanna  100.000       0  86.667
+## Karolina  93.333       0   0.000
+## Anja     100.000       0 100.000
+## 
+## Binom.test: alternative hypothesis: true probability &gt; 50%
+## PET CI: Percent of values greater than upper 95% confidence threshold (greater 1.645*se above predicted value)</code></pre>
+<div class="figure"><span id="fig:unnamed-chunk-31"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-31-1.png" alt="Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the median of phase A." width="384" />
+<p class="caption">
+Figure 6.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the median of phase A.
+</p>
+</div>
+</div>
+<div id="percentage-of-all-non-overlapping-data-pand" class="section level2">
+<h2><span class="header-section-number">6.4</span> Percentage of all non-overlapping data (PAND)</h2>
+<p>The <code>pand</code> function calculates the percentage of all non-overlapping data <span class="citation">(Parker, Hagan-Burke, &amp; Vannest, <a href="#ref-parker_percentage_2007">2007</a>)</span>, an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The argument <code>correction = TRUE</code> makes <code>pand</code> use a frequency matrix, which is corrected for ties. A tie is counted as the half of a measurement in both phases. Set <code>correction = FALSE</code> to use the uncorrected matrix, which is not recommended.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">pand</span>(exampleAB)</a></code></pre></div>
+<pre><code>## Percentage of all non-overlapping data
+## 
+## PAND =  93.3 %
+## Φ =  0.822  ; Φ² =  0.676 
+## 
+## Number of Cases: 3 
+## Total measurements: 60  (in phase A: 15; in phase B: 45)
+## n overlapping data per case: 0, 2, 2
+## Total overlapping data: n = 4 ; percentage = 6.7 
+## 
+## 2 x 2 Matrix of proportions
+##  % expected
+##  A   B   total
+## %    A   21.7    3.3 25
+## real B   3.3 71.7    75
+##  total   25  75
+## 
+## 2 x 2 Matrix of counts
+##  expected
+##  A   B   total
+##      A   13  2   15
+## real B   2   43  45
+##  total   15  45
+## 
+## 
+## Note. Matrix is corrected for ties
+## 
+## Correlation based analysis:
+## 
+## z = 6.316, p = 0.000, τ = 0.822</code></pre>
+<p>PAND indicates nonoverlap between phase A and B data (like PND), but uses all data and is therefore not based on one single (probably unrepresentative) datapoint. Furthermore, PAND allows the comparison of real and expected associations (Chi-square test) and estimation of the effect size Phi, which equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance. The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power <span class="citation">(Richard I Parker et al., <a href="#ref-parker_effect_2011">2011</a>)</span>.</p>
+</div>
+<div id="nonoverlap-of-all-pairs-nap" class="section level2">
+<h2><span class="header-section-number">6.5</span> Nonoverlap of all pairs (NAP)</h2>
+<p>The <code>nap</code> function calculates the nonoverlap of all pairs <span class="citation">(Parker &amp; Vannest, <a href="#ref-parker_improved_2009">2009</a>)</span>. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP can only take values between 50 and 100 percent, a rescaled and therefore more intuitive NAP (0-100%) is also displayed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">nap</span>(exampleAB)</a></code></pre></div>
+<pre><code>## Nonoverlap of All Pairs
+## 
+##      Case NAP Rescaled Pairs Positives Ties   W       p
+##   Johanna 100      100    75        75    0 0.0 0.00062
+##  Karolina  97       93    75        72    1 2.5 0.00129
+##      Anja  98       96    75        73    1 1.5 0.00095</code></pre>
+</div>
+<div id="tau-u" class="section level2">
+<h2><span class="header-section-number">6.6</span> Tau-U</h2>
+<p>The <code>tauUSC</code> function takes a <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. This procedure has been proposed by <span class="citation">Richard I. Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span>.<br />
+The <code>tauUSC</code> function provides two methods for calculation of Tau-U. By setting the argument <code>method = &quot;parker&quot;</code>, Tau-U is calculated as described in <span class="citation">Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = &quot;complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate.<br />
+In the method proposed by <span class="citation">Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span> data of the same value (ties) are ignored and treated as if these data had not been available. Alternatively, ties might be considered in favor of the intervention or not. For the latter, the <code>ties.method</code> argument could be set to <code>ties.method = &quot;positive&quot;</code> or <code>ties.method = &quot;negative&quot;</code>. The default is <code>&quot;omit&quot;</code> following <span class="citation">Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span>.<br />
+The standard return of the <code>tauUSC</code> function does not display all calculations. If you like to have more details, apply the <code>print</code> function with the additional argument <code>complete = TRUE</code>.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">dat &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">7</span>,<span class="dv">8</span>), <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">4</span>, <span class="dt">B =</span> <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb71-2" data-line-number="2">res &lt;-<span class="st"> </span><span class="kw">tauUSC</span>(dat)</a>
+<a class="sourceLine" id="cb71-3" data-line-number="3"><span class="kw">print</span>(res, <span class="dt">complete =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Tau-U
+## Method:  complete 
+## 
+## Overall Tau-U: 
+## A vs. B + Trend B - Trend A           A vs. B - Trend A 
+##                   0.6111111                   0.6153846 
+## 
+## $Case1
+##                             pairs pos neg ties  S      D     τ    τb    SD
+## A vs. B                        20  19   1    0 18 20.000 0.900 0.900 8.165
+## Trend A                         6   4   2    0  2  6.000 0.333 0.333 2.944
+## Trend B                        10   8   2    0  6 10.000 0.600 0.600 4.082
+## Trend B - Trend A              16  10   6    0  4 33.941 0.250 0.118 9.381
+## A vs. B - Trend A              26  21   5    0 16 30.594 0.615 0.523 8.679
+## A vs. B + Trend B              30  27   3    0 24 32.863 0.800 0.730 9.129
+## A vs. B + Trend B - Trend A    36  29   7    0 22 36.000 0.611 0.611 9.592
+##                                VAR     Z     p SE.Tau.b
+## A vs. B                     66.667 2.205 0.027    0.408
+## Trend A                      8.667 0.679 0.497    0.491
+## Trend B                     16.667 1.470 0.142    0.408
+## Trend B - Trend A           88.000 0.426 0.670    0.276
+## A vs. B - Trend A           75.333 1.843 0.065    0.284
+## A vs. B + Trend B           83.333 2.629 0.009    0.278
+## A vs. B + Trend B - Trend A 92.000 2.294 0.022    0.266</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">tauUSC</span>(exampleAB)</a></code></pre></div>
+<pre><code>## Tau-U
+## Method:  complete 
+## 
+## Overall Tau-U: 
+## A vs. B + Trend B - Trend A           A vs. B - Trend A 
+##                   0.7243947                   0.8745661 
+## 
+## $Johanna
+##                               S       D     τ    τb     Z     p
+## A vs. B - Trend A            75 126.748 0.882 0.592 3.224 0.001
+## A vs. B + Trend B           145 184.445 0.806 0.786 4.749 0.000
+## A vs. B + Trend B - Trend A 145 189.499 0.763 0.765 4.707 0.000
+## 
+## $Karolina
+##                               S       D     τ    τb     Z     p
+## A vs. B - Trend A            70 126.412 0.824 0.554 3.010 0.003
+## A vs. B + Trend B           148 183.957 0.822 0.805 4.849 0.000
+## A vs. B + Trend B - Trend A 148 188.997 0.779 0.783 4.807 0.000
+## 
+## $Anja
+##                               S       D     τ    τb     Z     p
+## A vs. B - Trend A            78 125.060 0.918 0.624 3.361 0.001
+## A vs. B + Trend B           114 181.989 0.633 0.626 3.744 0.000
+## A vs. B + Trend B - Trend A 120 186.976 0.632 0.642 3.907 0.000</code></pre>
+</div>
+<div id="reliable-change-index" class="section level2">
+<h2><span class="header-section-number">6.7</span> Reliable change index</h2>
+<p>The `rciSC function computes three indices of reliable change <span class="citation">(Wise, <a href="#ref-wise_methods_2004">2004</a>)</span> and corresponding descriptive statistics.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="kw">rciSC</span>(exampleAB<span class="op">$</span>Johanna, <span class="dt">graph =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p><img src="scan-book_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<pre><code>## Reliable Change Index
+## 
+## Mean Difference =  19.53333 
+## Standardized Difference =  1.678301 
+## 
+## Descriptives:
+##          n     mean       SD       SE
+## A-Phase  5 54.60000 2.408319 1.077033
+## B-Phase 15 74.13333 8.943207 3.999524
+## 
+## Reliability =  0.8 
+## 
+## 95 % Confidence Intervals:
+##            Lower    Upper
+## A-Phase 52.48905 56.71095
+## B-Phase 66.29441 81.97226
+## 
+## Reliable Change Indices:
+##                              RCI
+## Jacobson et al.         18.13624
+## Christensen and Mendoza 12.82426
+## Hageman and Arrindell   18.49426</code></pre>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-parker_percentage_2007">
+<p>Parker, R. I., Hagan-Burke, S., &amp; Vannest, K. (2007). Percentage of All Non-Overlapping Data (PAND) An Alternative to PND. <em>The Journal of Special Education</em>, <em>40</em>(4), 194–204. Retrieved from <a href="http://sed.sagepub.com/content/40/4/194.short" class="uri">http://sed.sagepub.com/content/40/4/194.short</a></p>
+</div>
+<div id="ref-parker_improved_2009">
+<p>Parker, R. I., &amp; Vannest, K. (2009). An improved effect size for single-case research: Nonoverlap of all pairs. <em>Behavior Therapy</em>, <em>40</em>(4), 357–367. Retrieved from <a href="http://www.sciencedirect.com/science/article/pii/S0005789408000816" class="uri">http://www.sciencedirect.com/science/article/pii/S0005789408000816</a></p>
+</div>
+<div id="ref-parker_effect_2011">
+<p>Parker, R. I., Vannest, K. J., &amp; Davis, J. L. (2011). Effect Size in Single-Case Research: A Review of Nine Nonoverlap Techniques. <em>Behavior Modification</em>, <em>35</em>(4), 303–322. <a href="https://doi.org/10.1177/0145445511399147" class="uri">https://doi.org/10.1177/0145445511399147</a></p>
+</div>
+<div id="ref-parker_combining_2011">
+<p>Parker, R. I., Vannest, K. J., Davis, J. L., &amp; Sauber, S. B. (2011). Combining Nonoverlap and Trend for Single-Case Research: Tau-U. <em>Behavior Therapy</em>, <em>42</em>(2), 284–299. <a href="https://doi.org/10.1016/j.beth.2010.08.006" class="uri">https://doi.org/10.1016/j.beth.2010.08.006</a></p>
+</div>
+<div id="ref-scruggs_quantitative_1987">
+<p>Scruggs, T. E., Mastropieri, M. A., &amp; Casto, G. (1987). The Quantitative Synthesis of Single-Subject Research Methodology and Validation. <em>Remedial and Special Education</em>, <em>8</em>(2), 24–33. <a href="https://doi.org/10.1177/074193258700800206" class="uri">https://doi.org/10.1177/074193258700800206</a></p>
+</div>
+<div id="ref-wise_methods_2004">
+<p>Wise, E. A. (2004). Methods for analyzing psychotherapy outcomes: A review of clinical significance, reliable change, and recommendations for future directions. <em>Journal of Personality Assessment</em>, <em>82</em>(1), 50–59. Retrieved from <a href="http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10" class="uri">http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10</a></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="describe-and-manipulate-single-case-data-frames.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="piecewise-linear-regressions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null
+});
+});
+</script>
+
+</body>
+
+</html>

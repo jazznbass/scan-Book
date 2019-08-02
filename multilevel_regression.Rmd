@@ -9,18 +9,17 @@ Multilevel analyses can take the piecewise-regression approach even further. It 
 
 The basic function for applying a multilevel piecewise regression analysis is `hplm`. The `hplm` function is similar to the `plm` function, so I recommend that you get familar with `plm` before applying an `hplm`. 
 
+Here is a simple axample:
+
 ```{r hplm}
 hplm(exampleAB_50)
 ```
 
-
-
+Here is an example inlcuding random slopes:
 
 ```{r hplm_random}
 hplm(exampleAB_50, random.slopes = TRUE)
 ```
-
-
 
 ## Adding additional L2-variables
 
@@ -29,9 +28,11 @@ This *data frame* consists of a variable labeled `case` which has to correspond 
 To build a *data frame* we can use the R function `data.frame`.
 
 ```{r}
-L2 <- data.frame(case = c("Antonia","Theresa", "Charlotte", "Luis", "Bennett", "Marie"), 
-           age = c(16, 13, 13, 10, 5, 14), 
-           sex = c("f","f","f","m","m","f"))
+L2 <- data.frame(
+  case = c("Antonia","Theresa", "Charlotte", "Luis", "Bennett", "Marie"), 
+  age = c(16, 13, 13, 10, 5, 14), 
+  sex = c("f","f","f","m","m","f")
+)
 L2
 ```
 
@@ -46,7 +47,6 @@ kable(head(exampleAB_50.l2, 10))
 ```
 
 Analyzing the data with `hplm` could look like this:
-
 
 ```{r hplm_l2}
 hplm(exampleAB_50, data.l2 = exampleAB_50.l2, update.fixed = .~. + sex + age)

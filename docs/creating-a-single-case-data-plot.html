@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Creating a single-case data plot | Analyzing single-case data with R and scan</title>
+  <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Creating a single-case data plot | Analyzing single-case data with R and scan" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Creating a single-case data plot | Analyzing single-case data with R and scan" />
+  
+  <meta name="twitter:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  
+
+<meta name="author" content="Jürgen Wilbert" />
+
+
+<meta name="date" content="2019-08-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="managing-single-case-data.html">
+<link rel="next" href="describe-and-manipulate-single-case-data-frames.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a><ul>
+<li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
+<li class="chapter" data-level="2.2" data-path="some-things-about-r.html"><a href="some-things-about-r.html#installing-the-scan-package"><i class="fa fa-check"></i><b>2.2</b> Installing the <em>scan</em> package</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>3</b> Managing single-case data</a><ul>
+<li class="chapter" data-level="3.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>3.1</b> A <strong><em>single-case data frame</em></strong></a></li>
+<li class="chapter" data-level="3.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>3.2</b> Creating scdfs</a></li>
+<li class="chapter" data-level="3.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>3.3</b> Saving and reading <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="3.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>3.4</b> Import and export <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="3.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-and-manipulating-scdf-files"><i class="fa fa-check"></i><b>3.5</b> Displaying and manipulating scdf-files</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>4</b> Creating a single-case data plot</a><ul>
+<li class="chapter" data-level="4.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>4.1</b> Graphical styles of a plot</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>5</b> Describe and manipulate single-case data frames</a><ul>
+<li class="chapter" data-level="5.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>5.1</b> Describing and summarizing</a></li>
+<li class="chapter" data-level="5.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>5.2</b> Autoregression and trendanalyses</a></li>
+<li class="chapter" data-level="5.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>5.3</b> Missing values</a></li>
+<li class="chapter" data-level="5.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>5.4</b> Outlieranalysis</a></li>
+<li class="chapter" data-level="5.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>5.5</b> Smoothing data</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>6</b> Overlapping indices</a><ul>
+<li class="chapter" data-level="6.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>6.1</b> Percentage non-overlapping data (PND)</a></li>
+<li class="chapter" data-level="6.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>6.2</b> Percentage exceeding the median (PEM)</a></li>
+<li class="chapter" data-level="6.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>6.3</b> Percentage exceeding the regression trend (PET)</a></li>
+<li class="chapter" data-level="6.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>6.4</b> Percentage of all non-overlapping data (PAND)</a></li>
+<li class="chapter" data-level="6.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>6.5</b> Nonoverlap of all pairs (NAP)</a></li>
+<li class="chapter" data-level="6.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>6.6</b> Tau-U</a></li>
+<li class="chapter" data-level="6.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>6.7</b> Reliable change index</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>7</b> Piecewise linear regressions</a><ul>
+<li class="chapter" data-level="7.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>7.1</b> The basic plm function</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>7.1.1</b> Dummy model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#different-modells"><i class="fa fa-check"></i><b>7.2</b> Different modells</a></li>
+<li class="chapter" data-level="7.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#modelling-autoregression"><i class="fa fa-check"></i><b>7.3</b> Modelling autoregression</a></li>
+<li class="chapter" data-level="7.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>7.4</b> Adding additional predictors</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multilevel-regression-analyses.html"><a href="multilevel-regression-analyses.html"><i class="fa fa-check"></i><b>8</b> Multilevel regression analyses</a><ul>
+<li class="chapter" data-level="8.1" data-path="multilevel-regression-analyses.html"><a href="multilevel-regression-analyses.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>8.1</b> Adding additional L2-variables</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>9</b> Randomization tests</a></li>
+<li class="chapter" data-level="10" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>10</b> Exporting <em>scan</em> results</a><ul>
+<li class="chapter" data-level="10.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>10.1</b> Single case data files</a></li>
+<li class="chapter" data-level="10.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>10.2</b> Descriptive stats</a></li>
+<li class="chapter" data-level="10.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>10.3</b> Overlap indices</a></li>
+<li class="chapter" data-level="10.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>10.4</b> Piecewise linear models</a></li>
+<li class="chapter" data-level="10.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>10.5</b> Hierarchical piecewise regressions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyzing single-case data with R and scan</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="creating-a-single-case-data-plot" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Creating a single-case data plot</h1>
+<p>Plotting the data is a first important approach of analyzing. After you build an <em>scdf</em> the <code>plot</code> command helps to visualize the data. When the <code>scdf</code> includes more than one case a multiple baseline figure is provided. Labels of the x- and y-axes can be changed with the <code>xlab</code> and <code>ylab</code> argument. The names of the phases can be changed with the <code>phase.names</code> argument. The x- and y-scaling of the graphs are by default calculated as the minimum and the maximum of all included single cases. The <code>xlim</code> and the <code>ylim</code> argument are used to set specific values. The argument takes a vector of two numbers. The first for the lower and the second for the upper limit of the scale. In case of multiple single cases an <code>NA</code> sets the individual minimum or maximum for each case. Assume for example the study contains three single cases <code>ylim = c(0, NA)</code> will set the lower limit for all three single cases to <code>0</code> and the upper limit individually at the maximum of each case.</p>
+<p>Table <a href="creating-a-single-case-data-plot.html#tab:plotarguments">4.1</a> gives an overview of all available arguments.</p>
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:plotarguments">Table 4.1: </span>Arguments of the plot function
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+What it does …
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+data
+</td>
+<td style="text-align:left;width: 30em; ">
+A single-case data frame.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+ylim
+</td>
+<td style="text-align:left;width: 30em; ">
+Lower and upper limits of the y-axis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+xlim
+</td>
+<td style="text-align:left;width: 30em; ">
+Lower and upper limits of the x-axis.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+style
+</td>
+<td style="text-align:left;width: 30em; ">
+A specific design for displaying the plot.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+lines
+</td>
+<td style="text-align:left;width: 30em; ">
+A character or list defining one or more lines or curves to be plotted.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+marks
+</td>
+<td style="text-align:left;width: 30em; ">
+A list of parameters defining markings of certain data points.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+main
+</td>
+<td style="text-align:left;width: 30em; ">
+A figure title
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+phase.names
+</td>
+<td style="text-align:left;width: 30em; ">
+By default phases are labeled as given in the phase variable. Use this argument to specify different labels: <code>phase.names = c('Baseline', 'Intervention')</code>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+case.names
+</td>
+<td style="text-align:left;width: 30em; ">
+Case names. If not provided, names are taken from the scdf or left blank if the scdf does not contain case names.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+xlab
+</td>
+<td style="text-align:left;width: 30em; ">
+The label of the x-axis. The default is taken from the name of the measurement variable as provided by the scdf.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+ylab
+</td>
+<td style="text-align:left;width: 30em; ">
+The labels of the y-axis. The default is taken from the name of the dependent variable as provided by the scdf.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+xinc
+</td>
+<td style="text-align:left;width: 30em; ">
+An integer. Increment of the x-axis. 1 : each mt value will be printed, 2 : every other value, 3 : every third values etc.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+…
+</td>
+<td style="text-align:left;width: 30em; ">
+Further arguments passed to the generic plot command.
+</td>
+</tr>
+</tbody>
+</table>
+<p>Extra lines can be added to the plot using the <code>lines</code> argument. The lines argument takes several separate sub-arguments which have to be provided in a list. In its most simple form this list contains one element. <code>lines = list('median')</code> adds a line with the median of each phase to the plot. Additional arguments like <code>col</code> or <code>lwd</code> help to format these lines. For adding red thick median lines use the command <code>lines = list('median', col = 'red', lwd = '2')</code>.</p>
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:linesarguments">Table 4.2: </span>Values of the lines argument
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Value
+</th>
+<th style="text-align:left;">
+What it does …
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+median
+</td>
+<td style="text-align:left;width: 30em; ">
+separate lines for the medians of each phase
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+mean
+</td>
+<td style="text-align:left;width: 30em; ">
+separate lines for the means of each phase. By default it is 10%-trimmed. Other trims can be set using a second parameter (e.g., <code>lines = list(mean = 0.2)</code> draws a 20%-trimmed mean line).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+trend
+</td>
+<td style="text-align:left;width: 30em; ">
+Separate lines for the trend of each phase.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+trendA
+</td>
+<td style="text-align:left;width: 30em; ">
+Trend line for phase A, extrapolated throughout the other phases
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+maxA
+</td>
+<td style="text-align:left;width: 30em; ">
+Line at the level of the highest phase A score.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+minA
+</td>
+<td style="text-align:left;width: 30em; ">
+Line at the level of the lowest phase A score.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+medianA
+</td>
+<td style="text-align:left;width: 30em; ">
+Line at the phase A median score.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+meanA
+</td>
+<td style="text-align:left;width: 30em; ">
+Line at the phase A 10%-trimmed mean score. Apply a different trim, by using the additional argument (e.g., <code>lines = list(meanA = 0.2)</code>).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+movingMean
+</td>
+<td style="text-align:left;width: 30em; ">
+Draws a moving mean curve, with a specified lag: <code>'lines = list(movingMean = 2)'</code>. Default is a lag 1 curve.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+movingMedian
+</td>
+<td style="text-align:left;width: 30em; ">
+Draws a moving median curve, with a specified lag: <code>'lines = list(movingMedian = 3).</code> Default is a lag 1 curve.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+loreg
+</td>
+<td style="text-align:left;width: 30em; ">
+Draws a non-parametric local regression line. The proportion of data influencing each data point can be specified using <code>lines = list('loreg' = 0.66)</code>. The default is 0.5.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+lty
+</td>
+<td style="text-align:left;width: 30em; ">
+Line type. Examples are: ‘solid’,‘dashed’, ‘dotted’.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+lwd
+</td>
+<td style="text-align:left;width: 30em; ">
+Line thickness, e.g., <code>lwd = 4</code>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+col
+</td>
+<td style="text-align:left;width: 30em; ">
+Line colour, e.g., <code>col = 'red'</code>.
+</td>
+</tr>
+</tbody>
+</table>
+<p>Specific data points can be highlighted using the <code>marks</code> argument. A <code>list</code> defines the measurement times to be marked, the marking color and the size of the marking. <code>marks = list(position = c(1,5,6))</code> marks the first, fifth, and sixth measurement time. If the <em>scdf</em> contains more than one data-set marking would be the same for all data sets in this example. In case you define a <code>list</code> Containing vectors, marking can be individually defined for each data set. Assume, for example, we have an <em>scdf</em> comprising three data sets, then <code>marks = list(position = list(c(1,2), c(3,4), c(5,6)))</code> will highlight measurement times one and two for the first data set, three and four for the second and five and six for the third. <code>pch</code>, <code>col</code> and <code>cex</code> define symbol, colour and size of the markings.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="co"># size. exampleAB is an example scdf included in the scan package</span></a>
+<a class="sourceLine" id="cb35-3" data-line-number="3">marks &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb35-4" data-line-number="4">  <span class="dt">positions =</span> <span class="kw">list</span>( <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">9</span>), <span class="kw">c</span>(<span class="dv">17</span>, <span class="dv">19</span>), <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">18</span>) ), </a>
+<a class="sourceLine" id="cb35-5" data-line-number="5">  <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">cex =</span> <span class="fl">2.5</span>, <span class="dt">pch =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb35-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb35-7" data-line-number="7"><span class="kw">plot</span>(exampleAB, <span class="dt">marks =</span> marks, <span class="dt">style =</span> <span class="st">&quot;sienna&quot;</span>)</a></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-14"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-14-1.png" alt="Example of a plot with highlighted data-points" width="576" />
+<p class="caption">
+Figure 4.1: Example of a plot with highlighted data-points
+</p>
+</div>
+<div id="graphical-styles-of-a-plot" class="section level2">
+<h2><span class="header-section-number">4.1</span> Graphical styles of a plot</h2>
+<p>The <code>style</code> argument of the plot function allows to specify a specific design of a plot. By default, the <code>grid</code> style is applied. <code>scan</code> includes some further predefined styles. <code>default, yaxis, tiny, small, big, chart, ridge, annotate, grid, grid2, dark, nodot, and sienna</code>. The name of a style is provided as a character string (e.g., <code>style = &quot;grid&quot;</code>).<br />
+Some styles only address specific elements (e.g., “small” or “tiny” just influence text and line sizes). These styles lend themselves to be combined with other style. This could be achieved by providing several style names to the plot argument: <code>style = c(&quot;grid&quot;, &quot;annotate&quot;, &quot;small&quot;)</code>.<br />
+Beyond predefined styles, styles can be individually modified and created. New styles are provided as a <code>list</code> of several design parameters that are passed to the <code>style</code> argument of the <code>plot</code> function. Table <a href="creating-a-single-case-data-plot.html#tab:style">4.3</a> shows all design parameter that could be defined.<br />
+To define a new style, first create a list containing a plain design. The <code>style_plotSC</code> function returns such a list with the default values for a plain design (e.g., <code>mystyle &lt;- style_plotSC()</code>). Single design parameters can now be set by assigning a specific value within the list. For example, <code>newstyle$fill &lt;- &quot;grey90&quot;</code> will set the <code>fill</code> parameter to <code>&quot;grey90&quot;</code>. Alternatively, changes to the plain design can already by defined within the <code>style_plotSC</code> function. To set a light-blue background color and also an orange grid, create the style <code>style_plotSC(fill.bg = &quot;lightblue&quot;, grid = &quot;orange&quot;)</code>.
+If you do not want to start with the plain design but a different of the predefined styles, set the <code>style</code> argument. If, for example, you like to have the <code>grid</code> combined with the <code>big</code> style but want to change the color of the grid to orange type <code>style_plotSC(style = c(&quot;grid&quot;, &quot;big&quot;), col.grid = &quot;orange&quot;)</code>. <code>plot(mydata, style = mystyle)</code> will apply the new style in a plot. Please note that the new style is not passed in quotation marks.</p>
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:style">Table 4.3: </span>Arguments of the style plotSC function
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+What it does …
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+fill
+</td>
+<td style="text-align:left;width: 30em; ">
+If TRUE area under the line is filled.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+col.fill
+</td>
+<td style="text-align:left;width: 30em; ">
+Sets the color of the area under the line.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+grid
+</td>
+<td style="text-align:left;width: 30em; ">
+If TRUE a grid is included.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+col.grid
+</td>
+<td style="text-align:left;width: 30em; ">
+Sets the color of the grid.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+lty.grid
+</td>
+<td style="text-align:left;width: 30em; ">
+Sets the line type of the grid.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+lwd.grid
+</td>
+<td style="text-align:left;width: 30em; ">
+Sets the line thikness of the grid.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+fill.bg
+</td>
+<td style="text-align:left;width: 30em; ">
+If not NA the backgorund of the plot is filled with the given color.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+annotations
+</td>
+<td style="text-align:left;width: 30em; ">
+A list of parameters defining annotations to each data point. This adds the score of each MT to your plot. <code>'pos'</code> Position of the annotations: 1 = below, 2 = left, 3 = above, 4 = right. <code>'col'</code> Color of the annotations. <code>'cex'</code> Size of the annotations. <code>'round'</code> rounds the values to the specified decimal. <code>annotations = list(pos = 3, col = 'brown', round = 1)</code> adds scores rounded to one decimal above the data point in brown color to the plot.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+text.ABlag
+</td>
+<td style="text-align:left;width: 30em; ">
+By default a vertical line separates phases A and B in the plot. Alternatively, you could print a character string between the two phases using this argument: <code>text.ABlag = 'Start'</code>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+lwd
+</td>
+<td style="text-align:left;width: 30em; ">
+Width of the plot line. Default is <code>lwd = 2</code>.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+pch
+</td>
+<td style="text-align:left;width: 30em; ">
+Point type. Default is <code>pch = 17</code> (triangles). Other options are for example: 16 (filled circles) or ‘A’ (uses the letter A).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+col.lines
+</td>
+<td style="text-align:left;width: 30em; ">
+The color of the lines. If set to an empty string no lines are drawn.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+col.dots
+</td>
+<td style="text-align:left;width: 30em; ">
+The color of the dots. If set to an empty string no dots are drawn.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+mai
+</td>
+<td style="text-align:left;width: 30em; ">
+Sets the margins of the plot.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+…
+</td>
+<td style="text-align:left;width: 30em; ">
+Further arguments passed to the plot command.
+</td>
+</tr>
+</tbody>
+</table>
+<p>The width of the lines are set with the <code>lwd</code> argument, <code>col</code> is used to set the line colour and <code>pch</code> sets the symbol for a data point.
+The <code>pch</code> argument can take several values for defining the symbol in which data points are plotted.</p>
+<div class="figure"><span id="fig:pch"></span>
+<img src="scan-book_files/figure-html/pch-1.png" alt="Some of the possible symbols and their pch values." width="576" />
+<p class="caption">
+Figure 4.2: Some of the possible symbols and their pch values.
+</p>
+</div>
+<p>Here is an example customizing a plot with several additional graphic parameters</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">newstyle &lt;-<span class="st"> </span><span class="kw">style_plotSC</span>(<span class="dt">fill =</span> <span class="st">&quot;grey95&quot;</span>, <span class="dt">grid =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="kw">plot</span>(exampleABAB, <span class="dt">style =</span> newstyle)</a></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-15"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-15-1.png" alt="A plot with a customized style." width="576" />
+<p class="caption">
+Figure 4.3: A plot with a customized style.
+</p>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="managing-single-case-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="describe-and-manipulate-single-case-data-frames.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null
+});
+});
+</script>
+
+</body>
+
+</html>
