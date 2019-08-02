@@ -48,6 +48,15 @@
 
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-145080763-1');
+</script>
 
 
 <style type="text/css">
@@ -131,7 +140,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Analyzing single-case data with R and scan
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="welcome.html"><a href="welcome.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a><ul>
@@ -249,8 +258,8 @@ It is also possible to compare a combination of several cases against a combinat
 <div id="percentage-non-overlapping-data-pnd" class="section level2">
 <h2><span class="header-section-number">6.1</span> Percentage non-overlapping data (PND)</h2>
 <p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation">Scruggs, Mastropieri, &amp; Casto (<a href="#ref-scruggs_quantitative_1987">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
-<div class="figure"><span id="fig:unnamed-chunk-25"></span>
-<img src="scan-book_files/figure-html/unnamed-chunk-25-1.png" alt="Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A." width="384" />
+<div class="figure"><span id="fig:unnamed-chunk-32"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-32-1.png" alt="Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A." width="384" />
 <p class="caption">
 Figure 6.1: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A.
 </p>
@@ -269,8 +278,8 @@ Figure 6.1: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B
 <div id="percentage-exceeding-the-median-pem" class="section level2">
 <h2><span class="header-section-number">6.2</span> Percentage exceeding the median (PEM)</h2>
 <p>The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.</p>
-<div class="figure"><span id="fig:unnamed-chunk-27"></span>
-<img src="scan-book_files/figure-html/unnamed-chunk-27-1.png" alt="Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A." width="384" />
+<div class="figure"><span id="fig:unnamed-chunk-34"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-34-1.png" alt="Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A." width="384" />
 <p class="caption">
 Figure 6.2: Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A.
 </p>
@@ -300,8 +309,8 @@ Figure 6.2: Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B
 ## 
 ## Binom.test: alternative hypothesis: true probability &gt; 50%
 ## PET CI: Percent of values greater than upper 95% confidence threshold (greater 1.645*se above predicted value)</code></pre>
-<div class="figure"><span id="fig:unnamed-chunk-30"></span>
-<img src="scan-book_files/figure-html/unnamed-chunk-30-1.png" alt="Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the median of phase A." width="384" />
+<div class="figure"><span id="fig:unnamed-chunk-37"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-37-1.png" alt="Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the median of phase A." width="384" />
 <p class="caption">
 Figure 6.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the median of phase A.
 </p>
@@ -417,7 +426,7 @@ The standard return of the <code>tauUSC</code> function does not display all cal
 <h2><span class="header-section-number">6.7</span> Reliable change index</h2>
 <p>The `rciSC function computes three indices of reliable change <span class="citation">(Wise, <a href="#ref-wise_methods_2004">2004</a>)</span> and corresponding descriptive statistics.</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="kw">rciSC</span>(exampleAB<span class="op">$</span>Johanna, <span class="dt">graph =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p><img src="scan-book_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="scan-book_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <pre><code>## Reliable Change Index
 ## 
 ## Mean Difference =  19.53333 
