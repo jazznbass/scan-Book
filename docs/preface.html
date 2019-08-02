@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Multilevel regression analyses | Analyzing single-case data with R and scan</title>
+  <title>Preface | Analyzing single-case data with R and scan</title>
   <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Multilevel regression analyses | Analyzing single-case data with R and scan" />
+  <meta property="og:title" content="Preface | Analyzing single-case data with R and scan" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Multilevel regression analyses | Analyzing single-case data with R and scan" />
+  <meta name="twitter:title" content="Preface | Analyzing single-case data with R and scan" />
   
   <meta name="twitter:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="piecewise-linear-regressions.html">
-<link rel="next" href="randomization-tests.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="introduction.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -198,274 +198,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="multilevel-regression-analyses" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Multilevel regression analyses</h1>
-<p>Multilevel analyses can take the piecewise-regression approach even further. It allows for</p>
-<ul>
-<li>analyzing the effects between phases for multiple single-cases at once</li>
-<li>describing variability between subjects regarding these effects, and</li>
-<li>introducing variables and factors for explaining the differences.</li>
-</ul>
-<p>The basic function for applying a multilevel piecewise regression analysis is <code>hplm</code>. The <code>hplm</code> function is similar to the <code>plm</code> function, so I recommend that you get familar with <code>plm</code> before applying an <code>hplm</code>.</p>
-<p>Here is a simple axample:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>)</a></code></pre></div>
-<pre><code>## Hierarchical Piecewise Linear Regression
-## 
-## Estimation method ML 
-## Slope estimation method: B&amp;L-B 
-## 50 Cases
-## 
-## ICC = 0.195; L = 192.0; p = 0.000
-## 
-## Fixed effects (values ~ 1 + mt + phaseB + interB)
-## 
-##                    B    SE   df      t p
-## Intercept     51.614 1.282 1281 40.274 0
-## Trend mt       0.671 0.115 1281  5.844 0
-## Level phase B 12.938 0.590 1281 21.942 0
-## Slope phase B  0.859 0.119 1281  7.236 0
-## 
-## Random effects (~1 | case)
-## 
-##           EstimateSD
-## Intercept      8.179
-## Residual       5.335</code></pre>
-<p>Here is an example inlcuding random slopes:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<pre><code>## Hierarchical Piecewise Linear Regression
-## 
-## Estimation method ML 
-## Slope estimation method: B&amp;L-B 
-## 50 Cases
-## 
-## ICC = 0.195; L = 192.0; p = 0.000
-## 
-## Fixed effects (values ~ 1 + mt + phaseB + interB)
-## 
-##                    B    SE   df      t p
-## Intercept     51.720 1.348 1281 38.378 0
-## Trend mt       0.637 0.125 1281  5.080 0
-## Level phase B 13.090 0.762 1281 17.176 0
-## Slope phase B  0.887 0.129 1281  6.856 0
-## 
-## Random effects (~1 + mt + phaseB + interB | case)
-## 
-##               EstimateSD
-## Intercept          8.691
-## Trend mt           0.343
-## Level phase B      3.654
-## Slope phase B      0.358
-## Residual           4.994</code></pre>
-<div id="adding-additional-l2-variables" class="section level2">
-<h2><span class="header-section-number">8.1</span> Adding additional L2-variables</h2>
-<p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze.
-This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects.
-To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1">L2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb93-2" data-line-number="2">  <span class="dt">case =</span> <span class="kw">c</span>(<span class="st">&quot;Antonia&quot;</span>,<span class="st">&quot;Theresa&quot;</span>, <span class="st">&quot;Charlotte&quot;</span>, <span class="st">&quot;Luis&quot;</span>, <span class="st">&quot;Bennett&quot;</span>, <span class="st">&quot;Marie&quot;</span>), </a>
-<a class="sourceLine" id="cb93-3" data-line-number="3">  <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">14</span>), </a>
-<a class="sourceLine" id="cb93-4" data-line-number="4">  <span class="dt">sex =</span> <span class="kw">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;f&quot;</span>)</a>
-<a class="sourceLine" id="cb93-5" data-line-number="5">)</a>
-<a class="sourceLine" id="cb93-6" data-line-number="6">L2</a></code></pre></div>
-<pre><code>##        case age sex
-## 1   Antonia  16   f
-## 2   Theresa  13   f
-## 3 Charlotte  13   f
-## 4      Luis  10   m
-## 5   Bennett   5   m
-## 6     Marie  14   f</code></pre>
-<p>Multilevel analyses require a high number of Level 2 units. The exact number depends on the complexity of the analyses, the size of the effects, the number of level 1 units, and the variability of the residuals. But surely we need at least about 30 level 2 units. In a single-case design that is, we need at least 30 single-cases (subjects) within the study.
-After setting the level 2 data frame we use the <code>data.l2</code> argument of the <code>hplm</code> function to include it into the analysis. Then we have to specify the regression function using the <code>update.fixed</code> argument. The level 2 variables can be added just like any other additional variable. For example, we have added a level 2 data-set with the two variables <code>sex</code> and <code>age</code>. <code>update</code> could be construed of the level 1 piecewise regression model <code>.~.</code> plus the additional level 2 variables of interest <code>+ sex + age</code>. The complete argument is <code>update.fixed = .~. + sex + age</code>. This analyses will estimate a main effect of sex and age on the overall performance. In case we want to analyze an interaction between the intervention effects and for example the sex of the subject we have to add an additional interaction term (a cross-level interaction). An interaction is defined with a colon. So <code>sex:phase</code> indicates an interaction of sex and the level effect in the single case study. The complete formula now is <code>update.fixed = .~. + sex + age + sex:phase</code>.</p>
-<p><em>scan</em> includes an example single-case study with 50 subjects <code>example50</code> and an additional level 2 data-set <code>example50.l2</code>.
-Here are the first 10 cases of <code>example50.l2</code>.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-case
-</th>
-<th style="text-align:left;">
-sex
-</th>
-<th style="text-align:right;">
-age
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Jeremiah
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Leon
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-12
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Pablo
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Jamal
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Giovanny
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-11
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Callum
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dwayne
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-11
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Neymar
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Krish
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-11
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Caiden
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-12
-</td>
-</tr>
-</tbody>
-</table>
-<p>Analyzing the data with <code>hplm</code> could look like this:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">update.fixed =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age)</a></code></pre></div>
-<pre><code>## Hierarchical Piecewise Linear Regression
-## 
-## Estimation method ML 
-## Slope estimation method: B&amp;L-B 
-## 50 Cases
-## 
-## ICC = 0.195; L = 192.0; p = 0.000
-## 
-## Fixed effects (values ~ mt + phaseB + interB + sex + age)
-## 
-##                    B     SE   df      t     p
-## Intercept     71.464 13.076 1281  5.465 0.000
-## Trend mt       0.667  0.115 1281  5.808 0.000
-## Level phase B 12.951  0.590 1281 21.951 0.000
-## Slope phase B  0.863  0.119 1281  7.264 0.000
-## sexm          -2.130  2.336   47 -0.912 0.367
-## age           -1.710  1.157   47 -1.478 0.146
-## 
-## Random effects (~1 | case)
-## 
-##           EstimateSD
-## Intercept      7.975
-## Residual       5.335</code></pre>
-<p><code>sex</code> is a factor with the levels <code>f</code> and <code>m</code>. So <code>sexm</code> is the effect of being male on the overall performance. <code>age</code> does not seem to have any effect. So we drop <code>age</code> out of the equation and add an interaction of sex and phase to see whether the <code>sex</code> effect is due to a weaker impact of the intervention on males.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">update.fixed =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>sex<span class="op">:</span>phaseB)</a></code></pre></div>
-<pre><code>## Hierarchical Piecewise Linear Regression
-## 
-## Estimation method ML 
-## Slope estimation method: B&amp;L-B 
-## 50 Cases
-## 
-## ICC = 0.195; L = 192.0; p = 0.000
-## 
-## Fixed effects (values ~ mt + phaseB + interB + sex + phaseB:sex)
-## 
-##                         B    SE   df       t     p
-## Intercept          49.801 1.735 1280  28.711 0.000
-## Trend mt            0.638 0.109 1280   5.847 0.000
-## Level phase B      16.762 0.644 1280  26.034 0.000
-## Slope phase B       0.889 0.113 1280   7.884 0.000
-## sexm                3.983 2.368   48   1.682 0.099
-## Level phase B:sexm -7.463 0.622 1280 -11.994 0.000
-## 
-## Random effects (~1 | case)
-## 
-##           EstimateSD
-## Intercept      8.144
-## Residual       5.059</code></pre>
-<p>Now the interaction <code>phase:sexm</code> is significant and the main effect is no longer relevant. It looks like the intervention effect is 6.9 points lower for male subjects. While the level-effect is 17.3 points for female subjects it is 17.3 - 6.9 = 10.4 for males.</p>
+<div id="preface" class="section level1 unnumbered">
+<h1>Preface</h1>
+<p>Hello!</p>
+<p>I am glad your found your way to this book as is tells me you are beginning to use the scan package.<br />
+While <code>scan</code> is quiet thoroughly developed, this book is at an early stage. I am continuously working on it and extending it.<br />
+At this point in time there is no release of this book available. Only this draft which is full of errors (code and typos).</p>
+<p>Thank you!</p>
+<p>Jürgen</p>
+<p>02 August 2019</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="piecewise-linear-regressions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="randomization-tests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
