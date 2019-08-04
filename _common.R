@@ -15,3 +15,4 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'scan'
 ), 'packages.bib')
+

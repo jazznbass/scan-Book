@@ -6,14 +6,14 @@
 Scan provides its own data-class for encoding single-case data: the *single-case data frame* (short *scdf*). An *scdf* is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an scdf as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured **values**, the **phase** identifier for each measured value, and the measurement time (**mt**) of each measure. Optionally, scdfs could include further variables for each single-case (e.g., control variables), and also a name for each case.
 
 ```{block, type='rmdnote'} 
-Technically, an scdf object is a list containing data frames. It is of the class `c("scdf","list")`. Additionally, an *scdf* entails some attributes. `dvar`, `pvar`,  and `mvar` contain the names of the `values`, `phase`, and the `measurement time` variable. By default, these are set to `values`, `phase`, and `mt`. 
+Technically, an scdf object is a list containing data frames. It is of the class `c("scdf","list")`. Additionally, an *scdf* entails an attribute `scdf` with a list with further attributes. `var.values`, `var.phase`,  and `var.mt` contain the names of the `values`, `phase`, and the `measurement time` variable. By default, these names are set to `values`, `phase`, and `mt`. 
 ```
 
 Several functions are available for creating, transforming, merging, and importing/exporting *scdfs*.
 
 ## Creating scdfs
 
-The `scdf` function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement *values* and the *phase* structure and a scdf object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the `B.start` argument, second, defining a design with the `phase.design` argument and third, setting paramters in a named vector of the dependent variable.
+The `scdf` function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement *values* and the *phase* structure and a scdf object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the `B.start` argument, second, defining a design with the `phase.design` argument and third, setting parameters in a named vector of the dependent variable.
 
 ```{r scdf, results = 'hide'}
 ### Three ways to code the same scdf
@@ -24,7 +24,7 @@ scdf(values = c(2,2,4,5,8,7,6,9,8,7),
      phase.design = c(A = 4, B = 6))
 ```
 
-The `B.start` argument is only applicable when the single-case has one A-phase followed by one B-phase. The number assigned to `B.start` indicates the measurement-time as defined in the `mt` argument. That is, when the vector for the measurement times is `mt = c(1,3,7,10,15,17,18,20)` and `B.start = 15` the first measurement of the B-phase will start with the fifth measurement at which _mt_ = 15.  
+The `B.start` argument is only applicable when the single-case has one A-phase followed by one B-phase. It is a relict from the time when `scan` could only sign-case designs with two phases. The number assigned to `B.start` indicates the measurement-time as defined in the `mt` argument. That is, when the vector for the measurement times is `mt = c(1,3,7,10,15,17,18,20)` and `B.start = 15` the first measurement of the B-phase will start with the fifth measurement at which _mt_ = 15.  
 The `phase.design` argument is a named vector with the name and length of each phase. The names of each set can be set arbitrary, although I recommend to follow the rule of using capital letters (A, B, C, ...) for each phase and, when indicated, a number if the phases repeat (A1, B1, A2, B2, ...). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with *scan*.  
 When the vector of the dependent variable includes named values, a phase.design structure is created automatically. Each named value sets the beginning of a new phase. For exmaple `c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)` will create an ABC-phase design with 3, 3, and 4 values per phase.  
 Use only one of the three methods at a time and I recommend to use the `phase.design` argument or the named vector method as they are the most versatile.  
