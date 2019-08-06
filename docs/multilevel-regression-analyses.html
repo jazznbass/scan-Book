@@ -62,7 +62,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -74,13 +74,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -224,7 +222,7 @@ Published with bookdown
 </ul>
 <p>The basic function for applying a multilevel piecewise regression analysis is <code>hplm</code>. The <code>hplm</code> function is similar to the <code>plm</code> function, so I recommend that you get familar with <code>plm</code> before applying an <code>hplm</code>.</p>
 <p>Here is a simple example:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>)</a></code></pre></div>
 <pre><code>## Hierarchical Piecewise Linear Regression
 ## 
 ## Estimation method ML 
@@ -247,7 +245,7 @@ Published with bookdown
 ## Intercept      8.179
 ## Residual       5.335</code></pre>
 <p>Here is an example inlcuding random slopes:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Hierarchical Piecewise Linear Regression
 ## 
 ## Estimation method ML 
@@ -277,12 +275,12 @@ Published with bookdown
 <p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze.
 This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects.
 To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1">L2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb93-2" data-line-number="2">  <span class="dt">case =</span> <span class="kw">c</span>(<span class="st">&quot;Antonia&quot;</span>,<span class="st">&quot;Theresa&quot;</span>, <span class="st">&quot;Charlotte&quot;</span>, <span class="st">&quot;Luis&quot;</span>, <span class="st">&quot;Bennett&quot;</span>, <span class="st">&quot;Marie&quot;</span>), </a>
-<a class="sourceLine" id="cb93-3" data-line-number="3">  <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">14</span>), </a>
-<a class="sourceLine" id="cb93-4" data-line-number="4">  <span class="dt">sex =</span> <span class="kw">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;f&quot;</span>)</a>
-<a class="sourceLine" id="cb93-5" data-line-number="5">)</a>
-<a class="sourceLine" id="cb93-6" data-line-number="6">L2</a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1">L2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
+<a class="sourceLine" id="cb93-2" title="2">  <span class="dt">case =</span> <span class="kw">c</span>(<span class="st">&quot;Antonia&quot;</span>,<span class="st">&quot;Theresa&quot;</span>, <span class="st">&quot;Charlotte&quot;</span>, <span class="st">&quot;Luis&quot;</span>, <span class="st">&quot;Bennett&quot;</span>, <span class="st">&quot;Marie&quot;</span>), </a>
+<a class="sourceLine" id="cb93-3" title="3">  <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">14</span>), </a>
+<a class="sourceLine" id="cb93-4" title="4">  <span class="dt">sex =</span> <span class="kw">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;f&quot;</span>)</a>
+<a class="sourceLine" id="cb93-5" title="5">)</a>
+<a class="sourceLine" id="cb93-6" title="6">L2</a></code></pre></div>
 <pre><code>##        case age sex
 ## 1   Antonia  16   f
 ## 2   Theresa  13   f
@@ -422,7 +420,7 @@ m
 </tbody>
 </table>
 <p>Analyzing the data with <code>hplm</code> could look like this:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">update.fixed =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age)</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">update.fixed =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age)</a></code></pre></div>
 <pre><code>## Hierarchical Piecewise Linear Regression
 ## 
 ## Estimation method ML 
@@ -447,7 +445,7 @@ m
 ## Intercept      7.975
 ## Residual       5.335</code></pre>
 <p><code>sex</code> is a factor with the levels <code>f</code> and <code>m</code>. So <code>sexm</code> is the effect of being male on the overall performance. <code>age</code> does not seem to have any effect. So we drop <code>age</code> out of the equation and add an interaction of sex and phase to see whether the <code>sex</code> effect is due to a weaker impact of the intervention on males.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">update.fixed =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>sex<span class="op">:</span>phaseB)</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1"><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">update.fixed =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>sex<span class="op">:</span>phaseB)</a></code></pre></div>
 <pre><code>## Hierarchical Piecewise Linear Regression
 ## 
 ## Estimation method ML 

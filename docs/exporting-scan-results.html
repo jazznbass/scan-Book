@@ -62,7 +62,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -74,13 +74,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -229,7 +227,7 @@ In <code>RStudio</code></p>
 <p>[xxx to be continued!]</p>
 <div id="single-case-data-files" class="section level2">
 <h2><span class="header-section-number">10.1</span> Single case data files</h2>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1"><span class="kw">export</span>(exampleA1B1A2B2_zvt, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1"><span class="kw">export</span>(exampleA1B1A2B2_zvt, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -750,8 +748,8 @@ B2
 </div>
 <div id="descriptive-stats" class="section level2">
 <h2><span class="header-section-number">10.2</span> Descriptive stats</h2>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(GruenkeWilbert2014)</a>
-<a class="sourceLine" id="cb102-2" data-line-number="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(GruenkeWilbert2014)</a>
+<a class="sourceLine" id="cb102-2" title="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 Descriptive statistics.
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1224,8 +1222,8 @@ Tim
 </div>
 <div id="overlap-indices" class="section level2">
 <h2><span class="header-section-number">10.3</span> Overlap indices</h2>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(exampleA1B1A2B2_zvt, <span class="dt">phases =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)))</a>
-<a class="sourceLine" id="cb103-2" data-line-number="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1">res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(exampleA1B1A2B2_zvt, <span class="dt">phases =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)))</a>
+<a class="sourceLine" id="cb103-2" title="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <i>Overlap indices.Comparing phases A1 + A2 against phases B1 + B2.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1405,8 +1403,8 @@ PAND = Percentage all nonoverlapping data;Tau U = Parker’s Tau-U; Base Tau = B
 </div>
 <div id="piecewise-linear-models" class="section level2">
 <h2><span class="header-section-number">10.4</span> Piecewise linear models</h2>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">plm</span>(exampleA1B1A2B2<span class="op">$</span>Pawel)</a>
-<a class="sourceLine" id="cb104-2" data-line-number="2"><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1">res &lt;-<span class="st"> </span><span class="kw">plm</span>(exampleA1B1A2B2<span class="op">$</span>Pawel)</a>
+<a class="sourceLine" id="cb104-2" title="2"><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <i>Piecewise-regression model for variable ’’.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1673,8 +1671,8 @@ Slope phase B2
 </div>
 <div id="hierarchical-piecewise-regressions" class="section level2">
 <h2><span class="header-section-number">10.5</span> Hierarchical piecewise regressions</h2>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">lr.test =</span> <span class="ot">TRUE</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb105-2" data-line-number="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1">res &lt;-<span class="st"> </span><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">lr.test =</span> <span class="ot">TRUE</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb105-2" title="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 Hierarchical Piecewise Linear Regression for variable ’’.
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>

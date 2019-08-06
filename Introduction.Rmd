@@ -74,16 +74,16 @@ Every function in R has a help page written by the programmers. You can retrieve
 
 You can use the `install.packages` function to install _scan_. 
 
-1. `install.packages("scan", repos="http://R-Forge.R-project.org", type = "source")` will install the developmental version and
+1. install.packages("scan", repos = c("http://R-Forge.R-project.org",    "https://cloud.r-project.org/"), dependencies = TRUE) will install the developmental version and
 2. `install.packages("scan")` will install the stable version.
 
-At some time in the future I will release a new stable version. But as long as the stable version is `0.20` it is deprecated and you need to install the developmental version. Please look at the beginning of the Chapter "Introduction" which version of _scan_ has been used for creating this book and make sure you have this version or a newer one installed.
+The current stable release is version `0.40`. Please look at the beginning of the Chapter "Introduction" which version of _scan_ has been used for creating this book and make sure you have this version or a newer one installed.
 
 R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing _scan_ it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.
 
 For activating a package you need the `library` function. In this case `library(scan)`. You should get something like
 ```
-scan 0.4.0 (development version)
+scan 0.40.0 (2019-08-05)
 Single-Case Data Analysis for Single and Multiple Baseline Designs
 ```
 indicating that everything went smoothly and _scan_ is ready for the job.

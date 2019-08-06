@@ -62,7 +62,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -74,13 +74,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -470,13 +468,13 @@ Line colour, e.g., <code>col = 'red'</code>.
 </tbody>
 </table>
 <p>Specific data points can be highlighted using the <code>marks</code> argument. A <code>list</code> defines the measurement times to be marked, the marking color and the size of the marking. <code>marks = list(position = c(1,5,6))</code> marks the first, fifth, and sixth measurement time. If the <em>scdf</em> contains more than one data-set marking would be the same for all data sets in this example. In case you define a <code>list</code> Containing vectors, marking can be individually defined for each data set. Assume, for example, we have an <em>scdf</em> comprising three data sets, then <code>marks = list(position = list(c(1,2), c(3,4), c(5,6)))</code> will highlight measurement times one and two for the first data set, three and four for the second and five and six for the third. <code>pch</code>, <code>col</code> and <code>cex</code> define symbol, colour and size of the markings.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="co"># size. exampleAB is an example scdf included in the scan package</span></a>
-<a class="sourceLine" id="cb35-3" data-line-number="3">marks &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
-<a class="sourceLine" id="cb35-4" data-line-number="4">  <span class="dt">positions =</span> <span class="kw">list</span>( <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">9</span>), <span class="kw">c</span>(<span class="dv">17</span>, <span class="dv">19</span>), <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">18</span>) ), </a>
-<a class="sourceLine" id="cb35-5" data-line-number="5">  <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">cex =</span> <span class="fl">2.5</span>, <span class="dt">pch =</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb35-6" data-line-number="6">)</a>
-<a class="sourceLine" id="cb35-7" data-line-number="7"><span class="kw">plot</span>(exampleAB, <span class="dt">marks =</span> marks, <span class="dt">style =</span> <span class="st">&quot;sienna&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span></a>
+<a class="sourceLine" id="cb35-2" title="2"><span class="co"># size. exampleAB is an example scdf included in the scan package</span></a>
+<a class="sourceLine" id="cb35-3" title="3">marks &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb35-4" title="4">  <span class="dt">positions =</span> <span class="kw">list</span>( <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">9</span>), <span class="kw">c</span>(<span class="dv">17</span>, <span class="dv">19</span>), <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">18</span>) ), </a>
+<a class="sourceLine" id="cb35-5" title="5">  <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">cex =</span> <span class="fl">2.5</span>, <span class="dt">pch =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb35-6" title="6">)</a>
+<a class="sourceLine" id="cb35-7" title="7"><span class="kw">plot</span>(exampleAB, <span class="dt">marks =</span> marks, <span class="dt">style =</span> <span class="st">&quot;sienna&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-18"></span>
 <img src="scan-book_files/figure-html/unnamed-chunk-18-1.png" alt="Example of a plot with highlighted data-points" width="576" />
 <p class="caption">
@@ -485,11 +483,11 @@ Figure 4.1: Example of a plot with highlighted data-points
 </div>
 <div id="graphical-styles-of-a-plot" class="section level2">
 <h2><span class="header-section-number">4.1</span> Graphical styles of a plot</h2>
-<p>The <code>style</code> argument of the plot function allows to specify a specific design of a plot. By default, the <code>grid</code> style is applied. <code>scan</code> includes some further predefined styles. <code>default, yaxis, tiny, small, big, chart, ridge, annotate, grid, grid2, dark, nodot, and sienna</code>. The name of a style is provided as a character string (e.g., <code>style = &quot;grid&quot;</code>).<br />
-Some styles only address specific elements (e.g., “small” or “tiny” just influence text and line sizes). These styles lend themselves to be combined with other style. This could be achieved by providing several style names to the plot argument: <code>style = c(&quot;grid&quot;, &quot;annotate&quot;, &quot;small&quot;)</code>.<br />
+<p>The <code>style</code> argument of the plot function allows to specify a specific design of a plot. By default, the <code>grid</code> style is applied. <code>scan</code> includes some further predefined styles. <code>default, yaxis, tiny, small, big, chart, ridge, annotate, grid, grid2, dark, nodot, and sienna</code>. The name of a style is provided as a character string (e.g., <code>style = "grid"</code>).<br />
+Some styles only address specific elements (e.g., “small” or “tiny” just influence text and line sizes). These styles lend themselves to be combined with other style. This could be achieved by providing several style names to the plot argument: <code>style = c("grid", "annotate", "small")</code>.<br />
 Beyond predefined styles, styles can be individually modified and created. New styles are provided as a <code>list</code> of several design parameters that are passed to the <code>style</code> argument of the <code>plot</code> function. Table <a href="creating-a-single-case-data-plot.html#tab:style">4.3</a> shows all design parameter that could be defined.<br />
-To define a new style, first create a list containing a plain design. The <code>style_plotSC</code> function returns such a list with the default values for a plain design (e.g., <code>mystyle &lt;- style_plotSC()</code>). Single design parameters can now be set by assigning a specific value within the list. For example, <code>newstyle$fill &lt;- &quot;grey90&quot;</code> will set the <code>fill</code> parameter to <code>&quot;grey90&quot;</code>. Alternatively, changes to the plain design can already by defined within the <code>style_plotSC</code> function. To set a light-blue background color and also an orange grid, create the style <code>style_plotSC(fill.bg = &quot;lightblue&quot;, grid = &quot;orange&quot;)</code>.
-If you do not want to start with the plain design but a different of the predefined styles, set the <code>style</code> argument. If, for example, you like to have the <code>grid</code> combined with the <code>big</code> style but want to change the color of the grid to orange type <code>style_plotSC(style = c(&quot;grid&quot;, &quot;big&quot;), col.grid = &quot;orange&quot;)</code>. <code>plot(mydata, style = mystyle)</code> will apply the new style in a plot. Please note that the new style is not passed in quotation marks.</p>
+To define a new style, first create a list containing a plain design. The <code>style_plotSC</code> function returns such a list with the default values for a plain design (e.g., <code>mystyle &lt;- style_plotSC()</code>). Single design parameters can now be set by assigning a specific value within the list. For example, <code>newstyle$fill &lt;- "grey90"</code> will set the <code>fill</code> parameter to <code>"grey90"</code>. Alternatively, changes to the plain design can already by defined within the <code>style_plotSC</code> function. To set a light-blue background color and also an orange grid, create the style <code>style_plotSC(fill.bg = "lightblue", grid = "orange")</code>.
+If you do not want to start with the plain design but a different of the predefined styles, set the <code>style</code> argument. If, for example, you like to have the <code>grid</code> combined with the <code>big</code> style but want to change the color of the grid to orange type <code>style_plotSC(style = c("grid", "big"), col.grid = "orange")</code>. <code>plot(mydata, style = mystyle)</code> will apply the new style in a plot. Please note that the new style is not passed in quotation marks.</p>
 <table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:style">Table 4.3: </span>Arguments of the style plotSC function
@@ -636,9 +634,9 @@ Figure 4.2: Some of the possible symbols and their pch values.
 </p>
 </div>
 <p>Here is an example customizing a plot with several additional graphic parameters</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">newstyle &lt;-<span class="st"> </span><span class="kw">style_plotSC</span>(<span class="dt">fill =</span> <span class="st">&quot;grey95&quot;</span>, <span class="dt">grid =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="kw">plot</span>(exampleABAB, <span class="dt">style =</span> newstyle)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">newstyle &lt;-<span class="st"> </span><span class="kw">style_plotSC</span>(<span class="dt">fill =</span> <span class="st">&quot;grey95&quot;</span>, <span class="dt">grid =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</a>
+<a class="sourceLine" id="cb36-2" title="2"></a>
+<a class="sourceLine" id="cb36-3" title="3"><span class="kw">plot</span>(exampleABAB, <span class="dt">style =</span> newstyle)</a></code></pre></div>
 <div class="figure"><span id="fig:unnamed-chunk-19"></span>
 <img src="scan-book_files/figure-html/unnamed-chunk-19-1.png" alt="A plot with a customized style." width="576" />
 <p class="caption">

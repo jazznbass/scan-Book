@@ -62,7 +62,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -74,13 +74,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -232,17 +230,17 @@ R can be used in at least two ways:</p>
 A <code>#</code> is followed by a comment to make your code more understandable. So, what follows a <code>#</code> is not interpreted by R.
 A vector is a chain of several values. With a vector you could describe the values of a measurement series. The <code>c</code> function is used to build a vector (e.g., <code>c(1, 2, 3, 4)</code>).
 If you like to see the content of a variable you could use the <code>print</code> function. <code>print(x)</code> will display the content of the variable <code>x</code>. A shortcut for this is just to type <code>x</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># x is assigned the value 10:</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># See what&#39;s inside of x:</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">x</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># x is assigned the value 10:</span></a>
+<a class="sourceLine" id="cb1-2" title="2">x &lt;-<span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb1-3" title="3"></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co"># See what&#39;s inside of x:</span></a>
+<a class="sourceLine" id="cb1-5" title="5">x</a></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># x is assigned a vector with three values:</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">15</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co"># ... and display the content of x:</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">x</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># x is assigned a vector with three values:</span></a>
+<a class="sourceLine" id="cb3-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">15</span>)</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co"># ... and display the content of x:</span></a>
+<a class="sourceLine" id="cb3-5" title="5">x</a></code></pre></div>
 <pre><code>## [1] 10 11 15</code></pre>
 <p>Two important concepts in <strong>R</strong> are <em>functions</em> and <em>arguments</em>. A <em>function</em> is the name for a procedure that does something with the <em>arguments</em> that are provided by you.
 For example, the function <code>mean</code> calculated the mean. <code>mean</code> takes the argument <code>x</code> with is the vector (a series of values) from which it will calculate the mean.
@@ -250,31 +248,31 @@ For example, the function <code>mean</code> calculated the mean. <code>mean</cod
 Some <em>functions</em> can take several arguments. <code>mean</code> for example also takes the argument <code>trim</code>. For calculating a trimmed mean.
 <code>mean( x = c(1, 1, 3, 3, 5, 6, 7, 8, 9, 9), trim = 0.1)</code> will calculate the 10% trimmed mean of the provided values.
 The name of the first argument could be dropped. That is, <code>mean( c(1, 3, 5) )</code> will be interpreted by <strong>R</strong> as <code>mean( x = c(1, 3, 5) )</code>. You could also provide a variable to an argument.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">mean</span>(<span class="dt">x =</span> values)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">mean</span>(<span class="dt">x =</span> values)</a></code></pre></div>
 <pre><code>## [1] 4.75</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># or shorter:</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">mean</span>(values)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># or shorter:</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">mean</span>(values)</a></code></pre></div>
 <pre><code>## [1] 4.75</code></pre>
 <p>The return value of a function can be assigned to a new variable instead:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">res &lt;-<span class="st"> </span><span class="kw">mean</span>(y)</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#now res contains the mean of y:</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">res</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb9-2" title="2">res &lt;-<span class="st"> </span><span class="kw">mean</span>(y)</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">#now res contains the mean of y:</span></a>
+<a class="sourceLine" id="cb9-4" title="4">res</a></code></pre></div>
 <pre><code>## [1] 4.75</code></pre>
-<p>Every function in R has a help page written by the programmers. You can retrieve these pages with the <code>help</code> function or its short cut <code>?</code>. <code>help(&quot;mean&quot;)</code> will display the help page for the <code>mean</code> function. The quotation marks are necessary here because you do not provide a variable with the name <em>mean</em> but a word ‘mean’. The shortcut works <code>?mean</code>. A bit confusingly, you do not need the quotation marks here.</p>
+<p>Every function in R has a help page written by the programmers. You can retrieve these pages with the <code>help</code> function or its short cut <code>?</code>. <code>help("mean")</code> will display the help page for the <code>mean</code> function. The quotation marks are necessary here because you do not provide a variable with the name <em>mean</em> but a word ‘mean’. The shortcut works <code>?mean</code>. A bit confusingly, you do not need the quotation marks here.</p>
 </div>
 <div id="installing-the-scan-package" class="section level2">
 <h2><span class="header-section-number">2.2</span> Installing the <em>scan</em> package</h2>
 <p>You can use the <code>install.packages</code> function to install <em>scan</em>.</p>
 <ol style="list-style-type: decimal">
-<li><code>install.packages(&quot;scan&quot;, repos=&quot;http://R-Forge.R-project.org&quot;, type = &quot;source&quot;)</code> will install the developmental version and</li>
-<li><code>install.packages(&quot;scan&quot;)</code> will install the stable version.</li>
+<li><code>install.packages("scan", repos = c("http://R-Forge.R-project.org",</code> <code>"https://cloud.r-project.org/"), dependencies = TRUE)</code> will install the developmental version and</li>
+<li><code>install.packages("scan")</code> will install the stable version.</li>
 </ol>
-<p>At some time in the future I will release a new stable version. But as long as the stable version is <code>0.20</code> it is deprecated and you need to install the developmental version. Please look at the beginning of the Chapter “Introduction” which version of <em>scan</em> has been used for creating this book and make sure you have this version or a newer one installed.</p>
+<p>At some time in the future I will release a new stable version <code>0.40</code>. But as long as the stable version is <code>0.20</code> it is deprecated and you need to install the developmental version. Please look at the beginning of the Chapter “Introduction” which version of <em>scan</em> has been used for creating this book and make sure you have this version or a newer one installed.</p>
 <p>R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing <em>scan</em> it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.</p>
 <p>For activating a package you need the <code>library</code> function. In this case <code>library(scan)</code>. You should get something like</p>
-<pre><code>scan 0.4.0 (development version)
+<pre><code>scan 0.40.0 (development version)
 Single-Case Data Analysis for Single and Multiple Baseline Designs</code></pre>
 <p>indicating that everything went smoothly and <em>scan</em> is ready for the job.</p>
 

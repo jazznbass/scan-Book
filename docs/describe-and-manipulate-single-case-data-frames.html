@@ -62,7 +62,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -74,13 +74,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -219,7 +217,7 @@ Published with bookdown
 <div id="describing-and-summarizing" class="section level2">
 <h2><span class="header-section-number">5.1</span> Describing and summarizing</h2>
 <p>A short description of the <em>scdf</em> is provided by the <code>summary</code> command. The results are pretty much self explaining</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">summary</span>(Huber2014)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="kw">summary</span>(Huber2014)</a></code></pre></div>
 <pre><code>## #A single-case data frame with 4 cases
 ## 
 ##           Measurements Design
@@ -284,7 +282,7 @@ Published with bookdown
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">describeSC</span>(exampleABC)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="kw">describeSC</span>(exampleABC)</a></code></pre></div>
 <pre><code>## Describe Single-Case Data
 ## 
 ## Design:  A B C 
@@ -320,16 +318,16 @@ Published with bookdown
 ## trend.B -0.61     0.64   1.93
 ## trend.C -0.19    -2.93 -14.00</code></pre>
 <p>The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the <code>describeSC</code> command into an R object and then use the <code>write.csv</code> (or <code>write.csv2</code> for a German OS system setup) to export the <code>descriptives</code> element of the object.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># write the results into a new R object named `res`</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2">res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(exampleABC)</a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="co"># create a new file containing the descriptives on your harddrive</span></a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw">write.csv</span>(res<span class="op">$</span>descriptives, <span class="dt">file =</span> <span class="st">&quot;descriptive data.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="co"># write the results into a new R object named `res`</span></a>
+<a class="sourceLine" id="cb41-2" title="2">res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(exampleABC)</a>
+<a class="sourceLine" id="cb41-3" title="3"><span class="co"># create a new file containing the descriptives on your harddrive</span></a>
+<a class="sourceLine" id="cb41-4" title="4"><span class="kw">write.csv</span>(res<span class="op">$</span>descriptives, <span class="dt">file =</span> <span class="st">&quot;descriptive data.csv&quot;</span>)</a></code></pre></div>
 <p>The file is written to the currently active working directory. If you are not sure where that is, type <code>getwd()</code> (you can use the <code>setwd()</code> command to define a different working directory. To get further details type <code>help(setwd)</code> into R).</p>
 </div>
 <div id="autoregression-and-trendanalyses" class="section level2">
 <h2><span class="header-section-number">5.2</span> Autoregression and trendanalyses</h2>
 <p>The <code>autocorrSC</code> function calculates autocorrelations within each phase and across all phases. The <code>lag.max</code> argument defines the lag up to which the autocorrelation will be computed.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">autocorrSC</span>(exampleABC, <span class="dt">lag.max =</span> <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">autocorrSC</span>(exampleABC, <span class="dt">lag.max =</span> <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## Autocorrelations
 ## 
 ##      case phase lag_1 lag_2 lag_3 lag_4
@@ -346,8 +344,8 @@ Published with bookdown
 ##      Lise     C -0.38 -0.12    NA    NA
 ##      Lise   all  0.33  0.36  0.23  0.27</code></pre>
 <p>The <code>trendSC</code> function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="co"># Simple example</span></a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">trendSC</span>(exampleABC[<span class="dv">1</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="co"># Simple example</span></a>
+<a class="sourceLine" id="cb44-2" title="2"><span class="kw">trendSC</span>(exampleABC[<span class="dv">1</span>])</a></code></pre></div>
 <pre><code>## Trend for each phase
 ## 
 ##             Intercept      B   Beta
@@ -361,8 +359,8 @@ Published with bookdown
 ## Squared.C      68.490 -0.017 -0.038
 ## 
 ## Note. Measurement-times of phase B start at 0</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="co"># Complex example</span></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="kw">trendSC</span>(exampleAB<span class="op">$</span>Johanna, <span class="dt">offset =</span> <span class="dv">0</span>, <span class="dt">model =</span> <span class="kw">c</span>(<span class="st">&quot;Cubic&quot;</span> =<span class="st"> </span>values <span class="op">~</span><span class="st"> </span><span class="kw">I</span>(mt<span class="op">^</span><span class="dv">3</span>), <span class="st">&quot;Log Time&quot;</span> =<span class="st"> </span>values <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(mt)))</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1"><span class="co"># Complex example</span></a>
+<a class="sourceLine" id="cb46-2" title="2"><span class="kw">trendSC</span>(exampleAB<span class="op">$</span>Johanna, <span class="dt">offset =</span> <span class="dv">0</span>, <span class="dt">model =</span> <span class="kw">c</span>(<span class="st">&quot;Cubic&quot;</span> =<span class="st"> </span>values <span class="op">~</span><span class="st"> </span><span class="kw">I</span>(mt<span class="op">^</span><span class="dv">3</span>), <span class="st">&quot;Log Time&quot;</span> =<span class="st"> </span>values <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(mt)))</a></code></pre></div>
 <pre><code>## Trend for each phase
 ## 
 ##              Intercept      B   Beta
@@ -389,16 +387,16 @@ Published with bookdown
 <pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, 6), phase.design = c(A = 4, B = 5), 
      mt = c(1, 2, 3, 4, 5, 6, 7, 8, 10))</code></pre>
 <p>In both cases, missing values pose a threat to the internal validity of overlap indices. Randomization tests are more robust against the first type of missing values but are affected by the second type. Regression approaches are less impacted by both types as they take the measurement-time into account.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">case1  &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">2</span>, <span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">6</span>), </a>
-<a class="sourceLine" id="cb50-2" data-line-number="2">               <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">10</span>, <span class="dt">B =</span> <span class="dv">10</span>), <span class="dt">name =</span> <span class="st">&quot;no NA&quot;</span>)</a>
-<a class="sourceLine" id="cb50-3" data-line-number="3">case2 &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="ot">NA</span>,<span class="dv">3</span>,<span class="dv">2</span>, <span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="ot">NA</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">6</span>), </a>
-<a class="sourceLine" id="cb50-4" data-line-number="4">              <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">10</span>, <span class="dt">B =</span> <span class="dv">10</span>), <span class="dt">name =</span> <span class="st">&quot;NAs&quot;</span>)</a>
-<a class="sourceLine" id="cb50-5" data-line-number="5">case3 &lt;-<span class="st"> </span><span class="kw">fillmissingSC</span>(case2)</a>
-<a class="sourceLine" id="cb50-6" data-line-number="6"><span class="kw">names</span>(case3) &lt;-<span class="st"> &quot;interpolated NAs&quot;</span></a>
-<a class="sourceLine" id="cb50-7" data-line-number="7">ex &lt;-<span class="st"> </span><span class="kw">c</span>(case1, case2, case3)</a>
-<a class="sourceLine" id="cb50-8" data-line-number="8"><span class="kw">plot</span>(ex, <span class="dt">style =</span> <span class="st">&quot;grid&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1">case1  &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">2</span>, <span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">6</span>), </a>
+<a class="sourceLine" id="cb50-2" title="2">               <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">10</span>, <span class="dt">B =</span> <span class="dv">10</span>), <span class="dt">name =</span> <span class="st">&quot;no NA&quot;</span>)</a>
+<a class="sourceLine" id="cb50-3" title="3">case2 &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="ot">NA</span>,<span class="dv">3</span>,<span class="dv">2</span>, <span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="ot">NA</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">6</span>), </a>
+<a class="sourceLine" id="cb50-4" title="4">              <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">10</span>, <span class="dt">B =</span> <span class="dv">10</span>), <span class="dt">name =</span> <span class="st">&quot;NAs&quot;</span>)</a>
+<a class="sourceLine" id="cb50-5" title="5">case3 &lt;-<span class="st"> </span><span class="kw">fillmissingSC</span>(case2)</a>
+<a class="sourceLine" id="cb50-6" title="6"><span class="kw">names</span>(case3) &lt;-<span class="st"> &quot;interpolated NAs&quot;</span></a>
+<a class="sourceLine" id="cb50-7" title="7">ex &lt;-<span class="st"> </span><span class="kw">c</span>(case1, case2, case3)</a>
+<a class="sourceLine" id="cb50-8" title="8"><span class="kw">plot</span>(ex, <span class="dt">style =</span> <span class="st">&quot;grid&quot;</span>)</a></code></pre></div>
 <p><img src="scan-book_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">overlapSC</span>(ex)</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="kw">overlapSC</span>(ex)</a></code></pre></div>
 <pre><code>## Overlap Indices
 ## 
 ## Design:  A B 
@@ -419,8 +417,8 @@ Published with bookdown
 </div>
 <div id="outlieranalysis" class="section level2">
 <h2><span class="header-section-number">5.4</span> Outlieranalysis</h2>
-<p><em>scan</em> provides several methods for analyzing outliers. All of them are implemented in the <code>outliersSC</code> function. Available methods are the <strong>standard deviation</strong>, <strong>mean average deviation</strong>, <strong>confidence intervalls</strong>, and <strong>Cook’s distance</strong>. The criteria argument takes a vector with two information, the first defines the analyzing method (“SD”, “MAD”, CI“,”Cook“) and the second the criteria. For”SD&quot; the criteria is the number of standard deviations (<strong>sd</strong>) from the mean of each phase for which a value is not considered to be an outlier. For example, <code>criteria = c(&quot;SD&quot;,2)</code> would identify every value exceeding two <strong>sd</strong> above or below the mean as an outlier whereas <strong>sd</strong> and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin <span class="citation">Iglewicz &amp; Hoaglin (<a href="#ref-iglewicz_how_1993">1993</a>)</span> recommend the use the much more robust median average deviation (<strong>MAD</strong>) instead. The <strong>MAD</strong> is is constructed similar to the <strong>sd</strong> but uses the median instead of the mean. Multiplying the <strong>MAD</strong> by 1.4826 approximates the <strong>sd</strong> in a normal distributed sample. This corrected MAD is applied in the <code>outlierSC</code> function. A deviation of 3.5 times the corrected <strong>MAD</strong> from the median is suggested to be an outlier. To use this criterion set <code>criteria = c(&quot;MAD&quot;, 3.5)</code>. <code>criteria = c(&quot;CI&quot;, 0.95)</code> takes exceeding the 95% confidence interval as the criteria for outliers. The Cook’s distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook’s distance analyses are based on a piecewise-regression model. Most commonly, Cook’s distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c(“Cook”,“4/n”).</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">outlierSC</span>(exampleABC_outlier, <span class="dt">criteria =</span> <span class="kw">c</span>(<span class="st">&quot;MAD&quot;</span>, <span class="fl">3.5</span>))</a></code></pre></div>
+<p><em>scan</em> provides several methods for analyzing outliers. All of them are implemented in the <code>outliersSC</code> function. Available methods are the <strong>standard deviation</strong>, <strong>mean average deviation</strong>, <strong>confidence intervalls</strong>, and <strong>Cook’s distance</strong>. The criteria argument takes a vector with two information, the first defines the analyzing method (“SD”, “MAD”, CI“,”Cook“) and the second the criteria. For”SD" the criteria is the number of standard deviations (<strong>sd</strong>) from the mean of each phase for which a value is not considered to be an outlier. For example, <code>criteria = c("SD",2)</code> would identify every value exceeding two <strong>sd</strong> above or below the mean as an outlier whereas <strong>sd</strong> and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin <span class="citation">Iglewicz &amp; Hoaglin (<a href="#ref-iglewicz_how_1993">1993</a>)</span> recommend the use the much more robust median average deviation (<strong>MAD</strong>) instead. The <strong>MAD</strong> is is constructed similar to the <strong>sd</strong> but uses the median instead of the mean. Multiplying the <strong>MAD</strong> by 1.4826 approximates the <strong>sd</strong> in a normal distributed sample. This corrected MAD is applied in the <code>outlierSC</code> function. A deviation of 3.5 times the corrected <strong>MAD</strong> from the median is suggested to be an outlier. To use this criterion set <code>criteria = c("MAD", 3.5)</code>. <code>criteria = c("CI", 0.95)</code> takes exceeding the 95% confidence interval as the criteria for outliers. The Cook’s distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook’s distance analyses are based on a piecewise-regression model. Most commonly, Cook’s distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c(“Cook”,“4/n”).</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="kw">outlierSC</span>(exampleABC_outlier, <span class="dt">criteria =</span> <span class="kw">c</span>(<span class="st">&quot;MAD&quot;</span>, <span class="fl">3.5</span>))</a></code></pre></div>
 <pre><code>## Outlier Analysis for Single-Case Data
 ## 
 ## Criteria: Exceeds 3.5 Mean Average Deviations
@@ -446,23 +444,23 @@ Published with bookdown
 ## Case Bernadette : Dropped 3 
 ## Case Penny : Dropped 2 
 ## Case Amy : Dropped 3</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># Visualizing outliers with the plot function</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">res &lt;-<span class="st"> </span><span class="kw">outlierSC</span>(exampleABC_outlier, <span class="dt">criteria =</span> <span class="kw">c</span>(<span class="st">&quot;MAD&quot;</span>, <span class="fl">3.5</span>))</a>
-<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="kw">plot</span>(exampleABC_outlier, <span class="dt">marks =</span> res, </a>
-<a class="sourceLine" id="cb55-4" data-line-number="4">     <span class="dt">style =</span> <span class="st">&quot;annotate&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">40</span>,<span class="dv">160</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="co"># Visualizing outliers with the plot function</span></a>
+<a class="sourceLine" id="cb55-2" title="2">res &lt;-<span class="st"> </span><span class="kw">outlierSC</span>(exampleABC_outlier, <span class="dt">criteria =</span> <span class="kw">c</span>(<span class="st">&quot;MAD&quot;</span>, <span class="fl">3.5</span>))</a>
+<a class="sourceLine" id="cb55-3" title="3"><span class="kw">plot</span>(exampleABC_outlier, <span class="dt">marks =</span> res, </a>
+<a class="sourceLine" id="cb55-4" title="4">     <span class="dt">style =</span> <span class="st">&quot;annotate&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">40</span>,<span class="dv">160</span>))</a></code></pre></div>
 <p><img src="scan-book_files/figure-html/outlier-1.png" width="672" /></p>
 </div>
 <div id="smoothing-data" class="section level2">
 <h2><span class="header-section-number">5.5</span> Smoothing data</h2>
 <p>The smoothSC function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A <em>lag</em> defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.<br />
 The function returns am scdf with smoothed data points.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">## Use the three different smoothing functions and compare the results</a>
-<a class="sourceLine" id="cb56-2" data-line-number="2">berta_mmd &lt;-<span class="st"> </span><span class="kw">smoothSC</span>(Huber2014<span class="op">$</span>Berta)</a>
-<a class="sourceLine" id="cb56-3" data-line-number="3">berta_mmn &lt;-<span class="st"> </span><span class="kw">smoothSC</span>(Huber2014<span class="op">$</span>Berta, <span class="dt">FUN =</span> <span class="st">&quot;movingMean&quot;</span>)</a>
-<a class="sourceLine" id="cb56-4" data-line-number="4">berta_lre &lt;-<span class="st"> </span><span class="kw">smoothSC</span>(Huber2014<span class="op">$</span>Berta, <span class="dt">FUN =</span> <span class="st">&quot;localRegression&quot;</span>)</a>
-<a class="sourceLine" id="cb56-5" data-line-number="5">new.study &lt;-<span class="st"> </span><span class="kw">c</span>(Huber2014<span class="op">$</span>Berta, berta_mmd, berta_mmn, berta_lre)</a>
-<a class="sourceLine" id="cb56-6" data-line-number="6"><span class="kw">names</span>(new.study) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Original&quot;</span>,<span class="st">&quot;Moving Median&quot;</span>,<span class="st">&quot;Moving Mean&quot;</span>,<span class="st">&quot;Local Regression&quot;</span>)</a>
-<a class="sourceLine" id="cb56-7" data-line-number="7"><span class="kw">plotSC</span>(new.study, <span class="dt">style =</span> <span class="st">&quot;grid2&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1"><span class="co">## Use the three different smoothing functions and compare the results</span></a>
+<a class="sourceLine" id="cb56-2" title="2">berta_mmd &lt;-<span class="st"> </span><span class="kw">smoothSC</span>(Huber2014<span class="op">$</span>Berta)</a>
+<a class="sourceLine" id="cb56-3" title="3">berta_mmn &lt;-<span class="st"> </span><span class="kw">smoothSC</span>(Huber2014<span class="op">$</span>Berta, <span class="dt">FUN =</span> <span class="st">&quot;movingMean&quot;</span>)</a>
+<a class="sourceLine" id="cb56-4" title="4">berta_lre &lt;-<span class="st"> </span><span class="kw">smoothSC</span>(Huber2014<span class="op">$</span>Berta, <span class="dt">FUN =</span> <span class="st">&quot;localRegression&quot;</span>)</a>
+<a class="sourceLine" id="cb56-5" title="5">new.study &lt;-<span class="st"> </span><span class="kw">c</span>(Huber2014<span class="op">$</span>Berta, berta_mmd, berta_mmn, berta_lre)</a>
+<a class="sourceLine" id="cb56-6" title="6"><span class="kw">names</span>(new.study) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Original&quot;</span>,<span class="st">&quot;Moving Median&quot;</span>,<span class="st">&quot;Moving Mean&quot;</span>,<span class="st">&quot;Local Regression&quot;</span>)</a>
+<a class="sourceLine" id="cb56-7" title="7"><span class="kw">plotSC</span>(new.study, <span class="dt">style =</span> <span class="st">&quot;grid2&quot;</span>)</a></code></pre></div>
 <p><img src="scan-book_files/figure-html/unnamed-chunk-28-1.png" width="480" /></p>
 
 </div>

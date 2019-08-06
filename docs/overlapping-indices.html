@@ -62,7 +62,7 @@
 <style type="text/css">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -74,13 +74,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -217,7 +215,7 @@ Published with bookdown
 <div id="overlapping-indices" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Overlapping indices</h1>
 <p><code>overlapSC</code> provides a table with some of the most important overlap indices for each case of an <em>scdf</em>. For calculating overlap indicators is is important to know if a decrease or an increase of values is expected between phases. By default <code>overlapSC</code> assumes an increase in values. If the argument <code>decreasing = TRUE</code> is set, calculation will be based on the assumption of decreasing values.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">overlapSC</span>(exampleAB)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="kw">overlapSC</span>(exampleAB)</a></code></pre></div>
 <pre><code>## Overlap Indices
 ## 
 ## Design:  A B 
@@ -236,9 +234,9 @@ Published with bookdown
 ## Diff_trend      1.53     0.54   2.50
 ## SMD             8.11     3.17   6.71</code></pre>
 <p>Overlap measures refer to a comparison of two phases within a single-case data-set. By default, overlapSC compares a Phase A to a Phase B. The <code>phases</code> argument is needed if the phases of the <em>scdf</em> do not include phases named A and B or a comparison between other phases in wanted.<br />
-The <code>phases</code> argument takes a list with two elements. One element for each of the two phases that should be compared. The elements could contain either the name of the two phases or the number of the position within the <em>scdf</em>. If you want to compare the first to the third phase you can set <code>phases = list(1,3)</code>. If the phases of your case are named ‘A’, ‘B’, and ‘C’ you could alternatively set <code>phases = list(&quot;A&quot;,&quot;C&quot;)</code>.<br />
+The <code>phases</code> argument takes a list with two elements. One element for each of the two phases that should be compared. The elements could contain either the name of the two phases or the number of the position within the <em>scdf</em>. If you want to compare the first to the third phase you can set <code>phases = list(1,3)</code>. If the phases of your case are named ‘A’, ‘B’, and ‘C’ you could alternatively set <code>phases = list("A","C")</code>.<br />
 It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the <code>c</code> command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases <code>phases = list( c(1,3), c(2,4) )</code> will do the trick.</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">overlapSC</span>(exampleA1B1A2B2, <span class="dt">phases =</span> <span class="kw">list</span>( <span class="kw">c</span>(<span class="st">&quot;A1&quot;</span>,<span class="st">&quot;A2&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;B1&quot;</span>,<span class="st">&quot;B2&quot;</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="kw">overlapSC</span>(exampleA1B1A2B2, <span class="dt">phases =</span> <span class="kw">list</span>( <span class="kw">c</span>(<span class="st">&quot;A1&quot;</span>,<span class="st">&quot;A2&quot;</span>), <span class="kw">c</span>(<span class="st">&quot;B1&quot;</span>,<span class="st">&quot;B2&quot;</span>)))</a></code></pre></div>
 <pre><code>## Overlap Indices
 ## 
 ## Design:  A1 B1 A2 B2 
@@ -266,7 +264,7 @@ Figure 6.1: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B
 </p>
 </div>
 <p>The function <code>pnd</code> provides the PND for each case as well as the mean of all PNDs of that <em>scdf</em>. When you expect decreasing values set <code>decreasing = TRUE</code>. When there are more than two phases or phases are not named A and B, use the <code>phases</code> argument as described at the beginning of this chapter.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">pnd</span>(exampleAB)</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1"><span class="kw">pnd</span>(exampleAB)</a></code></pre></div>
 <pre><code>## Percent Non-Overlapping Data
 ## 
 ##      Case    PND Total Exceeds
@@ -285,7 +283,7 @@ Figure 6.1: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B
 Figure 6.2: Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A.
 </p>
 </div>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">pem</span>(exampleAB)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1"><span class="kw">pem</span>(exampleAB)</a></code></pre></div>
 <pre><code>## Percent Exceeding the Median
 ## 
 ##          PEM positives total binom.p
@@ -298,7 +296,7 @@ Figure 6.2: Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B
 <div id="percentage-exceeding-the-regression-trend-pet" class="section level2">
 <h2><span class="header-section-number">6.3</span> Percentage exceeding the regression trend (PET)</h2>
 <p>The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent confidence interval of the predicted progress is computed.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="kw">pet</span>(exampleAB)</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1"><span class="kw">pet</span>(exampleAB)</a></code></pre></div>
 <pre><code>## Percent Exceeding the Trend
 ## 
 ## N cases =  3 
@@ -320,11 +318,11 @@ Figure 6.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phas
 <div id="percentage-of-all-non-overlapping-data-pand" class="section level2">
 <h2><span class="header-section-number">6.4</span> Percentage of all non-overlapping data (PAND)</h2>
 <p>The <code>pand</code> function calculates the percentage of all non-overlapping data <span class="citation">(Parker, Hagan-Burke, &amp; Vannest, <a href="#ref-parker_percentage_2007">2007</a>)</span>, an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The argument <code>correction = TRUE</code> makes <code>pand</code> use a frequency matrix, which is corrected for ties. A tie is counted as the half of a measurement in both phases. Set <code>correction = FALSE</code> to use the uncorrected matrix, which is not recommended.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">pand</span>(exampleAB)</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="kw">pand</span>(exampleAB)</a></code></pre></div>
 <pre><code>## Percentage of all non-overlapping data
 ## 
 ## PAND =  93.3 %
-## Φ =  0.822  ; Φ² =  0.676 
+## F =  0.822  ; F² =  0.676 
 ## 
 ## Number of Cases: 3 
 ## Total measurements: 60  (in phase A: 15; in phase B: 45)
@@ -350,13 +348,13 @@ Figure 6.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phas
 ## 
 ## Correlation based analysis:
 ## 
-## z = 6.316, p = 0.000, τ = 0.822</code></pre>
+## z = 6.316, p = 0.000, t = 0.822</code></pre>
 <p>PAND indicates nonoverlap between phase A and B data (like PND), but uses all data and is therefore not based on one single (probably unrepresentative) datapoint. Furthermore, PAND allows the comparison of real and expected associations (Chi-square test) and estimation of the effect size Phi, which equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance. The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power <span class="citation">(Richard I Parker et al., <a href="#ref-parker_effect_2011">2011</a>)</span>.</p>
 </div>
 <div id="nonoverlap-of-all-pairs-nap" class="section level2">
 <h2><span class="header-section-number">6.5</span> Nonoverlap of all pairs (NAP)</h2>
 <p>The <code>nap</code> function calculates the nonoverlap of all pairs <span class="citation">(Parker &amp; Vannest, <a href="#ref-parker_improved_2009">2009</a>)</span>. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP can only take values between 50 and 100 percent, a rescaled and therefore more intuitive NAP (0-100%) is also displayed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">nap</span>(exampleAB)</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">nap</span>(exampleAB)</a></code></pre></div>
 <pre><code>## Nonoverlap of All Pairs
 ## 
 ##      Case NAP Rescaled Pairs Positives Ties   W       p
@@ -367,12 +365,12 @@ Figure 6.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phas
 <div id="tau-u" class="section level2">
 <h2><span class="header-section-number">6.6</span> Tau-U</h2>
 <p>The <code>tauUSC</code> function takes a <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. This procedure has been proposed by <span class="citation">Richard I. Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span>.<br />
-The <code>tauUSC</code> function provides two methods for calculation of Tau-U. By setting the argument <code>method = &quot;parker&quot;</code>, Tau-U is calculated as described in <span class="citation">Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = &quot;complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate.<br />
-In the method proposed by <span class="citation">Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span> data of the same value (ties) are ignored and treated as if these data had not been available. Alternatively, ties might be considered in favor of the intervention or not. For the latter, the <code>ties.method</code> argument could be set to <code>ties.method = &quot;positive&quot;</code> or <code>ties.method = &quot;negative&quot;</code>. The default is <code>&quot;omit&quot;</code> following <span class="citation">Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span>.<br />
+The <code>tauUSC</code> function provides two methods for calculation of Tau-U. By setting the argument <code>method = "parker"</code>, Tau-U is calculated as described in <span class="citation">Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = "complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate.<br />
+In the method proposed by <span class="citation">Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span> data of the same value (ties) are ignored and treated as if these data had not been available. Alternatively, ties might be considered in favor of the intervention or not. For the latter, the <code>ties.method</code> argument could be set to <code>ties.method = "positive"</code> or <code>ties.method = "negative"</code>. The default is <code>"omit"</code> following <span class="citation">Parker et al. (<a href="#ref-parker_combining_2011">2011</a>)</span>.<br />
 The standard return of the <code>tauUSC</code> function does not display all calculations. If you like to have more details, apply the <code>print</code> function with the additional argument <code>complete = TRUE</code>.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">dat &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">7</span>,<span class="dv">8</span>), <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">4</span>, <span class="dt">B =</span> <span class="dv">5</span>))</a>
-<a class="sourceLine" id="cb71-2" data-line-number="2">res &lt;-<span class="st"> </span><span class="kw">tauUSC</span>(dat)</a>
-<a class="sourceLine" id="cb71-3" data-line-number="3"><span class="kw">print</span>(res, <span class="dt">complete =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">7</span>,<span class="dv">8</span>), <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">4</span>, <span class="dt">B =</span> <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb71-2" title="2">res &lt;-<span class="st"> </span><span class="kw">tauUSC</span>(dat)</a>
+<a class="sourceLine" id="cb71-3" title="3"><span class="kw">print</span>(res, <span class="dt">complete =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Tau-U
 ## Method:  complete 
 ## 
@@ -381,7 +379,7 @@ The standard return of the <code>tauUSC</code> function does not display all cal
 ##                   0.6111111                   0.6153846 
 ## 
 ## $Case1
-##                             pairs pos neg ties  S      D     τ    τb    SD
+##                             pairs pos neg ties  S      D     t    tb    SD
 ## A vs. B                        20  19   1    0 18 20.000 0.900 0.900 8.165
 ## Trend A                         6   4   2    0  2  6.000 0.333 0.333 2.944
 ## Trend B                        10   8   2    0  6 10.000 0.600 0.600 4.082
@@ -397,7 +395,7 @@ The standard return of the <code>tauUSC</code> function does not display all cal
 ## A vs. B - Trend A           75.333 1.843 0.065    0.284
 ## A vs. B + Trend B           83.333 2.629 0.009    0.278
 ## A vs. B + Trend B - Trend A 92.000 2.294 0.022    0.266</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1"><span class="kw">tauUSC</span>(exampleAB)</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">tauUSC</span>(exampleAB)</a></code></pre></div>
 <pre><code>## Tau-U
 ## Method:  complete 
 ## 
@@ -406,19 +404,19 @@ The standard return of the <code>tauUSC</code> function does not display all cal
 ##                   0.7243947                   0.8745661 
 ## 
 ## $Johanna
-##                               S       D     τ    τb     Z     p
+##                               S       D     t    tb     Z     p
 ## A vs. B - Trend A            75 126.748 0.882 0.592 3.224 0.001
 ## A vs. B + Trend B           145 184.445 0.806 0.786 4.749 0.000
 ## A vs. B + Trend B - Trend A 145 189.499 0.763 0.765 4.707 0.000
 ## 
 ## $Karolina
-##                               S       D     τ    τb     Z     p
+##                               S       D     t    tb     Z     p
 ## A vs. B - Trend A            70 126.412 0.824 0.554 3.010 0.003
 ## A vs. B + Trend B           148 183.957 0.822 0.805 4.849 0.000
 ## A vs. B + Trend B - Trend A 148 188.997 0.779 0.783 4.807 0.000
 ## 
 ## $Anja
-##                               S       D     τ    τb     Z     p
+##                               S       D     t    tb     Z     p
 ## A vs. B - Trend A            78 125.060 0.918 0.624 3.361 0.001
 ## A vs. B + Trend B           114 181.989 0.633 0.626 3.744 0.000
 ## A vs. B + Trend B - Trend A 120 186.976 0.632 0.642 3.907 0.000</code></pre>
@@ -426,7 +424,7 @@ The standard return of the <code>tauUSC</code> function does not display all cal
 <div id="reliable-change-index" class="section level2">
 <h2><span class="header-section-number">6.7</span> Reliable change index</h2>
 <p>The `rciSC function computes three indices of reliable change <span class="citation">(Wise, <a href="#ref-wise_methods_2004">2004</a>)</span> and corresponding descriptive statistics.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="kw">rciSC</span>(exampleAB<span class="op">$</span>Johanna, <span class="dt">graph =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1"><span class="kw">rciSC</span>(exampleAB<span class="op">$</span>Johanna, <span class="dt">graph =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p><img src="scan-book_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <pre><code>## Reliable Change Index
 ## 
@@ -456,22 +454,22 @@ The standard return of the <code>tauUSC</code> function does not display all cal
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-parker_percentage_2007">
-<p>Parker, R. I., Hagan-Burke, S., &amp; Vannest, K. (2007). Percentage of All Non-Overlapping Data (PAND) An Alternative to PND. <em>The Journal of Special Education</em>, <em>40</em>(4), 194–204. Retrieved from <a href="http://sed.sagepub.com/content/40/4/194.short" class="uri">http://sed.sagepub.com/content/40/4/194.short</a></p>
+<p>Parker, R. I., Hagan-Burke, S., &amp; Vannest, K. (2007). Percentage of All Non-Overlapping Data (PAND) An Alternative to PND. <em>The Journal of Special Education</em>, <em>40</em>(4), 194–204. Retrieved from <a href="http://sed.sagepub.com/content/40/4/194.short">http://sed.sagepub.com/content/40/4/194.short</a></p>
 </div>
 <div id="ref-parker_improved_2009">
-<p>Parker, R. I., &amp; Vannest, K. (2009). An improved effect size for single-case research: Nonoverlap of all pairs. <em>Behavior Therapy</em>, <em>40</em>(4), 357–367. Retrieved from <a href="http://www.sciencedirect.com/science/article/pii/S0005789408000816" class="uri">http://www.sciencedirect.com/science/article/pii/S0005789408000816</a></p>
+<p>Parker, R. I., &amp; Vannest, K. (2009). An improved effect size for single-case research: Nonoverlap of all pairs. <em>Behavior Therapy</em>, <em>40</em>(4), 357–367. Retrieved from <a href="http://www.sciencedirect.com/science/article/pii/S0005789408000816">http://www.sciencedirect.com/science/article/pii/S0005789408000816</a></p>
 </div>
 <div id="ref-parker_effect_2011">
-<p>Parker, R. I., Vannest, K. J., &amp; Davis, J. L. (2011). Effect Size in Single-Case Research: A Review of Nine Nonoverlap Techniques. <em>Behavior Modification</em>, <em>35</em>(4), 303–322. <a href="https://doi.org/10.1177/0145445511399147" class="uri">https://doi.org/10.1177/0145445511399147</a></p>
+<p>Parker, R. I., Vannest, K. J., &amp; Davis, J. L. (2011). Effect Size in Single-Case Research: A Review of Nine Nonoverlap Techniques. <em>Behavior Modification</em>, <em>35</em>(4), 303–322. <a href="https://doi.org/10.1177/0145445511399147">https://doi.org/10.1177/0145445511399147</a></p>
 </div>
 <div id="ref-parker_combining_2011">
-<p>Parker, R. I., Vannest, K. J., Davis, J. L., &amp; Sauber, S. B. (2011). Combining Nonoverlap and Trend for Single-Case Research: Tau-U. <em>Behavior Therapy</em>, <em>42</em>(2), 284–299. <a href="https://doi.org/10.1016/j.beth.2010.08.006" class="uri">https://doi.org/10.1016/j.beth.2010.08.006</a></p>
+<p>Parker, R. I., Vannest, K. J., Davis, J. L., &amp; Sauber, S. B. (2011). Combining Nonoverlap and Trend for Single-Case Research: Tau-U. <em>Behavior Therapy</em>, <em>42</em>(2), 284–299. <a href="https://doi.org/10.1016/j.beth.2010.08.006">https://doi.org/10.1016/j.beth.2010.08.006</a></p>
 </div>
 <div id="ref-scruggs_quantitative_1987">
-<p>Scruggs, T. E., Mastropieri, M. A., &amp; Casto, G. (1987). The Quantitative Synthesis of Single-Subject Research Methodology and Validation. <em>Remedial and Special Education</em>, <em>8</em>(2), 24–33. <a href="https://doi.org/10.1177/074193258700800206" class="uri">https://doi.org/10.1177/074193258700800206</a></p>
+<p>Scruggs, T. E., Mastropieri, M. A., &amp; Casto, G. (1987). The Quantitative Synthesis of Single-Subject Research Methodology and Validation. <em>Remedial and Special Education</em>, <em>8</em>(2), 24–33. <a href="https://doi.org/10.1177/074193258700800206">https://doi.org/10.1177/074193258700800206</a></p>
 </div>
 <div id="ref-wise_methods_2004">
-<p>Wise, E. A. (2004). Methods for analyzing psychotherapy outcomes: A review of clinical significance, reliable change, and recommendations for future directions. <em>Journal of Personality Assessment</em>, <em>82</em>(1), 50–59. Retrieved from <a href="http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10" class="uri">http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10</a></p>
+<p>Wise, E. A. (2004). Methods for analyzing psychotherapy outcomes: A review of clinical significance, reliable change, and recommendations for future directions. <em>Journal of Personality Assessment</em>, <em>82</em>(1), 50–59. Retrieved from <a href="http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10">http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10</a></p>
 </div>
 </div>
             </section>
