@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-05" />
+<meta name="date" content="2019-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,9 +60,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -71,14 +71,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +89,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -227,21 +229,21 @@ Technically, an scdf object is a list containing data frames. It is of the class
 <div id="creating-scdfs" class="section level2">
 <h2><span class="header-section-number">3.2</span> Creating scdfs</h2>
 <p>The <code>scdf</code> function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement <em>values</em> and the <em>phase</em> structure and a scdf object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the <code>B.start</code> argument, second, defining a design with the <code>phase.design</code> argument and third, setting parameters in a named vector of the dependent variable.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co">### Three ways to code the same scdf</span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>, <span class="dt">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>))</a>
-<a class="sourceLine" id="cb12-3" title="3"><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>), </a>
-<a class="sourceLine" id="cb12-4" title="4">     <span class="dt">B.start =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb12-5" title="5"><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>), </a>
-<a class="sourceLine" id="cb12-6" title="6">     <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">4</span>, <span class="dt">B =</span> <span class="dv">6</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="managing-single-case-data.html#cb12-1"></a><span class="co">### Three ways to code the same scdf</span></span>
+<span id="cb12-2"><a href="managing-single-case-data.html#cb12-2"></a><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>, <span class="dt">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>))</span>
+<span id="cb12-3"><a href="managing-single-case-data.html#cb12-3"></a><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>), </span>
+<span id="cb12-4"><a href="managing-single-case-data.html#cb12-4"></a>     <span class="dt">B.start =</span> <span class="dv">5</span>)</span>
+<span id="cb12-5"><a href="managing-single-case-data.html#cb12-5"></a><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>), </span>
+<span id="cb12-6"><a href="managing-single-case-data.html#cb12-6"></a>     <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">4</span>, <span class="dt">B =</span> <span class="dv">6</span>))</span></code></pre></div>
 <p>The <code>B.start</code> argument is only applicable when the single-case has one A-phase followed by one B-phase. It is a relict from the time when <code>scan</code> could only sign-case designs with two phases. The number assigned to <code>B.start</code> indicates the measurement-time as defined in the <code>mt</code> argument. That is, when the vector for the measurement times is <code>mt = c(1,3,7,10,15,17,18,20)</code> and <code>B.start = 15</code> the first measurement of the B-phase will start with the fifth measurement at which <em>mt</em> = 15.<br />
 The <code>phase.design</code> argument is a named vector with the name and length of each phase. The names of each set can be set arbitrary, although I recommend to follow the rule of using capital letters (A, B, C, …) for each phase and, when indicated, a number if the phases repeat (A1, B1, A2, B2, …). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with <em>scan</em>.<br />
 When the vector of the dependent variable includes named values, a phase.design structure is created automatically. Each named value sets the beginning of a new phase. For exmaple <code>c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)</code> will create an ABC-phase design with 3, 3, and 4 values per phase.<br />
 Use only one of the three methods at a time and I recommend to use the <code>phase.design</code> argument or the named vector method as they are the most versatile.<br />
 If no measurement times are given, scdf automatically adds them numbered sequentially 1, 2, 3, …, <em>N</em> where <em>N</em> is the number of measurements. in some circumstances it might be useful to define individual measurement times for each measurement. For example, if you want to include the days since the beginning of the study as time intervals between measurements are widely varying you might get more valid results this way when analyzing the data in a regression approach.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># example of a more complex design </span></a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>, <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>, <span class="dv">12</span>,<span class="dv">11</span>,<span class="dv">13</span>), </a>
-<a class="sourceLine" id="cb13-3" title="3">     <span class="dt">mt =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">6</span>, <span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">16</span>,<span class="dv">18</span>, <span class="dv">27</span>,<span class="dv">28</span>,<span class="dv">29</span>),</a>
-<a class="sourceLine" id="cb13-4" title="4">     <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">4</span>, <span class="dt">B =</span> <span class="dv">6</span>, <span class="dt">C =</span> <span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="managing-single-case-data.html#cb13-1"></a><span class="co"># example of a more complex design </span></span>
+<span id="cb13-2"><a href="managing-single-case-data.html#cb13-2"></a><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>, <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>, <span class="dv">12</span>,<span class="dv">11</span>,<span class="dv">13</span>), </span>
+<span id="cb13-3"><a href="managing-single-case-data.html#cb13-3"></a>     <span class="dt">mt =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">6</span>, <span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">16</span>,<span class="dv">18</span>, <span class="dv">27</span>,<span class="dv">28</span>,<span class="dv">29</span>),</span>
+<span id="cb13-4"><a href="managing-single-case-data.html#cb13-4"></a>     <span class="dt">phase.design =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">4</span>, <span class="dt">B =</span> <span class="dv">6</span>, <span class="dt">C =</span> <span class="dv">3</span>))</span></code></pre></div>
 <pre><code>## #A single-case data frame with one case
 ## 
 ##  Case1: values mt phase
@@ -259,11 +261,11 @@ If no measurement times are given, scdf automatically adds them numbered sequent
 ##             11 28     C
 ##             13 29     C</code></pre>
 <p>Missing values could be coded using <code>NA</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="ot">NA</span>,<span class="dv">5</span>, <span class="dt">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="ot">NA</span>,<span class="dv">7</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="managing-single-case-data.html#cb15-1"></a><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="ot">NA</span>,<span class="dv">5</span>, <span class="dt">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="ot">NA</span>,<span class="dv">7</span>))</span></code></pre></div>
 <p>Further variables could be implemented by defining new variable names with a vector containing the values. Please consider that these new variable must never have the same name as one of the arguments of the function (B.start, phase.design, name, dvar, pvar, mvar).</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>, <span class="dt">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">7</span>,<span class="dv">7</span>), </a>
-<a class="sourceLine" id="cb16-2" title="2">     <span class="dt">teacher =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), </a>
-<a class="sourceLine" id="cb16-3" title="3">     <span class="dt">hour =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="managing-single-case-data.html#cb16-1"></a><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>, <span class="dt">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">7</span>,<span class="dv">7</span>), </span>
+<span id="cb16-2"><a href="managing-single-case-data.html#cb16-2"></a>     <span class="dt">teacher =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), </span>
+<span id="cb16-3"><a href="managing-single-case-data.html#cb16-3"></a>     <span class="dt">hour =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## #A single-case data frame with one case
 ## 
 ##  Case1: values teacher hour mt phase
@@ -278,7 +280,7 @@ If no measurement times are given, scdf automatically adds them numbered sequent
 ##              7       0    2  9     B
 ##              7       1    2 10     B</code></pre>
 <p>Table <a href="managing-single-case-data.html#tab:scdf-table">3.1</a> shows a complete list of arguments that could be passed to the function.</p>
-<table>
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:scdf-table">Table 3.1: </span>Arguments of the scdf function
 </caption>
@@ -294,86 +296,86 @@ What it does …
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;font-weight: bold;">
 B.start
 </td>
-<td style="text-align:left;">
+<td style="text-align:left;width: 30em; ">
 The first measurement of phase B (simple coding if design is strictly AB).
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;font-weight: bold;">
 phase.design
 </td>
-<td style="text-align:left;">
+<td style="text-align:left;width: 30em; ">
 A vector defining the length and label of each phase.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;font-weight: bold;">
 name
 </td>
-<td style="text-align:left;">
+<td style="text-align:left;width: 30em; ">
 A name for the case.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;font-weight: bold;">
 dvar
 </td>
-<td style="text-align:left;">
+<td style="text-align:left;width: 30em; ">
 The name of the dependent variable. By default this is ‘values’.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;font-weight: bold;">
 pvar
 </td>
-<td style="text-align:left;">
+<td style="text-align:left;width: 30em; ">
 The name of the variable containing the phase information. By default this is ‘phase’.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;font-weight: bold;">
 mvar
 </td>
-<td style="text-align:left;">
+<td style="text-align:left;width: 30em; ">
 The name of the variable with the measurement-time. The default is ‘mt’.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;font-weight: bold;">
 …
 </td>
-<td style="text-align:left;">
+<td style="text-align:left;width: 30em; ">
 Any number of variables with a vector asigned to them.
 </td>
 </tr>
 </tbody>
 </table>
 <p>If you want to create a data-set comprising several single-cases the easiest way is to first create an scdf for each case and then join them into a new scdf with the <code>c</code> command:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">case1 &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">19</span>), </a>
-<a class="sourceLine" id="cb18-2" title="2">              <span class="dt">B.start =</span> <span class="dv">6</span>, <span class="dt">name =</span> <span class="st">&quot;Charlotte&quot;</span>)</a>
-<a class="sourceLine" id="cb18-3" title="3">case2 &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>), </a>
-<a class="sourceLine" id="cb18-4" title="4">              <span class="dt">B.start =</span> <span class="dv">5</span>, <span class="dt">name =</span> <span class="st">&quot;Theresa&quot;</span>)</a>
-<a class="sourceLine" id="cb18-5" title="5">case3 &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">16</span>), </a>
-<a class="sourceLine" id="cb18-6" title="6">              <span class="dt">B.start =</span> <span class="dv">7</span>, <span class="dt">name =</span> <span class="st">&quot;Antonia&quot;</span>)</a>
-<a class="sourceLine" id="cb18-7" title="7">mbd &lt;-<span class="st"> </span><span class="kw">c</span>(case1, case2, case3)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="managing-single-case-data.html#cb18-1"></a>case1 &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">19</span>), </span>
+<span id="cb18-2"><a href="managing-single-case-data.html#cb18-2"></a>              <span class="dt">B.start =</span> <span class="dv">6</span>, <span class="dt">name =</span> <span class="st">&quot;Charlotte&quot;</span>)</span>
+<span id="cb18-3"><a href="managing-single-case-data.html#cb18-3"></a>case2 &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>), </span>
+<span id="cb18-4"><a href="managing-single-case-data.html#cb18-4"></a>              <span class="dt">B.start =</span> <span class="dv">5</span>, <span class="dt">name =</span> <span class="st">&quot;Theresa&quot;</span>)</span>
+<span id="cb18-5"><a href="managing-single-case-data.html#cb18-5"></a>case3 &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">16</span>), </span>
+<span id="cb18-6"><a href="managing-single-case-data.html#cb18-6"></a>              <span class="dt">B.start =</span> <span class="dv">7</span>, <span class="dt">name =</span> <span class="st">&quot;Antonia&quot;</span>)</span>
+<span id="cb18-7"><a href="managing-single-case-data.html#cb18-7"></a>mbd &lt;-<span class="st"> </span><span class="kw">c</span>(case1, case2, case3)</span></code></pre></div>
 <p>If you like to use other than the default variable names (“values”, “phase”, and “mt”) you could define these with the <code>dvar</code> (for the dependent variable), <code>pvar</code> (the variable indicating the phase), and <code>mvar</code> (the measurement-time variable) arguments.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># Example: Using a different name for the dependent variable</span></a>
-<a class="sourceLine" id="cb19-2" title="2">case &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">score =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">19</span>), </a>
-<a class="sourceLine" id="cb19-3" title="3">     <span class="dt">B.start =</span> <span class="dv">6</span>, <span class="dt">dvar =</span> <span class="st">&quot;score&quot;</span>)</a>
-<a class="sourceLine" id="cb19-4" title="4"></a>
-<a class="sourceLine" id="cb19-5" title="5"><span class="co"># Example: Using new names for the dependent and the phase variables</span></a>
-<a class="sourceLine" id="cb19-6" title="6">case &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">score =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>), </a>
-<a class="sourceLine" id="cb19-7" title="7">     <span class="dt">B.start =</span> <span class="dv">5</span>, <span class="dt">dvar =</span> <span class="st">&quot;score&quot;</span>, <span class="dt">pvar =</span> <span class="st">&quot;section&quot;</span>)</a>
-<a class="sourceLine" id="cb19-8" title="8"></a>
-<a class="sourceLine" id="cb19-9" title="9"><span class="co"># Example: Using new names for dependent, phase, and measurement-time variables</span></a>
-<a class="sourceLine" id="cb19-10" title="10">case &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">score =</span> <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">16</span>), </a>
-<a class="sourceLine" id="cb19-11" title="11">     <span class="dt">B.start =</span> <span class="dv">7</span>, <span class="dt">name =</span> <span class="st">&quot;Antonia&quot;</span>, </a>
-<a class="sourceLine" id="cb19-12" title="12">     <span class="dt">dvar =</span> <span class="st">&quot;score&quot;</span>, <span class="dt">pvar =</span> <span class="st">&quot;section&quot;</span>, <span class="dt">mvar =</span> <span class="st">&quot;day&quot;</span>)</a>
-<a class="sourceLine" id="cb19-13" title="13"></a>
-<a class="sourceLine" id="cb19-14" title="14"><span class="kw">summary</span>(case)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="managing-single-case-data.html#cb19-1"></a><span class="co"># Example: Using a different name for the dependent variable</span></span>
+<span id="cb19-2"><a href="managing-single-case-data.html#cb19-2"></a>case &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">score =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">19</span>), </span>
+<span id="cb19-3"><a href="managing-single-case-data.html#cb19-3"></a>     <span class="dt">B.start =</span> <span class="dv">6</span>, <span class="dt">dvar =</span> <span class="st">&quot;score&quot;</span>)</span>
+<span id="cb19-4"><a href="managing-single-case-data.html#cb19-4"></a></span>
+<span id="cb19-5"><a href="managing-single-case-data.html#cb19-5"></a><span class="co"># Example: Using new names for the dependent and the phase variables</span></span>
+<span id="cb19-6"><a href="managing-single-case-data.html#cb19-6"></a>case &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">score =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>), </span>
+<span id="cb19-7"><a href="managing-single-case-data.html#cb19-7"></a>     <span class="dt">B.start =</span> <span class="dv">5</span>, <span class="dt">dvar =</span> <span class="st">&quot;score&quot;</span>, <span class="dt">pvar =</span> <span class="st">&quot;section&quot;</span>)</span>
+<span id="cb19-8"><a href="managing-single-case-data.html#cb19-8"></a></span>
+<span id="cb19-9"><a href="managing-single-case-data.html#cb19-9"></a><span class="co"># Example: Using new names for dependent, phase, and measurement-time variables</span></span>
+<span id="cb19-10"><a href="managing-single-case-data.html#cb19-10"></a>case &lt;-<span class="st"> </span><span class="kw">scdf</span>(<span class="dt">score =</span> <span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">16</span>), </span>
+<span id="cb19-11"><a href="managing-single-case-data.html#cb19-11"></a>     <span class="dt">B.start =</span> <span class="dv">7</span>, <span class="dt">name =</span> <span class="st">&quot;Antonia&quot;</span>, </span>
+<span id="cb19-12"><a href="managing-single-case-data.html#cb19-12"></a>     <span class="dt">dvar =</span> <span class="st">&quot;score&quot;</span>, <span class="dt">pvar =</span> <span class="st">&quot;section&quot;</span>, <span class="dt">mvar =</span> <span class="st">&quot;day&quot;</span>)</span>
+<span id="cb19-13"><a href="managing-single-case-data.html#cb19-13"></a></span>
+<span id="cb19-14"><a href="managing-single-case-data.html#cb19-14"></a><span class="kw">summary</span>(case)</span></code></pre></div>
 <pre><code>## #A single-case data frame with one case
 ## 
 ##         Measurements Design
@@ -393,15 +395,15 @@ The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> an
 <h2><span class="header-section-number">3.4</span> Import and export <em>single-case data frames</em></h2>
 <p>When you are working with other programs besides <strong>R</strong> you need to export and import the <em>scdf</em> into a common file format. <code>readSC</code> imports a comma-separated-variable (<em>csv</em>) file and converts it into an <em>scdf</em> object. By default, the csv-file has to contain the columns <em>case</em>, <em>phase</em>, and <em>values</em>. Optionally, a further column named <em>mt</em> could be provided. And should be build up like this:</p>
 <div class="figure">
-<img src="images/readSC.jpg" alt="How to format a single-case file in a spreadsheet program for importing into scan" width="300" />
+<img src="images/readSC.jpg" width="300" alt="" />
 <p class="caption">How to format a single-case file in a spreadsheet program for importing into scan</p>
 </div>
 <p>In case your variables names differ from the standard (i.e. “case”, “values”, “phase”, and “mt” ), you could set additional arguments to fit your file.
 <code>readSC("example.csv", var.case = "name", ivar = "wellbeing", pvar = "intervention", mvar = "time")</code> for example will set the variables attributes of the resulting scdf. Cases will be split by the <code>"name"</code>, values are in the variable <code>"wellbeing"</code>, phase information in the variable <code>"intervention"</code>, and measurement times in the variable <code>"time"</code>.
 You could also reassign the phase names within the phase variable by setting the argument <code>phase.names</code>. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to “A” and “B” with <code>readSC("example.csv", phase.names = c("A", "B"))</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">dat &lt;-<span class="st"> </span><span class="kw">readSC.excel</span>(<span class="st">&quot;example2.xlsx&quot;</span>,<span class="dt">cvar =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">pvar =</span> <span class="st">&quot;intervention&quot;</span>, <span class="dt">dvar =</span> <span class="st">&quot;wellbeing&quot;</span>, <span class="dt">mvar =</span> <span class="st">&quot;time&quot;</span>, <span class="dt">phase.names =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="managing-single-case-data.html#cb21-1"></a>dat &lt;-<span class="st"> </span><span class="kw">readSC.excel</span>(<span class="st">&quot;example2.xlsx&quot;</span>,<span class="dt">cvar =</span> <span class="st">&quot;name&quot;</span>, <span class="dt">pvar =</span> <span class="st">&quot;intervention&quot;</span>, <span class="dt">dvar =</span> <span class="st">&quot;wellbeing&quot;</span>, <span class="dt">mvar =</span> <span class="st">&quot;time&quot;</span>, <span class="dt">phase.names =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>))</span></code></pre></div>
 <pre><code>## Imported 20 cases.</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">summary</span>(dat)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="managing-single-case-data.html#cb23-1"></a><span class="kw">summary</span>(dat)</span></code></pre></div>
 <pre><code>## #A single-case data frame with 20 cases
 ## 
 ##          Measurements Design
@@ -441,8 +443,8 @@ You could also reassign the phase names within the phase variable by setting the
 <div id="displaying-and-manipulating-scdf-files" class="section level2">
 <h2><span class="header-section-number">3.5</span> Displaying and manipulating scdf-files</h2>
 <p><em>scdf</em> are displayed by just typing the name of the object.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="co">#Beretvas2008 is an example scdf included in scan</span></a>
-<a class="sourceLine" id="cb25-2" title="2">Beretvas2008</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="managing-single-case-data.html#cb25-1"></a><span class="co">#Beretvas2008 is an example scdf included in scan</span></span>
+<span id="cb25-2"><a href="managing-single-case-data.html#cb25-2"></a>Beretvas2008</span></code></pre></div>
 <pre><code>## #A single-case data frame with one case
 ## 
 ##  Case1: values mt phase
@@ -462,8 +464,8 @@ You could also reassign the phase names within the phase variable by setting the
 ##           12.7 14     B
 ##             14 15     B</code></pre>
 <p>The <code>print</code> command allows for specifying the output. Some possible arguments are <code>cases</code> (the number of cases to be displayed; Three by default), <code>rows</code> (the maximum number of rows to be displayed; Fifteen by default), and <code>digits</code> (number of digits). <code>cases = 'all'</code> and <code>rows = 'all'</code> prints all cases and rows.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co">#Huber2014 is an example scdf included in scan</span></a>
-<a class="sourceLine" id="cb27-2" title="2"><span class="kw">print</span>(Huber2014, <span class="dt">cases =</span> <span class="dv">2</span>, <span class="dt">rows =</span> <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="managing-single-case-data.html#cb27-1"></a><span class="co">#Huber2014 is an example scdf included in scan</span></span>
+<span id="cb27-2"><a href="managing-single-case-data.html#cb27-2"></a><span class="kw">print</span>(Huber2014, <span class="dt">cases =</span> <span class="dv">2</span>, <span class="dt">rows =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## #A single-case data frame with 4 cases
 ## 
 ##  Adam: mt compliance phase | Berta: mt compliance phase |
@@ -481,7 +483,7 @@ You could also reassign the phase names within the phase variable by setting the
 ## #  2 more cases</code></pre>
 <p>The argument <code>long = TRUE</code> prints each case one after the other instead side by side (e.g., <code>print(exampleAB, long = TRUE)</code>).</p>
 <p><code>summary()</code> gives a very concise overview of the <em>scdf</em></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">summary</span>(Huber2014)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="managing-single-case-data.html#cb29-1"></a><span class="kw">summary</span>(Huber2014)</span></code></pre></div>
 <pre><code>## #A single-case data frame with 4 cases
 ## 
 ##           Measurements Design
@@ -499,12 +501,12 @@ You could also reassign the phase names within the phase variable by setting the
 ## Note:  Behavioral data (compliance in percent).
 ## Author of data:  Christian Huber</code></pre>
 <p>You can extract one or more single-cases from an <em>scdf</em> with multiple cases in two ways. If the case has a name, you can address it with the <code>$</code> operator.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">Huber2014<span class="op">$</span>David</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="managing-single-case-data.html#cb31-1"></a>Huber2014<span class="op">$</span>David</span></code></pre></div>
 <p>or you can use squared brackets</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">Huber2014[<span class="dv">1</span>] <span class="co">#extracts case 1</span></a>
-<a class="sourceLine" id="cb32-2" title="2">Huber2014[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co">#extracts cases 2 and 3</span></a></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">new.huber2014 &lt;-<span class="st"> </span>Huber2014[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>)] <span class="co">#extracts cases 1 and 4</span></a>
-<a class="sourceLine" id="cb33-2" title="2"><span class="kw">print</span>(new.huber2014)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="managing-single-case-data.html#cb32-1"></a>Huber2014[<span class="dv">1</span>] <span class="co">#extracts case 1</span></span>
+<span id="cb32-2"><a href="managing-single-case-data.html#cb32-2"></a>Huber2014[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>] <span class="co">#extracts cases 2 and 3</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="managing-single-case-data.html#cb33-1"></a>new.huber2014 &lt;-<span class="st"> </span>Huber2014[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>)] <span class="co">#extracts cases 1 and 4</span></span>
+<span id="cb33-2"><a href="managing-single-case-data.html#cb33-2"></a><span class="kw">print</span>(new.huber2014)</span></code></pre></div>
 <pre><code>## #A single-case data frame with 2 cases
 ## 
 ##  Adam: mt compliance phase | David: mt compliance phase |

@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-06" />
+<meta name="date" content="2019-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,9 +60,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -71,14 +71,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +89,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -230,17 +232,17 @@ R can be used in at least two ways:</p>
 A <code>#</code> is followed by a comment to make your code more understandable. So, what follows a <code>#</code> is not interpreted by R.
 A vector is a chain of several values. With a vector you could describe the values of a measurement series. The <code>c</code> function is used to build a vector (e.g., <code>c(1, 2, 3, 4)</code>).
 If you like to see the content of a variable you could use the <code>print</code> function. <code>print(x)</code> will display the content of the variable <code>x</code>. A shortcut for this is just to type <code>x</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># x is assigned the value 10:</span></a>
-<a class="sourceLine" id="cb1-2" title="2">x &lt;-<span class="st"> </span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb1-3" title="3"></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="co"># See what&#39;s inside of x:</span></a>
-<a class="sourceLine" id="cb1-5" title="5">x</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="some-things-about-r.html#cb1-1"></a><span class="co"># x is assigned the value 10:</span></span>
+<span id="cb1-2"><a href="some-things-about-r.html#cb1-2"></a>x &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb1-3"><a href="some-things-about-r.html#cb1-3"></a></span>
+<span id="cb1-4"><a href="some-things-about-r.html#cb1-4"></a><span class="co"># See what&#39;s inside of x:</span></span>
+<span id="cb1-5"><a href="some-things-about-r.html#cb1-5"></a>x</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># x is assigned a vector with three values:</span></a>
-<a class="sourceLine" id="cb3-2" title="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">15</span>)</a>
-<a class="sourceLine" id="cb3-3" title="3"></a>
-<a class="sourceLine" id="cb3-4" title="4"><span class="co"># ... and display the content of x:</span></a>
-<a class="sourceLine" id="cb3-5" title="5">x</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="some-things-about-r.html#cb3-1"></a><span class="co"># x is assigned a vector with three values:</span></span>
+<span id="cb3-2"><a href="some-things-about-r.html#cb3-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">15</span>)</span>
+<span id="cb3-3"><a href="some-things-about-r.html#cb3-3"></a></span>
+<span id="cb3-4"><a href="some-things-about-r.html#cb3-4"></a><span class="co"># ... and display the content of x:</span></span>
+<span id="cb3-5"><a href="some-things-about-r.html#cb3-5"></a>x</span></code></pre></div>
 <pre><code>## [1] 10 11 15</code></pre>
 <p>Two important concepts in <strong>R</strong> are <em>functions</em> and <em>arguments</em>. A <em>function</em> is the name for a procedure that does something with the <em>arguments</em> that are provided by you.
 For example, the function <code>mean</code> calculated the mean. <code>mean</code> takes the argument <code>x</code> with is the vector (a series of values) from which it will calculate the mean.
@@ -248,17 +250,17 @@ For example, the function <code>mean</code> calculated the mean. <code>mean</cod
 Some <em>functions</em> can take several arguments. <code>mean</code> for example also takes the argument <code>trim</code>. For calculating a trimmed mean.
 <code>mean( x = c(1, 1, 3, 3, 5, 6, 7, 8, 9, 9), trim = 0.1)</code> will calculate the 10% trimmed mean of the provided values.
 The name of the first argument could be dropped. That is, <code>mean( c(1, 3, 5) )</code> will be interpreted by <strong>R</strong> as <code>mean( x = c(1, 3, 5) )</code>. You could also provide a variable to an argument.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw">mean</span>(<span class="dt">x =</span> values)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="some-things-about-r.html#cb5-1"></a>values &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>)</span>
+<span id="cb5-2"><a href="some-things-about-r.html#cb5-2"></a><span class="kw">mean</span>(<span class="dt">x =</span> values)</span></code></pre></div>
 <pre><code>## [1] 4.75</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># or shorter:</span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="kw">mean</span>(values)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="some-things-about-r.html#cb7-1"></a><span class="co"># or shorter:</span></span>
+<span id="cb7-2"><a href="some-things-about-r.html#cb7-2"></a><span class="kw">mean</span>(values)</span></code></pre></div>
 <pre><code>## [1] 4.75</code></pre>
 <p>The return value of a function can be assigned to a new variable instead:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb9-2" title="2">res &lt;-<span class="st"> </span><span class="kw">mean</span>(y)</a>
-<a class="sourceLine" id="cb9-3" title="3"><span class="co">#now res contains the mean of y:</span></a>
-<a class="sourceLine" id="cb9-4" title="4">res</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="some-things-about-r.html#cb9-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>)</span>
+<span id="cb9-2"><a href="some-things-about-r.html#cb9-2"></a>res &lt;-<span class="st"> </span><span class="kw">mean</span>(y)</span>
+<span id="cb9-3"><a href="some-things-about-r.html#cb9-3"></a><span class="co">#now res contains the mean of y:</span></span>
+<span id="cb9-4"><a href="some-things-about-r.html#cb9-4"></a>res</span></code></pre></div>
 <pre><code>## [1] 4.75</code></pre>
 <p>Every function in R has a help page written by the programmers. You can retrieve these pages with the <code>help</code> function or its short cut <code>?</code>. <code>help("mean")</code> will display the help page for the <code>mean</code> function. The quotation marks are necessary here because you do not provide a variable with the name <em>mean</em> but a word ‘mean’. The shortcut works <code>?mean</code>. A bit confusingly, you do not need the quotation marks here.</p>
 </div>
