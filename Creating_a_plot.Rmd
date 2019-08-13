@@ -1,9 +1,8 @@
 
 # Creating a single-case data plot
 
-Plotting the data is a first important approach of analyzing. After you build an *scdf* the `plot` command helps to visualize the data. When the `scdf` includes more than one case a multiple baseline figure is provided. Labels of the x- and y-axes can be changed with the `xlab` and `ylab` argument. The names of the phases can be changed with the `phase.names` argument. The x- and y-scaling of the graphs are by default calculated as the minimum and the maximum of all included single cases. The `xlim` and the `ylim` argument are used to set specific values. The argument takes a vector of two numbers. The first for the lower and the second for the upper limit of the scale. In case of multiple single cases an `NA` sets the individual minimum or maximum for each case. Assume for example the study contains three single cases `ylim = c(0, NA)` will set the lower limit for all three single cases to `0` and the upper limit individually at the maximum of each case.
-
-Table \@ref(tab:plotarguments) gives an overview of all available arguments.
+Plotting the data is a first important approach of analyzing. After you build an *scdf* the `plot` command helps to visualize the data. When the `scdf` includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. Table \@ref(tab:plotarguments) gives an overview of all available arguments.  
+Labels of the axes and for the phases can be changed with the `xlab`, `ylab`, and the `phase.names` arguments. The x- and y-scaling of the graphs are by default calculated as the minimum and the maximum of all included single cases. The `xlim` and the `ylim` argument are used to set specific values. The argument takes a vector of two numbers. The first for the lower and the second for the upper limit of the scale. In case of multiple single cases an `NA` sets the individual minimum or maximum for each case. Assume for example the study contains three single cases `ylim = c(0, NA)` will set the lower limit for all three single cases to `0` and the upper limit individually at the maximum of each case.
 
 ```{r plotarguments, echo = FALSE}
 
@@ -26,16 +25,17 @@ TABLE <- c(
 out <- data.frame(matrix(TABLE,ncol = 2, byrow = TRUE))
 colnames(out) <- c("Argument","What it does ...")
 
-CAPTION <- "Arguments of the plot function" 
+caption <- "Arguments of the plot function" 
 
+print_table(out, caption)
 #panderOptions("table.split.cells", 60)
 #set.alignment("left","left")
 #pander(out, caption = CAPTION, justify = "left", keep.line.breaks = TRUE)
-kable(out, caption = CAPTION, booktabs = TRUE) %>%
-  kable_styling(full_width = FALSE) %>%
-  kable_styling(latex_options = c("repeat_header")) %>%
-  column_spec(1, bold = TRUE) %>%
-  column_spec(2, width = "30em")
+# kable(out, caption = caption, booktabs = TRUE) %>%
+#   kable_styling(full_width = FALSE) %>%
+#   kable_styling(latex_options = c("repeat_header")) %>%
+#   column_spec(1, bold = TRUE) %>%
+#   column_spec(2, width = "30em")
 
 ```
 
@@ -61,13 +61,15 @@ TABLE <- c(
 out <- data.frame(matrix(TABLE,ncol = 2, byrow = TRUE))
 colnames(out) <- c("Value", "What it does ...")
 
-CAPTION <- "Values of the lines argument" 
+caption <- "Values of the lines argument" 
 
-kable(out, caption = CAPTION, booktabs = TRUE) %>%
-  kable_styling(full_width = F) %>%
-  kable_styling(latex_options = c("repeat_header")) %>%
-  column_spec(1, bold = T) %>%
-  column_spec(2, width = "30em")
+print_table(out, caption)
+
+# kable(out, caption = CAPTION, booktabs = TRUE) %>%
+#   kable_styling(full_width = F) %>%
+#   kable_styling(latex_options = c("repeat_header")) %>%
+#   column_spec(1, bold = T) %>%
+#   column_spec(2, width = "30em")
 
 #panderOptions("table.split.cells", 60)
 #set.alignment("left","left")
@@ -116,16 +118,17 @@ TABLE <- c(
   "...", "Further arguments passed to the plot command."
 )
 
-CAPTION <- "Arguments of the style plotSC function" 
+caption <- "Arguments of the style plotSC function" 
 
 out <- data.frame(matrix(TABLE, ncol = 2, byrow = TRUE))
 colnames(out) <- c("Argument", "What it does ...")
 
-kable(out, caption = CAPTION, booktabs = TRUE) %>%
-  kable_styling(full_width = FALSE) %>%
-  kable_styling(latex_options = c("repeat_header")) %>%
-  column_spec(1, bold = TRUE) %>%
-  column_spec(2, width = "30em")
+print_table(out, caption)
+# kable(out, caption = caption, booktabs = TRUE) %>%
+#   kable_styling(full_width = FALSE) %>%
+#   kable_styling(latex_options = c("repeat_header")) %>%
+#   column_spec(1, bold = TRUE) %>%
+#   column_spec(2, width = "30em")
 #panderOptions("table.split.cells", 60)
 #set.alignment("left","left")
 #pander(out, caption = CAPTION, justify = "left", keep.line.breaks = TRUE)

@@ -11,7 +11,8 @@ summary(Huber2014)
 `describeSC` is the basic command to get an overview on descriptive statistics. As an argument it only takes the name of the *scdf* object. For each case of the *scdf* and each phase within a case descriptive statistics are provided. The output table contains statistical indicators followed by a dot and the name of the phase (e.g., `n.A` for the number of measurements of phase A).
 
 ```{r echo = FALSE}
-TABLE <- c(
+out <- tribble(
+  ~"Parameter", ~"What it means ...",
   "n", "Number of measurements.",
   "mis", "Number of missing values.",
   "m", "Mean values.",
@@ -22,13 +23,15 @@ TABLE <- c(
   "trend", "Slope of a regression line through values by time."
 )
 
-out <- data.frame(matrix(TABLE, ncol = 2, byrow = TRUE))
-colnames(out) <- c("Parameter", "What it means ...")
-CAPTION <- "Statistics of the describeSC command" 
+#out <- data.frame(matrix(TABLE, ncol = 2, byrow = TRUE))
+#colnames(out) <- c("Parameter", "What it means ...")
+caption <- "Statistics of the describeSC command" 
 
-panderOptions("table.split.cells", 60)
-set.alignment("left","left")
-pander(out, caption = CAPTION, justify = "left", keep.line.breaks = TRUE)
+print_table(out, caption)
+
+#panderOptions("table.split.cells", 60)
+#set.alignment("left","left")
+#pander(out, caption = caption, justify = "left", keep.line.breaks = TRUE)
 
 ```
 

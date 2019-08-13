@@ -58,7 +58,8 @@ ARG <- c("B.start","phase.design","name","dvar","pvar","mvar", "...")
 WHAT <- c("The first measurement of phase B (simple coding if design is strictly AB).","A vector defining the length and label of each phase.","A name for the case.","The name of the dependent variable. By default this is 'values'.","The name of the variable containing the phase information. By default this is 'phase'.","The name of the variable with the measurement-time. The default is 'mt'.", "Any number of variables with a vector asigned to them.")
 
 data.frame(Argument = ARG, "What it does ..." = WHAT, check.names = FALSE) %>%
-  kable(caption = "Arguments of the scdf function", booktabs = TRUE) 
+  print_table("Arguments of the scdf function")
+  #kable(caption = "Arguments of the scdf function", booktabs = TRUE) 
 ```
 
 If you want to create a data-set comprising several single-cases the easiest way is to first create an scdf for each case and then join them into a new scdf with the `c` command:
