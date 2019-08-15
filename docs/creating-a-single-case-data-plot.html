@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-13" />
+<meta name="date" content="2019-08-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -142,7 +142,9 @@ Analyzing single-case data with R and scan
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a><ul>
 <li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
 <li class="chapter" data-level="2.2" data-path="some-things-about-r.html"><a href="some-things-about-r.html#installing-the-scan-package"><i class="fa fa-check"></i><b>2.2</b> Installing the <em>scan</em> package</a></li>
@@ -470,15 +472,15 @@ Line colour, e.g., <code>col = 'red'</code>.
 </tbody>
 </table>
 <p>Specific data points can be highlighted using the <code>marks</code> argument. A <code>list</code> defines the measurement times to be marked, the marking color and the size of the marking. <code>marks = list(position = c(1,5,6))</code> marks the first, fifth, and sixth measurement time. If the <em>scdf</em> contains more than one data-set marking would be the same for all data sets in this example. In case you define a <code>list</code> Containing vectors, marking can be individually defined for each data set. Assume, for example, we have an <em>scdf</em> comprising three data sets, then <code>marks = list(position = list(c(1,2), c(3,4), c(5,6)))</code> will highlight measurement times one and two for the first data set, three and four for the second and five and six for the third. <code>pch</code>, <code>col</code> and <code>cex</code> define symbol, colour and size of the markings.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="creating-a-single-case-data-plot.html#cb35-1"></a><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span></span>
-<span id="cb35-2"><a href="creating-a-single-case-data-plot.html#cb35-2"></a><span class="co"># size. exampleAB is an example scdf included in the scan package</span></span>
-<span id="cb35-3"><a href="creating-a-single-case-data-plot.html#cb35-3"></a>marks &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb35-4"><a href="creating-a-single-case-data-plot.html#cb35-4"></a>  <span class="dt">positions =</span> <span class="kw">list</span>( <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">9</span>), <span class="kw">c</span>(<span class="dv">17</span>, <span class="dv">19</span>), <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">18</span>) ), </span>
-<span id="cb35-5"><a href="creating-a-single-case-data-plot.html#cb35-5"></a>  <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">cex =</span> <span class="fl">2.5</span>, <span class="dt">pch =</span> <span class="dv">1</span></span>
-<span id="cb35-6"><a href="creating-a-single-case-data-plot.html#cb35-6"></a>)</span>
-<span id="cb35-7"><a href="creating-a-single-case-data-plot.html#cb35-7"></a><span class="kw">plot</span>(exampleAB, <span class="dt">marks =</span> marks, <span class="dt">style =</span> <span class="st">&quot;sienna&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-18"></span>
-<img src="scan-book_files/figure-html/unnamed-chunk-18-1.png" alt="Example of a plot with highlighted data-points" width="576" />
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="creating-a-single-case-data-plot.html#cb45-1"></a><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span></span>
+<span id="cb45-2"><a href="creating-a-single-case-data-plot.html#cb45-2"></a><span class="co"># size. exampleAB is an example scdf included in the scan package</span></span>
+<span id="cb45-3"><a href="creating-a-single-case-data-plot.html#cb45-3"></a>marks &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb45-4"><a href="creating-a-single-case-data-plot.html#cb45-4"></a>  <span class="dt">positions =</span> <span class="kw">list</span>( <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">9</span>), <span class="kw">c</span>(<span class="dv">17</span>, <span class="dv">19</span>), <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">18</span>) ), </span>
+<span id="cb45-5"><a href="creating-a-single-case-data-plot.html#cb45-5"></a>  <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">cex =</span> <span class="fl">2.5</span>, <span class="dt">pch =</span> <span class="dv">1</span></span>
+<span id="cb45-6"><a href="creating-a-single-case-data-plot.html#cb45-6"></a>)</span>
+<span id="cb45-7"><a href="creating-a-single-case-data-plot.html#cb45-7"></a><span class="kw">plot</span>(exampleAB, <span class="dt">marks =</span> marks, <span class="dt">style =</span> <span class="st">&quot;sienna&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-27"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-27-1.png" alt="Example of a plot with highlighted data-points" width="576" />
 <p class="caption">
 Figure 4.1: Example of a plot with highlighted data-points
 </p>
@@ -636,11 +638,11 @@ Figure 4.2: Some of the possible symbols and their pch values.
 </p>
 </div>
 <p>Here is an example customizing a plot with several additional graphic parameters</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="creating-a-single-case-data-plot.html#cb36-1"></a>newstyle &lt;-<span class="st"> </span><span class="kw">style_plotSC</span>(<span class="dt">fill =</span> <span class="st">&quot;grey95&quot;</span>, <span class="dt">grid =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</span>
-<span id="cb36-2"><a href="creating-a-single-case-data-plot.html#cb36-2"></a></span>
-<span id="cb36-3"><a href="creating-a-single-case-data-plot.html#cb36-3"></a><span class="kw">plot</span>(exampleABAB, <span class="dt">style =</span> newstyle)</span></code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-19"></span>
-<img src="scan-book_files/figure-html/unnamed-chunk-19-1.png" alt="A plot with a customized style." width="576" />
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="creating-a-single-case-data-plot.html#cb46-1"></a>newstyle &lt;-<span class="st"> </span><span class="kw">style_plotSC</span>(<span class="dt">fill =</span> <span class="st">&quot;grey95&quot;</span>, <span class="dt">grid =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb46-2"><a href="creating-a-single-case-data-plot.html#cb46-2"></a></span>
+<span id="cb46-3"><a href="creating-a-single-case-data-plot.html#cb46-3"></a><span class="kw">plot</span>(exampleABAB, <span class="dt">style =</span> newstyle)</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-28"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-28-1.png" alt="A plot with a customized style." width="576" />
 <p class="caption">
 Figure 4.3: A plot with a customized style.
 </p>

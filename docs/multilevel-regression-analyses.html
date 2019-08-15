@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-13" />
+<meta name="date" content="2019-08-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -142,7 +142,9 @@ Analyzing single-case data with R and scan
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a><ul>
 <li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
 <li class="chapter" data-level="2.2" data-path="some-things-about-r.html"><a href="some-things-about-r.html#installing-the-scan-package"><i class="fa fa-check"></i><b>2.2</b> Installing the <em>scan</em> package</a></li>
@@ -224,7 +226,7 @@ Published with bookdown
 </ul>
 <p>The basic function for applying a multilevel piecewise regression analysis is <code>hplm</code>. The <code>hplm</code> function is similar to the <code>plm</code> function, so I recommend that you get familar with <code>plm</code> before applying an <code>hplm</code>.</p>
 <p>Here is a simple example:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="multilevel-regression-analyses.html#cb89-1"></a><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="multilevel-regression-analyses.html#cb99-1"></a><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>)</span></code></pre></div>
 <pre><code>## Hierarchical Piecewise Linear Regression
 ## 
 ## Estimation method ML 
@@ -247,7 +249,7 @@ Published with bookdown
 ## Intercept      8.179
 ## Residual       5.335</code></pre>
 <p>Here is an example inlcuding random slopes:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="multilevel-regression-analyses.html#cb91-1"></a><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="multilevel-regression-analyses.html#cb101-1"></a><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>## Hierarchical Piecewise Linear Regression
 ## 
 ## Estimation method ML 
@@ -277,12 +279,12 @@ Published with bookdown
 <p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze.
 This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects.
 To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="multilevel-regression-analyses.html#cb93-1"></a>L2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
-<span id="cb93-2"><a href="multilevel-regression-analyses.html#cb93-2"></a>  <span class="dt">case =</span> <span class="kw">c</span>(<span class="st">&quot;Antonia&quot;</span>,<span class="st">&quot;Theresa&quot;</span>, <span class="st">&quot;Charlotte&quot;</span>, <span class="st">&quot;Luis&quot;</span>, <span class="st">&quot;Bennett&quot;</span>, <span class="st">&quot;Marie&quot;</span>), </span>
-<span id="cb93-3"><a href="multilevel-regression-analyses.html#cb93-3"></a>  <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">14</span>), </span>
-<span id="cb93-4"><a href="multilevel-regression-analyses.html#cb93-4"></a>  <span class="dt">sex =</span> <span class="kw">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;f&quot;</span>)</span>
-<span id="cb93-5"><a href="multilevel-regression-analyses.html#cb93-5"></a>)</span>
-<span id="cb93-6"><a href="multilevel-regression-analyses.html#cb93-6"></a>L2</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="multilevel-regression-analyses.html#cb103-1"></a>L2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb103-2"><a href="multilevel-regression-analyses.html#cb103-2"></a>  <span class="dt">case =</span> <span class="kw">c</span>(<span class="st">&quot;Antonia&quot;</span>,<span class="st">&quot;Theresa&quot;</span>, <span class="st">&quot;Charlotte&quot;</span>, <span class="st">&quot;Luis&quot;</span>, <span class="st">&quot;Bennett&quot;</span>, <span class="st">&quot;Marie&quot;</span>), </span>
+<span id="cb103-3"><a href="multilevel-regression-analyses.html#cb103-3"></a>  <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">14</span>), </span>
+<span id="cb103-4"><a href="multilevel-regression-analyses.html#cb103-4"></a>  <span class="dt">sex =</span> <span class="kw">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;f&quot;</span>)</span>
+<span id="cb103-5"><a href="multilevel-regression-analyses.html#cb103-5"></a>)</span>
+<span id="cb103-6"><a href="multilevel-regression-analyses.html#cb103-6"></a>L2</span></code></pre></div>
 <pre><code>##        case age sex
 ## 1   Antonia  16   f
 ## 2   Theresa  13   f
@@ -422,7 +424,7 @@ m
 </tbody>
 </table>
 <p>Analyzing the data with <code>hplm</code> could look like this:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="multilevel-regression-analyses.html#cb95-1"></a><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">update.fixed =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="multilevel-regression-analyses.html#cb105-1"></a><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">update.fixed =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>age)</span></code></pre></div>
 <pre><code>## Hierarchical Piecewise Linear Regression
 ## 
 ## Estimation method ML 
@@ -447,7 +449,7 @@ m
 ## Intercept      7.975
 ## Residual       5.335</code></pre>
 <p><code>sex</code> is a factor with the levels <code>f</code> and <code>m</code>. So <code>sexm</code> is the effect of being male on the overall performance. <code>age</code> does not seem to have any effect. So we drop <code>age</code> out of the equation and add an interaction of sex and phase to see whether the <code>sex</code> effect is due to a weaker impact of the intervention on males.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="multilevel-regression-analyses.html#cb97-1"></a><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">update.fixed =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>sex<span class="op">:</span>phaseB)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="multilevel-regression-analyses.html#cb107-1"></a><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">update.fixed =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>sex <span class="op">+</span><span class="st"> </span>sex<span class="op">:</span>phaseB)</span></code></pre></div>
 <pre><code>## Hierarchical Piecewise Linear Regression
 ## 
 ## Estimation method ML 

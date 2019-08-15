@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-13" />
+<meta name="date" content="2019-08-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -142,7 +142,9 @@ Analyzing single-case data with R and scan
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a><ul>
 <li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
 <li class="chapter" data-level="2.2" data-path="some-things-about-r.html"><a href="some-things-about-r.html#installing-the-scan-package"><i class="fa fa-check"></i><b>2.2</b> Installing the <em>scan</em> package</a></li>
@@ -229,7 +231,7 @@ In <code>RStudio</code></p>
 <p>[xxx to be continued!]</p>
 <div id="single-case-data-files" class="section level2">
 <h2><span class="header-section-number">10.1</span> Single case data files</h2>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="exporting-scan-results.html#cb101-1"></a><span class="kw">export</span>(exampleA1B1A2B2_zvt, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="exporting-scan-results.html#cb111-1"></a><span class="kw">export</span>(exampleA1B1A2B2_zvt, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -750,8 +752,8 @@ B2
 </div>
 <div id="descriptive-stats" class="section level2">
 <h2><span class="header-section-number">10.2</span> Descriptive stats</h2>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exporting-scan-results.html#cb102-1"></a>res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(GruenkeWilbert2014)</span>
-<span id="cb102-2"><a href="exporting-scan-results.html#cb102-2"></a><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="exporting-scan-results.html#cb112-1"></a>res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(GruenkeWilbert2014)</span>
+<span id="cb112-2"><a href="exporting-scan-results.html#cb112-2"></a><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 Descriptive statistics.
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1224,8 +1226,8 @@ Tim
 </div>
 <div id="overlap-indices" class="section level2">
 <h2><span class="header-section-number">10.3</span> Overlap indices</h2>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="exporting-scan-results.html#cb103-1"></a>res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(exampleA1B1A2B2_zvt, <span class="dt">phases =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)))</span>
-<span id="cb103-2"><a href="exporting-scan-results.html#cb103-2"></a><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="exporting-scan-results.html#cb113-1"></a>res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(exampleA1B1A2B2_zvt, <span class="dt">phases =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)))</span>
+<span id="cb113-2"><a href="exporting-scan-results.html#cb113-2"></a><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <i>Overlap indices.Comparing phases A1 + A2 against phases B1 + B2.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1405,8 +1407,8 @@ PAND = Percentage all nonoverlapping data;Tau U = Parker’s Tau-U; Base Tau = B
 </div>
 <div id="piecewise-linear-models" class="section level2">
 <h2><span class="header-section-number">10.4</span> Piecewise linear models</h2>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="exporting-scan-results.html#cb104-1"></a>res &lt;-<span class="st"> </span><span class="kw">plm</span>(exampleA1B1A2B2<span class="op">$</span>Pawel)</span>
-<span id="cb104-2"><a href="exporting-scan-results.html#cb104-2"></a><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="exporting-scan-results.html#cb114-1"></a>res &lt;-<span class="st"> </span><span class="kw">plm</span>(exampleA1B1A2B2<span class="op">$</span>Pawel)</span>
+<span id="cb114-2"><a href="exporting-scan-results.html#cb114-2"></a><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <i>Piecewise-regression model for variable ’’.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1673,8 +1675,8 @@ Slope phase B2
 </div>
 <div id="hierarchical-piecewise-regressions" class="section level2">
 <h2><span class="header-section-number">10.5</span> Hierarchical piecewise regressions</h2>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="exporting-scan-results.html#cb105-1"></a>res &lt;-<span class="st"> </span><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">lr.test =</span> <span class="ot">TRUE</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb105-2"><a href="exporting-scan-results.html#cb105-2"></a><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="exporting-scan-results.html#cb115-1"></a>res &lt;-<span class="st"> </span><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">lr.test =</span> <span class="ot">TRUE</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb115-2"><a href="exporting-scan-results.html#cb115-2"></a><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 Hierarchical Piecewise Linear Regression for variable ’’.
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>

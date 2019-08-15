@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-13" />
+<meta name="date" content="2019-08-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -142,7 +142,9 @@ Analyzing single-case data with R and scan
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
 <li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a><ul>
 <li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
 <li class="chapter" data-level="2.2" data-path="some-things-about-r.html"><a href="some-things-about-r.html#installing-the-scan-package"><i class="fa fa-check"></i><b>2.2</b> Installing the <em>scan</em> package</a></li>
@@ -230,7 +232,7 @@ A general model for single-case data based on the piecewise regression approach 
 <div id="the-basic-plm-function" class="section level2">
 <h2><span class="header-section-number">7.1</span> The basic plm function</h2>
 <p>The basic function for applying a regression analyzes to a single-case dataset is <code>plm</code>. This function analyzes one single-case. In its simplest way, <code>plm</code> takes one argument with an <em>scdf</em> object and it returns a full piecewise regression analyzes.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="piecewise-linear-regressions.html#cb77-1"></a><span class="kw">plm</span>(exampleAB<span class="op">$</span>Johanna)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="piecewise-linear-regressions.html#cb87-1"></a><span class="kw">plm</span>(exampleAB<span class="op">$</span>Johanna)</span></code></pre></div>
 <pre><code>## Piecewise Regression Analysis
 ## 
 ## Dummy model:  B&amp;L-B 
@@ -861,7 +863,7 @@ B
 </div>
 <div id="different-modells" class="section level2">
 <h2><span class="header-section-number">7.2</span> Different modells</h2>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="piecewise-linear-regressions.html#cb79-1"></a><span class="kw">plm</span>(exampleAB<span class="op">$</span>Karolina)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="piecewise-linear-regressions.html#cb89-1"></a><span class="kw">plm</span>(exampleAB<span class="op">$</span>Karolina)</span></code></pre></div>
 <pre><code>## Piecewise Regression Analysis
 ## 
 ## Dummy model:  B&amp;L-B 
@@ -883,7 +885,7 @@ B
 ## 
 ## Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 <p>The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. There are several ways to do this. The easiest way is the to unset the <code>slope</code> argument: <code>slope = FALSE</code>.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="piecewise-linear-regressions.html#cb81-1"></a><span class="kw">plm</span>(exampleAB<span class="op">$</span>Karolina, <span class="dt">slope =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="piecewise-linear-regressions.html#cb91-1"></a><span class="kw">plm</span>(exampleAB<span class="op">$</span>Karolina, <span class="dt">slope =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <pre><code>## Piecewise Regression Analysis
 ## 
 ## Dummy model:  B&amp;L-B 
@@ -907,7 +909,7 @@ B
 </div>
 <div id="modelling-autoregression" class="section level2">
 <h2><span class="header-section-number">7.3</span> Modelling autoregression</h2>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="piecewise-linear-regressions.html#cb83-1"></a><span class="kw">autocorrSC</span>(Grosche2011)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="piecewise-linear-regressions.html#cb93-1"></a><span class="kw">autocorrSC</span>(Grosche2011)</span></code></pre></div>
 <pre><code>## Autocorrelations
 ## 
 ##   case phase lag_1 lag_2 lag_3
@@ -925,7 +927,7 @@ B
 <h2><span class="header-section-number">7.4</span> Adding additional predictors</h2>
 <p>In more complex analyses additional predictors can be included in the piecewise regression model.</p>
 <p>To do this, we have to change the regression formula ‘manually’ by applying the <code>update</code> argument. The <code>update</code> argument allows to change the underlying regression formula. To add a new variable named for example <code>newVar</code>, set <code>update = .~. + newVar</code>. The <code>.~.</code> part takes the internally build formula and <code>+ newVar</code> adds a variable named <code>newVar</code> to the equation.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="piecewise-linear-regressions.html#cb85-1"></a>exampleAB_add</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="piecewise-linear-regressions.html#cb95-1"></a>exampleAB_add</span></code></pre></div>
 <pre><code>## #A single-case data frame with one case
 ## 
 ##  Rolf: day wellbeing cigarrets depression phase
@@ -945,7 +947,7 @@ B
 ##         14        52         5          6  Base
 ##         15        55         5          3  Base
 ## # ... up to 25 more rows</code></pre>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="piecewise-linear-regressions.html#cb87-1"></a><span class="kw">plm</span>(exampleAB_add, <span class="dt">update =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>cigarrets)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="piecewise-linear-regressions.html#cb97-1"></a><span class="kw">plm</span>(exampleAB_add, <span class="dt">update =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>cigarrets)</span></code></pre></div>
 <pre><code>## Piecewise Regression Analysis
 ## 
 ## Dummy model:  B&amp;L-B 
