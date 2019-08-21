@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-16" />
+<meta name="date" content="2019-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,9 +60,9 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -71,16 +71,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -89,9 +87,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -233,7 +231,7 @@ In <code>RStudio</code></p>
 <p>[xxx to be continued!]</p>
 <div id="single-case-data-files" class="section level2">
 <h2><span class="header-section-number">10.1</span> Single case data files</h2>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="exporting-scan-results.html#cb111-1"></a><span class="kw">export</span>(exampleA1B1A2B2_zvt, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1"><span class="kw">export</span>(exampleA1B1A2B2_zvt, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -754,8 +752,8 @@ B2
 </div>
 <div id="descriptive-stats" class="section level2">
 <h2><span class="header-section-number">10.2</span> Descriptive stats</h2>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="exporting-scan-results.html#cb112-1"></a>res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(GruenkeWilbert2014)</span>
-<span id="cb112-2"><a href="exporting-scan-results.html#cb112-2"></a><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1">res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(GruenkeWilbert2014)</a>
+<a class="sourceLine" id="cb112-2" title="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 Descriptive statistics.
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1228,8 +1226,8 @@ Tim
 </div>
 <div id="overlap-indices" class="section level2">
 <h2><span class="header-section-number">10.3</span> Overlap indices</h2>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="exporting-scan-results.html#cb113-1"></a>res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(exampleA1B1A2B2_zvt, <span class="dt">phases =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)))</span>
-<span id="cb113-2"><a href="exporting-scan-results.html#cb113-2"></a><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1">res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(exampleA1B1A2B2_zvt, <span class="dt">phases =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)))</a>
+<a class="sourceLine" id="cb113-2" title="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <i>Overlap indices.Comparing phases A1 + A2 against phases B1 + B2.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1409,8 +1407,8 @@ PAND = Percentage all nonoverlapping data;Tau U = Parker’s Tau-U; Base Tau = B
 </div>
 <div id="piecewise-linear-models" class="section level2">
 <h2><span class="header-section-number">10.4</span> Piecewise linear models</h2>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="exporting-scan-results.html#cb114-1"></a>res &lt;-<span class="st"> </span><span class="kw">plm</span>(exampleA1B1A2B2<span class="op">$</span>Pawel)</span>
-<span id="cb114-2"><a href="exporting-scan-results.html#cb114-2"></a><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1">res &lt;-<span class="st"> </span><span class="kw">plm</span>(exampleA1B1A2B2<span class="op">$</span>Pawel)</a>
+<a class="sourceLine" id="cb114-2" title="2"><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <i>Piecewise-regression model for variable ’’.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1677,8 +1675,8 @@ Slope phase B2
 </div>
 <div id="hierarchical-piecewise-regressions" class="section level2">
 <h2><span class="header-section-number">10.5</span> Hierarchical piecewise regressions</h2>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="exporting-scan-results.html#cb115-1"></a>res &lt;-<span class="st"> </span><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">lr.test =</span> <span class="ot">TRUE</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb115-2"><a href="exporting-scan-results.html#cb115-2"></a><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1">res &lt;-<span class="st"> </span><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">lr.test =</span> <span class="ot">TRUE</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb115-2" title="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 Hierarchical Piecewise Linear Regression for variable ’’.
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>

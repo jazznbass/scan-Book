@@ -7,9 +7,9 @@ Despite its usefulness, standards on how to conduct single-case studies, how to 
 
 Before I go into the details on how `scan` exactly works, I like to provide an example of what you can do with `scan`. It is meant to be a teaser to get you motivated to tackle the steep learning curve associated with the use of `R` (but there is a land of milk and honey behind this curve!). So, don't mind if you do not understand every detail of this example, it will all be explained and obvious to you once you get familiar with `scan`.
 
-Let us set a fictional context. Let us assume you are researching on a method to foster calculation abilities of struggling fourth grade students. You developed an intervention program named *KUNO*. In a pilot study you like to get some evidence on the effectiveness of that new method and you set up a multi-baseline single-case study comprising three students that take part in the *KUNO* program across a period of ten weeks. Throughout that course you regularly measured the calculation abilities of each student 20 times with a reliable test. You also implemented a follow up after eight weeks with additional five measures. The calculation test gives you the number of correctly solved calculation tasks within ten minutes.  
-Now, I invent some data for this fictitious *KUNO* study, as it would be to laborious to conduct a real study and actually, to evolve a real intervention method.  
-We use the `scan` package to code the data. Each case consists of 25 measurements. We have three phases: pre intervention (A), during the intervention (B), and follow-up (C). Phases A and B have variable length (6, 7, 9). The cases are given three fictional names. And are combined into a single object called `study`.  
+Let us set a fictional context. Let us assume you are researching on a method to foster the calculation abilities of struggling fourth grade students. You developed an intervention program named *KUNO*. In a pilot study you like to get some evidence on the effectiveness of that new method and you set up a multi-baseline single-case study comprising three students that take part in the *KUNO* program across a period of ten weeks. Throughout that course you regularly measured the calculation abilities of each student 20 times with a reliable test. You also implemented a follow up after eight weeks with additional five measures. The calculation test gives you the number of correctly solved calculation tasks within ten minutes.  
+Now, I invent some data for this fictitious *KUNO* study as it would be to laborious to conduct a real study and actually to evolve a real intervention method.  
+We use the `scan` package to code the data. Each case consists of 25 measurements. We have three phases: pre intervention (A), during the intervention (B), and follow-up (C). Phases A and B have variable length (6, 7, 9). The cases are given three fictional names. And are combined into a single object called `strange_study`.  
 
 
 ```{r}
@@ -34,21 +34,21 @@ case3 <- scdf(
   name = "Will"
 )
 
-study <- c(case1, case2, case3)
+strange_study <- c(case1, case2, case3)
 
 ```
 
 Now we visualize the casese:
 
 ```{r fig.width=4}
-plot(study)
+plot(strange_study)
 ```
 
 and we tweak the figure a bit:
 
 ```{r fig.width=5}
 plot(
-  study,
+  strange_study,
   xlab = "correct",
   phase.names = c("Baseline", "Intervention", "Follow-up"),
   style = "chart",
@@ -61,41 +61,41 @@ Now we lets have a table of the data:
 
 ```{r message=FALSE, warning=FALSE}
 
-export(study, kable_options = list(booktab = TRUE))
+export(strange_study, kable_options = list(booktab = TRUE))
 
 ```
 
 And we need descriptive statistics:
 
 ```{r message=FALSE, warning=FALSE}
-res <- describeSC(study)
+res <- describeSC(strange_study)
 export(res, flip = TRUE, kable_options = list(booktab = TRUE))
 ```
 
 Single-case data are oftentimes analyzed with overlap indeces. let us get an overview comparing phases A and B:
 
 ```{r message=FALSE, warning=FALSE}
-res <- overlapSC(study)
+res <- overlapSC(strange_study)
 export(res, flip = TRUE, kable_options = list(booktab = TRUE))
 ```
 
 How do the changes hold up against the follow-up? Let us compare phases A and C:
 
 ```{r message=FALSE, warning=FALSE}
-res <- overlapSC(study, phases = c("A", "C"))
+res <- overlapSC(strange_study, phases = c("A", "C"))
 export(res, flip = TRUE, kable_options = list(booktab = TRUE))
 ```
 
 Finally, we conduct regression analyses for each cases with a piecwise regression model:
 
 ```{r message=FALSE, warning=FALSE}
-res <- plm(study$Dustin)
+res <- plm(strange_study$Dustin)
 export(res, kable_options = list(booktab = TRUE))
 
-res <- plm(study$Mike)
+res <- plm(strange_study$Mike)
 export(res, kable_options = list(booktab = TRUE))
 
-res <- plm(study$Will)
+res <- plm(strange_study$Will)
 export(res, kable_options = list(booktab = TRUE))
 ```
 

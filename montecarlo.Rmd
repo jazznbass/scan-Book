@@ -1,0 +1,83 @@
+# Monte-Carlo Studies with *scan*
+
+*scan* provides a set of functions that allow to design and conduct monte carlo studies on single-cases. Monte Carlo studies can be useful for computing standard errors, estimating type I and type II errors of specific analyzing approaches, or calculating the test power (a priori or post-hoc).
+
+## Set up a single-case design
+
+```{r}
+
+design <- design_rSC(
+  n = 50, 
+  phase.design = list(A = 10, B = 15, C = 10),
+  trend = 0.01, 
+  level = list(A = 0, B = 0.4, C = 0), 
+  slope = list(A = 0, B = 0.02, C = 0),
+  rtt = 0.8, 
+  m = 50, 
+  s = 10
+)
+
+data <- rSC(
+  design,
+  round = 0,
+  random.names = TRUE,
+  seed = 1234
+)
+
+export(hplm(data, model = "JW"))
+
+```
+
+```{r Arguments_design_rSC, echo=FALSE}
+tab <- tribble(
+  ~Argument, ~"What it does ...",
+"n", "Number of cases to be created (Default is n = 1).",
+"phase.design", "A vector defining the length and label of each phase. E.g., phase.length = c(A1 = 10, B1 = 10, A2 = 10, B2 = 10).",
+"trend", "Defines the effect size d of a trend per MT added across the whole data-set. To assign different trends to several single-cases, use a vector of values (e.g. trend = c(.1, .3, .5)). If the number of cases exceeds the length of the vector, values are repeated. While using a binomial or poisson distribution, d.trend indicates an increase in points / counts per MT.",
+"level","Defines the level increase (effect size d) at the beginning of phase B. To assign different level effects to several single-cases, use a vector of values (e.g. level = c(.2, .4, .6)). If the number of cases exceeds the length of the vector, values are repeated. While using a binomial or poisson distribution, d.level indicates an increase in points / counts with the onset of the B-phase.",
+"slope", "Defines the increase in scores - starting with phase B - expressed as effect size d per measurement time. slope = .1 generates an incremental increase of 0.1 standard deviations per MT for all phase B measurements. To assign different slope effects to several single-cases, use a vector of values (e.g. slope = c(.1, .2, .3)). If the number of cases exceeds the length of the vector, values are repeated. While using a binomial or poisson distribution, d.slope indicates an increase in points / counts per MT.",
+"rtt", "Reliability of the underlying simulated measurements. Set rtt = .8 by default. To assign different reliabilities to several single-cases, use a vector of values (e.g. rtt = c(.6, .7, .8)). If the number of cases exceeds the length of the vector, values are repeated. rtt has no effect when you're using binomial or poisson distributed scores.",
+"m", "Mean of the sample distribution the scores are drawn from. Default is m = 50. To assign different means to several single-cases, use a vector of values (e.g. m = c(50, 42, 56)). If the number of cases exceeds the length of the vector, values are repeated.",
+"s", "Standard deviation of the sample distribution the scores are drawn from. Set to s = 10 by default. To assign different variances to several single-cases, use a vector of values (e.g. s = c(5, 10, 15)). If the number of cases exceeds the length of the vector, values are repeated.",
+"extreme.p", "Probability of extreme values. extreme.p = .05 gives a five percent probability of an extreme value. A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.",
+"extreme.d", "Range for extreme values, expressed as effect size d. extreme.d = c(-7,-6) uses extreme values within a range of -7 and -6 standard deviations. In case of a binomial or poisson distribution, extreme.d indicates points / counts. Caution: the first value must be smaller than the second, otherwise the procedure will fail.",
+"missing.p", "Portion of missing values. missing.p = 0.1 creates 10% of all values as missing). A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.",
+"distribution", "Distribution of the scores. Default is distribution = 'normal'. Possible values are 'normal', 'binomial', and 'poisson'. If set to 'normal', the sample of scores will be normally distributed with the parameters m and s as mean and standard deviation of the sample, including a measurement error defined by rtt. If set to 'binomial', data are drawn from a binomial distribution with the expectation value m. This setting is useful for generating criterial data like correct answers in a test. If set to 'poisson', data are drawn from a poisson distribution, which is very common for count-data like behavioral observations. There's no measurement error is included. m defines the expectation value of the poisson distribution, lambda.",
+"prob", "If distribution (see below) is set 'binomial', prob passes the probability of occurrence.",
+"MT", "Number of measurements (in each study). Default is MT = 20.",
+"B.start", "Phase B starting point. The default setting B.start = 6 would assign the first five scores (of each case) to phase A, and all following scores to phase B. To assign different starting points for a set of multiple single-cases, use a vector of starting values (e.g. B.start = c(6, 7, 8)). If the number of cases exceeds the length of the vector, values will be repeated."
+)
+
+print_table(tab, "Arguments of the design_rSC function")
+
+```
+
+
+```{r Arguments_rSC, echo=FALSE}
+tab <- tribble(
+  ~Argument, ~"What it does ...",
+  "design",	"A design matrix which is created by design_rSC and specifies all paramters.",
+"round", "Rounds the scores to the defined decimal. To round to the second decimal, set round = 2.",
+"random.names", "Is FALSE by default. If set random.names = TRUE cases are assigned random first names. If set 'male' or 'female' only male or female names are chosen. The names are drawn from the 2,000 most popular names for newborns in 2012 in the U.S. (1,000 male and 1,000 female names).",
+"seed", "A seed number for the random generator.",
+"...", "Paramteres that are directly passed from the rSC function to the design_rSC function for a more concise coding.",
+)
+
+print_table(tab, "Arguments of the rSC function")
+
+```
+
+## Create random cases
+
+## Extract a design
+
+```{r}
+design <- estimate_design(exampleABC)
+dat <- rSC(design, seed = 1234)
+names(dat) <- paste0("Est. ", names(exampleABC))
+study <- c(exampleABC, dat)
+plot(study, style = "tiny")
+```
+
+
+## Power analyses

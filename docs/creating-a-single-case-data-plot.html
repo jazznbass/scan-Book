@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-16" />
+<meta name="date" content="2019-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,9 +60,9 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -71,16 +71,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -89,9 +87,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -474,13 +472,13 @@ Line colour, e.g., <code>col = 'red'</code>.
 </tbody>
 </table>
 <p>Specific data points can be highlighted using the <code>marks</code> argument. A <code>list</code> defines the measurement times to be marked, the marking color and the size of the marking. <code>marks = list(position = c(1,5,6))</code> marks the first, fifth, and sixth measurement time. If the <em>scdf</em> contains more than one data-set marking would be the same for all data sets in this example. In case you define a <code>list</code> Containing vectors, marking can be individually defined for each data set. Assume, for example, we have an <em>scdf</em> comprising three data sets, then <code>marks = list(position = list(c(1,2), c(3,4), c(5,6)))</code> will highlight measurement times one and two for the first data set, three and four for the second and five and six for the third. <code>pch</code>, <code>col</code> and <code>cex</code> define symbol, colour and size of the markings.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="creating-a-single-case-data-plot.html#cb45-1"></a><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span></span>
-<span id="cb45-2"><a href="creating-a-single-case-data-plot.html#cb45-2"></a><span class="co"># size. exampleAB is an example scdf included in the scan package</span></span>
-<span id="cb45-3"><a href="creating-a-single-case-data-plot.html#cb45-3"></a>marks &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb45-4"><a href="creating-a-single-case-data-plot.html#cb45-4"></a>  <span class="dt">positions =</span> <span class="kw">list</span>( <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">9</span>), <span class="kw">c</span>(<span class="dv">17</span>, <span class="dv">19</span>), <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">18</span>) ), </span>
-<span id="cb45-5"><a href="creating-a-single-case-data-plot.html#cb45-5"></a>  <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">cex =</span> <span class="fl">2.5</span>, <span class="dt">pch =</span> <span class="dv">1</span></span>
-<span id="cb45-6"><a href="creating-a-single-case-data-plot.html#cb45-6"></a>)</span>
-<span id="cb45-7"><a href="creating-a-single-case-data-plot.html#cb45-7"></a><span class="kw">plot</span>(exampleAB, <span class="dt">marks =</span> marks, <span class="dt">style =</span> <span class="st">&quot;sienna&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span></a>
+<a class="sourceLine" id="cb45-2" title="2"><span class="co"># size. exampleAB is an example scdf included in the scan package</span></a>
+<a class="sourceLine" id="cb45-3" title="3">marks &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
+<a class="sourceLine" id="cb45-4" title="4">  <span class="dt">positions =</span> <span class="kw">list</span>( <span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">9</span>), <span class="kw">c</span>(<span class="dv">17</span>, <span class="dv">19</span>), <span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">18</span>) ), </a>
+<a class="sourceLine" id="cb45-5" title="5">  <span class="dt">col =</span> <span class="st">&#39;red&#39;</span>, <span class="dt">cex =</span> <span class="fl">2.5</span>, <span class="dt">pch =</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb45-6" title="6">)</a>
+<a class="sourceLine" id="cb45-7" title="7"><span class="kw">plot</span>(exampleAB, <span class="dt">marks =</span> marks, <span class="dt">style =</span> <span class="st">&quot;sienna&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-27"></span>
 <img src="scan-book_files/figure-html/unnamed-chunk-27-1.png" alt="Example of a plot with highlighted data-points" width="576" />
 <p class="caption">
@@ -640,9 +638,9 @@ Figure 4.2: Some of the possible symbols and their pch values.
 </p>
 </div>
 <p>Here is an example customizing a plot with several additional graphic parameters</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="creating-a-single-case-data-plot.html#cb46-1"></a>newstyle &lt;-<span class="st"> </span><span class="kw">style_plotSC</span>(<span class="dt">fill =</span> <span class="st">&quot;grey95&quot;</span>, <span class="dt">grid =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</span>
-<span id="cb46-2"><a href="creating-a-single-case-data-plot.html#cb46-2"></a></span>
-<span id="cb46-3"><a href="creating-a-single-case-data-plot.html#cb46-3"></a><span class="kw">plot</span>(exampleABAB, <span class="dt">style =</span> newstyle)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1">newstyle &lt;-<span class="st"> </span><span class="kw">style_plotSC</span>(<span class="dt">fill =</span> <span class="st">&quot;grey95&quot;</span>, <span class="dt">grid =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</a>
+<a class="sourceLine" id="cb46-2" title="2"></a>
+<a class="sourceLine" id="cb46-3" title="3"><span class="kw">plot</span>(exampleABAB, <span class="dt">style =</span> newstyle)</a></code></pre></div>
 <div class="figure"><span id="fig:unnamed-chunk-28"></span>
 <img src="scan-book_files/figure-html/unnamed-chunk-28-1.png" alt="A plot with a customized style." width="576" />
 <p class="caption">

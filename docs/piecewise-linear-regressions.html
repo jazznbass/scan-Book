@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-16" />
+<meta name="date" content="2019-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,9 +60,9 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -71,16 +71,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -89,9 +87,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -222,7 +220,7 @@ Published with bookdown
 <h1><span class="header-section-number">Chapter 7</span> Piecewise linear regressions</h1>
 <p>In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope.
 This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases.
-A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean <span class="citation">Huitema &amp; Mckean (<a href="#ref-huitema_design_2000" role="doc-biblioref">2000</a>)</span>. They refer to two phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention’s start and lasting throughout the intervention (B-phase). In this model, four factors predict the outcome at a specific measurement point: The performance at the beginning of the study, a developmental effect leading to a continuous increase throughout all measurements (trend effect), an intervention effect leading to an immediate and constant increase in performance (level effect), and a second intervention effect that evolves continuously with the beginning of the intervention (slope effect).
+A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean <span class="citation">Huitema &amp; Mckean (<a href="#ref-huitema_design_2000">2000</a>)</span>. They refer to two phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention’s start and lasting throughout the intervention (B-phase). In this model, four factors predict the outcome at a specific measurement point: The performance at the beginning of the study, a developmental effect leading to a continuous increase throughout all measurements (trend effect), an intervention effect leading to an immediate and constant increase in performance (level effect), and a second intervention effect that evolves continuously with the beginning of the intervention (slope effect).
 <em>scan</em> provides an implementation based of this piecewise regression approach. Though the original model is extended by several factors:</p>
 <ul>
 <li>multiple phase designs</li>
@@ -234,7 +232,7 @@ A general model for single-case data based on the piecewise regression approach 
 <div id="the-basic-plm-function" class="section level2">
 <h2><span class="header-section-number">7.1</span> The basic plm function</h2>
 <p>The basic function for applying a regression analyzes to a single-case dataset is <code>plm</code>. This function analyzes one single-case. In its simplest way, <code>plm</code> takes one argument with an <em>scdf</em> object and it returns a full piecewise regression analyzes.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="piecewise-linear-regressions.html#cb87-1"></a><span class="kw">plm</span>(exampleAB<span class="op">$</span>Johanna)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">plm</span>(exampleAB<span class="op">$</span>Johanna)</a></code></pre></div>
 <pre><code>## Piecewise Regression Analysis
 ## 
 ## Dummy model:  B&amp;L-B 
@@ -242,11 +240,11 @@ A general model for single-case data based on the piecewise regression approach 
 ## Fitted a gaussian distribution.
 ## F(3, 16) = 28.69; p = 0.000; R² = 0.843; Adjusted R² = 0.814
 ## 
-##                    B   2.5%  97.5%    SE      t     p    ΔR²
-## Intercept     54.300 43.978 64.622 5.267 10.310 0.000       
-## Trend mt       0.100 -3.012  3.212 1.588  0.063 0.951 0.0000
-## Level phase B  6.333 -2.979 15.646 4.751  1.333 0.201 0.0174
-## Slope phase B  1.525 -1.642  4.692 1.616  0.944 0.359 0.0087
+##                    B   2.5%  97.5%    SE      t     p &lt;U+0394&gt;R²
+## Intercept     54.300 43.978 64.622 5.267 10.310 0.000           
+## Trend mt       0.100 -3.012  3.212 1.588  0.063 0.951     0.0000
+## Level phase B  6.333 -2.979 15.646 4.751  1.333 0.201     0.0174
+## Slope phase B  1.525 -1.642  4.692 1.616  0.944 0.359     0.0087
 ## 
 ## Autocorrelations of the residuals
 ##  lag    cr
@@ -865,7 +863,7 @@ B
 </div>
 <div id="different-modells" class="section level2">
 <h2><span class="header-section-number">7.2</span> Different modells</h2>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="piecewise-linear-regressions.html#cb89-1"></a><span class="kw">plm</span>(exampleAB<span class="op">$</span>Karolina)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">plm</span>(exampleAB<span class="op">$</span>Karolina)</a></code></pre></div>
 <pre><code>## Piecewise Regression Analysis
 ## 
 ## Dummy model:  B&amp;L-B 
@@ -873,11 +871,11 @@ B
 ## Fitted a gaussian distribution.
 ## F(3, 16) = 33.73; p = 0.000; R² = 0.863; Adjusted R² = 0.838
 ## 
-##                    B   2.5%  97.5%    SE     t     p    ΔR²
-## Intercept     47.600 36.724 58.476 5.549 8.578 0.000       
-## Trend mt       1.400 -1.879  4.679 1.673 0.837 0.415 0.0060
-## Level phase B  3.352 -6.459 13.164 5.006 0.670 0.513 0.0038
-## Slope phase B  0.539 -2.798  3.877 1.703 0.317 0.756 0.0009
+##                    B   2.5%  97.5%    SE     t     p &lt;U+0394&gt;R²
+## Intercept     47.600 36.724 58.476 5.549 8.578 0.000           
+## Trend mt       1.400 -1.879  4.679 1.673 0.837 0.415     0.0060
+## Level phase B  3.352 -6.459 13.164 5.006 0.670 0.513     0.0038
+## Slope phase B  0.539 -2.798  3.877 1.703 0.317 0.756     0.0009
 ## 
 ## Autocorrelations of the residuals
 ##  lag    cr
@@ -887,7 +885,7 @@ B
 ## 
 ## Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 <p>The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. There are several ways to do this. The easiest way is the to unset the <code>slope</code> argument: <code>slope = FALSE</code>.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="piecewise-linear-regressions.html#cb91-1"></a><span class="kw">plm</span>(exampleAB<span class="op">$</span>Karolina, <span class="dt">slope =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">plm</span>(exampleAB<span class="op">$</span>Karolina, <span class="dt">slope =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Piecewise Regression Analysis
 ## 
 ## Dummy model:  B&amp;L-B 
@@ -895,10 +893,10 @@ B
 ## Fitted a gaussian distribution.
 ## F(2, 17) = 53.38; p = 0.000; R² = 0.863; Adjusted R² = 0.846
 ## 
-##                    B   2.5%  97.5%    SE      t     p    ΔR²
-## Intercept     46.038 41.187 50.889 2.475 18.602 0.000       
-## Trend mt       1.921  1.328  2.513 0.302  6.352 0.000 0.3261
-## Level phase B  2.460 -5.432 10.351 4.026  0.611 0.549 0.0030
+##                    B   2.5%  97.5%    SE      t     p &lt;U+0394&gt;R²
+## Intercept     46.038 41.187 50.889 2.475 18.602 0.000           
+## Trend mt       1.921  1.328  2.513 0.302  6.352 0.000     0.3261
+## Level phase B  2.460 -5.432 10.351 4.026  0.611 0.549     0.0030
 ## 
 ## Autocorrelations of the residuals
 ##  lag    cr
@@ -911,7 +909,7 @@ B
 </div>
 <div id="modelling-autoregression" class="section level2">
 <h2><span class="header-section-number">7.3</span> Modelling autoregression</h2>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="piecewise-linear-regressions.html#cb93-1"></a><span class="kw">autocorrSC</span>(Grosche2011)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="kw">autocorrSC</span>(Grosche2011)</a></code></pre></div>
 <pre><code>## Autocorrelations
 ## 
 ##   case phase lag_1 lag_2 lag_3
@@ -929,7 +927,7 @@ B
 <h2><span class="header-section-number">7.4</span> Adding additional predictors</h2>
 <p>In more complex analyses additional predictors can be included in the piecewise regression model.</p>
 <p>To do this, we have to change the regression formula ‘manually’ by applying the <code>update</code> argument. The <code>update</code> argument allows to change the underlying regression formula. To add a new variable named for example <code>newVar</code>, set <code>update = .~. + newVar</code>. The <code>.~.</code> part takes the internally build formula and <code>+ newVar</code> adds a variable named <code>newVar</code> to the equation.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="piecewise-linear-regressions.html#cb95-1"></a>exampleAB_add</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1">exampleAB_add</a></code></pre></div>
 <pre><code>## #A single-case data frame with one case
 ## 
 ##  Rolf: day wellbeing cigarrets depression phase
@@ -949,7 +947,7 @@ B
 ##         14        52         5          6  Base
 ##         15        55         5          3  Base
 ## # ... up to 25 more rows</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="piecewise-linear-regressions.html#cb97-1"></a><span class="kw">plm</span>(exampleAB_add, <span class="dt">update =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>cigarrets)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1"><span class="kw">plm</span>(exampleAB_add, <span class="dt">update =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>cigarrets)</a></code></pre></div>
 <pre><code>## Piecewise Regression Analysis
 ## 
 ## Dummy model:  B&amp;L-B 
@@ -957,12 +955,12 @@ B
 ## Fitted a gaussian distribution.
 ## F(4, 35) = 5.87; p = 0.001; R² = 0.402; Adjusted R² = 0.333
 ## 
-##                             B   2.5%  97.5%    SE      t     p    ΔR²
-## Intercept              48.579 42.539 54.618 3.081 15.765 0.000       
-## Trend day               0.392 -0.221  1.005 0.313  1.253 0.218 0.0269
-## Level phase Medication  3.753 -2.815 10.321 3.351  1.120 0.270 0.0214
-## Slope phase Medication -0.294 -0.972  0.384 0.346 -0.850 0.401 0.0124
-## cigarrets              -0.221 -1.197  0.755 0.498 -0.443 0.660 0.0034
+##                             B   2.5%  97.5%    SE      t     p &lt;U+0394&gt;R²
+## Intercept              48.579 42.539 54.618 3.081 15.765 0.000           
+## Trend day               0.392 -0.221  1.005 0.313  1.253 0.218     0.0269
+## Level phase Medication  3.753 -2.815 10.321 3.351  1.120 0.270     0.0214
+## Slope phase Medication -0.294 -0.972  0.384 0.346 -0.850 0.401     0.0124
+## cigarrets              -0.221 -1.197  0.755 0.498 -0.443 0.660     0.0034
 ## 
 ## Autocorrelations of the residuals
 ##  lag    cr

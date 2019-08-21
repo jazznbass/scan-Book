@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-16" />
+<meta name="date" content="2019-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -60,9 +60,9 @@
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -71,16 +71,14 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -89,9 +87,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -221,50 +219,50 @@ Published with bookdown
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
 <p>Single case research has become an important and broadly accepted method for gaining insight into educational processes. Especially the field of special education has adopted single-case research as a proper method for evaluating the effectiveness of an intervention or the developmental processes underlying problems in acquiring academic skills. Single-case studies are also popular among teachers and educators who are interested in evaluating the learning progress of their students. The resulting information of a single-case research design provide helpful information for pedagogical decision processes regarding further teaching processes of an individual student but also help to decide, whether or how to implement certain teaching methods into a classroom.<br />
-Despite its usefulness, standards on how to conduct single-case studies, how to analyze the data, and how to present the results is less well developed compared to group based research designs. Moreover, while there is ample software helping to analyse data, most of the software is designed towards analyzing group based data sets. Visualizing single-case data sets oftentimes means to tinker with spreadsheet programs and analyzing becomes a cumbersome endeavor. This book addresses this gap. It has been written around a specialized software tool for managing, visualizing, and analyzing single-case data. This tool is an extension package for the software <code>R</code> <span class="citation">(R Core Team, <a href="#ref-R-base" role="doc-biblioref">2019</a>)</span> named <code>scan</code>, an acronym for <strong>single-case analyses</strong>.</p>
+Despite its usefulness, standards on how to conduct single-case studies, how to analyze the data, and how to present the results is less well developed compared to group based research designs. Moreover, while there is ample software helping to analyse data, most of the software is designed towards analyzing group based data sets. Visualizing single-case data sets oftentimes means to tinker with spreadsheet programs and analyzing becomes a cumbersome endeavor. This book addresses this gap. It has been written around a specialized software tool for managing, visualizing, and analyzing single-case data. This tool is an extension package for the software <code>R</code> <span class="citation">(R Core Team, <a href="#ref-R-base">2019</a>)</span> named <code>scan</code>, an acronym for <strong>single-case analyses</strong>.</p>
 <div id="a-teaser" class="section level2">
 <h2><span class="header-section-number">1.1</span> A teaser</h2>
 <p>Before I go into the details on how <code>scan</code> exactly works, I like to provide an example of what you can do with <code>scan</code>. It is meant to be a teaser to get you motivated to tackle the steep learning curve associated with the use of <code>R</code> (but there is a land of milk and honey behind this curve!). So, don’t mind if you do not understand every detail of this example, it will all be explained and obvious to you once you get familiar with <code>scan</code>.</p>
-<p>Let us set a fictional context. Let us assume you are researching on a method to foster calculation abilities of struggling fourth grade students. You developed an intervention program named <em>KUNO</em>. In a pilot study you like to get some evidence on the effectiveness of that new method and you set up a multi-baseline single-case study comprising three students that take part in the <em>KUNO</em> program across a period of ten weeks. Throughout that course you regularly measured the calculation abilities of each student 20 times with a reliable test. You also implemented a follow up after eight weeks with additional five measures. The calculation test gives you the number of correctly solved calculation tasks within ten minutes.<br />
-Now, I invent some data for this fictitious <em>KUNO</em> study, as it would be to laborious to conduct a real study and actually, to evolve a real intervention method.<br />
-We use the <code>scan</code> package to code the data. Each case consists of 25 measurements. We have three phases: pre intervention (A), during the intervention (B), and follow-up (C). Phases A and B have variable length (6, 7, 9). The cases are given three fictional names. And are combined into a single object called <code>study</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1"></a>case1 &lt;-<span class="st"> </span><span class="kw">scdf</span>(</span>
-<span id="cb1-2"><a href="introduction.html#cb1-2"></a>  <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, </span>
-<span id="cb1-3"><a href="introduction.html#cb1-3"></a>    <span class="dt">B =</span> <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">8</span>, </span>
-<span id="cb1-4"><a href="introduction.html#cb1-4"></a>    <span class="dt">C =</span> <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">7</span>), </span>
-<span id="cb1-5"><a href="introduction.html#cb1-5"></a>  <span class="dt">name =</span> <span class="st">&quot;Dustin&quot;</span></span>
-<span id="cb1-6"><a href="introduction.html#cb1-6"></a>)</span>
-<span id="cb1-7"><a href="introduction.html#cb1-7"></a></span>
-<span id="cb1-8"><a href="introduction.html#cb1-8"></a>case2 &lt;-<span class="st"> </span><span class="kw">scdf</span>(</span>
-<span id="cb1-9"><a href="introduction.html#cb1-9"></a>  <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, </span>
-<span id="cb1-10"><a href="introduction.html#cb1-10"></a>    <span class="dt">B =</span> <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">7</span>, </span>
-<span id="cb1-11"><a href="introduction.html#cb1-11"></a>    <span class="dt">C =</span> <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">6</span>), </span>
-<span id="cb1-12"><a href="introduction.html#cb1-12"></a>  <span class="dt">name =</span> <span class="st">&quot;Mike&quot;</span></span>
-<span id="cb1-13"><a href="introduction.html#cb1-13"></a>)</span>
-<span id="cb1-14"><a href="introduction.html#cb1-14"></a></span>
-<span id="cb1-15"><a href="introduction.html#cb1-15"></a>case3 &lt;-<span class="st"> </span><span class="kw">scdf</span>(</span>
-<span id="cb1-16"><a href="introduction.html#cb1-16"></a>  <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">4</span>,</span>
-<span id="cb1-17"><a href="introduction.html#cb1-17"></a>    <span class="dt">B =</span> <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">18</span>,</span>
-<span id="cb1-18"><a href="introduction.html#cb1-18"></a>    <span class="dt">C =</span> <span class="dv">17</span>, <span class="dv">20</span>, <span class="dv">22</span>, <span class="dv">18</span>, <span class="dv">20</span>), </span>
-<span id="cb1-19"><a href="introduction.html#cb1-19"></a>  <span class="dt">name =</span> <span class="st">&quot;Will&quot;</span></span>
-<span id="cb1-20"><a href="introduction.html#cb1-20"></a>)</span>
-<span id="cb1-21"><a href="introduction.html#cb1-21"></a></span>
-<span id="cb1-22"><a href="introduction.html#cb1-22"></a>study &lt;-<span class="st"> </span><span class="kw">c</span>(case1, case2, case3)</span></code></pre></div>
+<p>Let us set a fictional context. Let us assume you are researching on a method to foster the calculation abilities of struggling fourth grade students. You developed an intervention program named <em>KUNO</em>. In a pilot study you like to get some evidence on the effectiveness of that new method and you set up a multi-baseline single-case study comprising three students that take part in the <em>KUNO</em> program across a period of ten weeks. Throughout that course you regularly measured the calculation abilities of each student 20 times with a reliable test. You also implemented a follow up after eight weeks with additional five measures. The calculation test gives you the number of correctly solved calculation tasks within ten minutes.<br />
+Now, I invent some data for this fictitious <em>KUNO</em> study as it would be to laborious to conduct a real study and actually to evolve a real intervention method.<br />
+We use the <code>scan</code> package to code the data. Each case consists of 25 measurements. We have three phases: pre intervention (A), during the intervention (B), and follow-up (C). Phases A and B have variable length (6, 7, 9). The cases are given three fictional names. And are combined into a single object called <code>strange_study</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">case1 &lt;-<span class="st"> </span><span class="kw">scdf</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="dt">B =</span> <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">8</span>, </a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="dt">C =</span> <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">7</span>), </a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="dt">name =</span> <span class="st">&quot;Dustin&quot;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">)</a>
+<a class="sourceLine" id="cb1-7" title="7"></a>
+<a class="sourceLine" id="cb1-8" title="8">case2 &lt;-<span class="st"> </span><span class="kw">scdf</span>(</a>
+<a class="sourceLine" id="cb1-9" title="9">  <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, </a>
+<a class="sourceLine" id="cb1-10" title="10">    <span class="dt">B =</span> <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">7</span>, </a>
+<a class="sourceLine" id="cb1-11" title="11">    <span class="dt">C =</span> <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">6</span>), </a>
+<a class="sourceLine" id="cb1-12" title="12">  <span class="dt">name =</span> <span class="st">&quot;Mike&quot;</span></a>
+<a class="sourceLine" id="cb1-13" title="13">)</a>
+<a class="sourceLine" id="cb1-14" title="14"></a>
+<a class="sourceLine" id="cb1-15" title="15">case3 &lt;-<span class="st"> </span><span class="kw">scdf</span>(</a>
+<a class="sourceLine" id="cb1-16" title="16">  <span class="kw">c</span>(<span class="dt">A =</span> <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">4</span>,</a>
+<a class="sourceLine" id="cb1-17" title="17">    <span class="dt">B =</span> <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">18</span>,</a>
+<a class="sourceLine" id="cb1-18" title="18">    <span class="dt">C =</span> <span class="dv">17</span>, <span class="dv">20</span>, <span class="dv">22</span>, <span class="dv">18</span>, <span class="dv">20</span>), </a>
+<a class="sourceLine" id="cb1-19" title="19">  <span class="dt">name =</span> <span class="st">&quot;Will&quot;</span></a>
+<a class="sourceLine" id="cb1-20" title="20">)</a>
+<a class="sourceLine" id="cb1-21" title="21"></a>
+<a class="sourceLine" id="cb1-22" title="22">strange_study &lt;-<span class="st"> </span><span class="kw">c</span>(case1, case2, case3)</a></code></pre></div>
 <p>Now we visualize the casese:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="introduction.html#cb2-1"></a><span class="kw">plot</span>(study)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">plot</span>(strange_study)</a></code></pre></div>
 <p><img src="scan-book_files/figure-html/unnamed-chunk-5-1.png" width="384" /></p>
 <p>and we tweak the figure a bit:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction.html#cb3-1"></a><span class="kw">plot</span>(</span>
-<span id="cb3-2"><a href="introduction.html#cb3-2"></a>  study,</span>
-<span id="cb3-3"><a href="introduction.html#cb3-3"></a>  <span class="dt">xlab =</span> <span class="st">&quot;correct&quot;</span>,</span>
-<span id="cb3-4"><a href="introduction.html#cb3-4"></a>  <span class="dt">phase.names =</span> <span class="kw">c</span>(<span class="st">&quot;Baseline&quot;</span>, <span class="st">&quot;Intervention&quot;</span>, <span class="st">&quot;Follow-up&quot;</span>),</span>
-<span id="cb3-5"><a href="introduction.html#cb3-5"></a>  <span class="dt">style =</span> <span class="st">&quot;chart&quot;</span>,</span>
-<span id="cb3-6"><a href="introduction.html#cb3-6"></a>  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">30</span>),</span>
-<span id="cb3-7"><a href="introduction.html#cb3-7"></a>  <span class="dt">xinc =</span> <span class="dv">2</span></span>
-<span id="cb3-8"><a href="introduction.html#cb3-8"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">plot</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  strange_study,</a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="dt">xlab =</span> <span class="st">&quot;correct&quot;</span>,</a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="dt">phase.names =</span> <span class="kw">c</span>(<span class="st">&quot;Baseline&quot;</span>, <span class="st">&quot;Intervention&quot;</span>, <span class="st">&quot;Follow-up&quot;</span>),</a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="dt">style =</span> <span class="st">&quot;chart&quot;</span>,</a>
+<a class="sourceLine" id="cb3-6" title="6">  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">30</span>),</a>
+<a class="sourceLine" id="cb3-7" title="7">  <span class="dt">xinc =</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb3-8" title="8">)</a></code></pre></div>
 <p><img src="scan-book_files/figure-html/unnamed-chunk-6-1.png" width="480" /></p>
 <p>Now we lets have a table of the data:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="introduction.html#cb4-1"></a><span class="kw">export</span>(study, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">export</span>(strange_study, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -1043,8 +1041,8 @@ C
 </tbody>
 </table>
 <p>And we need descriptive statistics:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction.html#cb5-1"></a>res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(study)</span>
-<span id="cb5-2"><a href="introduction.html#cb5-2"></a><span class="kw">export</span>(res, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(strange_study)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">export</span>(res, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 Descriptive statistics.
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1446,8 +1444,8 @@ Will
 </table>
 <p>n = Number of measurements; Missing = Number of missing values; M = Mean; Median = Median; SD = Standard deviation; MAD = Median average deviation; Min = Minimum; Max = Maximum; Trend = Slope of dependent variable regressed on measurement-time.</p>
 <p>Single-case data are oftentimes analyzed with overlap indeces. let us get an overview comparing phases A and B:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction.html#cb6-1"></a>res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(study)</span>
-<span id="cb6-2"><a href="introduction.html#cb6-2"></a><span class="kw">export</span>(res, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(strange_study)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">export</span>(res, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <i>Overlap indices.Comparing phase A against phase B.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1625,8 +1623,8 @@ SMD
 <p>PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled;
 PAND = Percentage all nonoverlapping data;Tau U = Parker’s Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference.</p>
 <p>How do the changes hold up against the follow-up? Let us compare phases A and C:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introduction.html#cb7-1"></a>res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(study, <span class="dt">phases =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>))</span>
-<span id="cb7-2"><a href="introduction.html#cb7-2"></a><span class="kw">export</span>(res, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(strange_study, <span class="dt">phases =</span> <span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;C&quot;</span>))</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">export</span>(res, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <i>Overlap indices.Comparing phase A against phase C.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1804,8 +1802,8 @@ SMD
 <p>PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled;
 PAND = Percentage all nonoverlapping data;Tau U = Parker’s Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference.</p>
 <p>Finally, we conduct regression analyses for each cases with a piecwise regression model:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="introduction.html#cb8-1"></a>res &lt;-<span class="st"> </span><span class="kw">plm</span>(study<span class="op">$</span>Dustin)</span>
-<span id="cb8-2"><a href="introduction.html#cb8-2"></a><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">res &lt;-<span class="st"> </span><span class="kw">plm</span>(strange_study<span class="op">$</span>Dustin)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <i>Piecewise-regression model for variable ’’.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -2017,8 +2015,8 @@ Slope phase C
 </tr>
 </tfoot>
 </table>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="introduction.html#cb9-1"></a>res &lt;-<span class="st"> </span><span class="kw">plm</span>(study<span class="op">$</span>Mike)</span>
-<span id="cb9-2"><a href="introduction.html#cb9-2"></a><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">res &lt;-<span class="st"> </span><span class="kw">plm</span>(strange_study<span class="op">$</span>Mike)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <i>Piecewise-regression model for variable ’’.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -2230,8 +2228,8 @@ Slope phase C
 </tr>
 </tfoot>
 </table>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introduction.html#cb10-1"></a>res &lt;-<span class="st"> </span><span class="kw">plm</span>(study<span class="op">$</span>Will)</span>
-<span id="cb10-2"><a href="introduction.html#cb10-2"></a><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">res &lt;-<span class="st"> </span><span class="kw">plm</span>(strange_study<span class="op">$</span>Will)</a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <i>Piecewise-regression model for variable ’’.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
