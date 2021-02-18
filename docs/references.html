@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>References | Analyzing single-case data with R and scan</title>
   <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="References | Analyzing single-case data with R and scan" />
   <meta property="og:type" content="book" />
@@ -24,15 +24,16 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-21" />
+<meta name="date" content="2021-02-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="about-the-author.html">
+<link rel="prev" href="about-the-author.html"/>
 
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +41,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -48,6 +52,7 @@
 
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script>
 <script>
@@ -60,25 +65,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +93,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -139,60 +145,82 @@ Analyzing single-case data with R and scan
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#software-reference"><i class="fa fa-check"></i>Software reference</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a><ul>
+<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
-<li class="chapter" data-level="2.2" data-path="some-things-about-r.html"><a href="some-things-about-r.html#installing-the-scan-package"><i class="fa fa-check"></i><b>2.2</b> Installing the <em>scan</em> package</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>3</b> Managing single-case data</a><ul>
-<li class="chapter" data-level="3.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>3.1</b> A <strong><em>single-case data frame</em></strong></a></li>
-<li class="chapter" data-level="3.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>3.2</b> Creating scdfs</a></li>
-<li class="chapter" data-level="3.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>3.3</b> Saving and reading <em>single-case data frames</em></a></li>
-<li class="chapter" data-level="3.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>3.4</b> Import and export <em>single-case data frames</em></a></li>
-<li class="chapter" data-level="3.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-and-manipulating-scdf-files"><i class="fa fa-check"></i><b>3.5</b> Displaying and manipulating scdf-files</a></li>
+<li class="chapter" data-level="3" data-path="installing-the-scan-package.html"><a href="installing-the-scan-package.html"><i class="fa fa-check"></i><b>3</b> Installing the <em>scan</em> package</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="installing-the-scan-package.html"><a href="installing-the-scan-package.html#development-version-of-scan"><i class="fa fa-check"></i><b>3.1</b> Development version of scan</a></li>
+<li class="chapter" data-level="3.2" data-path="installing-the-scan-package.html"><a href="installing-the-scan-package.html#reporting-issues-with-scan-and-suggesting-enhancements"><i class="fa fa-check"></i><b>3.2</b> Reporting issues with <em>scan</em> and suggesting enhancements</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>4</b> Creating a single-case data plot</a><ul>
-<li class="chapter" data-level="4.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>4.1</b> Graphical styles of a plot</a></li>
+<li class="chapter" data-level="4" data-path="changes-with-version-0-50.html"><a href="changes-with-version-0-50.html"><i class="fa fa-check"></i><b>4</b> Changes with version 0.50</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="changes-with-version-0-50.html"><a href="changes-with-version-0-50.html#new-function-names"><i class="fa fa-check"></i><b>4.1</b> New function names</a></li>
+<li class="chapter" data-level="4.2" data-path="changes-with-version-0-50.html"><a href="changes-with-version-0-50.html#change-target-variables-in-functions"><i class="fa fa-check"></i><b>4.2</b> Change target variables in functions</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>5</b> Describe and manipulate single-case data frames</a><ul>
-<li class="chapter" data-level="5.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>5.1</b> Describing and summarizing</a></li>
-<li class="chapter" data-level="5.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>5.2</b> Autoregression and trendanalyses</a></li>
-<li class="chapter" data-level="5.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>5.3</b> Missing values</a></li>
-<li class="chapter" data-level="5.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>5.4</b> Outlieranalysis</a></li>
-<li class="chapter" data-level="5.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>5.5</b> Smoothing data</a></li>
+<li class="chapter" data-level="5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>5</b> Managing single-case data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>5.1</b> A <strong><em>single-case data frame</em></strong></a></li>
+<li class="chapter" data-level="5.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>5.2</b> Creating scdfs</a></li>
+<li class="chapter" data-level="5.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>5.3</b> Saving and reading <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="5.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>5.4</b> Import and export <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="5.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-and-manipulating-scdf-files"><i class="fa fa-check"></i><b>5.5</b> Displaying and manipulating scdf-files</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>6</b> Overlapping indices</a><ul>
-<li class="chapter" data-level="6.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>6.1</b> Percentage non-overlapping data (PND)</a></li>
-<li class="chapter" data-level="6.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>6.2</b> Percentage exceeding the median (PEM)</a></li>
-<li class="chapter" data-level="6.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>6.3</b> Percentage exceeding the regression trend (PET)</a></li>
-<li class="chapter" data-level="6.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>6.4</b> Percentage of all non-overlapping data (PAND)</a></li>
-<li class="chapter" data-level="6.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>6.5</b> Nonoverlap of all pairs (NAP)</a></li>
-<li class="chapter" data-level="6.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>6.6</b> Tau-U</a></li>
-<li class="chapter" data-level="6.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>6.7</b> Reliable change index</a></li>
+<li class="chapter" data-level="6" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>6</b> Creating a single-case data plot</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>6.1</b> Graphical styles of a plot</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>7</b> Piecewise linear regressions</a><ul>
-<li class="chapter" data-level="7.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>7.1</b> The basic plm function</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>7.1.1</b> Dummy model</a></li>
+<li class="chapter" data-level="7" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>7</b> Describe and manipulate single-case data frames</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>7.1</b> Describing and summarizing</a></li>
+<li class="chapter" data-level="7.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>7.2</b> Autoregression and trendanalyses</a></li>
+<li class="chapter" data-level="7.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>7.3</b> Missing values</a></li>
+<li class="chapter" data-level="7.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>7.4</b> Outlieranalysis</a></li>
+<li class="chapter" data-level="7.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>7.5</b> Smoothing data</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#different-modells"><i class="fa fa-check"></i><b>7.2</b> Different modells</a></li>
-<li class="chapter" data-level="7.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#modelling-autoregression"><i class="fa fa-check"></i><b>7.3</b> Modelling autoregression</a></li>
-<li class="chapter" data-level="7.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>7.4</b> Adding additional predictors</a></li>
+<li class="chapter" data-level="8" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>8</b> Overlapping indices</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>8.1</b> Percentage non-overlapping data (PND)</a></li>
+<li class="chapter" data-level="8.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>8.2</b> Percentage exceeding the median (PEM)</a></li>
+<li class="chapter" data-level="8.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>8.3</b> Percentage exceeding the regression trend (PET)</a></li>
+<li class="chapter" data-level="8.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>8.4</b> Percentage of all non-overlapping data (PAND)</a></li>
+<li class="chapter" data-level="8.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>8.5</b> Nonoverlap of all pairs (NAP)</a></li>
+<li class="chapter" data-level="8.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>8.6</b> Tau-U</a></li>
+<li class="chapter" data-level="8.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>8.7</b> Reliable change index</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="multilevel-regression-analyses.html"><a href="multilevel-regression-analyses.html"><i class="fa fa-check"></i><b>8</b> Multilevel regression analyses</a><ul>
-<li class="chapter" data-level="8.1" data-path="multilevel-regression-analyses.html"><a href="multilevel-regression-analyses.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>8.1</b> Adding additional L2-variables</a></li>
+<li class="chapter" data-level="9" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>9</b> Piecewise linear regressions</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>9.1</b> The basic plm function</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>9.1.1</b> Dummy model</a></li>
+<li class="chapter" data-level="9.1.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adjusting-the-model"><i class="fa fa-check"></i><b>9.1.2</b> Adjusting the model</a></li>
+<li class="chapter" data-level="9.1.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>9.1.3</b> Adding additional predictors</a></li>
+<li class="chapter" data-level="9.1.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-modelling-autoregression"><i class="fa fa-check"></i><b>9.1.4</b> [to be written] Modelling autoregression</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>9</b> Randomization tests</a></li>
-<li class="chapter" data-level="10" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>10</b> Exporting <em>scan</em> results</a><ul>
-<li class="chapter" data-level="10.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>10.1</b> Single case data files</a></li>
-<li class="chapter" data-level="10.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>10.2</b> Descriptive stats</a></li>
-<li class="chapter" data-level="10.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>10.3</b> Overlap indices</a></li>
-<li class="chapter" data-level="10.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>10.4</b> Piecewise linear models</a></li>
-<li class="chapter" data-level="10.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>10.5</b> Hierarchical piecewise regressions</a></li>
+<li class="chapter" data-level="9.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-multivariate-piecewise-regression"><i class="fa fa-check"></i><b>9.2</b> [to be written] Multivariate piecewise regression</a></li>
+<li class="chapter" data-level="9.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#multilevel-plm-analyses"><i class="fa fa-check"></i><b>9.3</b> Multilevel plm analyses</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>9.3.1</b> Adding additional L2-variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>10</b> Randomization tests</a></li>
+<li class="chapter" data-level="11" data-path="default-settings.html"><a href="default-settings.html"><i class="fa fa-check"></i><b>11</b> Default settings</a></li>
+<li class="chapter" data-level="12" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>12</b> Exporting <em>scan</em> results</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>12.1</b> Single case data files</a></li>
+<li class="chapter" data-level="12.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>12.2</b> Descriptive stats</a></li>
+<li class="chapter" data-level="12.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>12.3</b> Overlap indices</a></li>
+<li class="chapter" data-level="12.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>12.4</b> Piecewise linear models</a></li>
+<li class="chapter" data-level="12.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>12.5</b> Hierarchical piecewise regressions</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -219,45 +247,45 @@ Published with bookdown
 <div id="references" class="section level1 unnumbered">
 <h1>References</h1>
 
-<div id="refs" class="references">
-<div>
-<p>Allaire, J., Xie, Y., McPherson, J., Luraschi, J., Ushey, K., Atkins, A., … Iannone, R. (2019). <em>Rmarkdown: Dynamic documents for r</em>. Retrieved from <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a></p>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-R-rmarkdown" class="csl-entry">
+Allaire, J., Xie, Y., McPherson, J., Luraschi, J., Ushey, K., Atkins, A., … Iannone, R. (2020). <em>Rmarkdown: Dynamic documents for r</em>. Retrieved from <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>
 </div>
-<div>
-<p>Huitema, B. E., &amp; Mckean, J. W. (2000). Design specification issues in time-series intervention models. <em>Educational and Psychological Measurement</em>, <em>60</em>(1), 38–58. Retrieved from <a href="http://epm.sagepub.com/content/60/1/38.short">http://epm.sagepub.com/content/60/1/38.short</a></p>
+<div id="ref-huitema_design_2000" class="csl-entry">
+Huitema, B. E., &amp; Mckean, J. W. (2000). Design specification issues in time-series intervention models. <em>Educational and Psychological Measurement</em>, <em>60</em>(1), 38–58. Retrieved from <a href="http://epm.sagepub.com/content/60/1/38.short">http://epm.sagepub.com/content/60/1/38.short</a>
 </div>
-<div>
-<p>Iglewicz, B., &amp; Hoaglin, D. C. (1993). <em>How to detect and handle outliers</em>. Milwaukee, Wis. : ASQC Quality Press.</p>
+<div id="ref-iglewicz_how_1993" class="csl-entry">
+Iglewicz, B., &amp; Hoaglin, D. C. (1993). <em>How to detect and handle outliers</em>. Milwaukee, Wis. : ASQC Quality Press.
 </div>
-<div>
-<p>Parker, R. I., Hagan-Burke, S., &amp; Vannest, K. (2007). Percentage of All Non-Overlapping Data (PAND) An Alternative to PND. <em>The Journal of Special Education</em>, <em>40</em>(4), 194–204. Retrieved from <a href="http://sed.sagepub.com/content/40/4/194.short">http://sed.sagepub.com/content/40/4/194.short</a></p>
+<div id="ref-parker_percentage_2007" class="csl-entry">
+Parker, Richard I., Hagan-Burke, S., &amp; Vannest, K. (2007). Percentage of <span>All</span> <span>Non</span>-<span>Overlapping</span> <span>Data</span> (<span>PAND</span>) <span>An</span> <span>Alternative</span> to <span>PND</span>. <em>The Journal of Special Education</em>, <em>40</em>(4), 194–204. Retrieved from <a href="http://sed.sagepub.com/content/40/4/194.short">http://sed.sagepub.com/content/40/4/194.short</a>
 </div>
-<div>
-<p>Parker, R. I., &amp; Vannest, K. (2009). An improved effect size for single-case research: Nonoverlap of all pairs. <em>Behavior Therapy</em>, <em>40</em>(4), 357–367. Retrieved from <a href="http://www.sciencedirect.com/science/article/pii/S0005789408000816">http://www.sciencedirect.com/science/article/pii/S0005789408000816</a></p>
+<div id="ref-parker_improved_2009" class="csl-entry">
+Parker, Richard I., &amp; Vannest, K. (2009). An improved effect size for single-case research: <span>Nonoverlap</span> of all pairs. <em>Behavior Therapy</em>, <em>40</em>(4), 357–367. Retrieved from <a href="http://www.sciencedirect.com/science/article/pii/S0005789408000816">http://www.sciencedirect.com/science/article/pii/S0005789408000816</a>
 </div>
-<div>
-<p>Parker, R. I., Vannest, K. J., &amp; Davis, J. L. (2011). Effect Size in Single-Case Research: A Review of Nine Nonoverlap Techniques. <em>Behavior Modification</em>, <em>35</em>(4), 303–322. <a href="https://doi.org/10.1177/0145445511399147">https://doi.org/10.1177/0145445511399147</a></p>
+<div id="ref-parker_effect_2011" class="csl-entry">
+Parker, Richard I., Vannest, K. J., &amp; Davis, J. L. (2011). Effect <span>Size</span> in <span>Single</span>-<span>Case</span> <span>Research</span>: <span>A</span> <span>Review</span> of <span>Nine</span> <span>Nonoverlap</span> <span>Techniques</span>. <em>Behavior Modification</em>, <em>35</em>(4), 303–322. <a href="https://doi.org/10.1177/0145445511399147">https://doi.org/10.1177/0145445511399147</a>
 </div>
-<div>
-<p>Parker, R. I., Vannest, K. J., Davis, J. L., &amp; Sauber, S. B. (2011). Combining Nonoverlap and Trend for Single-Case Research: Tau-U. <em>Behavior Therapy</em>, <em>42</em>(2), 284–299. <a href="https://doi.org/10.1016/j.beth.2010.08.006">https://doi.org/10.1016/j.beth.2010.08.006</a></p>
+<div id="ref-parker_combining_2011" class="csl-entry">
+Parker, Richard I., Vannest, K. J., Davis, J. L., &amp; Sauber, S. B. (2011). Combining <span>Nonoverlap</span> and <span>Trend</span> for <span>Single</span>-<span>Case</span> <span>Research</span>: <span>Tau</span>-<span>U</span>. <em>Behavior Therapy</em>, <em>42</em>(2), 284–299. <a href="https://doi.org/10.1016/j.beth.2010.08.006">https://doi.org/10.1016/j.beth.2010.08.006</a>
 </div>
-<div>
-<p>R Core Team. (2019). <em>R: A language and environment for statistical computing</em>. Retrieved from <a href="https://www.R-project.org/">https://www.R-project.org/</a></p>
+<div id="ref-R-base" class="csl-entry">
+R Core Team. (2020). <em>R: A language and environment for statistical computing</em>. Retrieved from <a href="https://www.R-project.org/">https://www.R-project.org/</a>
 </div>
-<div>
-<p>RStudio Team. (2018). <em>RStudio: Integrated development environment for r</em>. Retrieved from <a href="http://www.rstudio.com/">http://www.rstudio.com/</a></p>
+<div id="ref-RStudio" class="csl-entry">
+RStudio Team. (2018). <em>RStudio: Integrated development environment for r</em>. Retrieved from <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>
 </div>
-<div>
-<p>Scruggs, T. E., Mastropieri, M. A., &amp; Casto, G. (1987). The Quantitative Synthesis of Single-Subject Research Methodology and Validation. <em>Remedial and Special Education</em>, <em>8</em>(2), 24–33. <a href="https://doi.org/10.1177/074193258700800206">https://doi.org/10.1177/074193258700800206</a></p>
+<div id="ref-scruggs_quantitative_1987" class="csl-entry">
+Scruggs, T. E., Mastropieri, M. A., &amp; Casto, G. (1987). The <span>Quantitative</span> <span>Synthesis</span> of <span>Single</span>-<span>Subject</span> <span>Research</span> <span>Methodology</span> and <span>Validation</span>. <em>Remedial and Special Education</em>, <em>8</em>(2), 24–33. <a href="https://doi.org/10.1177/074193258700800206">https://doi.org/10.1177/074193258700800206</a>
 </div>
-<div>
-<p>Wilbert, J., &amp; Lueke, T. (2019). <em>Scan: Single-case data analyses for single and multiple baseline designs</em>. Retrieved from <a href="https://CRAN.R-project.org/package=scan">https://CRAN.R-project.org/package=scan</a></p>
+<div id="ref-R-scan" class="csl-entry">
+Wilbert, J., &amp; Lueke, T. (2021). <em>Scan: Single-case data analyses for single and multiple baseline designs</em>.
 </div>
-<div>
-<p>Wise, E. A. (2004). Methods for analyzing psychotherapy outcomes: A review of clinical significance, reliable change, and recommendations for future directions. <em>Journal of Personality Assessment</em>, <em>82</em>(1), 50–59. Retrieved from <a href="http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10">http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10</a></p>
+<div id="ref-wise_methods_2004" class="csl-entry">
+Wise, E. A. (2004). Methods for analyzing psychotherapy outcomes: <span>A</span> review of clinical significance, reliable change, and recommendations for future directions. <em>Journal of Personality Assessment</em>, <em>82</em>(1), 50–59. Retrieved from <a href="http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10">http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10</a>
 </div>
-<div>
-<p>Xie, Y. (2019). <em>Bookdown: Authoring books and technical documents with r markdown</em>. Retrieved from <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a></p>
+<div id="ref-R-bookdown" class="csl-entry">
+Xie, Y. (2020). <em>Bookdown: Authoring books and technical documents with r markdown</em>. Retrieved from <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>
 </div>
 </div>
 </div>
@@ -272,11 +300,13 @@ Published with bookdown
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -284,12 +314,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -304,7 +333,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["scan-book.pdf", "scan-book.epub"],
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

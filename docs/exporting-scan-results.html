@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 10 Exporting scan results | Analyzing single-case data with R and scan</title>
+  <title>Chapter 12 Exporting scan results | Analyzing single-case data with R and scan</title>
   <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 10 Exporting scan results | Analyzing single-case data with R and scan" />
+  <meta property="og:title" content="Chapter 12 Exporting scan results | Analyzing single-case data with R and scan" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jazznbass/scan-book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 10 Exporting scan results | Analyzing single-case data with R and scan" />
+  <meta name="twitter:title" content="Chapter 12 Exporting scan results | Analyzing single-case data with R and scan" />
   
   <meta name="twitter:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
   
@@ -24,15 +24,16 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-21" />
+<meta name="date" content="2021-02-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="randomization-tests.html">
-<link rel="next" href="about-the-author.html">
+<link rel="prev" href="default-settings.html"/>
+<link rel="next" href="about-the-author.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +41,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -48,6 +52,7 @@
 
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script>
 <script>
@@ -60,25 +65,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +93,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -139,60 +145,82 @@ Analyzing single-case data with R and scan
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#software-reference"><i class="fa fa-check"></i>Software reference</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a><ul>
+<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
-<li class="chapter" data-level="2.2" data-path="some-things-about-r.html"><a href="some-things-about-r.html#installing-the-scan-package"><i class="fa fa-check"></i><b>2.2</b> Installing the <em>scan</em> package</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>3</b> Managing single-case data</a><ul>
-<li class="chapter" data-level="3.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>3.1</b> A <strong><em>single-case data frame</em></strong></a></li>
-<li class="chapter" data-level="3.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>3.2</b> Creating scdfs</a></li>
-<li class="chapter" data-level="3.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>3.3</b> Saving and reading <em>single-case data frames</em></a></li>
-<li class="chapter" data-level="3.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>3.4</b> Import and export <em>single-case data frames</em></a></li>
-<li class="chapter" data-level="3.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-and-manipulating-scdf-files"><i class="fa fa-check"></i><b>3.5</b> Displaying and manipulating scdf-files</a></li>
+<li class="chapter" data-level="3" data-path="installing-the-scan-package.html"><a href="installing-the-scan-package.html"><i class="fa fa-check"></i><b>3</b> Installing the <em>scan</em> package</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="installing-the-scan-package.html"><a href="installing-the-scan-package.html#development-version-of-scan"><i class="fa fa-check"></i><b>3.1</b> Development version of scan</a></li>
+<li class="chapter" data-level="3.2" data-path="installing-the-scan-package.html"><a href="installing-the-scan-package.html#reporting-issues-with-scan-and-suggesting-enhancements"><i class="fa fa-check"></i><b>3.2</b> Reporting issues with <em>scan</em> and suggesting enhancements</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>4</b> Creating a single-case data plot</a><ul>
-<li class="chapter" data-level="4.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>4.1</b> Graphical styles of a plot</a></li>
+<li class="chapter" data-level="4" data-path="changes-with-version-0-50.html"><a href="changes-with-version-0-50.html"><i class="fa fa-check"></i><b>4</b> Changes with version 0.50</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="changes-with-version-0-50.html"><a href="changes-with-version-0-50.html#new-function-names"><i class="fa fa-check"></i><b>4.1</b> New function names</a></li>
+<li class="chapter" data-level="4.2" data-path="changes-with-version-0-50.html"><a href="changes-with-version-0-50.html#change-target-variables-in-functions"><i class="fa fa-check"></i><b>4.2</b> Change target variables in functions</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>5</b> Describe and manipulate single-case data frames</a><ul>
-<li class="chapter" data-level="5.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>5.1</b> Describing and summarizing</a></li>
-<li class="chapter" data-level="5.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>5.2</b> Autoregression and trendanalyses</a></li>
-<li class="chapter" data-level="5.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>5.3</b> Missing values</a></li>
-<li class="chapter" data-level="5.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>5.4</b> Outlieranalysis</a></li>
-<li class="chapter" data-level="5.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>5.5</b> Smoothing data</a></li>
+<li class="chapter" data-level="5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>5</b> Managing single-case data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>5.1</b> A <strong><em>single-case data frame</em></strong></a></li>
+<li class="chapter" data-level="5.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>5.2</b> Creating scdfs</a></li>
+<li class="chapter" data-level="5.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>5.3</b> Saving and reading <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="5.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>5.4</b> Import and export <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="5.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-and-manipulating-scdf-files"><i class="fa fa-check"></i><b>5.5</b> Displaying and manipulating scdf-files</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>6</b> Overlapping indices</a><ul>
-<li class="chapter" data-level="6.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>6.1</b> Percentage non-overlapping data (PND)</a></li>
-<li class="chapter" data-level="6.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>6.2</b> Percentage exceeding the median (PEM)</a></li>
-<li class="chapter" data-level="6.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>6.3</b> Percentage exceeding the regression trend (PET)</a></li>
-<li class="chapter" data-level="6.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>6.4</b> Percentage of all non-overlapping data (PAND)</a></li>
-<li class="chapter" data-level="6.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>6.5</b> Nonoverlap of all pairs (NAP)</a></li>
-<li class="chapter" data-level="6.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>6.6</b> Tau-U</a></li>
-<li class="chapter" data-level="6.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>6.7</b> Reliable change index</a></li>
+<li class="chapter" data-level="6" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>6</b> Creating a single-case data plot</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>6.1</b> Graphical styles of a plot</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>7</b> Piecewise linear regressions</a><ul>
-<li class="chapter" data-level="7.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>7.1</b> The basic plm function</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>7.1.1</b> Dummy model</a></li>
+<li class="chapter" data-level="7" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>7</b> Describe and manipulate single-case data frames</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>7.1</b> Describing and summarizing</a></li>
+<li class="chapter" data-level="7.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>7.2</b> Autoregression and trendanalyses</a></li>
+<li class="chapter" data-level="7.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>7.3</b> Missing values</a></li>
+<li class="chapter" data-level="7.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>7.4</b> Outlieranalysis</a></li>
+<li class="chapter" data-level="7.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>7.5</b> Smoothing data</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#different-modells"><i class="fa fa-check"></i><b>7.2</b> Different modells</a></li>
-<li class="chapter" data-level="7.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#modelling-autoregression"><i class="fa fa-check"></i><b>7.3</b> Modelling autoregression</a></li>
-<li class="chapter" data-level="7.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>7.4</b> Adding additional predictors</a></li>
+<li class="chapter" data-level="8" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>8</b> Overlapping indices</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>8.1</b> Percentage non-overlapping data (PND)</a></li>
+<li class="chapter" data-level="8.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>8.2</b> Percentage exceeding the median (PEM)</a></li>
+<li class="chapter" data-level="8.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>8.3</b> Percentage exceeding the regression trend (PET)</a></li>
+<li class="chapter" data-level="8.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>8.4</b> Percentage of all non-overlapping data (PAND)</a></li>
+<li class="chapter" data-level="8.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>8.5</b> Nonoverlap of all pairs (NAP)</a></li>
+<li class="chapter" data-level="8.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>8.6</b> Tau-U</a></li>
+<li class="chapter" data-level="8.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>8.7</b> Reliable change index</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="multilevel-regression-analyses.html"><a href="multilevel-regression-analyses.html"><i class="fa fa-check"></i><b>8</b> Multilevel regression analyses</a><ul>
-<li class="chapter" data-level="8.1" data-path="multilevel-regression-analyses.html"><a href="multilevel-regression-analyses.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>8.1</b> Adding additional L2-variables</a></li>
+<li class="chapter" data-level="9" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>9</b> Piecewise linear regressions</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>9.1</b> The basic plm function</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>9.1.1</b> Dummy model</a></li>
+<li class="chapter" data-level="9.1.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adjusting-the-model"><i class="fa fa-check"></i><b>9.1.2</b> Adjusting the model</a></li>
+<li class="chapter" data-level="9.1.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>9.1.3</b> Adding additional predictors</a></li>
+<li class="chapter" data-level="9.1.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-modelling-autoregression"><i class="fa fa-check"></i><b>9.1.4</b> [to be written] Modelling autoregression</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>9</b> Randomization tests</a></li>
-<li class="chapter" data-level="10" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>10</b> Exporting <em>scan</em> results</a><ul>
-<li class="chapter" data-level="10.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>10.1</b> Single case data files</a></li>
-<li class="chapter" data-level="10.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>10.2</b> Descriptive stats</a></li>
-<li class="chapter" data-level="10.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>10.3</b> Overlap indices</a></li>
-<li class="chapter" data-level="10.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>10.4</b> Piecewise linear models</a></li>
-<li class="chapter" data-level="10.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>10.5</b> Hierarchical piecewise regressions</a></li>
+<li class="chapter" data-level="9.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-multivariate-piecewise-regression"><i class="fa fa-check"></i><b>9.2</b> [to be written] Multivariate piecewise regression</a></li>
+<li class="chapter" data-level="9.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#multilevel-plm-analyses"><i class="fa fa-check"></i><b>9.3</b> Multilevel plm analyses</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>9.3.1</b> Adding additional L2-variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>10</b> Randomization tests</a></li>
+<li class="chapter" data-level="11" data-path="default-settings.html"><a href="default-settings.html"><i class="fa fa-check"></i><b>11</b> Default settings</a></li>
+<li class="chapter" data-level="12" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>12</b> Exporting <em>scan</em> results</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>12.1</b> Single case data files</a></li>
+<li class="chapter" data-level="12.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>12.2</b> Descriptive stats</a></li>
+<li class="chapter" data-level="12.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>12.3</b> Overlap indices</a></li>
+<li class="chapter" data-level="12.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>12.4</b> Piecewise linear models</a></li>
+<li class="chapter" data-level="12.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>12.5</b> Hierarchical piecewise regressions</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -216,11 +244,10 @@ Published with bookdown
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exporting-scan-results" class="section level1">
-<h1><span class="header-section-number">Chapter 10</span> Exporting <em>scan</em> results</h1>
+<div id="exporting-scan-results" class="section level1" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Exporting <em>scan</em> results</h1>
 <p>Caution!! The exporting function is still in an experimental state.</p>
-<p>The <code>export</code> function will make it easier to convert the results of your <code>scan</code> analyses to tables and descriptions for your documents and presentations.<br />
-Basically, <code>export</code> takes a <code>scan</code> object and converts it to a html table or latex output.</p>
+<p>The <code>export</code> function will make it easier to convert the results of your <code>scan</code> analyses into tables and descriptions you can add to your documents and presentations. Basically, <code>export</code> takes a <code>scan</code> object and converts it to an html-table or latex output.</p>
 <div class="rmdnote">
 <p>
 <code>export</code> it build on top of the <code>knitr</code> and <code>kableextra</code> packages. The list provided in the <code>kable_options</code> argument is implemented in the <code>kable</code> function of <code>knitr</code> and the list provided to the <code>kable_styling_options</code> is implemented in the <code>kable_styling</code> command of the <code>kableExtra</code> package. <code>export</code> sets some defaults for these functions but you can play around and overwrite them.
@@ -229,23 +256,23 @@ Basically, <code>export</code> takes a <code>scan</code> object and converts it 
 <p><code>export</code> works best when used within an rmarkdown file and/or within <code>RStudio</code>.<br />
 In <code>RStudio</code></p>
 <p>[xxx to be continued!]</p>
-<div id="single-case-data-files" class="section level2">
-<h2><span class="header-section-number">10.1</span> Single case data files</h2>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1"><span class="kw">export</span>(exampleA1B1A2B2_zvt, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div id="single-case-data-files" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Single case data files</h2>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="exporting-scan-results.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(exampleA1B1A2B2_zvt)</span></code></pre></div>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 Tick
 </div>
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 Trick
 </div>
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 Track
 </div>
@@ -750,57 +777,57 @@ B2
 </tbody>
 </table>
 </div>
-<div id="descriptive-stats" class="section level2">
-<h2><span class="header-section-number">10.2</span> Descriptive stats</h2>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" title="1">res &lt;-<span class="st"> </span><span class="kw">describeSC</span>(GruenkeWilbert2014)</a>
-<a class="sourceLine" id="cb112-2" title="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div id="descriptive-stats" class="section level2" number="12.2">
+<h2><span class="header-section-number">12.2</span> Descriptive stats</h2>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="exporting-scan-results.html#cb114-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">describeSC</span>(GruenkeWilbert2014)</span>
+<span id="cb114-2"><a href="exporting-scan-results.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(res)</span></code></pre></div>
 Descriptive statistics.
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
-<th style="border-bottom:hidden" colspan="1">
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 n
 </div>
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 Missing
 </div>
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 M
 </div>
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 Median
 </div>
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 SD
 </div>
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 MAD
 </div>
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 Min
 </div>
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 Max
 </div>
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 Trend
 </div>
@@ -1224,10 +1251,10 @@ Tim
 </table>
 <p>n = Number of measurements; Missing = Number of missing values; M = Mean; Median = Median; SD = Standard deviation; MAD = Median average deviation; Min = Minimum; Max = Maximum; Trend = Slope of dependent variable regressed on measurement-time.</p>
 </div>
-<div id="overlap-indices" class="section level2">
-<h2><span class="header-section-number">10.3</span> Overlap indices</h2>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1">res &lt;-<span class="st"> </span><span class="kw">overlapSC</span>(exampleA1B1A2B2_zvt, <span class="dt">phases =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)))</a>
-<a class="sourceLine" id="cb113-2" title="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">1</span>, <span class="dt">flip =</span> <span class="ot">TRUE</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div id="overlap-indices" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> Overlap indices</h2>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="exporting-scan-results.html#cb115-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">overlap</span>(exampleA1B1A2B2_zvt, <span class="at">phases =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)))</span>
+<span id="cb115-2"><a href="exporting-scan-results.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(res, <span class="at">flip =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <i>Overlap indices.Comparing phases A1 + A2 against phases B1 + B2.</i>
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1352,7 +1379,7 @@ Base_Tau
 0.27
 </td>
 <td style="text-align:right;">
--0.25
+0.02
 </td>
 <td style="text-align:right;">
 0.13
@@ -1405,22 +1432,22 @@ SMD
 <p>PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled;
 PAND = Percentage all nonoverlapping data;Tau U = Parker’s Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference.</p>
 </div>
-<div id="piecewise-linear-models" class="section level2">
-<h2><span class="header-section-number">10.4</span> Piecewise linear models</h2>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1">res &lt;-<span class="st"> </span><span class="kw">plm</span>(exampleA1B1A2B2<span class="op">$</span>Pawel)</a>
-<a class="sourceLine" id="cb114-2" title="2"><span class="kw">export</span>(res, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
-<i>Piecewise-regression model for variable ’’.</i>
-<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<div id="piecewise-linear-models" class="section level2" number="12.4">
+<h2><span class="header-section-number">12.4</span> Piecewise linear models</h2>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="exporting-scan-results.html#cb116-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleA1B1A2B2<span class="sc">$</span>Pawel)</span>
+<span id="cb116-2"><a href="exporting-scan-results.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(res)</span></code></pre></div>
+<i>Piecewise-regression model for variable ‘values.’</i>
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <thead>
 <tr>
-<th style="border-bottom:hidden" colspan="2">
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
 </th>
-<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
 CI(95%)
 </div>
 </th>
-<th style="border-bottom:hidden" colspan="4">
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="4">
 </th>
 </tr>
 <tr>
@@ -1661,24 +1688,24 @@ Slope phase B2
 </tbody>
 <tfoot>
 <tr>
-<td style="padding: 0; border: 0;" colspan="100%">
+<td style="padding: 0; " colspan="100%">
 <span style="font-style: italic;">Note: </span>
 </td>
 </tr>
 <tr>
-<td style="padding: 0; border: 0;" colspan="100%">
+<td style="padding: 0; " colspan="100%">
 <sup></sup> F(7, 32) = 7.86; p &lt;.001; R² = 0.632; Adjusted R² = 0.552
 </td>
 </tr>
 </tfoot>
 </table>
 </div>
-<div id="hierarchical-piecewise-regressions" class="section level2">
-<h2><span class="header-section-number">10.5</span> Hierarchical piecewise regressions</h2>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1">res &lt;-<span class="st"> </span><span class="kw">hplm</span>(exampleAB_<span class="dv">50</span>, <span class="dt">data.l2 =</span> exampleAB_<span class="fl">50.</span>l2, <span class="dt">lr.test =</span> <span class="ot">TRUE</span>, <span class="dt">random.slopes =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb115-2" title="2"><span class="kw">export</span>(res, <span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">kable_options =</span> <span class="kw">list</span>(<span class="dt">booktab =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
-Hierarchical Piecewise Linear Regression for variable ’’.
-<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<div id="hierarchical-piecewise-regressions" class="section level2" number="12.5">
+<h2><span class="header-section-number">12.5</span> Hierarchical piecewise regressions</h2>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="exporting-scan-results.html#cb117-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">hplm</span>(exampleAB_50, <span class="at">data.l2 =</span> exampleAB_50.l2, <span class="at">lr.test =</span> <span class="cn">TRUE</span>, <span class="at">random.slopes =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb117-2"><a href="exporting-scan-results.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(res)</span></code></pre></div>
+Hierarchical Piecewise Linear Regression for variable ‘values.’
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -1788,7 +1815,7 @@ Slope phase B
 </td>
 </tr>
 <tr>
-<td style="text-align:left; padding-left: 2em;font-weight: bold;color: black !important;" indentlevel="1">
+<td style="text-align:left; padding-left:  2em;font-weight: bold;color: black !important;" indentlevel="1">
 </td>
 <td style="text-align:right;font-weight: bold;color: black !important;">
 SD
@@ -1806,7 +1833,7 @@ p
 </td>
 </tr>
 <tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
 Intercept
 </td>
 <td style="text-align:right;">
@@ -1825,7 +1852,7 @@ Intercept
 </td>
 </tr>
 <tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
 Trend mt
 </td>
 <td style="text-align:right;">
@@ -1844,7 +1871,7 @@ Trend mt
 </td>
 </tr>
 <tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
 Level phase B
 </td>
 <td style="text-align:right;">
@@ -1863,7 +1890,7 @@ Level phase B
 </td>
 </tr>
 <tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
 Slope phase B
 </td>
 <td style="text-align:right;">
@@ -1882,7 +1909,7 @@ Slope phase B
 </td>
 </tr>
 <tr>
-<td style="text-align:left; padding-left: 2em;" indentlevel="1">
+<td style="text-align:left; padding-left:  2em;" indentlevel="1">
 Residual
 </td>
 <td style="text-align:right;">
@@ -1953,12 +1980,12 @@ p &lt;.001
 </tbody>
 <tfoot>
 <tr>
-<td style="padding: 0; border: 0;" colspan="100%">
+<td style="padding: 0; " colspan="100%">
 <span style="font-style: italic;">Note: </span>
 </td>
 </tr>
 <tr>
-<td style="padding: 0; border: 0;" colspan="100%">
+<td style="padding: 0; " colspan="100%">
 <sup></sup> Estimation method ML; Slope estimation method: B&amp;L-B; 50 cases
 </td>
 </tr>
@@ -1972,17 +1999,19 @@ p &lt;.001
           </div>
         </div>
       </div>
-<a href="randomization-tests.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="default-settings.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="about-the-author.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1990,12 +2019,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -2010,7 +2038,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["scan-book.pdf", "scan-book.epub"],
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

@@ -1,0 +1,43 @@
+# Default settings
+
+Some of the default settings of scan can be changed with the `options()` argument. Table \@ref(tab:table-options) shows a complete list of options and their default values.
+
+```{r scan-options-example}
+# get the current value of an option
+getOption("scan.print.rows")
+
+# set option to a different value
+options(scan.print.rows = 5, scan.print.scdf.name = FALSE)
+print(exampleAB)
+
+options(scan.print.rows = 15, scan.print.scdf.name = TRUE)
+print(exampleAB)
+```
+
+```{r table-options, echo = FALSE}
+out <- tribble(
+  ~`Option`, ~`Default`, ~`What it does ...`,
+  
+   "scan.print.cases", "", "Max number of cases printed for scdf objects",
+    "scan.print.rows",  "", "Max number of rows printed for scdf objects",
+    "scan.print.cols", "", "Max number of columns printed for scdf objects",
+    "scan.print.digits", "", "Max number of digits printed for scdf objects",
+    "scan.print.long", "", "If TRUE, prints scdf objects in long format",
+    "scan.print.scdf.name", "","If TRUE, prints case names of scdf",
+    "scan.deprecated.warning", "","When TRUE returns information on deprecated functions",
+    "scan.export.kable", "", "List with default arguments for the kable argument of the export function",
+    "scan.export.kable_styling", "", "List with default arguments for the kable_styling argument of the export function",
+    )  
+
+
+op <- names(options())
+op <- op[which(startsWith(op, "scan."))]
+op <- op[which(!op %in% out[[1]])]
+out <- bind_rows(out, data.frame(Option = op))
+
+out[["Default"]] <- unlist(
+  apply(out[, 1:2], 1, function(x) deparse(getOption(x[1]), width.cutoff = 500))
+)
+
+print_table(out, "Scan Options", width_cols = c("15em", "15em") )
+```

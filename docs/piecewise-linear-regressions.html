@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Piecewise linear regressions | Analyzing single-case data with R and scan</title>
+  <title>Chapter 9 Piecewise linear regressions | Analyzing single-case data with R and scan</title>
   <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Piecewise linear regressions | Analyzing single-case data with R and scan" />
+  <meta property="og:title" content="Chapter 9 Piecewise linear regressions | Analyzing single-case data with R and scan" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jazznbass/scan-book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Piecewise linear regressions | Analyzing single-case data with R and scan" />
+  <meta name="twitter:title" content="Chapter 9 Piecewise linear regressions | Analyzing single-case data with R and scan" />
   
   <meta name="twitter:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
   
@@ -24,15 +24,16 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2019-08-21" />
+<meta name="date" content="2021-02-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="overlapping-indices.html">
-<link rel="next" href="multilevel-regression-analyses.html">
+<link rel="prev" href="overlapping-indices.html"/>
+<link rel="next" href="randomization-tests.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -40,6 +41,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -48,6 +52,7 @@
 
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script>
 <script>
@@ -60,25 +65,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -87,9 +93,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -139,60 +145,82 @@ Analyzing single-case data with R and scan
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#software-reference"><i class="fa fa-check"></i>Software reference</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a><ul>
+<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
-<li class="chapter" data-level="2.2" data-path="some-things-about-r.html"><a href="some-things-about-r.html#installing-the-scan-package"><i class="fa fa-check"></i><b>2.2</b> Installing the <em>scan</em> package</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>3</b> Managing single-case data</a><ul>
-<li class="chapter" data-level="3.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>3.1</b> A <strong><em>single-case data frame</em></strong></a></li>
-<li class="chapter" data-level="3.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>3.2</b> Creating scdfs</a></li>
-<li class="chapter" data-level="3.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>3.3</b> Saving and reading <em>single-case data frames</em></a></li>
-<li class="chapter" data-level="3.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>3.4</b> Import and export <em>single-case data frames</em></a></li>
-<li class="chapter" data-level="3.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-and-manipulating-scdf-files"><i class="fa fa-check"></i><b>3.5</b> Displaying and manipulating scdf-files</a></li>
+<li class="chapter" data-level="3" data-path="installing-the-scan-package.html"><a href="installing-the-scan-package.html"><i class="fa fa-check"></i><b>3</b> Installing the <em>scan</em> package</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="installing-the-scan-package.html"><a href="installing-the-scan-package.html#development-version-of-scan"><i class="fa fa-check"></i><b>3.1</b> Development version of scan</a></li>
+<li class="chapter" data-level="3.2" data-path="installing-the-scan-package.html"><a href="installing-the-scan-package.html#reporting-issues-with-scan-and-suggesting-enhancements"><i class="fa fa-check"></i><b>3.2</b> Reporting issues with <em>scan</em> and suggesting enhancements</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>4</b> Creating a single-case data plot</a><ul>
-<li class="chapter" data-level="4.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>4.1</b> Graphical styles of a plot</a></li>
+<li class="chapter" data-level="4" data-path="changes-with-version-0-50.html"><a href="changes-with-version-0-50.html"><i class="fa fa-check"></i><b>4</b> Changes with version 0.50</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="changes-with-version-0-50.html"><a href="changes-with-version-0-50.html#new-function-names"><i class="fa fa-check"></i><b>4.1</b> New function names</a></li>
+<li class="chapter" data-level="4.2" data-path="changes-with-version-0-50.html"><a href="changes-with-version-0-50.html#change-target-variables-in-functions"><i class="fa fa-check"></i><b>4.2</b> Change target variables in functions</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>5</b> Describe and manipulate single-case data frames</a><ul>
-<li class="chapter" data-level="5.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>5.1</b> Describing and summarizing</a></li>
-<li class="chapter" data-level="5.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>5.2</b> Autoregression and trendanalyses</a></li>
-<li class="chapter" data-level="5.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>5.3</b> Missing values</a></li>
-<li class="chapter" data-level="5.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>5.4</b> Outlieranalysis</a></li>
-<li class="chapter" data-level="5.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>5.5</b> Smoothing data</a></li>
+<li class="chapter" data-level="5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>5</b> Managing single-case data</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>5.1</b> A <strong><em>single-case data frame</em></strong></a></li>
+<li class="chapter" data-level="5.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>5.2</b> Creating scdfs</a></li>
+<li class="chapter" data-level="5.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>5.3</b> Saving and reading <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="5.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>5.4</b> Import and export <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="5.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-and-manipulating-scdf-files"><i class="fa fa-check"></i><b>5.5</b> Displaying and manipulating scdf-files</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>6</b> Overlapping indices</a><ul>
-<li class="chapter" data-level="6.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>6.1</b> Percentage non-overlapping data (PND)</a></li>
-<li class="chapter" data-level="6.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>6.2</b> Percentage exceeding the median (PEM)</a></li>
-<li class="chapter" data-level="6.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>6.3</b> Percentage exceeding the regression trend (PET)</a></li>
-<li class="chapter" data-level="6.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>6.4</b> Percentage of all non-overlapping data (PAND)</a></li>
-<li class="chapter" data-level="6.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>6.5</b> Nonoverlap of all pairs (NAP)</a></li>
-<li class="chapter" data-level="6.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>6.6</b> Tau-U</a></li>
-<li class="chapter" data-level="6.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>6.7</b> Reliable change index</a></li>
+<li class="chapter" data-level="6" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>6</b> Creating a single-case data plot</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>6.1</b> Graphical styles of a plot</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>7</b> Piecewise linear regressions</a><ul>
-<li class="chapter" data-level="7.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>7.1</b> The basic plm function</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>7.1.1</b> Dummy model</a></li>
+<li class="chapter" data-level="7" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>7</b> Describe and manipulate single-case data frames</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>7.1</b> Describing and summarizing</a></li>
+<li class="chapter" data-level="7.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>7.2</b> Autoregression and trendanalyses</a></li>
+<li class="chapter" data-level="7.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>7.3</b> Missing values</a></li>
+<li class="chapter" data-level="7.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>7.4</b> Outlieranalysis</a></li>
+<li class="chapter" data-level="7.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>7.5</b> Smoothing data</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#different-modells"><i class="fa fa-check"></i><b>7.2</b> Different modells</a></li>
-<li class="chapter" data-level="7.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#modelling-autoregression"><i class="fa fa-check"></i><b>7.3</b> Modelling autoregression</a></li>
-<li class="chapter" data-level="7.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>7.4</b> Adding additional predictors</a></li>
+<li class="chapter" data-level="8" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>8</b> Overlapping indices</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>8.1</b> Percentage non-overlapping data (PND)</a></li>
+<li class="chapter" data-level="8.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>8.2</b> Percentage exceeding the median (PEM)</a></li>
+<li class="chapter" data-level="8.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>8.3</b> Percentage exceeding the regression trend (PET)</a></li>
+<li class="chapter" data-level="8.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>8.4</b> Percentage of all non-overlapping data (PAND)</a></li>
+<li class="chapter" data-level="8.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>8.5</b> Nonoverlap of all pairs (NAP)</a></li>
+<li class="chapter" data-level="8.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>8.6</b> Tau-U</a></li>
+<li class="chapter" data-level="8.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>8.7</b> Reliable change index</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="multilevel-regression-analyses.html"><a href="multilevel-regression-analyses.html"><i class="fa fa-check"></i><b>8</b> Multilevel regression analyses</a><ul>
-<li class="chapter" data-level="8.1" data-path="multilevel-regression-analyses.html"><a href="multilevel-regression-analyses.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>8.1</b> Adding additional L2-variables</a></li>
+<li class="chapter" data-level="9" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>9</b> Piecewise linear regressions</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>9.1</b> The basic plm function</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>9.1.1</b> Dummy model</a></li>
+<li class="chapter" data-level="9.1.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adjusting-the-model"><i class="fa fa-check"></i><b>9.1.2</b> Adjusting the model</a></li>
+<li class="chapter" data-level="9.1.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>9.1.3</b> Adding additional predictors</a></li>
+<li class="chapter" data-level="9.1.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-modelling-autoregression"><i class="fa fa-check"></i><b>9.1.4</b> [to be written] Modelling autoregression</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>9</b> Randomization tests</a></li>
-<li class="chapter" data-level="10" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>10</b> Exporting <em>scan</em> results</a><ul>
-<li class="chapter" data-level="10.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>10.1</b> Single case data files</a></li>
-<li class="chapter" data-level="10.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>10.2</b> Descriptive stats</a></li>
-<li class="chapter" data-level="10.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>10.3</b> Overlap indices</a></li>
-<li class="chapter" data-level="10.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>10.4</b> Piecewise linear models</a></li>
-<li class="chapter" data-level="10.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>10.5</b> Hierarchical piecewise regressions</a></li>
+<li class="chapter" data-level="9.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-multivariate-piecewise-regression"><i class="fa fa-check"></i><b>9.2</b> [to be written] Multivariate piecewise regression</a></li>
+<li class="chapter" data-level="9.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#multilevel-plm-analyses"><i class="fa fa-check"></i><b>9.3</b> Multilevel plm analyses</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>9.3.1</b> Adding additional L2-variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>10</b> Randomization tests</a></li>
+<li class="chapter" data-level="11" data-path="default-settings.html"><a href="default-settings.html"><i class="fa fa-check"></i><b>11</b> Default settings</a></li>
+<li class="chapter" data-level="12" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>12</b> Exporting <em>scan</em> results</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>12.1</b> Single case data files</a></li>
+<li class="chapter" data-level="12.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>12.2</b> Descriptive stats</a></li>
+<li class="chapter" data-level="12.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>12.3</b> Overlap indices</a></li>
+<li class="chapter" data-level="12.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>12.4</b> Piecewise linear models</a></li>
+<li class="chapter" data-level="12.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>12.5</b> Hierarchical piecewise regressions</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -216,45 +244,54 @@ Published with bookdown
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="piecewise-linear-regressions" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Piecewise linear regressions</h1>
-<p>In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope.
-This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases.
-A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean <span class="citation">Huitema &amp; Mckean (<a href="#ref-huitema_design_2000">2000</a>)</span>. They refer to two phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention’s start and lasting throughout the intervention (B-phase). In this model, four factors predict the outcome at a specific measurement point: The performance at the beginning of the study, a developmental effect leading to a continuous increase throughout all measurements (trend effect), an intervention effect leading to an immediate and constant increase in performance (level effect), and a second intervention effect that evolves continuously with the beginning of the intervention (slope effect).
-<em>scan</em> provides an implementation based of this piecewise regression approach. Though the original model is extended by several factors:</p>
+<div id="piecewise-linear-regressions" class="section level1" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Piecewise linear regressions</h1>
+<p>In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean <span class="citation"><a href="references.html#ref-huitema_design_2000" role="doc-biblioref">Huitema &amp; Mckean</a> (<a href="references.html#ref-huitema_design_2000" role="doc-biblioref">2000</a>)</span>. They refer to two phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention’s start and lasting throughout the intervention (B-phase). In this model, four factors predict the outcome at a specific measurement point: The performance at the beginning of the study, a developmental effect leading to a continuous increase throughout all measurements (trend effect), an intervention effect leading to an immediate and constant increase in performance (level effect), and a second intervention effect that evolves continuously with the beginning of the intervention (slope effect). <em>scan</em> provides an implementation based of this piecewise regression approach. Though the original model is extended by several factors:</p>
 <ul>
 <li>multiple phase designs</li>
 <li>additional (control) variables</li>
-<li>autoregression modelling</li>
+<li>autoregression modeling</li>
 <li>logistic, binomial, and poisson distributed dependent variables and error terms</li>
 <li>multivariate analyzes for analyzing the effect of an intervention on more than one outcome variable.</li>
 </ul>
-<div id="the-basic-plm-function" class="section level2">
-<h2><span class="header-section-number">7.1</span> The basic plm function</h2>
+<div id="the-basic-plm-function" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> The basic plm function</h2>
+<style>
+  table {
+    border: 0px solid black;
+    background-color: red;
+  }
+</style>
+<table>
+ <tr>
+  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> plm(data, dvar, pvar, mvar, AR = 0, model = "B&L-B", family = "gaussian", trend = TRUE, level = TRUE, slope = TRUE, formula = NULL, update = NULL, na.action = na.omit, ...) </font></td>
+ </tr>
+</table>  
 <p>The basic function for applying a regression analyzes to a single-case dataset is <code>plm</code>. This function analyzes one single-case. In its simplest way, <code>plm</code> takes one argument with an <em>scdf</em> object and it returns a full piecewise regression analyzes.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">plm</span>(exampleAB<span class="op">$</span>Johanna)</a></code></pre></div>
-<pre><code>## Piecewise Regression Analysis
-## 
-## Dummy model:  B&amp;L-B 
-## 
-## Fitted a gaussian distribution.
-## F(3, 16) = 28.69; p = 0.000; R² = 0.843; Adjusted R² = 0.814
-## 
-##                    B   2.5%  97.5%    SE      t     p &lt;U+0394&gt;R²
-## Intercept     54.300 43.978 64.622 5.267 10.310 0.000           
-## Trend mt       0.100 -3.012  3.212 1.588  0.063 0.951     0.0000
-## Level phase B  6.333 -2.979 15.646 4.751  1.333 0.201     0.0174
-## Slope phase B  1.525 -1.642  4.692 1.616  0.944 0.359     0.0087
-## 
-## Autocorrelations of the residuals
-##  lag    cr
-##    1 -0.32
-##    2 -0.13
-##    3 -0.01
-## 
-## Formula: values ~ 1 + mt + phaseB + interB</code></pre>
-<div id="dummy-model" class="section level3">
-<h3><span class="header-section-number">7.1.1</span> Dummy model</h3>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="piecewise-linear-regressions.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB<span class="sc">$</span>Johanna)</span></code></pre></div>
+<pre><code>Piecewise Regression Analysis
+
+Dummy model:  B&amp;L-B 
+
+Fitted a gaussian distribution.
+F(3, 16) = 28.69; p = 0.000; R² = 0.843; Adjusted R² = 0.814
+
+                   B   2.5%  97.5%    SE      t     p    ΔR²
+Intercept     54.300 43.978 64.622 5.267 10.310 0.000       
+Trend mt       0.100 -3.012  3.212 1.588  0.063 0.951 0.0000
+Level phase B  6.333 -2.979 15.646 4.751  1.333 0.201 0.0174
+Slope phase B  1.525 -1.642  4.692 1.616  0.944 0.359 0.0087
+
+Autocorrelations of the residuals
+ lag    cr
+   1 -0.32
+   2 -0.13
+   3 -0.01
+
+Formula: values ~ 1 + mt + phaseB + interB</code></pre>
+<div id="dummy-model" class="section level3" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> Dummy model</h3>
 <p>The <code>model</code> argument is used to code the <em>dummy variable</em>. This <em>dummy variable</em> is used to compute the slope and level effects of the <em>phase</em> variable.<br />
 The <em>phase</em> variable is categorical, identifying the phase of each measurement. Typically, categorical variables are implemented by means of dummy variables. In a piecewise regression model two phase effects have to be estimated: a level effect and a slope effect. The level effect is implemented quite straight forward: for each phase beginning with the second phase a new dummy variable is created with values of zero for all measurements except the measurements of the phase in focus where values of one are set.</p>
 <table>
@@ -860,123 +897,415 @@ B
 </tbody>
 </table>
 </div>
-</div>
-<div id="different-modells" class="section level2">
-<h2><span class="header-section-number">7.2</span> Different modells</h2>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">plm</span>(exampleAB<span class="op">$</span>Karolina)</a></code></pre></div>
-<pre><code>## Piecewise Regression Analysis
-## 
-## Dummy model:  B&amp;L-B 
-## 
-## Fitted a gaussian distribution.
-## F(3, 16) = 33.73; p = 0.000; R² = 0.863; Adjusted R² = 0.838
-## 
-##                    B   2.5%  97.5%    SE     t     p &lt;U+0394&gt;R²
-## Intercept     47.600 36.724 58.476 5.549 8.578 0.000           
-## Trend mt       1.400 -1.879  4.679 1.673 0.837 0.415     0.0060
-## Level phase B  3.352 -6.459 13.164 5.006 0.670 0.513     0.0038
-## Slope phase B  0.539 -2.798  3.877 1.703 0.317 0.756     0.0009
-## 
-## Autocorrelations of the residuals
-##  lag    cr
-##    1  0.03
-##    2 -0.40
-##    3 -0.22
-## 
-## Formula: values ~ 1 + mt + phaseB + interB</code></pre>
+<div id="adjusting-the-model" class="section level3" number="9.1.2">
+<h3><span class="header-section-number">9.1.2</span> Adjusting the model</h3>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="piecewise-linear-regressions.html#cb84-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb84-2"><a href="piecewise-linear-regressions.html#cb84-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">55</span>, <span class="dv">58</span>, <span class="dv">53</span>, <span class="dv">50</span>, <span class="dv">52</span>, <span class="dv">55</span>, <span class="dv">68</span>, <span class="dv">68</span>, <span class="dv">81</span>, <span class="dv">67</span>, <span class="dv">78</span>, <span class="dv">73</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">81</span>, <span class="dv">78</span>, <span class="dv">71</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">76</span>),</span>
+<span id="cb84-3"><a href="piecewise-linear-regressions.html#cb84-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">phase.design =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">5</span>, <span class="at">B =</span> <span class="dv">15</span>)</span>
+<span id="cb84-4"><a href="piecewise-linear-regressions.html#cb84-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb84-5"><a href="piecewise-linear-regressions.html#cb84-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-6"><a href="piecewise-linear-regressions.html#cb84-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example)</span></code></pre></div>
+<pre><code>Piecewise Regression Analysis
+
+Dummy model:  B&amp;L-B 
+
+Fitted a gaussian distribution.
+F(3, 16) = 21.36; p = 0.000; R² = 0.800; Adjusted R² = 0.763
+
+                   B   2.5%  97.5%    SE      t     p    ΔR²
+Intercept     57.800 46.521 69.079 5.755 10.044 0.000       
+Trend mt      -1.400 -4.801  2.001 1.735 -0.807 0.432 0.0081
+Level phase B 14.467  4.291 24.642 5.192  2.786 0.013 0.0970
+Slope phase B  2.500 -0.961  5.961 1.766  1.416 0.176 0.0250
+
+Autocorrelations of the residuals
+ lag    cr
+   1 -0.28
+   2  0.05
+   3 -0.11
+
+Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 <p>The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. There are several ways to do this. The easiest way is the to unset the <code>slope</code> argument: <code>slope = FALSE</code>.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">plm</span>(exampleAB<span class="op">$</span>Karolina, <span class="dt">slope =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<pre><code>## Piecewise Regression Analysis
-## 
-## Dummy model:  B&amp;L-B 
-## 
-## Fitted a gaussian distribution.
-## F(2, 17) = 53.38; p = 0.000; R² = 0.863; Adjusted R² = 0.846
-## 
-##                    B   2.5%  97.5%    SE      t     p &lt;U+0394&gt;R²
-## Intercept     46.038 41.187 50.889 2.475 18.602 0.000           
-## Trend mt       1.921  1.328  2.513 0.302  6.352 0.000     0.3261
-## Level phase B  2.460 -5.432 10.351 4.026  0.611 0.549     0.0030
-## 
-## Autocorrelations of the residuals
-##  lag    cr
-##    1  0.06
-##    2 -0.39
-##    3 -0.24
-## 
-## Formula: values ~ 1 + mt + phaseB</code></pre>
-<p>In the resulting estimations the trend and level effects are now significant. The model estimated a trend effect of 0.96 points per measurement time and a level effect of 14.3 points. That is, with the beginning of the intervention (the B-phase) the score increases by 14.3 points.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="piecewise-linear-regressions.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>Piecewise Regression Analysis
+
+Dummy model:  B&amp;L-B 
+
+Fitted a gaussian distribution.
+F(2, 17) = 29.30; p = 0.000; R² = 0.775; Adjusted R² = 0.749
+
+                   B   2.5%  97.5%    SE      t     p    ΔR²
+Intercept     50.559 45.239 55.878 2.714 18.627 0.000       
+Trend mt       1.014  0.364  1.664 0.332  3.057 0.007 0.1236
+Level phase B 10.329  1.674 18.983 4.416  2.339 0.032 0.0724
+
+Autocorrelations of the residuals
+ lag    cr
+   1 -0.07
+   2  0.06
+   3 -0.17
+
+Formula: values ~ 1 + mt + phaseB</code></pre>
+<p>In the resulting estimations the trend and level effects are now significant. The model estimated a trend effect of 1.01 points per measurement time and a level effect of 2.46 points. That is, with the beginning of the intervention (the B-phase) the score increases by 15.38 points (5 x 1.01 + 10.33).</p>
 </div>
-<div id="modelling-autoregression" class="section level2">
-<h2><span class="header-section-number">7.3</span> Modelling autoregression</h2>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="kw">autocorrSC</span>(Grosche2011)</a></code></pre></div>
-<pre><code>## Autocorrelations
-## 
-##   case phase lag_1 lag_2 lag_3
-##    Eva     A -0.04 -0.56 -0.01
-##    Eva     B  0.46  0.10  0.16
-##    Eva   all  0.48  0.13  0.24
-##  Georg     A  0.51 -0.01 -0.13
-##  Georg     B -0.01 -0.02 -0.14
-##  Georg   all  0.40  0.15 -0.12
-##   Olaf     A  0.64  0.29 -0.24
-##   Olaf     B -0.45 -0.20  0.16
-##   Olaf   all  0.35  0.12 -0.09</code></pre>
-</div>
-<div id="adding-additional-predictors" class="section level2">
-<h2><span class="header-section-number">7.4</span> Adding additional predictors</h2>
+<div id="adding-additional-predictors" class="section level3" number="9.1.3">
+<h3><span class="header-section-number">9.1.3</span> Adding additional predictors</h3>
 <p>In more complex analyses additional predictors can be included in the piecewise regression model.</p>
 <p>To do this, we have to change the regression formula ‘manually’ by applying the <code>update</code> argument. The <code>update</code> argument allows to change the underlying regression formula. To add a new variable named for example <code>newVar</code>, set <code>update = .~. + newVar</code>. The <code>.~.</code> part takes the internally build formula and <code>+ newVar</code> adds a variable named <code>newVar</code> to the equation.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1">exampleAB_add</a></code></pre></div>
-<pre><code>## #A single-case data frame with one case
-## 
-##  Rolf: day wellbeing cigarrets depression phase
-##          1        46         2          7  Base
-##          2        49         5          6  Base
-##          3        49         4          1  Base
-##          4        49         1          4  Base
-##          5        50         2          7  Base
-##          6        47         4          2  Base
-##          7        45         4          6  Base
-##          8        59         0          0  Base
-##          9        58         2          3  Base
-##         10        59         3          6  Base
-##         11        59         2          8  Base
-##         12        43         1          7  Base
-##         13        46         4          9  Base
-##         14        52         5          6  Base
-##         15        55         5          3  Base
-## # ... up to 25 more rows</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1"><span class="kw">plm</span>(exampleAB_add, <span class="dt">update =</span> .<span class="op">~</span>. <span class="op">+</span><span class="st"> </span>cigarrets)</a></code></pre></div>
-<pre><code>## Piecewise Regression Analysis
-## 
-## Dummy model:  B&amp;L-B 
-## 
-## Fitted a gaussian distribution.
-## F(4, 35) = 5.87; p = 0.001; R² = 0.402; Adjusted R² = 0.333
-## 
-##                             B   2.5%  97.5%    SE      t     p &lt;U+0394&gt;R²
-## Intercept              48.579 42.539 54.618 3.081 15.765 0.000           
-## Trend day               0.392 -0.221  1.005 0.313  1.253 0.218     0.0269
-## Level phase Medication  3.753 -2.815 10.321 3.351  1.120 0.270     0.0214
-## Slope phase Medication -0.294 -0.972  0.384 0.346 -0.850 0.401     0.0124
-## cigarrets              -0.221 -1.197  0.755 0.498 -0.443 0.660     0.0034
-## 
-## Autocorrelations of the residuals
-##  lag    cr
-##    1  0.20
-##    2 -0.19
-##    3 -0.16
-## 
-## Formula: wellbeing ~ day + phaseMedication + interMedication + cigarrets</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="piecewise-linear-regressions.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_add, <span class="at">update =</span> .<span class="sc">~</span>. <span class="sc">+</span> cigarrets)</span></code></pre></div>
+<pre><code>Piecewise Regression Analysis
+
+Dummy model:  B&amp;L-B 
+
+Fitted a gaussian distribution.
+F(4, 35) = 5.87; p = 0.001; R² = 0.402; Adjusted R² = 0.333
+
+                            B   2.5%  97.5%    SE      t     p    ΔR²
+Intercept              48.579 42.539 54.618 3.081 15.765 0.000       
+Trend day               0.392 -0.221  1.005 0.313  1.253 0.218 0.0269
+Level phase Medication  3.753 -2.815 10.321 3.351  1.120 0.270 0.0214
+Slope phase Medication -0.294 -0.972  0.384 0.346 -0.850 0.401 0.0124
+cigarrets              -0.221 -1.197  0.755 0.498 -0.443 0.660 0.0034
+
+Autocorrelations of the residuals
+ lag    cr
+   1  0.20
+   2 -0.19
+   3 -0.16
+
+Formula: wellbeing ~ day + phaseMedication + interMedication + cigarrets</code></pre>
 <p>The formula has two parts divided by a tilde. Left of the tilde is the variable to be predicted and right of it the predictors. A <code>1</code> indicates the intercept, the variable <code>mt</code> estimates the trend effect, <code>phaseB</code> the level effect of the B-phase and the variable <code>interB</code> the slope effect of the B-phase. If <code>formula</code> is not explicitly defined it is set to <code>formula = values ~ 1 + mt + phaseB + interB</code> (assuming an AB-design) to estimate the full piecewise regression model.</p>
+</div>
+<div id="to-be-written-modelling-autoregression" class="section level3" number="9.1.4">
+<h3><span class="header-section-number">9.1.4</span> [to be written] Modelling autoregression</h3>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="piecewise-linear-regressions.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autocorr</span>(Grosche2011)</span></code></pre></div>
+<pre><code>Autocorrelations
+
+  case phase lag_1 lag_2 lag_3
+   Eva     A -0.04 -0.56 -0.01
+   Eva     B  0.46  0.10  0.16
+   Eva   all  0.48  0.13  0.24
+ Georg     A  0.51 -0.01 -0.13
+ Georg     B -0.01 -0.02 -0.14
+ Georg   all  0.40  0.15 -0.12
+  Olaf     A  0.64  0.29 -0.24
+  Olaf     B -0.45 -0.20  0.16
+  Olaf   all  0.35  0.12 -0.09</code></pre>
+</div>
+</div>
+<div id="to-be-written-multivariate-piecewise-regression" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> [to be written] Multivariate piecewise regression</h2>
+<style>
+  table {
+    border: 0px solid black;
+    background-color: red;
+  }
+</style>
+<table>
+ <tr>
+  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> mplm(data, dvar, mvar, pvar, model = "B&L-B", trend = TRUE, level = TRUE, slope = TRUE, formula = NULL, update = NULL, na.action = na.omit, ...) </font></td>
+ </tr>
+</table>  
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="piecewise-linear-regressions.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mplm</span>(exampleAB_add, <span class="at">dvar =</span> <span class="fu">c</span>(<span class="st">&quot;wellbeing&quot;</span>, <span class="st">&quot;depression&quot;</span>))</span></code></pre></div>
+<pre><code>This function is in an experimental state and only implemented for testing und debugging purposes.</code></pre>
+<pre><code>Multivariate piecewise linear model
+
+Dummy model: B&amp;L-B 
+
+Coefficients: 
+                        wellbeing depression
+(Intercept)            48.0380952  4.0857143
+day                     0.3785714  0.1142857
+Level Phase Medication  3.8633333 -0.7800000
+Slope Phase Medication -0.2754945 -0.1650549
+
+Standardized coefficients: 
+                        wellbeing depression
+(Intercept)             0.0000000  0.0000000
+day                     0.6937874  0.4412216
+Level Phase Medication  0.2969359 -0.1262936
+Slope Phase Medication -0.3714101 -0.4687655
+
+Formula: y ~ 1 + day + phaseMedication + interMedication
+
+Type III MANOVA Tests: Pillai test statistic
+                       Df test stat approx F num Df den Df Pr(&gt;F)    
+(Intercept)             1   0.89679  152.053      2     35 &lt;2e-16 ***
+day                     1   0.05450    1.009      2     35 0.3750    
+Level Phase Medication  1   0.03846    0.700      2     35 0.5034    
+Slope Phase Medication  1   0.03911    0.712      2     35 0.4975    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="multilevel-plm-analyses" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Multilevel plm analyses</h2>
+<style>
+  table {
+    border: 0px solid black;
+    background-color: red;
+  }
+</style>
+<table>
+ <tr>
+  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> hplm(data, dvar, pvar, mvar, model = "B&L-B", method = "ML", control = list(opt = "optim"), random.slopes = FALSE, lr.test = FALSE, ICC = TRUE, trend = TRUE, level = TRUE, slope = TRUE, fixed = NULL, random = NULL, update.fixed = NULL, data.l2 = NULL, ...) </font></td>
+ </tr>
+</table>  
+<p>Multilevel analyses can take the piecewise-regression approach even further. It allows for</p>
+<ul>
+<li>analyzing the effects between phases for multiple single-cases at once</li>
+<li>describing variability between subjects regarding these effects, and</li>
+<li>introducing variables and factors for explaining the differences.</li>
+</ul>
+<p>The basic function for applying a multilevel piecewise regression analysis is <code>hplm</code>. The <code>hplm</code> function is similar to the <code>plm</code> function, so I recommend that you get familar with <code>plm</code> before applying an <code>hplm</code>.</p>
+<p>Here is a simple example:</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="piecewise-linear-regressions.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50)</span></code></pre></div>
+<pre><code>Hierarchical Piecewise Linear Regression
+
+Estimation method ML 
+Slope estimation method: B&amp;L-B 
+50 Cases
+
+ICC = 0.195; L = 192.0; p = 0.000
+
+Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                   B    SE   df      t p
+Intercept     51.614 1.282 1281 40.274 0
+Trend mt       0.671 0.115 1281  5.844 0
+Level phase B 12.938 0.590 1281 21.942 0
+Slope phase B  0.859 0.119 1281  7.236 0
+
+Random effects (~1 | case)
+
+          EstimateSD
+Intercept      8.179
+Residual       5.335</code></pre>
+<p>Here is an example inlcuding random slopes:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="piecewise-linear-regressions.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50, <span class="at">random.slopes =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>Hierarchical Piecewise Linear Regression
+
+Estimation method ML 
+Slope estimation method: B&amp;L-B 
+50 Cases
+
+ICC = 0.195; L = 192.0; p = 0.000
+
+Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                   B    SE   df      t p
+Intercept     51.720 1.348 1281 38.378 0
+Trend mt       0.637 0.125 1281  5.080 0
+Level phase B 13.090 0.762 1281 17.176 0
+Slope phase B  0.887 0.129 1281  6.856 0
+
+Random effects (~1 + mt + phaseB + interB | case)
+
+              EstimateSD
+Intercept          8.691
+Trend mt           0.343
+Level phase B      3.654
+Slope phase B      0.358
+Residual           4.994</code></pre>
+<div id="adding-additional-l2-variables" class="section level3" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Adding additional L2-variables</h3>
+<p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze. This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects. To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="piecewise-linear-regressions.html#cb99-1" aria-hidden="true" tabindex="-1"></a>L2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb99-2"><a href="piecewise-linear-regressions.html#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">case =</span> <span class="fu">c</span>(<span class="st">&quot;Antonia&quot;</span>,<span class="st">&quot;Theresa&quot;</span>, <span class="st">&quot;Charlotte&quot;</span>, <span class="st">&quot;Luis&quot;</span>, <span class="st">&quot;Bennett&quot;</span>, <span class="st">&quot;Marie&quot;</span>), </span>
+<span id="cb99-3"><a href="piecewise-linear-regressions.html#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">14</span>), </span>
+<span id="cb99-4"><a href="piecewise-linear-regressions.html#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;f&quot;</span>)</span>
+<span id="cb99-5"><a href="piecewise-linear-regressions.html#cb99-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb99-6"><a href="piecewise-linear-regressions.html#cb99-6" aria-hidden="true" tabindex="-1"></a>L2</span></code></pre></div>
+<pre><code>       case age sex
+1   Antonia  16   f
+2   Theresa  13   f
+3 Charlotte  13   f
+4      Luis  10   m
+5   Bennett   5   m
+6     Marie  14   f</code></pre>
+<p>Multilevel analyses require a high number of Level 2 units. The exact number depends on the complexity of the analyses, the size of the effects, the number of level 1 units, and the variability of the residuals. But surely we need at least about 30 level 2 units. In a single-case design that is, we need at least 30 single-cases (subjects) within the study. After setting the level 2 data frame we use the <code>data.l2</code> argument of the <code>hplm</code> function to include it into the analysis. Then we have to specify the regression function using the <code>update.fixed</code> argument. The level 2 variables can be added just like any other additional variable. For example, we have added a level 2 data-set with the two variables <code>sex</code> and <code>age</code>. <code>update</code> could be construed of the level 1 piecewise regression model <code>.~.</code> plus the additional level 2 variables of interest <code>+ sex + age</code>. The complete argument is <code>update.fixed = .~. + sex + age</code>. This analyses will estimate a main effect of sex and age on the overall performance. In case we want to analyze an interaction between the intervention effects and for example the sex of the subject we have to add an additional interaction term (a cross-level interaction). An interaction is defined with a colon. So <code>sex:phase</code> indicates an interaction of sex and the level effect in the single case study. The complete formula now is <code>update.fixed = .~. + sex + age + sex:phase</code>.</p>
+<p><em>scan</em> includes an example single-case study with 50 subjects <code>example50</code> and an additional level 2 data-set <code>example50.l2</code>. Here are the first 10 cases of <code>example50.l2</code>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+case
+</th>
+<th style="text-align:left;">
+sex
+</th>
+<th style="text-align:right;">
+age
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Jeremiah
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Leon
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pablo
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jamal
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Giovanny
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Callum
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dwayne
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neymar
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Krish
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Caiden
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+</tbody>
+</table>
+<p>Analyzing the data with <code>hplm</code> could look like this:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="piecewise-linear-regressions.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50, <span class="at">data.l2 =</span> exampleAB_50.l2, <span class="at">update.fixed =</span> .<span class="sc">~</span>. <span class="sc">+</span> sex <span class="sc">+</span> age)</span></code></pre></div>
+<pre><code>Hierarchical Piecewise Linear Regression
+
+Estimation method ML 
+Slope estimation method: B&amp;L-B 
+50 Cases
+
+ICC = 0.195; L = 192.0; p = 0.000
+
+Fixed effects (values ~ mt + phaseB + interB + sex + age)
+
+                   B     SE   df      t     p
+Intercept     71.464 13.076 1281  5.465 0.000
+Trend mt       0.667  0.115 1281  5.808 0.000
+Level phase B 12.951  0.590 1281 21.951 0.000
+Slope phase B  0.863  0.119 1281  7.264 0.000
+sexm          -2.130  2.336   47 -0.912 0.367
+age           -1.710  1.157   47 -1.478 0.146
+
+Random effects (~1 | case)
+
+          EstimateSD
+Intercept      7.975
+Residual       5.335</code></pre>
+<p><code>sex</code> is a factor with the levels <code>f</code> and <code>m</code>. So <code>sexm</code> is the effect of being male on the overall performance. <code>age</code> does not seem to have any effect. So we drop <code>age</code> out of the equation and add an interaction of sex and phase to see whether the <code>sex</code> effect is due to a weaker impact of the intervention on males.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="piecewise-linear-regressions.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50, <span class="at">data.l2 =</span> exampleAB_50.l2, <span class="at">update.fixed =</span> .<span class="sc">~</span>. <span class="sc">+</span> sex <span class="sc">+</span> sex<span class="sc">:</span>phaseB)</span></code></pre></div>
+<pre><code>Hierarchical Piecewise Linear Regression
+
+Estimation method ML 
+Slope estimation method: B&amp;L-B 
+50 Cases
+
+ICC = 0.195; L = 192.0; p = 0.000
+
+Fixed effects (values ~ mt + phaseB + interB + sex + phaseB:sex)
+
+                        B    SE   df       t     p
+Intercept          49.801 1.735 1280  28.711 0.000
+Trend mt            0.638 0.109 1280   5.847 0.000
+Level phase B      16.762 0.644 1280  26.034 0.000
+Slope phase B       0.889 0.113 1280   7.884 0.000
+sexm                3.983 2.368   48   1.682 0.099
+Level phase B:sexm -7.463 0.622 1280 -11.994 0.000
+
+Random effects (~1 | case)
+
+          EstimateSD
+Intercept      8.144
+Residual       5.059</code></pre>
+<p>Now the interaction <code>phase:sexm</code> is significant and the main effect is no longer relevant. It looks like the intervention effect is 7.5 points lower for male subjects. While the level-effect is 16.8 points for female subjects it is 16.8 - 7.5 = 9.3 for males.</p>
 
 </div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-huitema_design_2000">
-<p>Huitema, B. E., &amp; Mckean, J. W. (2000). Design specification issues in time-series intervention models. <em>Educational and Psychological Measurement</em>, <em>60</em>(1), 38–58. Retrieved from <a href="http://epm.sagepub.com/content/60/1/38.short">http://epm.sagepub.com/content/60/1/38.short</a></p>
 </div>
 </div>
             </section>
@@ -985,16 +1314,18 @@ B
         </div>
       </div>
 <a href="overlapping-indices.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="multilevel-regression-analyses.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="randomization-tests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -1002,12 +1333,11 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1022,7 +1352,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["scan-book.pdf", "scan-book.epub"],
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

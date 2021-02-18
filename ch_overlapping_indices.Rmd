@@ -1,0 +1,137 @@
+
+# Overlapping indices
+
+```{r results='asis', echo=FALSE}
+function_structure("overlap")
+```
+
+`overlap` provides a table with some of the most important overlap indices for each case of an *scdf*. For calculating overlap indicators is is important to know if a decrease or an increase of values is expected between phases. By default `overlap` assumes an increase in values. If the argument `decreasing = TRUE` is set, calculation will be based on the assumption of decreasing values.  
+
+```{r warning = FALSE}
+overlap(exampleAB)
+```
+
+
+Overlap measures refer to a comparison of two phases within a single-case data-set. By default, `overlap` compares a Phase A to a Phase B. The `phases` argument is needed if the phases of the *scdf* do not include phases named A and B or a comparison between other phases in wanted.  
+The `phases` argument takes a list with two elements. One element for each of the two phases that should be compared. The elements could contain either the name of the two phases or the number of the position within the *scdf*. If you want to compare the first to the third phase you can set `phases = list(1,3)`. If the phases of your case are named 'A', 'B', and 'C' you could alternatively set `phases = list("A","C")`.  
+It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the `c` command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases `phases = list( c(1,3), c(2,4) )` will do the trick.
+
+```{r warning = FALSE}
+overlap(exampleA1B1A2B2, phases = list( c("A1","A2"), c("B1","B2")))
+```
+
+## Percentage non-overlapping data (PND)
+
+```{r results='asis', echo=FALSE}
+function_structure("pnd")
+```
+
+The percentage of non-overlapping data (PND) effect size measure was described by @scruggs_quantitative_1987 . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the  second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.  
+
+```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A."}
+dat <- rSC(design_rSC(1, level = 1.0),round = 0, seed = 1212, random.names = "male")
+plot(dat, style = "grid",lines = c("maxA", col = "red", lwd = 3))
+```
+
+The function `pnd` provides the PND for each case as well as the mean of all PNDs of that _scdf_. When you expect decreasing values set `decreasing = TRUE`. When there are more than two phases or phases are not named A and B, use the `phases` argument as described at the beginning of this chapter.
+
+```{r}
+pnd(exampleAB)
+```
+
+## Percentage exceeding the median (PEM)
+
+```{r results='asis', echo=FALSE}
+function_structure("pem")
+```
+
+The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.
+
+```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A."}
+dat <- rSC(design_rSC(1, level = 0.4,phase.design = list(A = 8, B = 12)), round = 0, seed = 1232, random.names = "male")
+plot(dat, style = "grid",lines = c("medianA", col = "red", lwd = 3))
+```
+
+
+```{r}
+pem(exampleAB)
+```
+
+## Percentage exceeding the regression trend (PET)
+
+```{r results='asis', echo=FALSE}
+function_structure("pet")
+```
+
+The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent confidence interval of the predicted progress is computed.
+
+```{r}
+pet(exampleAB)
+```
+
+
+```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the median of phase A."}
+dat <- rSC(design_rSC(1, phase.design = list(A = 10, B = 15), level = 0.4),round = 0, seed = 9871, random.names = "female")
+plot(dat, style = "grid",lines = c("trendA", col = "red", lwd = 3))
+```
+
+## Percentage of all non-overlapping data (PAND)
+
+```{r results='asis', echo=FALSE}
+function_structure("pand")
+```
+
+The `pand` function calculates the percentage of all non-overlapping data [@parker_percentage_2007], an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The argument `correction = TRUE` makes `pand` use a frequency matrix, which is corrected for ties. A tie is counted as the half of a measurement in both phases. Set `correction = FALSE` to use the uncorrected matrix, which is not recommended.
+
+```{r pand}
+pand(exampleAB)
+```
+
+PAND indicates nonoverlap between phase A and B data (like PND), but uses all data and is therefore not based on one single (probably unrepresentative) datapoint. Furthermore, PAND allows the comparison of real and expected associations (Chi-square test) and estimation of the effect size Phi, which equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance. The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power [@parker_effect_2011].
+
+## Nonoverlap of all pairs (NAP)
+
+```{r results='asis', echo=FALSE}
+function_structure("nap")
+```
+
+The `nap` function calculates the nonoverlap of all pairs [@parker_improved_2009]. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP can only take values between 50 and 100 percent, a rescaled and therefore more intuitive NAP (0-100%) is also displayed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case. 
+
+```{r}
+nap(exampleAB)
+```
+
+## Tau-U
+
+```{r results='asis', echo=FALSE}
+function_structure("tau_u")
+```
+
+The `tau_u` function takes a _scdf_ and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. This procedure has been proposed by @parker_combining_2011.  
+The `tau_u` function provides two methods for calculation of Tau-U. By setting the argument `method = "parker"`, Tau-U is calculated as described in @parker_combining_2011. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. `method = "complete`, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate.  
+In the method proposed by @parker_combining_2011 data of the same value (ties) are ignored and treated as if these data had not been available. Alternatively, ties might be considered in favor of the intervention or not. For the latter, the `ties.method` argument could be set to `ties.method = "positive"` or  `ties.method = "negative"`. The default is `"omit"` following @parker_combining_2011.  
+The standard return of the `tau_u` function does not display all calculations. If you like to have more details, apply the `print` function with the additional argument `complete = TRUE`.
+
+```{r}
+dat <- scdf(c(2,0,1,4,3,5,9,7,8), phase.design = c(A = 4, B = 5))
+res <- tau_u(dat)
+print(res, complete = TRUE)
+
+```
+
+```{r tauU}
+tau_u(exampleAB)
+```
+
+## Reliable change index
+
+```{r results='asis', echo=FALSE}
+function_structure("rci")
+```
+
+The `rci` function computes three indices of reliable change [@wise_methods_2004] and corresponding descriptive statistics.
+
+```{r}
+rci(exampleAB$Johanna, rel = 0.8, graph = TRUE)
+```
+

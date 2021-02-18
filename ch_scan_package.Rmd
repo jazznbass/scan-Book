@@ -1,0 +1,45 @@
+# Changes with version 0.50 
+
+## New function names
+
+With version 0.50 scan introduced new names for its functions. The old function names are still usable but they will return a "deprecated" warning telling you to use the new function names.
+
+Table \@ref(tab:table-aliases) shows the changes.
+
+```{r table-aliases, echo = FALSE}
+out <- tribble(
+  ~"Current function name", ~"Previous function name",
+  "autocorr", "autocorrSC",
+  "corrected_tau", "corrected_tauSC",
+  "describe [since v0.52]", "describeSC",
+  "fill_missing", "fillmissingSC",
+  "outlier", "outlierSC",
+  "overlap", "overlapSC",
+  "power_test", "power_testSC",
+  "rand_test", "randSC; rand.test",
+  "ranks", "rankSC",
+  "rci", "rCi; rciSC",
+  "shift", "shiftSC",
+  "smooth_cases", "smoothSC",
+  "style_plot", "style.plotSC; style_plotSC",
+  "tau_u", "tauUSC",
+  "trend", "trendSC",
+  "truncate_phase", "truncateSC"
+)
+
+print_table(out, "scan privious and current function names.")
+
+```
+
+## Change target variables in functions
+
+All functions in R that analyze data now allow for temporarily changing dependent, phase, and measurement-time variables by adding three argument: 
+
+`dvar` sets the dependent variable.  
+`pvar` sets the phase variable.  
+`mvar` sets the measurement-time variable.  
+
+For example, `overlap(exampleAB_add, dvar = "depression")` will report overlap parameters for the variable *depression* while `overlap(exampleAB_add)` while take *wellbeing* as the dependent variable (as defined in the scdf). 
+
+After finishing the analysis, the variables are set back to their original values as defined in the scdf.
+
