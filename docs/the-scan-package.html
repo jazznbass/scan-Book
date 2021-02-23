@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Analyzing single-case data with R and scan</title>
+  <title>Chapter 3 The scan package | Analyzing single-case data with R and scan</title>
   <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Analyzing single-case data with R and scan" />
+  <meta property="og:title" content="Chapter 3 The scan package | Analyzing single-case data with R and scan" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jazznbass/scan-book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Analyzing single-case data with R and scan" />
+  <meta name="twitter:title" content="Chapter 3 The scan package | Analyzing single-case data with R and scan" />
   
   <meta name="twitter:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="preface.html"/>
+<link rel="prev" href="some-things-about-r.html"/>
+<link rel="next" href="managing-single-case-data.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -246,23 +246,691 @@ Published with bookdown
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Analyzing single-case data with R and scan</h1>
-<p class="author"><em>Jürgen Wilbert</em></p>
-<p class="date"><em>2021-02-23</em></p>
+<div id="the-scan-package" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> The scan package</h1>
+<div id="installing-the-scan-package" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Installing the <em>scan</em> package</h2>
+<p>You can use the <code>install.packages</code> function to install <em>scan</em>.</p>
+<p><code>install.packages("scan")</code> will install the stable version.</p>
+<p>The current stable release is version <code>0.51</code>. Please look at Section <em>Software reference</em> for which version of <em>scan</em> has been used for creating this book and make sure you have this version or a newer one installed.</p>
+<p>R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing <em>scan</em> it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.</p>
+<p>For activating a package you need the <code>library</code> function. In this case <code>library(scan)</code>. You should get something like</p>
+<p>scan 0.51 (2021-02-11)<br />
+Single-Case Data Analysis for Single and Multiple Baseline Designs</p>
+<p>indicating that everything went smoothly and <em>scan</em> is ready for the job.</p>
 </div>
-<div id="welcome" class="section level1 unnumbered">
-<h1>Welcome</h1>
-<p><img src="images/cover.png" width="400" /></p>
+<div id="development-version-of-scan" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Development version of scan</h2>
+<p>Alternatively, you can compile the development version of <em>scan</em> yourself. This might be necessary if the stable version has some bugs or missing functions which has been fixed.</p>
+<p>You may need some computer expertise to get the development version running. It is hosted on gitHub at <a href="https://github.com/jazznbass/scan" class="uri">&lt;https://github.com/jazznbass/scan&gt;</a>.</p>
+<p>For installation, you can apply the <code>install_github</code> function from the <code>devtools</code> package (make sure you have installed the <code>devtools</code> package before):</p>
+<p><code>devtools::install_github("jazznbass/scan", dependencies = TRUE)</code></p>
+<p>When you are running a Windows operating system you will probably have to install Rtools before. Rtools contains additional programs (e.g. compilers) that are needed to compile R source packages.</p>
+<p>You can find Rtools here: <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">&lt;https://cran.r-project.org/bin/windows/Rtools/&gt;</a></p>
+</div>
+<div id="reporting-issues-with-scan-and-suggesting-enhancements" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Reporting issues with <em>scan</em> and suggesting enhancements</h2>
+<p>The <em>scan</em> gitHub repository at <a href="https://github.com/jazznbass/scan" class="uri">&lt;https://github.com/jazznbass/scan&gt;</a> is the ideal place to report bugs, problems, or ideas for enhancing <em>scan</em>. Please use the issue tool (direct link: <a href="https://github.com/jazznbass/scan/issues" class="uri">&lt;https://github.com/jazznbass/scan/issues&gt;</a>).</p>
+<p>We are very thankful for any feedback, corrections, or whatever helps to improve <em>scan</em>!</p>
+</div>
+<div id="functions-overview" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Functions overview</h2>
+<p>The functions of the <em>scan</em> package can be divided into the following categories:<br />
+<em>Manage data</em>, <em>analyze</em>, <em>manipulate</em>, <em>simulate</em>, and <em>depict</em>.</p>
+<p>Table <a href="the-scan-package.html#tab:table-functions">3.1</a> gives an overview of all functions.</p>
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:table-functions">Table 3.1: </span>Functions in scan
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+What it does …
+</th>
+<th style="text-align:left;">
+Category
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+scdf
+</td>
+<td style="text-align:left;width: 30em; ">
+Creates a single-case data-frame
+</td>
+<td style="text-align:left;">
+Manage data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+select_cases
+</td>
+<td style="text-align:left;width: 30em; ">
+Selects specific cases of an scdf
+</td>
+<td style="text-align:left;">
+Manage data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+subset
+</td>
+<td style="text-align:left;width: 30em; ">
+Selects specific measurements or variables of an scdf
+</td>
+<td style="text-align:left;">
+Manage data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+readSC
+</td>
+<td style="text-align:left;width: 30em; ">
+Loads external data into an scdf
+</td>
+<td style="text-align:left;">
+Manage data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+writeSC
+</td>
+<td style="text-align:left;width: 30em; ">
+Writes scdf into an external file
+</td>
+<td style="text-align:left;">
+Manage data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+scdf_attr
+</td>
+<td style="text-align:left;width: 30em; ">
+Gets and sets attributes of an scdf
+</td>
+<td style="text-align:left;">
+Manage data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+plot/plot.scdf
+</td>
+<td style="text-align:left;width: 30em; ">
+Creates plots of single cases
+</td>
+<td style="text-align:left;">
+Depict
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+style_plot
+</td>
+<td style="text-align:left;width: 30em; ">
+Defines single-case plot graphical styles
+</td>
+<td style="text-align:left;">
+Depict
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+export
+</td>
+<td style="text-align:left;width: 30em; ">
+Creates html or latex tables from the output of various can functions
+</td>
+<td style="text-align:left;">
+Depict
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+print/print.sc
+</td>
+<td style="text-align:left;width: 30em; ">
+Prints the results of various scan outputs
+</td>
+<td style="text-align:left;">
+Depict
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+print/print.scdf
+</td>
+<td style="text-align:left;width: 30em; ">
+Prints an scdf
+</td>
+<td style="text-align:left;">
+Depict
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+summary/summary.scdf
+</td>
+<td style="text-align:left;width: 30em; ">
+Summaizes an scdf
+</td>
+<td style="text-align:left;">
+Depict
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+autocorr
+</td>
+<td style="text-align:left;width: 30em; ">
+Autocorrelations for each phase of each case
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+corrected_tau
+</td>
+<td style="text-align:left;width: 30em; ">
+Baseline corrected tau
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+describe
+</td>
+<td style="text-align:left;width: 30em; ">
+Descriptive statistics for each phase of each case
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+overlap
+</td>
+<td style="text-align:left;width: 30em; ">
+An overview of overlap indeces for each case
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+rci
+</td>
+<td style="text-align:left;width: 30em; ">
+Reliable change index
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+rand_test
+</td>
+<td style="text-align:left;width: 30em; ">
+Randomization test
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+tau_u
+</td>
+<td style="text-align:left;width: 30em; ">
+Tau-U for each case and all cases
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+trend
+</td>
+<td style="text-align:left;width: 30em; ">
+Trend analyses for each case
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+plm
+</td>
+<td style="text-align:left;width: 30em; ">
+Piecewise linear regression model
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+mplm
+</td>
+<td style="text-align:left;width: 30em; ">
+Multivariate piecewise linear regression model
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+hplm
+</td>
+<td style="text-align:left;width: 30em; ">
+Hierarchical piecewise linear regression model
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+nap
+</td>
+<td style="text-align:left;width: 30em; ">
+Non-overlap of all pairs for each case
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+pnd
+</td>
+<td style="text-align:left;width: 30em; ">
+Percentage of non overlapping data for each case
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+pand
+</td>
+<td style="text-align:left;width: 30em; ">
+Percentage of all non overlapping data for all cases
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+pem
+</td>
+<td style="text-align:left;width: 30em; ">
+Percantage exceeding the mean for each case
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+pet
+</td>
+<td style="text-align:left;width: 30em; ">
+Percentage exceeding the trend for each case
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+outlier
+</td>
+<td style="text-align:left;width: 30em; ">
+Detect outliers for all cases
+</td>
+<td style="text-align:left;">
+Analyse
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+fill_missing
+</td>
+<td style="text-align:left;width: 30em; ">
+Interpolate missign values or missing measurement times
+</td>
+<td style="text-align:left;">
+Manipulate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+ranks
+</td>
+<td style="text-align:left;width: 30em; ">
+Covert data into ranked data
+</td>
+<td style="text-align:left;">
+Manipulate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+shift
+</td>
+<td style="text-align:left;width: 30em; ">
+Shifts values by a constant
+</td>
+<td style="text-align:left;">
+Manipulate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+smooth_cases
+</td>
+<td style="text-align:left;width: 30em; ">
+Smoothes time series data
+</td>
+<td style="text-align:left;">
+Manipulate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+truncate_phase
+</td>
+<td style="text-align:left;width: 30em; ">
+Deletes measuremts of phases
+</td>
+<td style="text-align:left;">
+Manipulate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+standardize
+</td>
+<td style="text-align:left;width: 30em; ">
+Standardizes or centres variables
+</td>
+<td style="text-align:left;">
+Manipulate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+design_rSC
+</td>
+<td style="text-align:left;width: 30em; ">
+Defines a deisgn of one or multiple single-cases
+</td>
+<td style="text-align:left;">
+Simulate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+estimate_design
+</td>
+<td style="text-align:left;width: 30em; ">
+Extracts a deisgn of one or multiple single-cases from an scdf
+</td>
+<td style="text-align:left;">
+Simulate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+power_test
+</td>
+<td style="text-align:left;width: 30em; ">
+Calculates power and alpha error of a specific analyzes for a specific single-case design
+</td>
+<td style="text-align:left;">
+Simulate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+rSC
+</td>
+<td style="text-align:left;width: 30em; ">
+Creats random single-case studies from a single-case design
+</td>
+<td style="text-align:left;">
+Simulate
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="changes-with-version-0.50" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Changes with version 0.50</h2>
+<div id="new-function-names" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> New function names</h3>
+<p>With version 0.50 scan introduced new names for its functions. The old function names are still usable but they will return a “deprecated” warning telling you to use the new function names.</p>
+<p>Table <a href="the-scan-package.html#tab:table-aliases">3.2</a> shows the changes.</p>
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:table-aliases">Table 3.2: </span>scan privious and current function names.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Current function name
+</th>
+<th style="text-align:left;">
+Previous function name
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+autocorr
+</td>
+<td style="text-align:left;width: 30em; ">
+autocorrSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+corrected_tau
+</td>
+<td style="text-align:left;width: 30em; ">
+corrected_tauSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+describe [since v0.52]
+</td>
+<td style="text-align:left;width: 30em; ">
+describeSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+fill_missing
+</td>
+<td style="text-align:left;width: 30em; ">
+fillmissingSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+outlier
+</td>
+<td style="text-align:left;width: 30em; ">
+outlierSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+overlap
+</td>
+<td style="text-align:left;width: 30em; ">
+overlapSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+power_test
+</td>
+<td style="text-align:left;width: 30em; ">
+power_testSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+rand_test
+</td>
+<td style="text-align:left;width: 30em; ">
+randSC; rand.test
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+ranks
+</td>
+<td style="text-align:left;width: 30em; ">
+rankSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+rci
+</td>
+<td style="text-align:left;width: 30em; ">
+rCi; rciSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+shift
+</td>
+<td style="text-align:left;width: 30em; ">
+shiftSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+smooth_cases
+</td>
+<td style="text-align:left;width: 30em; ">
+smoothSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+style_plot
+</td>
+<td style="text-align:left;width: 30em; ">
+style.plotSC; style_plotSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+tau_u
+</td>
+<td style="text-align:left;width: 30em; ">
+tauUSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+trend
+</td>
+<td style="text-align:left;width: 30em; ">
+trendSC
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+truncate_phase
+</td>
+<td style="text-align:left;width: 30em; ">
+truncateSC
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="change-target-variables-in-functions" class="section level3" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Change target variables in functions</h3>
+<p>All functions in R that analyze data now allow for temporarily changing dependent, phase, and measurement-time variables by adding three argument:</p>
+<p><code>dvar</code> sets the dependent variable.<br />
+<code>pvar</code> sets the phase variable.<br />
+<code>mvar</code> sets the measurement-time variable.</p>
+<p>For example, <code>overlap(exampleAB_add, dvar = "depression")</code> will report overlap parameters for the variable <em>depression</em> while <code>overlap(exampleAB_add)</code> while take <em>wellbeing</em> as the dependent variable (as defined in the scdf).</p>
+<p>After finishing the analysis, the variables are set back to their original values as defined in the scdf.</p>
 
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="preface.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="some-things-about-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="managing-single-case-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

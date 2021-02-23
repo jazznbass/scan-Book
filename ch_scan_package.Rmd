@@ -1,6 +1,105 @@
-# Changes with version 0.50 
+# The scan package
 
-## New function names
+## Installing the *scan* package
+
+You can use the `install.packages` function to install *scan*.
+
+`install.packages("scan")` will install the stable version.
+
+The current stable release is version `0.51`. Please look at Section *Software reference* for which version of *scan* has been used for creating this book and make sure you have this version or a newer one installed.
+
+R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing *scan* it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.
+
+For activating a package you need the `library` function. In this case `library(scan)`. You should get something like
+
+scan 0.51 (2021-02-11)\
+Single-Case Data Analysis for Single and Multiple Baseline Designs
+
+indicating that everything went smoothly and *scan* is ready for the job.
+
+## Development version of scan
+
+Alternatively, you can compile the development version of *scan* yourself. This might be necessary if the stable version has some bugs or missing functions which has been fixed.
+
+You may need some computer expertise to get the development version running. It is hosted on gitHub at [\<https://github.com/jazznbass/scan\>](https://github.com/jazznbass/scan){.uri}.
+
+For installation, you can apply the `install_github` function from the `devtools` package (make sure you have installed the `devtools` package before):
+
+`devtools::install_github("jazznbass/scan", dependencies = TRUE)`
+
+When you are running a Windows operating system you will probably have to install Rtools before. Rtools contains additional programs (e.g. compilers) that are needed to compile R source packages.
+
+You can find Rtools here: [\<https://cran.r-project.org/bin/windows/Rtools/\>](https://cran.r-project.org/bin/windows/Rtools/){.uri}
+
+## Reporting issues with *scan* and suggesting enhancements
+
+The *scan* gitHub repository at [\<https://github.com/jazznbass/scan\>](https://github.com/jazznbass/scan){.uri} is the ideal place to report bugs, problems, or ideas for enhancing *scan*. Please use the issue tool (direct link: [\<https://github.com/jazznbass/scan/issues\>](https://github.com/jazznbass/scan/issues){.uri}).
+
+We are very thankful for any feedback, corrections, or whatever helps to improve *scan*!
+
+## Functions overview
+
+The functions of the *scan* package can be divided into the following categories:\
+*Manage data*, *analyze*, *manipulate*, *simulate*, and *depict*.
+
+Table \@ref(tab:table-functions) gives an overview of all functions.
+
+```{r table-functions, echo = FALSE}
+out <- tribble(
+  ~"Function", ~"What it does ...", ~"Category",
+  #
+  "scdf", "Creates a single-case data-frame", "Manage data",
+  "select_cases", "Selects specific cases of an scdf", "Manage data",
+  "subset", "Selects specific measurements or variables of an scdf", "Manage data",
+  "readSC", "Loads external data into an scdf", "Manage data",
+  "writeSC", "Writes scdf into an external file", "Manage data",
+  "scdf_attr", "Gets and sets attributes of an scdf", "Manage data",
+  "", "", "",
+  "plot/plot.scdf", "Creates plots of single cases", "Depict",
+  "style_plot", "Defines single-case plot graphical styles", "Depict",
+  "export", "Creates html or latex tables from the output of various can functions", "Depict",
+  "print/print.sc", "Prints the results of various scan outputs", "Depict",
+  "print/print.scdf", "Prints an scdf", "Depict",
+  "summary/summary.scdf", "Summaizes an scdf", "Depict",
+  "", "", "",
+  "autocorr", "Autocorrelations for each phase of each case", "Analyze",
+  "corrected_tau", "Baseline corrected tau", "Analyze",
+  "describe", "Descriptive statistics for each phase of each case", "Analyze",
+  "overlap", "An overview of overlap indeces for each case", "Analyze",
+  "rci", "Reliable change index", "Analyze",
+  "rand_test", "Randomization test", "Analyze",
+  "tau_u", "Tau-U for each case and all cases", "Analyze",
+  "trend", "Trend analyses for each case", "Analyze",
+  "plm", "Piecewise linear regression model", "Analyze",
+  "mplm", "Multivariate piecewise linear regression model", "Analyze",
+  "hplm", "Hierarchical piecewise linear regression model", "Analyze",
+  "nap", "Non-overlap of all pairs for each case", "Analyze",
+  "pnd", "Percentage of non overlapping data for each case", "Analyze",
+  "pand", "Percentage of all non overlapping data for all cases", "Analyze",
+  "pem", "Percantage exceeding the mean for each case", "Analyze",
+  "pet", "Percentage exceeding the trend for each case", "Analyze",
+  "outlier", "Detect outliers for all cases", "Analyse",
+  "", "", "",
+  "fill_missing", "Interpolate missign values or missing measurement times", "Manipulate",
+  "ranks", "Covert data into ranked data", "Manipulate",
+  "shift", "Shifts values by a constant", "Manipulate",
+  "smooth_cases", "Smoothes time series data", "Manipulate",
+  "truncate_phase", "Deletes measuremts of phases", "Manipulate",
+  "standardize", "Standardizes or centres variables", "Manipulate",
+  "", "", "",
+  "design_rSC", "Defines a deisgn of one or multiple single-cases", "Simulate",
+  "estimate_design", "Extracts a deisgn of one or multiple single-cases from an scdf", "Simulate",
+  "power_test", "Calculates power and alpha error of a specific analyzes for a specific single-case design", "Simulate",
+  "rSC", "Creats random single-case studies from a single-case design", "Simulate"
+)
+
+print_table(out, "Functions in scan")
+
+```
+
+## Changes with version 0.50
+
+### New function names
 
 With version 0.50 scan introduced new names for its functions. The old function names are still usable but they will return a "deprecated" warning telling you to use the new function names.
 
@@ -31,15 +130,14 @@ print_table(out, "scan privious and current function names.")
 
 ```
 
-## Change target variables in functions
+### Change target variables in functions
 
-All functions in R that analyze data now allow for temporarily changing dependent, phase, and measurement-time variables by adding three argument: 
+All functions in R that analyze data now allow for temporarily changing dependent, phase, and measurement-time variables by adding three argument:
 
-`dvar` sets the dependent variable.  
-`pvar` sets the phase variable.  
-`mvar` sets the measurement-time variable.  
+`dvar` sets the dependent variable.\
+`pvar` sets the phase variable.\
+`mvar` sets the measurement-time variable.
 
-For example, `overlap(exampleAB_add, dvar = "depression")` will report overlap parameters for the variable *depression* while `overlap(exampleAB_add)` while take *wellbeing* as the dependent variable (as defined in the scdf). 
+For example, `overlap(exampleAB_add, dvar = "depression")` will report overlap parameters for the variable *depression* while `overlap(exampleAB_add)` while take *wellbeing* as the dependent variable (as defined in the scdf).
 
 After finishing the analysis, the variables are set back to their original values as defined in the scdf.
-
