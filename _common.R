@@ -23,6 +23,7 @@ print_table <- function(data, caption, width_cols = c("15em", "30em")) {
   #set.alignment("left","left")
   #pander(out, caption = caption, justify = "left", keep.line.breaks = TRUE)
   kable(data, caption = caption, booktabs = TRUE) %>%
+    #kable_classic()
     kable_styling(full_width = FALSE) %>%
     kable_styling(latex_options = c("repeat_header")) %>%
     column_spec(1, bold = TRUE) %>%
