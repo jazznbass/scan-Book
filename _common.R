@@ -19,9 +19,11 @@ knitr::write_bib(c(
 ), 'packages.bib')
 
 print_table <- function(data, caption, width_cols = c("15em", "30em")) {
+  
   #panderOptions("table.split.cells", 60)
   #set.alignment("left","left")
   #pander(out, caption = caption, justify = "left", keep.line.breaks = TRUE)
+  
   kable(data, caption = caption, booktabs = TRUE) %>%
     #kable_classic()
     kable_styling(full_width = FALSE) %>%
