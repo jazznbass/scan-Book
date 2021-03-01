@@ -1,6 +1,27 @@
 # Piecewise linear regressions
 
-In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean @huitema_design_2000. They refer to two phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention's start and lasting throughout the intervention (B-phase). In this model, four factors predict the outcome at a specific measurement point: The performance at the beginning of the study, a developmental effect leading to a continuous increase throughout all measurements (trend effect), an intervention effect leading to an immediate and constant increase in performance (level effect), and a second intervention effect that evolves continuously with the beginning of the intervention (slope effect). *scan* provides an implementation based of this piecewise regression approach. Though the original model is extended by several factors:
+In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean @huitema_design_2000. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention's start and lasting throughout the intervention (B-phase).
+
+In this model, four parameters predict the outcome at a specific measurement point:
+
+1.  The performance at the beginning of the study (**intercept**),
+
+2.  a developmental effect leading to a continuous increase throughout all measurements (**trend effect**),
+
+3.  an intervention effect leading to an immediate and constant increase in performance (l**evel effect**), and
+
+4.  a second intervention effect that evolves continuously with the beginning of the intervention (**slope effect**).
+
+```{r figure_plm, echo = FALSE, fig.height=4, fig.width=6}
+ex <- scdf(c(A = 1,3,3,4,2,3,4,5,4, 4, B = 8,7,8,9,9,7,11,10,10,13), name = "")
+plot(ex, lines = list("plm", col = c("red", "blue"), lwd = 3))
+mtext("Intercept", side = 1, adj = 0, at = -0.04, line = -1.6, col = "blue", font = 3)
+mtext("level effect", side = 1, adj = 0, at = 0.4, line = -3.7, col = "blue", font = 3)
+mtext("slope effect", side = 1, adj = 0, at = 0.6, line = -9, col = "blue", font = 3)
+
+```
+
+*scan* provides an implementation based on this piecewise regression approach. Though the original model is extended by several factors:
 
 -   multiple phase designs
 -   additional (control) variables
@@ -47,7 +68,7 @@ This is achieved applying the *JW* dummy model. In this model, the dummy variabl
 ```{r echo = FALSE}
 #scdf(c(3,6,4,7, 5,3,4,6,3, 7,5,6,4,8), phase.design = c(A = 4, B = 5, C = 5), level_B = c(0,0,0,0,1,1,1,1,1,1,1,1,1,1), level_C = c(0,0,0,0, 0,0,0,0,0, 1,1,1,1,1), slope_B = c(0,0,0,0,1,2,3,4,5,6,7,8,9,10), slope_C = c(0,0,0,0,0,0,0,0,0,1,2,3,4,5), name = "ABC example")
 res <- data.frame(
-  phase = c(rep("A", 4), rep("B", 5), rep("B", 5)), 
+  phase = c(rep("A", 4), rep("B", 5), rep("C", 5)), 
   values =  c(3,6,4,7, 5,3,4,6,3, 7,5,6,4,8), 
   level_B = c(0,0,0,0, 1,1,1,1,1, 1,1,1,1,1), 
   level_C = c(0,0,0,0, 0,0,0,0,0, 1,1,1,1,1), 
