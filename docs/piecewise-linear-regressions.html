@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2021-02-24" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="overlapping-indices.html"/>
 <link rel="next" href="randomization-tests.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -248,7 +248,16 @@ Published with bookdown
             <section class="normal" id="section-">
 <div id="piecewise-linear-regressions" class="section level1" number="8">
 <h1><span class="header-section-number">Chapter 8</span> Piecewise linear regressions</h1>
-<p>In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean <span class="citation"><a href="references.html#ref-huitema_design_2000" role="doc-biblioref">Huitema &amp; Mckean</a> (<a href="references.html#ref-huitema_design_2000" role="doc-biblioref">2000</a>)</span>. They refer to two phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention’s start and lasting throughout the intervention (B-phase). In this model, four factors predict the outcome at a specific measurement point: The performance at the beginning of the study, a developmental effect leading to a continuous increase throughout all measurements (trend effect), an intervention effect leading to an immediate and constant increase in performance (level effect), and a second intervention effect that evolves continuously with the beginning of the intervention (slope effect). <em>scan</em> provides an implementation based of this piecewise regression approach. Though the original model is extended by several factors:</p>
+<p>In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean <span class="citation"><a href="references.html#ref-huitema_design_2000" role="doc-biblioref">Huitema &amp; Mckean</a> (<a href="references.html#ref-huitema_design_2000" role="doc-biblioref">2000</a>)</span>. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention’s start and lasting throughout the intervention (B-phase).</p>
+<p>In this model, four parameters predict the outcome at a specific measurement point:</p>
+<ol style="list-style-type: decimal">
+<li><p>The performance at the beginning of the study (<strong>intercept</strong>),</p></li>
+<li><p>a developmental effect leading to a continuous increase throughout all measurements (<strong>trend effect</strong>),</p></li>
+<li><p>an intervention effect leading to an immediate and constant increase in performance (l<strong>evel effect</strong>), and</p></li>
+<li><p>a second intervention effect that evolves continuously with the beginning of the intervention (<strong>slope effect</strong>).</p></li>
+</ol>
+<p><img src="scan-book_files/figure-html/figure_plm-1.png" width="576" /></p>
+<p><em>scan</em> provides an implementation based on this piecewise regression approach. Though the original model is extended by several factors:</p>
 <ul>
 <li>multiple phase designs</li>
 <li>additional (control) variables</li>
@@ -798,7 +807,7 @@ B
 </tr>
 <tr>
 <td style="text-align:left;">
-B
+C
 </td>
 <td style="text-align:right;">
 7
@@ -818,7 +827,7 @@ B
 </tr>
 <tr>
 <td style="text-align:left;">
-B
+C
 </td>
 <td style="text-align:right;">
 5
@@ -838,7 +847,7 @@ B
 </tr>
 <tr>
 <td style="text-align:left;">
-B
+C
 </td>
 <td style="text-align:right;">
 6
@@ -858,7 +867,7 @@ B
 </tr>
 <tr>
 <td style="text-align:left;">
-B
+C
 </td>
 <td style="text-align:right;">
 4
@@ -878,7 +887,7 @@ B
 </tr>
 <tr>
 <td style="text-align:left;">
-B
+C
 </td>
 <td style="text-align:right;">
 8
@@ -1010,7 +1019,6 @@ Formula: wellbeing ~ day + phaseMedication + interMedication + cigarrets</code><
  </tr>
 </table>  
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="piecewise-linear-regressions.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mplm</span>(exampleAB_add, <span class="at">dvar =</span> <span class="fu">c</span>(<span class="st">&quot;wellbeing&quot;</span>, <span class="st">&quot;depression&quot;</span>))</span></code></pre></div>
-<pre><code>This function is in an experimental state and only implemented for testing und debugging purposes.</code></pre>
 <pre><code>Multivariate piecewise linear model
 
 Dummy model: B&amp;L-B 
@@ -1021,13 +1029,6 @@ Coefficients:
 day                     0.3785714  0.1142857
 Level Phase Medication  3.8633333 -0.7800000
 Slope Phase Medication -0.2754945 -0.1650549
-
-Standardized coefficients: 
-                        wellbeing depression
-(Intercept)             0.0000000  0.0000000
-day                     0.6937874  0.4412216
-Level Phase Medication  0.2969359 -0.1262936
-Slope Phase Medication -0.3714101 -0.4687655
 
 Formula: y ~ 1 + day + phaseMedication + interMedication
 
@@ -1062,7 +1063,7 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 </ul>
 <p>The basic function for applying a multilevel piecewise regression analysis is <code>hplm</code>. The <code>hplm</code> function is similar to the <code>plm</code> function, so I recommend that you get familar with <code>plm</code> before applying an <code>hplm</code>.</p>
 <p>Here is a simple example:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="piecewise-linear-regressions.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="piecewise-linear-regressions.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
 Estimation method ML 
@@ -1085,7 +1086,7 @@ Random effects (~1 | case)
 Intercept      8.179
 Residual       5.335</code></pre>
 <p>Here is an example inlcuding random slopes:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="piecewise-linear-regressions.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50, <span class="at">random.slopes =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="piecewise-linear-regressions.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50, <span class="at">random.slopes =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
 Estimation method ML 
@@ -1113,12 +1114,12 @@ Residual           4.994</code></pre>
 <div id="adding-additional-l2-variables" class="section level3" number="8.3.1">
 <h3><span class="header-section-number">8.3.1</span> Adding additional L2-variables</h3>
 <p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze. This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects. To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="piecewise-linear-regressions.html#cb99-1" aria-hidden="true" tabindex="-1"></a>L2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb99-2"><a href="piecewise-linear-regressions.html#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">case =</span> <span class="fu">c</span>(<span class="st">&quot;Antonia&quot;</span>,<span class="st">&quot;Theresa&quot;</span>, <span class="st">&quot;Charlotte&quot;</span>, <span class="st">&quot;Luis&quot;</span>, <span class="st">&quot;Bennett&quot;</span>, <span class="st">&quot;Marie&quot;</span>), </span>
-<span id="cb99-3"><a href="piecewise-linear-regressions.html#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">14</span>), </span>
-<span id="cb99-4"><a href="piecewise-linear-regressions.html#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;f&quot;</span>)</span>
-<span id="cb99-5"><a href="piecewise-linear-regressions.html#cb99-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb99-6"><a href="piecewise-linear-regressions.html#cb99-6" aria-hidden="true" tabindex="-1"></a>L2</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="piecewise-linear-regressions.html#cb98-1" aria-hidden="true" tabindex="-1"></a>L2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb98-2"><a href="piecewise-linear-regressions.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">case =</span> <span class="fu">c</span>(<span class="st">&quot;Antonia&quot;</span>,<span class="st">&quot;Theresa&quot;</span>, <span class="st">&quot;Charlotte&quot;</span>, <span class="st">&quot;Luis&quot;</span>, <span class="st">&quot;Bennett&quot;</span>, <span class="st">&quot;Marie&quot;</span>), </span>
+<span id="cb98-3"><a href="piecewise-linear-regressions.html#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">14</span>), </span>
+<span id="cb98-4"><a href="piecewise-linear-regressions.html#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;f&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;m&quot;</span>,<span class="st">&quot;f&quot;</span>)</span>
+<span id="cb98-5"><a href="piecewise-linear-regressions.html#cb98-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb98-6"><a href="piecewise-linear-regressions.html#cb98-6" aria-hidden="true" tabindex="-1"></a>L2</span></code></pre></div>
 <pre><code>       case age sex
 1   Antonia  16   f
 2   Theresa  13   f
@@ -1256,7 +1257,7 @@ m
 </tbody>
 </table>
 <p>Analyzing the data with <code>hplm</code> could look like this:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="piecewise-linear-regressions.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50, <span class="at">data.l2 =</span> exampleAB_50.l2, <span class="at">update.fixed =</span> .<span class="sc">~</span>. <span class="sc">+</span> sex <span class="sc">+</span> age)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="piecewise-linear-regressions.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50, <span class="at">data.l2 =</span> exampleAB_50.l2, <span class="at">update.fixed =</span> .<span class="sc">~</span>. <span class="sc">+</span> sex <span class="sc">+</span> age)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
 Estimation method ML 
@@ -1281,7 +1282,7 @@ Random effects (~1 | case)
 Intercept      7.975
 Residual       5.335</code></pre>
 <p><code>sex</code> is a factor with the levels <code>f</code> and <code>m</code>. So <code>sexm</code> is the effect of being male on the overall performance. <code>age</code> does not seem to have any effect. So we drop <code>age</code> out of the equation and add an interaction of sex and phase to see whether the <code>sex</code> effect is due to a weaker impact of the intervention on males.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="piecewise-linear-regressions.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50, <span class="at">data.l2 =</span> exampleAB_50.l2, <span class="at">update.fixed =</span> .<span class="sc">~</span>. <span class="sc">+</span> sex <span class="sc">+</span> sex<span class="sc">:</span>phaseB)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="piecewise-linear-regressions.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50, <span class="at">data.l2 =</span> exampleAB_50.l2, <span class="at">update.fixed =</span> .<span class="sc">~</span>. <span class="sc">+</span> sex <span class="sc">+</span> sex<span class="sc">:</span>phaseB)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
 Estimation method ML 

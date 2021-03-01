@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2021-02-24" />
+<meta name="date" content="2021-03-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="randomization-tests.html"/>
 <link rel="next" href="exporting-scan-results.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -249,12 +249,12 @@ Published with bookdown
 <div id="default-settings" class="section level1" number="10">
 <h1><span class="header-section-number">Chapter 10</span> Default settings</h1>
 <p>Some of the default settings of scan can be changed with the <code>options()</code> argument. Table <a href="default-settings.html#tab:table-options">10.1</a> shows a complete list of options and their default values.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="default-settings.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the current value of an option</span></span>
-<span id="cb107-2"><a href="default-settings.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getOption</span>(<span class="st">&quot;scan.print.rows&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="default-settings.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the current value of an option</span></span>
+<span id="cb106-2"><a href="default-settings.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getOption</span>(<span class="st">&quot;scan.print.rows&quot;</span>)</span></code></pre></div>
 <pre><code>[1] 15</code></pre>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="default-settings.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set option to a different value</span></span>
-<span id="cb109-2"><a href="default-settings.html#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scan.print.rows =</span> <span class="dv">5</span>, <span class="at">scan.print.scdf.name =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb109-3"><a href="default-settings.html#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(exampleAB)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="default-settings.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set option to a different value</span></span>
+<span id="cb108-2"><a href="default-settings.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scan.print.rows =</span> <span class="dv">5</span>, <span class="at">scan.print.scdf.name =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb108-3"><a href="default-settings.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(exampleAB)</span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases
 
  phase values mt | phase values mt | phase values mt |
@@ -264,8 +264,8 @@ Published with bookdown
      A     58  4 |     A     51  4 |     A     50  4 |
      A     52  5 |     A     52  5 |     A     52  5 |
 # ... up to 15 more rows</code></pre>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="default-settings.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scan.print.rows =</span> <span class="dv">15</span>, <span class="at">scan.print.scdf.name =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb111-2"><a href="default-settings.html#cb111-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(exampleAB)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="default-settings.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scan.print.rows =</span> <span class="dv">15</span>, <span class="at">scan.print.scdf.name =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb110-2"><a href="default-settings.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(exampleAB)</span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases
 
  Johanna: phase values mt | Karolina: phase values mt | Anja: phase values mt |
