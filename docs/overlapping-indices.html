@@ -24,7 +24,7 @@
 <meta name="author" content="Jürgen Wilbert" />
 
 
-<meta name="date" content="2021-03-01" />
+<meta name="date" content="2021-03-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -391,9 +391,9 @@ Anja     100.000       0 100.000
 Binom.test: alternative hypothesis: true probability &gt; 50%
 PET CI: Percent of values greater than upper 95% confidence threshold (greater 1.645*se above predicted value)</code></pre>
 <div class="figure"><span id="fig:unnamed-chunk-33"></span>
-<img src="scan-book_files/figure-html/unnamed-chunk-33-1.png" alt="Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the median of phase A." width="384" />
+<img src="scan-book_files/figure-html/unnamed-chunk-33-1.png" alt="Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A." width="384" />
 <p class="caption">
-Figure 7.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the median of phase A.
+Figure 7.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A.
 </p>
 </div>
 </div>
@@ -560,6 +560,7 @@ A vs. B + Trend B - Trend A 0.642  0.164 3.91 0.000</code></pre>
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> rci(data, dvar, pvar, rel, ci = 0.95, graph = FALSE, phases = c(1, 2)) </font></td>
  </tr>
 </table>  
+<p>Basically, the reliable change index (rci) depicts if a post-test is above a pre-test value. Based on the reliability of the measurements and the standard-deviation the standard error is calculated. The mean difference between phase-A and phase-B is divided by the standard-error. Several authors proposed refined methods for calculating the rci.</p>
 <p>The <code>rci</code> function computes three indices of reliable change <span class="citation">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="overlapping-indices.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rci</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">rel =</span> <span class="fl">0.8</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="scan-book_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
