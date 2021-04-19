@@ -26,12 +26,6 @@ In this model, four parameters predict the outcome at a specific measurement poi
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -471,12 +465,6 @@ Autocorrelations
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -518,12 +506,6 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 

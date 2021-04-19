@@ -30,12 +30,6 @@ Author of data:  Christian Huber
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -158,12 +152,6 @@ There are two solutions to this problem:</p>
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -308,12 +296,6 @@ SMD            1.65   1.96             2.02
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -369,12 +351,6 @@ plot(exampleABC_outlier, marks = res, style = "annotate", ylim = c(40,160))
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 

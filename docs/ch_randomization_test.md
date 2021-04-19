@@ -2,12 +2,6 @@
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -68,13 +62,13 @@ Observed statistic =  20.55556
 
 Distribution based on a random sample of all 1331 possible combinations.
 n   =  500 
-M   =  18.60708 
-SD  =  1.120489 
-Min =  16.06667 
+M   =  18.58723 
+SD  =  1.093583 
+Min =  16.12222 
 Max =  21.34493 
 
-p   =  0.024 
+p   =  0.03 
 
-Shapiro-Wilk Normality Test: W = 0.977; p = 0.000  (Hypothesis of Normality rejected)
-z = 1.7389, p = 0.0410 (single sided)
+Shapiro-Wilk Normality Test: W = 0.983; p = 0.000  (Hypothesis of Normality rejected)
+z = 1.7999, p = 0.0359 (single sided)
 ```

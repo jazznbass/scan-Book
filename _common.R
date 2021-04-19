@@ -52,12 +52,6 @@ function_structure <- function(name) {
  if (TRUE) {
    cat('
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 

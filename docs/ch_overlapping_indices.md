@@ -3,12 +3,6 @@
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -78,12 +72,6 @@ SMD            2.68   3.27   3.62
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -121,12 +109,6 @@ Mean  : 93.33 %
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -163,12 +145,6 @@ Alternative hypothesis: true probability > 50%
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -208,12 +184,6 @@ PET CI: Percent of values greater than upper 95% confidence threshold (greater 1
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -268,12 +238,6 @@ PAND indicates nonoverlap between phase A and B data (like PND), but uses all da
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -302,12 +266,6 @@ Nonoverlap of All Pairs
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
@@ -398,12 +356,6 @@ A vs. B + Trend B - Trend A 0.642  0.164 3.91 0.000
 
 
 ```{=html}
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 

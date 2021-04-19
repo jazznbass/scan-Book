@@ -16,7 +16,7 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-145080763-1');
-    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS -->
+    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -80,12 +80,6 @@ Technically, an scdf object is a list containing data frames. It is of the class
 <h2>
 <span class="header-section-number">4.2</span> Creating scdfs<a class="anchor" aria-label="anchor" href="#creating-scdfs"><i class="fas fa-link"></i></a>
 </h2>
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> scdf(values, B.start, mt, phase, phase.design, name, dvar = "values", pvar = "phase", mvar = "mt", ...) </font></td>
@@ -300,12 +294,6 @@ The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> an
 <h2>
 <span class="header-section-number">4.4</span> Import and export <em>single-case data frames</em><a class="anchor" aria-label="anchor" href="#import-and-export-single-case-data-frames"><i class="fas fa-link"></i></a>
 </h2>
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> readSC(filename = NULL, data = NULL, sep = ",", dec = ".", sort.labels = FALSE, cvar = "case", pvar = "phase", dvar = "values", mvar = "mt", phase.names = NULL, type = "csv", ...) </font></td>
@@ -357,12 +345,6 @@ gym</code></pre>
 <p>For some reasons, computer systems with a German (and some other) language setups export csv-files by default with a comma as a decimal point and a semicolon as a separator between values. In these cases you have to set two extra arguments to import the data:</p>
 <p><code>readSC("example.csv", dec = ",", sep = ";")</code></p>
 <p><code>readSC.excel</code> allows for directly importing <em>Microsoft Excel</em> <code>.xlsx</code> or <code>.xls</code> files. You need to have the library <code>readxl</code> installed in your R setup for this to work.</p>
-<style>
-  table {
-    border: 0px solid black;
-    background-color: red;
-  }
-</style>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> writeSC(data, filename = NULL, sep = ",", dec = ".", ...) </font></td>
