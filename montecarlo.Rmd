@@ -1,12 +1,21 @@
----
----
-
 
 # Monte-Carlo Studies with *scan*
 
-*scan* provides a set of functions that allow to design and conduct monte carlo studies on single-cases. Monte Carlo studies can be useful for computing standard errors, estimating type I and type II errors of specific analyzing approaches, or calculating the test power (a priori or post-hoc).
+*scan* provides a set of functions that allow to design and conduct Monte Carlo studies on single-cases. Monte Carlo studies can be useful for computing standard errors, estimating type I and type II errors of specific analyzing approaches, or calculating the test power (a priori or post-hoc).
 
 ## Set up a single-case design
+
+```{r results='asis', echo=FALSE}
+function_structure("design_rSC")
+```
+
+The `design_rSC()` function sets up a single-case design structure while `rSC()` generates random single-cases based on the parameters of the design structure.
+
+```{r results='asis', echo=FALSE}
+function_structure("rSC")
+```
+
+### An example
 
 ```{r}
 
@@ -76,11 +85,13 @@ print_table(tab, "Arguments of the rSC function")
 ## Extract a design
 
 ```{r}
-design <- estimate_design(exampleABC)
-dat <- rSC(design, seed = 1234)
-names(dat) <- paste0("Est. ", names(exampleABC))
-study <- c(exampleABC, dat)
-plot(study, style = "tiny")
+design <- estimate_design(GruenkeWilbert2014)
+sim_GruenkeWilbert2014 <- rSC(design, seed = 1234)
+
+#plot(study, style = "tiny")
+hplm(GruenkeWilbert2014)
+hplm(sim_GruenkeWilbert2014)
+
 ```
 
 
