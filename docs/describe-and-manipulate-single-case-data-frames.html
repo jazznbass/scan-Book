@@ -1,257 +1,76 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 6 Describe and manipulate single-case data frames | Analyzing single-case data with R and scan</title>
+<meta name="author" content="Jürgen Wilbert">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.7.4/header-attrs.js"></script><script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.5.3/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.5.3/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.4/tabs.js"></script><script src="libs/bs3compat-0.2.4/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Describe and manipulate single-case data frames | Analyzing single-case data with R and scan</title>
-  <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Chapter 6 Describe and manipulate single-case data frames | Analyzing single-case data with R and scan" />
-  <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
-  <meta name="github-repo" content="jazznbass/scan-book" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Describe and manipulate single-case data frames | Analyzing single-case data with R and scan" />
-  
-  <meta name="twitter:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
-  
-
-<meta name="author" content="Jürgen Wilbert" />
-
-
-<meta name="date" content="2021-03-15" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="creating-a-single-case-data-plot.html"/>
-<link rel="next" href="overlapping-indices.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-145080763-1');
-</script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+      gtag('config', 'UA-145080763-1');
+    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS -->
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-Analyzing single-case data with R and scan
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
-<ul>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#software-reference"><i class="fa fa-check"></i>Software reference</a></li>
-</ul></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="the-scan-package.html"><a href="the-scan-package.html"><i class="fa fa-check"></i><b>3</b> The scan package</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="the-scan-package.html"><a href="the-scan-package.html#installing-the-scan-package"><i class="fa fa-check"></i><b>3.1</b> Installing the <em>scan</em> package</a></li>
-<li class="chapter" data-level="3.2" data-path="the-scan-package.html"><a href="the-scan-package.html#development-version-of-scan"><i class="fa fa-check"></i><b>3.2</b> Development version of scan</a></li>
-<li class="chapter" data-level="3.3" data-path="the-scan-package.html"><a href="the-scan-package.html#reporting-issues-with-scan-and-suggesting-enhancements"><i class="fa fa-check"></i><b>3.3</b> Reporting issues with <em>scan</em> and suggesting enhancements</a></li>
-<li class="chapter" data-level="3.4" data-path="the-scan-package.html"><a href="the-scan-package.html#functions-overview"><i class="fa fa-check"></i><b>3.4</b> Functions overview</a></li>
-<li class="chapter" data-level="3.5" data-path="the-scan-package.html"><a href="the-scan-package.html#changes-with-version-0.50"><i class="fa fa-check"></i><b>3.5</b> Changes with version 0.50</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="the-scan-package.html"><a href="the-scan-package.html#new-function-names"><i class="fa fa-check"></i><b>3.5.1</b> New function names</a></li>
-<li class="chapter" data-level="3.5.2" data-path="the-scan-package.html"><a href="the-scan-package.html#change-target-variables-in-functions"><i class="fa fa-check"></i><b>3.5.2</b> Change target variables in functions</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>4</b> Managing single-case data</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>4.1</b> A <strong><em>single-case data frame</em></strong></a></li>
-<li class="chapter" data-level="4.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>4.2</b> Creating scdfs</a></li>
-<li class="chapter" data-level="4.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>4.3</b> Saving and reading <em>single-case data frames</em></a></li>
-<li class="chapter" data-level="4.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>4.4</b> Import and export <em>single-case data frames</em></a></li>
-<li class="chapter" data-level="4.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-and-manipulating-scdf-files"><i class="fa fa-check"></i><b>4.5</b> Displaying and manipulating scdf-files</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>5</b> Creating a single-case data plot</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>5.1</b> Graphical styles of a plot</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>6</b> Describe and manipulate single-case data frames</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>6.1</b> Describing and summarizing</a></li>
-<li class="chapter" data-level="6.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>6.2</b> Autoregression and trendanalyses</a></li>
-<li class="chapter" data-level="6.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>6.3</b> Missing values</a></li>
-<li class="chapter" data-level="6.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>6.4</b> Outlieranalysis</a></li>
-<li class="chapter" data-level="6.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>6.5</b> Smoothing data</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>7</b> Overlapping indices</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>7.1</b> Percentage non-overlapping data (PND)</a></li>
-<li class="chapter" data-level="7.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>7.2</b> Percentage exceeding the median (PEM)</a></li>
-<li class="chapter" data-level="7.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>7.3</b> Percentage exceeding the regression trend (PET)</a></li>
-<li class="chapter" data-level="7.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>7.4</b> Percentage of all non-overlapping data (PAND)</a></li>
-<li class="chapter" data-level="7.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>7.5</b> Nonoverlap of all pairs (NAP)</a></li>
-<li class="chapter" data-level="7.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>7.6</b> Tau-U</a></li>
-<li class="chapter" data-level="7.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>7.7</b> Reliable change index</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>8</b> Piecewise linear regressions</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>8.1</b> The basic plm function</a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>8.1.1</b> Dummy model</a></li>
-<li class="chapter" data-level="8.1.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adjusting-the-model"><i class="fa fa-check"></i><b>8.1.2</b> Adjusting the model</a></li>
-<li class="chapter" data-level="8.1.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>8.1.3</b> Adding additional predictors</a></li>
-<li class="chapter" data-level="8.1.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-modelling-autoregression"><i class="fa fa-check"></i><b>8.1.4</b> [to be written] Modelling autoregression</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-multivariate-piecewise-regression"><i class="fa fa-check"></i><b>8.2</b> [to be written] Multivariate piecewise regression</a></li>
-<li class="chapter" data-level="8.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#multilevel-plm-analyses"><i class="fa fa-check"></i><b>8.3</b> Multilevel plm analyses</a>
-<ul>
-<li class="chapter" data-level="8.3.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>8.3.1</b> Adding additional L2-variables</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>9</b> Randomization tests</a></li>
-<li class="chapter" data-level="10" data-path="default-settings.html"><a href="default-settings.html"><i class="fa fa-check"></i><b>10</b> Default settings</a></li>
-<li class="chapter" data-level="11" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>11</b> Exporting <em>scan</em> results</a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>11.1</b> Single case data files</a></li>
-<li class="chapter" data-level="11.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>11.2</b> Descriptive stats</a></li>
-<li class="chapter" data-level="11.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>11.3</b> Overlap indices</a></li>
-<li class="chapter" data-level="11.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>11.4</b> Piecewise linear models</a></li>
-<li class="chapter" data-level="11.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>11.5</b> Hierarchical piecewise regressions</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="divider"></li>
-Published with bookdown
-
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Analyzing single-case data with R and scan</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyzing single-case data with R and scan</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="some-things-about-r.html"><span class="header-section-number">2</span> Some things about R</a></li>
+<li><a class="" href="the-scan-package.html"><span class="header-section-number">3</span> The scan package</a></li>
+<li><a class="" href="managing-single-case-data.html"><span class="header-section-number">4</span> Managing single-case data</a></li>
+<li><a class="" href="creating-a-single-case-data-plot.html"><span class="header-section-number">5</span> Creating a single-case data plot</a></li>
+<li><a class="active" href="describe-and-manipulate-single-case-data-frames.html"><span class="header-section-number">6</span> Describe and manipulate single-case data frames</a></li>
+<li><a class="" href="overlapping-indices.html"><span class="header-section-number">7</span> Overlapping indices</a></li>
+<li><a class="" href="piecewise-linear-regressions.html"><span class="header-section-number">8</span> Piecewise linear regressions</a></li>
+<li><a class="" href="randomization-tests.html"><span class="header-section-number">9</span> Randomization tests</a></li>
+<li><a class="" href="default-settings.html"><span class="header-section-number">10</span> Default settings</a></li>
+<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">11</span> Exporting scan results</a></li>
+<li><a class="" href="about-the-author.html">About the author</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/jazznbass/scan-Book">View book source <i class="fab fa-github"></i></a></p>
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="describe-and-manipulate-single-case-data-frames" class="section level1" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Describe and manipulate single-case data frames</h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="describe-and-manipulate-single-case-data-frames" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Describe and manipulate single-case data frames<a class="anchor" aria-label="anchor" href="#describe-and-manipulate-single-case-data-frames"><i class="fas fa-link"></i></a>
+</h1>
 <div id="describing-and-summarizing" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Describing and summarizing</h2>
+<h2>
+<span class="header-section-number">6.1</span> Describing and summarizing<a class="anchor" aria-label="anchor" href="#describing-and-summarizing"><i class="fas fa-link"></i></a>
+</h2>
 <p>A short description of the <em>scdf</em> is provided by the <code>summary</code> command. The results are pretty much self explaining</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Huber2014)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Huber2014</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 4 cases
 
           Measurements Design
@@ -274,27 +93,23 @@ Author of data:  Christian Huber </code></pre>
     background-color: red;
   }
 </style>
-<table>
- <tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> describe(data, dvar, pvar, mvar) </font></td>
- </tr>
-</table>  
+<div class="inline-table"><table class="table table-sm"><tr>
+<td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> describeSC(...) </font></td>
+ </tr></table></div>
 <p><code>describe</code> is the basic command to get an overview on descriptive statistics. As an argument it only takes the name of the <em>scdf</em> object. For each case of the <em>scdf</em> and each phase within a case descriptive statistics are provided. The output table contains statistical indicators followed by a dot and the name of the phase (e.g., <code>n.A</code> for the number of measurements of phase A).</p>
-<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<div class="inline-table"><table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:table-describe">Table 6.1: </span>Statistics of the describeSC command
 </caption>
-<thead>
-<tr>
+<thead><tr>
 <th style="text-align:left;">
 Parameter
 </th>
 <th style="text-align:left;">
 What it means …
 </th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
@@ -361,8 +176,9 @@ Slope of a regression line through values by time.
 </td>
 </tr>
 </tbody>
-</table>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(exampleABC)</span></code></pre></div>
+</table></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">describeSC</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">)</span></code></pre></div>
 <pre><code>Describe Single-Case Data
 
 Design:  A B C 
@@ -398,15 +214,16 @@ trend.A -1.92     0.50  -0.09
 trend.B -0.61     0.64   1.93
 trend.C -0.19    -2.93 -14.00</code></pre>
 <p>The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the <code>describeSC</code> command into an R object and then use the <code>write.csv</code> (or <code>write.csv2</code> for a German OS system setup) to export the <code>descriptives</code> element of the object.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write the results into a new R object named `res`</span></span>
-<span id="cb46-2"><a href="describe-and-manipulate-single-case-data-frames.html#cb46-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">describe</span>(exampleABC)</span>
-<span id="cb46-3"><a href="describe-and-manipulate-single-case-data-frames.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new file containing the descriptives on your harddrive</span></span>
-<span id="cb46-4"><a href="describe-and-manipulate-single-case-data-frames.html#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(res<span class="sc">$</span>descriptives, <span class="at">file =</span> <span class="st">&quot;descriptive data.csv&quot;</span>)</span></code></pre></div>
-<p>The file is written to the currently active working directory. If you are not sure where that is, type <code>getwd()</code> (you can use the <code>setwd()</code> command to define a different working directory. To get further details type <code>help(setwd)</code> into R).</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># write the results into a new R object named `res`</span>
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">describeSC</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">)</span>
+<span class="co"># create a new file containing the descriptives on your harddrive</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">descriptives</span>, file <span class="op">=</span> <span class="st">"descriptive data.csv"</span><span class="op">)</span></code></pre></div>
+<p>The file is written to the currently active working directory. If you are not sure where that is, type <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> (you can use the <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> command to define a different working directory. To get further details type <code><a href="https://rdrr.io/r/base/getwd.html">help(setwd)</a></code> into R).</p>
 <div class="rmdnote">
 <p>
-<strong>Conflicting function names</strong><br />
-Sometimes R packages include the same function names. For example, the <code>describe()</code> function is also part of the <code>psych</code> package. Now, if you have loaded the <code>psych</code> package with <code>library(psych)</code> after <code>scan</code> the <code>describe()</code> function of scan will be masked (<code>describe()</code> would now call the corresponding function of the <code>psych</code> package).<br />
+<strong>Conflicting function names</strong><br>
+Sometimes R packages include the same function names. For example, the <code>describe()</code> function is also part of the <code>psych</code> package. Now, if you have loaded the <code>psych</code> package with <code><a href="https://personality-project.org/r/psych/">library(psych)</a></code> after <code>scan</code> the <code>describe()</code> function of scan will be masked (<code>describe()</code> would now call the corresponding function of the <code>psych</code> package).<br>
 There are two solutions to this problem:
 </p>
 <ol style="list-style-type: decimal">
@@ -414,27 +231,28 @@ There are two solutions to this problem:
 activate the <code>psych</code> library before the <code>scan</code> library (now the psych <code>describe()</code> function will be masked) or
 </li>
 <li>
-include the package name into the function call with the prefix <code>scan::</code>: <code>scan::describe()</code>.
+include the package name into the function call with the prefix <code>scan::</code>: <code><a href="https://rdrr.io/pkg/scan/man/describe.html">scan::describe()</a></code>.
 </li>
 </ol>
 </div>
 </div>
 <div id="autoregression-and-trendanalyses" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Autoregression and trendanalyses</h2>
+<h2>
+<span class="header-section-number">6.2</span> Autoregression and trendanalyses<a class="anchor" aria-label="anchor" href="#autoregression-and-trendanalyses"><i class="fas fa-link"></i></a>
+</h2>
 <style>
   table {
     border: 0px solid black;
     background-color: red;
   }
 </style>
-<table>
- <tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+<div class="inline-table"><table class="table table-sm"><tr>
+<td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> autocorr(data, dvar, pvar, mvar, lag.max = 3, ...) </font></td>
- </tr>
-</table>  
+ </tr></table></div>
 <p>The <code>autocorr</code> function calculates autocorrelations within each phase and across all phases. The <code>lag.max</code> argument defines the lag up to which the autocorrelation will be computed.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autocorr</span>(exampleABC, <span class="at">lag.max =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">autocorr</span><span class="op">(</span><span class="va">exampleABC</span>, lag.max <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <pre><code>Autocorrelations
 
      case phase lag_1 lag_2 lag_3 lag_4
@@ -451,8 +269,9 @@ include the package name into the function call with the prefix <code>scan::</co
      Lise     C -0.38 -0.12    NA    NA
      Lise   all  0.33  0.36  0.23  0.27</code></pre>
 <p>The <code>trendSC</code> function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple example</span></span>
-<span id="cb49-2"><a href="describe-and-manipulate-single-case-data-frames.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">trend</span>(exampleABC[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Simple example</span>
+<span class="fu">trend</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>Trend for each phase
 
             Intercept      B   Beta
@@ -466,10 +285,11 @@ Squared.B      73.217 -0.039 -0.098
 Squared.C      68.490 -0.017 -0.038
 
 Note. Measurement-times of phase B start at 0 </code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complex example</span></span>
-<span id="cb51-2"><a href="describe-and-manipulate-single-case-data-frames.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">trend</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">offset =</span> <span class="dv">0</span>, </span>
-<span id="cb51-3"><a href="describe-and-manipulate-single-case-data-frames.html#cb51-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">model =</span> <span class="fu">c</span>(<span class="st">&quot;Cubic&quot;</span> <span class="ot">=</span> values <span class="sc">~</span> <span class="fu">I</span>(mt<span class="sc">^</span><span class="dv">3</span>), <span class="st">&quot;Log Time&quot;</span> <span class="ot">=</span> values <span class="sc">~</span> <span class="fu">log</span>(mt))</span>
-<span id="cb51-4"><a href="describe-and-manipulate-single-case-data-frames.html#cb51-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Complex example</span>
+<span class="fu">trend</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span>, offset <span class="op">=</span> <span class="fl">0</span>, 
+        model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cubic"</span> <span class="op">=</span> <span class="va">values</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">mt</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span>, <span class="st">"Log Time"</span> <span class="op">=</span> <span class="va">values</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">mt</span><span class="op">)</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>Trend for each phase
 
              Intercept      B   Beta
@@ -489,23 +309,27 @@ Log Time.B      57.300  9.051  0.791
 Note. Measurement-times of phase B start at 1 </code></pre>
 </div>
 <div id="missing-values" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Missing values</h2>
+<h2>
+<span class="header-section-number">6.3</span> Missing values<a class="anchor" aria-label="anchor" href="#missing-values"><i class="fas fa-link"></i></a>
+</h2>
 <p>There are two kinds of missing values in single-case data series. First, missings that were explicitly recorded as <code>NA</code> and assigned to a phase and measurement-time as in the following example:</p>
 <pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, NA, 6), phase.design = c(A = 4, B = 6))</code></pre>
 <p>The second type of missing occurs when there are gaps between measurement-times that are not explicitly coded as in the following example:</p>
 <pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, 6), phase.design = c(A = 4, B = 5), 
      mt = c(1, 2, 3, 4, 5, 6, 7, 8, 10))</code></pre>
 <p>In both cases, missing values pose a threat to the internal validity of overlap indices. Randomization tests are more robust against the first type of missing values but are affected by the second type. Regression approaches are less impacted by both types as they take the interval between measurement-times into account.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb55-1" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">2</span>, <span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">6</span>), </span>
-<span id="cb55-2"><a href="describe-and-manipulate-single-case-data-frames.html#cb55-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">phase.design =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">10</span>), <span class="at">name =</span> <span class="st">&quot;no NA&quot;</span>)</span>
-<span id="cb55-3"><a href="describe-and-manipulate-single-case-data-frames.html#cb55-3" aria-hidden="true" tabindex="-1"></a>case2 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="dv">3</span>,<span class="dv">2</span>, <span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="cn">NA</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">6</span>), </span>
-<span id="cb55-4"><a href="describe-and-manipulate-single-case-data-frames.html#cb55-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">phase.design =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">10</span>), <span class="at">name =</span> <span class="st">&quot;NAs&quot;</span>)</span>
-<span id="cb55-5"><a href="describe-and-manipulate-single-case-data-frames.html#cb55-5" aria-hidden="true" tabindex="-1"></a>case3 <span class="ot">&lt;-</span> <span class="fu">fillmissingSC</span>(case2)</span>
-<span id="cb55-6"><a href="describe-and-manipulate-single-case-data-frames.html#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(case3) <span class="ot">&lt;-</span> <span class="st">&quot;interpolated NAs&quot;</span></span>
-<span id="cb55-7"><a href="describe-and-manipulate-single-case-data-frames.html#cb55-7" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="fu">c</span>(case1, case2, case3)</span>
-<span id="cb55-8"><a href="describe-and-manipulate-single-case-data-frames.html#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ex)</span></code></pre></div>
-<p><img src="scan-book_files/figure-html/fillmissing_example-1.png" width="480" /></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">overlap</span>(ex)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">case1</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">6</span>,<span class="fl">3</span>,<span class="fl">2</span>, <span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">4</span>,<span class="fl">8</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span>, 
+              phase.design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"no NA"</span><span class="op">)</span>
+<span class="va">case2</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="cn">NA</span>,<span class="fl">3</span>,<span class="fl">2</span>, <span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">6</span>,<span class="cn">NA</span>,<span class="fl">4</span>,<span class="fl">8</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span>, 
+              phase.design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"NAs"</span><span class="op">)</span>
+<span class="va">case3</span> <span class="op">&lt;-</span> <span class="fu">fillmissingSC</span><span class="op">(</span><span class="va">case2</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">case3</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"interpolated NAs"</span>
+<span class="va">ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">case1</span>, <span class="va">case2</span>, <span class="va">case3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ex</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="ch_describe_manipulate_files/figure-html/fillmissing_example-1.png" width="480"></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">overlap</span><span class="op">(</span><span class="va">ex</span><span class="op">)</span></code></pre></div>
 <pre><code>Overlap Indices
 
 Design:  A B 
@@ -525,21 +349,22 @@ Diff_trend     0.02   0.11             0.12
 SMD            1.65   1.96             2.02</code></pre>
 </div>
 <div id="outlieranalysis" class="section level2" number="6.4">
-<h2><span class="header-section-number">6.4</span> Outlieranalysis</h2>
+<h2>
+<span class="header-section-number">6.4</span> Outlieranalysis<a class="anchor" aria-label="anchor" href="#outlieranalysis"><i class="fas fa-link"></i></a>
+</h2>
 <style>
   table {
     border: 0px solid black;
     background-color: red;
   }
 </style>
-<table>
- <tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+<div class="inline-table"><table class="table table-sm"><tr>
+<td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> outlier(data, dvar, pvar, mvar, criteria = c("MAD", "3.5")) </font></td>
- </tr>
-</table>  
+ </tr></table></div>
 <p><em>scan</em> provides several methods for analyzing outliers. All of them are implemented in the <code>outliers</code> function. Available methods are the <strong>standard deviation</strong>, <strong>mean average deviation</strong>, <strong>confidence intervals</strong>, and <strong>Cook’s distance</strong>. The criteria argument takes a vector with two information, the first defines the analyzing method (“SD,” “MAD,” CI“,”Cook“) and the second the criteria. For”SD" the criteria is the number of standard deviations (<strong>sd</strong>) from the mean of each phase for which a value is not considered to be an outlier. For example, <code>criteria = c("SD",2)</code> would identify every value exceeding two <strong>sd</strong> above or below the mean as an outlier whereas <strong>sd</strong> and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin <span class="citation"><a href="references.html#ref-iglewicz_how_1993" role="doc-biblioref">Iglewicz &amp; Hoaglin</a> (<a href="references.html#ref-iglewicz_how_1993" role="doc-biblioref">1993</a>)</span> recommend the use the much more robust median average deviation (<strong>MAD</strong>) instead. The <strong>MAD</strong> is is constructed similar to the <strong>sd</strong> but uses the median instead of the mean. Multiplying the <strong>MAD</strong> by 1.4826 approximates the <strong>sd</strong> in a normal distributed sample. This corrected MAD is applied in the <code>outlier</code> function. A deviation of 3.5 times the corrected <strong>MAD</strong> from the median is suggested to be an outlier. To use this criterion set <code>criteria = c("MAD", 3.5)</code>. <code>criteria = c("CI", 0.95)</code> takes exceeding the 95% confidence interval as the criteria for outliers. The Cook’s distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook’s distance analyses are based on a piecewise-regression model. Most commonly, Cook’s distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c(“Cook,”“4/n”).</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">outlier</span>(exampleABC_outlier, <span class="at">criteria =</span> <span class="fu">c</span>(<span class="st">&quot;MAD&quot;</span>, <span class="fl">3.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">outlier</span><span class="op">(</span><span class="va">exampleABC_outlier</span>, criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MAD"</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>Outlier Analysis for Single-Case Data
 
 Criteria: Exceeds 3.5 Mean Average Deviations
@@ -565,94 +390,77 @@ $Amy
 Case Bernadette : Dropped 3 
 Case Penny : Dropped 2 
 Case Amy : Dropped 3 </code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing outliers with the plot function</span></span>
-<span id="cb60-2"><a href="describe-and-manipulate-single-case-data-frames.html#cb60-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">outlier</span>(exampleABC_outlier, <span class="at">criteria =</span> <span class="fu">c</span>(<span class="st">&quot;MAD&quot;</span>, <span class="fl">3.5</span>))</span>
-<span id="cb60-3"><a href="describe-and-manipulate-single-case-data-frames.html#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(exampleABC_outlier, <span class="at">marks =</span> res, <span class="at">style =</span> <span class="st">&quot;annotate&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">160</span>))</span></code></pre></div>
-<p><img src="scan-book_files/figure-html/outlier-1.png" width="672" /></p>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Visualizing outliers with the plot function</span>
+<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">outlier</span><span class="op">(</span><span class="va">exampleABC_outlier</span>, criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MAD"</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">exampleABC_outlier</span>, marks <span class="op">=</span> <span class="va">res</span>, style <span class="op">=</span> <span class="st">"annotate"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>,<span class="fl">160</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="ch_describe_manipulate_files/figure-html/outlier-1.png" width="672"></div>
 </div>
 <div id="smoothing-data" class="section level2" number="6.5">
-<h2><span class="header-section-number">6.5</span> Smoothing data</h2>
+<h2>
+<span class="header-section-number">6.5</span> Smoothing data<a class="anchor" aria-label="anchor" href="#smoothing-data"><i class="fas fa-link"></i></a>
+</h2>
 <style>
   table {
     border: 0px solid black;
     background-color: red;
   }
 </style>
-<table>
- <tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+<div class="inline-table"><table class="table table-sm"><tr>
+<td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> smooth_cases(data, dvar, mvar, FUN = "movingMedian", intensity = NULL) </font></td>
- </tr>
-</table>  
-<p>The <code>smooth_cases</code> function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A <em>lag</em> defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.<br />
+ </tr></table></div>
+<p>The <code>smooth_cases</code> function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A <em>lag</em> defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.<br>
 The function returns am scdf with smoothed data points.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="describe-and-manipulate-single-case-data-frames.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Use the three different smoothing functions and compare the results</span></span>
-<span id="cb61-2"><a href="describe-and-manipulate-single-case-data-frames.html#cb61-2" aria-hidden="true" tabindex="-1"></a>berta_mmd <span class="ot">&lt;-</span> <span class="fu">smooth_cases</span>(Huber2014<span class="sc">$</span>Berta)</span>
-<span id="cb61-3"><a href="describe-and-manipulate-single-case-data-frames.html#cb61-3" aria-hidden="true" tabindex="-1"></a>berta_mmn <span class="ot">&lt;-</span> <span class="fu">smooth_cases</span>(Huber2014<span class="sc">$</span>Berta, <span class="at">FUN =</span> <span class="st">&quot;movingMean&quot;</span>)</span>
-<span id="cb61-4"><a href="describe-and-manipulate-single-case-data-frames.html#cb61-4" aria-hidden="true" tabindex="-1"></a>berta_lre <span class="ot">&lt;-</span> <span class="fu">smooth_cases</span>(Huber2014<span class="sc">$</span>Berta, <span class="at">FUN =</span> <span class="st">&quot;localRegression&quot;</span>)</span>
-<span id="cb61-5"><a href="describe-and-manipulate-single-case-data-frames.html#cb61-5" aria-hidden="true" tabindex="-1"></a>new_study <span class="ot">&lt;-</span> <span class="fu">c</span>(Huber2014<span class="sc">$</span>Berta, berta_mmd, berta_mmn, berta_lre)</span>
-<span id="cb61-6"><a href="describe-and-manipulate-single-case-data-frames.html#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(new_study) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Original&quot;</span>, <span class="st">&quot;Moving Median&quot;</span>, <span class="st">&quot;Moving Mean&quot;</span>, <span class="st">&quot;Local Regression&quot;</span>)</span>
-<span id="cb61-7"><a href="describe-and-manipulate-single-case-data-frames.html#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(new_study, <span class="at">style =</span> <span class="st">&quot;grid2&quot;</span>)</span></code></pre></div>
-<p><img src="scan-book_files/figure-html/smooth_example-1.png" width="480" /></p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Use the three different smoothing functions and compare the results</span>
+<span class="va">berta_mmd</span> <span class="op">&lt;-</span> <span class="fu">smooth_cases</span><span class="op">(</span><span class="va">Huber2014</span><span class="op">$</span><span class="va">Berta</span><span class="op">)</span>
+<span class="va">berta_mmn</span> <span class="op">&lt;-</span> <span class="fu">smooth_cases</span><span class="op">(</span><span class="va">Huber2014</span><span class="op">$</span><span class="va">Berta</span>, FUN <span class="op">=</span> <span class="st">"movingMean"</span><span class="op">)</span>
+<span class="va">berta_lre</span> <span class="op">&lt;-</span> <span class="fu">smooth_cases</span><span class="op">(</span><span class="va">Huber2014</span><span class="op">$</span><span class="va">Berta</span>, FUN <span class="op">=</span> <span class="st">"localRegression"</span><span class="op">)</span>
+<span class="va">new_study</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Huber2014</span><span class="op">$</span><span class="va">Berta</span>, <span class="va">berta_mmd</span>, <span class="va">berta_mmn</span>, <span class="va">berta_lre</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">new_study</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Original"</span>, <span class="st">"Moving Median"</span>, <span class="st">"Moving Mean"</span>, <span class="st">"Local Regression"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">new_study</span>, style <span class="op">=</span> <span class="st">"grid2"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="ch_describe_manipulate_files/figure-html/smooth_example-1.png" width="480"></div>
 
 </div>
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="creating-a-single-case-data-plot.html"><span class="header-section-number">5</span> Creating a single-case data plot</a></div>
+<div class="next"><a href="overlapping-indices.html"><span class="header-section-number">7</span> Overlapping indices</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#describe-and-manipulate-single-case-data-frames"><span class="header-section-number">6</span> Describe and manipulate single-case data frames</a></li>
+<li><a class="nav-link" href="#describing-and-summarizing"><span class="header-section-number">6.1</span> Describing and summarizing</a></li>
+<li><a class="nav-link" href="#autoregression-and-trendanalyses"><span class="header-section-number">6.2</span> Autoregression and trendanalyses</a></li>
+<li><a class="nav-link" href="#missing-values"><span class="header-section-number">6.3</span> Missing values</a></li>
+<li><a class="nav-link" href="#outlieranalysis"><span class="header-section-number">6.4</span> Outlieranalysis</a></li>
+<li><a class="nav-link" href="#smoothing-data"><span class="header-section-number">6.5</span> Smoothing data</a></li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="creating-a-single-case-data-plot.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="overlapping-indices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/jazznbass/scan-Book/blob/master/ch_describe_manipulate.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/jazznbass/scan-Book/edit/master/ch_describe_manipulate.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-04-19.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
 </body>
-
 </html>

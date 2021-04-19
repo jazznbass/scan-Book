@@ -1,0 +1,83 @@
+# Some things about R
+
+In this chapter you will get a brief introduction to R. If you are familiar with R you might like to go directly to the next chapter.
+
+\
+R is a programming language optimized for statistical purposes. It was created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland. Since then it has been developed continuously and became one of the leading statistical software programs. R is unmatched in its versatility. It is used for teaching introductory courses into statistics up to doing the most sophisticated mathematical analysis. It has become the defacto standard in many scientific disciplines from the natural to the social sciences.\
+R is completely community driven . That is, it is developed and extended by anybody who likes to participate . It comes at no costs and can be downloaded for free for all major and many minor platforms at [www.r-project.org](http://www.r-project.org). Yet, it is as reliable as other proprietary software like Mplus, STATA, SPSS etc . You can tell from my writing that is hard not to become an R-fan when you are into statistics :-)\
+R can be used in at least two ways:
+
+1.  You can use it for applying data analyses. In that way it functions like most other statistical programs. You have to learn the specific syntax of R and it will compute the data analysis you need. For example `mean(x)` will return the mean of the variable `x`; `lm(y ~ x)` will calculate a linear regression with the criteria `y` and the predictor `x` for you or `plot(x, y)` will return a scatter-plot of the variables `x` and `y`.
+2.  You can use R to program new statistical procedures, or extend previous ones.
+
+It is the second function that is the origin of R's huge success and versatility. New statistical procedures and functions can be published to be used for everyone in so called packages. A package usually contains several functions, help files and example data-sets. Hundreds of such packages are available to help in all kinds of specialized analyses. The basic installation of R comes with a large variety of packages per installed. New packages can most of the times be easily installed from within R. Admittedly, if you must have the latest developmental version of a new package installation sometimes can get a bit more complex. But with a bit of help and persistence it is not to difficult to accomplish.
+
+The book at hand describes the use of such an additional package named *scan* providing specialized functions for single-case analyses. *scan* comes in two versions: A "stable" version and a developmental version. Both versions can be installed directly from within R. The stable version is much older and only provides a limited functionality. Therefore, I will refer to the developmental version in this book.
+
+## Basic R
+
+*R* is a script language. That is, you type in text and let R execute the commands you wrote down. Either you work in a *console* or a *textfile*. In a *console* the command will be executed every time you press the RETURN-key. In a *textfile* you type down your code, mark the part you like to be executed, and run that code (with a click or a certain key). The latter text files can be saved and reused for later R sessions. Therefore, usually you will work in a text file.
+
+A value is assigned to a variable with the `<-` operator. Which should be read as an arrow rather than a less sign and a minus sign. A `#` is followed by a comment to make your code more understandable. So, what follows a `#` is not interpreted by R. A vector is a chain of several values. With a vector you could describe the values of a measurement series. The `c` function is used to build a vector (e.g., `c(1, 2, 3, 4)`). If you like to see the content of a variable you could use the `print` function. `print(x)` will display the content of the variable `x`. A shortcut for this is just to type variable name (and press return) `x`.
+
+
+```r
+# x is assigned the value 10:
+x <- 10
+
+# See what's inside of x:
+x
+```
+
+```
+[1] 10
+```
+
+```r
+# x is assigned a vector with three values:
+x <- c(10, 11, 15)
+
+# ... and display the content of x:
+x
+```
+
+```
+[1] 10 11 15
+```
+
+Two important concepts in **R** are *functions* and *arguments*. A *function* is the name for a procedure that does something with the *arguments* that are provided by you. For example, the function `mean` calculated the mean. `mean` has an argument `x` which "expects" that you provide a vector (a series of values) from which it will calculate the mean. `mean( x = c(1, 3, 5) )` will compute the mean of the values 1, 3, and 5 and return the result 3. Some *functions* can take several arguments. `mean` for example also takes the argument `trim`. For calculating a trimmed mean. `mean( x = c(1, 1, 3, 3, 5, 6, 7, 8, 9, 9), trim = 0.1)` will calculate the 10% trimmed mean of the provided values. The name of the first argument could be dropped. That is, `mean( c(1, 3, 5) )` will be interpreted by **R** as `mean( x = c(1, 3, 5) )`. You could also provide a variable to an argument.
+
+
+```r
+values <- c(1, 4, 5, 6, 3, 7, 7, 5)
+mean(x = values)
+```
+
+```
+[1] 4.75
+```
+
+```r
+# or shorter:
+mean(values)
+```
+
+```
+[1] 4.75
+```
+
+The return value of a function can be assigned to a new variable instead:
+
+
+```r
+y <- c(1, 4, 5, 6, 3, 7, 7, 5)
+res <- mean(y)
+#now res contains the mean of y:
+res
+```
+
+```
+[1] 4.75
+```
+
+Every function in R has a help page written by the programmers. You can retrieve these pages with the `help` function or the short cut `?`. `help("mean")` will display the help page for the `mean` function. The quotation marks are necessary here because you do not provide a variable with the name *mean* but a word 'mean'. The shortcut works `?mean`. A bit confusingly, you do not need the quotation marks here.

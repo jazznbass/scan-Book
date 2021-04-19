@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Monte-Carlo Studies with scan | Analyzing single-case data with R and scan</title>
+  <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Monte-Carlo Studies with scan | Analyzing single-case data with R and scan" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  <meta name="github-repo" content="jazznbass/scan-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Monte-Carlo Studies with scan | Analyzing single-case data with R and scan" />
+  
+  <meta name="twitter:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  
+
+<meta name="author" content="Jürgen Wilbert" />
+
+
+<meta name="date" content="2021-04-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exporting-scan-results.html"/>
+<link rel="next" href="about-the-author.html"/>
+<script src="libs/header-attrs-2.7.4/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-145080763-1');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+Analyzing single-case data with R and scan
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#software-reference"><i class="fa fa-check"></i>Software reference</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="the-scan-package.html"><a href="the-scan-package.html"><i class="fa fa-check"></i><b>3</b> The scan package</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="the-scan-package.html"><a href="the-scan-package.html#installing-the-scan-package"><i class="fa fa-check"></i><b>3.1</b> Installing the <em>scan</em> package</a></li>
+<li class="chapter" data-level="3.2" data-path="the-scan-package.html"><a href="the-scan-package.html#development-version-of-scan"><i class="fa fa-check"></i><b>3.2</b> Development version of scan</a></li>
+<li class="chapter" data-level="3.3" data-path="the-scan-package.html"><a href="the-scan-package.html#reporting-issues-with-scan-and-suggesting-enhancements"><i class="fa fa-check"></i><b>3.3</b> Reporting issues with <em>scan</em> and suggesting enhancements</a></li>
+<li class="chapter" data-level="3.4" data-path="the-scan-package.html"><a href="the-scan-package.html#functions-overview"><i class="fa fa-check"></i><b>3.4</b> Functions overview</a></li>
+<li class="chapter" data-level="3.5" data-path="the-scan-package.html"><a href="the-scan-package.html#changes-with-version-0.50"><i class="fa fa-check"></i><b>3.5</b> Changes with version 0.50</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="the-scan-package.html"><a href="the-scan-package.html#new-function-names"><i class="fa fa-check"></i><b>3.5.1</b> New function names</a></li>
+<li class="chapter" data-level="3.5.2" data-path="the-scan-package.html"><a href="the-scan-package.html#change-target-variables-in-functions"><i class="fa fa-check"></i><b>3.5.2</b> Change target variables in functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>4</b> Managing single-case data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>4.1</b> A <strong><em>single-case data frame</em></strong></a></li>
+<li class="chapter" data-level="4.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>4.2</b> Creating scdfs</a></li>
+<li class="chapter" data-level="4.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>4.3</b> Saving and reading <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="4.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>4.4</b> Import and export <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="4.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-and-manipulating-scdf-files"><i class="fa fa-check"></i><b>4.5</b> Displaying and manipulating scdf-files</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>5</b> Creating a single-case data plot</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>5.1</b> Graphical styles of a plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>6</b> Describe and manipulate single-case data frames</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>6.1</b> Describing and summarizing</a></li>
+<li class="chapter" data-level="6.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>6.2</b> Autoregression and trendanalyses</a></li>
+<li class="chapter" data-level="6.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>6.3</b> Missing values</a></li>
+<li class="chapter" data-level="6.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>6.4</b> Outlieranalysis</a></li>
+<li class="chapter" data-level="6.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>6.5</b> Smoothing data</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>7</b> Overlapping indices</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>7.1</b> Percentage non-overlapping data (PND)</a></li>
+<li class="chapter" data-level="7.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>7.2</b> Percentage exceeding the median (PEM)</a></li>
+<li class="chapter" data-level="7.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>7.3</b> Percentage exceeding the regression trend (PET)</a></li>
+<li class="chapter" data-level="7.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>7.4</b> Percentage of all non-overlapping data (PAND)</a></li>
+<li class="chapter" data-level="7.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>7.5</b> Nonoverlap of all pairs (NAP)</a></li>
+<li class="chapter" data-level="7.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>7.6</b> Tau-U</a></li>
+<li class="chapter" data-level="7.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>7.7</b> Reliable change index</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>8</b> Piecewise linear regressions</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>8.1</b> The basic plm function</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>8.1.1</b> Dummy model</a></li>
+<li class="chapter" data-level="8.1.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adjusting-the-model"><i class="fa fa-check"></i><b>8.1.2</b> Adjusting the model</a></li>
+<li class="chapter" data-level="8.1.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>8.1.3</b> Adding additional predictors</a></li>
+<li class="chapter" data-level="8.1.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-modelling-autoregression"><i class="fa fa-check"></i><b>8.1.4</b> [to be written] Modelling autoregression</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-multivariate-piecewise-regression"><i class="fa fa-check"></i><b>8.2</b> [to be written] Multivariate piecewise regression</a></li>
+<li class="chapter" data-level="8.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#multilevel-plm-analyses"><i class="fa fa-check"></i><b>8.3</b> Multilevel plm analyses</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>8.3.1</b> Adding additional L2-variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>9</b> Randomization tests</a></li>
+<li class="chapter" data-level="10" data-path="default-settings.html"><a href="default-settings.html"><i class="fa fa-check"></i><b>10</b> Default settings</a></li>
+<li class="chapter" data-level="11" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>11</b> Exporting <em>scan</em> results</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>11.1</b> Single case data files</a></li>
+<li class="chapter" data-level="11.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>11.2</b> Descriptive stats</a></li>
+<li class="chapter" data-level="11.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>11.3</b> Overlap indices</a></li>
+<li class="chapter" data-level="11.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>11.4</b> Piecewise linear models</a></li>
+<li class="chapter" data-level="11.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>11.5</b> Hierarchical piecewise regressions</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="monte-carlo-studies-with-scan.html"><a href="monte-carlo-studies-with-scan.html"><i class="fa fa-check"></i><b>12</b> Monte-Carlo Studies with <em>scan</em></a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="monte-carlo-studies-with-scan.html"><a href="monte-carlo-studies-with-scan.html#set-up-a-single-case-design"><i class="fa fa-check"></i><b>12.1</b> Set up a single-case design</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="monte-carlo-studies-with-scan.html"><a href="monte-carlo-studies-with-scan.html#an-example"><i class="fa fa-check"></i><b>12.1.1</b> An example</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="monte-carlo-studies-with-scan.html"><a href="monte-carlo-studies-with-scan.html#create-random-cases"><i class="fa fa-check"></i><b>12.2</b> Create random cases</a></li>
+<li class="chapter" data-level="12.3" data-path="monte-carlo-studies-with-scan.html"><a href="monte-carlo-studies-with-scan.html#extract-a-design"><i class="fa fa-check"></i><b>12.3</b> Extract a design</a></li>
+<li class="chapter" data-level="12.4" data-path="monte-carlo-studies-with-scan.html"><a href="monte-carlo-studies-with-scan.html#power-analyses"><i class="fa fa-check"></i><b>12.4</b> Power analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+Published with bookdown
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyzing single-case data with R and scan</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="monte-carlo-studies-with-scan" class="section level1" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Monte-Carlo Studies with <em>scan</em></h1>
+<p><em>scan</em> provides a set of functions that allow to design and conduct Monte Carlo studies on single-cases. Monte Carlo studies can be useful for computing standard errors, estimating type I and type II errors of specific analyzing approaches, or calculating the test power (a priori or post-hoc).</p>
+<div id="set-up-a-single-case-design" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Set up a single-case design</h2>
+<style>
+  table {
+    border: 0px solid black;
+    background-color: red;
+  }
+</style>
+<table>
+ <tr>
+  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> design_rSC(n = 1, phase.design = list(A = 5, B = 15), trend = list(0), level = list(0), slope = list(0), rtt = list(0.8), m = list(50), s = list(10), extreme.p = list(0), extreme.d = c(-4, -3), missing.p = list(0), distribution = "normal", prob = 0.5, MT = NULL, B.start = NULL) </font></td>
+ </tr>
+</table>  
+<p>The <code>design_rSC()</code> function sets up a single-case design structure while <code>rSC()</code> generates random single-cases based on the parameters of the design structure.</p>
+<style>
+  table {
+    border: 0px solid black;
+    background-color: red;
+  }
+</style>
+<table>
+ <tr>
+  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> rSC(design = NULL, round = NA, random.names = FALSE, seed = NULL, ...) </font></td>
+ </tr>
+</table>  
+<div id="an-example" class="section level3" number="12.1.1">
+<h3><span class="header-section-number">12.1.1</span> An example</h3>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="monte-carlo-studies-with-scan.html#cb117-1" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">design_rSC</span>(</span>
+<span id="cb117-2"><a href="monte-carlo-studies-with-scan.html#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">50</span>, </span>
+<span id="cb117-3"><a href="monte-carlo-studies-with-scan.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">phase.design =</span> <span class="fu">list</span>(<span class="at">A =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">15</span>, <span class="at">C =</span> <span class="dv">10</span>),</span>
+<span id="cb117-4"><a href="monte-carlo-studies-with-scan.html#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="fl">0.01</span>, </span>
+<span id="cb117-5"><a href="monte-carlo-studies-with-scan.html#cb117-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">level =</span> <span class="fu">list</span>(<span class="at">A =</span> <span class="dv">0</span>, <span class="at">B =</span> <span class="fl">0.4</span>, <span class="at">C =</span> <span class="dv">0</span>), </span>
+<span id="cb117-6"><a href="monte-carlo-studies-with-scan.html#cb117-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">slope =</span> <span class="fu">list</span>(<span class="at">A =</span> <span class="dv">0</span>, <span class="at">B =</span> <span class="fl">0.02</span>, <span class="at">C =</span> <span class="dv">0</span>),</span>
+<span id="cb117-7"><a href="monte-carlo-studies-with-scan.html#cb117-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">rtt =</span> <span class="fl">0.8</span>, </span>
+<span id="cb117-8"><a href="monte-carlo-studies-with-scan.html#cb117-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> <span class="dv">50</span>, </span>
+<span id="cb117-9"><a href="monte-carlo-studies-with-scan.html#cb117-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">s =</span> <span class="dv">10</span></span>
+<span id="cb117-10"><a href="monte-carlo-studies-with-scan.html#cb117-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb117-11"><a href="monte-carlo-studies-with-scan.html#cb117-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-12"><a href="monte-carlo-studies-with-scan.html#cb117-12" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rSC</span>(</span>
+<span id="cb117-13"><a href="monte-carlo-studies-with-scan.html#cb117-13" aria-hidden="true" tabindex="-1"></a>  design,</span>
+<span id="cb117-14"><a href="monte-carlo-studies-with-scan.html#cb117-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">round =</span> <span class="dv">0</span>,</span>
+<span id="cb117-15"><a href="monte-carlo-studies-with-scan.html#cb117-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">random.names =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb117-16"><a href="monte-carlo-studies-with-scan.html#cb117-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">1234</span></span>
+<span id="cb117-17"><a href="monte-carlo-studies-with-scan.html#cb117-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb117-18"><a href="monte-carlo-studies-with-scan.html#cb117-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-19"><a href="monte-carlo-studies-with-scan.html#cb117-19" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(<span class="fu">hplm</span>(data, <span class="at">model =</span> <span class="st">&quot;JW&quot;</span>))</span></code></pre></div>
+<pre><code>Warning in export(hplm(data, model = &quot;JW&quot;)): This function is in an experimental
+state and only implemented for testing und debugging purposes.</code></pre>
+Hierarchical Piecewise Linear Regression for variable ‘values.’
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Parameter
+</th>
+<th style="text-align:right;">
+B
+</th>
+<th style="text-align:right;">
+SE
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:right;">
+t
+</th>
+<th style="text-align:right;">
+p
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Intercept
+</td>
+<td style="text-align:right;">
+49.85
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+1695
+</td>
+<td style="text-align:right;">
+104.39
+</td>
+<td style="text-align:right;">
+&lt;.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trend mt
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+0.08
+</td>
+<td style="text-align:right;">
+1695
+</td>
+<td style="text-align:right;">
+1.05
+</td>
+<td style="text-align:right;">
+.29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level phase B
+</td>
+<td style="text-align:right;">
+4.31
+</td>
+<td style="text-align:right;">
+0.56
+</td>
+<td style="text-align:right;">
+1695
+</td>
+<td style="text-align:right;">
+7.7
+</td>
+<td style="text-align:right;">
+&lt;.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level phase C
+</td>
+<td style="text-align:right;">
+1.44
+</td>
+<td style="text-align:right;">
+0.59
+</td>
+<td style="text-align:right;">
+1695
+</td>
+<td style="text-align:right;">
+2.45
+</td>
+<td style="text-align:right;">
+&lt;.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Slope phase B
+</td>
+<td style="text-align:right;">
+0.16
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+1695
+</td>
+<td style="text-align:right;">
+1.8
+</td>
+<td style="text-align:right;">
+.07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Slope phase C
+</td>
+<td style="text-align:right;">
+-0.17
+</td>
+<td style="text-align:right;">
+0.09
+</td>
+<td style="text-align:right;">
+1695
+</td>
+<td style="text-align:right;">
+-1.94
+</td>
+<td style="text-align:right;">
+.05
+</td>
+</tr>
+<tr grouplength="3">
+<td colspan="6" style="border-bottom: 1px solid;">
+<strong>Random effects</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;font-weight: bold;color: black !important;" indentlevel="1">
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;">
+SD
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;">
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;">
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;">
+</td>
+<td style="text-align:right;font-weight: bold;color: black !important;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Intercept
+</td>
+<td style="text-align:right;">
+0.04
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;padding-left: 2em;" indentlevel="1">
+Residual
+</td>
+<td style="text-align:right;">
+4.93
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIC
+</td>
+<td style="text-align:right;">
+10569.2
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIC
+</td>
+<td style="text-align:right;">
+10612.9
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICC
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+L = 0
+</td>
+<td style="text-align:right;">
+p .89
+</td>
+<td style="text-align:right;">
+</td>
+<td style="text-align:right;">
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Note: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Estimation method ML; Slope estimation method: JW; 50 cases
+</td>
+</tr>
+</tfoot>
+</table>
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<caption>
+(#tab:Arguments_design_rSC)Arguments of the design_rSC function
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+What it does …
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+n
+</td>
+<td style="text-align:left;width: 30em; ">
+Number of cases to be created (Default is n = 1).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+phase.design
+</td>
+<td style="text-align:left;width: 30em; ">
+A vector defining the length and label of each phase. E.g., phase.length = c(A1 = 10, B1 = 10, A2 = 10, B2 = 10).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+trend
+</td>
+<td style="text-align:left;width: 30em; ">
+Defines the effect size d of a trend per MT added across the whole data-set. To assign different trends to several single-cases, use a vector of values (e.g. trend = c(.1, .3, .5)). If the number of cases exceeds the length of the vector, values are repeated. While using a binomial or poisson distribution, d.trend indicates an increase in points / counts per MT.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+level
+</td>
+<td style="text-align:left;width: 30em; ">
+Defines the level increase (effect size d) at the beginning of phase B. To assign different level effects to several single-cases, use a vector of values (e.g. level = c(.2, .4, .6)). If the number of cases exceeds the length of the vector, values are repeated. While using a binomial or poisson distribution, d.level indicates an increase in points / counts with the onset of the B-phase.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+slope
+</td>
+<td style="text-align:left;width: 30em; ">
+Defines the increase in scores - starting with phase B - expressed as effect size d per measurement time. slope = .1 generates an incremental increase of 0.1 standard deviations per MT for all phase B measurements. To assign different slope effects to several single-cases, use a vector of values (e.g. slope = c(.1, .2, .3)). If the number of cases exceeds the length of the vector, values are repeated. While using a binomial or poisson distribution, d.slope indicates an increase in points / counts per MT.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+rtt
+</td>
+<td style="text-align:left;width: 30em; ">
+Reliability of the underlying simulated measurements. Set rtt = .8 by default. To assign different reliabilities to several single-cases, use a vector of values (e.g. rtt = c(.6, .7, .8)). If the number of cases exceeds the length of the vector, values are repeated. rtt has no effect when you’re using binomial or poisson distributed scores.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+m
+</td>
+<td style="text-align:left;width: 30em; ">
+Mean of the sample distribution the scores are drawn from. Default is m = 50. To assign different means to several single-cases, use a vector of values (e.g. m = c(50, 42, 56)). If the number of cases exceeds the length of the vector, values are repeated.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+s
+</td>
+<td style="text-align:left;width: 30em; ">
+Standard deviation of the sample distribution the scores are drawn from. Set to s = 10 by default. To assign different variances to several single-cases, use a vector of values (e.g. s = c(5, 10, 15)). If the number of cases exceeds the length of the vector, values are repeated.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+extreme.p
+</td>
+<td style="text-align:left;width: 30em; ">
+Probability of extreme values. extreme.p = .05 gives a five percent probability of an extreme value. A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+extreme.d
+</td>
+<td style="text-align:left;width: 30em; ">
+Range for extreme values, expressed as effect size d. extreme.d = c(-7,-6) uses extreme values within a range of -7 and -6 standard deviations. In case of a binomial or poisson distribution, extreme.d indicates points / counts. Caution: the first value must be smaller than the second, otherwise the procedure will fail.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+missing.p
+</td>
+<td style="text-align:left;width: 30em; ">
+Portion of missing values. missing.p = 0.1 creates 10% of all values as missing). A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+distribution
+</td>
+<td style="text-align:left;width: 30em; ">
+Distribution of the scores. Default is distribution = ‘normal.’ Possible values are ‘normal,’ ‘binomial,’ and ‘poisson.’ If set to ‘normal,’ the sample of scores will be normally distributed with the parameters m and s as mean and standard deviation of the sample, including a measurement error defined by rtt. If set to ‘binomial,’ data are drawn from a binomial distribution with the expectation value m. This setting is useful for generating criterial data like correct answers in a test. If set to ‘poisson,’ data are drawn from a poisson distribution, which is very common for count-data like behavioral observations. There’s no measurement error is included. m defines the expectation value of the poisson distribution, lambda.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+prob
+</td>
+<td style="text-align:left;width: 30em; ">
+If distribution (see below) is set ‘binomial,’ prob passes the probability of occurrence.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+MT
+</td>
+<td style="text-align:left;width: 30em; ">
+Number of measurements (in each study). Default is MT = 20.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+B.start
+</td>
+<td style="text-align:left;width: 30em; ">
+Phase B starting point. The default setting B.start = 6 would assign the first five scores (of each case) to phase A, and all following scores to phase B. To assign different starting points for a set of multiple single-cases, use a vector of starting values (e.g. B.start = c(6, 7, 8)). If the number of cases exceeds the length of the vector, values will be repeated.
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<caption>
+(#tab:Arguments_rSC)Arguments of the rSC function
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Argument
+</th>
+<th style="text-align:left;">
+What it does …
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+design
+</td>
+<td style="text-align:left;width: 30em; ">
+A design matrix which is created by design_rSC and specifies all paramters.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+round
+</td>
+<td style="text-align:left;width: 30em; ">
+Rounds the scores to the defined decimal. To round to the second decimal, set round = 2.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+random.names
+</td>
+<td style="text-align:left;width: 30em; ">
+Is FALSE by default. If set random.names = TRUE cases are assigned random first names. If set ‘male’ or ‘female’ only male or female names are chosen. The names are drawn from the 2,000 most popular names for newborns in 2012 in the U.S. (1,000 male and 1,000 female names).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+seed
+</td>
+<td style="text-align:left;width: 30em; ">
+A seed number for the random generator.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+…
+</td>
+<td style="text-align:left;width: 30em; ">
+Paramteres that are directly passed from the rSC function to the design_rSC function for a more concise coding.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="create-random-cases" class="section level2" number="12.2">
+<h2><span class="header-section-number">12.2</span> Create random cases</h2>
+</div>
+<div id="extract-a-design" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> Extract a design</h2>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="monte-carlo-studies-with-scan.html#cb119-1" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">estimate_design</span>(exampleABC)</span>
+<span id="cb119-2"><a href="monte-carlo-studies-with-scan.html#cb119-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">rSC</span>(design, <span class="at">seed =</span> <span class="dv">1234</span>)</span>
+<span id="cb119-3"><a href="monte-carlo-studies-with-scan.html#cb119-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dat) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;Est. &quot;</span>, <span class="fu">names</span>(exampleABC))</span>
+<span id="cb119-4"><a href="monte-carlo-studies-with-scan.html#cb119-4" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">c</span>(exampleABC, dat)</span>
+<span id="cb119-5"><a href="monte-carlo-studies-with-scan.html#cb119-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(study, <span class="at">style =</span> <span class="st">&quot;tiny&quot;</span>)</span></code></pre></div>
+<p><img src="scan-book_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="monte-carlo-studies-with-scan.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(study)</span></code></pre></div>
+<pre><code>Hierarchical Piecewise Linear Regression
+
+Estimation method ML 
+Slope estimation method: B&amp;L-B 
+6 Cases
+
+ICC = 0.000; L = 0.0; p = 0.942
+
+Fixed effects (values ~ 1 + mt + phaseB + phaseC + interB + interC)
+
+                   B    SE  df      t     p
+Intercept     52.622 1.801 169 29.211 0.000
+Trend mt      -0.103 0.171 169 -0.602 0.548
+Level phase B 18.187 3.272 169  5.559 0.000
+Level phase C 22.249 4.045 169  5.501 0.000
+Slope phase B  0.659 0.538 169  1.225 0.222
+Slope phase C -1.518 0.574 169 -2.644 0.009
+
+Random effects (~1 | case)
+
+          EstimateSD
+Intercept      1.102
+Residual       9.282</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="monte-carlo-studies-with-scan.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleABC)</span></code></pre></div>
+<pre><code>Hierarchical Piecewise Linear Regression
+
+Estimation method ML 
+Slope estimation method: B&amp;L-B 
+3 Cases
+
+ICC = 0.000; L = 0.0; p = 0.951
+
+Fixed effects (values ~ 1 + mt + phaseB + phaseC + interB + interC)
+
+                   B    SE df      t     p
+Intercept     52.330 2.764 82 18.935 0.000
+Trend mt      -0.010 0.263 82 -0.038 0.970
+Level phase B 20.119 5.250 82  3.832 0.000
+Level phase C 20.391 6.402 82  3.185 0.002
+Slope phase B  0.131 0.861 82  0.152 0.880
+Slope phase C -1.012 0.915 82 -1.106 0.272
+
+Random effects (~1 | case)
+
+          EstimateSD
+Intercept      0.070
+Residual      10.424</code></pre>
+</div>
+<div id="power-analyses" class="section level2" number="12.4">
+<h2><span class="header-section-number">12.4</span> Power analyses</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exporting-scan-results.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="about-the-author.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
