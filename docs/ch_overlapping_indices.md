@@ -36,6 +36,7 @@ Base_Tau        0.63     0.59   0.61
 Diff_mean      19.53    21.67  20.47
 Diff_trend      1.53     0.54   2.50
 SMD             8.11     3.17   6.71
+Hedges_g        7.77     3.04   6.43
 ```
 
 
@@ -66,6 +67,7 @@ Base_Tau       0.65   0.68   0.68
 Diff_mean     12.25  13.58  15.27
 Diff_trend    -0.05   0.00  -0.54
 SMD            2.68   3.27   3.62
+Hedges_g       2.63   3.21   3.55
 ```
 
 ## Percentage non-overlapping data (PND)
@@ -269,7 +271,7 @@ Nonoverlap of All Pairs
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> tau_u(data, dvar, pvar, tau_method = "b", method = "complete", phases = c(1, 2), fisher = TRUE, continuity_correction = FALSE) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> tau_u(data, dvar, pvar, tau_method = "b", method = "complete", phases = c(1, 2), meta_method = "random", continuity_correction = FALSE) </font></td>
  </tr>
 </table>  
 ``` 
@@ -288,30 +290,24 @@ print(res, complete = TRUE)
 
 ```
 Tau-U
-Method:  complete 
+Method: complete 
+Applied Kendall's Tau-b
 
-Overall Tau-U: 
-                       Model Tau_U     se     z df        p
-                     A vs. B 0.900 0.0672 13.40  0 6.23e-41
-           A vs. B - Trend A 0.523 0.2569  2.04  0 4.17e-02
-           A vs. B + Trend B 0.730 0.1650  4.43  0 9.59e-06
- A vs. B + Trend B - Trend A 0.611 0.2215  2.76  0 5.80e-03
-
-$Case1
-                            kendall    k_p n pairs pos neg ties  S    D   Tau
-A vs. B                       0.671 0.0373 9    20  19   1    0 18 20.0 0.900
-Trend A                       0.333 0.7341 4     6   4   2    0  2  6.0 0.333
-Trend B                       0.600 0.2207 5    10   8   2    0  6 10.0 0.600
-A vs. B - Trend A             0.523 0.0839 9    26  21   5    0 16 30.6 0.523
-A vs. B + Trend B             0.730 0.0118 9    30  27   3    0 24 32.9 0.730
-A vs. B + Trend B - Trend A   0.611 0.0286 9    36  29   7    0 22 36.0 0.611
-                            SD_S VAR_S SE_Tau     Z       p
-A vs. B                     8.16 66.67  0.408 2.205 0.02749
-Trend A                     2.94  8.67  0.491 0.679 0.49691
-Trend B                     4.08 16.67  0.408 1.470 0.14164
-A vs. B - Trend A           8.68 75.33  0.284 1.843 0.06527
-A vs. B + Trend B           9.13 83.33  0.278 2.629 0.00856
-A vs. B + Trend B - Trend A 9.59 92.00  0.266 2.294 0.02181
+Case: Case1 
+                            pairs pos neg ties  S    D   Tau SD_S VAR_S SE_Tau
+A vs. B                        20  19   1    0 18 20.0 0.900 8.16 66.67  0.408
+Trend A                         6   4   2    0  2  6.0 0.333 2.94  8.67  0.491
+Trend B                        10   8   2    0  6 10.0 0.600 4.08 16.67  0.408
+A vs. B - Trend A              26  21   5    0 16 30.6 0.523 8.68 75.33  0.284
+A vs. B + Trend B              30  27   3    0 24 32.9 0.730 9.13 83.33  0.278
+A vs. B + Trend B - Trend A    36  29   7    0 22 36.0 0.611 9.59 92.00  0.266
+                                Z       p
+A vs. B                     2.205 0.02749
+Trend A                     0.679 0.49691
+Trend B                     1.470 0.14164
+A vs. B - Trend A           1.843 0.06527
+A vs. B + Trend B           2.629 0.00856
+A vs. B + Trend B - Trend A 2.294 0.02181
 ```
 
 
@@ -321,30 +317,31 @@ tau_u(exampleAB)
 
 ```
 Tau-U
-Method:  complete 
+Method: complete 
+Applied Kendall's Tau-b
 
 Overall Tau-U: 
-                       Model Tau_U     se    z df        p
-                     A vs. B 0.960 0.0132 72.8  2 0.00e+00
-           A vs. B - Trend A 0.593 0.0859  6.9  2 5.33e-12
-           A vs. B + Trend B 0.770 0.0547 14.1  2 5.04e-45
- A vs. B + Trend B - Trend A 0.750 0.0585 12.8  2 1.21e-37
+                       Model Tau_U     se    z        p
+                     A vs. B 0.969 0.1772 5.47 4.54e-08
+           A vs. B - Trend A 0.590 0.1064 5.54 3.04e-08
+           A vs. B + Trend B 0.740 0.0960 7.71 1.29e-14
+ A vs. B + Trend B - Trend A 0.731 0.0942 7.75 9.09e-15
 
-$Johanna
+Case: Johanna 
                               Tau SE_Tau    Z     p
 A vs. B                     1.000  0.306 3.27 0.001
 A vs. B - Trend A           0.592  0.184 3.22 0.001
 A vs. B + Trend B           0.786  0.166 4.75 0.000
 A vs. B + Trend B - Trend A 0.765  0.163 4.71 0.000
 
-$Karolina
+Case: Karolina 
                               Tau SE_Tau    Z     p
 A vs. B                     0.940  0.308 3.06 0.002
 A vs. B - Trend A           0.554  0.184 3.01 0.003
 A vs. B + Trend B           0.805  0.166 4.85 0.000
 A vs. B + Trend B - Trend A 0.783  0.163 4.81 0.000
 
-$Anja
+Case: Anja 
                               Tau SE_Tau    Z     p
 A vs. B                     0.966  0.308 3.14 0.002
 A vs. B - Trend A           0.624  0.186 3.36 0.001

@@ -9,7 +9,7 @@ summary(Huber2014)
 ```
 
 ```{r results='asis', echo=FALSE}
-function_structure("describeSC")
+function_structure("describe")
 ```
 
 `describe` is the basic command to get an overview on descriptive statistics. As an argument it only takes the name of the *scdf* object. For each case of the *scdf* and each phase within a case descriptive statistics are provided. The output table contains statistical indicators followed by a dot and the name of the phase (e.g., `n.A` for the number of measurements of phase A).
@@ -27,19 +27,19 @@ out <- tribble(
   "trend", "Slope of a regression line through values by time."
 )
 
-print_table(out, "Statistics of the describeSC command")
+print_table(out, "Statistics of the describe command")
 
 ```
 
 ```{r describe_example}
-describeSC(exampleABC)
+describe(exampleABC)
 ```
 
 The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the `describeSC` command into an R object and then use the `write.csv` (or `write.csv2` for a German OS system setup) to export the `descriptives` element of the object.
 
 ```{r describe_write_example}
 # write the results into a new R object named `res`
-res <- describeSC(exampleABC)
+res <- describe(exampleABC)
 # create a new file containing the descriptives on your harddrive
 write.csv(res$descriptives, file = "descriptive data.csv")
 ```

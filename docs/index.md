@@ -1,7 +1,7 @@
 ---
 title: "Analyzing single-case data with R and scan"
 author: "Jürgen Wilbert"
-date: "2021-04-19"
+date: "2021-05-28"
 site: bookdown::bookdown_site
 always_allow_html: yes
 documentclass: book

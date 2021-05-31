@@ -6,7 +6,7 @@
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> export(object, filename = NULL, kable_styling_options = list(), kable_options = list(), cols, flip = FALSE, note = TRUE, round = 2, ...) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> export(object, caption = NA, footnote = NA, filename = NA, kable_styling_options = list(), kable_options = list(), cols, flip = FALSE, round = 2, ...) </font></td>
  </tr>
 </table>  
 ``` 
@@ -30,6 +30,7 @@ export(exampleA1B1A2B2_zvt)
 ```
 
 <table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>(\#tab:unnamed-chunk-3)Single case data frame with 3 cases</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="4"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Tick</div></th>
@@ -227,11 +228,12 @@ export(exampleA1B1A2B2_zvt)
 
 
 ```r
-res <- describeSC(GruenkeWilbert2014)
+res <- describe(GruenkeWilbert2014)
 export(res)
 ```
 
-Descriptive statistics.<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>(\#tab:unnamed-chunk-4)Descriptive statistics</caption>
  <thead>
 <tr>
 <th style="empty-cells: hide;border-bottom:hidden;" colspan="1"></th>
@@ -395,7 +397,12 @@ Descriptive statistics.<table class="table table-bordered table-condensed" style
    <td style="text-align:center;"> 0.00 </td>
   </tr>
 </tbody>
-</table>n = Number of measurements; Missing = Number of missing values; M = Mean; Median = Median; SD = Standard deviation; MAD = Median average deviation; Min = Minimum; Max = Maximum; Trend = Slope of dependent variable regressed on measurement-time.
+<tfoot>
+<tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
+<tr><td style="padding: 0; " colspan="100%">
+<sup></sup> n = Number of measurements; Missing = Number of missing values; M = Mean; Median = Median; SD = Standard deviation; MAD = Median average deviation; Min = Minimum; Max = Maximum; Trend = Slope of dependent variable regressed on measurement-time.</td></tr>
+</tfoot>
+</table>
 
 ## Overlap indices
 
@@ -405,7 +412,8 @@ res <- overlap(exampleA1B1A2B2_zvt, phases = list(c(1,3),c(2,4)))
 export(res, flip = TRUE)
 ```
 
-<i>Overlap indices.Comparing phases A1 + A2 against phases B1 + B2.</i><table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>(\#tab:unnamed-chunk-5)Overlap indices. Comparing phases A1 + A2 against phases B1 + B2</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -481,9 +489,19 @@ export(res, flip = TRUE)
    <td style="text-align:right;"> 0.40 </td>
    <td style="text-align:right;"> 0.26 </td>
   </tr>
+  <tr>
+   <td style="text-align:left;"> Hedges g </td>
+   <td style="text-align:right;"> 0.48 </td>
+   <td style="text-align:right;"> 0.37 </td>
+   <td style="text-align:right;"> 0.24 </td>
+  </tr>
 </tbody>
-</table>PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled; 
-PAND = Percentage all nonoverlapping data;Tau U = Parker's Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference.
+<tfoot>
+<tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
+<tr><td style="padding: 0; " colspan="100%">
+<sup></sup> PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled; PAND = Percentage all nonoverlapping data;Tau U = Parker's Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference; Hedges g = Corrected SMD.</td></tr>
+</tfoot>
+</table>
 
 ## Piecewise linear models
 
@@ -493,7 +511,8 @@ res <- plm(exampleA1B1A2B2$Pawel)
 export(res)
 ```
 
-<i>Piecewise-regression model for variable 'values'.</i><table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>(\#tab:unnamed-chunk-6)Piecewise-regression model predicting variable 'values'</caption>
  <thead>
 <tr>
 <th style="empty-cells: hide;border-bottom:hidden;" colspan="2"></th>
@@ -608,7 +627,8 @@ res <- hplm(exampleAB_50, data.l2 = exampleAB_50.l2, lr.test = TRUE, random.slop
 export(res)
 ```
 
-Hierarchical Piecewise Linear Regression for variable 'values'.<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>(\#tab:unnamed-chunk-7)Hierarchical Piecewise Linear Regression predicting variable 'values'</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Parameter </th>

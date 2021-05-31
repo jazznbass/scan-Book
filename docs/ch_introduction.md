@@ -56,10 +56,11 @@ Now we need some descriptive statistics:
 
 
 ```r
-describeSC(strange_study)
+describe(strange_study)
 ```
 
-Descriptive statistics.<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>(\#tab:describe_strange_study)Descriptive statistics</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Parameter </th>
@@ -232,7 +233,12 @@ Descriptive statistics.<table class="table table-bordered table-condensed" style
    <td style="text-align:center;"> 0.40 </td>
   </tr>
 </tbody>
-</table>n = Number of measurements; Missing = Number of missing values; M = Mean; Median = Median; SD = Standard deviation; MAD = Median average deviation; Min = Minimum; Max = Maximum; Trend = Slope of dependent variable regressed on measurement-time.
+<tfoot>
+<tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
+<tr><td style="padding: 0; " colspan="100%">
+<sup></sup> n = Number of measurements; Missing = Number of missing values; M = Mean; Median = Median; SD = Standard deviation; MAD = Median average deviation; Min = Minimum; Max = Maximum; Trend = Slope of dependent variable regressed on measurement-time.</td></tr>
+</tfoot>
+</table>
 
 Single-case data are oftentimes analyzed with overlap indices. Let us get an overview comparing phases A and B:
 
@@ -241,7 +247,8 @@ Single-case data are oftentimes analyzed with overlap indices. Let us get an ove
 overlap(strange_study)
 ```
 
-<i>Overlap indices.Comparing phase A against phase B.</i><table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>(\#tab:overlapAB_strange_study)Overlap indices. Comparing phase A against phase B</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -317,9 +324,19 @@ overlap(strange_study)
    <td style="text-align:right;"> 2.16 </td>
    <td style="text-align:right;"> 6.01 </td>
   </tr>
+  <tr>
+   <td style="text-align:left;"> Hedges g </td>
+   <td style="text-align:right;"> 2.04 </td>
+   <td style="text-align:right;"> 2.07 </td>
+   <td style="text-align:right;"> 5.75 </td>
+  </tr>
 </tbody>
-</table>PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled; 
-PAND = Percentage all nonoverlapping data;Tau U = Parker's Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference.
+<tfoot>
+<tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
+<tr><td style="padding: 0; " colspan="100%">
+<sup></sup> PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled; PAND = Percentage all nonoverlapping data;Tau U = Parker's Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference; Hedges g = Corrected SMD.</td></tr>
+</tfoot>
+</table>
 
 How do the changes hold up against the follow-up? Let us compare phases A and C:
 
@@ -329,7 +346,8 @@ overlap(strange_study, phases = c("A", "C"))
 ```
 
 
-<i>Overlap indices.Comparing phase A against phase C.</i><table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>(\#tab:overlapAC_strange_study)Overlap indices. Comparing phase A against phase C</caption>
  <thead>
   <tr>
    <th style="text-align:left;">   </th>
@@ -405,9 +423,19 @@ overlap(strange_study, phases = c("A", "C"))
    <td style="text-align:right;"> 3.25 </td>
    <td style="text-align:right;"> 10.47 </td>
   </tr>
+  <tr>
+   <td style="text-align:left;"> Hedges g </td>
+   <td style="text-align:right;"> 1.83 </td>
+   <td style="text-align:right;"> 3.00 </td>
+   <td style="text-align:right;"> 9.80 </td>
+  </tr>
 </tbody>
-</table>PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled; 
-PAND = Percentage all nonoverlapping data;Tau U = Parker's Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference.
+<tfoot>
+<tr><td style="padding: 0; " colspan="100%"><span style="font-style: italic;">Note: </span></td></tr>
+<tr><td style="padding: 0; " colspan="100%">
+<sup></sup> PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled; PAND = Percentage all nonoverlapping data;Tau U = Parker's Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference; Hedges g = Corrected SMD.</td></tr>
+</tfoot>
+</table>
 
 Finally, we conduct regression analyses for each cases with a piecewise regression model:
 
@@ -418,7 +446,8 @@ plm(strange_study$Mike)
 plm(strange_study$Will)
 ```
 
-<i>Piecewise-regression model for variable 'values'.</i><table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>(\#tab:plm_strange_study)Piecewise-regression model predicting variable 'values'</caption>
  <thead>
 <tr>
 <th style="empty-cells: hide;border-bottom:hidden;" colspan="2"></th>
@@ -505,7 +534,8 @@ plm(strange_study$Will)
 </tfoot>
 </table>
 
-<i>Piecewise-regression model for variable 'values'.</i><table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>(\#tab:plm_strange_study)Piecewise-regression model predicting variable 'values'</caption>
  <thead>
 <tr>
 <th style="empty-cells: hide;border-bottom:hidden;" colspan="2"></th>
@@ -592,7 +622,8 @@ plm(strange_study$Will)
 </tfoot>
 </table>
 
-<i>Piecewise-regression model for variable 'values'.</i><table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<table class="table table-bordered table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>(\#tab:plm_strange_study)Piecewise-regression model predicting variable 'values'</caption>
  <thead>
 <tr>
 <th style="empty-cells: hide;border-bottom:hidden;" colspan="2"></th>

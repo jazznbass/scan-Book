@@ -56,14 +56,14 @@ print_table(out, "Values of the lines argument" )
 
 Specific data points can be highlighted using the `marks` argument. A `list` defines the measurement times to be marked, the marking color and the size of the marking. `marks = list(position = c(1,5,6))` marks the first, fifth, and sixth measurement time. If the _scdf_ contains more than one data-set marking would be the same for all data sets in this example. In case you define a `list` Containing vectors, marking can be individually defined for each data set. Assume, for example, we have an _scdf_ comprising three data sets, then `marks = list(position = list(c(1,2), c(3,4), c(5,6)))` will highlight measurement times one and two for the first data set, three and four for the second and five and six for the third. `pch`, `col` and `cex` define symbol, colour and size of the markings.
 
-```{r marks_example, fig.cap = "Example of a plot with highlighted data-points", fig.height=4, fig.width=6,fig.align = 'center'}
+```{r marks_example, fig.cap = "A plot with highlighted data-points", fig.height=4, fig.width=6,fig.align = 'center'}
 # plot with marks in a red circles 2.5 times larger than the standard symbol 
 # size. exampleAB is an example scdf included in the scan package
 marks <- list(
   positions = list( c(8, 9), c(17, 19), c(7, 18) ), 
   col = 'red', cex = 2.5, pch = 1
 )
-plot(exampleAB, marks = marks, style = "sienna")
+#plot(exampleAB, marks = marks, style = "sienna")
 ```
 
 ## Graphical styles of a plot

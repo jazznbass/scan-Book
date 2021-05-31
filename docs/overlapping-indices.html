@@ -6,9 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 7 Overlapping indices | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.7.4/header-attrs.js"></script><script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.5.3/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.5.3/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.4/tabs.js"></script><script src="libs/bs3compat-0.2.4/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.8/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Roboto-0.4.0/font.css" rel="stylesheet">
+<link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -87,7 +89,8 @@ TAU_U           0.77     0.78   0.64
 Base_Tau        0.63     0.59   0.61
 Diff_mean      19.53    21.67  20.47
 Diff_trend      1.53     0.54   2.50
-SMD             8.11     3.17   6.71</code></pre>
+SMD             8.11     3.17   6.71
+Hedges_g        7.77     3.04   6.43</code></pre>
 <p>Overlap measures refer to a comparison of two phases within a single-case data-set. By default, <code>overlap</code> compares a Phase A to a Phase B. The <code>phases</code> argument is needed if the phases of the <em>scdf</em> do not include phases named A and B or a comparison between other phases in wanted.<br>
 The <code>phases</code> argument takes a list with two elements. One element for each of the two phases that should be compared. The elements could contain either the name of the two phases or the number of the position within the <em>scdf</em>. If you want to compare the first to the third phase you can set <code>phases = list(1,3)</code>. If the phases of your case are named ‘A,’ ‘B,’ and ‘C’ you could alternatively set <code>phases = list("A","C")</code>.<br>
 It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the <code>c</code> command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases <code>phases = list( c(1,3), c(2,4) )</code> will do the trick.</p>
@@ -109,7 +112,8 @@ TAU_U          0.45   0.46   0.38
 Base_Tau       0.65   0.68   0.68
 Diff_mean     12.25  13.58  15.27
 Diff_trend    -0.05   0.00  -0.54
-SMD            2.68   3.27   3.62</code></pre>
+SMD            2.68   3.27   3.62
+Hedges_g       2.63   3.21   3.55</code></pre>
 <div id="percentage-non-overlapping-data-pnd" class="section level2" number="7.1">
 <h2>
 <span class="header-section-number">7.1</span> Percentage non-overlapping data (PND)<a class="anchor" aria-label="anchor" href="#percentage-non-overlapping-data-pnd"><i class="fas fa-link"></i></a>
@@ -120,8 +124,8 @@ SMD            2.68   3.27   3.62</code></pre>
  </tr></table></div>
 <p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation"><a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">Scruggs, Mastropieri, &amp; Casto</a> (<a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
 <div class="figure">
-<span id="fig:unnamed-chunk-5"></span>
-<img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-5-1.png" alt="Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A." width="384"><p class="caption">
+<span id="fig:unnamed-chunk-26"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-26-1.png" alt="Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A." width="384"><p class="caption">
 Figure 7.1: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A.
 </p>
 </div>
@@ -147,8 +151,8 @@ Mean  : 93.33 %</code></pre>
  </tr></table></div>
 <p>The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.</p>
 <div class="figure">
-<span id="fig:unnamed-chunk-8"></span>
-<img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-8-1.png" alt="Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A." width="384"><p class="caption">
+<span id="fig:unnamed-chunk-29"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-29-1.png" alt="Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A." width="384"><p class="caption">
 Figure 7.2: Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A.
 </p>
 </div>
@@ -186,8 +190,8 @@ Anja     100.000       0 100.000
 Binom.test: alternative hypothesis: true probability &gt; 50%
 PET CI: Percent of values greater than upper 95% confidence threshold (greater 1.645*se above predicted value)</code></pre>
 <div class="figure">
-<span id="fig:unnamed-chunk-12"></span>
-<img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-12-1.png" alt="Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A." width="384"><p class="caption">
+<span id="fig:unnamed-chunk-33"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-33-1.png" alt="Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A." width="384"><p class="caption">
 Figure 7.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A.
 </p>
 </div>
@@ -259,7 +263,7 @@ z = 6.316, p = 0.000, τ = 0.822 </code></pre>
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> tau_u(data, dvar, pvar, tau_method = "b", method = "complete", phases = c(1, 2), fisher = TRUE, continuity_correction = FALSE) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> tau_u(data, dvar, pvar, tau_method = "b", method = "complete", phases = c(1, 2), meta_method = "random", continuity_correction = FALSE) </font></td>
  </tr></table></div>
 <p>The <code>tau_u</code> function takes a <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. This procedure has been proposed by <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker, Vannest, Davis, &amp; Sauber</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span>.<br>
 The <code>tau_u</code> function provides two methods for calculation of Tau-U. By setting the argument <code>method = "parker"</code>, Tau-U is calculated as described in <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker, Vannest, Davis, &amp; Sauber</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = "complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate.<br>
@@ -270,57 +274,52 @@ The standard return of the <code>tau_u</code> function does not display all calc
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">tau_u</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>Tau-U
-Method:  complete 
+Method: complete 
+Applied Kendall's Tau-b
 
-Overall Tau-U: 
-                       Model Tau_U     se     z df        p
-                     A vs. B 0.900 0.0672 13.40  0 6.23e-41
-           A vs. B - Trend A 0.523 0.2569  2.04  0 4.17e-02
-           A vs. B + Trend B 0.730 0.1650  4.43  0 9.59e-06
- A vs. B + Trend B - Trend A 0.611 0.2215  2.76  0 5.80e-03
-
-$Case1
-                            kendall    k_p n pairs pos neg ties  S    D   Tau
-A vs. B                       0.671 0.0373 9    20  19   1    0 18 20.0 0.900
-Trend A                       0.333 0.7341 4     6   4   2    0  2  6.0 0.333
-Trend B                       0.600 0.2207 5    10   8   2    0  6 10.0 0.600
-A vs. B - Trend A             0.523 0.0839 9    26  21   5    0 16 30.6 0.523
-A vs. B + Trend B             0.730 0.0118 9    30  27   3    0 24 32.9 0.730
-A vs. B + Trend B - Trend A   0.611 0.0286 9    36  29   7    0 22 36.0 0.611
-                            SD_S VAR_S SE_Tau     Z       p
-A vs. B                     8.16 66.67  0.408 2.205 0.02749
-Trend A                     2.94  8.67  0.491 0.679 0.49691
-Trend B                     4.08 16.67  0.408 1.470 0.14164
-A vs. B - Trend A           8.68 75.33  0.284 1.843 0.06527
-A vs. B + Trend B           9.13 83.33  0.278 2.629 0.00856
-A vs. B + Trend B - Trend A 9.59 92.00  0.266 2.294 0.02181</code></pre>
+Case: Case1 
+                            pairs pos neg ties  S    D   Tau SD_S VAR_S SE_Tau
+A vs. B                        20  19   1    0 18 20.0 0.900 8.16 66.67  0.408
+Trend A                         6   4   2    0  2  6.0 0.333 2.94  8.67  0.491
+Trend B                        10   8   2    0  6 10.0 0.600 4.08 16.67  0.408
+A vs. B - Trend A              26  21   5    0 16 30.6 0.523 8.68 75.33  0.284
+A vs. B + Trend B              30  27   3    0 24 32.9 0.730 9.13 83.33  0.278
+A vs. B + Trend B - Trend A    36  29   7    0 22 36.0 0.611 9.59 92.00  0.266
+                                Z       p
+A vs. B                     2.205 0.02749
+Trend A                     0.679 0.49691
+Trend B                     1.470 0.14164
+A vs. B - Trend A           1.843 0.06527
+A vs. B + Trend B           2.629 0.00856
+A vs. B + Trend B - Trend A 2.294 0.02181</code></pre>
 <div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tau_u</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>Tau-U
-Method:  complete 
+Method: complete 
+Applied Kendall's Tau-b
 
 Overall Tau-U: 
-                       Model Tau_U     se    z df        p
-                     A vs. B 0.960 0.0132 72.8  2 0.00e+00
-           A vs. B - Trend A 0.593 0.0859  6.9  2 5.33e-12
-           A vs. B + Trend B 0.770 0.0547 14.1  2 5.04e-45
- A vs. B + Trend B - Trend A 0.750 0.0585 12.8  2 1.21e-37
+                       Model Tau_U     se    z        p
+                     A vs. B 0.969 0.1772 5.47 4.54e-08
+           A vs. B - Trend A 0.590 0.1064 5.54 3.04e-08
+           A vs. B + Trend B 0.740 0.0960 7.71 1.29e-14
+ A vs. B + Trend B - Trend A 0.731 0.0942 7.75 9.09e-15
 
-$Johanna
+Case: Johanna 
                               Tau SE_Tau    Z     p
 A vs. B                     1.000  0.306 3.27 0.001
 A vs. B - Trend A           0.592  0.184 3.22 0.001
 A vs. B + Trend B           0.786  0.166 4.75 0.000
 A vs. B + Trend B - Trend A 0.765  0.163 4.71 0.000
 
-$Karolina
+Case: Karolina 
                               Tau SE_Tau    Z     p
 A vs. B                     0.940  0.308 3.06 0.002
 A vs. B - Trend A           0.554  0.184 3.01 0.003
 A vs. B + Trend B           0.805  0.166 4.85 0.000
 A vs. B + Trend B - Trend A 0.783  0.163 4.81 0.000
 
-$Anja
+Case: Anja 
                               Tau SE_Tau    Z     p
 A vs. B                     0.966  0.308 3.14 0.002
 A vs. B - Trend A           0.624  0.186 3.36 0.001
@@ -339,7 +338,7 @@ A vs. B + Trend B - Trend A 0.642  0.164 3.91 0.000</code></pre>
 <p>The <code>rci</code> function computes three indices of reliable change <span class="citation">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rci</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span>, rel <span class="op">=</span> <span class="fl">0.8</span>, graph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<div class="inline-figure"><img src="scan-book_files/figure-html/unnamed-chunk-40-1.png" width="672"></div>
 <pre><code>Reliable Change Index
 
 Mean Difference =  19.53333 
@@ -396,7 +395,7 @@ Hageman and Arrindell   18.49426</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-04-19.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-05-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

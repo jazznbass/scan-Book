@@ -62,13 +62,13 @@ Observed statistic =  20.55556
 
 Distribution based on a random sample of all 1331 possible combinations.
 n   =  500 
-M   =  18.58723 
-SD  =  1.093583 
-Min =  16.12222 
+M   =  18.66796 
+SD  =  1.185915 
+Min =  16.06667 
 Max =  21.34493 
 
-p   =  0.03 
+p   =  0.066 
 
-Shapiro-Wilk Normality Test: W = 0.983; p = 0.000  (Hypothesis of Normality rejected)
-z = 1.7999, p = 0.0359 (single sided)
+Shapiro-Wilk Normality Test: W = 0.978; p = 0.000  (Hypothesis of Normality rejected)
+z = 1.5917, p = 0.0557 (single sided)
 ```

@@ -33,7 +33,7 @@ Author of data:  Christian Huber
 <table>
  <tr>
   <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> describeSC(...) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> describe(data, dvar, pvar, mvar) </font></td>
  </tr>
 </table>  
 ``` 
@@ -41,7 +41,7 @@ Author of data:  Christian Huber
 `describe` is the basic command to get an overview on descriptive statistics. As an argument it only takes the name of the *scdf* object. For each case of the *scdf* and each phase within a case descriptive statistics are provided. The output table contains statistical indicators followed by a dot and the name of the phase (e.g., `n.A` for the number of measurements of phase A).
 
 <table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
-<caption>(\#tab:table-describe)Statistics of the describeSC command</caption>
+<caption>(\#tab:table-describe)Statistics of the describe command</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Parameter </th>
@@ -86,7 +86,7 @@ Author of data:  Christian Huber
 
 
 ```r
-describeSC(exampleABC)
+describe(exampleABC)
 ```
 
 ```
@@ -131,7 +131,7 @@ The resulting table could be exported into a csv file to be used in other softwa
 
 ```r
 # write the results into a new R object named `res`
-res <- describeSC(exampleABC)
+res <- describe(exampleABC)
 # create a new file containing the descriptives on your harddrive
 write.csv(res$descriptives, file = "descriptive data.csv")
 ```
@@ -290,6 +290,7 @@ Base_Tau       0.59   0.64             0.64
 Diff_mean      2.60   2.78             2.75
 Diff_trend     0.02   0.11             0.12
 SMD            1.65   1.96             2.02
+Hedges_g       1.58   1.87             1.94
 ```
 
 ## Outlieranalysis

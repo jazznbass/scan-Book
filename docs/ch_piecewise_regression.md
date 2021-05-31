@@ -479,6 +479,15 @@ mplm(exampleAB_add, dvar = c("wellbeing", "depression"))
 ```
 
 ```
+Registered S3 methods overwritten by 'car':
+  method                          from
+  influence.merMod                lme4
+  cooks.distance.influence.merMod lme4
+  dfbeta.influence.merMod         lme4
+  dfbetas.influence.merMod        lme4
+```
+
+```
 Multivariate piecewise linear model
 
 Dummy model: B&L-B 

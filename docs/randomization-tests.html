@@ -6,9 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 9 Randomization tests | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.7.4/header-attrs.js"></script><script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.5.3/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.5.3/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.4/tabs.js"></script><script src="libs/bs3compat-0.2.4/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.8/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Roboto-0.4.0/font.css" rel="stylesheet">
+<link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -91,9 +93,9 @@ If set to FALSE, which is the default, random distribution values equal to the o
 If set TRUE, a histogram of the resulting distribution is plotted.</p>
 <p><em>phases</em><br>
 A vector of two characters or numbers indicating the two phases that should be compared. E.g., phases = c(“A,”“C”) or phases = c(2,4) for comparing the second and the fourth phase. Phases could be combined by providing a list with two elements. E.g., phases = list(A = c(1,3), B = c(2,4)) will compare phases 1 and 3 (as A) against 2 and 4 (as B). Default is phases = c(“A,”“B”).</p>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rand_test</span><span class="op">(</span><span class="va">exampleAB</span>, graph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="ch_randomization_test_files/figure-html/rand-1.png" width="672"></div>
+<div class="inline-figure"><img src="scan-book_files/figure-html/rand-1.png" width="672"></div>
 <pre><code>Randomization Test
 
 Test for 3 cases.
@@ -107,15 +109,15 @@ Observed statistic =  20.55556
 
 Distribution based on a random sample of all 1331 possible combinations.
 n   =  500 
-M   =  18.58723 
-SD  =  1.093583 
-Min =  16.12222 
+M   =  18.59305 
+SD  =  1.114388 
+Min =  16.05185 
 Max =  21.34493 
 
-p   =  0.03 
+p   =  0.036 
 
-Shapiro-Wilk Normality Test: W = 0.983; p = 0.000  (Hypothesis of Normality rejected)
-z = 1.7999, p = 0.0359 (single sided)</code></pre>
+Shapiro-Wilk Normality Test: W = 0.979; p = 0.000  (Hypothesis of Normality rejected)
+z = 1.7611, p = 0.0391 (single sided)</code></pre>
 
 </div>
   <div class="chapter-nav">
@@ -140,7 +142,7 @@ z = 1.7999, p = 0.0359 (single sided)</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-04-19.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-05-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

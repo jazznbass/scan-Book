@@ -9,8 +9,8 @@ Thank you!
 
 Jürgen
 
-19 April 2021
+28 May 2021
 
 ## Software reference {.unnumbered}
 
-This book has been created using the `Rmarkdown` [@R-rmarkdown] and `bookdown` [@R-bookdown] packages within the RStudio [@RStudio] environment. The analyses have been conducted with the **R** package `scan` at version 0.53 [@R-scan]. R version 4.0.4 (2021-02-15) was used [@R-base].
+This book has been created using the `Rmarkdown` [@R-rmarkdown] and `bookdown` [@R-bookdown] packages within the RStudio [@RStudio] environment. The analyses have been conducted with the **R** package `scan` at version 0.53 [@R-scan]. R version 4.1.0 (2021-05-18) was used [@R-base].

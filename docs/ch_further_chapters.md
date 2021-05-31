@@ -104,12 +104,12 @@ print(exampleAB)
   </tr>
   <tr>
    <td style="text-align:left;font-weight: bold;width: 15em; "> scan.export.kable </td>
-   <td style="text-align:left;width: 15em; "> list(digits = 2) </td>
+   <td style="text-align:left;width: 15em; "> list(digits = 2, linesep = "", booktab = TRUE) </td>
    <td style="text-align:left;"> List with default arguments for the kable argument of the export function </td>
   </tr>
   <tr>
    <td style="text-align:left;font-weight: bold;width: 15em; "> scan.export.kable_styling </td>
-   <td style="text-align:left;width: 15em; "> list(bootstrap_options = c("bordered", "condensed"), full_width = FALSE, position = "center") </td>
+   <td style="text-align:left;width: 15em; "> list(bootstrap_options = c("bordered", "condensed"), full_width = FALSE, position = "center", latex_options = "hold_position") </td>
    <td style="text-align:left;"> List with default arguments for the kable_styling argument of the export function </td>
   </tr>
   <tr>
