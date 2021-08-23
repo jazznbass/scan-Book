@@ -28,9 +28,13 @@ knitr::write_bib(c(
 
 print_table <- function(data, caption, width_cols = c("15em", "30em")) {
   
-  kable(data, caption = caption, booktabs = TRUE) %>%
-    kable_styling(full_width = FALSE) %>%
-    kable_styling(latex_options = c("repeat_header")) %>%
+  kable(data, caption = caption, linesep = "", booktabs = TRUE) %>%
+    kable_styling(
+       full_width = FALSE, 
+       htmltable_class = "lightable-classic",
+       position = "left",
+       latex_options = c("repeat_header")
+    ) %>%
     column_spec(1, bold = TRUE) %>%
     column_spec(1, width = width_cols[1]) %>%
     column_spec(2, width = width_cols[2])
