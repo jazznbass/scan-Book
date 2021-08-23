@@ -1,0 +1,111 @@
+# Appendix
+
+```{r include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+## scplot examples
+
+Starting with `scan` version 0.53 we introduced the new plotting function `scplot`. This function will gradually replace the `plot.scdf()` (short: `plot()`) function. `scplot()` was designed to encompass a pipe style coding. For now, `scan` imports the `%>%` pipe operator from the `magrittr` package and exports it to the user namespace after executing `library(scan)`. Recently, with version 4.1, R implemented a pipe operator `|>` which also works fine with `scplot`. 
+
+`scplot` is already much more versatile then `plot.scdf` has been. But we will keep `plot.scdf` as it is in new upgrades of `scan`. We consider the state of `scplot` to be *experimental*. That is, the code and syntax might change in future versions so backward compatibility is not guaranteed.
+
+Here are a few plots that have been generated with `scplot` to demonstrate its possibilities. 
+
+### The standard style with an added statline
+
+```{r}
+scplot(exampleAB) %>%
+  add_statline("mean", colour = "darkred") %>%
+  set_ylabel(orientation = "horizontal")
+```
+
+### A simple style with axis settings
+
+```{r}
+scplot(exampleA1B1A2B2) %>% 
+  add_theme("default", "small") %>% 
+  set_xaxis(increment = 5, increment_from = 0) %>%
+  set_yaxis(limits = c(NA, NA)) %>%
+  set_ylabel(orientation = "h")
+```
+
+### A dark style for presentations
+
+```{r}
+scplot(exampleABC) %>% 
+  add_theme("dark") %>% 
+  set_xaxis(increment = 2) %>%
+  add_statline("mean", colour = "#FFBBBB", type = "solid", width = 0.7)
+```
+
+
+### Rotated axis values and removed dots
+
+```{r}
+scplot(example_A24) %>% 
+  add_statline("movingMean", col = "darkred") %>%
+  set_theme_element(angle.xaxis = 35) %>%
+  set_xaxis(size =.8) %>%
+  set_dots(col = NULL)
+  
+```
+
+### The chart theme
+
+```{r}
+scplot(exampleA1B1A2B2_zvt) %>% 
+  add_theme("chart")
+```
+
+
+
+### Mulitple variables in a plot with an added legend
+
+```{r}
+scplot(exampleAB_add) %>%
+  add_dataline("depression") %>% 
+  add_dataline("cigarrets") %>%
+  add_statline("trend") %>%
+  add_statline("mean", variable = "depression", colour = "red") %>%
+  add_marks(case = 1, positions = c(6,12)) %>%
+  add_marks(case = 1, positions = c(14,20), size = 3, variable = "cigarrets") %>%
+  set_xaxis(increment = 5) %>%
+  add_legend(x = 33, y = 40)
+
+
+```
+
+### An entensive example to show-off
+
+```{r}
+scplot(exampleABAB) %>% 
+  set_xaxis(increment = 4, size = 0.5, colour = "brown") %>%
+  set_yaxis(limits = c(0, 50), colour = "sienna3", size = 0.7) %>%
+  set_ylabel("Points", colour = "sienna3", size = 0.7, orientation = 0) %>%
+  set_xlabel("Weeks", size = 0.7, colour = "brown") %>%
+  add_title("Points by week", colour = "sienna4", size = 1, font = 3) %>%
+  add_caption("Note: An extensive Example.", colour = "black", size = 0.7, font = 3) %>%
+  set_phasenames("Baseline", "Intervention", "Fall-Back", "Intervention", colour = "darkgreen") %>%
+  add_ridge("white") %>%
+  set_casenames(draw_names(3), colour = "steelblue4", size = 0.8) %>%
+  add_theme("tiny") %>%
+  set_background(c("grey94", "grey99")) %>%
+  add_grid(colour = "grey85", width = 0.5) %>%
+  add_frame("sienna4") %>%
+  set_dots("sienna4", size = 1, shape = 18) %>%
+  set_line("black", width = 1, type = "dotted") %>%
+  add_labels(colour = "sienna", size = 0.5) %>%
+  set_seperator(extent = 0.9, width = 0.5, type = "solid", colour = "sienna") %>%
+  add_statline(stat = "trendA", colour = "tomato2") %>%
+  add_statline(stat = "maxA", colour = "lightblue") %>%
+  add_marks(case = 1:2, positions = 14, colour = "red3", size = 2, shape = 4) %>%
+  add_marks(case = "all", positions = 'points < quantile(points, 0.1)', colour = "blue3", size = 1.5) %>%
+  add_marks(positions = outlier(exampleABAB), colour = "brown", size = 2) %>%
+  add_text(case = 1, x = 5, y = 35, "Wow!!", colour = "darkgreen", angle = 20, size = 0.5) %>%
+  add_text(case = 1, 1, 22, "PND", colour = "darkblue", size = 0.5) %>%
+  add_text(case = 1, 4, 8, "Trend", colour = "tomato", size = 0.5) %>%
+  add_arrow(case = 1, 5, 30, 5, 22, colour = "steelblue") %>%
+  add_box("sienna1", width = 2)
+```
+
