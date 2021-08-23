@@ -6,7 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 4 Managing single-case data | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.8/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
+<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta property="og:title" content="Chapter 4 Managing single-case data | Analyzing single-case data with R and scan">
+<meta property="og:type" content="book">
+<meta property="og:description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 Managing single-case data | Analyzing single-case data with R and scan">
+<meta name="twitter:description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Roboto-0.4.0/font.css" rel="stylesheet">
 <link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
@@ -18,7 +26,7 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-145080763-1');
-    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -144,7 +152,7 @@ If no measurement times are given, scdf automatically adds them numbered sequent
              7       0    2  9     B
              7       1    2 10     B</code></pre>
 <p>Table <a href="managing-single-case-data.html#tab:table-scdf">4.1</a> shows a complete list of arguments that could be passed to the function.</p>
-<div class="inline-table"><table class="table table" style="width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;">
+<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
 <caption>
 <span id="tab:table-scdf">Table 4.1: </span>Arguments of the scdf function
 </caption>
@@ -277,8 +285,8 @@ Any number of variables with a vector asigned to them.
 <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">case</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with one case
 
-        Measurements Design
-Antonia           11    A B
+         Measurements Design
+ Antonia           11    A B
 
 Variable names:
 score &lt;dependent variable&gt;
@@ -315,27 +323,27 @@ The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> an
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 20 cases
 
-         Measurements Design
-Charles            20    A B
-Kolten             20    A B
-Annika             20    A B
-Kaysen             20    A B
-Urijah             20    A B
-Leila              20    A B
-Leia               20    A B
-Aleigha            20    A B
-Greta              20    A B
-Alijah             20    A B
-Ricardo            20    A B
-Dallas             20    A B
-Edith              20    A B
-Braylee            20    A B
-Giovanni           20    A B
-Ismael             20    A B
-Grady              20    A B
-Raina              20    A B
-Cambria            20    A B
-Lincoln            20    A B
+          Measurements Design
+ Charles            20    A B
+ Kolten             20    A B
+ Annika             20    A B
+ Kaysen             20    A B
+ Urijah             20    A B
+ Leila              20    A B
+ Leia               20    A B
+ Aleigha            20    A B
+ Greta              20    A B
+ Alijah             20    A B
+ Ricardo            20    A B
+ Dallas             20    A B
+ Edith              20    A B
+ Braylee            20    A B
+ Giovanni           20    A B
+ Ismael             20    A B
+ Grady              20    A B
+ Raina              20    A B
+ Cambria            20    A B
+ Lincoln            20    A B
 
 Variable names:
 intervention &lt;phase variable&gt;
@@ -404,11 +412,11 @@ gym</code></pre>
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Huber2014</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 4 cases
 
-          Measurements Design
-Adam                37    A B
-Berta               29    A B
-Christian           76    A B
-David               76    A B
+           Measurements Design
+ Adam                37    A B
+ Berta               29    A B
+ Christian           76    A B
+ David               76    A B
 
 Variable names:
 mt &lt;measurement-time variable&gt;
@@ -479,7 +487,7 @@ Author of data:  Christian Huber </code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-05-31.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-08-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -11,7 +11,7 @@ Let us set a fictional context. Let us assume you are researching on a method to
 Now, I invent some data for this fictitious *KUNO* study as it would be to laborious to conduct a real study and actually to evolve a real intervention method.  
 We use the `scan` package to code the data. Each case consists of 25 measurements. We have three phases: pre intervention (A), during the intervention (B), and follow-up (C). Phases A and B have different lengths. The cases are named and combined into a single object called `strange_study`.  
 
-```{r build_strange_study}
+```{r build-strange-study}
 case1 <- scdf(
   c(A = 3, 2, 4, 6, 4, 3, 
     B = 6, 5, 4, 6, 7, 5, 6, 8, 6, 7, 8, 9, 7, 8, 
@@ -35,7 +35,7 @@ strange_study <- c(case1, case2, case3)
 
 Now we visualize the cases:
 
-```{r plot_strange_study, fig.width=5}
+```{r plot-strange-study, fig.width=5}
 plot(
   strange_study,
   ylab = "Correct",
@@ -50,47 +50,47 @@ plot(
 
 Now we need some descriptive statistics:
 
-```{r describe_strange_study_print, eval=FALSE}
+```{r describe-strange-study-print, eval=FALSE}
 describe(strange_study)
 ```
 
-```{r describe_strange_study, echo=FALSE, message=FALSE, warning=FALSE}
+```{r describe-strange-study, echo=FALSE, message=FALSE, warning=FALSE}
 res <- describe(strange_study)
 export(res, flip = TRUE)
 ```
 
 Single-case data are oftentimes analyzed with overlap indices. Let us get an overview comparing phases A and B:
 
-```{r overlapAB_strange_study_print, eval=FALSE}
+```{r overlapAB-strange-study-print, eval=FALSE}
 overlap(strange_study)
 ```
 
-```{r overlapAB_strange_study, echo=FALSE, message=FALSE, warning=FALSE}
+```{r overlapAB-strange-study, echo=FALSE, message=FALSE, warning=FALSE}
 res <- overlap(strange_study)
 export(res, flip = TRUE)
 ```
 
 How do the changes hold up against the follow-up? Let us compare phases A and C:
 
-```{r overlapAC_strange_study_print, eval=FALSE}
+```{r overlapAC-strange-study-print, eval=FALSE}
 overlap(strange_study, phases = c("A", "C"))
 ```
 
 
-```{r overlapAC_strange_study, echo=FALSE, message=FALSE, warning=FALSE}
+```{r overlapAC-strange-study, echo=FALSE, message=FALSE, warning=FALSE}
 res <- overlap(strange_study, phases = c("A", "C"))
 export(res, flip = TRUE)
 ```
 
 Finally, we conduct regression analyses for each cases with a piecewise regression model:
 
-```{r plm_strange_study_print, eval=FALSE}
+```{r plm-strange-study-print, eval=FALSE}
 plm(strange_study$Dustin)
 plm(strange_study$Mike)
 plm(strange_study$Will)
 ```
 
-```{r plm_strange_study, echo=FALSE, message=FALSE, warning=FALSE}
+```{r plm-strange-study, echo=FALSE, message=FALSE, warning=FALSE}
 res <- plm(strange_study$Dustin)
 export(res)
 

@@ -6,7 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 9 Randomization tests | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.8/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content='rand_test(data, dvar, pvar, statistic = "Mean B-A", number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, graph = FALSE, output = "c", phases = c("A", "B"), seed =...'>
+<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta property="og:title" content="Chapter 9 Randomization tests | Analyzing single-case data with R and scan">
+<meta property="og:type" content="book">
+<meta property="og:description" content='rand_test(data, dvar, pvar, statistic = "Mean B-A", number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, graph = FALSE, output = "c", phases = c("A", "B"), seed =...'>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 9 Randomization tests | Analyzing single-case data with R and scan">
+<meta name="twitter:description" content='rand_test(data, dvar, pvar, statistic = "Mean B-A", number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, graph = FALSE, output = "c", phases = c("A", "B"), seed =...'>
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Roboto-0.4.0/font.css" rel="stylesheet">
 <link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
@@ -18,7 +26,7 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-145080763-1');
-    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -93,14 +101,14 @@ If set to FALSE, which is the default, random distribution values equal to the o
 If set TRUE, a histogram of the resulting distribution is plotted.</p>
 <p><em>phases</em><br>
 A vector of two characters or numbers indicating the two phases that should be compared. E.g., phases = c(“A,”“C”) or phases = c(2,4) for comparing the second and the fourth phase. Phases could be combined by providing a list with two elements. E.g., phases = list(A = c(1,3), B = c(2,4)) will compare phases 1 and 3 (as A) against 2 and 4 (as B). Default is phases = c(“A,”“B”).</p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rand_test</span><span class="op">(</span><span class="va">exampleAB</span>, graph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="scan-book_files/figure-html/rand-1.png" width="672"></div>
 <pre><code>Randomization Test
 
 Test for 3 cases.
 
-Comparing phase 1 against phase 2 
+Comparing phases  +  against phases  +  
 Statistic:  Mean B-A 
 
 Minimal length of each phase:  5 5 
@@ -142,7 +150,7 @@ z = 1.7611, p = 0.0391 (single sided)</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-05-31.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-08-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

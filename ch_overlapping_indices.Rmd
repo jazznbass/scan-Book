@@ -30,7 +30,7 @@ The percentage of non-overlapping data (PND) effect size measure was described b
 
 ```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A."}
 dat <- rSC(design_rSC(1, level = 1.0),round = 0, seed = 1212, random.names = "male")
-plot(dat, style = "grid",lines = c("maxA", col = "red", lwd = 3))
+plot(dat, style = "grid",lines = list("maxA", col = "red", lwd = 3))
 ```
 
 The function `pnd` provides the PND for each case as well as the mean of all PNDs of that _scdf_. When you expect decreasing values set `decreasing = TRUE`. When there are more than two phases or phases are not named A and B, use the `phases` argument as described at the beginning of this chapter.

@@ -6,7 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 7 Overlapping indices | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.8/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="overlap(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2))  overlap provides a table with some of the most important overlap indices for each case of an scdf. For calculating overlap...">
+<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta property="og:title" content="Chapter 7 Overlapping indices | Analyzing single-case data with R and scan">
+<meta property="og:type" content="book">
+<meta property="og:description" content="overlap(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2))  overlap provides a table with some of the most important overlap indices for each case of an scdf. For calculating overlap...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 7 Overlapping indices | Analyzing single-case data with R and scan">
+<meta name="twitter:description" content="overlap(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2))  overlap provides a table with some of the most important overlap indices for each case of an scdf. For calculating overlap...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Roboto-0.4.0/font.css" rel="stylesheet">
 <link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
@@ -18,7 +26,7 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-145080763-1');
-    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -71,49 +79,49 @@
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> overlap(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2)) </font></td>
  </tr></table></div>
 <p><code>overlap</code> provides a table with some of the most important overlap indices for each case of an <em>scdf</em>. For calculating overlap indicators is is important to know if a decrease or an increase of values is expected between phases. By default <code>overlap</code> assumes an increase in values. If the argument <code>decreasing = TRUE</code> is set, calculation will be based on the assumption of decreasing values.</p>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">overlap</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>Overlap Indices
 
-Design:  A B 
 Comparing phase 1 against phase 2 
 
-             Johanna Karolina   Anja
-PND           100.00    86.67  93.33
-PEM           100.00   100.00 100.00
-PET           100.00    93.33 100.00
-NAP           100.00    96.67  98.00
-NAP.rescaled  100.00    93.33  96.00
-PAND          100.00    90.00  90.00
-TAU_U           0.77     0.78   0.64
-Base_Tau        0.63     0.59   0.61
-Diff_mean      19.53    21.67  20.47
-Diff_trend      1.53     0.54   2.50
-SMD             8.11     3.17   6.71
-Hedges_g        7.77     3.04   6.43</code></pre>
+             Johanna Karolina  Anja
+Design           A-B      A-B   A-B
+PND              100       87    93
+PEM              100      100   100
+PET              100       93   100
+NAP              100       97    98
+NAP rescaled     100       93    96
+PAND             100       90    90
+Tau_U           0.77     0.78  0.64
+Base_Tau        0.63     0.59  0.61
+Diff_mean      19.53    21.67 20.47
+Diff_trend      1.53     0.54  2.50
+SMD             8.11     3.17  6.71
+Hedges_g        2.69     2.32  3.20</code></pre>
 <p>Overlap measures refer to a comparison of two phases within a single-case data-set. By default, <code>overlap</code> compares a Phase A to a Phase B. The <code>phases</code> argument is needed if the phases of the <em>scdf</em> do not include phases named A and B or a comparison between other phases in wanted.<br>
 The <code>phases</code> argument takes a list with two elements. One element for each of the two phases that should be compared. The elements could contain either the name of the two phases or the number of the position within the <em>scdf</em>. If you want to compare the first to the third phase you can set <code>phases = list(1,3)</code>. If the phases of your case are named ‘A,’ ‘B,’ and ‘C’ you could alternatively set <code>phases = list("A","C")</code>.<br>
 It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the <code>c</code> command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases <code>phases = list( c(1,3), c(2,4) )</code> will do the trick.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">overlap</span><span class="op">(</span><span class="va">exampleA1B1A2B2</span>, phases <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A1"</span>,<span class="st">"A2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B1"</span>,<span class="st">"B2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>Overlap Indices
 
-Design:  A1 B1 A2 B2 
-Comparing phases 1 + 3 against phases 2 + 4 
+Comparing phases A1 + A2 against phases B1 + B2 
 
-              Pawel Moritz Jannis
-PND           55.00  77.78  71.43
-PEM          100.00 100.00 100.00
-PET          100.00 100.00 100.00
-NAP           94.50  96.84  98.35
-NAP.rescaled  89.00  93.69  96.70
-PAND          82.50  85.00  90.00
-TAU_U          0.45   0.46   0.38
-Base_Tau       0.65   0.68   0.68
-Diff_mean     12.25  13.58  15.27
-Diff_trend    -0.05   0.00  -0.54
-SMD            2.68   3.27   3.62
-Hedges_g       2.63   3.21   3.55</code></pre>
+                   Pawel      Moritz      Jannis
+Design       A1-B1-A2-B2 A1-B1-A2-B2 A1-B1-A2-B2
+PND                   55          78          71
+PEM                  100         100         100
+PET                  100         100         100
+NAP                   94          97          98
+NAP rescaled          89          94          97
+PAND                  82          85          90
+Tau_U               0.45        0.46        0.38
+Base_Tau            0.65        0.68        0.68
+Diff_mean          12.25       13.58       15.27
+Diff_trend         -0.05        0.00       -0.54
+SMD                 2.68        3.27        3.62
+Hedges_g            2.07        2.68        2.80</code></pre>
 <div id="percentage-non-overlapping-data-pnd" class="section level2" number="7.1">
 <h2>
 <span class="header-section-number">7.1</span> Percentage non-overlapping data (PND)<a class="anchor" aria-label="anchor" href="#percentage-non-overlapping-data-pnd"><i class="fas fa-link"></i></a>
@@ -124,13 +132,13 @@ Hedges_g       2.63   3.21   3.55</code></pre>
  </tr></table></div>
 <p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation"><a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">Scruggs, Mastropieri, &amp; Casto</a> (<a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
 <div class="figure">
-<span id="fig:unnamed-chunk-26"></span>
+<span style="display:block;" id="fig:unnamed-chunk-26"></span>
 <img src="scan-book_files/figure-html/unnamed-chunk-26-1.png" alt="Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A." width="384"><p class="caption">
 Figure 7.1: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A.
 </p>
 </div>
 <p>The function <code>pnd</code> provides the PND for each case as well as the mean of all PNDs of that <em>scdf</em>. When you expect decreasing values set <code>decreasing = TRUE</code>. When there are more than two phases or phases are not named A and B, use the <code>phases</code> argument as described at the beginning of this chapter.</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pnd</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>Percent Non-Overlapping Data
 
@@ -151,12 +159,12 @@ Mean  : 93.33 %</code></pre>
  </tr></table></div>
 <p>The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.</p>
 <div class="figure">
-<span id="fig:unnamed-chunk-29"></span>
+<span style="display:block;" id="fig:unnamed-chunk-29"></span>
 <img src="scan-book_files/figure-html/unnamed-chunk-29-1.png" alt="Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A." width="384"><p class="caption">
 Figure 7.2: Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A.
 </p>
 </div>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pem</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>Percent Exceeding the Median
 
@@ -176,7 +184,7 @@ Alternative hypothesis: true probability &gt; 50%</code></pre>
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> pet(data, dvar, pvar, mvar, ci = 0.95, decreasing = FALSE, phases = c(1, 2)) </font></td>
  </tr></table></div>
 <p>The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent confidence interval of the predicted progress is computed.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pet</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>Percent Exceeding the Trend
 
@@ -190,7 +198,7 @@ Anja     100.000       0 100.000
 Binom.test: alternative hypothesis: true probability &gt; 50%
 PET CI: Percent of values greater than upper 95% confidence threshold (greater 1.645*se above predicted value)</code></pre>
 <div class="figure">
-<span id="fig:unnamed-chunk-33"></span>
+<span style="display:block;" id="fig:unnamed-chunk-33"></span>
 <img src="scan-book_files/figure-html/unnamed-chunk-33-1.png" alt="Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A." width="384"><p class="caption">
 Figure 7.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A.
 </p>
@@ -205,7 +213,7 @@ Figure 7.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phas
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> pand(data, dvar, pvar, decreasing = FALSE, correction = TRUE, phases = c(1, 2)) </font></td>
  </tr></table></div>
 <p>The <code>pand</code> function calculates the percentage of all non-overlapping data <span class="citation">(<a href="references.html#ref-parker_percentage_2007" role="doc-biblioref">Richard I. Parker, Hagan-Burke, &amp; Vannest, 2007</a>)</span>, an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The argument <code>correction = TRUE</code> makes <code>pand</code> use a frequency matrix, which is corrected for ties. A tie is counted as the half of a measurement in both phases. Set <code>correction = FALSE</code> to use the uncorrected matrix, which is not recommended.</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">pand</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>Percentage of all non-overlapping data
 
@@ -248,7 +256,7 @@ z = 6.316, p = 0.000, τ = 0.822 </code></pre>
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> nap(data, dvar, pvar, decreasing = FALSE, phases = c(1, 2)) </font></td>
  </tr></table></div>
 <p>The <code>nap</code> function calculates the nonoverlap of all pairs <span class="citation">(<a href="references.html#ref-parker_improved_2009" role="doc-biblioref">Richard I. Parker &amp; Vannest, 2009</a>)</span>. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP can only take values between 50 and 100 percent, a rescaled and therefore more intuitive NAP (0-100%) is also displayed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case.</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">nap</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>Nonoverlap of All Pairs
 
@@ -269,7 +277,7 @@ z = 6.316, p = 0.000, τ = 0.822 </code></pre>
 The <code>tau_u</code> function provides two methods for calculation of Tau-U. By setting the argument <code>method = "parker"</code>, Tau-U is calculated as described in <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker, Vannest, Davis, &amp; Sauber</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = "complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate.<br>
 In the method proposed by <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker, Vannest, Davis, &amp; Sauber</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span> data of the same value (ties) are ignored and treated as if these data had not been available. Alternatively, ties might be considered in favor of the intervention or not. For the latter, the <code>ties.method</code> argument could be set to <code>ties.method = "positive"</code> or <code>ties.method = "negative"</code>. The default is <code>"omit"</code> following <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker, Vannest, Davis, &amp; Sauber</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span>.<br>
 The standard return of the <code>tau_u</code> function does not display all calculations. If you like to have more details, apply the <code>print</code> function with the additional argument <code>complete = TRUE</code>.</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">8</span><span class="op">)</span>, phase.design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">4</span>, B <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">tau_u</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -292,7 +300,7 @@ Trend B                     1.470 0.14164
 A vs. B - Trend A           1.843 0.06527
 A vs. B + Trend B           2.629 0.00856
 A vs. B + Trend B - Trend A 2.294 0.02181</code></pre>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tau_u</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>Tau-U
 Method: complete 
@@ -336,7 +344,7 @@ A vs. B + Trend B - Trend A 0.642  0.164 3.91 0.000</code></pre>
  </tr></table></div>
 <p>Basically, the reliable change index (rci) depicts if a post-test is above a pre-test value. Based on the reliability of the measurements and the standard-deviation the standard error is calculated. The mean difference between phase-A and phase-B is divided by the standard-error. Several authors proposed refined methods for calculating the rci.</p>
 <p>The <code>rci</code> function computes three indices of reliable change <span class="citation">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rci</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span>, rel <span class="op">=</span> <span class="fl">0.8</span>, graph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="scan-book_files/figure-html/unnamed-chunk-40-1.png" width="672"></div>
 <pre><code>Reliable Change Index
@@ -395,7 +403,7 @@ Hageman and Arrindell   18.49426</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-05-31.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-08-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -6,7 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 1 Introduction | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.2"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.8/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Single case research has become an important and broadly accepted method for gaining insight into educational processes. Especially the field of special education has adopted single-case research...">
+<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta property="og:title" content="Chapter 1 Introduction | Analyzing single-case data with R and scan">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Single case research has become an important and broadly accepted method for gaining insight into educational processes. Especially the field of special education has adopted single-case research...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 1 Introduction | Analyzing single-case data with R and scan">
+<meta name="twitter:description" content="Single case research has become an important and broadly accepted method for gaining insight into educational processes. Especially the field of special education has adopted single-case research...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/_Roboto-0.4.0/font.css" rel="stylesheet">
 <link href="libs/_Roboto%20Mono-0.4.0/font.css" rel="stylesheet">
@@ -18,7 +26,7 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-145080763-1');
-    </script><script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/mark.min.js"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -108,13 +116,13 @@ We use the <code>scan</code> package to code the data. Each case consists of 25 
   ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">30</span><span class="op">)</span>,
   xinc <span class="op">=</span> <span class="fl">2</span>
 <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="scan-book_files/figure-html/plot_strange_study-1.png" width="480"></div>
+<div class="inline-figure"><img src="scan-book_files/figure-html/plot-strange-study-1.png" width="480"></div>
 <p>Now we need some descriptive statistics:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">describe</span><span class="op">(</span><span class="va">strange_study</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-(#tab:describe_strange_study)Descriptive statistics
+<span id="tab:describe-strange-study">Table 1.1: </span>Descriptive statistics
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -133,16 +141,30 @@ Will
 <tbody>
 <tr>
 <td style="text-align:left;">
+Design
+</td>
+<td style="text-align:center;">
+A B C
+</td>
+<td style="text-align:center;">
+A B C
+</td>
+<td style="text-align:center;">
+A B C
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 n A
 </td>
 <td style="text-align:center;">
-6.00
+6
 </td>
 <td style="text-align:center;">
-7.00
+7
 </td>
 <td style="text-align:center;">
-9.00
+9
 </td>
 </tr>
 <tr>
@@ -150,13 +172,13 @@ n A
 n B
 </td>
 <td style="text-align:center;">
-14.00
+14
 </td>
 <td style="text-align:center;">
-13.00
+13
 </td>
 <td style="text-align:center;">
-11.00
+11
 </td>
 </tr>
 <tr>
@@ -164,13 +186,13 @@ n B
 n C
 </td>
 <td style="text-align:center;">
-5.00
+5
 </td>
 <td style="text-align:center;">
-5.00
+5
 </td>
 <td style="text-align:center;">
-5.00
+5
 </td>
 </tr>
 <tr>
@@ -178,13 +200,13 @@ n C
 Missing A
 </td>
 <td style="text-align:center;">
-0.00
+0
 </td>
 <td style="text-align:center;">
-0.00
+0
 </td>
 <td style="text-align:center;">
-0.00
+0
 </td>
 </tr>
 <tr>
@@ -192,13 +214,13 @@ Missing A
 Missing B
 </td>
 <td style="text-align:center;">
-0.00
+0
 </td>
 <td style="text-align:center;">
-0.00
+0
 </td>
 <td style="text-align:center;">
-0.00
+0
 </td>
 </tr>
 <tr>
@@ -206,13 +228,13 @@ Missing B
 Missing C
 </td>
 <td style="text-align:center;">
-0.00
+0
 </td>
 <td style="text-align:center;">
-0.00
+0
 </td>
 <td style="text-align:center;">
-0.00
+0
 </td>
 </tr>
 <tr>
@@ -248,13 +270,13 @@ m B
 m C
 </td>
 <td style="text-align:center;">
-6.40
+6.4
 </td>
 <td style="text-align:center;">
-6.20
+6.2
 </td>
 <td style="text-align:center;">
-19.40
+19.4
 </td>
 </tr>
 <tr>
@@ -262,13 +284,13 @@ m C
 md A
 </td>
 <td style="text-align:center;">
-3.50
+3.5
 </td>
 <td style="text-align:center;">
-1.00
+1.0
 </td>
 <td style="text-align:center;">
-5.00
+5.0
 </td>
 </tr>
 <tr>
@@ -276,13 +298,13 @@ md A
 md B
 </td>
 <td style="text-align:center;">
-6.50
+6.5
 </td>
 <td style="text-align:center;">
-5.00
+5.0
 </td>
 <td style="text-align:center;">
-13.00
+13.0
 </td>
 </tr>
 <tr>
@@ -290,13 +312,13 @@ md B
 md C
 </td>
 <td style="text-align:center;">
-6.00
+6
 </td>
 <td style="text-align:center;">
-6.00
+6
 </td>
 <td style="text-align:center;">
-20.00
+20
 </td>
 </tr>
 <tr>
@@ -388,13 +410,13 @@ mad C
 Min A
 </td>
 <td style="text-align:center;">
-2.00
+2
 </td>
 <td style="text-align:center;">
-0.00
+0
 </td>
 <td style="text-align:center;">
-4.00
+4
 </td>
 </tr>
 <tr>
@@ -402,13 +424,13 @@ Min A
 Min B
 </td>
 <td style="text-align:center;">
-4.00
+4
 </td>
 <td style="text-align:center;">
-1.00
+1
 </td>
 <td style="text-align:center;">
-8.00
+8
 </td>
 </tr>
 <tr>
@@ -416,13 +438,13 @@ Min B
 Min C
 </td>
 <td style="text-align:center;">
-5.00
+5
 </td>
 <td style="text-align:center;">
-5.00
+5
 </td>
 <td style="text-align:center;">
-17.00
+17
 </td>
 </tr>
 <tr>
@@ -430,13 +452,13 @@ Min C
 Max A
 </td>
 <td style="text-align:center;">
-6.00
+6
 </td>
 <td style="text-align:center;">
-4.00
+4
 </td>
 <td style="text-align:center;">
-7.00
+7
 </td>
 </tr>
 <tr>
@@ -444,13 +466,13 @@ Max A
 Max B
 </td>
 <td style="text-align:center;">
-9.00
+9
 </td>
 <td style="text-align:center;">
-8.00
+8
 </td>
 <td style="text-align:center;">
-18.00
+18
 </td>
 </tr>
 <tr>
@@ -458,13 +480,13 @@ Max B
 Max C
 </td>
 <td style="text-align:center;">
-8.00
+8
 </td>
 <td style="text-align:center;">
-8.00
+8
 </td>
 <td style="text-align:center;">
-22.00
+22
 </td>
 </tr>
 <tr>
@@ -500,13 +522,13 @@ Trend B
 Trend C
 </td>
 <td style="text-align:center;">
-0.10
+0.1
 </td>
 <td style="text-align:center;">
-0.30
+0.3
 </td>
 <td style="text-align:center;">
-0.40
+0.4
 </td>
 </tr>
 </tbody>
@@ -528,33 +550,47 @@ Trend C
 <code class="sourceCode R"><span class="fu">overlap</span><span class="op">(</span><span class="va">strange_study</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-(#tab:overlapAB_strange_study)Overlap indices. Comparing phase A against phase B
+<span id="tab:overlapAB-strange-study">Table 1.2: </span>Overlap indices. Comparing phase 1 against phase 2
 </caption>
 <thead><tr>
 <th style="text-align:left;">
 </th>
-<th style="text-align:right;">
+<th style="text-align:left;">
 Dustin
 </th>
-<th style="text-align:right;">
+<th style="text-align:left;">
 Mike
 </th>
-<th style="text-align:right;">
+<th style="text-align:left;">
 Will
 </th>
 </tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
+Design
+</td>
+<td style="text-align:left;">
+A-B-C
+</td>
+<td style="text-align:left;">
+A-B-C
+</td>
+<td style="text-align:left;">
+A-B-C
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 PND
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 50.00
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 53.85
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
 </tr>
@@ -562,13 +598,13 @@ PND
 <td style="text-align:left;">
 PEM
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 92.31
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
 </tr>
@@ -576,13 +612,13 @@ PEM
 <td style="text-align:left;">
 PET
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 71.43
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 61.54
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
 </tr>
@@ -590,13 +626,13 @@ PET
 <td style="text-align:left;">
 NAP
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 92.86
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 87.91
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
 </tr>
@@ -604,13 +640,13 @@ NAP
 <td style="text-align:left;">
 NAP-R
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 85.71
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 75.82
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
 </tr>
@@ -618,41 +654,41 @@ NAP-R
 <td style="text-align:left;">
 PAND
 </td>
-<td style="text-align:right;">
-90.00
+<td style="text-align:left;">
+90
 </td>
-<td style="text-align:right;">
-80.00
+<td style="text-align:left;">
+80
 </td>
-<td style="text-align:right;">
-100.00
+<td style="text-align:left;">
+100
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 Tau-U
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.66
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.56
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.80
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Base_Tau
+Base Tau
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.60
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.55
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.74
 </td>
 </tr>
@@ -660,13 +696,13 @@ Base_Tau
 <td style="text-align:left;">
 Delta M
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 2.90
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 2.98
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 8.01
 </td>
 </tr>
@@ -674,13 +710,13 @@ Delta M
 <td style="text-align:left;">
 Delta Trend
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.02
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.14
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.99
 </td>
 </tr>
@@ -688,13 +724,13 @@ Delta Trend
 <td style="text-align:left;">
 SMD
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 2.13
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 2.16
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 6.01
 </td>
 </tr>
@@ -702,14 +738,14 @@ SMD
 <td style="text-align:left;">
 Hedges g
 </td>
-<td style="text-align:right;">
-2.04
+<td style="text-align:left;">
+1.94
 </td>
-<td style="text-align:right;">
-2.07
+<td style="text-align:left;">
+1.57
 </td>
-<td style="text-align:right;">
-5.75
+<td style="text-align:left;">
+3.06
 </td>
 </tr>
 </tbody>
@@ -731,75 +767,89 @@ Hedges g
 <code class="sourceCode R"><span class="fu">overlap</span><span class="op">(</span><span class="va">strange_study</span>, phases <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"C"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-(#tab:overlapAC_strange_study)Overlap indices. Comparing phase A against phase C
+<span id="tab:overlapAC-strange-study">Table 1.3: </span>Overlap indices. Comparing phase A against phase C
 </caption>
 <thead><tr>
 <th style="text-align:left;">
 </th>
-<th style="text-align:right;">
+<th style="text-align:left;">
 Dustin
 </th>
-<th style="text-align:right;">
+<th style="text-align:left;">
 Mike
 </th>
-<th style="text-align:right;">
+<th style="text-align:left;">
 Will
 </th>
 </tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
+Design
+</td>
+<td style="text-align:left;">
+A-B-C
+</td>
+<td style="text-align:left;">
+A-B-C
+</td>
+<td style="text-align:left;">
+A-B-C
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 PND
 </td>
-<td style="text-align:right;">
-40.00
+<td style="text-align:left;">
+40
 </td>
-<td style="text-align:right;">
-100.00
+<td style="text-align:left;">
+100
 </td>
-<td style="text-align:right;">
-100.00
+<td style="text-align:left;">
+100
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 PEM
 </td>
-<td style="text-align:right;">
-100.00
+<td style="text-align:left;">
+100
 </td>
-<td style="text-align:right;">
-100.00
+<td style="text-align:left;">
+100
 </td>
-<td style="text-align:right;">
-100.00
+<td style="text-align:left;">
+100
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 PET
 </td>
-<td style="text-align:right;">
-0.00
+<td style="text-align:left;">
+0
 </td>
-<td style="text-align:right;">
-60.00
+<td style="text-align:left;">
+60
 </td>
-<td style="text-align:right;">
-100.00
+<td style="text-align:left;">
+100
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 NAP
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 93.33
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
 </tr>
@@ -807,13 +857,13 @@ NAP
 <td style="text-align:left;">
 NAP-R
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 86.67
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
 </tr>
@@ -821,13 +871,13 @@ NAP-R
 <td style="text-align:left;">
 PAND
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 81.82
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 100.00
 </td>
 </tr>
@@ -835,27 +885,27 @@ PAND
 <td style="text-align:left;">
 Tau-U
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.46
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.51
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.61
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Base_Tau
+Base Tau
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.67
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.76
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.74
 </td>
 </tr>
@@ -863,13 +913,13 @@ Base_Tau
 <td style="text-align:left;">
 Delta M
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 2.73
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 4.49
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 13.96
 </td>
 </tr>
@@ -877,13 +927,13 @@ Delta M
 <td style="text-align:left;">
 Delta Trend
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 -0.13
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.09
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 0.48
 </td>
 </tr>
@@ -891,13 +941,13 @@ Delta Trend
 <td style="text-align:left;">
 SMD
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 2.00
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 3.25
 </td>
-<td style="text-align:right;">
+<td style="text-align:left;">
 10.47
 </td>
 </tr>
@@ -905,14 +955,14 @@ SMD
 <td style="text-align:left;">
 Hedges g
 </td>
-<td style="text-align:right;">
-1.83
+<td style="text-align:left;">
+2.01
 </td>
-<td style="text-align:right;">
-3.00
+<td style="text-align:left;">
+3.37
 </td>
-<td style="text-align:right;">
-9.80
+<td style="text-align:left;">
+7.96
 </td>
 </tr>
 </tbody>
@@ -936,7 +986,7 @@ Hedges g
 <span class="fu">plm</span><span class="op">(</span><span class="va">strange_study</span><span class="op">$</span><span class="va">Will</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-(#tab:plm_strange_study)Piecewise-regression model predicting variable ‘values’
+<span id="tab:plm-strange-study">Table 1.4: </span>Piecewise-regression model predicting variable ‘values’
 </caption>
 <thead>
 <tr>
@@ -1149,7 +1199,7 @@ Slope phase C
 </table></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-(#tab:plm_strange_study)Piecewise-regression model predicting variable ‘values’
+<span id="tab:plm-strange-study">Table 1.4: </span>Piecewise-regression model predicting variable ‘values’
 </caption>
 <thead>
 <tr>
@@ -1362,7 +1412,7 @@ Slope phase C
 </table></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-(#tab:plm_strange_study)Piecewise-regression model predicting variable ‘values’
+<span id="tab:plm-strange-study">Table 1.4: </span>Piecewise-regression model predicting variable ‘values’
 </caption>
 <thead>
 <tr>
@@ -1600,7 +1650,7 @@ Slope phase C
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-05-31.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-08-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
