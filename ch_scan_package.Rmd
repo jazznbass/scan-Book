@@ -6,13 +6,13 @@ You can use the `install.packages` function to install *scan*.
 
 `install.packages("scan")` will install the stable version.
 
-The current stable release is version `0.51`. Please look at Section *Software reference* for which version of *scan* has been used for creating this book and make sure you have this version or a newer one installed.
+The current stable release is version `0.53`. Please look at Section *Software reference* for which version of *scan* has been used for creating this book and make sure you have this version or a newer one installed.
 
 R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing *scan* it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.
 
 For activating a package you need the `library` function. In this case `library(scan)`. You should get something like
 
-scan 0.51 (2021-02-11)\
+scan 0.53 (2021-09-22)\
 Single-Case Data Analysis for Single and Multiple Baseline Designs
 
 indicating that everything went smoothly and *scan* is ready for the job.
@@ -50,10 +50,14 @@ out <- tribble(
   #
   "scdf", "Creates a single-case data-frame", "Manage data",
   "select_cases", "Selects specific cases of an scdf", "Manage data",
+  "select_phases", "Selects and/or recombines phases", "Manage data",
   "subset", "Selects specific measurements or variables of an scdf", "Manage data",
   "readSC", "Loads external data into an scdf", "Manage data",
   "writeSC", "Writes scdf into an external file", "Manage data",
+  "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Manage data",
   "scdf_attr", "Gets and sets attributes of an scdf", "Manage data",
+  "add_l2", "Adds level-two data to an scdf", "Manage data",
+  "as.data.frame/as.data.frame.scdf", "Transforms an scdf into a data frame", "Manage data",
   "", "", "",
   "plot/plot.scdf", "Creates plots of single cases", "Depict",
   "style_plot", "Defines single-case plot graphical styles", "Depict",
@@ -78,6 +82,7 @@ out <- tribble(
   "pand", "Percentage of all non overlapping data for all cases", "Analyze",
   "pem", "Percantage exceeding the mean for each case", "Analyze",
   "pet", "Percentage exceeding the trend for each case", "Analyze",
+  "cdc", "Conservative dual-criterion test", "Analyze",
   "outlier", "Detect outliers for all cases", "Analyse",
   "", "", "",
   "fill_missing", "Interpolate missign values or missing measurement times", "Manipulate",
@@ -85,7 +90,7 @@ out <- tribble(
   "shift", "Shifts values by a constant", "Manipulate",
   "smooth_cases", "Smoothes time series data", "Manipulate",
   "truncate_phase", "Deletes measuremts of phases", "Manipulate",
-  "standardize", "Standardizes or centres variables", "Manipulate",
+  "standardize", "Standardizes or centers variables", "Manipulate",
   "", "", "",
   "design_rSC", "Defines a deisgn of one or multiple single-cases", "Simulate",
   "estimate_design", "Extracts a deisgn of one or multiple single-cases from an scdf", "Simulate",
@@ -97,7 +102,19 @@ print_table(out, "Functions in scan")
 
 ```
 
-## Changes with version 0.50
+## Important changes with version 0.53
+
+### Single-case studies with cases of varying phase design
+
+Sometimes it is necessary to combine single-cases with different phase-designs into one single-case study (for instance when some cases include an extension phase and others do not). Various functions in scan now can handle such a data structure.
+
+### Piping
+
+The concept of piping is great for writing clean and intelligible code that is easier to debug. We imported the pipe function `%>%` from the `magrittr` package. Since version 4.1, R has its own pipe operator implementation `|>`. This is great and works fine with the `scan` package. But since the `|>` Operator is not backwards compatible for R prior versions 4.1, we will stick with the `%>%` for a while.
+
+To allow for smooth "piping" we began adding some functions `select_phases`, `subset`, `select_cases`, `set_var`, `set_dvar`, `set_mvar`, `set_pvar`, and `add_l2`.
+
+## Important changes with version 0.50
 
 ### New function names
 

@@ -6,17 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 3 The scan package | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
-<meta name="description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.51....'>
-<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta name="description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.53....'>
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 3 The scan package | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
-<meta property="og:description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.51....'>
+<meta property="og:description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.53....'>
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 3 The scan package | Analyzing single-case data with R and scan">
-<meta name="twitter:description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.51....'>
+<meta name="twitter:description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.53....'>
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -78,10 +78,10 @@
 </h2>
 <p>You can use the <code>install.packages</code> function to install <em>scan</em>.</p>
 <p><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("scan")</a></code> will install the stable version.</p>
-<p>The current stable release is version <code>0.51</code>. Please look at Section <em>Software reference</em> for which version of <em>scan</em> has been used for creating this book and make sure you have this version or a newer one installed.</p>
+<p>The current stable release is version <code>0.53</code>. Please look at Section <em>Software reference</em> for which version of <em>scan</em> has been used for creating this book and make sure you have this version or a newer one installed.</p>
 <p>R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing <em>scan</em> it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.</p>
-<p>For activating a package you need the <code>library</code> function. In this case <code><a href="https://github.com/jazznbass/scan">library(scan)</a></code>. You should get something like</p>
-<p>scan 0.51 (2021-02-11)<br>
+<p>For activating a package you need the <code>library</code> function. In this case <code><a href="https://github.com/jazznbass/scan/">library(scan)</a></code>. You should get something like</p>
+<p>scan 0.53 (2021-09-22)<br>
 Single-Case Data Analysis for Single and Multiple Baseline Designs</p>
 <p>indicating that everything went smoothly and <em>scan</em> is ready for the job.</p>
 </div>
@@ -149,6 +149,17 @@ Manage data
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
+select_phases
+</td>
+<td style="text-align:left;width: 30em; ">
+Selects and/or recombines phases
+</td>
+<td style="text-align:left;">
+Manage data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
 subset
 </td>
 <td style="text-align:left;width: 30em; ">
@@ -182,10 +193,43 @@ Manage data
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
+set_var
+</td>
+<td style="text-align:left;width: 30em; ">
+(Re)sets dependent, measurement, and phase variable of an scdf
+</td>
+<td style="text-align:left;">
+Manage data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
 scdf_attr
 </td>
 <td style="text-align:left;width: 30em; ">
 Gets and sets attributes of an scdf
+</td>
+<td style="text-align:left;">
+Manage data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+add_l2
+</td>
+<td style="text-align:left;width: 30em; ">
+Adds level-two data to an scdf
+</td>
+<td style="text-align:left;">
+Manage data
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+as.data.frame/as.data.frame.scdf
+</td>
+<td style="text-align:left;width: 30em; ">
+Transforms an scdf into a data frame
 </td>
 <td style="text-align:left;">
 Manage data
@@ -451,6 +495,17 @@ Analyze
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
+cdc
+</td>
+<td style="text-align:left;width: 30em; ">
+Conservative dual-criterion test
+</td>
+<td style="text-align:left;">
+Analyze
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
 outlier
 </td>
 <td style="text-align:left;width: 30em; ">
@@ -528,7 +583,7 @@ Manipulate
 standardize
 </td>
 <td style="text-align:left;width: 30em; ">
-Standardizes or centres variables
+Standardizes or centers variables
 </td>
 <td style="text-align:left;">
 Manipulate
@@ -589,13 +644,31 @@ Simulate
 </tbody>
 </table></div>
 </div>
-<div id="changes-with-version-0.50" class="section level2" number="3.5">
+<div id="important-changes-with-version-0.53" class="section level2" number="3.5">
 <h2>
-<span class="header-section-number">3.5</span> Changes with version 0.50<a class="anchor" aria-label="anchor" href="#changes-with-version-0.50"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5</span> Important changes with version 0.53<a class="anchor" aria-label="anchor" href="#important-changes-with-version-0.53"><i class="fas fa-link"></i></a>
 </h2>
-<div id="new-function-names" class="section level3" number="3.5.1">
+<div id="single-case-studies-with-cases-of-varying-phase-design" class="section level3" number="3.5.1">
 <h3>
-<span class="header-section-number">3.5.1</span> New function names<a class="anchor" aria-label="anchor" href="#new-function-names"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5.1</span> Single-case studies with cases of varying phase design<a class="anchor" aria-label="anchor" href="#single-case-studies-with-cases-of-varying-phase-design"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes it is necessary to combine single-cases with different phase-designs into one single-case study (for instance when some cases include an extension phase and others do not). Various functions in scan now can handle such a data structure.</p>
+</div>
+<div id="piping" class="section level3" number="3.5.2">
+<h3>
+<span class="header-section-number">3.5.2</span> Piping<a class="anchor" aria-label="anchor" href="#piping"><i class="fas fa-link"></i></a>
+</h3>
+<p>The concept of piping is great for writing clean and intelligible code that is easier to debug. We imported the pipe function <code>%&gt;%</code> from the <code>magrittr</code> package. Since version 4.1, R has its own pipe operator implementation <code>|&gt;</code>. This is great and works fine with the <code>scan</code> package. But since the <code>|&gt;</code> Operator is not backwards compatible for R prior versions 4.1, we will stick with the <code>%&gt;%</code> for a while.</p>
+<p>To allow for smooth “piping” we began adding some functions <code>select_phases</code>, <code>subset</code>, <code>select_cases</code>, <code>set_var</code>, <code>set_dvar</code>, <code>set_mvar</code>, <code>set_pvar</code>, and <code>add_l2</code>.</p>
+</div>
+</div>
+<div id="important-changes-with-version-0.50" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Important changes with version 0.50<a class="anchor" aria-label="anchor" href="#important-changes-with-version-0.50"><i class="fas fa-link"></i></a>
+</h2>
+<div id="new-function-names" class="section level3" number="3.6.1">
+<h3>
+<span class="header-section-number">3.6.1</span> New function names<a class="anchor" aria-label="anchor" href="#new-function-names"><i class="fas fa-link"></i></a>
 </h3>
 <p>With version 0.50 scan introduced new names for its functions. The old function names are still usable but they will return a “deprecated” warning telling you to use the new function names.</p>
 <p>Table <a href="the-scan-package.html#tab:table-aliases">3.2</a> shows the changes.</p>
@@ -743,9 +816,9 @@ truncateSC
 </tbody>
 </table></div>
 </div>
-<div id="change-target-variables-in-functions" class="section level3" number="3.5.2">
+<div id="change-target-variables-in-functions" class="section level3" number="3.6.2">
 <h3>
-<span class="header-section-number">3.5.2</span> Change target variables in functions<a class="anchor" aria-label="anchor" href="#change-target-variables-in-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.6.2</span> Change target variables in functions<a class="anchor" aria-label="anchor" href="#change-target-variables-in-functions"><i class="fas fa-link"></i></a>
 </h3>
 <p>All functions in R that analyze data now allow for temporarily changing dependent, phase, and measurement-time variables by adding three argument:</p>
 <p><code>dvar</code> sets the dependent variable.<br><code>pvar</code> sets the phase variable.<br><code>mvar</code> sets the measurement-time variable.</p>
@@ -767,9 +840,15 @@ truncateSC
 <li><a class="nav-link" href="#reporting-issues-with-scan-and-suggesting-enhancements"><span class="header-section-number">3.3</span> Reporting issues with scan and suggesting enhancements</a></li>
 <li><a class="nav-link" href="#functions-overview"><span class="header-section-number">3.4</span> Functions overview</a></li>
 <li>
-<a class="nav-link" href="#changes-with-version-0.50"><span class="header-section-number">3.5</span> Changes with version 0.50</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#new-function-names"><span class="header-section-number">3.5.1</span> New function names</a></li>
-<li><a class="nav-link" href="#change-target-variables-in-functions"><span class="header-section-number">3.5.2</span> Change target variables in functions</a></li>
+<a class="nav-link" href="#important-changes-with-version-0.53"><span class="header-section-number">3.5</span> Important changes with version 0.53</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#single-case-studies-with-cases-of-varying-phase-design"><span class="header-section-number">3.5.1</span> Single-case studies with cases of varying phase design</a></li>
+<li><a class="nav-link" href="#piping"><span class="header-section-number">3.5.2</span> Piping</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#important-changes-with-version-0.50"><span class="header-section-number">3.6</span> Important changes with version 0.50</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#new-function-names"><span class="header-section-number">3.6.1</span> New function names</a></li>
+<li><a class="nav-link" href="#change-target-variables-in-functions"><span class="header-section-number">3.6.2</span> Change target variables in functions</a></li>
 </ul>
 </li>
 </ul>
@@ -789,7 +868,7 @@ truncateSC
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-08-23.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-09-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

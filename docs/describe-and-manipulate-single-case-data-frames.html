@@ -7,7 +7,7 @@
 <title>Chapter 6 Describe and manipulate single-case data frames | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
 <meta name="description" content="6.1 Describing and summarizing A short description of the scdf is provided by the summary command. The results are pretty much self explaining summary(Huber2014) #A single-case data frame with 4...">
-<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 6 Describe and manipulate single-case data frames | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
 <meta property="og:description" content="6.1 Describing and summarizing A short description of the scdf is provided by the summary command. The results are pretty much self explaining summary(Huber2014) #A single-case data frame with 4...">
@@ -16,7 +16,7 @@
 <meta name="twitter:description" content="6.1 Describing and summarizing A short description of the scdf is provided by the summary command. The results are pretty much self explaining summary(Huber2014) #A single-case data frame with 4...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -77,15 +77,15 @@
 <span class="header-section-number">6.1</span> Describing and summarizing<a class="anchor" aria-label="anchor" href="#describing-and-summarizing"><i class="fas fa-link"></i></a>
 </h2>
 <p>A short description of the <em>scdf</em> is provided by the <code>summary</code> command. The results are pretty much self explaining</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Huber2014</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 4 cases
 
            Measurements Design
- Adam                37    A B
- Berta               29    A B
- Christian           76    A B
- David               76    A B
+ Adam                37    A-B
+ Berta               29    A-B
+ Christian           76    A-B
+ David               76    A-B
 
 Variable names:
 mt &lt;measurement-time variable&gt;
@@ -179,12 +179,12 @@ Slope of a regression line through values by time.
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">describe</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">)</span></code></pre></div>
 <pre><code>Describe Single-Case Data
 
        Marie Rosalind  Lise
-Design A B C    A B C A B C
+Design A-B-C    A-B-C A-B-C
 n.A       10       15    20
 n.B       10        8     7
 n.C       10        7     3
@@ -215,7 +215,7 @@ trend.A  -1.915    0.500  -0.088
 trend.B  -0.612    0.643   1.929
 trend.C  -0.194   -2.929 -14.000</code></pre>
 <p>The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the <code>describeSC</code> command into an R object and then use the <code>write.csv</code> (or <code>write.csv2</code> for a German OS system setup) to export the <code>descriptives</code> element of the object.</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># write the results into a new R object named `res`</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">describe</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">)</span>
 <span class="co"># create a new file containing the descriptives on your harddrive</span>
@@ -246,7 +246,7 @@ include the package name into the function call with the prefix <code>scan::</co
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> autocorr(data, dvar, pvar, mvar, lag.max = 3, ...) </font></td>
  </tr></table></div>
 <p>The <code>autocorr</code> function calculates autocorrelations within each phase and across all phases. The <code>lag.max</code> argument defines the lag up to which the autocorrelation will be computed.</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">autocorr</span><span class="op">(</span><span class="va">exampleABC</span>, lag.max <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <pre><code>Autocorrelations
 
@@ -271,7 +271,7 @@ Lise
      C -0.38 -0.12    NA    NA
    all  0.33  0.36  0.23  0.27</code></pre>
 <p>The <code>trendSC</code> function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Simple example</span>
 <span class="fu">trend</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>Trend for each phase
@@ -286,8 +286,8 @@ Squared.A      57.937 -0.208 -0.712
 Squared.B      73.217 -0.039 -0.098
 Squared.C      68.490 -0.017 -0.038
 
-Note. Measurement-times of phase B start at 0 </code></pre>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+Note. Measurement-times start at 0  for each phase</code></pre>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Complex example</span>
 <span class="fu">trend</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span>, offset <span class="op">=</span> <span class="fl">0</span>, 
         model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cubic"</span> <span class="op">=</span> <span class="va">values</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">mt</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span>, <span class="st">"Log Time"</span> <span class="op">=</span> <span class="va">values</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">mt</span><span class="op">)</span><span class="op">)</span>
@@ -308,7 +308,7 @@ Log Time.ALL    43.532 12.149  0.848
 Log Time.A      54.032  0.593  0.156
 Log Time.B      57.300  9.051  0.791
 
-Note. Measurement-times of phase B start at 1 </code></pre>
+Note. Measurement-times start at 1  for each phase</code></pre>
 </div>
 <div id="missing-values" class="section level2" number="6.3">
 <h2>
@@ -320,7 +320,7 @@ Note. Measurement-times of phase B start at 1 </code></pre>
 <pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, 6), phase.design = c(A = 4, B = 5), 
      mt = c(1, 2, 3, 4, 5, 6, 7, 8, 10))</code></pre>
 <p>In both cases, missing values pose a threat to the internal validity of overlap indices. Randomization tests are more robust against the first type of missing values but are affected by the second type. Regression approaches are less impacted by both types as they take the interval between measurement-times into account.</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">case1</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">6</span>,<span class="fl">3</span>,<span class="fl">2</span>, <span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">4</span>,<span class="fl">8</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span>, 
               phase.design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"no NA"</span><span class="op">)</span>
 <span class="va">case2</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="cn">NA</span>,<span class="fl">3</span>,<span class="fl">2</span>, <span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">6</span>,<span class="cn">NA</span>,<span class="fl">4</span>,<span class="fl">8</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span>, 
@@ -330,7 +330,7 @@ Note. Measurement-times of phase B start at 1 </code></pre>
 <span class="va">ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">case1</span>, <span class="va">case2</span>, <span class="va">case3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ex</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="scan-book_files/figure-html/fillmissing_example-1.png" width="480"></div>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">overlap</span><span class="op">(</span><span class="va">ex</span><span class="op">)</span></code></pre></div>
 <pre><code>Overlap Indices
 
@@ -360,7 +360,7 @@ Hedges_g      1.71 1.90             1.96</code></pre>
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> outlier(data, dvar, pvar, mvar, criteria = c("MAD", "3.5")) </font></td>
  </tr></table></div>
 <p><em>scan</em> provides several methods for analyzing outliers. All of them are implemented in the <code>outliers</code> function. Available methods are the <strong>standard deviation</strong>, <strong>mean average deviation</strong>, <strong>confidence intervals</strong>, and <strong>Cook’s distance</strong>. The criteria argument takes a vector with two information, the first defines the analyzing method (“SD,” “MAD,” CI“,”Cook“) and the second the criteria. For”SD" the criteria is the number of standard deviations (<strong>sd</strong>) from the mean of each phase for which a value is not considered to be an outlier. For example, <code>criteria = c("SD",2)</code> would identify every value exceeding two <strong>sd</strong> above or below the mean as an outlier whereas <strong>sd</strong> and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin <span class="citation"><a href="references.html#ref-iglewicz_how_1993" role="doc-biblioref">Iglewicz &amp; Hoaglin</a> (<a href="references.html#ref-iglewicz_how_1993" role="doc-biblioref">1993</a>)</span> recommend the use the much more robust median average deviation (<strong>MAD</strong>) instead. The <strong>MAD</strong> is is constructed similar to the <strong>sd</strong> but uses the median instead of the mean. Multiplying the <strong>MAD</strong> by 1.4826 approximates the <strong>sd</strong> in a normal distributed sample. This corrected MAD is applied in the <code>outlier</code> function. A deviation of 3.5 times the corrected <strong>MAD</strong> from the median is suggested to be an outlier. To use this criterion set <code>criteria = c("MAD", 3.5)</code>. <code>criteria = c("CI", 0.95)</code> takes exceeding the 95% confidence interval as the criteria for outliers. The Cook’s distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook’s distance analyses are based on a piecewise-regression model. Most commonly, Cook’s distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c(“Cook,”“4/n”).</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">outlier</span><span class="op">(</span><span class="va">exampleABC_outlier</span>, criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MAD"</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>Outlier Analysis for Single-Case Data
 
@@ -387,7 +387,7 @@ $Amy
 Case Bernadette : Dropped 3 
 Case Penny : Dropped 2 
 Case Amy : Dropped 3 </code></pre>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Visualizing outliers with the plot function</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">outlier</span><span class="op">(</span><span class="va">exampleABC_outlier</span>, criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MAD"</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">exampleABC_outlier</span>, marks <span class="op">=</span> <span class="va">res</span>, style <span class="op">=</span> <span class="st">"annotate"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>,<span class="fl">160</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -403,7 +403,7 @@ Case Amy : Dropped 3 </code></pre>
  </tr></table></div>
 <p>The <code>smooth_cases</code> function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A <em>lag</em> defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.<br>
 The function returns am scdf with smoothed data points.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Use the three different smoothing functions and compare the results</span>
 <span class="va">berta_mmd</span> <span class="op">&lt;-</span> <span class="fu">smooth_cases</span><span class="op">(</span><span class="va">Huber2014</span><span class="op">$</span><span class="va">Berta</span><span class="op">)</span>
 <span class="va">berta_mmn</span> <span class="op">&lt;-</span> <span class="fu">smooth_cases</span><span class="op">(</span><span class="va">Huber2014</span><span class="op">$</span><span class="va">Berta</span>, FUN <span class="op">=</span> <span class="st">"movingMean"</span><span class="op">)</span>
@@ -444,7 +444,7 @@ The function returns am scdf with smoothed data points.</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-08-23.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-09-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

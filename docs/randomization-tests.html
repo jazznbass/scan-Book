@@ -7,7 +7,7 @@
 <title>Chapter 9 Randomization tests | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
 <meta name="description" content='rand_test(data, dvar, pvar, statistic = "Mean B-A", number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, graph = FALSE, output = "c", phases = c("A", "B"), seed =...'>
-<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 9 Randomization tests | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
 <meta property="og:description" content='rand_test(data, dvar, pvar, statistic = "Mean B-A", number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, graph = FALSE, output = "c", phases = c("A", "B"), seed =...'>
@@ -16,7 +16,7 @@
 <meta name="twitter:description" content='rand_test(data, dvar, pvar, statistic = "Mean B-A", number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, graph = FALSE, output = "c", phases = c("A", "B"), seed =...'>
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -99,19 +99,18 @@ If set to FALSE, which is the default, random distribution values equal to the o
 If set TRUE, a histogram of the resulting distribution is plotted.</p>
 <p><em>phases</em><br>
 A vector of two characters or numbers indicating the two phases that should be compared. E.g., phases = c(“A,”“C”) or phases = c(2,4) for comparing the second and the fourth phase. Phases could be combined by providing a list with two elements. E.g., phases = list(A = c(1,3), B = c(2,4)) will compare phases 1 and 3 (as A) against 2 and 4 (as B). Default is phases = c(“A,”“B”).</p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rand_test</span><span class="op">(</span><span class="va">exampleAB</span>, graph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="scan-book_files/figure-html/rand-1.png" width="672"></div>
 <pre><code>Randomization Test
 
 Test for 3 cases.
 
-Comparing phases  +  against phases  +  
+Comparing phase A against phase B 
 Statistic:  Mean B-A 
 
-Minimal length of each phase:  5 5 
+Minimal length of each phase: A = 5 , B = 5 
 Observed statistic =  20.55556 
-
 
 Distribution based on a random sample of all 1331 possible combinations.
 n   =  500 
@@ -120,9 +119,12 @@ SD  =  1.114388
 Min =  16.05185 
 Max =  21.34493 
 
+Probability of observed statistic based on distribution:
 p   =  0.036 
 
-Shapiro-Wilk Normality Test: W = 0.979; p = 0.000  (Hypothesis of Normality rejected)
+Shapiro-Wilk Normality Test: W = 0.979; p = 0.000  (Hypothesis of normality rejected)
+
+Probabilty of observed statistic based on the assumption of normality:
 z = 1.7611, p = 0.0391 (single sided)</code></pre>
 
 </div>
@@ -148,7 +150,7 @@ z = 1.7611, p = 0.0391 (single sided)</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-08-23.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-09-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

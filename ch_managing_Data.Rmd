@@ -155,7 +155,7 @@ function_structure("writeSC")
 
 `writeSC` exports an scdf object as a comma-separated-variables file (*csv*) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The scdf object is converted into a single data frame with a *case* variable identifying the rows for each subject. The first argument of the command identifies the scdf to be exported and the second argument (`file`) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the `dec` and the `sep` arguments. For example, `writeSC(example, file = "example.csv", dec = ",", sep = ";")` exports a csv variation usually used for example in Germany.
 
-## Displaying and manipulating scdf-files
+## Displaying scdf-files
 
 *scdf* are displayed by just typing the name of the object.
 
@@ -179,6 +179,10 @@ The argument `long = TRUE` prints each case one after the other instead side by 
 summary(Huber2014)
 ```
 
+## Selecting cases, measurements, and variables
+
+### Subsetting with base R syntax
+
 You can extract one or more single-cases from an *scdf* with multiple cases in two ways. If the case has a name, you can address it with the `$` operator.
 
 ```{r scdf_extract_case, results = 'hide'}
@@ -194,5 +198,25 @@ Huber2014[2:3] #extracts cases 2 and 3
 
 ```{r scdf_extract_case3}
 new.huber2014 <- Huber2014[c(1, 4)] #extracts cases 1 and 4
-print(new.huber2014)
+new.huber2014
 ```
+
+### Select cases
+
+Since version 0.53 scan includes some functions to work with pipe-operators. Therefore, we will provide syntax examples with and without pipe operators.
+
+The `select_cases()` function takes case-names and/or numbers for selecting cases:
+
+```{r select_cases}
+# With pipes:
+Huber2014 %>%
+  select_cases("Adam", "Berta", 4) %>%
+  summary()
+
+# Without pipes:
+
+# new_huber <- select_cases(Huber2014, "Adam", "Berta", 4)
+# summary(new_huber)
+```
+
+### Select variables, measurement-times, and phases
