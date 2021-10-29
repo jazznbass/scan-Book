@@ -1,124 +1,340 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="" xml:lang="">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 5 Creating a single-case data plot | Analyzing single-case data with R and scan</title>
-<meta name="author" content="Jürgen Wilbert">
-<meta name="description" content='plotSC(data, dvar, pvar, mvar, ylim = NULL, xlim = NULL, xinc = 1, lines = NULL, marks = NULL, phase.names = NULL, xlab = NULL, ylab = NULL, main = "", case.names = NULL, style =...'>
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
-<meta property="og:title" content="Chapter 5 Creating a single-case data plot | Analyzing single-case data with R and scan">
-<meta property="og:type" content="book">
-<meta property="og:description" content='plotSC(data, dvar, pvar, mvar, ylim = NULL, xlim = NULL, xinc = 1, lines = NULL, marks = NULL, phase.names = NULL, xlab = NULL, ylab = NULL, main = "", case.names = NULL, style =...'>
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 5 Creating a single-case data plot | Analyzing single-case data with R and scan">
-<meta name="twitter:description" content='plotSC(data, dvar, pvar, mvar, ylim = NULL, xlim = NULL, xinc = 1, lines = NULL, marks = NULL, phase.names = NULL, xlab = NULL, ylab = NULL, main = "", case.names = NULL, style =...'>
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'UA-145080763-1');
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Creating a single-case data plot | Analyzing single-case data with R and scan</title>
+  <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Creating a single-case data plot | Analyzing single-case data with R and scan" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  <meta name="github-repo" content="jazznbass/scan-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Creating a single-case data plot | Analyzing single-case data with R and scan" />
+  
+  <meta name="twitter:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
+  
+
+<meta name="author" content="Jürgen Wilbert" />
+
+
+<meta name="date" content="2021-10-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="managing-single-case-data.html"/>
+<link rel="next" href="describe-and-manipulate-single-case-data-frames.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-145080763-1');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
-<body data-spy="scroll" data-target="#toc">
 
-<div class="container-fluid">
-<div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+<body>
 
-    <div class="d-flex align-items-start justify-content-between">
-      <h1>
-        <a href="index.html" title="">Analyzing single-case data with R and scan</a>
-      </h1>
-      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
-    </div>
 
-    <div id="main-nav" class="collapse-lg">
-      <form role="search">
-        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
 
-      <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="preface.html">Preface</a></li>
-<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="some-things-about-r.html"><span class="header-section-number">2</span> Some things about R</a></li>
-<li><a class="" href="the-scan-package.html"><span class="header-section-number">3</span> The scan package</a></li>
-<li><a class="" href="managing-single-case-data.html"><span class="header-section-number">4</span> Managing single-case data</a></li>
-<li><a class="active" href="creating-a-single-case-data-plot.html"><span class="header-section-number">5</span> Creating a single-case data plot</a></li>
-<li><a class="" href="describe-and-manipulate-single-case-data-frames.html"><span class="header-section-number">6</span> Describe and manipulate single-case data frames</a></li>
-<li><a class="" href="overlapping-indices.html"><span class="header-section-number">7</span> Overlapping indices</a></li>
-<li><a class="" href="piecewise-linear-regressions.html"><span class="header-section-number">8</span> Piecewise linear regressions</a></li>
-<li><a class="" href="randomization-tests.html"><span class="header-section-number">9</span> Randomization tests</a></li>
-<li><a class="" href="default-settings.html"><span class="header-section-number">10</span> Default settings</a></li>
-<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">11</span> Exporting scan results</a></li>
-<li><a class="" href="about-the-author.html">About the author</a></li>
-<li><a class="" href="references.html">References</a></li>
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+Analyzing single-case data with R and scan
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#software-reference"><i class="fa fa-check"></i>Software reference</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="the-scan-package.html"><a href="the-scan-package.html"><i class="fa fa-check"></i><b>3</b> The scan package</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="the-scan-package.html"><a href="the-scan-package.html#installing-the-scan-package"><i class="fa fa-check"></i><b>3.1</b> Installing the <em>scan</em> package</a></li>
+<li class="chapter" data-level="3.2" data-path="the-scan-package.html"><a href="the-scan-package.html#development-version-of-scan"><i class="fa fa-check"></i><b>3.2</b> Development version of scan</a></li>
+<li class="chapter" data-level="3.3" data-path="the-scan-package.html"><a href="the-scan-package.html#reporting-issues-with-scan-and-suggesting-enhancements"><i class="fa fa-check"></i><b>3.3</b> Reporting issues with <em>scan</em> and suggesting enhancements</a></li>
+<li class="chapter" data-level="3.4" data-path="the-scan-package.html"><a href="the-scan-package.html#functions-overview"><i class="fa fa-check"></i><b>3.4</b> Functions overview</a></li>
+<li class="chapter" data-level="3.5" data-path="the-scan-package.html"><a href="the-scan-package.html#important-changes-with-version-0.53"><i class="fa fa-check"></i><b>3.5</b> Important changes with version 0.53</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="the-scan-package.html"><a href="the-scan-package.html#single-case-studies-with-cases-of-varying-phase-design"><i class="fa fa-check"></i><b>3.5.1</b> Single-case studies with cases of varying phase design</a></li>
+<li class="chapter" data-level="3.5.2" data-path="the-scan-package.html"><a href="the-scan-package.html#piping"><i class="fa fa-check"></i><b>3.5.2</b> Piping</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="the-scan-package.html"><a href="the-scan-package.html#important-changes-with-version-0.50"><i class="fa fa-check"></i><b>3.6</b> Important changes with version 0.50</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="the-scan-package.html"><a href="the-scan-package.html#new-function-names"><i class="fa fa-check"></i><b>3.6.1</b> New function names</a></li>
+<li class="chapter" data-level="3.6.2" data-path="the-scan-package.html"><a href="the-scan-package.html#change-target-variables-in-functions"><i class="fa fa-check"></i><b>3.6.2</b> Change target variables in functions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>4</b> Managing single-case data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>4.1</b> A <strong><em>single-case data frame</em></strong></a></li>
+<li class="chapter" data-level="4.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>4.2</b> Creating scdfs</a></li>
+<li class="chapter" data-level="4.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>4.3</b> Saving and reading <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="4.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>4.4</b> Import and export <em>single-case data frames</em></a></li>
+<li class="chapter" data-level="4.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-scdf-files"><i class="fa fa-check"></i><b>4.5</b> Displaying scdf-files</a></li>
+<li class="chapter" data-level="4.6" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#selecting-cases-measurements-and-variables"><i class="fa fa-check"></i><b>4.6</b> Selecting cases, measurements, and variables</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#subsetting-with-base-r-syntax"><i class="fa fa-check"></i><b>4.6.1</b> Subsetting with base R syntax</a></li>
+<li class="chapter" data-level="4.6.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#select-cases"><i class="fa fa-check"></i><b>4.6.2</b> Select cases</a></li>
+<li class="chapter" data-level="4.6.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#select-variables-measurement-times-and-phases"><i class="fa fa-check"></i><b>4.6.3</b> Select variables, measurement-times, and phases</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>5</b> Creating a single-case data plot</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#plot-axis"><i class="fa fa-check"></i><b>5.1</b> Plot axis</a></li>
+<li class="chapter" data-level="5.2" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#adding-lines"><i class="fa fa-check"></i><b>5.2</b> Adding lines</a></li>
+<li class="chapter" data-level="5.3" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#mark-data-points"><i class="fa fa-check"></i><b>5.3</b> Mark data points</a></li>
+<li class="chapter" data-level="5.4" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>5.4</b> Graphical styles of a plot</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>6</b> Describe and manipulate single-case data frames</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>6.1</b> Describing and summarizing</a></li>
+<li class="chapter" data-level="6.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>6.2</b> Autoregression and trendanalyses</a></li>
+<li class="chapter" data-level="6.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>6.3</b> Missing values</a></li>
+<li class="chapter" data-level="6.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>6.4</b> Outlieranalysis</a></li>
+<li class="chapter" data-level="6.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>6.5</b> Smoothing data</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>7</b> Overlapping indices</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>7.1</b> Percentage non-overlapping data (PND)</a></li>
+<li class="chapter" data-level="7.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>7.2</b> Percentage exceeding the median (PEM)</a></li>
+<li class="chapter" data-level="7.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>7.3</b> Percentage exceeding the regression trend (PET)</a></li>
+<li class="chapter" data-level="7.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>7.4</b> Percentage of all non-overlapping data (PAND)</a></li>
+<li class="chapter" data-level="7.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>7.5</b> Nonoverlap of all pairs (NAP)</a></li>
+<li class="chapter" data-level="7.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>7.6</b> Tau-U</a></li>
+<li class="chapter" data-level="7.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>7.7</b> Reliable change index</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>8</b> Piecewise linear regressions</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>8.1</b> The basic plm function</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>8.1.1</b> Dummy model</a></li>
+<li class="chapter" data-level="8.1.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adjusting-the-model"><i class="fa fa-check"></i><b>8.1.2</b> Adjusting the model</a></li>
+<li class="chapter" data-level="8.1.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>8.1.3</b> Adding additional predictors</a></li>
+<li class="chapter" data-level="8.1.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-modelling-autoregression"><i class="fa fa-check"></i><b>8.1.4</b> [to be written] Modelling autoregression</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-multivariate-piecewise-regression"><i class="fa fa-check"></i><b>8.2</b> [to be written] Multivariate piecewise regression</a></li>
+<li class="chapter" data-level="8.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#multilevel-plm-analyses"><i class="fa fa-check"></i><b>8.3</b> Multilevel plm analyses</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>8.3.1</b> Adding additional L2-variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>9</b> Randomization tests</a></li>
+<li class="chapter" data-level="10" data-path="default-settings.html"><a href="default-settings.html"><i class="fa fa-check"></i><b>10</b> Default settings</a></li>
+<li class="chapter" data-level="11" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>11</b> Exporting <em>scan</em> results</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>11.1</b> Single case data files</a></li>
+<li class="chapter" data-level="11.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>11.2</b> Descriptive stats</a></li>
+<li class="chapter" data-level="11.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>11.3</b> Overlap indices</a></li>
+<li class="chapter" data-level="11.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>11.4</b> Piecewise linear models</a></li>
+<li class="chapter" data-level="11.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>11.5</b> Hierarchical piecewise regressions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+Published with bookdown
+
 </ul>
 
-        <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/jazznbass/scan-Book">View book source <i class="fab fa-github"></i></a></p>
-        </div>
       </nav>
-</div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="creating-a-single-case-data-plot" class="section level1" number="5">
-<h1>
-<span class="header-section-number">5</span> Creating a single-case data plot<a class="anchor" aria-label="anchor" href="#creating-a-single-case-data-plot"><i class="fas fa-link"></i></a>
-</h1>
-<div class="inline-table"><table class="table table-sm"><tr>
-<td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyzing single-case data with R and scan</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="creating-a-single-case-data-plot" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Creating a single-case data plot</h1>
+<table>
+ <tr>
+  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> plotSC(data, dvar, pvar, mvar, ylim = NULL, xlim = NULL, xinc = 1, lines = NULL, marks = NULL, phase.names = NULL, xlab = NULL, ylab = NULL, main = "", case.names = NULL, style = getOption("scan.plot.style"), ...) </font></td>
- </tr></table></div>
+ </tr>
+</table>  
 <p>Plotting the data is a first important approach of analyzing. After you build an <em>scdf</em> the <code>plot</code> command helps to visualize the data. When the <code>scdf</code> includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. Table <a href="creating-a-single-case-data-plot.html#tab:table-plot-arguments">5.1</a> gives an overview of all available arguments.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">exampleA1B1A2B2_zvt</span><span class="op">)</span></code></pre></div>
-<div class="figure">
-<span style="display:block;" id="fig:ex-simple-plot"></span>
-<img src="scan-book_files/figure-html/ex-simple-plot-1.png" alt="A simple plot does not need much." width="672"><p class="caption">
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="creating-a-single-case-data-plot.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(exampleA1B1A2B2_zvt)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:ex-simple-plot"></span>
+<img src="scan-book_files/figure-html/ex-simple-plot-1.png" alt="A simple plot does not need much." width="672" />
+<p class="caption">
 Figure 5.1: A simple plot does not need much.
 </p>
 </div>
 <div id="plot-axis" class="section level2" number="5.1">
-<h2>
-<span class="header-section-number">5.1</span> Plot axis<a class="anchor" aria-label="anchor" href="#plot-axis"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">5.1</span> Plot axis</h2>
 <p>Labels of the axes and for the phases can be changed with the <code>xlab</code>, <code>ylab</code>, and the <code>phase.names</code> arguments. The x- and y-scaling of the graphs are by default calculated as the minimum and the maximum of all included single cases. The <code>xlim</code> and the <code>ylim</code> argument are used to set specific values. The argument takes a vector of two numbers. The first for the lower and the second for the upper limit of the scale. In case of multiple single cases an <code>NA</code> sets the individual minimum or maximum for each case. Assume for example the study contains three single cases <code>ylim = c(0, NA)</code> will set the lower limit for all three single cases to <code>0</code> and the upper limit individually at the maximum of each case. The argument <code>xinc</code> sets the incremental steps for the x-axis ticks with corresponding values. For example <code>xinc = 1</code> will set a tick for every measurement time increase of 1 while <code>xinc = 5</code> will only set every ffith tick.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>
-  <span class="va">exampleABC</span>,
-  phase.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Baseline"</span>, <span class="st">"Intervention"</span>, <span class="st">"Follow-Up"</span><span class="op">)</span>,
-  case.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"First"</span>, <span class="st">"Second"</span>, <span class="st">"Third"</span><span class="op">)</span>,
-  ylab <span class="op">=</span> <span class="st">"Frequency"</span>,
-  xlab <span class="op">=</span> <span class="st">"Days"</span>,
-  main <span class="op">=</span> <span class="st">"An example"</span>,
-  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">120</span><span class="op">)</span>,
-  xinc <span class="op">=</span> <span class="fl">2</span>
-<span class="op">)</span></code></pre></div>
-<div class="figure">
-<span style="display:block;" id="fig:ex-plot-axis"></span>
-<img src="scan-book_files/figure-html/ex-plot-axis-1.png" alt="A plot with various axis specidications." width="672"><p class="caption">
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="creating-a-single-case-data-plot.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb44-2"><a href="creating-a-single-case-data-plot.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  exampleABC,</span>
+<span id="cb44-3"><a href="creating-a-single-case-data-plot.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">phase.names =</span> <span class="fu">c</span>(<span class="st">&quot;Baseline&quot;</span>, <span class="st">&quot;Intervention&quot;</span>, <span class="st">&quot;Follow-Up&quot;</span>),</span>
+<span id="cb44-4"><a href="creating-a-single-case-data-plot.html#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">case.names =</span> <span class="fu">c</span>(<span class="st">&quot;First&quot;</span>, <span class="st">&quot;Second&quot;</span>, <span class="st">&quot;Third&quot;</span>),</span>
+<span id="cb44-5"><a href="creating-a-single-case-data-plot.html#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>,</span>
+<span id="cb44-6"><a href="creating-a-single-case-data-plot.html#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Days&quot;</span>,</span>
+<span id="cb44-7"><a href="creating-a-single-case-data-plot.html#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;An example&quot;</span>,</span>
+<span id="cb44-8"><a href="creating-a-single-case-data-plot.html#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">120</span>),</span>
+<span id="cb44-9"><a href="creating-a-single-case-data-plot.html#cb44-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xinc =</span> <span class="dv">2</span></span>
+<span id="cb44-10"><a href="creating-a-single-case-data-plot.html#cb44-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:ex-plot-axis"></span>
+<img src="scan-book_files/figure-html/ex-plot-axis-1.png" alt="A plot with various axis specidications." width="672" />
+<p class="caption">
 Figure 5.2: A plot with various axis specidications.
 </p>
 </div>
-<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
+<table class=" lightable-classic" style="width: auto !important; ">
 <caption>
 <span id="tab:table-plot-arguments">Table 5.1: </span>Arguments of the plot function
 </caption>
-<thead><tr>
+<thead>
+<tr>
 <th style="text-align:left;">
 Argument
 </th>
 <th style="text-align:left;">
 What it does …
 </th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
@@ -217,25 +433,25 @@ An integer. Increment of the x-axis. 1 : each mt value will be printed, 2 : ever
 </td>
 </tr>
 </tbody>
-</table></div>
+</table>
 </div>
 <div id="adding-lines" class="section level2" number="5.2">
-<h2>
-<span class="header-section-number">5.2</span> Adding lines<a class="anchor" aria-label="anchor" href="#adding-lines"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">5.2</span> Adding lines</h2>
 <p>Extra lines can be added to the plot using the <code>lines</code> argument. The lines argument takes several separate sub-arguments which have to be provided in a list. In its most simple form this list contains one element. <code>lines = list(type = 'median')</code> adds a line with the median of each phase to the plot. Additional arguments like <code>col</code> or <code>lwd</code> help to format these lines. For adding red thick median lines use the command <code>lines = list(type = 'median', col = 'red', lwd = '2')</code>.</p>
-<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
+<table class=" lightable-classic" style="width: auto !important; ">
 <caption>
 <span id="tab:table-lines-arguments">Table 5.2: </span>Values of the lines argument
 </caption>
-<thead><tr>
+<thead>
+<tr>
 <th style="text-align:left;">
 Argument
 </th>
 <th style="text-align:left;">
 What it does …
 </th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
@@ -350,68 +566,66 @@ Line colour, e.g., <code>col = 'red'</code>.
 </td>
 </tr>
 </tbody>
-</table></div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>
-  <span class="va">exampleAB</span>, 
-  lines <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"median"</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"trend"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"loreg"</span>, f <span class="op">=</span> <span class="fl">0.2</span>, col <span class="op">=</span> <span class="st">"green"</span>, lty <span class="op">=</span> <span class="st">"solid"</span>, lwd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-  <span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<div class="figure">
-<span style="display:block;" id="fig:ex-plot-lines"></span>
-<img src="scan-book_files/figure-html/ex-plot-lines-1.png" alt="A plot with various visual aids" width="672"><p class="caption">
+</table>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="creating-a-single-case-data-plot.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb45-2"><a href="creating-a-single-case-data-plot.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  exampleAB, </span>
+<span id="cb45-3"><a href="creating-a-single-case-data-plot.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lines =</span> <span class="fu">list</span>(</span>
+<span id="cb45-4"><a href="creating-a-single-case-data-plot.html#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;median&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="fl">0.5</span>),</span>
+<span id="cb45-5"><a href="creating-a-single-case-data-plot.html#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;trend&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>),</span>
+<span id="cb45-6"><a href="creating-a-single-case-data-plot.html#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">type =</span> <span class="st">&quot;loreg&quot;</span>, <span class="at">f =</span> <span class="fl">0.2</span>, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;solid&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>)</span>
+<span id="cb45-7"><a href="creating-a-single-case-data-plot.html#cb45-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb45-8"><a href="creating-a-single-case-data-plot.html#cb45-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:ex-plot-lines"></span>
+<img src="scan-book_files/figure-html/ex-plot-lines-1.png" alt="A plot with various visual aids" width="672" />
+<p class="caption">
 Figure 5.3: A plot with various visual aids
 </p>
 </div>
 </div>
 <div id="mark-data-points" class="section level2" number="5.3">
-<h2>
-<span class="header-section-number">5.3</span> Mark data points<a class="anchor" aria-label="anchor" href="#mark-data-points"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">5.3</span> Mark data points</h2>
 <p>Specific data points can be highlighted using the <code>marks</code> argument. A <code>list</code> defines the measurement times to be marked, the marking color and the size of the marking. <code>marks = list(position = c(1,5,6))</code> marks the first, fifth, and sixth measurement time. If the <em>scdf</em> contains more than one data-set marking would be the same for all data sets in this example. In case you define a <code>list</code> Containing vectors, marking can be individually defined for each data set. Assume, for example, we have an <em>scdf</em> comprising three data sets, then <code>marks = list(position = list(c(1,2), c(3,4), c(5,6)))</code> will highlight measurement times one and two for the first data set, three and four for the second and five and six for the third. <code>pch</code>, <code>col</code> and <code>cex</code> define symbol, colour and size of the markings.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span>
-<span class="co"># size. exampleAB is an example scdf included in the scan package</span>
-<span class="va">marks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  positions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">9</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">17</span>, <span class="fl">19</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7</span>, <span class="fl">18</span><span class="op">)</span> <span class="op">)</span>, 
-  col <span class="op">=</span> <span class="st">'red'</span>, cex <span class="op">=</span> <span class="fl">2.5</span>, pch <span class="op">=</span> <span class="fl">1</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">exampleAB</span>, marks <span class="op">=</span> <span class="va">marks</span>, style <span class="op">=</span> <span class="st">"sienna"</span><span class="op">)</span></code></pre></div>
-<div class="figure" style="text-align: center">
-<span style="display:block;" id="fig:marks-example"></span>
-<img src="scan-book_files/figure-html/marks-example-1.png" alt="A plot with highlighted data-points" width="576"><p class="caption">
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="creating-a-single-case-data-plot.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span></span>
+<span id="cb46-2"><a href="creating-a-single-case-data-plot.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="co"># size. exampleAB is an example scdf included in the scan package</span></span>
+<span id="cb46-3"><a href="creating-a-single-case-data-plot.html#cb46-3" aria-hidden="true" tabindex="-1"></a>marks <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb46-4"><a href="creating-a-single-case-data-plot.html#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">positions =</span> <span class="fu">list</span>( <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">9</span>), <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">19</span>), <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">18</span>) ), </span>
+<span id="cb46-5"><a href="creating-a-single-case-data-plot.html#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&#39;red&#39;</span>, <span class="at">cex =</span> <span class="fl">2.5</span>, <span class="at">pch =</span> <span class="dv">1</span></span>
+<span id="cb46-6"><a href="creating-a-single-case-data-plot.html#cb46-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-7"><a href="creating-a-single-case-data-plot.html#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(exampleAB, <span class="at">marks =</span> marks, <span class="at">style =</span> <span class="st">&quot;sienna&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:marks-example"></span>
+<img src="scan-book_files/figure-html/marks-example-1.png" alt="A plot with highlighted data-points" width="576" />
+<p class="caption">
 Figure 5.4: A plot with highlighted data-points
 </p>
 </div>
 </div>
 <div id="graphical-styles-of-a-plot" class="section level2" number="5.4">
-<h2>
-<span class="header-section-number">5.4</span> Graphical styles of a plot<a class="anchor" aria-label="anchor" href="#graphical-styles-of-a-plot"><i class="fas fa-link"></i></a>
-</h2>
-<div class="inline-table"><table class="table table-sm"><tr>
-<td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
+<h2><span class="header-section-number">5.4</span> Graphical styles of a plot</h2>
+<table>
+ <tr>
+  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> style_plot(style = "default", ...) </font></td>
- </tr></table></div>
-<p>The <code>style</code> argument of the plot function allows to specify a specific design of a plot. By default, the <code>grid</code> style is applied. <code>scan</code> includes some further predefined styles. <code>default, yaxis, tiny, small, big, chart, ridge, annotate, grid, grid2, dark, nodot, and sienna</code>. The name of a style is provided as a character string (e.g., <code>style = "grid"</code>).<br>
-Some styles only address specific elements (e.g., “small” or “tiny” just influence text and line sizes). These styles lend themselves to be combined with other styles. This could be achieved by providing several style names to the plot argument: <code>style = c("grid", "annotate", "small")</code>. A style overwrites the settings of all previously included style.<br>
-Beyond predefined styles, styles can be individually modified and created. New styles are provided as a <code>list</code> of several design parameters that are passed to the <code>style</code> argument of the <code>plot</code> function. Table <a href="creating-a-single-case-data-plot.html#tab:table-style">5.3</a> shows all design parameter that could be defined.<br>
+ </tr>
+</table>  
+<p>The <code>style</code> argument of the plot function allows to specify a specific design of a plot. By default, the <code>grid</code> style is applied. <code>scan</code> includes some further predefined styles. <code>default, yaxis, tiny, small, big, chart, ridge, annotate, grid, grid2, dark, nodot, and sienna</code>. The name of a style is provided as a character string (e.g., <code>style = "grid"</code>).<br />
+Some styles only address specific elements (e.g., “small” or “tiny” just influence text and line sizes). These styles lend themselves to be combined with other styles. This could be achieved by providing several style names to the plot argument: <code>style = c("grid", "annotate", "small")</code>. A style overwrites the settings of all previously included style.<br />
+Beyond predefined styles, styles can be individually modified and created. New styles are provided as a <code>list</code> of several design parameters that are passed to the <code>style</code> argument of the <code>plot</code> function. Table <a href="creating-a-single-case-data-plot.html#tab:table-style">5.3</a> shows all design parameter that could be defined.<br />
 To define a new style, first create a list containing a plain design. The <code>style_plot</code> function returns such a list with the default values for a plain design (e.g., <code>mystyle &lt;- style_plot()</code>). Single design parameters can now be set by assigning a specific value within the list. For example, <code>newstyle$fill &lt;- "grey90"</code> will set the <code>fill</code> parameter to <code>"grey90"</code>. Alternatively, changes to the plain design can already by defined within the <code>style_plot</code> function. To set a light-blue background color and also an orange grid, create the style <code>style_plot(fill.bg = "lightblue", grid = "orange")</code>.
-If you do not want to start with the plain design but a different of the predefined styles, set the <code>style</code> argument. If, for example, you like to have the <code>grid</code> combined with the <code>big</code> style but want to change the color of the grid to orange type <code>style_plot(style = c("grid", "big"), col.grid = "orange")</code>. <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot(mydata, style = mystyle)</a></code> will apply the new style in a plot. Please note that the new style is not passed in quotation marks.</p>
-<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
+If you do not want to start with the plain design but a different of the predefined styles, set the <code>style</code> argument. If, for example, you like to have the <code>grid</code> combined with the <code>big</code> style but want to change the color of the grid to orange type <code>style_plot(style = c("grid", "big"), col.grid = "orange")</code>. <code>plot(mydata, style = mystyle)</code> will apply the new style in a plot. Please note that the new style is not passed in quotation marks.</p>
+<table class=" lightable-classic" style="width: auto !important; ">
 <caption>
 <span id="tab:table-style">Table 5.3: </span>Arguments of the style plot function
 </caption>
-<thead><tr>
+<thead>
+<tr>
 <th style="text-align:left;">
 Argument
 </th>
 <th style="text-align:left;">
 What it does …
 </th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
@@ -534,70 +748,95 @@ Further arguments passed to the plot command.
 </td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p>The width of the lines are set with the <code>lwd</code> argument, <code>col</code> is used to set the line colour and <code>pch</code> sets the symbol for a data point.
 The <code>pch</code> argument can take several values for defining the symbol in which data points are plotted.</p>
 <div class="figure">
-<img src="scan-book_files/figure-html/symbols,%20pch-1.png" alt="Some of the possible symbols and their pch values." width="576"><p class="caption">
+<img src="scan-book_files/figure-html/symbols,%20pch-1.png" alt="Some of the possible symbols and their pch values." width="576" />
+<p class="caption">
 (#fig:symbols, pch)Some of the possible symbols and their pch values.
 </p>
 </div>
 <p>Here is an example customizing a plot with several additional graphic parameters</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">newstyle</span> <span class="op">&lt;-</span> <span class="fu">style_plot</span><span class="op">(</span>
-  fill <span class="op">=</span> <span class="st">"grey95"</span>,
-  fill.bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'aliceblue'</span>, <span class="st">'mistyrose1'</span>, <span class="st">'honeydew'</span><span class="op">)</span>,
-  names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"brown"</span>, cex <span class="op">=</span> <span class="fl">2</span>, font <span class="op">=</span> <span class="fl">3</span>, side <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,
-  annotations <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"brown"</span><span class="op">)</span>,
-  col.dots <span class="op">=</span> <span class="st">"blue"</span>,
-  grid <span class="op">=</span> <span class="st">"lightblue"</span>, 
-  pch <span class="op">=</span> <span class="fl">16</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">exampleABAB</span>, style <span class="op">=</span> <span class="va">newstyle</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="creating-a-single-case-data-plot.html#cb47-1" aria-hidden="true" tabindex="-1"></a>newstyle <span class="ot">&lt;-</span> <span class="fu">style_plot</span>(</span>
+<span id="cb47-2"><a href="creating-a-single-case-data-plot.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill =</span> <span class="st">&quot;grey95&quot;</span>,</span>
+<span id="cb47-3"><a href="creating-a-single-case-data-plot.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">fill.bg =</span> <span class="fu">c</span>(<span class="st">&#39;aliceblue&#39;</span>, <span class="st">&#39;mistyrose1&#39;</span>, <span class="st">&#39;honeydew&#39;</span>),</span>
+<span id="cb47-4"><a href="creating-a-single-case-data-plot.html#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">names =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="st">&quot;brown&quot;</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">font =</span> <span class="dv">3</span>, <span class="at">side =</span> <span class="dv">3</span>),</span>
+<span id="cb47-5"><a href="creating-a-single-case-data-plot.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">annotations =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="st">&quot;brown&quot;</span>),</span>
+<span id="cb47-6"><a href="creating-a-single-case-data-plot.html#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.dots =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb47-7"><a href="creating-a-single-case-data-plot.html#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">grid =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
+<span id="cb47-8"><a href="creating-a-single-case-data-plot.html#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb47-9"><a href="creating-a-single-case-data-plot.html#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-10"><a href="creating-a-single-case-data-plot.html#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(exampleABAB, <span class="at">style =</span> newstyle)</span></code></pre></div>
 <div class="figure">
-<img src="scan-book_files/figure-html/custom_style_example-1.png" alt="A plot with a customized style." width="576"><p class="caption">
+<img src="scan-book_files/figure-html/custom_style_example-1.png" alt="A plot with a customized style." width="576" />
+<p class="caption">
 (#fig:custom_style_example)A plot with a customized style.
 </p>
 </div>
 
 </div>
 </div>
-  <div class="chapter-nav">
-<div class="prev"><a href="managing-single-case-data.html"><span class="header-section-number">4</span> Managing single-case data</a></div>
-<div class="next"><a href="describe-and-manipulate-single-case-data-frames.html"><span class="header-section-number">6</span> Describe and manipulate single-case data frames</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#creating-a-single-case-data-plot"><span class="header-section-number">5</span> Creating a single-case data plot</a></li>
-<li><a class="nav-link" href="#plot-axis"><span class="header-section-number">5.1</span> Plot axis</a></li>
-<li><a class="nav-link" href="#adding-lines"><span class="header-section-number">5.2</span> Adding lines</a></li>
-<li><a class="nav-link" href="#mark-data-points"><span class="header-section-number">5.3</span> Mark data points</a></li>
-<li><a class="nav-link" href="#graphical-styles-of-a-plot"><span class="header-section-number">5.4</span> Graphical styles of a plot</a></li>
-</ul>
+            </section>
 
-      <div class="book-extra">
-        <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/jazznbass/scan-Book/blob/master/ch_creating_a_plot.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/jazznbass/scan-Book/edit/master/ch_creating_a_plot.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
-        </ul>
-</div>
-    </nav>
-</div>
-
-</div>
-</div> <!-- .container -->
-
-<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
-
-  <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-09-22.</p>
+          </div>
+        </div>
+      </div>
+<a href="managing-single-case-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="describe-and-manipulate-single-case-data-frames.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
   </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["scan-book.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
 
-  <div class="col-12 col-md-6 mt-3">
-    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
-  </div>
-
-</div></div>
-</footer>
 </body>
+
 </html>
