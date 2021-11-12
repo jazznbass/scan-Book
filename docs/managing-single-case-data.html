@@ -1,295 +1,81 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 4 Managing single-case data | Analyzing single-case data with R and scan</title>
+<meta name="author" content="Jürgen Wilbert">
+<meta name="description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 4 Managing single-case data | Analyzing single-case data with R and scan">
+<meta property="og:type" content="book">
+<meta property="og:description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 Managing single-case data | Analyzing single-case data with R and scan">
+<meta name="twitter:description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Managing single-case data | Analyzing single-case data with R and scan</title>
-  <meta name="description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Chapter 4 Managing single-case data | Analyzing single-case data with R and scan" />
-  <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
-  <meta name="github-repo" content="jazznbass/scan-book" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Managing single-case data | Analyzing single-case data with R and scan" />
-  
-  <meta name="twitter:description" content="This is a book on analyzing single-case data but also on how to do this using the R package scan" />
-  
-
-<meta name="author" content="Jürgen Wilbert" />
-
-
-<meta name="date" content="2021-10-19" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="the-scan-package.html"/>
-<link rel="next" href="creating-a-single-case-data-plot.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-145080763-1');
-</script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+      gtag('config', 'UA-145080763-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-Analyzing single-case data with R and scan
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i>Preface</a>
-<ul>
-<li class="chapter" data-level="" data-path="preface.html"><a href="preface.html#software-reference"><i class="fa fa-check"></i>Software reference</a></li>
-</ul></li>
-<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#a-teaser"><i class="fa fa-check"></i><b>1.1</b> A teaser</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="some-things-about-r.html"><a href="some-things-about-r.html"><i class="fa fa-check"></i><b>2</b> Some things about R</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="some-things-about-r.html"><a href="some-things-about-r.html#basic-r"><i class="fa fa-check"></i><b>2.1</b> Basic R</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="the-scan-package.html"><a href="the-scan-package.html"><i class="fa fa-check"></i><b>3</b> The scan package</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="the-scan-package.html"><a href="the-scan-package.html#installing-the-scan-package"><i class="fa fa-check"></i><b>3.1</b> Installing the <em>scan</em> package</a></li>
-<li class="chapter" data-level="3.2" data-path="the-scan-package.html"><a href="the-scan-package.html#development-version-of-scan"><i class="fa fa-check"></i><b>3.2</b> Development version of scan</a></li>
-<li class="chapter" data-level="3.3" data-path="the-scan-package.html"><a href="the-scan-package.html#reporting-issues-with-scan-and-suggesting-enhancements"><i class="fa fa-check"></i><b>3.3</b> Reporting issues with <em>scan</em> and suggesting enhancements</a></li>
-<li class="chapter" data-level="3.4" data-path="the-scan-package.html"><a href="the-scan-package.html#functions-overview"><i class="fa fa-check"></i><b>3.4</b> Functions overview</a></li>
-<li class="chapter" data-level="3.5" data-path="the-scan-package.html"><a href="the-scan-package.html#important-changes-with-version-0.53"><i class="fa fa-check"></i><b>3.5</b> Important changes with version 0.53</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="the-scan-package.html"><a href="the-scan-package.html#single-case-studies-with-cases-of-varying-phase-design"><i class="fa fa-check"></i><b>3.5.1</b> Single-case studies with cases of varying phase design</a></li>
-<li class="chapter" data-level="3.5.2" data-path="the-scan-package.html"><a href="the-scan-package.html#piping"><i class="fa fa-check"></i><b>3.5.2</b> Piping</a></li>
-</ul></li>
-<li class="chapter" data-level="3.6" data-path="the-scan-package.html"><a href="the-scan-package.html#important-changes-with-version-0.50"><i class="fa fa-check"></i><b>3.6</b> Important changes with version 0.50</a>
-<ul>
-<li class="chapter" data-level="3.6.1" data-path="the-scan-package.html"><a href="the-scan-package.html#new-function-names"><i class="fa fa-check"></i><b>3.6.1</b> New function names</a></li>
-<li class="chapter" data-level="3.6.2" data-path="the-scan-package.html"><a href="the-scan-package.html#change-target-variables-in-functions"><i class="fa fa-check"></i><b>3.6.2</b> Change target variables in functions</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html"><i class="fa fa-check"></i><b>4</b> Managing single-case data</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#a-single-case-data-frame"><i class="fa fa-check"></i><b>4.1</b> A <strong><em>single-case data frame</em></strong></a></li>
-<li class="chapter" data-level="4.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#creating-scdfs"><i class="fa fa-check"></i><b>4.2</b> Creating scdfs</a></li>
-<li class="chapter" data-level="4.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#saving-and-reading-single-case-data-frames"><i class="fa fa-check"></i><b>4.3</b> Saving and reading <em>single-case data frames</em></a></li>
-<li class="chapter" data-level="4.4" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#import-and-export-single-case-data-frames"><i class="fa fa-check"></i><b>4.4</b> Import and export <em>single-case data frames</em></a></li>
-<li class="chapter" data-level="4.5" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#displaying-scdf-files"><i class="fa fa-check"></i><b>4.5</b> Displaying scdf-files</a></li>
-<li class="chapter" data-level="4.6" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#selecting-cases-measurements-and-variables"><i class="fa fa-check"></i><b>4.6</b> Selecting cases, measurements, and variables</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#subsetting-with-base-r-syntax"><i class="fa fa-check"></i><b>4.6.1</b> Subsetting with base R syntax</a></li>
-<li class="chapter" data-level="4.6.2" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#select-cases"><i class="fa fa-check"></i><b>4.6.2</b> Select cases</a></li>
-<li class="chapter" data-level="4.6.3" data-path="managing-single-case-data.html"><a href="managing-single-case-data.html#select-variables-measurement-times-and-phases"><i class="fa fa-check"></i><b>4.6.3</b> Select variables, measurement-times, and phases</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html"><i class="fa fa-check"></i><b>5</b> Creating a single-case data plot</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#plot-axis"><i class="fa fa-check"></i><b>5.1</b> Plot axis</a></li>
-<li class="chapter" data-level="5.2" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#adding-lines"><i class="fa fa-check"></i><b>5.2</b> Adding lines</a></li>
-<li class="chapter" data-level="5.3" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#mark-data-points"><i class="fa fa-check"></i><b>5.3</b> Mark data points</a></li>
-<li class="chapter" data-level="5.4" data-path="creating-a-single-case-data-plot.html"><a href="creating-a-single-case-data-plot.html#graphical-styles-of-a-plot"><i class="fa fa-check"></i><b>5.4</b> Graphical styles of a plot</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html"><i class="fa fa-check"></i><b>6</b> Describe and manipulate single-case data frames</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#describing-and-summarizing"><i class="fa fa-check"></i><b>6.1</b> Describing and summarizing</a></li>
-<li class="chapter" data-level="6.2" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#autoregression-and-trendanalyses"><i class="fa fa-check"></i><b>6.2</b> Autoregression and trendanalyses</a></li>
-<li class="chapter" data-level="6.3" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#missing-values"><i class="fa fa-check"></i><b>6.3</b> Missing values</a></li>
-<li class="chapter" data-level="6.4" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#outlieranalysis"><i class="fa fa-check"></i><b>6.4</b> Outlieranalysis</a></li>
-<li class="chapter" data-level="6.5" data-path="describe-and-manipulate-single-case-data-frames.html"><a href="describe-and-manipulate-single-case-data-frames.html#smoothing-data"><i class="fa fa-check"></i><b>6.5</b> Smoothing data</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="overlapping-indices.html"><a href="overlapping-indices.html"><i class="fa fa-check"></i><b>7</b> Overlapping indices</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-non-overlapping-data-pnd"><i class="fa fa-check"></i><b>7.1</b> Percentage non-overlapping data (PND)</a></li>
-<li class="chapter" data-level="7.2" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-median-pem"><i class="fa fa-check"></i><b>7.2</b> Percentage exceeding the median (PEM)</a></li>
-<li class="chapter" data-level="7.3" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-exceeding-the-regression-trend-pet"><i class="fa fa-check"></i><b>7.3</b> Percentage exceeding the regression trend (PET)</a></li>
-<li class="chapter" data-level="7.4" data-path="overlapping-indices.html"><a href="overlapping-indices.html#percentage-of-all-non-overlapping-data-pand"><i class="fa fa-check"></i><b>7.4</b> Percentage of all non-overlapping data (PAND)</a></li>
-<li class="chapter" data-level="7.5" data-path="overlapping-indices.html"><a href="overlapping-indices.html#nonoverlap-of-all-pairs-nap"><i class="fa fa-check"></i><b>7.5</b> Nonoverlap of all pairs (NAP)</a></li>
-<li class="chapter" data-level="7.6" data-path="overlapping-indices.html"><a href="overlapping-indices.html#tau-u"><i class="fa fa-check"></i><b>7.6</b> Tau-U</a></li>
-<li class="chapter" data-level="7.7" data-path="overlapping-indices.html"><a href="overlapping-indices.html#reliable-change-index"><i class="fa fa-check"></i><b>7.7</b> Reliable change index</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html"><i class="fa fa-check"></i><b>8</b> Piecewise linear regressions</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#the-basic-plm-function"><i class="fa fa-check"></i><b>8.1</b> The basic plm function</a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#dummy-model"><i class="fa fa-check"></i><b>8.1.1</b> Dummy model</a></li>
-<li class="chapter" data-level="8.1.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adjusting-the-model"><i class="fa fa-check"></i><b>8.1.2</b> Adjusting the model</a></li>
-<li class="chapter" data-level="8.1.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-predictors"><i class="fa fa-check"></i><b>8.1.3</b> Adding additional predictors</a></li>
-<li class="chapter" data-level="8.1.4" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-modelling-autoregression"><i class="fa fa-check"></i><b>8.1.4</b> [to be written] Modelling autoregression</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#to-be-written-multivariate-piecewise-regression"><i class="fa fa-check"></i><b>8.2</b> [to be written] Multivariate piecewise regression</a></li>
-<li class="chapter" data-level="8.3" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#multilevel-plm-analyses"><i class="fa fa-check"></i><b>8.3</b> Multilevel plm analyses</a>
-<ul>
-<li class="chapter" data-level="8.3.1" data-path="piecewise-linear-regressions.html"><a href="piecewise-linear-regressions.html#adding-additional-l2-variables"><i class="fa fa-check"></i><b>8.3.1</b> Adding additional L2-variables</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="randomization-tests.html"><a href="randomization-tests.html"><i class="fa fa-check"></i><b>9</b> Randomization tests</a></li>
-<li class="chapter" data-level="10" data-path="default-settings.html"><a href="default-settings.html"><i class="fa fa-check"></i><b>10</b> Default settings</a></li>
-<li class="chapter" data-level="11" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html"><i class="fa fa-check"></i><b>11</b> Exporting <em>scan</em> results</a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#single-case-data-files"><i class="fa fa-check"></i><b>11.1</b> Single case data files</a></li>
-<li class="chapter" data-level="11.2" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#descriptive-stats"><i class="fa fa-check"></i><b>11.2</b> Descriptive stats</a></li>
-<li class="chapter" data-level="11.3" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#overlap-indices"><i class="fa fa-check"></i><b>11.3</b> Overlap indices</a></li>
-<li class="chapter" data-level="11.4" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#piecewise-linear-models"><i class="fa fa-check"></i><b>11.4</b> Piecewise linear models</a></li>
-<li class="chapter" data-level="11.5" data-path="exporting-scan-results.html"><a href="exporting-scan-results.html#hierarchical-piecewise-regressions"><i class="fa fa-check"></i><b>11.5</b> Hierarchical piecewise regressions</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the author</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="divider"></li>
-Published with bookdown
-
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Analyzing single-case data with R and scan</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyzing single-case data with R and scan</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="some-things-about-r.html"><span class="header-section-number">2</span> Some things about R</a></li>
+<li><a class="" href="the-scan-package.html"><span class="header-section-number">3</span> The scan package</a></li>
+<li><a class="active" href="managing-single-case-data.html"><span class="header-section-number">4</span> Managing single-case data</a></li>
+<li><a class="" href="creating-a-single-case-data-plot.html"><span class="header-section-number">5</span> Creating a single-case data plot</a></li>
+<li><a class="" href="describe-and-manipulate-single-case-data-frames.html"><span class="header-section-number">6</span> Describe and manipulate single-case data frames</a></li>
+<li><a class="" href="overlapping-indices.html"><span class="header-section-number">7</span> Overlapping indices</a></li>
+<li><a class="" href="piecewise-linear-regressions.html"><span class="header-section-number">8</span> Piecewise linear regressions</a></li>
+<li><a class="" href="randomization-tests.html"><span class="header-section-number">9</span> Randomization tests</a></li>
+<li><a class="" href="default-settings.html"><span class="header-section-number">10</span> Default settings</a></li>
+<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">11</span> Exporting scan results</a></li>
+<li><a class="" href="about-the-author.html">About the author</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/jazznbass/scan-Book">View book source <i class="fab fa-github"></i></a></p>
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="managing-single-case-data" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Managing single-case data</h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="managing-single-case-data" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Managing single-case data<a class="anchor" aria-label="anchor" href="#managing-single-case-data"><i class="fas fa-link"></i></a>
+</h1>
 <div id="a-single-case-data-frame" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> A <strong><em>single-case data frame</em></strong></h2>
+<h2>
+<span class="header-section-number">4.1</span> A <strong><em>single-case data frame</em></strong><a class="anchor" aria-label="anchor" href="#a-single-case-data-frame"><i class="fas fa-link"></i></a>
+</h2>
 <p>Scan provides its own data-class for encoding single-case data: the <em>single-case data frame</em> (short <em>scdf</em>). An <em>scdf</em> is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an scdf as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured <strong>values</strong>, the <strong>phase</strong> identifier for each measured value, and the measurement time (<strong>mt</strong>) of each measure. Optionally, scdfs could include further variables for each single-case (e.g., control variables), and also a name for each case.</p>
 <div class="rmdnote">
 <p>
@@ -299,29 +85,31 @@ Technically, an scdf object is a list containing data frames. It is of the class
 <p>Several functions are available for creating, transforming, merging, and importing/exporting <em>scdfs</em>.</p>
 </div>
 <div id="creating-scdfs" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Creating scdfs</h2>
-<table>
- <tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+<h2>
+<span class="header-section-number">4.2</span> Creating scdfs<a class="anchor" aria-label="anchor" href="#creating-scdfs"><i class="fas fa-link"></i></a>
+</h2>
+<div class="inline-table"><table class="table table-sm"><tr>
+<td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> scdf(values, B.start, mt, phase, phase.design, name, dvar = "values", pvar = "phase", mvar = "mt", ...) </font></td>
- </tr>
-</table>  
+ </tr></table></div>
 <p>The <code>scdf</code> function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement <em>values</em> and the <em>phase</em> structure and a scdf object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the <code>B.start</code> argument, second, defining a design with the <code>phase.design</code> argument and third, setting parameters in a named vector of the dependent variable.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="managing-single-case-data.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Three ways to code the same scdf</span></span>
-<span id="cb17-2"><a href="managing-single-case-data.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>, <span class="at">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>))</span>
-<span id="cb17-3"><a href="managing-single-case-data.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>), <span class="at">B.start =</span> <span class="dv">5</span>)</span>
-<span id="cb17-4"><a href="managing-single-case-data.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>), <span class="at">phase.design =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">4</span>, <span class="at">B =</span> <span class="dv">6</span>))</span></code></pre></div>
-<p>The <code>B.start</code> argument is only applicable when the single-case consists of a single A-phase followed by a B-phase. It is a remnant from the time when <code>scan</code> could only handle sign-case designs with two phases. The number assigned to <code>B.start</code> indicates the measurement-time as defined in the <code>mt</code> argument. That is, assume a vector for the measurement times <code>mt = c(1,3,7,10,15,17,18,20)</code> and <code>B.start = 15</code> then the first measurement of the B-phase will start with the fifth measurement at which <em>mt</em> = 15.<br />
-The <code>phase.design</code> argument is a named vector with the name and length of each phase. The phase names can be set arbitrary, although I recommend to use capital letters (A, B, C, …) for each phase followed by, when indicated, a number if the phases repeat (A1, B1, A2, B2, …). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with <em>scan</em>.<br />
-When the vector of the dependent variable includes named values, a phase.design structure is created automatically. Each named value sets the beginning of a new phase. For example <code>c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)</code> will create an ABC-phase design with 3, 3, and 4 values per phase.<br />
-Use only one of the three methods at a time and I recommend to use the <code>phase.design</code> argument or the named vector method as they are the most versatile.<br />
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">### Three ways to code the same scdf</span>
+<span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>, B <span class="op">=</span> <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span><span class="op">)</span>, B.start <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span><span class="op">)</span>, phase.design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">4</span>, B <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>The <code>B.start</code> argument is only applicable when the single-case consists of a single A-phase followed by a B-phase. It is a remnant from the time when <code>scan</code> could only handle sign-case designs with two phases. The number assigned to <code>B.start</code> indicates the measurement-time as defined in the <code>mt</code> argument. That is, assume a vector for the measurement times <code>mt = c(1,3,7,10,15,17,18,20)</code> and <code>B.start = 15</code> then the first measurement of the B-phase will start with the fifth measurement at which <em>mt</em> = 15.<br>
+The <code>phase.design</code> argument is a named vector with the name and length of each phase. The phase names can be set arbitrary, although I recommend to use capital letters (A, B, C, …) for each phase followed by, when indicated, a number if the phases repeat (A1, B1, A2, B2, …). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with <em>scan</em>.<br>
+When the vector of the dependent variable includes named values, a phase.design structure is created automatically. Each named value sets the beginning of a new phase. For example <code><a href="https://rdrr.io/r/base/c.html">c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)</a></code> will create an ABC-phase design with 3, 3, and 4 values per phase.<br>
+Use only one of the three methods at a time and I recommend to use the <code>phase.design</code> argument or the named vector method as they are the most versatile.<br>
 If no measurement times are given, scdf automatically adds them numbered sequentially 1, 2, 3, …, <em>N</em> where <em>N</em> is the number of measurements. in some circumstances it might be useful to define individual measurement times for each measurement. For example, if you want to include the days since the beginning of the study as time intervals between measurements are widely varying you might get more valid results this way when analyzing the data in a regression approach.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="managing-single-case-data.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example of a more complex design </span></span>
-<span id="cb18-2"><a href="managing-single-case-data.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(</span>
-<span id="cb18-3"><a href="managing-single-case-data.html#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>, <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>, <span class="dv">12</span>,<span class="dv">11</span>,<span class="dv">13</span>), </span>
-<span id="cb18-4"><a href="managing-single-case-data.html#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mt =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">6</span>, <span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">16</span>,<span class="dv">18</span>, <span class="dv">27</span>,<span class="dv">28</span>,<span class="dv">29</span>),</span>
-<span id="cb18-5"><a href="managing-single-case-data.html#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">phase.design =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">4</span>, <span class="at">B =</span> <span class="dv">6</span>, <span class="at">C =</span> <span class="dv">3</span>)</span>
-<span id="cb18-6"><a href="managing-single-case-data.html#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># example of a more complex design </span>
+<span class="fu">scdf</span><span class="op">(</span>
+  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span>, <span class="fl">12</span>,<span class="fl">11</span>,<span class="fl">13</span><span class="op">)</span>, 
+  mt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">6</span>, <span class="fl">8</span>,<span class="fl">9</span>,<span class="fl">11</span>,<span class="fl">12</span>,<span class="fl">16</span>,<span class="fl">18</span>, <span class="fl">27</span>,<span class="fl">28</span>,<span class="fl">29</span><span class="op">)</span>,
+  phase.design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">4</span>, B <span class="op">=</span> <span class="fl">6</span>, C <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with one case
 
  Case1: values mt phase
@@ -339,13 +127,15 @@ If no measurement times are given, scdf automatically adds them numbered sequent
             11 28     C
             13 29     C</code></pre>
 <p>Missing values could be coded using <code>NA</code>.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="managing-single-case-data.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="dv">5</span>, <span class="at">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="cn">NA</span>,<span class="dv">7</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">2</span>,<span class="fl">2</span>,<span class="cn">NA</span>,<span class="fl">5</span>, B <span class="op">=</span> <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="cn">NA</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>More variables are implemented by adding new variable names with a vector containing the values. Please be aware that a new variable must never have the same name as one of the arguments of the function (i.e. B.start, phase.design, name, dvar, pvar, mvar).</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="managing-single-case-data.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(</span>
-<span id="cb21-2"><a href="managing-single-case-data.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>, <span class="at">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">7</span>,<span class="dv">7</span>), </span>
-<span id="cb21-3"><a href="managing-single-case-data.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">teacher =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), </span>
-<span id="cb21-4"><a href="managing-single-case-data.html#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">hour =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
-<span id="cb21-5"><a href="managing-single-case-data.html#cb21-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">scdf</span><span class="op">(</span>
+  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">5</span>, B <span class="op">=</span> <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">7</span><span class="op">)</span>, 
+  teacher <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, 
+  hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">6</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with one case
 
  Case1: values teacher hour mt phase
@@ -360,20 +150,18 @@ If no measurement times are given, scdf automatically adds them numbered sequent
              7       0    2  9     B
              7       1    2 10     B</code></pre>
 <p>Table <a href="managing-single-case-data.html#tab:table-scdf">4.1</a> shows a complete list of arguments that could be passed to the function.</p>
-<table class=" lightable-classic" style="width: auto !important; ">
+<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
 <caption>
 <span id="tab:table-scdf">Table 4.1: </span>Arguments of the scdf function
 </caption>
-<thead>
-<tr>
+<thead><tr>
 <th style="text-align:left;">
 Argument
 </th>
 <th style="text-align:left;">
 What it does …
 </th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
@@ -456,41 +244,43 @@ Any number of variables with a vector asigned to them.
 </td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>If you want to create a data-set comprising several single-cases the easiest way is to first create an scdf for each case and then join them into a new scdf with the <code>c</code> command:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="managing-single-case-data.html#cb23-1" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
-<span id="cb23-2"><a href="managing-single-case-data.html#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="at">B =</span> <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">19</span>), </span>
-<span id="cb23-3"><a href="managing-single-case-data.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;Charlotte&quot;</span></span>
-<span id="cb23-4"><a href="managing-single-case-data.html#cb23-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-5"><a href="managing-single-case-data.html#cb23-5" aria-hidden="true" tabindex="-1"></a>case2 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
-<span id="cb23-6"><a href="managing-single-case-data.html#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="at">B =</span> <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>), </span>
-<span id="cb23-7"><a href="managing-single-case-data.html#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;Theresa&quot;</span></span>
-<span id="cb23-8"><a href="managing-single-case-data.html#cb23-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-9"><a href="managing-single-case-data.html#cb23-9" aria-hidden="true" tabindex="-1"></a>case3 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
-<span id="cb23-10"><a href="managing-single-case-data.html#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="at">B =</span> <span class="dv">6</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">16</span>), </span>
-<span id="cb23-11"><a href="managing-single-case-data.html#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;Antonia&quot;</span></span>
-<span id="cb23-12"><a href="managing-single-case-data.html#cb23-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb23-13"><a href="managing-single-case-data.html#cb23-13" aria-hidden="true" tabindex="-1"></a>mbd <span class="ot">&lt;-</span> <span class="fu">c</span>(case1, case2, case3)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">case1</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">12</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">18</span>, <span class="fl">15</span>, <span class="fl">14</span>, <span class="fl">19</span><span class="op">)</span>, 
+  name <span class="op">=</span> <span class="st">"Charlotte"</span>
+<span class="op">)</span>
+<span class="va">case2</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">5</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">12</span><span class="op">)</span>, 
+  name <span class="op">=</span> <span class="st">"Theresa"</span>
+<span class="op">)</span>
+<span class="va">case3</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">7</span>, <span class="fl">5</span>, <span class="fl">7</span>, B <span class="op">=</span> <span class="fl">6</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">16</span><span class="op">)</span>, 
+  name <span class="op">=</span> <span class="st">"Antonia"</span>
+<span class="op">)</span>
+<span class="va">mbd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">case1</span>, <span class="va">case2</span>, <span class="va">case3</span><span class="op">)</span></code></pre></div>
 <p>If you like to use other than the default variable names (“values,” “phase,” and “mt”) you could define these with the <code>dvar</code> (for the dependent variable), <code>pvar</code> (the variable indicating the phase), and <code>mvar</code> (the measurement-time variable) arguments.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="managing-single-case-data.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Using a different name for the dependent variable</span></span>
-<span id="cb24-2"><a href="managing-single-case-data.html#cb24-2" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
-<span id="cb24-3"><a href="managing-single-case-data.html#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="at">B =</span> <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">19</span>), </span>
-<span id="cb24-4"><a href="managing-single-case-data.html#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dvar =</span> <span class="st">&quot;score&quot;</span></span>
-<span id="cb24-5"><a href="managing-single-case-data.html#cb24-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-6"><a href="managing-single-case-data.html#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="managing-single-case-data.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Using new names for the dependent and the phase variables</span></span>
-<span id="cb24-8"><a href="managing-single-case-data.html#cb24-8" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
-<span id="cb24-9"><a href="managing-single-case-data.html#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="at">B =</span> <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>), </span>
-<span id="cb24-10"><a href="managing-single-case-data.html#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dvar =</span> <span class="st">&quot;score&quot;</span>, <span class="at">pvar =</span> <span class="st">&quot;section&quot;</span></span>
-<span id="cb24-11"><a href="managing-single-case-data.html#cb24-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-12"><a href="managing-single-case-data.html#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="managing-single-case-data.html#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Using new names for dependent, phase, and measurement-time variables</span></span>
-<span id="cb24-14"><a href="managing-single-case-data.html#cb24-14" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
-<span id="cb24-15"><a href="managing-single-case-data.html#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="at">B =</span> <span class="dv">6</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">16</span>), </span>
-<span id="cb24-16"><a href="managing-single-case-data.html#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">&quot;Antonia&quot;</span>, <span class="at">dvar =</span> <span class="st">&quot;score&quot;</span>, <span class="at">pvar =</span> <span class="st">&quot;section&quot;</span>, <span class="at">mvar =</span> <span class="st">&quot;day&quot;</span></span>
-<span id="cb24-17"><a href="managing-single-case-data.html#cb24-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb24-18"><a href="managing-single-case-data.html#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-19"><a href="managing-single-case-data.html#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(case)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Example: Using a different name for the dependent variable</span>
+<span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">12</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">18</span>, <span class="fl">15</span>, <span class="fl">14</span>, <span class="fl">19</span><span class="op">)</span>, 
+  dvar <span class="op">=</span> <span class="st">"score"</span>
+<span class="op">)</span>
+
+<span class="co"># Example: Using new names for the dependent and the phase variables</span>
+<span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">5</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">12</span><span class="op">)</span>, 
+  dvar <span class="op">=</span> <span class="st">"score"</span>, pvar <span class="op">=</span> <span class="st">"section"</span>
+<span class="op">)</span>
+
+<span class="co"># Example: Using new names for dependent, phase, and measurement-time variables</span>
+<span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">7</span>, <span class="fl">5</span>, <span class="fl">7</span>, B <span class="op">=</span> <span class="fl">6</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">16</span><span class="op">)</span>, 
+  name <span class="op">=</span> <span class="st">"Antonia"</span>, dvar <span class="op">=</span> <span class="st">"score"</span>, pvar <span class="op">=</span> <span class="st">"section"</span>, mvar <span class="op">=</span> <span class="st">"day"</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">case</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with one case
 
          Measurements Design
@@ -502,30 +292,33 @@ day &lt;measurement-time variable&gt;
 section &lt;phase variable&gt;</code></pre>
 </div>
 <div id="saving-and-reading-single-case-data-frames" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Saving and reading <em>single-case data frames</em></h2>
-<p>Usually, it is not needed to save an scdf to a separate file on your computer. In most of the cases you could keep the coding of the <em>scdf</em> as described above and rerun it every time that you are working with your data. But sometimes it is more convenient to separately save the data to a file for later use or to send them to a colleague.<br />
-The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> and <code>readRDS</code> for this purpose. <code>saveRDS</code> takes at least two arguments: the first is the object you like to save and the second is a file name for the resulting file. If you have an <em>scdf</em> with the name <code>study1</code> the line <code>saveRDS(study1, "study1.rds")</code> will save the <em>scdf</em> to your drive. You could later read this file with <code>study1 &lt;- readRDS("study1.rds")</code>. <code>getwd()</code> will return the current active folder that you are working in.</p>
+<h2>
+<span class="header-section-number">4.3</span> Saving and reading <em>single-case data frames</em><a class="anchor" aria-label="anchor" href="#saving-and-reading-single-case-data-frames"><i class="fas fa-link"></i></a>
+</h2>
+<p>Usually, it is not needed to save an scdf to a separate file on your computer. In most of the cases you could keep the coding of the <em>scdf</em> as described above and rerun it every time that you are working with your data. But sometimes it is more convenient to separately save the data to a file for later use or to send them to a colleague.<br>
+The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> and <code>readRDS</code> for this purpose. <code>saveRDS</code> takes at least two arguments: the first is the object you like to save and the second is a file name for the resulting file. If you have an <em>scdf</em> with the name <code>study1</code> the line <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS(study1, "study1.rds")</a></code> will save the <em>scdf</em> to your drive. You could later read this file with <code>study1 &lt;- readRDS("study1.rds")</code>. <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> will return the current active folder that you are working in.</p>
 </div>
 <div id="import-and-export-single-case-data-frames" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Import and export <em>single-case data frames</em></h2>
-<table>
- <tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+<h2>
+<span class="header-section-number">4.4</span> Import and export <em>single-case data frames</em><a class="anchor" aria-label="anchor" href="#import-and-export-single-case-data-frames"><i class="fas fa-link"></i></a>
+</h2>
+<div class="inline-table"><table class="table table-sm"><tr>
+<td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> readSC(filename = NULL, data = NULL, sep = ",", dec = ".", sort.labels = FALSE, cvar = "case", pvar = "phase", dvar = "values", mvar = "mt", phase.names = NULL, type = "csv", ...) </font></td>
- </tr>
-</table>  
+ </tr></table></div>
 <p>When you are working with other programs besides <strong>R</strong> you need to export and import the <em>scdf</em> into a common file format. <code>readSC</code> imports a comma-separated-variable (<em>csv</em>) file and converts it into an <em>scdf</em> object. By default, the csv-file has to contain the columns <em>case</em>, <em>phase</em>, and <em>values</em>. Optionally, a further column named <em>mt</em> could be provided. The csv file should be build up like this:</p>
 <div class="figure">
-<img src="images/readSC.jpg" width="300" alt="" />
-<p class="caption">How to format a single-case file in a spreadsheet program for importing into scan</p>
+<img src="images/readSC.jpg" width="300" alt=""><p class="caption">How to format a single-case file in a spreadsheet program for importing into scan</p>
 </div>
 <p>In case your variables names differ from the standard (i.e. “case,” “values,” “phase,” and “mt” ), you could set additional arguments to fit your file. <code>readSC("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")</code> for example will set the variables attributes of the resulting scdf. Cases will be split by the variable <code>"name"</code>, <code>"wellbeing"</code> is set as the dependent variable (default is <em>values</em>), phase information are in the variable <code>"intervention"</code>, and measurement times in the variable <code>"time"</code>. You could also reassign the phase names within the phase variable by setting the argument <code>phase.names</code>. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to “A” and “B” with <code>readSC("example.csv", phase.names = c("A", "B"))</code>.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="managing-single-case-data.html#cb26-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">readSC.excel</span>(</span>
-<span id="cb26-2"><a href="managing-single-case-data.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;example2.xlsx&quot;</span>, <span class="at">cvar =</span> <span class="st">&quot;name&quot;</span>, <span class="at">pvar =</span> <span class="st">&quot;intervention&quot;</span>, </span>
-<span id="cb26-3"><a href="managing-single-case-data.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dvar =</span> <span class="st">&quot;wellbeing&quot;</span>, <span class="at">mvar =</span> <span class="st">&quot;time&quot;</span>, <span class="at">phase.names =</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span>
-<span id="cb26-4"><a href="managing-single-case-data.html#cb26-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">readSC.excel</span><span class="op">(</span>
+  <span class="st">"example2.xlsx"</span>, cvar <span class="op">=</span> <span class="st">"name"</span>, pvar <span class="op">=</span> <span class="st">"intervention"</span>, 
+  dvar <span class="op">=</span> <span class="st">"wellbeing"</span>, mvar <span class="op">=</span> <span class="st">"time"</span>, phase.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>Imported 20 cases.</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="managing-single-case-data.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 20 cases
 
           Measurements Design
@@ -560,19 +353,20 @@ gym</code></pre>
 <p>For some reasons, computer systems with a German (and some other) language setups export csv-files by default with a comma as a decimal point and a semicolon as a separator between values. In these cases you have to set two extra arguments to import the data:</p>
 <p><code>readSC("example.csv", dec = ",", sep = ";")</code></p>
 <p><code>readSC.excel</code> allows for directly importing <em>Microsoft Excel</em> <code>.xlsx</code> or <code>.xls</code> files. You need to have the library <code>readxl</code> installed in your R setup for this to work.</p>
-<table>
- <tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height=49 width=45></td> 
+<div class="inline-table"><table class="table table-sm"><tr>
+<td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> writeSC(data, filename = NULL, sep = ",", dec = ".", ...) </font></td>
- </tr>
-</table>  
+ </tr></table></div>
 <p><code>writeSC</code> exports an scdf object as a comma-separated-variables file (<em>csv</em>) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The scdf object is converted into a single data frame with a <em>case</em> variable identifying the rows for each subject. The first argument of the command identifies the scdf to be exported and the second argument (<code>file</code>) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the <code>dec</code> and the <code>sep</code> arguments. For example, <code>writeSC(example, file = "example.csv", dec = ",", sep = ";")</code> exports a csv variation usually used for example in Germany.</p>
 </div>
 <div id="displaying-scdf-files" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> Displaying scdf-files</h2>
+<h2>
+<span class="header-section-number">4.5</span> Displaying scdf-files<a class="anchor" aria-label="anchor" href="#displaying-scdf-files"><i class="fas fa-link"></i></a>
+</h2>
 <p><em>scdf</em> are displayed by just typing the name of the object.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="managing-single-case-data.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Beretvas2008 is an example scdf included in scan</span></span>
-<span id="cb30-2"><a href="managing-single-case-data.html#cb30-2" aria-hidden="true" tabindex="-1"></a>Beretvas2008</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Beretvas2008 is an example scdf included in scan</span>
+<span class="va">Beretvas2008</span></code></pre></div>
 <pre><code>#A single-case data frame with one case
 
  Case1: values mt phase
@@ -592,8 +386,9 @@ gym</code></pre>
           12.7 14     B
             14 15     B</code></pre>
 <p>The <code>print</code> command allows for specifying the output. Some possible arguments are <code>cases</code> (the number of cases to be displayed; Three by default), <code>rows</code> (the maximum number of rows to be displayed; Fifteen by default), and <code>digits</code> (number of digits). <code>cases = 'all'</code> and <code>rows = 'all'</code> prints all cases and rows.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="managing-single-case-data.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Huber2014 is an example scdf included in scan</span></span>
-<span id="cb32-2"><a href="managing-single-case-data.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Huber2014, <span class="at">cases =</span> <span class="dv">2</span>, <span class="at">rows =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#Huber2014 is an example scdf included in scan</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">Huber2014</span>, cases <span class="op">=</span> <span class="fl">2</span>, rows <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 4 cases
 
  Adam: mt compliance phase | Berta: mt compliance phase |
@@ -609,9 +404,10 @@ gym</code></pre>
        10         40     A |        10       32.5     A |
 # ... up to 66 more rows
 #  2 more cases</code></pre>
-<p>The argument <code>long = TRUE</code> prints each case one after the other instead side by side (e.g., <code>print(exampleAB, long = TRUE)</code>).</p>
-<p><code>summary()</code> gives a very concise overview of the <em>scdf</em></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="managing-single-case-data.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Huber2014)</span></code></pre></div>
+<p>The argument <code>long = TRUE</code> prints each case one after the other instead side by side (e.g., <code><a href="https://rdrr.io/r/base/print.html">print(exampleAB, long = TRUE)</a></code>).</p>
+<p><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> gives a very concise overview of the <em>scdf</em></p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Huber2014</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 4 cases
 
            Measurements Design
@@ -630,16 +426,23 @@ Note:  Behavioral data (compliance in percent).
 Author of data:  Christian Huber </code></pre>
 </div>
 <div id="selecting-cases-measurements-and-variables" class="section level2" number="4.6">
-<h2><span class="header-section-number">4.6</span> Selecting cases, measurements, and variables</h2>
+<h2>
+<span class="header-section-number">4.6</span> Selecting cases, measurements, and variables<a class="anchor" aria-label="anchor" href="#selecting-cases-measurements-and-variables"><i class="fas fa-link"></i></a>
+</h2>
 <div id="subsetting-with-base-r-syntax" class="section level3" number="4.6.1">
-<h3><span class="header-section-number">4.6.1</span> Subsetting with base R syntax</h3>
-<p>You can extract one or more single-cases from an <em>scdf</em> with multiple cases in two ways. If the case has a name, you can address it with the <code>$</code> operator.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="managing-single-case-data.html#cb36-1" aria-hidden="true" tabindex="-1"></a>Huber2014<span class="sc">$</span>David</span></code></pre></div>
+<h3>
+<span class="header-section-number">4.6.1</span> Subsetting with base R syntax<a class="anchor" aria-label="anchor" href="#subsetting-with-base-r-syntax"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can extract one or more single-cases from an <em>scdf</em> with multiple cases in two ways. If the case has a name, you can address it with the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator.</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Huber2014</span><span class="op">$</span><span class="va">David</span></code></pre></div>
 <p>or you can use squared brackets</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="managing-single-case-data.html#cb37-1" aria-hidden="true" tabindex="-1"></a>Huber2014[<span class="dv">1</span>] <span class="co">#extracts case 1</span></span>
-<span id="cb37-2"><a href="managing-single-case-data.html#cb37-2" aria-hidden="true" tabindex="-1"></a>Huber2014[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="co">#extracts cases 2 and 3</span></span></code></pre></div>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="managing-single-case-data.html#cb38-1" aria-hidden="true" tabindex="-1"></a>new.huber2014 <span class="ot">&lt;-</span> Huber2014[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>)] <span class="co">#extracts cases 1 and 4</span></span>
-<span id="cb38-2"><a href="managing-single-case-data.html#cb38-2" aria-hidden="true" tabindex="-1"></a>new.huber2014</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Huber2014</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co">#extracts case 1</span>
+<span class="va">Huber2014</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co">#extracts cases 2 and 3</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">new.huber2014</span> <span class="op">&lt;-</span> <span class="va">Huber2014</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span> <span class="co">#extracts cases 1 and 4</span>
+<span class="va">new.huber2014</span></code></pre></div>
 <pre><code>#A single-case data frame with 2 cases
 
  Adam: mt compliance phase | David: mt compliance phase |
@@ -661,13 +464,16 @@ Author of data:  Christian Huber </code></pre>
 # ... up to 61 more rows</code></pre>
 </div>
 <div id="select-cases" class="section level3" number="4.6.2">
-<h3><span class="header-section-number">4.6.2</span> Select cases</h3>
+<h3>
+<span class="header-section-number">4.6.2</span> Select cases<a class="anchor" aria-label="anchor" href="#select-cases"><i class="fas fa-link"></i></a>
+</h3>
 <p>Since version 0.53 scan includes some functions to work with pipe-operators. Therefore, we will provide syntax examples with and without pipe operators.</p>
 <p>The <code>select_cases()</code> function takes case-names and/or numbers for selecting cases:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="managing-single-case-data.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With pipes:</span></span>
-<span id="cb40-2"><a href="managing-single-case-data.html#cb40-2" aria-hidden="true" tabindex="-1"></a>Huber2014 <span class="sc">%&gt;%</span></span>
-<span id="cb40-3"><a href="managing-single-case-data.html#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_cases</span>(<span class="st">&quot;Adam&quot;</span>, <span class="st">&quot;Berta&quot;</span>, <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-4"><a href="managing-single-case-data.html#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># With pipes:</span>
+<span class="va">Huber2014</span> <span class="op">%&gt;%</span>
+  <span class="fu">select_cases</span><span class="op">(</span><span class="st">"Adam"</span>, <span class="st">"Berta"</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases
 
        Measurements Design
@@ -683,77 +489,64 @@ phase &lt;phase variable&gt;
 
 Note:  Behavioral data (compliance in percent).
 Author of data:  Christian Huber </code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="managing-single-case-data.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Without pipes:</span></span>
-<span id="cb42-2"><a href="managing-single-case-data.html#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="managing-single-case-data.html#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># new_huber &lt;- select_cases(Huber2014, &quot;Adam&quot;, &quot;Berta&quot;, 4)</span></span>
-<span id="cb42-4"><a href="managing-single-case-data.html#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(new_huber)</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Without pipes:</span>
+
+<span class="co"># new_huber &lt;- select_cases(Huber2014, "Adam", "Berta", 4)</span>
+<span class="co"># summary(new_huber)</span></code></pre></div>
 </div>
 <div id="select-variables-measurement-times-and-phases" class="section level3" number="4.6.3">
-<h3><span class="header-section-number">4.6.3</span> Select variables, measurement-times, and phases</h3>
+<h3>
+<span class="header-section-number">4.6.3</span> Select variables, measurement-times, and phases<a class="anchor" aria-label="anchor" href="#select-variables-measurement-times-and-phases"><i class="fas fa-link"></i></a>
+</h3>
 
 </div>
 </div>
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="the-scan-package.html"><span class="header-section-number">3</span> The scan package</a></div>
+<div class="next"><a href="creating-a-single-case-data-plot.html"><span class="header-section-number">5</span> Creating a single-case data plot</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#managing-single-case-data"><span class="header-section-number">4</span> Managing single-case data</a></li>
+<li><a class="nav-link" href="#a-single-case-data-frame"><span class="header-section-number">4.1</span> A single-case data frame</a></li>
+<li><a class="nav-link" href="#creating-scdfs"><span class="header-section-number">4.2</span> Creating scdfs</a></li>
+<li><a class="nav-link" href="#saving-and-reading-single-case-data-frames"><span class="header-section-number">4.3</span> Saving and reading single-case data frames</a></li>
+<li><a class="nav-link" href="#import-and-export-single-case-data-frames"><span class="header-section-number">4.4</span> Import and export single-case data frames</a></li>
+<li><a class="nav-link" href="#displaying-scdf-files"><span class="header-section-number">4.5</span> Displaying scdf-files</a></li>
+<li>
+<a class="nav-link" href="#selecting-cases-measurements-and-variables"><span class="header-section-number">4.6</span> Selecting cases, measurements, and variables</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#subsetting-with-base-r-syntax"><span class="header-section-number">4.6.1</span> Subsetting with base R syntax</a></li>
+<li><a class="nav-link" href="#select-cases"><span class="header-section-number">4.6.2</span> Select cases</a></li>
+<li><a class="nav-link" href="#select-variables-measurement-times-and-phases"><span class="header-section-number">4.6.3</span> Select variables, measurement-times, and phases</a></li>
+</ul>
+</li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="the-scan-package.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="creating-a-single-case-data-plot.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/jazznbass/scan-Book/blob/master/ch_managing_Data.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/jazznbass/scan-Book/edit/master/ch_managing_Data.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-11-12.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["scan-book.pdf"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
 </body>
-
 </html>
