@@ -304,7 +304,7 @@ The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> an
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> readSC(filename = NULL, data = NULL, sep = ",", dec = ".", sort.labels = FALSE, cvar = "case", pvar = "phase", dvar = "values", mvar = "mt", phase.names = NULL, type = "csv", ...) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> readSC(...) </font></td>
  </tr></table></div>
 <p>When you are working with other programs besides <strong>R</strong> you need to export and import the <em>scdf</em> into a common file format. <code>readSC</code> imports a comma-separated-variable (<em>csv</em>) file and converts it into an <em>scdf</em> object. By default, the csv-file has to contain the columns <em>case</em>, <em>phase</em>, and <em>values</em>. Optionally, a further column named <em>mt</em> could be provided. The csv file should be build up like this:</p>
 <div class="figure">
@@ -316,7 +316,7 @@ The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> an
   <span class="st">"example2.xlsx"</span>, cvar <span class="op">=</span> <span class="st">"name"</span>, pvar <span class="op">=</span> <span class="st">"intervention"</span>, 
   dvar <span class="op">=</span> <span class="st">"wellbeing"</span>, mvar <span class="op">=</span> <span class="st">"time"</span>, phase.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
-<pre><code>Imported 20 cases.</code></pre>
+<pre><code>Loaded 20 cases.</code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 20 cases
@@ -355,7 +355,7 @@ gym</code></pre>
 <p><code>readSC.excel</code> allows for directly importing <em>Microsoft Excel</em> <code>.xlsx</code> or <code>.xls</code> files. You need to have the library <code>readxl</code> installed in your R setup for this to work.</p>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> writeSC(data, filename = NULL, sep = ",", dec = ".", ...) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> writeSC(...) </font></td>
  </tr></table></div>
 <p><code>writeSC</code> exports an scdf object as a comma-separated-variables file (<em>csv</em>) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The scdf object is converted into a single data frame with a <em>case</em> variable identifying the rows for each subject. The first argument of the command identifies the scdf to be exported and the second argument (<code>file</code>) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the <code>dec</code> and the <code>sep</code> arguments. For example, <code>writeSC(example, file = "example.csv", dec = ",", sep = ";")</code> exports a csv variation usually used for example in Germany.</p>
 </div>
@@ -539,7 +539,7 @@ Author of data:  Christian Huber </code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-11-12.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-11-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

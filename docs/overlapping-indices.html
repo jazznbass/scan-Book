@@ -218,7 +218,7 @@ Figure 7.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phas
 PAND =  93.3 %
 Φ =  0.822  ; Φ² =  0.676 
 
-Number of Cases: 3 
+Number of cases: 3 
 Total measurements: 60  (in phase A: 15; in phase B: 45)
 n overlapping data per case: 0, 2, 2
 Total overlapping data: n = 4 ; percentage = 6.7 
@@ -269,7 +269,7 @@ z = 6.316, p = 0.000, τ = 0.822 </code></pre>
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> tau_u(data, dvar, pvar, tau_method = "b", method = "complete", phases = c(1, 2), meta_method = "random", continuity_correction = FALSE) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> tau_u(data, dvar, pvar, tau_method = "b", method = "complete", phases = c(1, 2), meta_method = "random", ci = 0.95, continuity_correction = FALSE) </font></td>
  </tr></table></div>
 <p>The <code>tau_u</code> function takes a <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. This procedure has been proposed by <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker, Vannest, Davis, &amp; Sauber</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span>.<br>
 The <code>tau_u</code> function provides two methods for calculation of Tau-U. By setting the argument <code>method = "parker"</code>, Tau-U is calculated as described in <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker et al.</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = "complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate.<br>
@@ -282,36 +282,38 @@ The standard return of the <code>tau_u</code> function does not display all calc
 <pre><code>Tau-U
 Method: complete 
 Applied Kendall's Tau-b
+95% CIs for tau are reported.
 
 Case: Case1 
-                            pairs pos neg ties  S    D   Tau SD_S VAR_S SE_Tau
-A vs. B                        20  19   1    0 18 20.0 0.900 8.16 66.67  0.408
-Trend A                         6   4   2    0  2  6.0 0.333 2.94  8.67  0.491
-Trend B                        10   8   2    0  6 10.0 0.600 4.08 16.67  0.408
-A vs. B - Trend A              26  21   5    0 16 30.6 0.523 8.68 75.33  0.284
-A vs. B + Trend B              30  27   3    0 24 32.9 0.730 9.13 83.33  0.278
-A vs. B + Trend B - Trend A    36  29   7    0 22 36.0 0.611 9.59 92.00  0.266
-                                Z       p
-A vs. B                     2.205 0.02749
-Trend A                     0.679 0.49691
-Trend B                     1.470 0.14164
-A vs. B - Trend A           1.843 0.06527
-A vs. B + Trend B           2.629 0.00856
-A vs. B + Trend B - Trend A 2.294 0.02181</code></pre>
+                            pairs pos neg ties  S    D   Tau CI lower CI upper
+A vs. B                        20  19   1    0 18 20.0 0.900   0.0998     1.70
+Trend A                         6   4   2    0  2  6.0 0.333  -0.6283     1.29
+Trend B                        10   8   2    0  6 10.0 0.600  -0.2002     1.40
+A vs. B - Trend A              26  21   5    0 16 30.6 0.523  -0.0331     1.08
+A vs. B + Trend B              30  27   3    0 24 32.9 0.730   0.1859     1.27
+A vs. B + Trend B - Trend A    36  29   7    0 22 36.0 0.611   0.0889     1.13
+                            SD_S VAR_S SE_Tau     Z       p
+A vs. B                     8.16 66.67  0.408 2.205 0.02749
+Trend A                     2.94  8.67  0.491 0.679 0.49691
+Trend B                     4.08 16.67  0.408 1.470 0.14164
+A vs. B - Trend A           8.68 75.33  0.284 1.843 0.06527
+A vs. B + Trend B           9.13 83.33  0.278 2.629 0.00856
+A vs. B + Trend B - Trend A 9.59 92.00  0.266 2.294 0.02181</code></pre>
 <div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tau_u</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>Tau-U
 Method: complete 
 Applied Kendall's Tau-b
+95% CIs for tau are reported.
 
 Overall Tau-U
 Meta-anlysis model: random effect
 
-                       Model Tau_U     se    z        p
-                     A vs. B 0.969 0.1772 5.47 4.54e-08
-           A vs. B - Trend A 0.590 0.1064 5.54 3.04e-08
-           A vs. B + Trend B 0.740 0.0960 7.71 1.29e-14
- A vs. B + Trend B - Trend A 0.731 0.0942 7.75 9.09e-15
+                       Model Tau_U     se CI lower CI upper    z        p
+                     A vs. B 0.969 0.1772    0.622    1.316 5.47 4.54e-08
+           A vs. B - Trend A 0.590 0.1064    0.381    0.798 5.54 3.04e-08
+           A vs. B + Trend B 0.740 0.0960    0.552    0.928 7.71 1.29e-14
+ A vs. B + Trend B - Trend A 0.731 0.0942    0.546    0.915 7.75 9.09e-15
 
 Case: Johanna 
                               Tau SE_Tau    Z     p
@@ -403,7 +405,7 @@ Hageman and Arrindell   18.49426</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-11-12.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-11-30.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
