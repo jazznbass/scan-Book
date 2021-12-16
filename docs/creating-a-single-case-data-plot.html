@@ -399,7 +399,7 @@ Figure 5.4: A plot with highlighted data-points
 Some styles only address specific elements (e.g., “small” or “tiny” just influence text and line sizes). These styles lend themselves to be combined with other styles. This could be achieved by providing several style names to the plot argument: <code>style = c("grid", "annotate", "small")</code>. A style overwrites the settings of all previously included style.<br>
 Beyond predefined styles, styles can be individually modified and created. New styles are provided as a <code>list</code> of several design parameters that are passed to the <code>style</code> argument of the <code>plot</code> function. Table <a href="creating-a-single-case-data-plot.html#tab:table-style">5.3</a> shows all design parameter that could be defined.<br>
 To define a new style, first create a list containing a plain design. The <code>style_plot</code> function returns such a list with the default values for a plain design (e.g., <code>mystyle &lt;- style_plot()</code>). Single design parameters can now be set by assigning a specific value within the list. For example, <code>newstyle$fill &lt;- "grey90"</code> will set the <code>fill</code> parameter to <code>"grey90"</code>. Alternatively, changes to the plain design can already by defined within the <code>style_plot</code> function. To set a light-blue background color and also an orange grid, create the style <code>style_plot(fill.bg = "lightblue", grid = "orange")</code>.
-If you do not want to start with the plain design but a different of the predefined styles, set the <code>style</code> argument. If, for example, you like to have the <code>grid</code> combined with the <code>big</code> style but want to change the color of the grid to orange type <code>style_plot(style = c("grid", "big"), col.grid = "orange")</code>. <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot(mydata, style = mystyle)</a></code> will apply the new style in a plot. Please note that the new style is not passed in quotation marks.</p>
+If you do not want to start with the plain design but a different of the predefined styles, set the <code>style</code> argument. If, for example, you like to have the <code>grid</code> combined with the <code>big</code> style but want to change the color of the grid to orange type <code>style_plot(style = c("grid", "big"), col.grid = "orange")</code>. <code>plot(mydata, style = mystyle)</code> will apply the new style in a plot. Please note that the new style is not passed in quotation marks.</p>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
 <caption>
 <span id="tab:table-style">Table 5.3: </span>Arguments of the style plot function
@@ -590,7 +590,7 @@ The <code>pch</code> argument can take several values for defining the symbol in
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-11-30.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-12-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

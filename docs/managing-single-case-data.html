@@ -100,7 +100,7 @@ Technically, an scdf object is a list containing data frames. It is of the class
 <span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span><span class="op">)</span>, phase.design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">4</span>, B <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>The <code>B.start</code> argument is only applicable when the single-case consists of a single A-phase followed by a B-phase. It is a remnant from the time when <code>scan</code> could only handle sign-case designs with two phases. The number assigned to <code>B.start</code> indicates the measurement-time as defined in the <code>mt</code> argument. That is, assume a vector for the measurement times <code>mt = c(1,3,7,10,15,17,18,20)</code> and <code>B.start = 15</code> then the first measurement of the B-phase will start with the fifth measurement at which <em>mt</em> = 15.<br>
 The <code>phase.design</code> argument is a named vector with the name and length of each phase. The phase names can be set arbitrary, although I recommend to use capital letters (A, B, C, …) for each phase followed by, when indicated, a number if the phases repeat (A1, B1, A2, B2, …). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with <em>scan</em>.<br>
-When the vector of the dependent variable includes named values, a phase.design structure is created automatically. Each named value sets the beginning of a new phase. For example <code><a href="https://rdrr.io/r/base/c.html">c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)</a></code> will create an ABC-phase design with 3, 3, and 4 values per phase.<br>
+When the vector of the dependent variable includes named values, a phase.design structure is created automatically. Each named value sets the beginning of a new phase. For example <code>c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)</code> will create an ABC-phase design with 3, 3, and 4 values per phase.<br>
 Use only one of the three methods at a time and I recommend to use the <code>phase.design</code> argument or the named vector method as they are the most versatile.<br>
 If no measurement times are given, scdf automatically adds them numbered sequentially 1, 2, 3, …, <em>N</em> where <em>N</em> is the number of measurements. in some circumstances it might be useful to define individual measurement times for each measurement. For example, if you want to include the days since the beginning of the study as time intervals between measurements are widely varying you might get more valid results this way when analyzing the data in a regression approach.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -296,7 +296,7 @@ section &lt;phase variable&gt;</code></pre>
 <span class="header-section-number">4.3</span> Saving and reading <em>single-case data frames</em><a class="anchor" aria-label="anchor" href="#saving-and-reading-single-case-data-frames"><i class="fas fa-link"></i></a>
 </h2>
 <p>Usually, it is not needed to save an scdf to a separate file on your computer. In most of the cases you could keep the coding of the <em>scdf</em> as described above and rerun it every time that you are working with your data. But sometimes it is more convenient to separately save the data to a file for later use or to send them to a colleague.<br>
-The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> and <code>readRDS</code> for this purpose. <code>saveRDS</code> takes at least two arguments: the first is the object you like to save and the second is a file name for the resulting file. If you have an <em>scdf</em> with the name <code>study1</code> the line <code><a href="https://rdrr.io/r/base/readRDS.html">saveRDS(study1, "study1.rds")</a></code> will save the <em>scdf</em> to your drive. You could later read this file with <code>study1 &lt;- readRDS("study1.rds")</code>. <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> will return the current active folder that you are working in.</p>
+The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> and <code>readRDS</code> for this purpose. <code>saveRDS</code> takes at least two arguments: the first is the object you like to save and the second is a file name for the resulting file. If you have an <em>scdf</em> with the name <code>study1</code> the line <code>saveRDS(study1, "study1.rds")</code> will save the <em>scdf</em> to your drive. You could later read this file with <code>study1 &lt;- readRDS("study1.rds")</code>. <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> will return the current active folder that you are working in.</p>
 </div>
 <div id="import-and-export-single-case-data-frames" class="section level2" number="4.4">
 <h2>
@@ -404,7 +404,7 @@ gym</code></pre>
        10         40     A |        10       32.5     A |
 # ... up to 66 more rows
 #  2 more cases</code></pre>
-<p>The argument <code>long = TRUE</code> prints each case one after the other instead side by side (e.g., <code><a href="https://rdrr.io/r/base/print.html">print(exampleAB, long = TRUE)</a></code>).</p>
+<p>The argument <code>long = TRUE</code> prints each case one after the other instead side by side (e.g., <code>print(exampleAB, long = TRUE)</code>).</p>
 <p><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> gives a very concise overview of the <em>scdf</em></p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Huber2014</span><span class="op">)</span></code></pre></div>
@@ -433,7 +433,7 @@ Author of data:  Christian Huber </code></pre>
 <h3>
 <span class="header-section-number">4.6.1</span> Subsetting with base R syntax<a class="anchor" aria-label="anchor" href="#subsetting-with-base-r-syntax"><i class="fas fa-link"></i></a>
 </h3>
-<p>You can extract one or more single-cases from an <em>scdf</em> with multiple cases in two ways. If the case has a name, you can address it with the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> operator.</p>
+<p>You can extract one or more single-cases from an <em>scdf</em> with multiple cases in two ways. If the case has a name, you can address it with the <code>$</code> operator.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Huber2014</span><span class="op">$</span><span class="va">David</span></code></pre></div>
 <p>or you can use squared brackets</p>
@@ -539,7 +539,7 @@ Author of data:  Christian Huber </code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-11-30.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-12-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
