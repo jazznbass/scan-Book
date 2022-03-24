@@ -58,7 +58,7 @@ function_structure("pem")
 The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.
 
 ```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A."}
-dat <- random_scdf(design(1, level = 0.4,phase_design = list(A = 8, B = 12)), round = 0, seed = 1232, random.names = "male")
+dat <- random_scdf(design(1, level = 0.4,phase_design = list(A = 8, B = 12)), round = 0, seed = 1232, random_names = "male")
 plot(dat, style = "grid",lines = c("medianA", col = "red", lwd = 3))
 ```
 
@@ -79,7 +79,7 @@ pet(exampleAB)
 ```
 
 ```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A."}
-dat <- random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 0, seed = 9871, random.names = "female")
+dat <- random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 0, seed = 9871, random_names = "female")
 plot(dat, style = "grid",lines = c("trendA", col = "red", lwd = 3))
 ```
 

@@ -195,7 +195,7 @@ The argument `long = TRUE` prints each case one after the other instead side by 
 summary(Huber2014)
 ```
 
-## Selecting cases, measurements, and variables
+## Selecting cases and measurements
 
 ### Subsetting cases with base R syntax
 
@@ -218,6 +218,10 @@ new.huber2014
 ```
 
 ### Select cases
+
+```{r results='asis', echo=FALSE}
+function_structure("select_cases")
+```
 
 Since version 0.53 scan includes some functions to work with pipe-operators. Therefore, we will provide syntax examples with and without pipe operators.
 
@@ -255,5 +259,7 @@ exampleAB %>%
   subset((values < 60 & phase == "A") | (values >= 60 & phase == "B")) %>%
   summary()
 ```
+
+## Change and create variables
 
 

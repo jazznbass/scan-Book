@@ -45,14 +45,22 @@ print_table <- function(data, caption, width_cols = c("15em", "30em")) {
 
 }
 
-function_structure <- function(name) {
+function_structure <- function(name, 
+                               skip = c("B.start", "phase.design", "lag.max",
+                                        "extreme.p", "extreme.d", "missing.p"
+                                        )) {
 
- if (TRUE) {
    args <- names(formals(name))
    values <- formals(name)
    
+   if (!is.null(skip)) {
+     filter <- !args %in% skip
+     args <- args[filter]
+     values <- values[filter]
+   }
+   
    for(i in seq_along(values)) {
-     if (class(values[[i]]) == "character") values[[i]] <- paste0("\"", values[[i]], "\"")
+     if (inherits(values[[i]], "character")) values[[i]] <- paste0("\"", values[[i]], "\"")
    }
    
    values <- as.character(values)
@@ -72,6 +80,5 @@ function_structure <- function(name) {
 ```', "\n\n\n")
    
    cat("\n\n")
- }
  
 }
