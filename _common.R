@@ -1,5 +1,6 @@
 
 library(scan)
+library(scplot)
 library(knitr)
 library(kableExtra)
 library(pander)
@@ -7,6 +8,9 @@ library(tidyverse)
 
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(comment = '')
+
+options("scan.deprecated.warning" = FALSE)
+options("scan.print.bar" = "\uFF5C")
 
 #knitr::opts_chunk$set(tidy = TRUE)
 #knitr::opts_chunk$set(tidy.opts=list(width.cutoff=45))

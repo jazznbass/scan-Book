@@ -41,3 +41,29 @@ out[["Default"]] <- unlist(
 
 print_table(out, "Scan Options", width_cols = c("15em", "15em") )
 ```
+
+# Example datasets
+
+```{r scanex, echo = FALSE}
+ex_names <- data(package = "scan")$results[,3]
+ex_names <- substring(ex_names, 1, nchar(ex_names) - 12)
+
+info <- unlist(sapply(ex_names, function(x) {
+  out <- scdf_attr(eval(str2lang(x)), "info")
+  if (is.null(out)) out <- ""
+  out
+}))
+
+author <- unlist(sapply(ex_names, function(x) {
+  out <- scdf_attr(eval(str2lang(x)), "author")
+  if (is.null(out)) out <- ""
+  out
+}))
+
+
+out <- data.frame(Name = ex_names, Info = info, Author = author)
+row.names(out) <- NULL
+print_table(out, "Scan Options", width_cols = c("7em", "20em", "15em") )
+
+```
+

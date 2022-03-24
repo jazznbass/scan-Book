@@ -57,8 +57,11 @@
 <li><a class="" href="overlapping-indices.html"><span class="header-section-number">7</span> Overlapping indices</a></li>
 <li><a class="" href="piecewise-linear-regressions.html"><span class="header-section-number">8</span> Piecewise linear regressions</a></li>
 <li><a class="" href="randomization-tests.html"><span class="header-section-number">9</span> Randomization tests</a></li>
-<li><a class="" href="default-settings.html"><span class="header-section-number">10</span> Default settings</a></li>
-<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">11</span> Exporting scan results</a></li>
+<li><a class="" href="power-analyses-scan-version-0.54-or-later.html"><span class="header-section-number">10</span> Power analyses (scan version 0.54 or later)</a></li>
+<li><a class="" href="default-settings.html"><span class="header-section-number">11</span> Default settings</a></li>
+<li><a class="" href="example-datasets.html"><span class="header-section-number">12</span> Example datasets</a></li>
+<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">13</span> Exporting scan results</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">14</span> Appendix</a></li>
 <li><a class="" href="about-the-author.html">About the author</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -77,7 +80,7 @@
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> plotSC(data, dvar, pvar, mvar, ylim = NULL, xlim = NULL, xinc = 1, lines = NULL, marks = NULL, phase.names = NULL, xlab = NULL, ylab = NULL, main = "", case.names = NULL, style = getOption("scan.plot.style"), ...) </font></td>
  </tr></table></div>
 <p>Plotting the data is a first important approach of analyzing. After you build an <em>scdf</em> the <code>plot</code> command helps to visualize the data. When the <code>scdf</code> includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. Table <a href="creating-a-single-case-data-plot.html#tab:table-plot-arguments">5.1</a> gives an overview of all available arguments.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">exampleA1B1A2B2_zvt</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:ex-simple-plot"></span>
@@ -90,7 +93,7 @@ Figure 5.1: A simple plot does not need much.
 <span class="header-section-number">5.1</span> Plot axis<a class="anchor" aria-label="anchor" href="#plot-axis"><i class="fas fa-link"></i></a>
 </h2>
 <p>Labels of the axes and for the phases can be changed with the <code>xlab</code>, <code>ylab</code>, and the <code>phase.names</code> arguments. The x- and y-scaling of the graphs are by default calculated as the minimum and the maximum of all included single cases. The <code>xlim</code> and the <code>ylim</code> argument are used to set specific values. The argument takes a vector of two numbers. The first for the lower and the second for the upper limit of the scale. In case of multiple single cases an <code>NA</code> sets the individual minimum or maximum for each case. Assume for example the study contains three single cases <code>ylim = c(0, NA)</code> will set the lower limit for all three single cases to <code>0</code> and the upper limit individually at the maximum of each case. The argument <code>xinc</code> sets the incremental steps for the x-axis ticks with corresponding values. For example <code>xinc = 1</code> will set a tick for every measurement time increase of 1 while <code>xinc = 5</code> will only set every ffith tick.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>
   <span class="va">exampleABC</span>,
   phase.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Baseline"</span>, <span class="st">"Intervention"</span>, <span class="st">"Follow-Up"</span><span class="op">)</span>,
@@ -351,7 +354,7 @@ Line colour, e.g., <code>col = 'red'</code>.
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>
   <span class="va">exampleAB</span>, 
   lines <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -372,7 +375,7 @@ Figure 5.3: A plot with various visual aids
 <span class="header-section-number">5.3</span> Mark data points<a class="anchor" aria-label="anchor" href="#mark-data-points"><i class="fas fa-link"></i></a>
 </h2>
 <p>Specific data points can be highlighted using the <code>marks</code> argument. A <code>list</code> defines the measurement times to be marked, the marking color and the size of the marking. <code>marks = list(position = c(1,5,6))</code> marks the first, fifth, and sixth measurement time. If the <em>scdf</em> contains more than one data-set marking would be the same for all data sets in this example. In case you define a <code>list</code> Containing vectors, marking can be individually defined for each data set. Assume, for example, we have an <em>scdf</em> comprising three data sets, then <code>marks = list(position = list(c(1,2), c(3,4), c(5,6)))</code> will highlight measurement times one and two for the first data set, three and four for the second and five and six for the third. <code>pch</code>, <code>col</code> and <code>cex</code> define symbol, colour and size of the markings.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span>
 <span class="co"># size. exampleAB is an example scdf included in the scan package</span>
 <span class="va">marks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -543,7 +546,7 @@ The <code>pch</code> argument can take several values for defining the symbol in
 </p>
 </div>
 <p>Here is an example customizing a plot with several additional graphic parameters</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">newstyle</span> <span class="op">&lt;-</span> <span class="fu">style_plot</span><span class="op">(</span>
   fill <span class="op">=</span> <span class="st">"grey95"</span>,
   fill.bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'aliceblue'</span>, <span class="st">'mistyrose1'</span>, <span class="st">'honeydew'</span><span class="op">)</span>,
@@ -590,7 +593,7 @@ The <code>pch</code> argument can take several values for defining the symbol in
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-12-16.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-03-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -598,6 +601,34 @@ The <code>pch</code> argument can take several values for defining the symbol in
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

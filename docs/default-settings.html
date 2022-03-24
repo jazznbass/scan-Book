@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 10 Default settings | Analyzing single-case data with R and scan</title>
+<title>Chapter 11 Default settings | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
-<meta name="description" content="Some of the default settings of scan can be changed with the options() argument. Table 10.1 shows a complete list of options and their default values. # get the current value of an option...">
+<meta name="description" content="Some of the default settings of scan can be changed with the options() argument. Table 11.1 shows a complete list of options and their default values. # get the current value of an option...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
-<meta property="og:title" content="Chapter 10 Default settings | Analyzing single-case data with R and scan">
+<meta property="og:title" content="Chapter 11 Default settings | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Some of the default settings of scan can be changed with the options() argument. Table 10.1 shows a complete list of options and their default values. # get the current value of an option...">
+<meta property="og:description" content="Some of the default settings of scan can be changed with the options() argument. Table 11.1 shows a complete list of options and their default values. # get the current value of an option...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 10 Default settings | Analyzing single-case data with R and scan">
-<meta name="twitter:description" content="Some of the default settings of scan can be changed with the options() argument. Table 10.1 shows a complete list of options and their default values. # get the current value of an option...">
+<meta name="twitter:title" content="Chapter 11 Default settings | Analyzing single-case data with R and scan">
+<meta name="twitter:description" content="Some of the default settings of scan can be changed with the options() argument. Table 11.1 shows a complete list of options and their default values. # get the current value of an option...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -57,8 +57,11 @@
 <li><a class="" href="overlapping-indices.html"><span class="header-section-number">7</span> Overlapping indices</a></li>
 <li><a class="" href="piecewise-linear-regressions.html"><span class="header-section-number">8</span> Piecewise linear regressions</a></li>
 <li><a class="" href="randomization-tests.html"><span class="header-section-number">9</span> Randomization tests</a></li>
-<li><a class="active" href="default-settings.html"><span class="header-section-number">10</span> Default settings</a></li>
-<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">11</span> Exporting scan results</a></li>
+<li><a class="" href="power-analyses-scan-version-0.54-or-later.html"><span class="header-section-number">10</span> Power analyses (scan version 0.54 or later)</a></li>
+<li><a class="active" href="default-settings.html"><span class="header-section-number">11</span> Default settings</a></li>
+<li><a class="" href="example-datasets.html"><span class="header-section-number">12</span> Example datasets</a></li>
+<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">13</span> Exporting scan results</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">14</span> Appendix</a></li>
 <li><a class="" href="about-the-author.html">About the author</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -68,53 +71,69 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="default-settings" class="section level1" number="10">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="default-settings" class="section level1" number="11">
 <h1>
-<span class="header-section-number">10</span> Default settings<a class="anchor" aria-label="anchor" href="#default-settings"><i class="fas fa-link"></i></a>
+<span class="header-section-number">11</span> Default settings<a class="anchor" aria-label="anchor" href="#default-settings"><i class="fas fa-link"></i></a>
 </h1>
-<p>Some of the default settings of scan can be changed with the <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> argument. Table <a href="default-settings.html#tab:table-options">10.1</a> shows a complete list of options and their default values.</p>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<p>Some of the default settings of scan can be changed with the <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> argument. Table <a href="default-settings.html#tab:table-options">11.1</a> shows a complete list of options and their default values.</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get the current value of an option</span>
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"scan.print.rows"</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] 15</code></pre>
-<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># set option to a different value</span>
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scan.print.rows <span class="op">=</span> <span class="fl">5</span>, scan.print.scdf.name <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases
 
- phase values mt | phase values mt | phase values mt |
-     A     54  1 |     A     41  1 |     A     55  1 |
-     A     53  2 |     A     59  2 |     A     58  2 |
-     A     56  3 |     A     56  3 |     A     53  3 |
-     A     58  4 |     A     51  4 |     A     50  4 |
-     A     52  5 |     A     52  5 |     A     52  5 |
+ values mt phase ｜ values mt phase ｜ values mt phase ｜
+     54  1     A ｜     41  1     A ｜     55  1     A ｜
+     53  2     A ｜     59  2     A ｜     58  2     A ｜
+     56  3     A ｜     56  3     A ｜     53  3     A ｜
+     58  4     A ｜     51  4     A ｜     50  4     A ｜
+     52  5     A ｜     52  5     A ｜     52  5     A ｜
 # ... up to 15 more rows</code></pre>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scan.print.rows <span class="op">=</span> <span class="fl">15</span>, scan.print.scdf.name <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases
 
- Johanna: phase values mt | Karolina: phase values mt | Anja: phase values mt |
-              A     54  1 |               A     41  1 |           A     55  1 |
-              A     53  2 |               A     59  2 |           A     58  2 |
-              A     56  3 |               A     56  3 |           A     53  3 |
-              A     58  4 |               A     51  4 |           A     50  4 |
-              A     52  5 |               A     52  5 |           A     52  5 |
-              B     61  6 |               B     57  6 |           B     55  6 |
-              B     62  7 |               B     56  7 |           B     68  7 |
-              B     71  8 |               B     67  8 |           B     68  8 |
-              B     66  9 |               B     75  9 |           B     81  9 |
-              B     64 10 |               B     66 10 |           B     67 10 |
-              B     78 11 |               B     69 11 |           B     78 11 |
-              B     70 12 |               B     68 12 |           B     73 12 |
-              B     74 13 |               B     73 13 |           B     72 13 |
-              B     82 14 |               B     77 14 |           B     78 14 |
-              B     77 15 |               B     79 15 |           B     81 15 |
+ Johanna: values mt phase ｜ Karolina: values mt phase ｜ Anja: values mt phase
+              54  1     A ｜               41  1     A ｜           55  1     A
+              53  2     A ｜               59  2     A ｜           58  2     A
+              56  3     A ｜               56  3     A ｜           53  3     A
+              58  4     A ｜               51  4     A ｜           50  4     A
+              52  5     A ｜               52  5     A ｜           52  5     A
+              61  6     B ｜               57  6     B ｜           55  6     B
+              62  7     B ｜               56  7     B ｜           68  7     B
+              71  8     B ｜               67  8     B ｜           68  8     B
+              66  9     B ｜               75  9     B ｜           81  9     B
+              64 10     B ｜               66 10     B ｜           67 10     B
+              78 11     B ｜               69 11     B ｜           78 11     B
+              70 12     B ｜               68 12     B ｜           73 12     B
+              74 13     B ｜               73 13     B ｜           72 13     B
+              82 14     B ｜               77 14     B ｜           78 14     B
+              77 15     B ｜               79 15     B ｜           81 15     B
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
+ ｜
 # ... up to 5 more rows</code></pre>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
 <caption>
-<span id="tab:table-options">Table 10.1: </span>Scan Options
+<span id="tab:table-options">Table 11.1: </span>Scan Options
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -166,7 +185,7 @@ Max number of columns printed for scdf objects
 scan.print.digits
 </td>
 <td style="text-align:left;width: 15em; ">
-1
+2
 </td>
 <td style="text-align:left;">
 Max number of digits printed for scdf objects
@@ -238,15 +257,26 @@ scan.plot.style
 NA
 </td>
 </tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+scan.print.bar
+</td>
+<td style="text-align:left;width: 15em; ">
+“｜”
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
 </tbody>
 </table></div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="randomization-tests.html"><span class="header-section-number">9</span> Randomization tests</a></div>
-<div class="next"><a href="exporting-scan-results.html"><span class="header-section-number">11</span> Exporting scan results</a></div>
+<div class="prev"><a href="power-analyses-scan-version-0.54-or-later.html"><span class="header-section-number">10</span> Power analyses (scan version 0.54 or later)</a></div>
+<div class="next"><a href="example-datasets.html"><span class="header-section-number">12</span> Example datasets</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#default-settings"><span class="header-section-number">10</span> Default settings</a></li></ul>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#default-settings"><span class="header-section-number">11</span> Default settings</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -263,7 +293,7 @@ NA
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-12-16.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-03-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -271,6 +301,34 @@ NA
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

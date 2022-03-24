@@ -4,14 +4,17 @@
 %
 \documentclass[
 ]{book}
+\title{Analyzing single-case data with R and scan}
+\author{Jürgen Wilbert}
+\date{2022-03-01}
+
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
-  \usepackage{amssymb}
 \else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
@@ -83,7 +86,7 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -174,15 +177,11 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 \usepackage[]{natbib}
 \bibliographystyle{apalike}
-
-\title{Analyzing single-case data with R and scan}
-\author{Jürgen Wilbert}
-\date{2021-05-28}
 
 \begin{document}
 \maketitle
@@ -196,7 +195,9 @@
 \addcontentsline{toc}{chapter}{Welcome}
 
 \includegraphics[width=4.16667in,height=\textheight]{images/cover.png}
-\footnote{The cover has been designed by Tony Wilbert and Henry Ritter. Thanx for that!}
+
+Note: The cover has been designed by Tony Wilbert and Henry Ritter.\\
+Thanx for that!
 
 \hypertarget{preface}{%
 \chapter*{Preface}\label{preface}}
@@ -204,20 +205,20 @@
 
 Hello!
 
-I am glad your found your way to this book as is tells me you are beginning to use the scan package. While \texttt{scan} is quiet thoroughly developed, this book is at an early stage. I am continuously working on it and extending it. At this point in time there is no release of this book available. Only this draft which is full of errors (code and typos).\\
+I am glad your found your way to this book as is tells me you are beginning to use the scan package. While \texttt{scan} is quiet thoroughly developed, this book is at an early stage (about 30\% is done). I am continuously working on it and extending it. At this point in time there is no release of this book available. Only this draft which is full of errors (code and typos).\\
 If you have any suggestions how to enhance the book or would like to report errors, comments, feedback etc. you can do so by posting an issue to the gitHub repository of this book. You can find the repository at \url{https://github.com/jazznbass/scan-Book}.
 
 Thank you!
 
 Jürgen
 
-28 May 2021
+01 March 2022
 
 \hypertarget{software-reference}{%
 \section*{Software reference}\label{software-reference}}
 \addcontentsline{toc}{section}{Software reference}
 
-This book has been created using the \texttt{Rmarkdown} \citep{R-rmarkdown} and \texttt{bookdown} \citep{R-bookdown} packages within the RStudio \citep{RStudio} environment. The analyses have been conducted with the \textbf{R} package \texttt{scan} at version 0.53 \citep{R-scan}. R version 4.1.0 (2021-05-18) was used \citep{R-base}.
+This book has been created using the \texttt{Rmarkdown} \citep{R-rmarkdown} and \texttt{bookdown} \citep{R-bookdown} packages within the RStudio \citep{RStudio} environment. The analyses have been conducted with the \textbf{R} package \texttt{scan} at version 0.53.6.9003 \citep{R-scan}. R version 4.1.2 (2021-11-01) was used \citep{R-base}.
 
 \hypertarget{introduction}{%
 \chapter{Introduction}\label{introduction}}
@@ -275,7 +276,7 @@ Now we visualize the cases:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{scan-book_files/figure-latex/plot_strange_study-1.pdf}
+\includegraphics{scan-book_files/figure-latex/plot-strange-study-1.pdf}
 
 Now we need some descriptive statistics:
 
@@ -285,43 +286,42 @@ Now we need some descriptive statistics:
 \end{Highlighting}
 \end{Shaded}
 
-\textbackslash begin\{table\}
+\begin{table}[!h]
 
-\textbackslash caption\{(\#tab:describe\_strange\_study)Descriptive statistics\}
-\centering
-
+\caption{\label{tab:describe-strange-study}Descriptive statistics}
 \begin{threeparttable}
 \begin{tabular}[t]{lccc}
 \toprule
 Parameter & Dustin & Mike & Will\\
 \midrule
-n A & 6.00 & 7.00 & 9.00\\
-n B & 14.00 & 13.00 & 11.00\\
-n C & 5.00 & 5.00 & 5.00\\
-Missing A & 0.00 & 0.00 & 0.00\\
-Missing B & 0.00 & 0.00 & 0.00\\
-Missing C & 0.00 & 0.00 & 0.00\\
+Design & A-B-C & A-B-C & A-B-C\\
+n A & 6 & 7 & 9\\
+n B & 14 & 13 & 11\\
+n C & 5 & 5 & 5\\
+Missing A & 0 & 0 & 0\\
+Missing B & 0 & 0 & 0\\
+Missing C & 0 & 0 & 0\\
 m A & 3.67 & 1.71 & 5.44\\
 m B & 6.57 & 4.69 & 13.45\\
-m C & 6.40 & 6.20 & 19.40\\
-md A & 3.50 & 1.00 & 5.00\\
-md B & 6.50 & 5.00 & 13.00\\
-md C & 6.00 & 6.00 & 20.00\\
+m C & 6.4 & 6.2 & 19.4\\
+md A & 3.5 & 1.0 & 5.0\\
+md B & 6.5 & 5.0 & 13.0\\
+md C & 6 & 6 & 20\\
 sd A & 1.37 & 1.38 & 1.33\\
 sd B & 1.40 & 2.10 & 3.27\\
 sd C & 1.14 & 1.10 & 1.95\\
 mad A & 0.74 & 1.48 & 1.48\\
 mad B & 1.48 & 2.97 & 4.45\\
 mad C & 1.48 & 0.00 & 2.97\\
-Min A & 2.00 & 0.00 & 4.00\\
-Min B & 4.00 & 1.00 & 8.00\\
-Min C & 5.00 & 5.00 & 17.00\\
-Max A & 6.00 & 4.00 & 7.00\\
-Max B & 9.00 & 8.00 & 18.00\\
-Max C & 8.00 & 8.00 & 22.00\\
+Min A & 2 & 0 & 4\\
+Min B & 4 & 1 & 8\\
+Min C & 5 & 5 & 17\\
+Max A & 6 & 4 & 7\\
+Max B & 9 & 8 & 18\\
+Max C & 8 & 8 & 22\\
 Trend A & 0.23 & 0.21 & -0.08\\
 Trend B & 0.25 & 0.36 & 0.91\\
-Trend C & 0.10 & 0.30 & 0.40\\
+Trend C & 0.1 & 0.3 & 0.4\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
@@ -329,8 +329,7 @@ Trend C & 0.10 & 0.30 & 0.40\\
 \item n = Number of measurements; Missing = Number of missing values; M = Mean; Median = Median; SD = Standard deviation; MAD = Median average deviation; Min = Minimum; Max = Maximum; Trend = Slope of dependent variable regressed on measurement-time.
 \end{tablenotes}
 \end{threeparttable}
-
-\textbackslash end\{table\}
+\end{table}
 
 Single-case data are oftentimes analyzed with overlap indices. Let us get an overview comparing phases A and B:
 
@@ -340,28 +339,27 @@ Single-case data are oftentimes analyzed with overlap indices. Let us get an ove
 \end{Highlighting}
 \end{Shaded}
 
-\textbackslash begin\{table\}
+\begin{table}[!h]
 
-\textbackslash caption\{(\#tab:overlapAB\_strange\_study)Overlap indices. Comparing phase A against phase B\}
-\centering
-
+\caption{\label{tab:overlapAB-strange-study}Overlap indices. Comparing phase 1 against phase 2}
 \begin{threeparttable}
-\begin{tabular}[t]{lrrr}
+\begin{tabular}[t]{llll}
 \toprule
   & Dustin & Mike & Will\\
 \midrule
+Design & A-B-C & A-B-C & A-B-C\\
 PND & 50.00 & 53.85 & 100.00\\
 PEM & 100.00 & 92.31 & 100.00\\
 PET & 71.43 & 61.54 & 100.00\\
 NAP & 92.86 & 87.91 & 100.00\\
 NAP-R & 85.71 & 75.82 & 100.00\\
-PAND & 90.00 & 80.00 & 100.00\\
+PAND & 90 & 80 & 100\\
 Tau-U & 0.66 & 0.56 & 0.80\\
-Base\_Tau & 0.60 & 0.55 & 0.74\\
+Base Tau & 0.60 & 0.55 & 0.74\\
 Delta M & 2.90 & 2.98 & 8.01\\
 Delta Trend & 0.02 & 0.14 & 0.99\\
 SMD & 2.13 & 2.16 & 6.01\\
-Hedges g & 2.04 & 2.07 & 5.75\\
+Hedges g & 2.00 & 1.51 & 2.96\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
@@ -369,8 +367,7 @@ Hedges g & 2.04 & 2.07 & 5.75\\
 \item PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled; PAND = Percentage all nonoverlapping data;Tau U = Parker's Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference; Hedges g = Corrected SMD.
 \end{tablenotes}
 \end{threeparttable}
-
-\textbackslash end\{table\}
+\end{table}
 
 How do the changes hold up against the follow-up? Let us compare phases A and C:
 
@@ -380,28 +377,27 @@ How do the changes hold up against the follow-up? Let us compare phases A and C:
 \end{Highlighting}
 \end{Shaded}
 
-\textbackslash begin\{table\}
+\begin{table}[!h]
 
-\textbackslash caption\{(\#tab:overlapAC\_strange\_study)Overlap indices. Comparing phase A against phase C\}
-\centering
-
+\caption{\label{tab:overlapAC-strange-study}Overlap indices. Comparing phase A against phase C}
 \begin{threeparttable}
-\begin{tabular}[t]{lrrr}
+\begin{tabular}[t]{llll}
 \toprule
   & Dustin & Mike & Will\\
 \midrule
-PND & 40.00 & 100.00 & 100.00\\
-PEM & 100.00 & 100.00 & 100.00\\
-PET & 0.00 & 60.00 & 100.00\\
+Design & A-B-C & A-B-C & A-B-C\\
+PND & 40 & 100 & 100\\
+PEM & 100 & 100 & 100\\
+PET & 0 & 60 & 100\\
 NAP & 93.33 & 100.00 & 100.00\\
 NAP-R & 86.67 & 100.00 & 100.00\\
 PAND & 81.82 & 100.00 & 100.00\\
 Tau-U & 0.46 & 0.51 & 0.61\\
-Base\_Tau & 0.67 & 0.76 & 0.74\\
+Base Tau & 0.67 & 0.76 & 0.74\\
 Delta M & 2.73 & 4.49 & 13.96\\
 Delta Trend & -0.13 & 0.09 & 0.48\\
 SMD & 2.00 & 3.25 & 10.47\\
-Hedges g & 1.83 & 3.00 & 9.80\\
+Hedges g & 1.97 & 3.25 & 8.34\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
@@ -409,8 +405,7 @@ Hedges g & 1.83 & 3.00 & 9.80\\
 \item PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled; PAND = Percentage all nonoverlapping data;Tau U = Parker's Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference; Hedges g = Corrected SMD.
 \end{tablenotes}
 \end{threeparttable}
-
-\textbackslash end\{table\}
+\end{table}
 
 Finally, we conduct regression analyses for each cases with a piecewise regression model:
 
@@ -422,11 +417,9 @@ Finally, we conduct regression analyses for each cases with a piecewise regressi
 \end{Highlighting}
 \end{Shaded}
 
-\textbackslash begin\{table\}
+\begin{table}[!h]
 
-\textbackslash caption\{(\#tab:plm\_strange\_study)Piecewise-regression model predicting variable `values'\}
-\centering
-
+\caption{\label{tab:plm-strange-study}Piecewise-regression model predicting variable 'values'}
 \begin{threeparttable}
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
@@ -447,14 +440,11 @@ Slope phase C & -0.13 & -1.02 & 0.77 & 0.46 & -0.28 & .78 & .00\\
 \item F(5, 19) = 7.88; p <.001; R² = 0.675; Adjusted R² = 0.589
 \end{tablenotes}
 \end{threeparttable}
+\end{table}
 
-\textbackslash end\{table\}
+\begin{table}[!h]
 
-\textbackslash begin\{table\}
-
-\textbackslash caption\{(\#tab:plm\_strange\_study)Piecewise-regression model predicting variable `values'\}
-\centering
-
+\caption{\label{tab:plm-strange-study}Piecewise-regression model predicting variable 'values'}
 \begin{threeparttable}
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
@@ -475,14 +465,11 @@ Slope phase C & 0.09 & -1.01 & 1.18 & 0.56 & 0.15 & .87 & .00\\
 \item F(5, 19) = 8.00; p <.001; R² = 0.678; Adjusted R² = 0.593
 \end{tablenotes}
 \end{threeparttable}
+\end{table}
 
-\textbackslash end\{table\}
+\begin{table}[!h]
 
-\textbackslash begin\{table\}
-
-\textbackslash caption\{(\#tab:plm\_strange\_study)Piecewise-regression model predicting variable `values'\}
-\centering
-
+\caption{\label{tab:plm-strange-study}Piecewise-regression model predicting variable 'values'}
 \begin{threeparttable}
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
@@ -503,8 +490,7 @@ Slope phase C & 0.48 & -0.53 & 1.49 & 0.52 & 0.94 & .35 & .00\\
 \item F(5, 19) = 68.16; p <.001; R² = 0.947; Adjusted R² = 0.933
 \end{tablenotes}
 \end{threeparttable}
-
-\textbackslash end\{table\}
+\end{table}
 
 \hypertarget{some-things-about-r}{%
 \chapter{Some things about R}\label{some-things-about-r}}
@@ -615,13 +601,13 @@ You can use the \texttt{install.packages} function to install \emph{scan}.
 
 \texttt{install.packages("scan")} will install the stable version.
 
-The current stable release is version \texttt{0.51}. Please look at Section \emph{Software reference} for which version of \emph{scan} has been used for creating this book and make sure you have this version or a newer one installed.
+The current stable release is version \texttt{0.53}. Please look at Section \emph{Software reference} for which version of \emph{scan} has been used for creating this book and make sure you have this version or a newer one installed.
 
 R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing \emph{scan} it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.
 
 For activating a package you need the \texttt{library} function. In this case \texttt{library(scan)}. You should get something like
 
-scan 0.51 (2021-02-11)\\
+scan 0.53 (2021-09-22)\\
 Single-Case Data Analysis for Single and Multiple Baseline Designs
 
 indicating that everything went smoothly and \emph{scan} is ready for the job.
@@ -659,119 +645,61 @@ Table \ref{tab:table-functions} gives an overview of all functions.
 \begin{table}
 
 \caption{\label{tab:table-functions}Functions in scan}
-\centering
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{30em}l}
 \toprule
 Function & What it does ... & Category\\
 \midrule
 \textbf{scdf} & Creates a single-case data-frame & Manage data\\
 \textbf{select\_cases} & Selects specific cases of an scdf & Manage data\\
+\textbf{select\_phases} & Selects and/or recombines phases & Manage data\\
 \textbf{subset} & Selects specific measurements or variables of an scdf & Manage data\\
 \textbf{readSC} & Loads external data into an scdf & Manage data\\
 \textbf{writeSC} & Writes scdf into an external file & Manage data\\
-\addlinespace
+\textbf{set\_var} & (Re)sets dependent, measurement, and phase variable of an scdf & Manage data\\
 \textbf{scdf\_attr} & Gets and sets attributes of an scdf & Manage data\\
+\textbf{add\_l2} & Adds level-two data to an scdf & Manage data\\
+\textbf{as.data.frame/as.data.frame.scdf} & Transforms an scdf into a data frame & Manage data\\
 \textbf{} &  \vphantom{3} & \\
 \textbf{plot/plot.scdf} & Creates plots of single cases & Depict\\
 \textbf{style\_plot} & Defines single-case plot graphical styles & Depict\\
 \textbf{export} & Creates html or latex tables from the output of various can functions & Depict\\
-\addlinespace
 \textbf{print/print.sc} & Prints the results of various scan outputs & Depict\\
 \textbf{print/print.scdf} & Prints an scdf & Depict\\
 \textbf{summary/summary.scdf} & Summaizes an scdf & Depict\\
 \textbf{} &  \vphantom{2} & \\
 \textbf{autocorr} & Autocorrelations for each phase of each case & Analyze\\
-\addlinespace
 \textbf{corrected\_tau} & Baseline corrected tau & Analyze\\
 \textbf{describe} & Descriptive statistics for each phase of each case & Analyze\\
 \textbf{overlap} & An overview of overlap indeces for each case & Analyze\\
 \textbf{rci} & Reliable change index & Analyze\\
 \textbf{rand\_test} & Randomization test & Analyze\\
-\addlinespace
 \textbf{tau\_u} & Tau-U for each case and all cases & Analyze\\
 \textbf{trend} & Trend analyses for each case & Analyze\\
 \textbf{plm} & Piecewise linear regression model & Analyze\\
 \textbf{mplm} & Multivariate piecewise linear regression model & Analyze\\
 \textbf{hplm} & Hierarchical piecewise linear regression model & Analyze\\
-\addlinespace
 \textbf{nap} & Non-overlap of all pairs for each case & Analyze\\
 \textbf{pnd} & Percentage of non overlapping data for each case & Analyze\\
 \textbf{pand} & Percentage of all non overlapping data for all cases & Analyze\\
 \textbf{pem} & Percantage exceeding the mean for each case & Analyze\\
 \textbf{pet} & Percentage exceeding the trend for each case & Analyze\\
-\addlinespace
+\textbf{cdc} & Conservative dual-criterion test & Analyze\\
 \textbf{outlier} & Detect outliers for all cases & Analyse\\
 \textbf{} &  \vphantom{1} & \\
 \textbf{fill\_missing} & Interpolate missign values or missing measurement times & Manipulate\\
 \textbf{ranks} & Covert data into ranked data & Manipulate\\
 \textbf{shift} & Shifts values by a constant & Manipulate\\
-\addlinespace
 \textbf{smooth\_cases} & Smoothes time series data & Manipulate\\
 \textbf{truncate\_phase} & Deletes measuremts of phases & Manipulate\\
-\textbf{standardize} & Standardizes or centres variables & Manipulate\\
+\textbf{standardize} & Standardizes or centers variables & Manipulate\\
 \textbf{} &  & \\
 \textbf{design\_rSC} & Defines a deisgn of one or multiple single-cases & Simulate\\
-\addlinespace
 \textbf{estimate\_design} & Extracts a deisgn of one or multiple single-cases from an scdf & Simulate\\
 \textbf{power\_test} & Calculates power and alpha error of a specific analyzes for a specific single-case design & Simulate\\
 \textbf{rSC} & Creats random single-case studies from a single-case design & Simulate\\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\hypertarget{changes-with-version-0.50}{%
-\section{Changes with version 0.50}\label{changes-with-version-0.50}}
-
-\hypertarget{new-function-names}{%
-\subsection{New function names}\label{new-function-names}}
-
-With version 0.50 scan introduced new names for its functions. The old function names are still usable but they will return a ``deprecated'' warning telling you to use the new function names.
-
-Table \ref{tab:table-aliases} shows the changes.
-
-\begin{table}
-
-\caption{\label{tab:table-aliases}scan privious and current function names.}
-\centering
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{30em}}
-\toprule
-Current function name & Previous function name\\
-\midrule
-\textbf{autocorr} & autocorrSC\\
-\textbf{corrected\_tau} & corrected\_tauSC\\
-\textbf{describe [since v0.52]} & describeSC\\
-\textbf{fill\_missing} & fillmissingSC\\
-\textbf{outlier} & outlierSC\\
-\addlinespace
-\textbf{overlap} & overlapSC\\
-\textbf{power\_test} & power\_testSC\\
-\textbf{rand\_test} & randSC; rand.test\\
-\textbf{ranks} & rankSC\\
-\textbf{rci} & rCi; rciSC\\
-\addlinespace
-\textbf{shift} & shiftSC\\
-\textbf{smooth\_cases} & smoothSC\\
-\textbf{style\_plot} & style.plotSC; style\_plotSC\\
-\textbf{tau\_u} & tauUSC\\
-\textbf{trend} & trendSC\\
-\addlinespace
-\textbf{truncate\_phase} & truncateSC\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\hypertarget{change-target-variables-in-functions}{%
-\subsection{Change target variables in functions}\label{change-target-variables-in-functions}}
-
-All functions in R that analyze data now allow for temporarily changing dependent, phase, and measurement-time variables by adding three argument:
-
-\texttt{dvar} sets the dependent variable.\\
-\texttt{pvar} sets the phase variable.\\
-\texttt{mvar} sets the measurement-time variable.
-
-For example, \texttt{overlap(exampleAB\_add,\ dvar\ =\ "depression")} will report overlap parameters for the variable \emph{depression} while \texttt{overlap(exampleAB\_add)} while take \emph{wellbeing} as the dependent variable (as defined in the scdf).
-
-After finishing the analysis, the variables are set back to their original values as defined in the scdf.
 
 \hypertarget{managing-single-case-data}{%
 \chapter{Managing single-case data}\label{managing-single-case-data}}
@@ -843,7 +771,7 @@ If no measurement times are given, scdf automatically adds them numbered sequent
             13 29     C
 \end{verbatim}
 
-Missing values could be coded using \texttt{NA}.
+Missing values could be coded using \texttt{NA} (not available).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -884,7 +812,6 @@ Table \ref{tab:table-scdf} shows a complete list of arguments that could be pass
 \begin{table}
 
 \caption{\label{tab:table-scdf}Arguments of the scdf function}
-\centering
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{30em}}
 \toprule
 Argument & What it does ...\\
@@ -894,7 +821,6 @@ Argument & What it does ...\\
 \textbf{mt} & The default vector with values for the measurement-time variable. It can be changed with the mvar argument.\\
 \textbf{phase.design} & A vector defining the length and label of each phase.\\
 \textbf{B.start} & The first measurement of phase B (simple coding if design is strictly AB).\\
-\addlinespace
 \textbf{name} & A name for the case.\\
 \textbf{dvar} & The name of the dependent variable. By default this is 'values'.\\
 \textbf{pvar} & The name of the variable containing the phase information. By default this is 'phase'.\\
@@ -953,8 +879,8 @@ If you like to use other than the default variable names (``values'', ``phase'',
 \begin{verbatim}
 #A single-case data frame with one case
 
-        Measurements Design
-Antonia           11    A B
+         Measurements Design
+ Antonia           11    A-B
 
 Variable names:
 score <dependent variable>
@@ -991,7 +917,7 @@ In case your variables names differ from the standard (i.e.~``case'', ``values''
 \end{Shaded}
 
 \begin{verbatim}
-Imported 20 cases.
+Loaded 20 cases.
 \end{verbatim}
 
 \begin{Shaded}
@@ -1003,27 +929,27 @@ Imported 20 cases.
 \begin{verbatim}
 #A single-case data frame with 20 cases
 
-         Measurements Design
-Charles            20    A B
-Kolten             20    A B
-Annika             20    A B
-Kaysen             20    A B
-Urijah             20    A B
-Leila              20    A B
-Leia               20    A B
-Aleigha            20    A B
-Greta              20    A B
-Alijah             20    A B
-Ricardo            20    A B
-Dallas             20    A B
-Edith              20    A B
-Braylee            20    A B
-Giovanni           20    A B
-Ismael             20    A B
-Grady              20    A B
-Raina              20    A B
-Cambria            20    A B
-Lincoln            20    A B
+          Measurements Design
+ Charles            20    A-B
+ Kolten             20    A-B
+ Annika             20    A-B
+ Kaysen             20    A-B
+ Urijah             20    A-B
+ Leila              20    A-B
+ Leia               20    A-B
+ Aleigha            20    A-B
+ Greta              20    A-B
+ Alijah             20    A-B
+ Ricardo            20    A-B
+ Dallas             20    A-B
+ Edith              20    A-B
+ Braylee            20    A-B
+ Giovanni           20    A-B
+ Ismael             20    A-B
+ Grady              20    A-B
+ Raina              20    A-B
+ Cambria            20    A-B
+ Lincoln            20    A-B
 
 Variable names:
 intervention <phase variable>
@@ -1042,8 +968,8 @@ For some reasons, computer systems with a German (and some other) language setup
 
 \texttt{writeSC} exports an scdf object as a comma-separated-variables file (\emph{csv}) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The scdf object is converted into a single data frame with a \emph{case} variable identifying the rows for each subject. The first argument of the command identifies the scdf to be exported and the second argument (\texttt{file}) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the \texttt{dec} and the \texttt{sep} arguments. For example, \texttt{writeSC(example,\ file\ =\ "example.csv",\ dec\ =\ ",",\ sep\ =\ ";")} exports a csv variation usually used for example in Germany.
 
-\hypertarget{displaying-and-manipulating-scdf-files}{%
-\section{Displaying and manipulating scdf-files}\label{displaying-and-manipulating-scdf-files}}
+\hypertarget{displaying-scdf-files}{%
+\section{Displaying scdf-files}\label{displaying-scdf-files}}
 
 \emph{scdf} are displayed by just typing the name of the object.
 
@@ -1115,11 +1041,11 @@ The argument \texttt{long\ =\ TRUE} prints each case one after the other instead
 \begin{verbatim}
 #A single-case data frame with 4 cases
 
-          Measurements Design
-Adam                37    A B
-Berta               29    A B
-Christian           76    A B
-David               76    A B
+           Measurements Design
+ Adam                37    A-B
+ Berta               29    A-B
+ Christian           76    A-B
+ David               76    A-B
 
 Variable names:
 mt <measurement-time variable>
@@ -1130,6 +1056,12 @@ phase <phase variable>
 Note:  Behavioral data (compliance in percent).
 Author of data:  Christian Huber 
 \end{verbatim}
+
+\hypertarget{selecting-cases-measurements-and-variables}{%
+\section{Selecting cases, measurements, and variables}\label{selecting-cases-measurements-and-variables}}
+
+\hypertarget{subsetting-with-base-r-syntax}{%
+\subsection{Subsetting with base R syntax}\label{subsetting-with-base-r-syntax}}
 
 You can extract one or more single-cases from an \emph{scdf} with multiple cases in two ways. If the case has a name, you can address it with the \texttt{\$} operator.
 
@@ -1151,7 +1083,7 @@ or you can use squared brackets
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{new.huber2014 }\OtherTok{\textless{}{-}}\NormalTok{ Huber2014[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{)] }\CommentTok{\#extracts cases 1 and 4}
-\FunctionTok{print}\NormalTok{(new.huber2014)}
+\NormalTok{new.huber2014}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1177,16 +1109,98 @@ or you can use squared brackets
 # ... up to 61 more rows
 \end{verbatim}
 
+\hypertarget{select-cases}{%
+\subsection{Select cases}\label{select-cases}}
+
+Since version 0.53 scan includes some functions to work with pipe-operators. Therefore, we will provide syntax examples with and without pipe operators.
+
+The \texttt{select\_cases()} function takes case-names and/or numbers for selecting cases:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# With pipes:}
+\NormalTok{Huber2014 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select\_cases}\NormalTok{(}\StringTok{"Adam"}\NormalTok{, }\StringTok{"Berta"}\NormalTok{, }\DecValTok{4}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summary}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#A single-case data frame with 3 cases
+
+       Measurements Design
+ Adam            37    A-B
+ Berta           29    A-B
+ David           76    A-B
+
+Variable names:
+mt <measurement-time variable>
+compliance <dependent variable>
+phase <phase variable>
+
+
+Note:  Behavioral data (compliance in percent).
+Author of data:  Christian Huber 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Without pipes:}
+
+\CommentTok{\# new\_huber \textless{}{-} select\_cases(Huber2014, "Adam", "Berta", 4)}
+\CommentTok{\# summary(new\_huber)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{select-variables-measurement-times-and-phases}{%
+\subsection{Select variables, measurement-times, and phases}\label{select-variables-measurement-times-and-phases}}
+
 \hypertarget{creating-a-single-case-data-plot}{%
 \chapter{Creating a single-case data plot}\label{creating-a-single-case-data-plot}}
 
-Plotting the data is a first important approach of analyzing. After you build an \emph{scdf} the \texttt{plot} command helps to visualize the data. When the \texttt{scdf} includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. Table \ref{tab:table-plot-arguments} gives an overview of all available arguments.\\
-Labels of the axes and for the phases can be changed with the \texttt{xlab}, \texttt{ylab}, and the \texttt{phase.names} arguments. The x- and y-scaling of the graphs are by default calculated as the minimum and the maximum of all included single cases. The \texttt{xlim} and the \texttt{ylim} argument are used to set specific values. The argument takes a vector of two numbers. The first for the lower and the second for the upper limit of the scale. In case of multiple single cases an \texttt{NA} sets the individual minimum or maximum for each case. Assume for example the study contains three single cases \texttt{ylim\ =\ c(0,\ NA)} will set the lower limit for all three single cases to \texttt{0} and the upper limit individually at the maximum of each case.
+Plotting the data is a first important approach of analyzing. After you build an \emph{scdf} the \texttt{plot} command helps to visualize the data. When the \texttt{scdf} includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. Table \ref{tab:table-plot-arguments} gives an overview of all available arguments.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(exampleA1B1A2B2\_zvt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{scan-book_files/figure-latex/ex-simple-plot-1.pdf}
+\caption{\label{fig:ex-simple-plot}A simple plot does not need much.}
+\end{figure}
+
+\hypertarget{plot-axis}{%
+\section{Plot axis}\label{plot-axis}}
+
+Labels of the axes and for the phases can be changed with the \texttt{xlab}, \texttt{ylab}, and the \texttt{phase.names} arguments. The x- and y-scaling of the graphs are by default calculated as the minimum and the maximum of all included single cases. The \texttt{xlim} and the \texttt{ylim} argument are used to set specific values. The argument takes a vector of two numbers. The first for the lower and the second for the upper limit of the scale. In case of multiple single cases an \texttt{NA} sets the individual minimum or maximum for each case. Assume for example the study contains three single cases \texttt{ylim\ =\ c(0,\ NA)} will set the lower limit for all three single cases to \texttt{0} and the upper limit individually at the maximum of each case. The argument \texttt{xinc} sets the incremental steps for the x-axis ticks with corresponding values. For example \texttt{xinc\ =\ 1} will set a tick for every measurement time increase of 1 while \texttt{xinc\ =\ 5} will only set every ffith tick.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}
+\NormalTok{  exampleABC,}
+  \AttributeTok{phase.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Baseline"}\NormalTok{, }\StringTok{"Intervention"}\NormalTok{, }\StringTok{"Follow{-}Up"}\NormalTok{),}
+  \AttributeTok{case.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"First"}\NormalTok{, }\StringTok{"Second"}\NormalTok{, }\StringTok{"Third"}\NormalTok{),}
+  \AttributeTok{ylab =} \StringTok{"Frequency"}\NormalTok{,}
+  \AttributeTok{xlab =} \StringTok{"Days"}\NormalTok{,}
+  \AttributeTok{main =} \StringTok{"An example"}\NormalTok{,}
+  \AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{120}\NormalTok{),}
+  \AttributeTok{xinc =} \DecValTok{2}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{scan-book_files/figure-latex/ex-plot-axis-1.pdf}
+\caption{\label{fig:ex-plot-axis}A plot with various axis specidications.}
+\end{figure}
 
 \begin{table}
 
 \caption{\label{tab:table-plot-arguments}Arguments of the plot function}
-\centering
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{30em}}
 \toprule
 Argument & What it does ...\\
@@ -1196,49 +1210,68 @@ Argument & What it does ...\\
 \textbf{xlim} & Lower and upper limits of the x-axis.\\
 \textbf{style} & A specific design for displaying the plot.\\
 \textbf{lines} & A character or list defining one or more lines or curves to be plotted.\\
-\addlinespace
 \textbf{marks} & A list of parameters defining markings of certain data points.\\
 \textbf{main} & A figure title\\
 \textbf{phase.names} & By default phases are labeled as given in the phase variable. Use this argument to specify different labels: `phase.names = c('Baseline', 'Intervention')`.\\
 \textbf{case.names} & Case names. If not provided, names are taken from the scdf or left blank if the scdf does not contain case names.\\
 \textbf{xlab} & The label of the x-axis. The default is taken from the name of the measurement variable as provided by the scdf.\\
-\addlinespace
 \textbf{ylab} & The labels of the y-axis. The default is taken from the name of the dependent variable as provided by the scdf.\\
 \textbf{xinc} & An integer. Increment of the x-axis. 1 : each mt value will be printed, 2 : every other value, 3 : every third values etc.\\
-\textbf{...} & Further arguments passed to the generic plot command.\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Extra lines can be added to the plot using the \texttt{lines} argument. The lines argument takes several separate sub-arguments which have to be provided in a list. In its most simple form this list contains one element. \texttt{lines\ =\ list(\textquotesingle{}median\textquotesingle{})} adds a line with the median of each phase to the plot. Additional arguments like \texttt{col} or \texttt{lwd} help to format these lines. For adding red thick median lines use the command \texttt{lines\ =\ list(\textquotesingle{}median\textquotesingle{},\ col\ =\ \textquotesingle{}red\textquotesingle{},\ lwd\ =\ \textquotesingle{}2\textquotesingle{})}.
+\hypertarget{adding-lines}{%
+\section{Adding lines}\label{adding-lines}}
+
+Extra lines can be added to the plot using the \texttt{lines} argument. The lines argument takes several separate sub-arguments which have to be provided in a list. In its most simple form this list contains one element. \texttt{lines\ =\ list(type\ =\ \textquotesingle{}median\textquotesingle{})} adds a line with the median of each phase to the plot. Additional arguments like \texttt{col} or \texttt{lwd} help to format these lines. For adding red thick median lines use the command \texttt{lines\ =\ list(type\ =\ \textquotesingle{}median\textquotesingle{},\ col\ =\ \textquotesingle{}red\textquotesingle{},\ lwd\ =\ \textquotesingle{}2\textquotesingle{})}.
 
 \begin{table}
 
 \caption{\label{tab:table-lines-arguments}Values of the lines argument}
-\centering
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{30em}}
 \toprule
 Argument & What it does ...\\
 \midrule
 \textbf{median} & separate lines for the medians of each phase\\
-\textbf{mean} & separate lines for the means of each phase. By default it is 10\%-trimmed. Other trims can be set using a second parameter (e.g., `lines = list(mean = 0.2)` draws a 20\%-trimmed mean line).\\
+\textbf{mean} & separate lines for the means of each phase. By default it is 10\%-trimmed. Other trims can be set using a second parameter (e.g., `lines = list(type = 'mean', trim = 0.2)` draws a 20\%-trimmed mean line).\\
 \textbf{trend} & Separate lines for the trend of each phase.\\
 \textbf{trendA} & Trend line for phase A, extrapolated throughout the other phases\\
 \textbf{maxA} & Line at the level of the highest phase A score.\\
-\addlinespace
 \textbf{minA} & Line at the level of the lowest phase A score.\\
 \textbf{medianA} & Line at the phase A median score.\\
-\textbf{meanA} & Line at the phase A 10\%-trimmed mean score. Apply a different trim, by using the additional argument (e.g., `lines = list(meanA = 0.2)`).\\
-\textbf{movingMean} & Draws a moving mean curve, with a specified lag: `'lines = list(movingMean = 2)'`. Default is a lag 1 curve.\\
-\textbf{movingMedian} & Draws a moving median curve, with a specified lag: `'lines = list(movingMedian = 3).` Default is a lag 1 curve.\\
-\addlinespace
-\textbf{loreg} & Draws a non-parametric local regression line. The proportion of data influencing each data point can be specified using `lines = list('loreg' = 0.66)`. The default is 0.5.\\
+\textbf{meanA} & Line at the phase A 10\%-trimmed mean score. Apply a different trim, by using the additional argument (e.g., `lines = list(type = 'meanA', trim = 0.2)`).\\
+\textbf{movingMean} & Draws a moving mean curve, with a specified lag: `lines = list(type = 'movingMean', lag = 2)`. Default is a lag 1 curve.\\
+\textbf{movingMedian} & Draws a moving median curve, with a specified lag: `lines = list(type = 'movingMedian', lag = 3).` Default is a lag 1 curve.\\
+\textbf{loreg} & Draws a non-parametric local regression line. The proportion of data influencing each data point can be specified using `lines = list(type = 'loreg', f = 0.66)`. The default is 0.5.\\
 \textbf{lty} & Line type. Examples are: 'solid','dashed', 'dotted'.\\
 \textbf{lwd} & Line thickness, e.g., `lwd = 4`.\\
 \textbf{col} & Line colour, e.g., `col = 'red'`.\\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}
+\NormalTok{  exampleAB, }
+  \AttributeTok{lines =} \FunctionTok{list}\NormalTok{(}
+    \FunctionTok{list}\NormalTok{(}\AttributeTok{type =} \StringTok{"median"}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \FloatTok{0.5}\NormalTok{),}
+    \FunctionTok{list}\NormalTok{(}\AttributeTok{type =} \StringTok{"trend"}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{lty =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{),}
+    \FunctionTok{list}\NormalTok{(}\AttributeTok{type =} \StringTok{"loreg"}\NormalTok{, }\AttributeTok{f =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{col =} \StringTok{"green"}\NormalTok{, }\AttributeTok{lty =} \StringTok{"solid"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{1}\NormalTok{)}
+\NormalTok{  )}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{scan-book_files/figure-latex/ex-plot-lines-1.pdf}
+\caption{\label{fig:ex-plot-lines}A plot with various visual aids}
+\end{figure}
+
+\hypertarget{mark-data-points}{%
+\section{Mark data points}\label{mark-data-points}}
 
 Specific data points can be highlighted using the \texttt{marks} argument. A \texttt{list} defines the measurement times to be marked, the marking color and the size of the marking. \texttt{marks\ =\ list(position\ =\ c(1,5,6))} marks the first, fifth, and sixth measurement time. If the \emph{scdf} contains more than one data-set marking would be the same for all data sets in this example. In case you define a \texttt{list} Containing vectors, marking can be individually defined for each data set. Assume, for example, we have an \emph{scdf} comprising three data sets, then \texttt{marks\ =\ list(position\ =\ list(c(1,2),\ c(3,4),\ c(5,6)))} will highlight measurement times one and two for the first data set, three and four for the second and five and six for the third. \texttt{pch}, \texttt{col} and \texttt{cex} define symbol, colour and size of the markings.
 
@@ -1250,15 +1283,24 @@ Specific data points can be highlighted using the \texttt{marks} argument. A \te
   \AttributeTok{positions =} \FunctionTok{list}\NormalTok{( }\FunctionTok{c}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{17}\NormalTok{, }\DecValTok{19}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{7}\NormalTok{, }\DecValTok{18}\NormalTok{) ), }
   \AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{, }\AttributeTok{cex =} \FloatTok{2.5}\NormalTok{, }\AttributeTok{pch =} \DecValTok{1}
 \NormalTok{)}
-\CommentTok{\#plot(exampleAB, marks = marks, style = "sienna")}
+\FunctionTok{plot}\NormalTok{(exampleAB, }\AttributeTok{marks =}\NormalTok{ marks, }\AttributeTok{style =} \StringTok{"sienna"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics{scan-book_files/figure-latex/marks-example-1} 
+
+}
+
+\caption{A plot with highlighted data-points}\label{fig:marks-example}
+\end{figure}
 
 \hypertarget{graphical-styles-of-a-plot}{%
 \section{Graphical styles of a plot}\label{graphical-styles-of-a-plot}}
 
 The \texttt{style} argument of the plot function allows to specify a specific design of a plot. By default, the \texttt{grid} style is applied. \texttt{scan} includes some further predefined styles. \texttt{default,\ yaxis,\ tiny,\ small,\ big,\ chart,\ ridge,\ annotate,\ grid,\ grid2,\ dark,\ nodot,\ and\ sienna}. The name of a style is provided as a character string (e.g., \texttt{style\ =\ "grid"}).\\
-Some styles only address specific elements (e.g., ``small'' or ``tiny'' just influence text and line sizes). These styles lend themselves to be combined with other style. This could be achieved by providing several style names to the plot argument: \texttt{style\ =\ c("grid",\ "annotate",\ "small")}.\\
+Some styles only address specific elements (e.g., ``small'' or ``tiny'' just influence text and line sizes). These styles lend themselves to be combined with other styles. This could be achieved by providing several style names to the plot argument: \texttt{style\ =\ c("grid",\ "annotate",\ "small")}. A style overwrites the settings of all previously included style.\\
 Beyond predefined styles, styles can be individually modified and created. New styles are provided as a \texttt{list} of several design parameters that are passed to the \texttt{style} argument of the \texttt{plot} function. Table \ref{tab:table-style} shows all design parameter that could be defined.\\
 To define a new style, first create a list containing a plain design. The \texttt{style\_plot} function returns such a list with the default values for a plain design (e.g., \texttt{mystyle\ \textless{}-\ style\_plot()}). Single design parameters can now be set by assigning a specific value within the list. For example, \texttt{newstyle\$fill\ \textless{}-\ "grey90"} will set the \texttt{fill} parameter to \texttt{"grey90"}. Alternatively, changes to the plain design can already by defined within the \texttt{style\_plot} function. To set a light-blue background color and also an orange grid, create the style \texttt{style\_plot(fill.bg\ =\ "lightblue",\ grid\ =\ "orange")}.
 If you do not want to start with the plain design but a different of the predefined styles, set the \texttt{style} argument. If, for example, you like to have the \texttt{grid} combined with the \texttt{big} style but want to change the color of the grid to orange type \texttt{style\_plot(style\ =\ c("grid",\ "big"),\ col.grid\ =\ "orange")}. \texttt{plot(mydata,\ style\ =\ mystyle)} will apply the new style in a plot. Please note that the new style is not passed in quotation marks.
@@ -1266,7 +1308,6 @@ If you do not want to start with the plain design but a different of the predefi
 \begin{table}
 
 \caption{\label{tab:table-style}Arguments of the style plot function}
-\centering
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{30em}}
 \toprule
 Argument & What it does ...\\
@@ -1276,13 +1317,11 @@ Argument & What it does ...\\
 \textbf{grid} & If TRUE a grid is included.\\
 \textbf{col.grid} & Sets the color of the grid.\\
 \textbf{lty.grid} & Sets the line type of the grid.\\
-\addlinespace
 \textbf{lwd.grid} & Sets the line thikness of the grid.\\
-\textbf{fill.bg} & If not NA the backgorund of the plot is filled with the given color.\\
+\textbf{fill.bg} & If not NA the backgorund of the plot is filled with the given color. If multiple colours are provided, the colours change with phases (e.g., `fill.bg = c('aliceblue', 'mistyrose1', 'honeydew')`\\
 \textbf{annotations} & A list of parameters defining annotations to each data point. This adds the score of each MT to your plot. `'pos'` Position of the annotations: 1 = below, 2 = left, 3 = above, 4 = right. `'col'` Color of the annotations. `'cex'` Size of the annotations. `'round'` rounds the values to the specified decimal. `annotations = list(pos = 3, col = 'brown', round = 1)` adds scores rounded to one decimal above the data point in brown color to the plot.\\
 \textbf{text.ABlag} & By default a vertical line separates phases A and B in the plot. Alternatively, you could print a character string between the two phases using this argument: `text.ABlag = 'Start'`.\\
 \textbf{lwd} & Width of the plot line. Default is `lwd = 2`.\\
-\addlinespace
 \textbf{pch} & Point type. Default is `pch = 17` (triangles). Other options are for example: 16 (filled circles) or 'A' (uses the letter A).\\
 \textbf{col.lines} & The color of the lines. If set to an empty string no lines are drawn.\\
 \textbf{col.dots} & The color of the dots. If set to an empty string no dots are drawn.\\
@@ -1305,7 +1344,14 @@ Here is an example customizing a plot with several additional graphic parameters
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{newstyle }\OtherTok{\textless{}{-}} \FunctionTok{style\_plot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"grey95"}\NormalTok{, }\AttributeTok{grid =} \StringTok{"lightblue"}\NormalTok{, }\AttributeTok{pch =} \DecValTok{16}\NormalTok{)}
+\NormalTok{newstyle }\OtherTok{\textless{}{-}} \FunctionTok{style\_plot}\NormalTok{(}
+  \AttributeTok{fill =} \StringTok{"grey95"}\NormalTok{,}
+  \AttributeTok{fill.bg =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}aliceblue\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}mistyrose1\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}honeydew\textquotesingle{}}\NormalTok{),}
+  \AttributeTok{names =} \FunctionTok{list}\NormalTok{(}\AttributeTok{col =} \StringTok{"brown"}\NormalTok{, }\AttributeTok{cex =} \DecValTok{2}\NormalTok{, }\AttributeTok{font =} \DecValTok{3}\NormalTok{, }\AttributeTok{side =} \DecValTok{3}\NormalTok{),}
+  \AttributeTok{annotations =} \FunctionTok{list}\NormalTok{(}\AttributeTok{col =} \StringTok{"brown"}\NormalTok{),}
+  \AttributeTok{col.dots =} \StringTok{"blue"}\NormalTok{,}
+  \AttributeTok{grid =} \StringTok{"lightblue"}\NormalTok{, }
+  \AttributeTok{pch =} \DecValTok{16}\NormalTok{)}
 
 \FunctionTok{plot}\NormalTok{(exampleABAB, }\AttributeTok{style =}\NormalTok{ newstyle)}
 \end{Highlighting}
@@ -1334,11 +1380,11 @@ A short description of the \emph{scdf} is provided by the \texttt{summary} comma
 \begin{verbatim}
 #A single-case data frame with 4 cases
 
-          Measurements Design
-Adam                37    A B
-Berta               29    A B
-Christian           76    A B
-David               76    A B
+           Measurements Design
+ Adam                37    A-B
+ Berta               29    A-B
+ Christian           76    A-B
+ David               76    A-B
 
 Variable names:
 mt <measurement-time variable>
@@ -1355,7 +1401,6 @@ Author of data:  Christian Huber
 \begin{table}
 
 \caption{\label{tab:table-describe}Statistics of the describe command}
-\centering
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{30em}}
 \toprule
 Parameter & What it means ...\\
@@ -1365,7 +1410,6 @@ Parameter & What it means ...\\
 \textbf{m} & Mean values.\\
 \textbf{md} & Median of values.\\
 \textbf{sd} & Standard deviation of values.\\
-\addlinespace
 \textbf{mad} & Median average deviation of values.\\
 \textbf{min/max} & Min and max of values.\\
 \textbf{trend} & Slope of a regression line through values by time.\\
@@ -1382,41 +1426,40 @@ Parameter & What it means ...\\
 \begin{verbatim}
 Describe Single-Case Data
 
-Design:  A B C 
+       Marie Rosalind  Lise
+Design A-B-C    A-B-C A-B-C
+n.A       10       15    20
+n.B       10        8     7
+n.C       10        7     3
+mis.A      0        0     0
+mis.B      0        0     0
+mis.C      0        0     0
 
-        Marie Rosalind Lise
-    n.A    10       15   20
-    n.B    10        8    7
-    n.C    10        7    3
-  mis.A     0        0    0
-  mis.B     0        0    0
-  mis.C     0        0    0
-
-        Marie Rosalind   Lise
-    m.A 52.00    52.27  52.35
-    m.B 72.10    73.25  73.57
-    m.C 68.00    66.43  71.33
-   md.A 53.50    52.00  52.00
-   md.B 72.50    72.00  73.00
-   md.C 69.00    68.00  76.00
-   sd.A  8.29     8.15  10.87
-   sd.B 11.37    13.13  10.64
-   sd.C 12.70    10.49  21.39
-  mad.A 11.12     7.41  10.38
-  mad.B 10.38    10.38  16.31
-  mad.C 17.79    11.86  20.76
-  min.A 39.00    37.00  35.00
-  min.B 47.00    54.00  60.00
-  min.C 51.00    52.00  48.00
-  max.A 63.00    65.00  74.00
-  max.B 85.00    97.00  87.00
-  max.C 87.00    78.00  90.00
-trend.A -1.92     0.50  -0.09
-trend.B -0.61     0.64   1.93
-trend.C -0.19    -2.93 -14.00
+          Marie Rosalind    Lise
+m.A      52.000   52.267  52.350
+m.B      72.100   73.250  73.571
+m.C      68.000   66.429  71.333
+md.A       53.5     52.0    52.0
+md.B       72.5     72.0    73.0
+md.C         69       68      76
+sd.A      8.287    8.146  10.869
+sd.B     11.367   13.134  10.644
+sd.C     12.702   10.486  21.385
+mad.A    11.119    7.413  10.378
+mad.B    10.378   10.378  16.309
+mad.C    17.791   11.861  20.756
+min.A        39       37      35
+min.B        47       54      60
+min.C        51       52      48
+max.A        63       65      74
+max.B        85       97      87
+max.C        87       78      90
+trend.A  -1.915    0.500  -0.088
+trend.B  -0.612    0.643   1.929
+trend.C  -0.194   -2.929 -14.000
 \end{verbatim}
 
-The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the \texttt{describeSC} command into an R object and then use the \texttt{write.csv} (or \texttt{write.csv2} for a German OS system setup) to export the \texttt{descriptives} element of the object.
+The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the \texttt{describe} command into an R object and then use the \texttt{write.csv} (or \texttt{write.csv2} for a German OS system setup) to export the \texttt{descriptives} element of the object.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1463,24 +1506,42 @@ The \texttt{autocorr} function calculates autocorrelations within each phase and
 \end{Shaded}
 
 \begin{verbatim}
-Autocorrelations
+Warning in matrix(value, n, p): data length [14] is not a sub-multiple or
+multiple of the number of columns [4]
 
-     case phase lag_1 lag_2 lag_3 lag_4
-    Marie     A  0.29 -0.11  0.10  0.12
-    Marie     B -0.28 -0.10 -0.14 -0.09
-    Marie     C  0.00 -0.33 -0.14 -0.25
-    Marie   all  0.21  0.10  0.25  0.12
- Rosalind     A  0.37 -0.29 -0.33 -0.34
- Rosalind     B -0.34  0.24 -0.40  0.04
- Rosalind     C -0.07 -0.32  0.27  0.02
- Rosalind   all  0.49  0.38  0.22  0.17
-     Lise     A  0.04 -0.32 -0.05 -0.09
-     Lise     B -0.63  0.50 -0.40  0.31
-     Lise     C -0.38 -0.12    NA    NA
-     Lise   all  0.33  0.36  0.23  0.27
+Warning in matrix(value, n, p): data length [14] is not a sub-multiple or
+multiple of the number of columns [4]
+
+Warning in matrix(value, n, p): data length [14] is not a sub-multiple or
+multiple of the number of columns [4]
 \end{verbatim}
 
-The \texttt{trendSC} function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.
+\begin{verbatim}
+Autocorrelations
+
+Marie 
+ Phase Lag 1 Lag 2 Lag 3 Lag 4
+     A  0.29 -0.11  0.10  0.12
+     B -0.28 -0.10 -0.14 -0.09
+     C  0.00 -0.33 -0.14 -0.25
+   all  0.21  0.10  0.25  0.12
+
+Rosalind 
+ Phase Lag 1 Lag 2 Lag 3 Lag 4
+     A  0.37 -0.29 -0.33 -0.34
+     B -0.34  0.24 -0.40  0.04
+     C -0.07 -0.32  0.27  0.02
+   all  0.49  0.38  0.22  0.17
+
+Lise 
+ Phase Lag 1 Lag 2 Lag 3 Lag 4
+     A  0.04 -0.32 -0.05 -0.09
+     B -0.63  0.50 -0.40  0.31
+     C -0.38 -0.12    NA    NA
+   all  0.33  0.36  0.23  0.27
+\end{verbatim}
+
+The \texttt{trend} function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1502,7 +1563,7 @@ Squared.A      57.937 -0.208 -0.712
 Squared.B      73.217 -0.039 -0.098
 Squared.C      68.490 -0.017 -0.038
 
-Note. Measurement-times of phase B start at 0 
+Note. Measurement-times start at 0  for each phase
 \end{verbatim}
 
 \begin{Shaded}
@@ -1531,7 +1592,7 @@ Log Time.ALL    43.532 12.149  0.848
 Log Time.A      54.032  0.593  0.156
 Log Time.B      57.300  9.051  0.791
 
-Note. Measurement-times of phase B start at 1 
+Note. Measurement-times start at 1  for each phase
 \end{verbatim}
 
 \hypertarget{missing-values}{%
@@ -1558,7 +1619,7 @@ In both cases, missing values pose a threat to the internal validity of overlap 
               \AttributeTok{phase.design =} \FunctionTok{c}\NormalTok{(}\AttributeTok{A =} \DecValTok{10}\NormalTok{, }\AttributeTok{B =} \DecValTok{10}\NormalTok{), }\AttributeTok{name =} \StringTok{"no NA"}\NormalTok{)}
 \NormalTok{case2 }\OtherTok{\textless{}{-}} \FunctionTok{scdf}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{2}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{6}\NormalTok{,}\ConstantTok{NA}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{), }
               \AttributeTok{phase.design =} \FunctionTok{c}\NormalTok{(}\AttributeTok{A =} \DecValTok{10}\NormalTok{, }\AttributeTok{B =} \DecValTok{10}\NormalTok{), }\AttributeTok{name =} \StringTok{"NAs"}\NormalTok{)}
-\NormalTok{case3 }\OtherTok{\textless{}{-}} \FunctionTok{fillmissingSC}\NormalTok{(case2)}
+\NormalTok{case3 }\OtherTok{\textless{}{-}} \FunctionTok{fill\_missing}\NormalTok{(case2)}
 \FunctionTok{names}\NormalTok{(case3) }\OtherTok{\textless{}{-}} \StringTok{"interpolated NAs"}
 \NormalTok{ex }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(case1, case2, case3)}
 \FunctionTok{plot}\NormalTok{(ex)}
@@ -1576,28 +1637,28 @@ In both cases, missing values pose a threat to the internal validity of overlap 
 \begin{verbatim}
 Overlap Indices
 
-Design:  A B 
 Comparing phase 1 against phase 2 
 
-              no NA    NAs interpolated NAs
-PND           40.00  33.33            30.00
-PEM          100.00 100.00           100.00
-PET          100.00 100.00           100.00
-NAP           88.50  91.36            91.50
-NAP.rescaled  77.00  82.72            83.00
-PAND          72.50  80.56            80.00
-TAU_U          0.45   0.51             0.50
-Base_Tau       0.59   0.64             0.64
-Diff_mean      2.60   2.78             2.75
-Diff_trend     0.02   0.11             0.12
-SMD            1.65   1.96             2.02
-Hedges_g       1.58   1.87             1.94
+             no NA  NAs interpolated NAs
+Design         A-B  A-B              A-B
+PND             40   33               30
+PEM            100  100              100
+PET            100  100              100
+NAP             88   91               92
+NAP rescaled    77   83               83
+PAND            72   81               80
+Tau_U         0.45 0.51             0.50
+Base_Tau      0.59 0.64             0.64
+Diff_mean     2.60 2.78             2.75
+Diff_trend    0.02 0.11             0.12
+SMD           1.65 1.96             2.02
+Hedges_g      1.71 1.90             1.96
 \end{verbatim}
 
 \hypertarget{outlieranalysis}{%
 \section{Outlieranalysis}\label{outlieranalysis}}
 
-\emph{scan} provides several methods for analyzing outliers. All of them are implemented in the \texttt{outliers} function. Available methods are the \textbf{standard deviation}, \textbf{mean average deviation}, \textbf{confidence intervals}, and \textbf{Cook's distance}. The criteria argument takes a vector with two information, the first defines the analyzing method (``SD'', ``MAD'', CI``,''Cook``) and the second the criteria. For''SD" the criteria is the number of standard deviations (\textbf{sd}) from the mean of each phase for which a value is not considered to be an outlier. For example, \texttt{criteria\ =\ c("SD",2)} would identify every value exceeding two \textbf{sd} above or below the mean as an outlier whereas \textbf{sd} and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin \citet{iglewicz_how_1993} recommend the use the much more robust median average deviation (\textbf{MAD}) instead. The \textbf{MAD} is is constructed similar to the \textbf{sd} but uses the median instead of the mean. Multiplying the \textbf{MAD} by 1.4826 approximates the \textbf{sd} in a normal distributed sample. This corrected MAD is applied in the \texttt{outlier} function. A deviation of 3.5 times the corrected \textbf{MAD} from the median is suggested to be an outlier. To use this criterion set \texttt{criteria\ =\ c("MAD",\ 3.5)}. \texttt{criteria\ =\ c("CI",\ 0.95)} takes exceeding the 95\% confidence interval as the criteria for outliers. The Cook's distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook's distance analyses are based on a piecewise-regression model. Most commonly, Cook's distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c(``Cook'',``4/n'').
+\emph{scan} provides several methods for analyzing outliers. All of them are implemented in the \texttt{outliers} function. Available methods are the \textbf{standard deviation}, \textbf{mean average deviation}, \textbf{confidence intervals}, and \textbf{Cook's distance}. The criteria argument takes a vector with two information, the first defines the analyzing method (``SD'', ``MAD'', CI'', ``Cook'') and the second the criteria. For ``SD'' the criteria is the number of standard deviations (\textbf{sd}) from the mean of each phase for which a value is not considered to be an outlier. For example, \texttt{criteria\ =\ c("SD",2)} would identify every value exceeding two \textbf{sd} above or below the mean as an outlier whereas \textbf{sd} and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin \citet{iglewicz_how_1993} recommend the use the much more robust median average deviation (\textbf{MAD}) instead. The \textbf{MAD} is is constructed similar to the \textbf{sd} but uses the median instead of the mean. Multiplying the \textbf{MAD} by 1.4826 approximates the \textbf{sd} in a normal distributed sample. This corrected MAD is applied in the \texttt{outlier} function. A deviation of 3.5 times the corrected \textbf{MAD} from the median is suggested to be an outlier. To use this criterion set \texttt{criteria\ =\ c("MAD",\ 3.5)}. \texttt{criteria\ =\ c("CI",\ 0.95)} takes exceeding the 95\% confidence interval as the criteria for outliers. The Cook's distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook's distance analyses are based on a piecewise-regression model. Most commonly, Cook's distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c(``Cook'',``4/n'').
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1677,22 +1738,22 @@ The function returns am scdf with smoothed data points.
 \begin{verbatim}
 Overlap Indices
 
-Design:  A B 
 Comparing phase 1 against phase 2 
 
-             Johanna Karolina   Anja
-PND           100.00    86.67  93.33
-PEM           100.00   100.00 100.00
-PET           100.00    93.33 100.00
-NAP           100.00    96.67  98.00
-NAP.rescaled  100.00    93.33  96.00
-PAND          100.00    90.00  90.00
-TAU_U           0.77     0.78   0.64
-Base_Tau        0.63     0.59   0.61
-Diff_mean      19.53    21.67  20.47
-Diff_trend      1.53     0.54   2.50
-SMD             8.11     3.17   6.71
-Hedges_g        7.77     3.04   6.43
+             Johanna Karolina  Anja
+Design           A-B      A-B   A-B
+PND              100       87    93
+PEM              100      100   100
+PET              100       93   100
+NAP              100       97    98
+NAP rescaled     100       93    96
+PAND             100       90    90
+Tau_U           0.77     0.78  0.64
+Base_Tau        0.63     0.59  0.61
+Diff_mean      19.53    21.67 20.47
+Diff_trend      1.53     0.54  2.50
+SMD             8.11     3.17  6.71
+Hedges_g        2.35     2.26  2.87
 \end{verbatim}
 
 Overlap measures refer to a comparison of two phases within a single-case data-set. By default, \texttt{overlap} compares a Phase A to a Phase B. The \texttt{phases} argument is needed if the phases of the \emph{scdf} do not include phases named A and B or a comparison between other phases in wanted.\\
@@ -1708,22 +1769,22 @@ It is also possible to compare a combination of several cases against a combinat
 \begin{verbatim}
 Overlap Indices
 
-Design:  A1 B1 A2 B2 
-Comparing phases 1 + 3 against phases 2 + 4 
+Comparing phases A1 + A2 against phases B1 + B2 
 
-              Pawel Moritz Jannis
-PND           55.00  77.78  71.43
-PEM          100.00 100.00 100.00
-PET          100.00 100.00 100.00
-NAP           94.50  96.84  98.35
-NAP.rescaled  89.00  93.69  96.70
-PAND          82.50  85.00  90.00
-TAU_U          0.45   0.46   0.38
-Base_Tau       0.65   0.68   0.68
-Diff_mean     12.25  13.58  15.27
-Diff_trend    -0.05   0.00  -0.54
-SMD            2.68   3.27   3.62
-Hedges_g       2.63   3.21   3.55
+                   Pawel      Moritz      Jannis
+Design       A1-B1-A2-B2 A1-B1-A2-B2 A1-B1-A2-B2
+PND                   55          78          71
+PEM                  100         100         100
+PET                  100         100         100
+NAP                   94          97          98
+NAP rescaled          89          94          97
+PAND                  82          85          90
+Tau_U               0.45        0.46        0.38
+Base_Tau            0.65        0.68        0.68
+Diff_mean          12.25       13.58       15.27
+Diff_trend         -0.05        0.00       -0.54
+SMD                 2.68        3.27        3.62
+Hedges_g            2.07        2.72        2.98
 \end{verbatim}
 
 \hypertarget{percentage-non-overlapping-data-pnd}{%
@@ -1832,7 +1893,7 @@ Percentage of all non-overlapping data
 PAND =  93.3 %
 Φ =  0.822  ; Φ² =  0.676 
 
-Number of Cases: 3 
+Number of cases: 3 
 Total measurements: 60  (in phase A: 15; in phase B: 45)
 n overlapping data per case: 0, 2, 2
 Total overlapping data: n = 4 ; percentage = 6.7 
@@ -1901,22 +1962,23 @@ The standard return of the \texttt{tau\_u} function does not display all calcula
 Tau-U
 Method: complete 
 Applied Kendall's Tau-b
+95% CIs for tau are reported.
 
 Case: Case1 
-                            pairs pos neg ties  S    D   Tau SD_S VAR_S SE_Tau
-A vs. B                        20  19   1    0 18 20.0 0.900 8.16 66.67  0.408
-Trend A                         6   4   2    0  2  6.0 0.333 2.94  8.67  0.491
-Trend B                        10   8   2    0  6 10.0 0.600 4.08 16.67  0.408
-A vs. B - Trend A              26  21   5    0 16 30.6 0.523 8.68 75.33  0.284
-A vs. B + Trend B              30  27   3    0 24 32.9 0.730 9.13 83.33  0.278
-A vs. B + Trend B - Trend A    36  29   7    0 22 36.0 0.611 9.59 92.00  0.266
-                                Z       p
-A vs. B                     2.205 0.02749
-Trend A                     0.679 0.49691
-Trend B                     1.470 0.14164
-A vs. B - Trend A           1.843 0.06527
-A vs. B + Trend B           2.629 0.00856
-A vs. B + Trend B - Trend A 2.294 0.02181
+                            pairs pos neg ties  S    D   Tau CI lower CI upper
+A vs. B                        20  19   1    0 18 20.0 0.900   0.0998     1.70
+Trend A                         6   4   2    0  2  6.0 0.333  -0.6283     1.29
+Trend B                        10   8   2    0  6 10.0 0.600  -0.2002     1.40
+A vs. B - Trend A              26  21   5    0 16 30.6 0.523  -0.0331     1.08
+A vs. B + Trend B              30  27   3    0 24 32.9 0.730   0.1859     1.27
+A vs. B + Trend B - Trend A    36  29   7    0 22 36.0 0.611   0.0889     1.13
+                            SD_S VAR_S SE_Tau     Z       p
+A vs. B                     8.16 66.67  0.408 2.205 0.02749
+Trend A                     2.94  8.67  0.491 0.679 0.49691
+Trend B                     4.08 16.67  0.408 1.470 0.14164
+A vs. B - Trend A           8.68 75.33  0.284 1.843 0.06527
+A vs. B + Trend B           9.13 83.33  0.278 2.629 0.00856
+A vs. B + Trend B - Trend A 9.59 92.00  0.266 2.294 0.02181
 \end{verbatim}
 
 \begin{Shaded}
@@ -1929,13 +1991,16 @@ A vs. B + Trend B - Trend A 2.294 0.02181
 Tau-U
 Method: complete 
 Applied Kendall's Tau-b
+95% CIs for tau are reported.
 
-Overall Tau-U: 
-                       Model Tau_U     se    z        p
-                     A vs. B 0.969 0.1772 5.47 4.54e-08
-           A vs. B - Trend A 0.590 0.1064 5.54 3.04e-08
-           A vs. B + Trend B 0.740 0.0960 7.71 1.29e-14
- A vs. B + Trend B - Trend A 0.731 0.0942 7.75 9.09e-15
+Overall Tau-U
+Meta-anlysis model: random effect
+
+                       Model Tau_U     se CI lower CI upper    z        p
+                     A vs. B 0.969 0.1772    0.622    1.316 5.47 4.54e-08
+           A vs. B - Trend A 0.590 0.1064    0.381    0.798 5.54 3.04e-08
+           A vs. B + Trend B 0.740 0.0960    0.552    0.928 7.71 1.29e-14
+ A vs. B + Trend B - Trend A 0.731 0.0942    0.546    0.915 7.75 9.09e-15
 
 Case: Johanna 
                               Tau SE_Tau    Z     p
@@ -1959,6 +2024,61 @@ A vs. B + Trend B           0.626  0.167 3.74 0.000
 A vs. B + Trend B - Trend A 0.642  0.164 3.91 0.000
 \end{verbatim}
 
+\hypertarget{baseline-corrected-tau}{%
+\section{Baseline corrected tau}\label{baseline-corrected-tau}}
+
+This method has been proposed by \citet{tarlowImprovedRankCorrelation2016a}. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The more accurate Siegel repeated median regression is applied when \texttt{repeated\ =\ TRUE} \citep{siegelRobustRegressionUsing1982} and a continuity correction is applied when \texttt{continuity\ =\ TRUE} (both are the default settings).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat }\OtherTok{\textless{}{-}} \FunctionTok{scdf}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\AttributeTok{A =} \DecValTok{33}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{17}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{14}\NormalTok{,}\DecValTok{13}\NormalTok{,}\DecValTok{15}\NormalTok{, }\AttributeTok{B =} \DecValTok{15}\NormalTok{,}\DecValTok{16}\NormalTok{,}\DecValTok{16}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{11}\NormalTok{,}\DecValTok{7}\NormalTok{))}
+\FunctionTok{corrected\_tau}\NormalTok{(dat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Baseline corrected tau
+
+Method: Siegel repeated median regression
+Continuity correction applied
+
+                           tau     z    p
+Baseline autocorrelation -0.68 -2.28 <.05
+Uncorrected tau          -0.57 -2.98 <.01
+Baseline corrected tau    0.66  3.41 <.01
+
+Baseline correction should be applied.
+\end{verbatim}
+
+Here is a replication of an example provided by \citet{tarlowImprovedRankCorrelation2016a} :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dat }\OtherTok{\textless{}{-}} \FunctionTok{scdf}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\AttributeTok{A =} \DecValTok{33}\NormalTok{, }\DecValTok{25}\NormalTok{, }\DecValTok{17}\NormalTok{, }\DecValTok{25}\NormalTok{, }\DecValTok{14}\NormalTok{, }\DecValTok{13}\NormalTok{,}\DecValTok{14}\NormalTok{, }\AttributeTok{B =} \DecValTok{14}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{5}\NormalTok{ ,}\DecValTok{4}\NormalTok{ ,}\DecValTok{2}\NormalTok{ ,}\DecValTok{2}\NormalTok{ ,}\DecValTok{8}\NormalTok{, }\DecValTok{11}\NormalTok{ ,}\DecValTok{7}\NormalTok{))}
+\FunctionTok{corrected\_tau}\NormalTok{(dat, }\AttributeTok{repeated =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Baseline corrected tau
+
+Method: Theil-Sen regression
+Continuity correction applied
+
+                           tau     z     p
+Baseline autocorrelation -0.75 -2.46  <.05
+Uncorrected tau          -0.58 -3.02  <.01
+Baseline corrected tau    0.69  3.53 <.001
+
+Baseline correction should be applied.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OtherTok{\textless{}{-}} \FunctionTok{plm}\NormalTok{(dat)}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{reliable-change-index}{%
 \section{Reliable change index}\label{reliable-change-index}}
 
@@ -1972,7 +2092,7 @@ The \texttt{rci} function computes three indices of reliable change \citep{wise_
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{scan-book_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{scan-book_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 \begin{verbatim}
 Reliable Change Index
@@ -2201,7 +2321,7 @@ Autocorrelations of the residuals
 Formula: values ~ 1 + mt + phaseB + interB
 \end{verbatim}
 
-The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. There are several ways to do this. The easiest way is the to unset the \texttt{slope} argument: \texttt{slope\ =\ FALSE}.
+The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. There are several ways to do this. The easiest way is the to set the \texttt{slope} argument to \texttt{FALSE}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2231,7 +2351,7 @@ Autocorrelations of the residuals
 Formula: values ~ 1 + mt + phaseB
 \end{verbatim}
 
-In the resulting estimations the trend and level effects are now significant. The model estimated a trend effect of 1.01 points per measurement time and a level effect of 2.46 points. That is, with the beginning of the intervention (the B-phase) the score increases by 15.38 points (5 x 1.01 + 10.33).
+In the resulting estimations the trend and level effects are now significant. The model estimated a trend effect of 1.01 points per measurement time and a level effect of 10.33 points. That is, with the beginning of the intervention (the B-phase) the score increases by 15.38 points (5 x 1.01 + 10.33).
 
 \hypertarget{adding-additional-predictors}{%
 \subsection{Adding additional predictors}\label{adding-additional-predictors}}
@@ -2268,6 +2388,10 @@ Autocorrelations of the residuals
    3 -0.16
 
 Formula: wellbeing ~ day + phaseMedication + interMedication + cigarrets
+
+
+The following variables were used in this analysis:
+'wellbeing' as dependent variable, 'phase' as phase variable, and 'day' as measurement-time variable.
 \end{verbatim}
 
 The formula has two parts divided by a tilde. Left of the tilde is the variable to be predicted and right of it the predictors. A \texttt{1} indicates the intercept, the variable \texttt{mt} estimates the trend effect, \texttt{phaseB} the level effect of the B-phase and the variable \texttt{interB} the slope effect of the B-phase. If \texttt{formula} is not explicitly defined it is set to \texttt{formula\ =\ values\ \textasciitilde{}\ 1\ +\ mt\ +\ phaseB\ +\ interB} (assuming an AB-design) to estimate the full piecewise regression model.
@@ -2282,18 +2406,33 @@ The formula has two parts divided by a tilde. Left of the tilde is the variable 
 \end{Shaded}
 
 \begin{verbatim}
+Warning in matrix(value, n, p): data length [13] is not a sub-multiple or
+multiple of the number of columns [3]
+
+Warning in matrix(value, n, p): data length [13] is not a sub-multiple or
+multiple of the number of columns [3]
+\end{verbatim}
+
+\begin{verbatim}
 Autocorrelations
 
-  case phase lag_1 lag_2 lag_3
-   Eva     A -0.04 -0.56 -0.01
-   Eva     B  0.46  0.10  0.16
-   Eva   all  0.48  0.13  0.24
- Georg     A  0.51 -0.01 -0.13
- Georg     B -0.01 -0.02 -0.14
- Georg   all  0.40  0.15 -0.12
-  Olaf     A  0.64  0.29 -0.24
-  Olaf     B -0.45 -0.20  0.16
-  Olaf   all  0.35  0.12 -0.09
+Eva 
+ Phase Lag 1 Lag 2 Lag 3
+     A -0.04 -0.56 -0.01
+     B  0.46  0.10  0.16
+   all  0.48  0.13  0.24
+
+Georg 
+ Phase Lag 1 Lag 2 Lag 3
+     A  0.51 -0.01 -0.13
+     B -0.01 -0.02 -0.14
+   all  0.40  0.15 -0.12
+
+Olaf 
+ Phase Lag 1 Lag 2 Lag 3
+     A  0.64  0.29 -0.24
+     B -0.45 -0.20  0.16
+   all  0.35  0.12 -0.09
 \end{verbatim}
 
 \hypertarget{to-be-written-multivariate-piecewise-regression}{%
@@ -2306,36 +2445,30 @@ Autocorrelations
 \end{Shaded}
 
 \begin{verbatim}
-Registered S3 methods overwritten by 'car':
-  method                          from
-  influence.merMod                lme4
-  cooks.distance.influence.merMod lme4
-  dfbeta.influence.merMod         lme4
-  dfbetas.influence.merMod        lme4
-\end{verbatim}
-
-\begin{verbatim}
 Multivariate piecewise linear model
 
 Dummy model: B&L-B 
 
 Coefficients: 
-                        wellbeing depression
-(Intercept)            48.0380952  4.0857143
-day                     0.3785714  0.1142857
-Level Phase Medication  3.8633333 -0.7800000
-Slope Phase Medication -0.2754945 -0.1650549
+                       wellbeing depression
+(Intercept)               48.038      4.086
+day                        0.379      0.114
+Level Phase Medication     3.863     -0.780
+Slope Phase Medication    -0.275     -0.165
 
 Formula: y ~ 1 + day + phaseMedication + interMedication
 
 Type III MANOVA Tests: Pillai test statistic
                        Df test stat approx F num Df den Df Pr(>F)    
-(Intercept)             1   0.89679  152.053      2     35 <2e-16 ***
-day                     1   0.05450    1.009      2     35 0.3750    
-Level Phase Medication  1   0.03846    0.700      2     35 0.5034    
-Slope Phase Medication  1   0.03911    0.712      2     35 0.4975    
+(Intercept)             1     0.897    152.1      2     35 <2e-16 ***
+day                     1     0.055      1.0      2     35   0.38    
+Level Phase Medication  1     0.038      0.7      2     35   0.50    
+Slope Phase Medication  1     0.039      0.7      2     35   0.50    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+The following variables were used in this analysis:
+'wellbeing/ depression' as dependent variable, 'phase' as phase variable, and 'day' as measurement-time variable.
 \end{verbatim}
 
 \hypertarget{multilevel-plm-analyses}{%
@@ -2370,21 +2503,21 @@ Estimation method ML
 Slope estimation method: B&L-B 
 50 Cases
 
-ICC = 0.195; L = 192.0; p = 0.000
+ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                    B    SE   df      t p
-Intercept     51.614 1.282 1281 40.274 0
-Trend mt       0.671 0.115 1281  5.844 0
-Level phase B 12.938 0.590 1281 21.942 0
-Slope phase B  0.859 0.119 1281  7.236 0
+Intercept     47.819 1.517 1328 31.528 0
+Trend mt       0.579 0.116 1328  5.006 0
+Level phase B 13.136 0.584 1328 22.489 0
+Slope phase B  0.902 0.119 1328  7.588 0
 
 Random effects (~1 | case)
 
           EstimateSD
-Intercept      8.179
-Residual       5.335
+Intercept      9.970
+Residual       5.285
 \end{verbatim}
 
 Here is an example inlcuding random slopes:
@@ -2402,24 +2535,24 @@ Estimation method ML
 Slope estimation method: B&L-B 
 50 Cases
 
-ICC = 0.195; L = 192.0; p = 0.000
+ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                    B    SE   df      t p
-Intercept     51.720 1.348 1281 38.378 0
-Trend mt       0.637 0.125 1281  5.080 0
-Level phase B 13.090 0.762 1281 17.176 0
-Slope phase B  0.887 0.129 1281  6.856 0
+Intercept     47.589 1.423 1328 33.432 0
+Trend mt       0.622 0.113 1328  5.513 0
+Level phase B 13.006 0.849 1328 15.328 0
+Slope phase B  0.864 0.116 1328  7.427 0
 
 Random effects (~1 + mt + phaseB + interB | case)
 
               EstimateSD
-Intercept          8.691
-Trend mt           0.343
-Level phase B      3.654
-Slope phase B      0.358
-Residual           4.994
+Intercept          9.297
+Trend mt           0.100
+Level phase B      4.543
+Slope phase B      0.127
+Residual           4.975
 \end{verbatim}
 
 \hypertarget{adding-additional-l2-variables}{%
@@ -2456,25 +2589,25 @@ Multilevel analyses require a high number of Level 2 units. The exact number dep
 \hline
 case & sex & age\\
 \hline
-Jeremiah & m & 10\\
+Roman & m & 12\\
 \hline
-Leon & m & 12\\
+Brennen & m & 10\\
 \hline
-Pablo & m & 10\\
+Ismael & m & 13\\
 \hline
-Jamal & m & 10\\
+Donald & m & 11\\
 \hline
-Giovanny & m & 11\\
+Ricardo & m & 13\\
 \hline
-Callum & m & 10\\
+Izayah & m & 11\\
 \hline
-Dwayne & m & 11\\
+Ignacio & m & 12\\
 \hline
-Neymar & m & 10\\
+Xavier & m & 12\\
 \hline
-Krish & m & 11\\
+Arian & m & 10\\
 \hline
-Caiden & m & 12\\
+Paul & m & 10\\
 \hline
 \end{tabular}
 
@@ -2493,23 +2626,23 @@ Estimation method ML
 Slope estimation method: B&L-B 
 50 Cases
 
-ICC = 0.195; L = 192.0; p = 0.000
+ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ mt + phaseB + interB + sex + age)
 
                    B     SE   df      t     p
-Intercept     71.464 13.076 1281  5.465 0.000
-Trend mt       0.667  0.115 1281  5.808 0.000
-Level phase B 12.951  0.590 1281 21.951 0.000
-Slope phase B  0.863  0.119 1281  7.264 0.000
-sexm          -2.130  2.336   47 -0.912 0.367
-age           -1.710  1.157   47 -1.478 0.146
+Intercept     44.297 11.932 1328  3.713 0.000
+Trend mt       0.581  0.116 1328  5.026 0.000
+Level phase B 13.123  0.584 1328 22.456 0.000
+Slope phase B  0.900  0.119 1328  7.569 0.000
+sexm          -6.440  2.727   47 -2.362 0.022
+age            0.603  1.073   47  0.562 0.577
 
 Random effects (~1 | case)
 
           EstimateSD
-Intercept      7.975
-Residual       5.335
+Intercept      9.446
+Residual       5.284
 \end{verbatim}
 
 \texttt{sex} is a factor with the levels \texttt{f} and \texttt{m}. So \texttt{sexm} is the effect of being male on the overall performance. \texttt{age} does not seem to have any effect. So we drop \texttt{age} out of the equation and add an interaction of sex and phase to see whether the \texttt{sex} effect is due to a weaker impact of the intervention on males.
@@ -2527,26 +2660,26 @@ Estimation method ML
 Slope estimation method: B&L-B 
 50 Cases
 
-ICC = 0.195; L = 192.0; p = 0.000
+ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ mt + phaseB + interB + sex + phaseB:sex)
 
-                        B    SE   df       t     p
-Intercept          49.801 1.735 1280  28.711 0.000
-Trend mt            0.638 0.109 1280   5.847 0.000
-Level phase B      16.762 0.644 1280  26.034 0.000
-Slope phase B       0.889 0.113 1280   7.884 0.000
-sexm                3.983 2.368   48   1.682 0.099
-Level phase B:sexm -7.463 0.622 1280 -11.994 0.000
+                        B    SE   df       t    p
+Intercept          47.964 1.990 1327  24.097 0.00
+Trend mt            0.609 0.109 1327   5.573 0.00
+Level phase B      16.841 0.625 1327  26.965 0.00
+Slope phase B       0.884 0.112 1327   7.868 0.00
+sexm               -0.593 2.741   48  -0.216 0.83
+Level phase B:sexm -7.732 0.609 1327 -12.699 0.00
 
 Random effects (~1 | case)
 
           EstimateSD
-Intercept      8.144
-Residual       5.059
+Intercept      9.494
+Residual       4.989
 \end{verbatim}
 
-Now the interaction \texttt{phase:sexm} is significant and the main effect is no longer relevant. It looks like the intervention effect is 7.5 points lower for male subjects. While the level-effect is 16.8 points for female subjects it is 16.8 - 7.5 = 9.3 for males.
+Now the interaction \texttt{phase:sexm} is significant and the main effect is no longer relevant. It looks like the intervention effect is \(7.7\) points lower for male subjects. While the level-effect is \(16.8\) points for female subjects it is \(16.8\) - \(7.7\) = \(9.1\) for males.
 
 \hypertarget{randomization-tests}{%
 \chapter{Randomization tests}\label{randomization-tests}}
@@ -2603,25 +2736,238 @@ Randomization Test
 
 Test for 3 cases.
 
-Comparing phase 1 against phase 2 
+Comparing phase A against phase B 
 Statistic:  Mean B-A 
 
-Minimal length of each phase:  5 5 
+Minimal length of each phase: A = 5 , B = 5 
 Observed statistic =  20.55556 
-
 
 Distribution based on a random sample of all 1331 possible combinations.
 n   =  500 
-M   =  18.59305 
-SD  =  1.114388 
+M   =  18.58539 
+SD  =  1.118411 
 Min =  16.05185 
 Max =  21.34493 
 
+Probability of observed statistic based on distribution:
 p   =  0.036 
 
-Shapiro-Wilk Normality Test: W = 0.979; p = 0.000  (Hypothesis of Normality rejected)
-z = 1.7611, p = 0.0391 (single sided)
+Shapiro-Wilk Normality Test: W = 0.980; p = 0.000  (Hypothesis of normality rejected)
+
+Probabilty of observed statistic based on the assumption of normality:
+z = 1.7616, p = 0.0391 (single sided)
 \end{verbatim}
+
+\hypertarget{power-analyses-scan-version-0.54-or-later}{%
+\chapter{Power analyses (scan version 0.54 or later)}\label{power-analyses-scan-version-0.54-or-later}}
+
+\hypertarget{the-idea-of-a-power-test}{%
+\section{The idea of a power-test}\label{the-idea-of-a-power-test}}
+
+The \texttt{powert\_test()} function provides the alpha error probability and power when analyzing a specific effect of a single-case design with a given statistical method.
+
+For example, you have a one case design with phase length A = 10 and B = 20. You assume a strong level effect of d = 1 and you expect a slight trend effect of trend = 0.02. You might be interested to answer two questions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How suitable is a plm model for detecting the level-effect? (also: what is the power to detect the level effect?).
+\item
+  What if I had the same design but without a level-effect. How often would the plm falsely find a significant level-effect? (also: how large is the alpha-error probability for the level-effect?).
+\end{enumerate}
+
+In principle, the power\_test function takes a single case design and repeatedly generates random cases based on that design. Each case is now analyzed with a given statistical method. The proportion of significant effects in these analyses is an estimator of the test-power. In a second step the design is stripped of the target effect and again multiple cases are generated on this changed design and analyzed with the same method. Now, the proportion of significant effects is the estimator for the alpha-error probability.
+
+\hypertarget{set-up-a-single-case-design}{%
+\section{Set up a single-case design}\label{set-up-a-single-case-design}}
+
+The \texttt{design()} function sets up a single-case design. You can define various parameters of that design:
+
+\begin{table}
+
+\caption{\label{tab:design-arguments}Core arguments of the design function}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{30em}}
+\toprule
+Argument & What it does ...\\
+\midrule
+\textbf{n} & Number of cases to be created (Default is n = 1).\\
+\textbf{phase.design} & A list defining the length and label of each phase. E.g., phase.length = list(A1 = 10, B1 = 10, A2 = 10, B2 = 10). Use vectors if you want to define different values for each case phase.length = list(A = c(10, 15), B = c(10, 15).\\
+\textbf{trend} & Defines the effect size of a trend added incrementally to each measurement across the whole data-set. To assign different trends to several single-cases, use a vector of values (e.g. trend = c(.1, .3, .5)). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the trend parameters indicate effect size d changes. When using a binomial or poisson distribution, trend indicates an increase in points / counts per measurement.\\
+\textbf{level} & A list that defines the level increase (effect size d) at the beginning of each phase relative to the previous phase (e.g. list(A = 0, B = 1)). The first element must be zero as the first phase of a single-case has no level effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable level effects for each case (e.g. list(A = c(0, 0), B = c(1, 2))). When using a 'gaussian' distribution, the level parameters indicate effect size d changes. When using a binomial or poisson distribution, level indicates an increase in points / counts with the onset of each phase.\\
+\textbf{slope} & A list that defines the increase per measurement for each phase compared to the previous phase. slope = list(A = 0, B = .1 generates an incremental increase of 0.1 per measurement starting at the B phase. The first list element must be zero as the first phase of a single-case has no slope effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable slope effects for each case (e.g. list(A = c(0, 0), B = c(0.1, 0.2))). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the slope parameters indicate effect size d changes per measurement. When using a binomial or poisson distribution, slope indicates an increase in points / counts per measurement.\\
+\textbf{rtt} & Reliability of the underlying simulated measurements. Set rtt = .8 by default. To assign different reliabilities to several single-cases, use a vector of values (e.g. rtt = c(.6, .7, .8)). If the number of cases exceeds the length of the vector, values are repeated. rtt has no effect when you're using binomial or poisson distributed scores.\\
+\textbf{start\_value} & Starting value at the first measurement. Default is 50. To assign different start values to several single-cases, use a vector of values (e.g. c(50, 42, 56)). If the number of cases exceeds the length of the vector, values are recycled.\\
+\textbf{s} & Standard deviation used to calculate absolute values from level, slope, trend effects and to calculate and error distribution from the rtt values. Set to 10 by default. To assign different variances to several single-cases, use a vector of values (e.g. s = c(5, 10, 15)). If the number of cases exceeds the length of the vector, values are recycled. if the distribution is 'poisson' or 'binomial' s is not applied.\\
+\textbf{extreme.p} & Probability of extreme values. extreme.p = .05 gives a five percent probability of an extreme value. A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.\\
+\textbf{extreme.d} & Range for extreme values, expressed as effect size d. extreme.d = c(-7,-6) uses extreme values within a range of -7 and -6 standard deviations. In case of a binomial or poisson distribution, extreme.d indicates points / counts. Caution: the first value must be smaller than the second, otherwise the procedure will fail.\\
+\textbf{missing.p} & Portion of missing values. missing.p = 0.1 creates 10\% of all values as missing). A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.\\
+\textbf{distribution} & Distribution of the scores. Default is distribution = 'normal'. Possible values are 'normal' (or 'gaussian'), 'binomial', and 'poisson'.\\
+\textbf{prob} & If distribution is set 'binomial', prob passes the probability of occurrence.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\hypertarget{an-example}{%
+\subsection{An example}\label{an-example}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{design }\OtherTok{\textless{}{-}} \FunctionTok{design}\NormalTok{(}
+  \AttributeTok{n =} \DecValTok{10}\NormalTok{, }
+  \AttributeTok{phase\_design =} \FunctionTok{list}\NormalTok{(}\AttributeTok{A =} \DecValTok{10}\NormalTok{, }\AttributeTok{B =} \DecValTok{15}\NormalTok{, }\AttributeTok{C =} \DecValTok{10}\NormalTok{),}
+  \AttributeTok{trend =} \FloatTok{0.01}\NormalTok{, }
+  \AttributeTok{level =} \FunctionTok{list}\NormalTok{(}\AttributeTok{A =} \DecValTok{0}\NormalTok{, }\AttributeTok{B =} \FloatTok{0.4}\NormalTok{, }\AttributeTok{C =} \DecValTok{0}\NormalTok{), }
+  \AttributeTok{slope =} \FunctionTok{list}\NormalTok{(}\AttributeTok{A =} \DecValTok{0}\NormalTok{, }\AttributeTok{B =} \FloatTok{0.02}\NormalTok{, }\AttributeTok{C =} \DecValTok{0}\NormalTok{),}
+  \AttributeTok{rtt =} \FloatTok{0.8}\NormalTok{, }
+  \AttributeTok{start\_value =} \DecValTok{50}\NormalTok{, }
+  \AttributeTok{s =} \DecValTok{10}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{conducting-a-power-test}{%
+\section{Conducting a power-test}\label{conducting-a-power-test}}
+
+When conduction a power\_test you firstly need to define a design which you like to be tested.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{design }\OtherTok{\textless{}{-}} \FunctionTok{design}\NormalTok{(}
+  \AttributeTok{n =} \DecValTok{1}\NormalTok{,}
+  \AttributeTok{phase\_design =} \FunctionTok{list}\NormalTok{(}\AttributeTok{A =} \DecValTok{10}\NormalTok{, }\AttributeTok{B =} \DecValTok{20}\NormalTok{),}
+  \AttributeTok{level =} \FunctionTok{list}\NormalTok{(}\AttributeTok{A =} \DecValTok{0}\NormalTok{, }\AttributeTok{B =} \DecValTok{1}\NormalTok{),}
+  \AttributeTok{trend =} \FloatTok{0.02}\NormalTok{,}
+  \AttributeTok{distribution =} \StringTok{"normal"}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Then you have to choose the statistical method. The \texttt{power\_test} function applies three methods by default: plm, randomization test, and TauU.
+These default values are only suitable when your design is a one single-case study.
+
+Let us start with the defaults and conduct a power analysis for our previously set design: \emph{(This might take some time. Even in the default setting with 100 simulations you might wait a few seconds. For more precise estimations I recommend 1000 simulations - or even higher.)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res }\OtherTok{\textless{}{-}} \FunctionTok{power\_test}\NormalTok{(design)}
+\NormalTok{res}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Test-Power in percent:
+
+    Method Power Alpha Error Alpha:Beta Correct p
+ plm_level    73           5      1:5.4    84.0 0
+      rand    67          10      1:3.3    78.5 0
+      tauU   100          25      1:0.0    87.5 0
+\end{verbatim}
+
+The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to estimation errors. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tauU test has an unacceptably high alpha-error which is due to the trend we but into the design.
+
+\hypertarget{statistical-methods}{%
+\section{Statistical methods}\label{statistical-methods}}
+
+The \texttt{method} argument takes a list where each element depicts a statistical method. Currently, the following character strings are predefined:
+
+\begin{table}
+
+\caption{\label{tab:table-mc-func}Statistical methods}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{10em}>{\raggedright\arraybackslash}p{7em}l}
+\toprule
+Name & Single/ multiple cases & What it means ...\\
+\midrule
+\textbf{plm\_level} & single & A complete plm model for normal distributed dependent variables. It checks for the level effect.\\
+\textbf{plm\_slope} & single & A complete plm model for normal distributed dependent variables. It checks for the slope effect.\\
+\textbf{plm\_poisson\_level} & single & Like plm\_level but for poisson distributed dependent variables.\\
+\textbf{plm\_poisson\_slope} & single & Like plm\_slope but for poisson distributed dependent variables.\\
+\textbf{hplm\_level} & multiple & A complete hplm model for normal distributed dependent variables. It checks for the level effect.\\
+\textbf{hplm\_slope} & multiple & A complete hplm model for normal distributed dependent variables. It checks for the slope effect.\\
+\textbf{tauU} & sinlge & A tauU test with method complete and taub estimations. It checks the 'A vs. B - Trend A' variation.\\
+\textbf{tauU\_slope} & sinlge & A tauU test with method complete and taub estimations. It checks the 'A vs. B - Trend A + Trend B' variation.\\
+\textbf{tauU\_meta} & multiple & Like 'TauU' but with the results from a meta analyses (fixed effects). Very slow.\\
+\textbf{tauU\_slope\_meta} & multiple & Like 'TauU\_slope' but with the results from a meta analyses (fixed effects). Very slow.\\
+\textbf{base\_tau} & single & A baseline corrected tau test.\\
+\textbf{rand} & single and multiple & A randomization test for 'Mean B-A' with 100 permutations.\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\hypertarget{advanced-methods}{%
+\subsection{Advanced methods}\label{advanced-methods}}
+
+\emph{Note: You need specific knowledge on how to create functions in R and on data structures to follow all aspects this section.}
+
+Instead of one of the predefined character strings you can also create you own functions and implement these. You function must take an scdf as the first argument and return a single numeric p-value.
+
+Here is an example of a fast plm function for poisson distributed data based on the \texttt{fastglm} package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plm\_fast }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data) \{}
+\NormalTok{  data }\OtherTok{\textless{}{-}} \FunctionTok{unlist}\NormalTok{(data, }\AttributeTok{recursive =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{  y  }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{values}
+\NormalTok{  n1 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{phase }\SpecialCharTok{==} \StringTok{"A"}\NormalTok{)}
+\NormalTok{  n2 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{phase }\SpecialCharTok{==} \StringTok{"B"}\NormalTok{)}
+\NormalTok{  D }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n1), }\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, n2))}
+\NormalTok{  mt }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{mt}
+\NormalTok{  inter }\OtherTok{\textless{}{-}}\NormalTok{ (mt }\SpecialCharTok{{-}}\NormalTok{ mt[n1]) }\SpecialCharTok{*}\NormalTok{ D}
+\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}
+    \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, n1 }\SpecialCharTok{+}\NormalTok{ n2), mt, D, inter),}
+    \AttributeTok{nrow =}\NormalTok{ n1 }\SpecialCharTok{+}\NormalTok{ n2,}
+    \AttributeTok{ncol =} \DecValTok{4}
+\NormalTok{  )}
+\NormalTok{  full }\OtherTok{\textless{}{-}}\NormalTok{ fastglm}\SpecialCharTok{::}\FunctionTok{fastglm}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ y, }\AttributeTok{family =} \StringTok{"poisson"}\NormalTok{, }\AttributeTok{method =} \DecValTok{2}\NormalTok{)}
+  \FunctionTok{summary}\NormalTok{(full)}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{]}
+\NormalTok{\}}
+
+\FunctionTok{power\_test}\NormalTok{(design, }\AttributeTok{method =} \FunctionTok{list}\NormalTok{(}\StringTok{"fast plm"} \OtherTok{=}\NormalTok{ plm\_fast))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{computation-duration}{%
+\section{Computation duration}\label{computation-duration}}
+
+You can print the returning object of the \texttt{power\_test} function with added computation duration time by setting \texttt{duration\ =\ TRUE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(res, }\AttributeTok{duration =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Test-Power in percent:
+
+    Method Power Alpha Error Alpha:Beta Correct p
+ plm_level    73           5      1:5.4    84.0 0
+      rand    67          10      1:3.3    78.5 0
+      tauU   100          25      1:0.0    87.5 0
+
+Computation duration is 2.5 seconds.
+\end{verbatim}
+
+The duration depends heavily on the applied test methods. Regressions are faster than randomization tests and tauU tests are quiet slow:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res1 }\OtherTok{\textless{}{-}} \FunctionTok{power\_test}\NormalTok{(design, }\AttributeTok{method =} \StringTok{"plm\_level"}\NormalTok{)}
+\NormalTok{res2 }\OtherTok{\textless{}{-}} \FunctionTok{power\_test}\NormalTok{(design, }\AttributeTok{method =} \StringTok{"rand"}\NormalTok{)}
+\NormalTok{res3 }\OtherTok{\textless{}{-}} \FunctionTok{power\_test}\NormalTok{(design, }\AttributeTok{method =} \StringTok{"tauU"}\NormalTok{)}
+
+\CommentTok{\# Elapsed time in seconds for each procedure}
+\FunctionTok{attr}\NormalTok{(res1, }\StringTok{"computation\_duration"}\NormalTok{)[}\DecValTok{3}\NormalTok{]}
+\NormalTok{elapsed }
+   \FloatTok{0.19} 
+\FunctionTok{attr}\NormalTok{(res2, }\StringTok{"computation\_duration"}\NormalTok{)[}\DecValTok{3}\NormalTok{]}
+\NormalTok{elapsed }
+  \FloatTok{0.467} 
+\FunctionTok{attr}\NormalTok{(res3, }\StringTok{"computation\_duration"}\NormalTok{)[}\DecValTok{3}\NormalTok{]}
+\NormalTok{elapsed }
+  \FloatTok{1.567} 
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{default-settings}{%
 \chapter{Default settings}\label{default-settings}}
@@ -2650,12 +2996,12 @@ Some of the default settings of scan can be changed with the \texttt{options()} 
 \begin{verbatim}
 #A single-case data frame with 3 cases
 
- phase values mt | phase values mt | phase values mt |
-     A     54  1 |     A     41  1 |     A     55  1 |
-     A     53  2 |     A     59  2 |     A     58  2 |
-     A     56  3 |     A     56  3 |     A     53  3 |
-     A     58  4 |     A     51  4 |     A     50  4 |
-     A     52  5 |     A     52  5 |     A     52  5 |
+ values mt phase | values mt phase | values mt phase |
+     54  1     A |     41  1     A |     55  1     A |
+     53  2     A |     59  2     A |     58  2     A |
+     56  3     A |     56  3     A |     53  3     A |
+     58  4     A |     51  4     A |     50  4     A |
+     52  5     A |     52  5     A |     52  5     A |
 # ... up to 15 more rows
 \end{verbatim}
 
@@ -2669,29 +3015,28 @@ Some of the default settings of scan can be changed with the \texttt{options()} 
 \begin{verbatim}
 #A single-case data frame with 3 cases
 
- Johanna: phase values mt | Karolina: phase values mt | Anja: phase values mt |
-              A     54  1 |               A     41  1 |           A     55  1 |
-              A     53  2 |               A     59  2 |           A     58  2 |
-              A     56  3 |               A     56  3 |           A     53  3 |
-              A     58  4 |               A     51  4 |           A     50  4 |
-              A     52  5 |               A     52  5 |           A     52  5 |
-              B     61  6 |               B     57  6 |           B     55  6 |
-              B     62  7 |               B     56  7 |           B     68  7 |
-              B     71  8 |               B     67  8 |           B     68  8 |
-              B     66  9 |               B     75  9 |           B     81  9 |
-              B     64 10 |               B     66 10 |           B     67 10 |
-              B     78 11 |               B     69 11 |           B     78 11 |
-              B     70 12 |               B     68 12 |           B     73 12 |
-              B     74 13 |               B     73 13 |           B     72 13 |
-              B     82 14 |               B     77 14 |           B     78 14 |
-              B     77 15 |               B     79 15 |           B     81 15 |
+ Johanna: values mt phase | Karolina: values mt phase | Anja: values mt phase |
+              54  1     A |               41  1     A |           55  1     A |
+              53  2     A |               59  2     A |           58  2     A |
+              56  3     A |               56  3     A |           53  3     A |
+              58  4     A |               51  4     A |           50  4     A |
+              52  5     A |               52  5     A |           52  5     A |
+              61  6     B |               57  6     B |           55  6     B |
+              62  7     B |               56  7     B |           68  7     B |
+              71  8     B |               67  8     B |           68  8     B |
+              66  9     B |               75  9     B |           81  9     B |
+              64 10     B |               66 10     B |           67 10     B |
+              78 11     B |               69 11     B |           78 11     B |
+              70 12     B |               68 12     B |           73 12     B |
+              74 13     B |               73 13     B |           72 13     B |
+              82 14     B |               77 14     B |           78 14     B |
+              77 15     B |               79 15     B |           81 15     B |
 # ... up to 5 more rows
 \end{verbatim}
 
 \begin{table}
 
 \caption{\label{tab:table-options}Scan Options}
-\centering
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{15em}l}
 \toprule
 Option & Default & What it does ...\\
@@ -2699,14 +3044,56 @@ Option & Default & What it does ...\\
 \textbf{scan.print.cases} & "fit" & Max number of cases printed for scdf objects\\
 \textbf{scan.print.rows} & 15 & Max number of rows printed for scdf objects\\
 \textbf{scan.print.cols} & "all" & Max number of columns printed for scdf objects\\
-\textbf{scan.print.digits} & 1 & Max number of digits printed for scdf objects\\
+\textbf{scan.print.digits} & 2 & Max number of digits printed for scdf objects\\
 \textbf{scan.print.long} & FALSE & If TRUE, prints scdf objects in long format\\
-\addlinespace
 \textbf{scan.print.scdf.name} & TRUE & If TRUE, prints case names of scdf\\
 \textbf{scan.deprecated.warning} & FALSE & When TRUE returns information on deprecated functions\\
 \textbf{scan.export.kable} & list(digits = 2, linesep = "", booktab = TRUE) & List with default arguments for the kable argument of the export function\\
-\textbf{scan.export.kable\_styling} & list(bootstrap\_options = c("bordered", "condensed"), full\_width = FALSE, position = "center") & List with default arguments for the kable\_styling argument of the export function\\
+\textbf{scan.export.kable\_styling} & list(bootstrap\_options = c("bordered", "condensed"), full\_width = FALSE, position = "left", latex\_options = "hold\_position", htmltable\_class = "lightable-classic") & List with default arguments for the kable\_styling argument of the export function\\
 \textbf{scan.plot.style} & "grid" & NA\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\hypertarget{example-datasets}{%
+\chapter{Example datasets}\label{example-datasets}}
+
+\begin{table}
+
+\caption{\label{tab:scanex}Scan Options}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{7em}>{\raggedright\arraybackslash}p{20em}l}
+\toprule
+Name & Info & Author\\
+\midrule
+\textbf{Beretvas2008} & Example from Beretvas, S., \& Chung, H. (2008). An evaluation of modified R2-change effect size indices for single-subject experimental designs. Evidence-Based Communication Assessment and Intervention, 2, 120-128. & \\
+\textbf{Borckardt2014} & Example from Borckardt, J. J., \& Nash, M. R. (2014). Simulation modelling analysis for small sets of single-subject data collected over time. Neuropsychological Rehabilitation, 24(3-4), 492-506. & \\
+\textbf{Grosche2011} & Data from Grosche, M. (2011). Effekte einer direkt-instruktiven Förderung der Lesegenauigkeit. Empirische Sonderpädagogik, 3(2), 147-161. & Michael Grosche\\
+\textbf{Grosche2014} & Data from a multiple material multi person intervention study on reading. & Michael Grosche, Timo Lueke and Juergen Wilbert\\
+\textbf{GruenkeWilbert2014} & Data from an intervention study on text comprehension. Gruenke, M., Wilbert, J., \& Stegemann-Calder, K. (2013). Analyzing the effects of story mapping on the reading comprehension of children with low intellectual abilities. Learning Disabilities: A Contemporary Journal, 11(2), 51-64. & Matthias Gruenke and Juergen Wilbert\\
+\textbf{Huber2014} & Behavioral data (compliance in percent). & Christian Huber\\
+\textbf{Huitema2000} & Example from Huitema, B. E., \& Mckean, J. W. (2000). Design specification issues in time-series intervention models. Educational and Psychological Measurement, 60(1), 38-58. & \\
+\textbf{Leidig2018} & Data from: Leidig et. al (2018, unpublished). Effects of the Good Behavior Game on At-risk Students' from Primary Schools & \\
+\textbf{Leidig2018\_l2} &  & \\
+\textbf{Lenz2013} & Example from Lenz, A. S. (2013). Calculating Effect Size in Single-Case Research: A Comparison of Nonoverlap Methods. Measurement and Evaluation in Counseling and Development, 46(1), 64-73. & \\
+\textbf{Parker2011} & Example from Parker, R. I., Vannest, K. J., Davis, J. L., \& Sauber, S. B. (2011). Combining Nonoverlap and Trend for Single-Case Research: Tau-U. Behavior Therapy, 42(2), 284-299. & \\
+\textbf{SSDforR2017} & Example from the SSDforR package. & Charles Auerbach, PhD \& Wendy Zeitlin, PhD; Yeshiva University, Wurzweiler school of social work.\\
+\textbf{Waddell2011} & Example from Waddell, D. E., Nassar, S. L., \& Gustafson, S. A. (2011). Single-Case Design in Psychophysiological Research: Part II: Statistical Analytic Approaches. Journal of Neurotherapy, 15(2), 160 - 169. & \\
+\textbf{byHeart2011} & Data from university students learning vocabulary by heart and checking their progress with 20 flashcards each session. & Juergen Wilbert\\
+\textbf{exampleA1B1A2B2} &  & \\
+\textbf{exampleA1B1A2B2\_zvt} &  & \\
+\textbf{exampleAB} & Randomly created data with normal distributed dependent variable. & \\
+\textbf{exampleABAB} & Randomly created data with uniform distribution. & \\
+\textbf{exampleABC} &  & \\
+\textbf{exampleABC\_150} & Random data-set for testing out hplm. Level and slope effects vary. & \\
+\textbf{exampleABC\_outlier} & Random data-set based on exampleABC but with outliers. & \\
+\textbf{exampleAB\_50} &  & \\
+\textbf{exampleAB\_50.l2} &  & \\
+\textbf{exampleAB\_add} & Random data-set for testing out plm with additional variables. & \\
+\textbf{exampleAB\_decreasing} & Random data-set from a poisson distribution. Level effect is negative. & \\
+\textbf{exampleAB\_mpd} & A multiple phase design study. & Juergen Wilbert\\
+\textbf{exampleAB\_score} & Random data-set for binomial data. & \\
+\textbf{exampleAB\_simple} & A simple multiple baseline AB Design. & Juergen Wilbert\\
+\textbf{example\_A24} & Number of injuries on a German autobahn before and after implementation of a speedlimit (130km/h). & Ministerium fuer Infrastruktur und Landesplanung. Land Brandenburg.\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -2741,10 +3128,9 @@ In \texttt{RStudio}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
+\begin{table}[!h]
 
-\caption{\label{tab:unnamed-chunk-64}Single case data frame with 3 cases}
-\centering
+\caption{\label{tab:unnamed-chunk-74}Single case data frame with 3 cases}
 \begin{tabular}[t]{cccccccccccc}
 \toprule
 \multicolumn{4}{c}{Tick} & \multicolumn{4}{c}{Trick} & \multicolumn{4}{c}{Track} \\
@@ -2777,23 +3163,22 @@ zvt & d2 & day & part & zvt & d2 & day & part & zvt & d2 & day & part\\
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
+\begin{table}[!h]
 
-\caption{\label{tab:unnamed-chunk-65}Descriptive statistics}
-\centering
+\caption{\label{tab:unnamed-chunk-75}Descriptive statistics}
 \begin{threeparttable}
-\begin{tabular}[t]{lcccccccccccccccccc}
+\begin{tabular}[t]{lccccccccccccccccccl}
 \toprule
-\multicolumn{1}{c}{ } & \multicolumn{2}{c}{n} & \multicolumn{2}{c}{Missing} & \multicolumn{2}{c}{M} & \multicolumn{2}{c}{Median} & \multicolumn{2}{c}{SD} & \multicolumn{2}{c}{MAD} & \multicolumn{2}{c}{Min} & \multicolumn{2}{c}{Max} & \multicolumn{2}{c}{Trend} \\
-\cmidrule(l{3pt}r{3pt}){2-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-7} \cmidrule(l{3pt}r{3pt}){8-9} \cmidrule(l{3pt}r{3pt}){10-11} \cmidrule(l{3pt}r{3pt}){12-13} \cmidrule(l{3pt}r{3pt}){14-15} \cmidrule(l{3pt}r{3pt}){16-17} \cmidrule(l{3pt}r{3pt}){18-19}
-  & A & B & A & B & A & B & A & B & A & B & A & B & A & B & A & B & A & B\\
+\multicolumn{2}{c}{ } & \multicolumn{2}{c}{n} & \multicolumn{2}{c}{Missing} & \multicolumn{2}{c}{M} & \multicolumn{2}{c}{Median} & \multicolumn{2}{c}{SD} & \multicolumn{2}{c}{MAD} & \multicolumn{2}{c}{Min} & \multicolumn{2}{c}{Max} & \multicolumn{2}{c}{Trend} \\
+\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6} \cmidrule(l{3pt}r{3pt}){7-8} \cmidrule(l{3pt}r{3pt}){9-10} \cmidrule(l{3pt}r{3pt}){11-12} \cmidrule(l{3pt}r{3pt}){13-14} \cmidrule(l{3pt}r{3pt}){15-16} \cmidrule(l{3pt}r{3pt}){17-18} \cmidrule(l{3pt}r{3pt}){19-20}
+Case & Design & A & B & A & B & A & B & A & B & A & B & A & B & A & B & A & B & A & B\\
 \midrule
-Anton & 4 & 14 & 0 & 0 & 5.00 & 9.14 & 5 & 9 & 0.82 & 0.77 & 0.74 & 1.48 & 4 & 8 & 6 & 10 & -0.40 & 0.03\\
-Bob & 7 & 11 & 0 & 0 & 3.00 & 8.82 & 3 & 9 & 0.82 & 0.87 & 1.48 & 0.00 & 2 & 7 & 4 & 10 & 0.04 & 0.04\\
-Paul & 6 & 12 & 0 & 0 & 3.83 & 8.83 & 4 & 9 & 0.75 & 0.72 & 0.74 & 0.74 & 3 & 8 & 5 & 10 & -0.26 & 0.02\\
-Robert & 8 & 10 & 0 & 0 & 4.12 & 8.90 & 4 & 9 & 0.83 & 0.99 & 1.48 & 1.48 & 3 & 7 & 5 & 10 & -0.06 & -0.14\\
-Sam & 5 & 13 & 0 & 0 & 4.60 & 9.08 & 5 & 9 & 0.55 & 0.86 & 0.00 & 1.48 & 4 & 8 & 5 & 10 & 0.10 & 0.03\\
-Tim & 4 & 14 & 0 & 0 & 3.00 & 9.00 & 3 & 9 & 0.82 & 0.96 & 0.74 & 1.48 & 2 & 7 & 4 & 10 & -0.60 & 0.00\\
+Anton & A-B & 4 & 14 & 0 & 0 & 5.00 & 9.14 & 5 & 9 & 0.82 & 0.77 & 0.74 & 1.48 & 4 & 8 & 6 & 10 & -0.40 & 0.03\\
+Bob & A-B & 7 & 11 & 0 & 0 & 3.00 & 8.82 & 3 & 9 & 0.82 & 0.87 & 1.48 & 0.00 & 2 & 7 & 4 & 10 & 0.04 & 0.04\\
+Paul & A-B & 6 & 12 & 0 & 0 & 3.83 & 8.83 & 4 & 9 & 0.75 & 0.72 & 0.74 & 0.74 & 3 & 8 & 5 & 10 & -0.26 & 0.02\\
+Robert & A-B & 8 & 10 & 0 & 0 & 4.12 & 8.90 & 4 & 9 & 0.83 & 0.99 & 1.48 & 1.48 & 3 & 7 & 5 & 10 & -0.06 & -0.14\\
+Sam & A-B & 5 & 13 & 0 & 0 & 4.60 & 9.08 & 5 & 9 & 0.55 & 0.86 & 0.00 & 1.48 & 4 & 8 & 5 & 10 & 0.10 & 0.03\\
+Tim & A-B & 4 & 14 & 0 & 0 & 3.00 & 9.00 & 3 & 9 & 0.82 & 0.96 & 0.74 & 1.48 & 2 & 7 & 4 & 10 & -0.60 & 0.00\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
@@ -2813,15 +3198,15 @@ Tim & 4 & 14 & 0 & 0 & 3.00 & 9.00 & 3 & 9 & 0.82 & 0.96 & 0.74 & 1.48 & 2 & 7 &
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
+\begin{table}[!h]
 
-\caption{\label{tab:unnamed-chunk-66}Overlap indices. Comparing phases A1 + A2 against phases B1 + B2}
-\centering
+\caption{\label{tab:unnamed-chunk-76}Overlap indices. Comparing phases 1 + 3 against phases 2 + 4}
 \begin{threeparttable}
-\begin{tabular}[t]{lrrr}
+\begin{tabular}[t]{llll}
 \toprule
   & Tick & Trick & Track\\
 \midrule
+Design & A1-B1-A2-B2 & A1-B1-A2-B2 & A1-B1-A2-B2\\
 PND & 16.67 & 0.00 & 16.67\\
 PEM & 66.67 & 50.00 & 50.00\\
 PET & 66.67 & 33.33 & 33.33\\
@@ -2829,11 +3214,11 @@ NAP & 68.06 & 51.39 & 58.33\\
 NAP-R & 36.11 & 2.78 & 16.67\\
 PAND & 66.67 & 50.00 & 54.17\\
 Tau-U & 0.14 & 0.03 & -0.03\\
-Base\_Tau & 0.27 & 0.02 & 0.13\\
+Base Tau & 0.27 & 0.02 & 0.13\\
 Delta M & 5.50 & 3.17 & 0.83\\
 Delta Trend & -0.31 & -1.10 & -0.74\\
 SMD & 0.52 & 0.40 & 0.26\\
-Hedges g & 0.48 & 0.37 & 0.24\\
+Hedges g & 0.56 & 0.50 & 0.26\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
@@ -2853,10 +3238,9 @@ Hedges g & 0.48 & 0.37 & 0.24\\
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
+\begin{table}[!h]
 
-\caption{\label{tab:unnamed-chunk-67}Piecewise-regression model predicting variable 'values'}
-\centering
+\caption{\label{tab:unnamed-chunk-77}Piecewise-regression model predicting variable 'values'}
 \begin{threeparttable}
 \begin{tabular}[t]{lrrrrrrr}
 \toprule
@@ -2891,32 +3275,35 @@ Slope phase B2 & -1.08 & -2.81 & 0.64 & 0.88 & -1.23 & .22 & .02\\
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
+\begin{table}[!h]
 
-\caption{\label{tab:unnamed-chunk-68}Hierarchical Piecewise Linear Regression predicting variable 'values'}
-\centering
+\caption{\label{tab:unnamed-chunk-78}Hierarchical Piecewise Linear Regression predicting variable 'values'}
 \begin{threeparttable}
 \begin{tabular}[t]{lrrrrr}
 \toprule
 Parameter & B & SE & df & t & p\\
 \midrule
-Intercept & 51.72 & 1.35 & 1281 & 38.38 & <.001\\
-Trend mt & 0.64 & 0.13 & 1281 & 5.08 & <.001\\
-Level phase B & 13.09 & 0.76 & 1281 & 17.18 & <.001\\
-Slope phase B & 0.89 & 0.13 & 1281 & 6.86 & <.001\\
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{Fixed effects}}\\
+Intercept & 47.59 & 1.42 & 1328 & 33.43 & <.001\\
+Trend mt & 0.62 & 0.11 & 1328 & 5.51 & <.001\\
+Level phase B & 13.01 & 0.85 & 1328 & 15.33 & <.001\\
+Slope phase B & 0.86 & 0.12 & 1328 & 7.43 & <.001\\
 \midrule
 \addlinespace[0.3em]
 \multicolumn{6}{l}{\textbf{Random effects}}\\
-\textcolor{black}{\textbf{\hspace{1em}}} & \textcolor{black}{\textbf{SD}} & \textcolor{black}{\textbf{L}} & \textcolor{black}{\textbf{df}} & \textcolor{black}{\textbf{p}} & \textcolor{black}{\textbf{}}\\
-\hspace{1em}Intercept & 8.69 & 194.8 & 4 & <.001 & \\
-\hspace{1em}Trend mt & 0.34 & 4.8 & 4 & .30 & \\
-\hspace{1em}Level phase B & 3.65 & 28.25 & 4 & <.001 & \\
-\hspace{1em}Slope phase B & 0.36 & 4.81 & 4 & .30 & \\
-\hspace{1em}Residual & 4.99 & NA & NA & NA & \\
+ & SD & L & df & p & \\
+Intercept & 9.3 & 246.48 & 4 & <.001 & \\
+Trend mt & 0.1 & 0.85 & 4 & .93 & \\
+Level phase B & 4.54 & 50.88 & 4 & <.001 & \\
+Slope phase B & 0.13 & 0.78 & 4 & .94 & \\
+Residual & 4.97 & NA & NA & NA & \\
 \midrule
-AIC & 8403.5 &  &  &  & \\
-BIC & 8481.5 &  &  &  & \\
-ICC & 0.2 & L = 192 & p <.001 &  & \\
+\addlinespace[0.3em]
+\multicolumn{6}{l}{\textbf{Model}}\\
+AIC & 8693.2 &  &  &  & \\
+BIC & 8771.7 &  &  &  & \\
+ICC & 0.29 & L = 339 & p <.001 &  & \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
@@ -2925,6 +3312,74 @@ ICC & 0.2 & L = 192 & p <.001 &  & \\
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
+
+\hypertarget{appendix}{%
+\chapter{Appendix}\label{appendix}}
+
+\hypertarget{important-changes-with-version-0.53}{%
+\section{Important changes with version 0.53}\label{important-changes-with-version-0.53}}
+
+\hypertarget{single-case-studies-with-cases-of-varying-phase-design}{%
+\subsection{Single-case studies with cases of varying phase design}\label{single-case-studies-with-cases-of-varying-phase-design}}
+
+Sometimes it is necessary to combine single-cases with different phase-designs into one single-case study (for instance when some cases include an extension phase and others do not). Various functions in scan now can handle such a data structure.
+
+\hypertarget{piping}{%
+\subsection{Piping}\label{piping}}
+
+The concept of piping is great for writing clean and intelligible code that is easier to debug. We imported the pipe function \texttt{\%\textgreater{}\%} from the \texttt{magrittr} package. Since version 4.1, R has its own pipe operator implementation \texttt{\textbar{}\textgreater{}}. This is great and works fine with the \texttt{scan} package. But since the \texttt{\textbar{}\textgreater{}} Operator is not backwards compatible for R prior versions 4.1, we will stick with the \texttt{\%\textgreater{}\%} for a while.
+
+To allow for smooth ``piping'' we began adding some functions \texttt{select\_phases}, \texttt{subset}, \texttt{select\_cases}, \texttt{set\_var}, \texttt{set\_dvar}, \texttt{set\_mvar}, \texttt{set\_pvar}, and \texttt{add\_l2}.
+
+\hypertarget{important-changes-with-version-0.50}{%
+\section{Important changes with version 0.50}\label{important-changes-with-version-0.50}}
+
+\hypertarget{new-function-names}{%
+\subsection{New function names}\label{new-function-names}}
+
+With version 0.50 scan introduced new names for its functions. The old function names are still usable but they will return a ``deprecated'' warning telling you to use the new function names.
+
+Table \ref{tab:table-aliases} shows the changes.
+
+\begin{table}
+
+\caption{\label{tab:table-aliases}scan previous and current function names.}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{15em}>{\raggedright\arraybackslash}p{30em}}
+\toprule
+Current function name & Previous function name\\
+\midrule
+\textbf{autocorr} & autocorrSC\\
+\textbf{corrected\_tau} & corrected\_tauSC\\
+\textbf{describe [since v0.52]} & describeSC\\
+\textbf{fill\_missing} & fillmissingSC\\
+\textbf{outlier} & outlierSC\\
+\textbf{overlap} & overlapSC\\
+\textbf{power\_test} & power\_testSC\\
+\textbf{rand\_test} & randSC; rand.test\\
+\textbf{ranks} & rankSC\\
+\textbf{rci} & rCi; rciSC\\
+\textbf{shift} & shiftSC\\
+\textbf{smooth\_cases} & smoothSC\\
+\textbf{style\_plot} & style.plotSC; style\_plotSC\\
+\textbf{tau\_u} & tauUSC\\
+\textbf{trend} & trendSC\\
+\textbf{truncate\_phase} & truncateSC\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\hypertarget{change-target-variables-in-functions}{%
+\subsection{Change target variables in functions}\label{change-target-variables-in-functions}}
+
+All functions in R that analyze data now allow for temporarily changing dependent, phase, and measurement-time variables by adding three argument:
+
+\texttt{dvar} sets the dependent variable.\\
+\texttt{pvar} sets the phase variable.\\
+\texttt{mvar} sets the measurement-time variable.
+
+For example, \texttt{overlap(exampleAB\_add,\ dvar\ =\ "depression")} will report overlap parameters for the variable \emph{depression} while \texttt{overlap(exampleAB\_add)} while take \emph{wellbeing} as the dependent variable (as defined in the scdf).
+
+After finishing the analysis, the variables are set back to their original values as defined in the scdf.
 
 \hypertarget{about-the-author}{%
 \chapter*{About the author}\label{about-the-author}}
@@ -2944,25 +3399,9 @@ My current work focuses on:
   Implementation of Open Science and Data Science concepts into special education research.
 \end{itemize}
 
-My work can be found at:
+You can find more information about me on my homepage:
 
-\begin{itemize}
-\tightlist
-\item
-  University of Potsdam: \url{https://www.uni-potsdam.de/en/inklusion/researchmethodsanddiagnostics/wilbert.html}
-\item
-  Researchgate: \url{https://www.researchgate.net/profile/Juergen_Wilbert2}
-\item
-  github: \url{https://github.com/jazznbass}
-\item
-  orcid: \url{https://orcid.org/0000-0002-8392-2873}
-\item
-  Googel scholar: \url{https://scholar.google.de/citations?user=RF7Siq4AAAAJ\&hl=en}
-\item
-  Empirische Sonderpädagogik: \url{http://www.psychologie-aktuell.com/index.php?id=255}
-\item
-  OSF (Open science framework): \url{https://osf.io/q7gme/}
-\end{itemize}
+\url{https://jazznbass.github.io/homepage/}
 
 \hypertarget{references}{%
 \chapter*{References}\label{references}}
