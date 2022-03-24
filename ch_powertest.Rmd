@@ -8,27 +8,27 @@ function_structure("power_test")
 
 The `powert_test()` function provides the alpha error probability and power when analyzing a specific effect of a single-case design with a given statistical method.  
 
-For example, you have a one case design with phase length A = 10 and B = 20. You assume a strong level effect of d = 1 and you expect a slight trend effect of trend = 0.02. You might be interested to answer two questions:
+For example, you have a one case design with phase length A = 10 and B = 20. You assume a strong level effect of d = 1 and you expect a slight trend effect of d = 0.02 (per measurement). You might be interested to answer two questions:
 
 1. How suitable is a plm model for detecting the level-effect? (also: what is the power to detect the level effect?).
 2. What if I had the same design but without a level-effect. How often would the plm falsely find a significant level-effect? (also: how large is the alpha-error probability for the level-effect?).
 
-In principle, the power_test function takes a single case design and repeatedly generates random cases based on that design. Each case is now analyzed with a given statistical method. The proportion of significant effects in these analyses is an estimator of the test-power. In a second step the design is stripped of the target effect and again multiple cases are generated on this changed design and analyzed with the same method. Now, the proportion of significant effects is the estimator for the alpha-error probability.
+In principle, `power_test()` takes a single case design and repeatedly generates random cases based on that design. Each case is now analyzed with a given statistical method. The proportion of significant effects in these analyses is an estimator of the test-power. In a second step the design is stripped of the target effect and again multiple cases are generated on this changed design and analyzed with the same method. Now, the proportion of significant effects is the estimator for the alpha-error probability.
 
 ## Set up a single-case design
 
 ```{r results='asis', echo=FALSE}
-function_structure("design_rSC")
+function_structure("design")
 ```
 
-The `design_rSC()` function sets up a single-case design. You can define various parameters of that design:
+The `design` function sets up a single-case design. You can define various parameters of that design:
 
 
-```{r design, echo=FALSE}
+```{r design-arguments, echo=FALSE}
 tab <- tribble(
   ~Argument, ~"What it does ...",
 "n", "Number of cases to be created (Default is n = 1).",
-"phase.design", "A list defining the length and label of each phase. E.g., phase.length = list(A1 = 10, B1 = 10, A2 = 10, B2 = 10). Use vectors if you want to define different values for each case phase.length = list(A = c(10, 15), B = c(10, 15).",
+"phase_design", "A list defining the length and label of each phase. E.g., phase.length = list(A1 = 10, B1 = 10, A2 = 10, B2 = 10). Use vectors if you want to define different values for each case phase.length = list(A = c(10, 15), B = c(10, 15).",
 "trend", "Defines the effect size of a trend added incrementally to each measurement across the whole data-set. To assign different trends to several single-cases, use a vector of values (e.g. trend = c(.1, .3, .5)). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the trend parameters indicate effect size d changes. When using a binomial or poisson distribution, trend indicates an increase in points / counts per measurement.",
 "level","A list that defines the level increase (effect size d) at the beginning of each phase relative to the previous phase (e.g. list(A = 0, B = 1)). The first element must be zero as the first phase of a single-case has no level effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable level effects for each case (e.g. list(A = c(0, 0), B = c(1, 2))). When using a 'gaussian' distribution, the level parameters indicate effect size d changes. When using a binomial or poisson distribution, level indicates an increase in points / counts with the onset of each phase.",
 "slope", "A list that defines the increase per measurement for each phase compared to the previous phase. slope = list(A = 0, B = .1 generates an incremental increase of 0.1 per measurement starting at the B phase. The first list element must be zero as the first phase of a single-case has no slope effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable slope effects for each case (e.g. list(A = c(0, 0), B = c(0.1, 0.2))). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the slope parameters indicate effect size d changes per measurement. When using a binomial or poisson distribution, slope indicates an increase in points / counts per measurement.",
@@ -42,51 +42,35 @@ tab <- tribble(
 "prob", "If distribution is set 'binomial', prob passes the probability of occurrence."
 )
 
-print_table(tab, "Core arguments of the design_rSC function")
+print_table(tab, "Core arguments of the design function")
 
 ```
-
-### An example
-
-```{r}
-design <- design_rSC(
-  n = 10, 
-  phase.design = list(A = 10, B = 15, C = 10),
-  trend = 0.01, 
-  level = list(A = 0, B = 0.4, C = 0), 
-  slope = list(A = 0, B = 0.02, C = 0),
-  rtt = 0.8, 
-  start_value = 50, 
-  s = 10
-)
-```
-
 
 ## Conducting a power-test
 
-When conduction a power_test you firstly need to define a design which you like to be tested.
+When conduction a power test you firstly need to define a design which you like to be tested.
 
 ```{r}
-design <- design_rSC(
+design <- design(
   n = 1,
-  phase.design = list(A = 10, B = 20),
+  phase_design = list(A = 10, B = 20),
   level = list(A = 0, B = 1),
   trend = 0.02,
   distribution = "normal"
 )
 ```
 
-Then you have to choose the statistical method. The `power_test` function applies three methods by default: plm, randomization test, and TauU.
-These default values are only suitable when your design is a one single-case study.
+Then you have to choose the statistical method. The `power_test` function applies three methods by default: *plm*, *randomization test*, and *Tau U*.
+These default values are only suitable when your design is a one case single-case study.
 
 Let us start with the defaults and conduct a power analysis for our previously set design: *(This might take some time. Even in the default setting with 100 simulations you might wait a few seconds. For more precise estimations I recommend 1000 simulations - or even higher.)*
 
-```{r}
+```{r power-test-ex-1}
 res <- power_test(design)
 res
 ```
 
-The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to estimation errors. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tauU test has an unacceptably high alpha-error which is due to the trend we but into the design.
+The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to outliers of the random samples. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tau U test has an unacceptably high alpha-error which is due to the trend we put into the design. *Alpha:Beta* depicts the relation of the Alpha and Beta error (power = 1 - Beta). *Correct* is the overall proportion of correct categorizations and *p* is the results of a binomial-test of *Correct* against 50%.
 
 ## Statistical methods
 
@@ -117,13 +101,13 @@ print_table(out, "Statistical methods", width_cols = c("10em", "7em", "50em"))
 
 ### Advanced methods
 
-*Note: You need specific knowledge on how to create functions in R and on data structures to follow all aspects this section.*
+*Note: You need specific knowledge on how to create functions in R and on data structures to follow all aspects of this section.*
 
 Instead of one of the predefined character strings you can also create you own functions and implement these. You function must take an scdf as the first argument and return a single numeric p-value.
 
 Here is an example of a fast plm function for poisson distributed data based on the `fastglm` package:
 
-```{r eval=FALSE}
+```{r}
 plm_fast <- function(data) {
   data <- unlist(data, recursive = FALSE)
   y  <- data$values
@@ -140,9 +124,13 @@ plm_fast <- function(data) {
   full <- fastglm::fastglm(x = x, y = y, family = "poisson", method = 2)
   summary(full)$coef[3, 4]
 }
+```
 
+
+```{r eval=FALSE, include=TRUE}
 power_test(design, method = list("fast plm" = plm_fast))
 ```
+
 
 ## Computation duration
 
@@ -152,9 +140,9 @@ You can print the returning object of the `power_test` function with added compu
 print(res, duration = TRUE)
 ```
 
-The duration depends heavily on the applied test methods. Regressions are faster than randomization tests and tauU tests are quiet slow:
+The duration depends heavily on the applied test methods. Regressions are faster than randomization tests and tau U tests are quiet slow:
 
-```{r collapse=TRUE}
+```{r power-test-duration,collapse=TRUE}
 res1 <- power_test(design, method = "plm_level")
 res2 <- power_test(design, method = "rand")
 res3 <- power_test(design, method = "tauU")
@@ -164,5 +152,25 @@ attr(res1, "computation_duration")[3]
 attr(res2, "computation_duration")[3]
 attr(res3, "computation_duration")[3]
 ```
+
+... and what about our fast-glm function?
+
+```{r}
+design <- design(
+  n = 1,
+  phase_design = list(A = 10, B = 20),
+  level = list(A = 0, B = 1),
+  trend = 0.02,
+  distribution = "poisson"
+)
+
+res1 <- power_test(design, method = list("fast plm" = plm_fast))
+res2 <- power_test(design, method = "rand")
+
+attr(res1, "computation_duration")[3]
+attr(res2, "computation_duration")[3]
+```
+
+... it is more that two times faster!
 
 

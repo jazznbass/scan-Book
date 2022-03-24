@@ -57,8 +57,11 @@
 <li><a class="" href="overlapping-indices.html"><span class="header-section-number">7</span> Overlapping indices</a></li>
 <li><a class="active" href="piecewise-linear-regressions.html"><span class="header-section-number">8</span> Piecewise linear regressions</a></li>
 <li><a class="" href="randomization-tests.html"><span class="header-section-number">9</span> Randomization tests</a></li>
-<li><a class="" href="default-settings.html"><span class="header-section-number">10</span> Default settings</a></li>
-<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">11</span> Exporting scan results</a></li>
+<li><a class="" href="power-analyses-scan-version-0.54-or-later.html"><span class="header-section-number">10</span> Power analyses (scan version 0.54 or later)</a></li>
+<li><a class="" href="default-settings.html"><span class="header-section-number">11</span> Default settings</a></li>
+<li><a class="" href="example-datasets.html"><span class="header-section-number">12</span> Example datasets</a></li>
+<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">13</span> Exporting scan results</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">14</span> Appendix</a></li>
 <li><a class="" href="about-the-author.html">About the author</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -95,10 +98,10 @@
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> plm(data, dvar, pvar, mvar, AR = 0, model = "B&amp;L-B", family = "gaussian", trend = TRUE, level = TRUE, slope = TRUE, formula = NULL, update = NULL, na.action = na.omit, ...) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> plm(data, dvar, pvar, mvar, AR = 0, model = "B&amp;L-B", family = "gaussian", trend = TRUE, level = TRUE, slope = TRUE, formula = NULL, update = NULL, na.action = na.omit, r_squared = TRUE, var_trials = NULL, dvar_percentage = FALSE, ...) </font></td>
  </tr></table></div>
 <p>The basic function for applying a regression analyzes to a single-case dataset is <code>plm</code>. This function analyzes one single-case. In its simplest way, <code>plm</code> takes one argument with an <em>scdf</em> object and it returns a full piecewise regression analyzes.</p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plm</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span><span class="op">)</span></code></pre></div>
 <pre><code>Piecewise Regression Analysis
 
@@ -727,10 +730,10 @@ C
 <h3>
 <span class="header-section-number">8.1.2</span> Adjusting the model<a class="anchor" aria-label="anchor" href="#adjusting-the-model"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">example</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">55</span>, <span class="fl">58</span>, <span class="fl">53</span>, <span class="fl">50</span>, <span class="fl">52</span>, <span class="fl">55</span>, <span class="fl">68</span>, <span class="fl">68</span>, <span class="fl">81</span>, <span class="fl">67</span>, <span class="fl">78</span>, <span class="fl">73</span>, <span class="fl">72</span>, <span class="fl">78</span>, <span class="fl">81</span>, <span class="fl">78</span>, <span class="fl">71</span>, <span class="fl">85</span>, <span class="fl">80</span>, <span class="fl">76</span><span class="op">)</span>,
-   phase.design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">5</span>, B <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>
+   phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">5</span>, B <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>
 <span class="op">)</span>
 
 <span class="fu">plm</span><span class="op">(</span><span class="va">example</span><span class="op">)</span></code></pre></div>
@@ -755,7 +758,7 @@ Autocorrelations of the residuals
 
 Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 <p>The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. There are several ways to do this. The easiest way is the to set the <code>slope</code> argument to <code>FALSE</code>.</p>
-<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plm</span><span class="op">(</span><span class="va">example</span>, slope <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>Piecewise Regression Analysis
 
@@ -784,7 +787,7 @@ Formula: values ~ 1 + mt + phaseB</code></pre>
 </h3>
 <p>In more complex analyses additional predictors can be included in the piecewise regression model.</p>
 <p>To do this, we have to change the regression formula ‘manually’ by applying the <code>update</code> argument. The <code>update</code> argument allows to change the underlying regression formula. To add a new variable named for example <code>newVar</code>, set <code>update = .~. + newVar</code>. The <code>.~.</code> part takes the internally build formula and <code>+ newVar</code> adds a variable named <code>newVar</code> to the equation.</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plm</span><span class="op">(</span><span class="va">exampleAB_add</span>, update <span class="op">=</span> <span class="va">.</span><span class="op">~</span><span class="va">.</span> <span class="op">+</span> <span class="va">cigarrets</span><span class="op">)</span></code></pre></div>
 <pre><code>Piecewise Regression Analysis
 
@@ -806,18 +809,14 @@ Autocorrelations of the residuals
    2 -0.19
    3 -0.16
 
-Formula: wellbeing ~ day + phaseMedication + interMedication + cigarrets
-
-
-The following variables were used in this analysis:
-'wellbeing' as dependent variable, 'phase' as phase variable, and 'day' as measurement-time variable.</code></pre>
+Formula: wellbeing ~ day + phaseMedication + interMedication + cigarrets</code></pre>
 <p>The formula has two parts divided by a tilde. Left of the tilde is the variable to be predicted and right of it the predictors. A <code>1</code> indicates the intercept, the variable <code>mt</code> estimates the trend effect, <code>phaseB</code> the level effect of the B-phase and the variable <code>interB</code> the slope effect of the B-phase. If <code>formula</code> is not explicitly defined it is set to <code>formula = values ~ 1 + mt + phaseB + interB</code> (assuming an AB-design) to estimate the full piecewise regression model.</p>
 </div>
 <div id="to-be-written-modelling-autoregression" class="section level3" number="8.1.4">
 <h3>
-<span class="header-section-number">8.1.4</span> [to be written] Modelling autoregression<a class="anchor" aria-label="anchor" href="#to-be-written-modelling-autoregression"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1.4</span> <span class="math display">\[to be written\]</span> Modelling autoregression<a class="anchor" aria-label="anchor" href="#to-be-written-modelling-autoregression"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">autocorr</span><span class="op">(</span><span class="va">Grosche2011</span><span class="op">)</span></code></pre></div>
 <pre><code>Autocorrelations
 
@@ -842,13 +841,13 @@ Olaf
 </div>
 <div id="to-be-written-multivariate-piecewise-regression" class="section level2" number="8.2">
 <h2>
-<span class="header-section-number">8.2</span> [to be written] Multivariate piecewise regression<a class="anchor" aria-label="anchor" href="#to-be-written-multivariate-piecewise-regression"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2</span> <span class="math display">\[to be written\]</span> Multivariate piecewise regression<a class="anchor" aria-label="anchor" href="#to-be-written-multivariate-piecewise-regression"><i class="fas fa-link"></i></a>
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> mplm(data, dvar, mvar, pvar, model = "B&amp;L-B", trend = TRUE, level = TRUE, slope = TRUE, formula = NULL, update = NULL, na.action = na.omit, ...) </font></td>
  </tr></table></div>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">mplm</span><span class="op">(</span><span class="va">exampleAB_add</span>, dvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"wellbeing"</span>, <span class="st">"depression"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>Multivariate piecewise linear model
 
@@ -891,7 +890,7 @@ The following variables were used in this analysis:
 </ul>
 <p>The basic function for applying a multilevel piecewise regression analysis is <code>hplm</code>. The <code>hplm</code> function is similar to the <code>plm</code> function, so I recommend that you get familar with <code>plm</code> before applying an <code>hplm</code>.</p>
 <p>Here is a simple example:</p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">hplm</span><span class="op">(</span><span class="va">exampleAB_50</span><span class="op">)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -899,23 +898,23 @@ Estimation method ML
 Slope estimation method: B&amp;L-B 
 50 Cases
 
-ICC = 0.195; L = 192.0; p = 0.000
+ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                    B    SE   df      t p
-Intercept     51.614 1.282 1281 40.274 0
-Trend mt       0.671 0.115 1281  5.844 0
-Level phase B 12.938 0.590 1281 21.942 0
-Slope phase B  0.859 0.119 1281  7.236 0
+Intercept     47.819 1.517 1328 31.528 0
+Trend mt       0.579 0.116 1328  5.006 0
+Level phase B 13.136 0.584 1328 22.489 0
+Slope phase B  0.902 0.119 1328  7.588 0
 
 Random effects (~1 | case)
 
           EstimateSD
-Intercept      8.179
-Residual       5.335</code></pre>
+Intercept      9.970
+Residual       5.285</code></pre>
 <p>Here is an example inlcuding random slopes:</p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">hplm</span><span class="op">(</span><span class="va">exampleAB_50</span>, random.slopes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -923,30 +922,30 @@ Estimation method ML
 Slope estimation method: B&amp;L-B 
 50 Cases
 
-ICC = 0.195; L = 192.0; p = 0.000
+ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                    B    SE   df      t p
-Intercept     51.720 1.348 1281 38.378 0
-Trend mt       0.637 0.125 1281  5.080 0
-Level phase B 13.090 0.762 1281 17.176 0
-Slope phase B  0.887 0.129 1281  6.856 0
+Intercept     47.589 1.423 1328 33.432 0
+Trend mt       0.622 0.113 1328  5.513 0
+Level phase B 13.006 0.849 1328 15.328 0
+Slope phase B  0.864 0.116 1328  7.427 0
 
 Random effects (~1 + mt + phaseB + interB | case)
 
               EstimateSD
-Intercept          8.691
-Trend mt           0.343
-Level phase B      3.654
-Slope phase B      0.358
-Residual           4.994</code></pre>
+Intercept          9.297
+Trend mt           0.100
+Level phase B      4.543
+Slope phase B      0.127
+Residual           4.975</code></pre>
 <div id="adding-additional-l2-variables" class="section level3" number="8.3.1">
 <h3>
 <span class="header-section-number">8.3.1</span> Adding additional L2-variables<a class="anchor" aria-label="anchor" href="#adding-additional-l2-variables"><i class="fas fa-link"></i></a>
 </h3>
 <p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze. This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects. To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">L2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   case <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Antonia"</span>,<span class="st">"Theresa"</span>, <span class="st">"Charlotte"</span>, <span class="st">"Luis"</span>, <span class="st">"Bennett"</span>, <span class="st">"Marie"</span><span class="op">)</span>, 
   age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">13</span>, <span class="fl">13</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">14</span><span class="op">)</span>, 
@@ -977,18 +976,7 @@ age
 <tbody>
 <tr>
 <td style="text-align:left;">
-Jeremiah
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Leon
+Roman
 </td>
 <td style="text-align:left;">
 m
@@ -999,7 +987,7 @@ m
 </tr>
 <tr>
 <td style="text-align:left;">
-Pablo
+Brennen
 </td>
 <td style="text-align:left;">
 m
@@ -1010,18 +998,18 @@ m
 </tr>
 <tr>
 <td style="text-align:left;">
-Jamal
+Ismael
 </td>
 <td style="text-align:left;">
 m
 </td>
 <td style="text-align:right;">
-10
+13
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Giovanny
+Donald
 </td>
 <td style="text-align:left;">
 m
@@ -1032,40 +1020,18 @@ m
 </tr>
 <tr>
 <td style="text-align:left;">
-Callum
+Ricardo
 </td>
 <td style="text-align:left;">
 m
 </td>
 <td style="text-align:right;">
-10
+13
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Dwayne
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-11
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Neymar
-</td>
-<td style="text-align:left;">
-m
-</td>
-<td style="text-align:right;">
-10
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Krish
+Izayah
 </td>
 <td style="text-align:left;">
 m
@@ -1076,19 +1042,52 @@ m
 </tr>
 <tr>
 <td style="text-align:left;">
-Caiden
+Ignacio
 </td>
 <td style="text-align:left;">
 m
 </td>
 <td style="text-align:right;">
 12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Xavier
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Arian
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Paul
+</td>
+<td style="text-align:left;">
+m
+</td>
+<td style="text-align:right;">
+10
 </td>
 </tr>
 </tbody>
 </table></div>
 <p>Analyzing the data with <code>hplm</code> could look like this:</p>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">hplm</span><span class="op">(</span><span class="va">exampleAB_50</span>, data.l2 <span class="op">=</span> <span class="va">exampleAB_50.l2</span>, update.fixed <span class="op">=</span> <span class="va">.</span><span class="op">~</span><span class="va">.</span> <span class="op">+</span> <span class="va">sex</span> <span class="op">+</span> <span class="va">age</span><span class="op">)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -1096,25 +1095,25 @@ Estimation method ML
 Slope estimation method: B&amp;L-B 
 50 Cases
 
-ICC = 0.195; L = 192.0; p = 0.000
+ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ mt + phaseB + interB + sex + age)
 
                    B     SE   df      t     p
-Intercept     71.464 13.076 1281  5.465 0.000
-Trend mt       0.667  0.115 1281  5.808 0.000
-Level phase B 12.951  0.590 1281 21.951 0.000
-Slope phase B  0.863  0.119 1281  7.264 0.000
-sexm          -2.130  2.336   47 -0.912 0.367
-age           -1.710  1.157   47 -1.478 0.146
+Intercept     44.297 11.932 1328  3.713 0.000
+Trend mt       0.581  0.116 1328  5.026 0.000
+Level phase B 13.123  0.584 1328 22.456 0.000
+Slope phase B  0.900  0.119 1328  7.569 0.000
+sexm          -6.440  2.727   47 -2.362 0.022
+age            0.603  1.073   47  0.562 0.577
 
 Random effects (~1 | case)
 
           EstimateSD
-Intercept      7.975
-Residual       5.335</code></pre>
+Intercept      9.446
+Residual       5.284</code></pre>
 <p><code>sex</code> is a factor with the levels <code>f</code> and <code>m</code>. So <code>sexm</code> is the effect of being male on the overall performance. <code>age</code> does not seem to have any effect. So we drop <code>age</code> out of the equation and add an interaction of sex and phase to see whether the <code>sex</code> effect is due to a weaker impact of the intervention on males.</p>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">hplm</span><span class="op">(</span><span class="va">exampleAB_50</span>, data.l2 <span class="op">=</span> <span class="va">exampleAB_50.l2</span>, update.fixed <span class="op">=</span> <span class="va">.</span><span class="op">~</span><span class="va">.</span> <span class="op">+</span> <span class="va">sex</span> <span class="op">+</span> <span class="va">sex</span><span class="op">:</span><span class="va">phaseB</span><span class="op">)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -1122,24 +1121,24 @@ Estimation method ML
 Slope estimation method: B&amp;L-B 
 50 Cases
 
-ICC = 0.195; L = 192.0; p = 0.000
+ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ mt + phaseB + interB + sex + phaseB:sex)
 
-                        B    SE   df       t     p
-Intercept          49.801 1.735 1280  28.711 0.000
-Trend mt            0.638 0.109 1280   5.847 0.000
-Level phase B      16.762 0.644 1280  26.034 0.000
-Slope phase B       0.889 0.113 1280   7.884 0.000
-sexm                3.983 2.368   48   1.682 0.099
-Level phase B:sexm -7.463 0.622 1280 -11.994 0.000
+                        B    SE   df       t    p
+Intercept          47.964 1.990 1327  24.097 0.00
+Trend mt            0.609 0.109 1327   5.573 0.00
+Level phase B      16.841 0.625 1327  26.965 0.00
+Slope phase B       0.884 0.112 1327   7.868 0.00
+sexm               -0.593 2.741   48  -0.216 0.83
+Level phase B:sexm -7.732 0.609 1327 -12.699 0.00
 
 Random effects (~1 | case)
 
           EstimateSD
-Intercept      8.144
-Residual       5.059</code></pre>
-<p>Now the interaction <code>phase:sexm</code> is significant and the main effect is no longer relevant. It looks like the intervention effect is 7.5 points lower for male subjects. While the level-effect is 16.8 points for female subjects it is 16.8 - 7.5 = 9.3 for males.</p>
+Intercept      9.494
+Residual       4.989</code></pre>
+<p>Now the interaction <code>phase:sexm</code> is significant and the main effect is no longer relevant. It looks like the intervention effect is <span class="math inline">\(7.7\)</span> points lower for male subjects. While the level-effect is <span class="math inline">\(16.8\)</span> points for female subjects it is <span class="math inline">\(16.8\)</span> - <span class="math inline">\(7.7\)</span> = <span class="math inline">\(9.1\)</span> for males.</p>
 
 </div>
 </div>
@@ -1156,10 +1155,10 @@ Residual       5.059</code></pre>
 <li><a class="nav-link" href="#dummy-model"><span class="header-section-number">8.1.1</span> Dummy model</a></li>
 <li><a class="nav-link" href="#adjusting-the-model"><span class="header-section-number">8.1.2</span> Adjusting the model</a></li>
 <li><a class="nav-link" href="#adding-additional-predictors"><span class="header-section-number">8.1.3</span> Adding additional predictors</a></li>
-<li><a class="nav-link" href="#to-be-written-modelling-autoregression"><span class="header-section-number">8.1.4</span> [to be written] Modelling autoregression</a></li>
+<li><a class="nav-link" href="#to-be-written-modelling-autoregression"><span class="header-section-number">8.1.4</span> \[to be written\] Modelling autoregression</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#to-be-written-multivariate-piecewise-regression"><span class="header-section-number">8.2</span> [to be written] Multivariate piecewise regression</a></li>
+<li><a class="nav-link" href="#to-be-written-multivariate-piecewise-regression"><span class="header-section-number">8.2</span> \[to be written\] Multivariate piecewise regression</a></li>
 <li>
 <a class="nav-link" href="#multilevel-plm-analyses"><span class="header-section-number">8.3</span> Multilevel plm analyses</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#adding-additional-l2-variables"><span class="header-section-number">8.3.1</span> Adding additional L2-variables</a></li></ul>
 </li>
@@ -1180,7 +1179,7 @@ Residual       5.059</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-12-16.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-03-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -1188,6 +1187,34 @@ Residual       5.059</code></pre>
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

@@ -57,8 +57,11 @@
 <li><a class="" href="overlapping-indices.html"><span class="header-section-number">7</span> Overlapping indices</a></li>
 <li><a class="" href="piecewise-linear-regressions.html"><span class="header-section-number">8</span> Piecewise linear regressions</a></li>
 <li><a class="" href="randomization-tests.html"><span class="header-section-number">9</span> Randomization tests</a></li>
-<li><a class="" href="default-settings.html"><span class="header-section-number">10</span> Default settings</a></li>
-<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">11</span> Exporting scan results</a></li>
+<li><a class="" href="power-analyses-scan-version-0.54-or-later.html"><span class="header-section-number">10</span> Power analyses (scan version 0.54 or later)</a></li>
+<li><a class="" href="default-settings.html"><span class="header-section-number">11</span> Default settings</a></li>
+<li><a class="" href="example-datasets.html"><span class="header-section-number">12</span> Example datasets</a></li>
+<li><a class="" href="exporting-scan-results.html"><span class="header-section-number">13</span> Exporting scan results</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">14</span> Appendix</a></li>
 <li><a class="" href="about-the-author.html">About the author</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -77,7 +80,7 @@
 <span class="header-section-number">6.1</span> Describing and summarizing<a class="anchor" aria-label="anchor" href="#describing-and-summarizing"><i class="fas fa-link"></i></a>
 </h2>
 <p>A short description of the <em>scdf</em> is provided by the <code>summary</code> command. The results are pretty much self explaining</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Huber2014</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 4 cases
 
@@ -179,7 +182,7 @@ Slope of a regression line through values by time.
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">describe</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">)</span></code></pre></div>
 <pre><code>Describe Single-Case Data
 
@@ -214,8 +217,8 @@ max.C        87       78      90
 trend.A  -1.915    0.500  -0.088
 trend.B  -0.612    0.643   1.929
 trend.C  -0.194   -2.929 -14.000</code></pre>
-<p>The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the <code>describeSC</code> command into an R object and then use the <code>write.csv</code> (or <code>write.csv2</code> for a German OS system setup) to export the <code>descriptives</code> element of the object.</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<p>The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the <code>describe</code> command into an R object and then use the <code>write.csv</code> (or <code>write.csv2</code> for a German OS system setup) to export the <code>descriptives</code> element of the object.</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># write the results into a new R object named `res`</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">describe</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">)</span>
 <span class="co"># create a new file containing the descriptives on your harddrive</span>
@@ -243,10 +246,10 @@ include the package name into the function call with the prefix <code>scan::</co
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> autocorr(data, dvar, pvar, mvar, lag.max = 3, ...) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> autocorr(data, dvar, pvar, mvar, lag_max = 3, lag.max, ...) </font></td>
  </tr></table></div>
 <p>The <code>autocorr</code> function calculates autocorrelations within each phase and across all phases. The <code>lag.max</code> argument defines the lag up to which the autocorrelation will be computed.</p>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">autocorr</span><span class="op">(</span><span class="va">exampleABC</span>, lag.max <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <pre><code>Autocorrelations
 
@@ -270,8 +273,8 @@ Lise
      B -0.63  0.50 -0.40  0.31
      C -0.38 -0.12    NA    NA
    all  0.33  0.36  0.23  0.27</code></pre>
-<p>The <code>trendSC</code> function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<p>The <code>trend</code> function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.</p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Simple example</span>
 <span class="fu">trend</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <pre><code>Trend for each phase
@@ -287,7 +290,7 @@ Squared.B      73.217 -0.039 -0.098
 Squared.C      68.490 -0.017 -0.038
 
 Note. Measurement-times start at 0  for each phase</code></pre>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Complex example</span>
 <span class="fu">trend</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span>, offset <span class="op">=</span> <span class="fl">0</span>, 
         model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cubic"</span> <span class="op">=</span> <span class="va">values</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/AsIs.html">I</a></span><span class="op">(</span><span class="va">mt</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span>, <span class="st">"Log Time"</span> <span class="op">=</span> <span class="va">values</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">mt</span><span class="op">)</span><span class="op">)</span>
@@ -315,22 +318,22 @@ Note. Measurement-times start at 1  for each phase</code></pre>
 <span class="header-section-number">6.3</span> Missing values<a class="anchor" aria-label="anchor" href="#missing-values"><i class="fas fa-link"></i></a>
 </h2>
 <p>There are two kinds of missing values in single-case data series. First, missings that were explicitly recorded as <code>NA</code> and assigned to a phase and measurement-time as in the following example:</p>
-<pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, NA, 6), phase.design = c(A = 4, B = 6))</code></pre>
+<pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, NA, 6), phase_design = c(A = 4, B = 6))</code></pre>
 <p>The second type of missing occurs when there are gaps between measurement-times that are not explicitly coded as in the following example:</p>
-<pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, 6), phase.design = c(A = 4, B = 5), 
+<pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, 6), phase_design = c(A = 4, B = 5), 
      mt = c(1, 2, 3, 4, 5, 6, 7, 8, 10))</code></pre>
 <p>In both cases, missing values pose a threat to the internal validity of overlap indices. Randomization tests are more robust against the first type of missing values but are affected by the second type. Regression approaches are less impacted by both types as they take the interval between measurement-times into account.</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">case1</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">6</span>,<span class="fl">3</span>,<span class="fl">2</span>, <span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">4</span>,<span class="fl">8</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span>, 
-              phase.design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"no NA"</span><span class="op">)</span>
+              phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"no NA"</span><span class="op">)</span>
 <span class="va">case2</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">6</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="cn">NA</span>,<span class="fl">3</span>,<span class="fl">2</span>, <span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">6</span>,<span class="cn">NA</span>,<span class="fl">4</span>,<span class="fl">8</span>,<span class="fl">5</span>,<span class="fl">6</span><span class="op">)</span>, 
-              phase.design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"NAs"</span><span class="op">)</span>
-<span class="va">case3</span> <span class="op">&lt;-</span> <span class="fu">fillmissingSC</span><span class="op">(</span><span class="va">case2</span><span class="op">)</span>
+              phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"NAs"</span><span class="op">)</span>
+<span class="va">case3</span> <span class="op">&lt;-</span> <span class="fu">fill_missing</span><span class="op">(</span><span class="va">case2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">case3</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"interpolated NAs"</span>
 <span class="va">ex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">case1</span>, <span class="va">case2</span>, <span class="va">case3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ex</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="scan-book_files/figure-html/fillmissing_example-1.png" width="480"></div>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">overlap</span><span class="op">(</span><span class="va">ex</span><span class="op">)</span></code></pre></div>
 <pre><code>Overlap Indices
 
@@ -360,7 +363,7 @@ Hedges_g      1.71 1.90             1.96</code></pre>
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> outlier(data, dvar, pvar, mvar, criteria = c("MAD", "3.5")) </font></td>
  </tr></table></div>
 <p><em>scan</em> provides several methods for analyzing outliers. All of them are implemented in the <code>outliers</code> function. Available methods are the <strong>standard deviation</strong>, <strong>mean average deviation</strong>, <strong>confidence intervals</strong>, and <strong>Cook’s distance</strong>. The criteria argument takes a vector with two information, the first defines the analyzing method (“SD,” “MAD,” CI”, “Cook”) and the second the criteria. For “SD” the criteria is the number of standard deviations (<strong>sd</strong>) from the mean of each phase for which a value is not considered to be an outlier. For example, <code>criteria = c("SD",2)</code> would identify every value exceeding two <strong>sd</strong> above or below the mean as an outlier whereas <strong>sd</strong> and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin <span class="citation"><a href="references.html#ref-iglewicz_how_1993" role="doc-biblioref">Iglewicz &amp; Hoaglin</a> (<a href="references.html#ref-iglewicz_how_1993" role="doc-biblioref">1993</a>)</span> recommend the use the much more robust median average deviation (<strong>MAD</strong>) instead. The <strong>MAD</strong> is is constructed similar to the <strong>sd</strong> but uses the median instead of the mean. Multiplying the <strong>MAD</strong> by 1.4826 approximates the <strong>sd</strong> in a normal distributed sample. This corrected MAD is applied in the <code>outlier</code> function. A deviation of 3.5 times the corrected <strong>MAD</strong> from the median is suggested to be an outlier. To use this criterion set <code>criteria = c("MAD", 3.5)</code>. <code>criteria = c("CI", 0.95)</code> takes exceeding the 95% confidence interval as the criteria for outliers. The Cook’s distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook’s distance analyses are based on a piecewise-regression model. Most commonly, Cook’s distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c(“Cook,”“4/n”).</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">outlier</span><span class="op">(</span><span class="va">exampleABC_outlier</span>, criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MAD"</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>Outlier Analysis for Single-Case Data
 
@@ -387,7 +390,7 @@ $Amy
 Case Bernadette : Dropped 3 
 Case Penny : Dropped 2 
 Case Amy : Dropped 3 </code></pre>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Visualizing outliers with the plot function</span>
 <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">outlier</span><span class="op">(</span><span class="va">exampleABC_outlier</span>, criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MAD"</span>, <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">exampleABC_outlier</span>, marks <span class="op">=</span> <span class="va">res</span>, style <span class="op">=</span> <span class="st">"annotate"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>,<span class="fl">160</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -403,7 +406,7 @@ Case Amy : Dropped 3 </code></pre>
  </tr></table></div>
 <p>The <code>smooth_cases</code> function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A <em>lag</em> defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.<br>
 The function returns am scdf with smoothed data points.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Use the three different smoothing functions and compare the results</span>
 <span class="va">berta_mmd</span> <span class="op">&lt;-</span> <span class="fu">smooth_cases</span><span class="op">(</span><span class="va">Huber2014</span><span class="op">$</span><span class="va">Berta</span><span class="op">)</span>
 <span class="va">berta_mmn</span> <span class="op">&lt;-</span> <span class="fu">smooth_cases</span><span class="op">(</span><span class="va">Huber2014</span><span class="op">$</span><span class="va">Berta</span>, FUN <span class="op">=</span> <span class="st">"movingMean"</span><span class="op">)</span>
@@ -444,7 +447,7 @@ The function returns am scdf with smoothed data points.</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2021-12-16.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-03-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -452,6 +455,34 @@ The function returns am scdf with smoothed data points.</p>
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>

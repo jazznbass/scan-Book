@@ -35,7 +35,7 @@ print_table(out, "Statistics of the describe command")
 describe(exampleABC)
 ```
 
-The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the `describeSC` command into an R object and then use the `write.csv` (or `write.csv2` for a German OS system setup) to export the `descriptives` element of the object.
+The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the `describe` command into an R object and then use the `write.csv` (or `write.csv2` for a German OS system setup) to export the `descriptives` element of the object.
 
 ```{r describe_write_example}
 # write the results into a new R object named `res`
@@ -68,7 +68,7 @@ The `autocorr` function calculates autocorrelations within each phase and across
 autocorr(exampleABC, lag.max = 4)
 ```
 
-The `trendSC` function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.
+The `trend` function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.
 
 
 ```{r trend_example}
@@ -86,13 +86,13 @@ trend(exampleAB$Johanna, offset = 0,
 There are two kinds of missing values in single-case data series. First, missings that were explicitly recorded as `NA` and assigned to a phase and measurement-time as in the following example:
 
 ```
-scdf(c(5, 3, 4, 6, 8, 7, 9, 7, NA, 6), phase.design = c(A = 4, B = 6))
+scdf(c(5, 3, 4, 6, 8, 7, 9, 7, NA, 6), phase_design = c(A = 4, B = 6))
 ```
 
 The second type of missing occurs when there are gaps between measurement-times that are not explicitly coded as in the following example:
 
 ```
-scdf(c(5, 3, 4, 6, 8, 7, 9, 7, 6), phase.design = c(A = 4, B = 5), 
+scdf(c(5, 3, 4, 6, 8, 7, 9, 7, 6), phase_design = c(A = 4, B = 5), 
      mt = c(1, 2, 3, 4, 5, 6, 7, 8, 10))
 ```
 
@@ -100,10 +100,10 @@ In both cases, missing values pose a threat to the internal validity of overlap 
 
 ```{r fillmissing_example, fig.height=5, fig.width=5}
 case1 <- scdf(c(3,6,2,4,3,5,2,6,3,2, 6,7,5,8,6,7,4,8,5,6), 
-              phase.design = c(A = 10, B = 10), name = "no NA")
+              phase_design = c(A = 10, B = 10), name = "no NA")
 case2 <- scdf(c(3,6,2,4,3,5,2,NA,3,2, 6,7,5,8,6,NA,4,8,5,6), 
-              phase.design = c(A = 10, B = 10), name = "NAs")
-case3 <- fillmissingSC(case2)
+              phase_design = c(A = 10, B = 10), name = "NAs")
+case3 <- fill_missing(case2)
 names(case3) <- "interpolated NAs"
 ex <- c(case1, case2, case3)
 plot(ex)
