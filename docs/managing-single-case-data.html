@@ -93,7 +93,7 @@ Technically, an scdf object is a list containing data frames. It is of the class
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> scdf(values, B_start, mt, phase, phase_design = NULL, name = NULL, dvar = "values", pvar = "phase", mvar = "mt", phase.design, B.start, ...) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> scdf(values, B_start, mt, phase, phase_design = NULL, name = NULL, dvar = "values", pvar = "phase", mvar = "mt", ...) </font></td>
  </tr></table></div>
 <p>The <code>scdf</code> function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement <em>values</em> and the <em>phase</em> structure and a scdf object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the <code>B_start</code> argument, second, defining a design with the <code>phase_design</code> argument and third, setting parameters in a named vector of the dependent variable.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -461,9 +461,9 @@ phase &lt;phase variable&gt;
 Note:  Behavioral data (compliance in percent).
 Author of data:  Christian Huber </code></pre>
 </div>
-<div id="selecting-cases-measurements-and-variables" class="section level2" number="4.7">
+<div id="selecting-cases-and-measurements" class="section level2" number="4.7">
 <h2>
-<span class="header-section-number">4.7</span> Selecting cases, measurements, and variables<a class="anchor" aria-label="anchor" href="#selecting-cases-measurements-and-variables"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.7</span> Selecting cases and measurements<a class="anchor" aria-label="anchor" href="#selecting-cases-and-measurements"><i class="fas fa-link"></i></a>
 </h2>
 <div id="subsetting-cases-with-base-r-syntax" class="section level3" number="4.7.1">
 <h3>
@@ -503,6 +503,10 @@ Author of data:  Christian Huber </code></pre>
 <h3>
 <span class="header-section-number">4.7.2</span> Select cases<a class="anchor" aria-label="anchor" href="#select-cases"><i class="fas fa-link"></i></a>
 </h3>
+<div class="inline-table"><table class="table table-sm"><tr>
+<td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> select_cases(scdf, ...) </font></td>
+ </tr></table></div>
 <p>Since version 0.53 scan includes some functions to work with pipe-operators. Therefore, we will provide syntax examples with and without pipe operators.</p>
 <p>The <code>select_cases()</code> function takes case-names and/or numbers for selecting cases:</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
@@ -577,8 +581,13 @@ phase &lt;phase variable&gt;
 
 
 Note:  Randomly created data with normal distributed dependent variable.</code></pre>
-
 </div>
+</div>
+<div id="change-and-create-variables" class="section level2" number="4.8">
+<h2>
+<span class="header-section-number">4.8</span> Change and create variables<a class="anchor" aria-label="anchor" href="#change-and-create-variables"><i class="fas fa-link"></i></a>
+</h2>
+
 </div>
 </div>
   <div class="chapter-nav">
@@ -595,12 +604,13 @@ Note:  Randomly created data with normal distributed dependent variable.</code><
 <li><a class="nav-link" href="#convert-an-scdf-object-back-to-scan-syntax"><span class="header-section-number">4.5</span> Convert an scdf object back to scan syntax</a></li>
 <li><a class="nav-link" href="#displaying-scdf-files"><span class="header-section-number">4.6</span> Displaying scdf-files</a></li>
 <li>
-<a class="nav-link" href="#selecting-cases-measurements-and-variables"><span class="header-section-number">4.7</span> Selecting cases, measurements, and variables</a><ul class="nav navbar-nav">
+<a class="nav-link" href="#selecting-cases-and-measurements"><span class="header-section-number">4.7</span> Selecting cases and measurements</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#subsetting-cases-with-base-r-syntax"><span class="header-section-number">4.7.1</span> Subsetting cases with base R syntax</a></li>
 <li><a class="nav-link" href="#select-cases"><span class="header-section-number">4.7.2</span> Select cases</a></li>
 <li><a class="nav-link" href="#select-measurements"><span class="header-section-number">4.7.3</span> Select measurements</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#change-and-create-variables"><span class="header-section-number">4.8</span> Change and create variables</a></li>
 </ul>
 
       <div class="book-extra">
@@ -618,7 +628,7 @@ Note:  Randomly created data with normal distributed dependent variable.</code><
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-03-24.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-04-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
