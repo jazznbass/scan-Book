@@ -32,8 +32,10 @@ export(res)
 ## Overlap indices
 
 ```{r warning=FALSE}
-res <- overlap(exampleA1B1A2B2_zvt, phases = list(c(1,3),c(2,4)))
-export(res, flip = TRUE)
+exampleA1B1A2B2_zvt %>%
+  select_phases(A = c(1,3), B = c(2,4)) %>%
+  overlap() %>%
+  export(flip = TRUE)
 ```
 
 ## Piecewise linear models
@@ -46,6 +48,8 @@ export(res)
 ## Hierarchical piecewise regressions
 
 ```{r warning=FALSE}
-res <- hplm(exampleAB_50, data.l2 = exampleAB_50.l2, lr.test = TRUE, random.slopes = TRUE)
-export(res)
+exampleAB_50 %>%
+  add_l2(exampleAB_50.l2) %>%
+  hplm(lr.test = TRUE, random.slopes = TRUE) %>%
+  export()
 ```

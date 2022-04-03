@@ -97,7 +97,7 @@
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> design(n = 1, phase_design = list(A = 5, B = 15), trend = 0, level = list(0), slope = list(0), start_value = 50, s = 10, rtt = 0.8, extreme_prop = list(0), extreme_range = c(-4, -3), missing_prop = 0, distribution = "normal", n_trials = NULL, mt = NULL, B_start = NULL, m, phase.design, MT, B.start, extreme.p, extreme.d, missing.p) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> design(n = 1, phase_design = list(A = 5, B = 15), trend = 0, level = list(0), slope = list(0), start_value = 50, s = 10, rtt = 0.8, extreme_prop = list(0), extreme_range = c(-4, -3), missing_prop = 0, distribution = "normal", n_trials = NULL, mt = NULL, B_start = NULL, m, MT) </font></td>
  </tr></table></div>
 <p>The <code>design</code> function sets up a single-case design. You can define various parameters of that design:</p>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
@@ -179,7 +179,7 @@ Standard deviation used to calculate absolute values from level, slope, trend ef
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
-extreme.p
+extreme_prop
 </td>
 <td style="text-align:left;width: 30em; ">
 Probability of extreme values. extreme.p = .05 gives a five percent probability of an extreme value. A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.
@@ -187,7 +187,7 @@ Probability of extreme values. extreme.p = .05 gives a five percent probability 
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
-extreme.d
+extreme_range
 </td>
 <td style="text-align:left;width: 30em; ">
 Range for extreme values, expressed as effect size d. extreme.d = c(-7,-6) uses extreme values within a range of -7 and -6 standard deviations. In case of a binomial or poisson distribution, extreme.d indicates points / counts. Caution: the first value must be smaller than the second, otherwise the procedure will fail.
@@ -195,7 +195,7 @@ Range for extreme values, expressed as effect size d. extreme.d = c(-7,-6) uses
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
-missing.p
+missing_prop
 </td>
 <td style="text-align:left;width: 30em; ">
 Portion of missing values. missing.p = 0.1 creates 10% of all values as missing). A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.
@@ -242,9 +242,9 @@ These default values are only suitable when your design is a one case single-cas
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct p
- plm_level    73           5      1:5.4    84.0 0
-      rand    67          10      1:3.3    78.5 0
-      tauU   100          25      1:0.0    87.5 0</code></pre>
+ plm_level    74           4      1:6.5    85.0 0
+      rand    73           4      1:6.8    84.5 0
+      tauU   100          18      1:0.0    91.0 0</code></pre>
 <p>The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to outliers of the random samples. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tau U test has an unacceptably high alpha-error which is due to the trend we put into the design. <em>Alpha:Beta</em> depicts the relation of the Alpha and Beta error (power = 1 - Beta). <em>Correct</em> is the overall proportion of correct categorizations and <em>p</em> is the results of a binomial-test of <em>Correct</em> against 50%.</p>
 </div>
 <div id="statistical-methods" class="section level2" number="10.4">
@@ -440,11 +440,11 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct p
- plm_level    73           5      1:5.4    84.0 0
-      rand    67          10      1:3.3    78.5 0
-      tauU   100          25      1:0.0    87.5 0
+ plm_level    74           4      1:6.5    85.0 0
+      rand    73           4      1:6.8    84.5 0
+      tauU   100          18      1:0.0    91.0 0
 
-Computation duration is 2 seconds.</code></pre>
+Computation duration is 2.4 seconds.</code></pre>
 <p>The duration depends heavily on the applied test methods. Regressions are faster than randomization tests and tau U tests are quiet slow:</p>
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"plm_level"</span><span class="op">)</span>
@@ -454,13 +454,13 @@ Computation duration is 2 seconds.</code></pre>
 <span class="co"># Elapsed time in seconds for each procedure</span>
 <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">elapsed</span> 
-  <span class="fl">0.178</span> 
+  <span class="fl">0.205</span> 
 <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res2</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">elapsed</span> 
-  <span class="fl">0.395</span> 
+   <span class="fl">0.68</span> 
 <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res3</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">elapsed</span> 
-  <span class="fl">1.471</span> </code></pre></div>
+   <span class="fl">1.47</span> </code></pre></div>
 <p>… and what about our fast-glm function?</p>
 <div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu">design</span><span class="op">(</span>
@@ -476,11 +476,11 @@ Computation duration is 2 seconds.</code></pre>
 
 <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
 <pre><code>elapsed 
-  0.197 </code></pre>
+  0.201 </code></pre>
 <div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res2</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
 <pre><code>elapsed 
-   0.42 </code></pre>
+  0.447 </code></pre>
 <p>… it is more that two times faster!</p>
 
 </div>
@@ -516,7 +516,7 @@ Computation duration is 2 seconds.</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-03-24.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-04-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
