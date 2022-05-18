@@ -7,14 +7,14 @@
 <title>Chapter 8 Piecewise linear regressions | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
 <meta name="description" content="In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately...">
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
 <meta property="og:title" content="Chapter 8 Piecewise linear regressions | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
 <meta property="og:description" content="In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 8 Piecewise linear regressions | Analyzing single-case data with R and scan">
 <meta name="twitter:description" content="In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
@@ -24,7 +24,33 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-145080763-1');
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -75,7 +101,7 @@
 <h1>
 <span class="header-section-number">8</span> Piecewise linear regressions<a class="anchor" aria-label="anchor" href="#piecewise-linear-regressions"><i class="fas fa-link"></i></a>
 </h1>
-<p>In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean <span class="citation"><a href="references.html#ref-huitema_design_2000" role="doc-biblioref">Huitema &amp; Mckean</a> (<a href="references.html#ref-huitema_design_2000" role="doc-biblioref">2000</a>)</span>. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention’s start and lasting throughout the intervention (B-phase).</p>
+<p>In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean <span class="citation">Huitema &amp; Mckean (<a href="references.html#ref-huitema_design_2000" role="doc-biblioref">2000</a>)</span>. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention’s start and lasting throughout the intervention (B-phase).</p>
 <p>In this model, four parameters predict the outcome at a specific measurement point:</p>
 <ol style="list-style-type: decimal">
 <li><p>The performance at the beginning of the study (<strong>intercept</strong>),</p></li>
@@ -101,7 +127,7 @@
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> plm(data, dvar, pvar, mvar, AR = 0, model = "B&amp;L-B", family = "gaussian", trend = TRUE, level = TRUE, slope = TRUE, formula = NULL, update = NULL, na.action = na.omit, r_squared = TRUE, var_trials = NULL, dvar_percentage = FALSE, ...) </font></td>
  </tr></table></div>
 <p>The basic function for applying a regression analyzes to a single-case dataset is <code>plm</code>. This function analyzes one single-case. In its simplest way, <code>plm</code> takes one argument with an <em>scdf</em> object and it returns a full piecewise regression analyzes.</p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plm</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span><span class="op">)</span></code></pre></div>
 <pre><code>Piecewise Regression Analysis
 
@@ -730,7 +756,7 @@ C
 <h3>
 <span class="header-section-number">8.1.2</span> Adjusting the model<a class="anchor" aria-label="anchor" href="#adjusting-the-model"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">example</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">55</span>, <span class="fl">58</span>, <span class="fl">53</span>, <span class="fl">50</span>, <span class="fl">52</span>, <span class="fl">55</span>, <span class="fl">68</span>, <span class="fl">68</span>, <span class="fl">81</span>, <span class="fl">67</span>, <span class="fl">78</span>, <span class="fl">73</span>, <span class="fl">72</span>, <span class="fl">78</span>, <span class="fl">81</span>, <span class="fl">78</span>, <span class="fl">71</span>, <span class="fl">85</span>, <span class="fl">80</span>, <span class="fl">76</span><span class="op">)</span>,
    phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">5</span>, B <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>
@@ -758,7 +784,7 @@ Autocorrelations of the residuals
 
 Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 <p>The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. There are several ways to do this. The easiest way is the to set the <code>slope</code> argument to <code>FALSE</code>.</p>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plm</span><span class="op">(</span><span class="va">example</span>, slope <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>Piecewise Regression Analysis
 
@@ -787,7 +813,7 @@ Formula: values ~ 1 + mt + phaseB</code></pre>
 </h3>
 <p>In more complex analyses additional predictors can be included in the piecewise regression model.</p>
 <p>To do this, we have to change the regression formula ‘manually’ by applying the <code>update</code> argument. The <code>update</code> argument allows to change the underlying regression formula. To add a new variable named for example <code>newVar</code>, set <code>update = .~. + newVar</code>. The <code>.~.</code> part takes the internally build formula and <code>+ newVar</code> adds a variable named <code>newVar</code> to the equation.</p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">plm</span><span class="op">(</span><span class="va">exampleAB_add</span>, update <span class="op">=</span> <span class="va">.</span><span class="op">~</span><span class="va">.</span> <span class="op">+</span> <span class="va">cigarrets</span><span class="op">)</span></code></pre></div>
 <pre><code>Piecewise Regression Analysis
 
@@ -816,7 +842,7 @@ Formula: wellbeing ~ day + phaseMedication + interMedication + cigarrets</code><
 <h3>
 <span class="header-section-number">8.1.4</span> <span class="math display">\[to be written\]</span> Modelling autoregression<a class="anchor" aria-label="anchor" href="#to-be-written-modelling-autoregression"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">autocorr</span><span class="op">(</span><span class="va">Grosche2011</span><span class="op">)</span></code></pre></div>
 <pre><code>Autocorrelations
 
@@ -847,7 +873,7 @@ Olaf
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> mplm(data, dvar, mvar, pvar, model = "B&amp;L-B", trend = TRUE, level = TRUE, slope = TRUE, formula = NULL, update = NULL, na.action = na.omit, ...) </font></td>
  </tr></table></div>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">mplm</span><span class="op">(</span><span class="va">exampleAB_add</span>, dvar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"wellbeing"</span>, <span class="st">"depression"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>Multivariate piecewise linear model
 
@@ -890,7 +916,7 @@ The following variables were used in this analysis:
 </ul>
 <p>The basic function for applying a multilevel piecewise regression analysis is <code>hplm</code>. The <code>hplm</code> function is similar to the <code>plm</code> function, so I recommend that you get familar with <code>plm</code> before applying an <code>hplm</code>.</p>
 <p>Here is a simple example:</p>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">hplm</span><span class="op">(</span><span class="va">exampleAB_50</span><span class="op">)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -914,7 +940,7 @@ Random effects (~1 | case)
 Intercept      9.970
 Residual       5.285</code></pre>
 <p>Here is an example inlcuding random slopes:</p>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">hplm</span><span class="op">(</span><span class="va">exampleAB_50</span>, random.slopes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -945,7 +971,7 @@ Residual           4.975</code></pre>
 <span class="header-section-number">8.3.1</span> Adding additional L2-variables<a class="anchor" aria-label="anchor" href="#adding-additional-l2-variables"><i class="fas fa-link"></i></a>
 </h3>
 <p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze. This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects. To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">L2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   case <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Antonia"</span>,<span class="st">"Theresa"</span>, <span class="st">"Charlotte"</span>, <span class="st">"Luis"</span>, <span class="st">"Bennett"</span>, <span class="st">"Marie"</span><span class="op">)</span>, 
   age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">13</span>, <span class="fl">13</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">14</span><span class="op">)</span>, 
@@ -1087,7 +1113,7 @@ m
 </tbody>
 </table></div>
 <p>Analyzing the data with <code>hplm</code> could look like this:</p>
-<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">hplm</span><span class="op">(</span><span class="va">exampleAB_50</span>, data.l2 <span class="op">=</span> <span class="va">exampleAB_50.l2</span>, update.fixed <span class="op">=</span> <span class="va">.</span><span class="op">~</span><span class="va">.</span> <span class="op">+</span> <span class="va">sex</span> <span class="op">+</span> <span class="va">age</span><span class="op">)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -1113,7 +1139,7 @@ Random effects (~1 | case)
 Intercept      9.446
 Residual       5.284</code></pre>
 <p><code>sex</code> is a factor with the levels <code>f</code> and <code>m</code>. So <code>sexm</code> is the effect of being male on the overall performance. <code>age</code> does not seem to have any effect. So we drop <code>age</code> out of the equation and add an interaction of sex and phase to see whether the <code>sex</code> effect is due to a weaker impact of the intervention on males.</p>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">hplm</span><span class="op">(</span><span class="va">exampleAB_50</span>, data.l2 <span class="op">=</span> <span class="va">exampleAB_50.l2</span>, update.fixed <span class="op">=</span> <span class="va">.</span><span class="op">~</span><span class="va">.</span> <span class="op">+</span> <span class="va">sex</span> <span class="op">+</span> <span class="va">sex</span><span class="op">:</span><span class="va">phaseB</span><span class="op">)</span></code></pre></div>
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -1179,7 +1205,7 @@ Residual       4.989</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-04-03.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-05-18.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

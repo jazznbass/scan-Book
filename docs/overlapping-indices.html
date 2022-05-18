@@ -7,14 +7,14 @@
 <title>Chapter 7 Overlapping indices | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
 <meta name="description" content="overlap(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2))  overlap provides a table with some of the most important overlap indices for each case of an scdf. For calculating overlap...">
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
 <meta property="og:title" content="Chapter 7 Overlapping indices | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
 <meta property="og:description" content="overlap(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2))  overlap provides a table with some of the most important overlap indices for each case of an scdf. For calculating overlap...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 7 Overlapping indices | Analyzing single-case data with R and scan">
 <meta name="twitter:description" content="overlap(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2))  overlap provides a table with some of the most important overlap indices for each case of an scdf. For calculating overlap...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
@@ -24,7 +24,33 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-145080763-1');
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -101,7 +127,7 @@ Diff_trend      1.53     0.54  2.50
 SMD             8.11     3.17  6.71
 Hedges_g        2.35     2.26  2.87</code></pre>
 <p>Overlap measures refer to a comparison of two phases within a single-case data-set. By default, <code>overlap</code> compares a Phase A to a Phase B. The <code>phases</code> argument is needed if the phases of the <em>scdf</em> do not include phases named A and B or a comparison between other phases in wanted.<br>
-The <code>phases</code> argument takes a list with two elements. One element for each of the two phases that should be compared. The elements could contain either the name of the two phases or the number of the position within the <em>scdf</em>. If you want to compare the first to the third phase you can set <code>phases = list(1,3)</code>. If the phases of your case are named ‘A,’ ‘B,’ and ‘C’ you could alternatively set <code>phases = list("A","C")</code>.<br>
+The <code>phases</code> argument takes a list with two elements. One element for each of the two phases that should be compared. The elements could contain either the name of the two phases or the number of the position within the <em>scdf</em>. If you want to compare the first to the third phase you can set <code>phases = list(1,3)</code>. If the phases of your case are named ‘A’, ‘B’, and ‘C’ you could alternatively set <code>phases = list("A","C")</code>.<br>
 It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the <code>c</code> command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases <code>phases = list( c(1,3), c(2,4) )</code> will do the trick.</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">overlap</span><span class="op">(</span><span class="va">exampleA1B1A2B2</span>, phases <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A1"</span>,<span class="st">"A2"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B1"</span>,<span class="st">"B2"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -157,7 +183,7 @@ Cohen's d                         6.98   7.67   7.10</code></pre>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> pnd(data, dvar, pvar, decreasing = FALSE, phases = c("A", "B")) </font></td>
  </tr></table></div>
-<p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation"><a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">Scruggs, Mastropieri, &amp; Casto</a> (<a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
+<p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation">Scruggs, Mastropieri, &amp; Casto (<a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
 <div class="figure">
 <span style="display:block;" id="fig:unnamed-chunk-33"></span>
 <img src="scan-book_files/figure-html/unnamed-chunk-33-1.png" alt="Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A." width="384"><p class="caption">
@@ -300,35 +326,72 @@ z = 6.316, p = 0.000, τ = 0.822 </code></pre>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> tau_u(data, dvar, pvar, tau_method = "b", method = "complete", phases = c(1, 2), meta_method = "random", ci = 0.95, continuity_correction = FALSE) </font></td>
  </tr></table></div>
-<p>The <code>tau_u</code> function takes a <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. This procedure has been proposed by <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker, Vannest, Davis, &amp; Sauber</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span>.<br>
-The <code>tau_u</code> function provides two methods for calculation of Tau-U. By setting the argument <code>method = "parker"</code>, Tau-U is calculated as described in <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker et al.</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = "complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate.<br>
-In the method proposed by <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker et al.</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span> data of the same value (ties) are ignored and treated as if these data had not been available. Alternatively, ties might be considered in favor of the intervention or not. For the latter, the <code>ties.method</code> argument could be set to <code>ties.method = "positive"</code> or <code>ties.method = "negative"</code>. The default is <code>"omit"</code> following <span class="citation"><a href="references.html#ref-parker_combining_2011" role="doc-biblioref">Richard I. Parker et al.</a> (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011</a>)</span>.<br>
-The standard return of the <code>tau_u</code> function does not display all calculations. If you like to have more details, apply the <code>print</code> function with the additional argument <code>complete = TRUE</code>.</p>
+<p>The <em>Tau-U</em> statistic has been proposed by <span class="citation">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011a</a>)</span> and is one of the more broadly used approach for reporting effect sizes of single case data. Unfortunately, various and ambiguous implementations of Tau-U exist <span class="citation">(<a href="references.html#ref-brossart2018a" role="doc-biblioref">Brossart, Laird, &amp; Armstrong, 2018</a>; <a href="references.html#ref-pustejovsky2016" role="doc-biblioref">Pustejovsky, 2016</a>)</span>. The <code>tau_u</code> function tries to cover several of these implementation. It takes a <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases based on a meta-analysis.</p>
+<p>Several arguments an be set to define how Tau-U should be calculated. By setting the argument <code>method = "parker"</code>, Tau-U is calculated as described in <span class="citation">Richard I. Parker et al. (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011a</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = "complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate. In the original method proposed by <span class="citation">Richard I. Parker et al. (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011a</a>)</span> data, calculations are based on Kendall’s Tau A which does not correct for ties. Alternatively, Kendall’s Tau B has a correction for Tau in the presence of ties. The <code>tau_method</code>` can be set to decide on the tau method to use <code>"a"</code> for Kendall’s Tau A and <code>"b"</code>` for Kendall’s Tau B.</p>
+<p>Here is an example with setting that reconstruct the values from the original example in <span class="citation">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="references.html#ref-parker2011" role="doc-biblioref">2011b</a>)</span> :</p>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">5</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">8</span><span class="op">)</span>, phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">4</span>, B <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
-<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">tau_u</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span>, complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">tau_u</span><span class="op">(</span><span class="va">Parker2011</span>, method <span class="op">=</span> <span class="st">"parker"</span>, tau_method <span class="op">=</span> <span class="st">"a"</span>, continuity_correction <span class="op">=</span> <span class="cn">FALSE</span>, ci <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></code></pre></div>
+<pre><code>Tau-U
+Method: parker 
+Applied Kendall's Tau-a
+
+Case: Case1 
+                              Tau SE_Tau    Z     p
+A vs. B                     0.800  0.408 1.96 0.050
+A vs. B - Trend A           0.650  0.480 1.35 0.175
+A vs. B + Trend B           0.767  0.320 2.40 0.016
+A vs. B + Trend B - Trend A 0.556  0.266 2.08 0.037</code></pre>
+<p>A different implementation of the method (provided at <a href="http://www.singlecaseresearch.org/calculators/tau-u">http://www.singlecaseresearch.org/calculators/tau-u)</a>) uses Kendall’s Tau B:</p>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tau_u</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span>, method <span class="op">=</span> <span class="st">"parker"</span>, tau_method <span class="op">=</span> <span class="st">"b"</span>, continuity_correction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<pre><code>Tau-U
+Method: parker 
+Applied Kendall's Tau-b
+
+Case: Johanna 
+                              Tau SE_Tau    Z     p
+A vs. B                     1.000  0.306 3.27 0.001
+A vs. B - Trend A           0.592  0.184 3.22 0.001
+A vs. B + Trend B           0.786  0.166 4.75 0.000
+A vs. B + Trend B - Trend A 0.765  0.163 4.71 0.000</code></pre>
+<p>A different online calculator created by Rumen Manolov is available at <a href="https://manolov.shinyapps.io/Overlap/" class="uri">https://manolov.shinyapps.io/Overlap/</a> it applies an R code developed by Kevin Tarlow for caluclating Tau-U. This setting will replicated results from this approach:</p>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tau_u</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span>, method <span class="op">=</span> <span class="st">"complete"</span>, tau_method <span class="op">=</span> <span class="st">"a"</span>, continuity_correction <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<pre><code>Tau-U
+Method: complete 
+Applied Kendall's Tau-a
+
+Case: Johanna 
+                              Tau SE_Tau    Z     p
+A vs. B                     1.000  0.306 3.27 0.001
+A vs. B - Trend A           0.882  0.363 2.43 0.015
+A vs. B + Trend B           0.806  0.171 4.70 0.000
+A vs. B + Trend B - Trend A 0.763  0.162 4.70 0.000</code></pre>
+<p>The standard return of the <code>tau_u</code> function does not display all calculations. If you like to have more details, apply the <code>print</code> function with the additional argument <code>complete = TRUE</code>.</p>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">tau_u</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>complete <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>Tau-U
 Method: complete 
 Applied Kendall's Tau-b
 95% CIs for tau are reported.
 
-Case: Case1 
-                            pairs pos neg ties  S    D   Tau CI lower CI upper
-A vs. B                        20  19   1    0 18 20.0 0.900   0.0998     1.70
-Trend A                         6   4   2    0  2  6.0 0.333  -0.6283     1.29
-Trend B                        10   8   2    0  6 10.0 0.600  -0.2002     1.40
-A vs. B - Trend A              26  21   5    0 16 30.6 0.523  -0.0331     1.08
-A vs. B + Trend B              30  27   3    0 24 32.9 0.730   0.1859     1.27
-A vs. B + Trend B - Trend A    36  29   7    0 22 36.0 0.611   0.0889     1.13
-                            SD_S VAR_S SE_Tau     Z       p
-A vs. B                     8.16 66.67  0.408 2.205 0.02749
-Trend A                     2.94  8.67  0.491 0.679 0.49691
-Trend B                     4.08 16.67  0.408 1.470 0.14164
-A vs. B - Trend A           8.68 75.33  0.284 1.843 0.06527
-A vs. B + Trend B           9.13 83.33  0.278 2.629 0.00856
-A vs. B + Trend B - Trend A 9.59 92.00  0.266 2.294 0.02181</code></pre>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+Case: Johanna 
+                            pairs pos neg ties   S   D   Tau CI lower CI upper
+A vs. B                        75  75   0    0  75  75 1.000    0.401    1.599
+Trend A                        10   5   5    0   0  10 0.000      NaN      NaN
+Trend B                       105  87  17    1  70 104 0.670    0.291    1.049
+A vs. B - Trend A              85  80   5    0  75 127 0.592    0.232    0.951
+A vs. B + Trend B             180 162  17    1 145 184 0.786    0.462    1.111
+A vs. B + Trend B - Trend A   190 167  22    1 145 189 0.765    0.447    1.084
+                             SD_S VAR_S SE_Tau    Z     p
+A vs. B                     22.91 525.0  0.306 3.27 0.001
+Trend A                      4.08  16.7    NaN 0.00 1.000
+Trend B                     20.21 408.3  0.193 3.46 0.001
+A vs. B - Trend A           23.26 541.2  0.184 3.22 0.001
+A vs. B + Trend B           30.53 932.4  0.166 4.75 0.000
+A vs. B + Trend B - Trend A 30.81 949.0  0.163 4.71 0.000</code></pre>
+<p>When you provide multiple single-cases to the <code>tau-u</code>` function, it will calculate a Tau-U table for each case and an overall calculation. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. You can choose between a random- and a fixed-effect approach for the meta-analyses (<code>meta_method = "random"</code> or <code>"fixed"</code>).</p>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">tau_u</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>Tau-U
 Method: complete 
@@ -371,39 +434,39 @@ A vs. B + Trend B - Trend A 0.642  0.164 3.91 0.000</code></pre>
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> corrected_tau(data, dvar, pvar, mvar, phases = c(1, 2), alpha = 0.05, continuity = TRUE, repeated = TRUE) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> corrected_tau(data, dvar, pvar, mvar, phases = c(1, 2), alpha = 0.05, continuity = FALSE, repeated = FALSE) </font></td>
  </tr></table></div>
-<p>This method has been proposed by <span class="citation"><a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">Tarlow</a> (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span>. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The more accurate Siegel repeated median regression is applied when <code>repeated = TRUE</code> <span class="citation">(<a href="references.html#ref-siegelRobustRegressionUsing1982" role="doc-biblioref">Siegel, 1982</a>)</span> and a continuity correction is applied when <code>continuity = TRUE</code> (both are the default settings).</p>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<p>This method has been proposed by <span class="citation">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span>. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The more accurate Siegel repeated median regression is applied when <code>repeated = TRUE</code> <span class="citation">(<a href="references.html#ref-siegelRobustRegressionUsing1982" role="doc-biblioref">Siegel, 1982</a>)</span> and a continuity correction is applied when <code>continuity = TRUE</code> (both are the default settings).</p>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">33</span>,<span class="fl">25</span>,<span class="fl">17</span>,<span class="fl">25</span>,<span class="fl">14</span>,<span class="fl">13</span>,<span class="fl">15</span>, B <span class="op">=</span> <span class="fl">15</span>,<span class="fl">16</span>,<span class="fl">16</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">9</span>,<span class="fl">6</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">8</span>,<span class="fl">11</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">corrected_tau</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
 <pre><code>Baseline corrected tau
 
-Method: Siegel repeated median regression
-Continuity correction applied
+Method: Theil-Sen regression
+Continuity correction not applied.
 
-                           tau     z    p
-Baseline autocorrelation -0.68 -2.28 &lt;.05
-Uncorrected tau          -0.57 -2.98 &lt;.01
-Baseline corrected tau    0.66  3.41 &lt;.01
+                           tau     z     p
+Baseline autocorrelation -0.68 -2.13  &lt;.05
+Uncorrected tau          -0.57 -2.94  &lt;.01
+Baseline corrected tau    0.70  3.61 &lt;.001
 
 Baseline correction should be applied.</code></pre>
-<p>Here is a replication of an example provided by <span class="citation"><a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">Tarlow</a> (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span> :</p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<p>Here is a replication of an example provided by <span class="citation">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span> :</p>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">33</span>, <span class="fl">25</span>, <span class="fl">17</span>, <span class="fl">25</span>, <span class="fl">14</span>, <span class="fl">13</span>,<span class="fl">14</span>, B <span class="op">=</span> <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">15</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">9</span>, <span class="fl">5</span> ,<span class="fl">4</span> ,<span class="fl">2</span> ,<span class="fl">2</span> ,<span class="fl">8</span>, <span class="fl">11</span> ,<span class="fl">7</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">corrected_tau</span><span class="op">(</span><span class="va">dat</span>, repeated <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <pre><code>Baseline corrected tau
 
 Method: Theil-Sen regression
-Continuity correction applied
+Continuity correction not applied.
 
                            tau     z     p
-Baseline autocorrelation -0.75 -2.46  &lt;.05
-Uncorrected tau          -0.58 -3.02  &lt;.01
-Baseline corrected tau    0.69  3.53 &lt;.001
+Baseline autocorrelation -0.75 -2.31  &lt;.05
+Uncorrected tau          -0.58 -2.98  &lt;.01
+Baseline corrected tau    0.69  3.57 &lt;.001
 
 Baseline correction should be applied.</code></pre>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">plm</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="reliable-change-index" class="section level2" number="7.9">
@@ -416,9 +479,9 @@ Baseline correction should be applied.</code></pre>
  </tr></table></div>
 <p>Basically, the reliable change index (rci) depicts if a post-test is above a pre-test value. Based on the reliability of the measurements and the standard-deviation the standard error is calculated. The mean difference between phase-A and phase-B is divided by the standard-error. Several authors proposed refined methods for calculating the rci.</p>
 <p>The <code>rci</code> function computes three indices of reliable change <span class="citation">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
-<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rci</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span>, rel <span class="op">=</span> <span class="fl">0.8</span>, graph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="scan-book_files/figure-html/unnamed-chunk-48-1.png" width="672"></div>
+<div class="inline-figure"><img src="scan-book_files/figure-html/unnamed-chunk-52-1.png" width="672"></div>
 <pre><code>Reliable Change Index
 
 Mean Difference =  19.53333 
@@ -477,7 +540,7 @@ Hageman and Arrindell   18.49426</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-04-03.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-05-18.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

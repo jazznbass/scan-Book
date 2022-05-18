@@ -7,14 +7,14 @@
 <title>Chapter 10 Power analyses (scan version 0.54 or later) | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
 <meta name="description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = 0.5, alpha_level = 0.05)  ...'>
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
 <meta property="og:title" content="Chapter 10 Power analyses (scan version 0.54 or later) | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
 <meta property="og:description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = 0.5, alpha_level = 0.05)  ...'>
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 10 Power analyses (scan version 0.54 or later) | Analyzing single-case data with R and scan">
 <meta name="twitter:description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = 0.5, alpha_level = 0.05)  ...'>
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
@@ -24,7 +24,33 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-145080763-1');
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -206,7 +232,7 @@ Portion of missing values. missing.p = 0.1 creates 10% of all values as missing)
 distribution
 </td>
 <td style="text-align:left;width: 30em; ">
-Distribution of the scores. Default is distribution = ‘normal.’ Possible values are ‘normal’ (or ‘gaussian’), ‘binomial,’ and ‘poisson.’
+Distribution of the scores. Default is distribution = ‘normal’. Possible values are ‘normal’ (or ‘gaussian’), ‘binomial’, and ‘poisson’.
 </td>
 </tr>
 <tr>
@@ -214,7 +240,7 @@ Distribution of the scores. Default is distribution = ‘normal.’ Possible val
 prob
 </td>
 <td style="text-align:left;width: 30em; ">
-If distribution is set ‘binomial,’ prob passes the probability of occurrence.
+If distribution is set ‘binomial’, prob passes the probability of occurrence.
 </td>
 </tr>
 </tbody>
@@ -225,7 +251,7 @@ If distribution is set ‘binomial,’ prob passes the probability of occurrence
 <span class="header-section-number">10.3</span> Conducting a power-test<a class="anchor" aria-label="anchor" href="#conducting-a-power-test"><i class="fas fa-link"></i></a>
 </h2>
 <p>When conduction a power test you firstly need to define a design which you like to be tested.</p>
-<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu">design</span><span class="op">(</span>
   n <span class="op">=</span> <span class="fl">1</span>,
   phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,
@@ -236,7 +262,7 @@ If distribution is set ‘binomial,’ prob passes the probability of occurrence
 <p>Then you have to choose the statistical method. The <code>power_test</code> function applies three methods by default: <em>plm</em>, <em>randomization test</em>, and <em>Tau U</em>.
 These default values are only suitable when your design is a one case single-case study.</p>
 <p>Let us start with the defaults and conduct a power analysis for our previously set design: <em>(This might take some time. Even in the default setting with 100 simulations you might wait a few seconds. For more precise estimations I recommend 1000 simulations - or even higher.)</em></p>
-<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span><span class="op">)</span>
 <span class="va">res</span></code></pre></div>
 <pre><code>Test-Power in percent:
@@ -409,7 +435,7 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
 <p><em>Note: You need specific knowledge on how to create functions in R and on data structures to follow all aspects of this section.</em></p>
 <p>Instead of one of the predefined character strings you can also create you own functions and implement these. You function must take an scdf as the first argument and return a single numeric p-value.</p>
 <p>Here is an example of a fast plm function for poisson distributed data based on the <code>fastglm</code> package:</p>
-<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">plm_fast</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">data</span>, recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
   <span class="va">y</span>  <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">values</span>
@@ -426,7 +452,7 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
   <span class="va">full</span> <span class="op">&lt;-</span> <span class="fu">fastglm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fastglm/man/fastglm.html">fastglm</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, family <span class="op">=</span> <span class="st">"poisson"</span>, method <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">full</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">]</span>
 <span class="op">}</span></code></pre></div>
-<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"fast plm"</span> <span class="op">=</span> <span class="va">plm_fast</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
@@ -435,7 +461,7 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
 <span class="header-section-number">10.5</span> Computation duration<a class="anchor" aria-label="anchor" href="#computation-duration"><i class="fas fa-link"></i></a>
 </h2>
 <p>You can print the returning object of the <code>power_test</code> function with added computation duration time by setting <code>duration = TRUE</code></p>
-<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span>, duration <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <pre><code>Test-Power in percent:
 
@@ -444,9 +470,9 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
       rand    73           4      1:6.8    84.5 0
       tauU   100          18      1:0.0    91.0 0
 
-Computation duration is 2.4 seconds.</code></pre>
+Computation duration is 1 seconds.</code></pre>
 <p>The duration depends heavily on the applied test methods. Regressions are faster than randomization tests and tau U tests are quiet slow:</p>
-<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"plm_level"</span><span class="op">)</span>
 <span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"rand"</span><span class="op">)</span>
 <span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"tauU"</span><span class="op">)</span>
@@ -454,15 +480,15 @@ Computation duration is 2.4 seconds.</code></pre>
 <span class="co"># Elapsed time in seconds for each procedure</span>
 <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">elapsed</span> 
-  <span class="fl">0.205</span> 
+  <span class="fl">0.083</span> 
 <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res2</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">elapsed</span> 
-   <span class="fl">0.68</span> 
+  <span class="fl">0.283</span> 
 <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res3</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">elapsed</span> 
-   <span class="fl">1.47</span> </code></pre></div>
+  <span class="fl">0.822</span> </code></pre></div>
 <p>… and what about our fast-glm function?</p>
-<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu">design</span><span class="op">(</span>
   n <span class="op">=</span> <span class="fl">1</span>,
   phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,
@@ -476,11 +502,11 @@ Computation duration is 2.4 seconds.</code></pre>
 
 <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
 <pre><code>elapsed 
-  0.201 </code></pre>
-<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+  0.139 </code></pre>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res2</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
 <pre><code>elapsed 
-  0.447 </code></pre>
+  0.251 </code></pre>
 <p>… it is more that two times faster!</p>
 
 </div>
@@ -516,7 +542,7 @@ Computation duration is 2.4 seconds.</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-04-03.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-05-18.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

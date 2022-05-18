@@ -115,21 +115,40 @@ nap(exampleAB)
 function_structure("tau_u")
 ```
 
-The `tau_u` function takes a *scdf* and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. This procedure has been proposed by @parker_combining_2011.\
-The `tau_u` function provides two methods for calculation of Tau-U. By setting the argument `method = "parker"`, Tau-U is calculated as described in @parker_combining_2011. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. `method = "complete`, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate.\
-In the method proposed by @parker_combining_2011 data of the same value (ties) are ignored and treated as if these data had not been available. Alternatively, ties might be considered in favor of the intervention or not. For the latter, the `ties.method` argument could be set to `ties.method = "positive"` or `ties.method = "negative"`. The default is `"omit"` following @parker_combining_2011.\
+The *Tau-U* statistic has been proposed by @parker_combining_2011 and is one of the more broadly used approach for reporting effect sizes of single case data. Unfortunately, various and ambiguous implementations of Tau-U exist [@pustejovsky2016; @brossart2018a]. The `tau_u` function tries to cover several of these implementation. It takes a *scdf* and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases based on a meta-analysis.
+
+Several arguments an be set to define how Tau-U should be calculated. By setting the argument `method = "parker"`, Tau-U is calculated as described in @parker_combining_2011. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. `method = "complete`, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate. In the original method proposed by @parker_combining_2011 data, calculations are based on Kendall's Tau A which does not correct for ties. Alternatively, Kendall's Tau B has a correction for Tau in the presence of ties. The `tau_method`\` can be set to decide on the tau method to use `"a"` for Kendall's Tau A and `"b"`\` for Kendall's Tau B.
+
+Here is an example with setting that reconstruct the values from the original example in @parker2011 :
+
+```{r}
+tau_u(Parker2011, method = "parker", tau_method = "a", continuity_correction = FALSE, ci = NA)
+```
+
+A different implementation of the method (provided at [http://www.singlecaseresearch.org/calculators/tau-u)](http://www.singlecaseresearch.org/calculators/tau-u)) uses Kendall's Tau B:
+
+```{r}
+tau_u(exampleAB$Johanna, method = "parker", tau_method = "b", continuity_correction = FALSE)
+```
+
+A different online calculator created by Rumen Manolov is available at <https://manolov.shinyapps.io/Overlap/> it applies an R code developed by Kevin Tarlow for caluclating Tau-U. This setting will replicated results from this approach:
+
+```{r}
+tau_u(exampleAB$Johanna, method = "complete", tau_method = "a", continuity_correction = FALSE)
+```
+
 The standard return of the `tau_u` function does not display all calculations. If you like to have more details, apply the `print` function with the additional argument `complete = TRUE`.
 
 ```{r}
-dat <- scdf(c(2,0,1,4,3,5,9,7,8), phase_design = c(A = 4, B = 5))
-res <- tau_u(dat)
-print(res, complete = TRUE)
-
+tau_u(exampleAB$Johanna) %>% print(complete = TRUE)
 ```
 
-```{r tauU}
+When you provide multiple single-cases to the `tau-u`\` function, it will calculate a Tau-U table for each case and an overall calculation. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. You can choose between a random- and a fixed-effect approach for the meta-analyses (`meta_method = "random"` or `"fixed"`).
+
+```{r}
 tau_u(exampleAB)
 ```
+
 
 ## Baseline corrected tau
 
