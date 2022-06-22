@@ -10,12 +10,19 @@ function_structure("overlap")
 overlap(exampleAB)
 ```
 
-Overlap measures refer to a comparison of two phases within a single-case data-set. By default, `overlap` compares a Phase A to a Phase B. The `phases` argument is needed if the phases of the *scdf* do not include phases named A and B or a comparison between other phases in wanted.\
-The `phases` argument takes a list with two elements. One element for each of the two phases that should be compared. The elements could contain either the name of the two phases or the number of the position within the *scdf*. If you want to compare the first to the third phase you can set `phases = list(1,3)`. If the phases of your case are named 'A', 'B', and 'C' you could alternatively set `phases = list("A","C")`.\
-It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the `c` command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases `phases = list( c(1,3), c(2,4) )` will do the trick.
+Overlap measures refer to a comparison of two phases within a single-case data-set. By default, `overlap` compares the first to the second phase. The `select_phases()` function is needed if you like to compare other phases or even like to combine several phases.
+
+`select_phases()` has the arguments `A` and `B`. Each argument takes a vector with the names or the numbers of the phases to be selected. If you want to compare the first to the third phase you can set `select_phases(1,3)`. If the phases of your case are named 'A', 'B', and 'C' you could alternatively set `select_phases("A","C")`. It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the `c` command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases `select_phases( c(1,3), c(2,4) )` will do the trick.
+
+(As an alternative approach you can set the `phases` argument within the `overlap()` function. This argument takes a list with two elements where the first element defines the phases for the A-phase and the second argument the phases for the B-phase.)
 
 ```{r warning = FALSE}
-overlap(exampleA1B1A2B2, phases = list( c("A1","A2"), c("B1","B2")))
+exampleA1B1A2B2 %>%
+  select_phases(c("A1","A2"), c("B1","B2")) %>%
+  overlap()
+
+# Alternatively:
+# overlap(exampleA1B1A2B2, phases = list( c("A1","A2"), c("B1","B2")))
 ```
 
 ## Standardized mean differences
@@ -39,8 +46,11 @@ function_structure("pnd")
 The percentage of non-overlapping data (PND) effect size measure was described by @scruggs_quantitative_1987 . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.
 
 ```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A."}
-dat <- random_scdf(design(1, level = 1.0),round = 0, seed = 1212, random.names = "male")
-plot(dat, style = "grid",lines = list("maxA", col = "red", lwd = 3))
+random_scdf(design(1, level = 1.0),round = 0, seed = 1212) %>%
+  scplot() %>% add_statline("max", phase = "A", color = "red") %>%
+  add_text("Maximum of A", x = 1, y = 60, hjust = 0, color = "red", size = 1) %>%
+  add_marks(positions = "values > max(values[phase == 'A'])", size = 2, shape = 16)
+
 ```
 
 The function `pnd` provides the PND for each case as well as the mean of all PNDs of that *scdf*. When you expect decreasing values set `decreasing = TRUE`. When there are more than two phases or phases are not named A and B, use the `phases` argument as described at the beginning of this chapter.
@@ -57,9 +67,11 @@ function_structure("pem")
 
 The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.
 
-```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PEM. PEM is 75% as 9 out of 12 datapoints of phase B are higher than the median of phase A."}
-dat <- random_scdf(design(1, level = 0.4,phase_design = list(A = 8, B = 12)), round = 0, seed = 1232, random_names = "male")
-plot(dat, style = "grid",lines = c("medianA", col = "red", lwd = 3))
+```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A."}
+random_scdf(design(1, level = 1.0),round = 0, seed = 1212) %>%
+  scplot() %>% add_statline("median", phase = "A", color = "red") %>%
+  add_text("Median of A", x = 1, y = 53, hjust = 0, color = "red", size = 1) %>%
+  add_marks(positions = "values > median(values[phase == 'A']) & phase == 'B'", size = 2, shape = 16)
 ```
 
 ```{r}
@@ -79,8 +91,10 @@ pet(exampleAB)
 ```
 
 ```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A."}
-dat <- random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 0, seed = 9871, random_names = "female")
-plot(dat, style = "grid",lines = c("trendA", col = "red", lwd = 3))
+random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 0, seed = 9871) %>% 
+  scplot() %>% add_statline("trendA", color = "red") %>%
+  add_text("Trend of A", x = 1, y = 52, hjust = 0, color = "red", size = 1) %>%
+  add_marks(positions = c(12, 14:19, 21, 22,25), size = 2, shape = 16)
 ```
 
 ## Percentage of all non-overlapping data (PAND)
@@ -115,19 +129,37 @@ nap(exampleAB)
 function_structure("tau_u")
 ```
 
-The `tau_u` function takes a *scdf* and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. This procedure has been proposed by @parker_combining_2011.\
-The `tau_u` function provides two methods for calculation of Tau-U. By setting the argument `method = "parker"`, Tau-U is calculated as described in @parker_combining_2011. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. `method = "complete`, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate.\
-In the method proposed by @parker_combining_2011 data of the same value (ties) are ignored and treated as if these data had not been available. Alternatively, ties might be considered in favor of the intervention or not. For the latter, the `ties.method` argument could be set to `ties.method = "positive"` or `ties.method = "negative"`. The default is `"omit"` following @parker_combining_2011.\
+The *Tau-U* statistic has been proposed by @parker_combining_2011 and is one of the more broadly used approach for reporting effect sizes of single case data. Unfortunately, various and ambiguous implementations of Tau-U exist [@pustejovsky2016; @brossart2018a]. The `tau_u` function tries to cover several of these implementation. It takes a *scdf* and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases based on a meta-analysis.
+
+Several arguments an be set to define how Tau-U should be calculated. By setting the argument `method = "parker"`, Tau-U is calculated as described in @parker_combining_2011. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. `method = "complete`, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate. In the original method proposed by @parker_combining_2011 data, calculations are based on Kendall's Tau A which does not correct for ties. Alternatively, Kendall's Tau B has a correction for Tau in the presence of ties. The `tau_method`\` can be set to decide on the tau method to use `"a"` for Kendall's Tau A and `"b"`\` for Kendall's Tau B.
+
+Here is an example with setting that reconstruct the values from the original example in @parker2011 :
+
+```{r}
+tau_u(Parker2011, method = "parker", tau_method = "a", continuity_correction = FALSE, ci = NA)
+```
+
+A different implementation of the method (provided at [http://www.singlecaseresearch.org/calculators/tau-u)](http://www.singlecaseresearch.org/calculators/tau-u)) uses Kendall's Tau B:
+
+```{r}
+tau_u(exampleAB$Johanna, method = "parker", tau_method = "b", continuity_correction = FALSE)
+```
+
+A different online calculator created by Rumen Manolov is available at <https://manolov.shinyapps.io/Overlap/> it applies an R code developed by Kevin Tarlow for caluclating Tau-U. This setting will replicated results from this approach:
+
+```{r}
+tau_u(exampleAB$Johanna, method = "complete", tau_method = "a", continuity_correction = FALSE)
+```
+
 The standard return of the `tau_u` function does not display all calculations. If you like to have more details, apply the `print` function with the additional argument `complete = TRUE`.
 
 ```{r}
-dat <- scdf(c(2,0,1,4,3,5,9,7,8), phase_design = c(A = 4, B = 5))
-res <- tau_u(dat)
-print(res, complete = TRUE)
-
+tau_u(exampleAB$Johanna) %>% print(complete = TRUE)
 ```
 
-```{r tauU}
+When you provide multiple single-cases to the `tau-u` function, it will calculate a Tau-U table for each case and an overall calculation. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. You can choose between a random- and a fixed-effect approach for the meta-analyses (`meta_method = "random"` or `"fixed"`).
+
+```{r}
 tau_u(exampleAB)
 ```
 

@@ -7,14 +7,14 @@
 <title>Chapter 4 Managing single-case data | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
 <meta name="description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
-<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
 <meta property="og:title" content="Chapter 4 Managing single-case data | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
 <meta property="og:description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 4 Managing single-case data | Analyzing single-case data with R and scan">
 <meta name="twitter:description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
@@ -24,7 +24,33 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-145080763-1');
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -61,7 +87,8 @@
 <li><a class="" href="default-settings.html"><span class="header-section-number">11</span> Default settings</a></li>
 <li><a class="" href="example-datasets.html"><span class="header-section-number">12</span> Example datasets</a></li>
 <li><a class="" href="exporting-scan-results.html"><span class="header-section-number">13</span> Exporting scan results</a></li>
-<li><a class="" href="appendix.html"><span class="header-section-number">14</span> Appendix</a></li>
+<li><a class="" href="scplot---adavanced-plotting-functions-for-single-case-data.html"><span class="header-section-number">14</span> scplot - Adavanced plotting functions for single-case data</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">15</span> Appendix</a></li>
 <li><a class="" href="about-the-author.html">About the author</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -82,7 +109,14 @@
 <p>Scan provides its own data-class for encoding single-case data: the <em>single-case data frame</em> (short <em>scdf</em>). An <em>scdf</em> is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an scdf as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured <strong>values</strong>, the <strong>phase</strong> identifier for each measured value, and the measurement time (<strong>mt</strong>) of each measure. Optionally, scdfs could include further variables for each single-case (e.g., control variables), and also a name for each case.</p>
 <div class="rmdnote">
 <p>
-Technically, an scdf object is a list containing data frames. It is of the class <code>c(“scdf,”“list”)</code>. Additionally, an <em>scdf</em> entails an attribute <code>scdf</code> with a list with further attributes. <code>var.values</code>, <code>var.phase</code>, and <code>var.mt</code> contain the names of the <code>values</code>, <code>phase</code>, and the <code>measurement time</code> variable. By default, these names are set to <code>values</code>, <code>phase</code>, and <code>mt</code>.
+Technically, an scdf object is a list containing data frames. It is
+of the class <code>c(“scdf”,“list”)</code>. Additionally, an
+<em>scdf</em> entails an attribute <code>scdf</code> with a list with
+further attributes. <code>var.values</code>, <code>var.phase</code>, and
+<code>var.mt</code> contain the names of the <code>values</code>,
+<code>phase</code>, and the <code>measurement time</code> variable. By
+default, these names are set to <code>values</code>, <code>phase</code>,
+and <code>mt</code>.
 </p>
 </div>
 <p>Several functions are available for creating, transforming, merging, and importing/exporting <em>scdfs</em>.</p>
@@ -219,7 +253,7 @@ A name for the case.
 dvar
 </td>
 <td style="text-align:left;width: 30em; ">
-The name of the dependent variable. By default this is ‘values.’
+The name of the dependent variable. By default this is ‘values’.
 </td>
 </tr>
 <tr>
@@ -227,7 +261,7 @@ The name of the dependent variable. By default this is ‘values.’
 pvar
 </td>
 <td style="text-align:left;width: 30em; ">
-The name of the variable containing the phase information. By default this is ‘phase.’
+The name of the variable containing the phase information. By default this is ‘phase’.
 </td>
 </tr>
 <tr>
@@ -235,7 +269,7 @@ The name of the variable containing the phase information. By default this is �
 mvar
 </td>
 <td style="text-align:left;width: 30em; ">
-The name of the variable with the measurement-time. The default is ‘mt.’
+The name of the variable with the measurement-time. The default is ‘mt’.
 </td>
 </tr>
 <tr>
@@ -263,7 +297,7 @@ Any number of variables with a vector asigned to them.
   name <span class="op">=</span> <span class="st">"Antonia"</span>
 <span class="op">)</span>
 <span class="va">mbd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">case1</span>, <span class="va">case2</span>, <span class="va">case3</span><span class="op">)</span></code></pre></div>
-<p>If you like to use other than the default variable names (“values,” “phase,” and “mt”) you could define these with the <code>dvar</code> (for the dependent variable), <code>pvar</code> (the variable indicating the phase), and <code>mvar</code> (the measurement-time variable) arguments.</p>
+<p>If you like to use other than the default variable names (“values”, “phase”, and “mt”) you could define these with the <code>dvar</code> (for the dependent variable), <code>pvar</code> (the variable indicating the phase), and <code>mvar</code> (the measurement-time variable) arguments.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Example: Using a different name for the dependent variable</span>
 <span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
@@ -313,7 +347,7 @@ The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> an
 <div class="figure">
 <img src="images/readSC.jpg" width="300" alt=""><p class="caption">How to format a single-case file in a spreadsheet program for importing into scan</p>
 </div>
-<p>In case your variables names differ from the standard (i.e. “case,” “values,” “phase,” and “mt” ), you could set additional arguments to fit your file. <code>read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")</code> for example will set the variables attributes of the resulting scdf. Cases will be split by the variable <code>"name"</code>, <code>"wellbeing"</code> is set as the dependent variable (default is <em>values</em>), phase information are in the variable <code>"intervention"</code>, and measurement times in the variable <code>"time"</code>. You could also reassign the phase names within the phase variable by setting the argument <code>phase.names</code>. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to “A” and “B” with <code>read_scdf("example.csv", phase.names = c("A", "B"))</code>.</p>
+<p>In case your variables names differ from the standard (i.e. “case”, “values”, “phase”, and “mt” ), you could set additional arguments to fit your file. <code>read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")</code> for example will set the variables attributes of the resulting scdf. Cases will be split by the variable <code>"name"</code>, <code>"wellbeing"</code> is set as the dependent variable (default is <em>values</em>), phase information are in the variable <code>"intervention"</code>, and measurement times in the variable <code>"time"</code>. You could also reassign the phase names within the phase variable by setting the argument <code>phase.names</code>. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to “A” and “B” with <code>read_scdf("example.csv", phase.names = c("A", "B"))</code>.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">read_scdf</span><span class="op">(</span>
   <span class="st">"example2.xlsx"</span>, cvar <span class="op">=</span> <span class="st">"name"</span>, pvar <span class="op">=</span> <span class="st">"intervention"</span>, 
@@ -628,7 +662,7 @@ Note:  Randomly created data with normal distributed dependent variable.</code><
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-04-03.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-06-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
