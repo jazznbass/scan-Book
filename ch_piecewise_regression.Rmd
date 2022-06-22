@@ -1,6 +1,6 @@
 # Piecewise linear regressions
 
-In a piecewise regression analysis (sometimes called segmented regression) a data-set is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean @huitema_design_2000. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention's start and lasting throughout the intervention (B-phase).
+In a piecewise-regression analysis (sometimes called segmented regression) a dataset is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean @huitema_design_2000. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention's start and lasting throughout the intervention (B-phase).
 
 In this model, four parameters predict the outcome at a specific measurement point:
 
@@ -8,7 +8,7 @@ In this model, four parameters predict the outcome at a specific measurement poi
 
 2.  a developmental effect leading to a continuous increase throughout all measurements (**trend effect**),
 
-3.  an intervention effect leading to an immediate and constant increase in performance (l**evel effect**), and
+3.  an intervention effect leading to an immediate and constant increase in performance (**level effect**), and
 
 4.  a second intervention effect that evolves continuously with the beginning of the intervention (**slope effect**).
 
@@ -18,10 +18,9 @@ plot(ex, lines = list("plm", col = c("red", "blue"), lwd = 3))
 mtext("Intercept", side = 1, adj = 0, at = -0.04, line = -1.6, col = "blue", font = 3)
 mtext("level effect", side = 1, adj = 0, at = 0.4, line = -3.7, col = "blue", font = 3)
 mtext("slope effect", side = 1, adj = 0, at = 0.6, line = -9, col = "blue", font = 3)
-
 ```
 
-*scan* provides an implementation based on this piecewise regression approach. Though the original model is extended by several factors:
+*scan* provides an implementation based on this piecewise-regression approach. Though the original model is extended by several factors:
 
 -   multiple phase designs
 -   additional (control) variables
@@ -35,7 +34,7 @@ mtext("slope effect", side = 1, adj = 0, at = 0.6, line = -9, col = "blue", font
 function_structure("plm")
 ```
 
-The basic function for applying a regression analyzes to a single-case dataset is `plm`. This function analyzes one single-case. In its simplest way, `plm` takes one argument with an *scdf* object and it returns a full piecewise regression analyzes.
+The basic function for applying a regression analyzes to a single-case dataset is `plm`. This function analyzes one single-case. In its simplest way, `plm` takes one argument with an *scdf* object and it returns a full piecewise-regression analyzes.
 
 ```{r}
 plm(exampleAB$Johanna)
@@ -47,26 +46,61 @@ The `model` argument is used to code the *dummy variable*. This *dummy variable*
 The *phase* variable is categorical, identifying the phase of each measurement. Typically, categorical variables are implemented by means of dummy variables. In a piecewise regression model two phase effects have to be estimated: a level effect and a slope effect. The level effect is implemented quite straight forward: for each phase beginning with the second phase a new dummy variable is created with values of zero for all measurements except the measurements of the phase in focus where values of one are set.
 
 ```{r echo = FALSE}
-#scdf(c(3,6,4,7, 5,3,4,6,3, 7,5,6,4,8), phase_design = c(A = 4, B = 5, C = 5), dummy_level_B = c(0,0,0,0,1,1,1,1,1,0,0,0,0,0), dummy_level_C = c(0,0,0,0,0,0,0,0,0,1,1,1,1,1), name = "example")
-#scdf(c(3,6,4,7, 5,3,4,6,3), phase_design = c(A = 4, B = 5), dummy_level_B = c(0,0,0,0,1,1,1,1,1), name = "AB example")
-res <- data.frame(phase = c(rep("A",4),rep("B",5)), values = c(3,6,4,7, 5,3,4,6,3), level_B = c(0,0,0,0,1,1,1,1,1))
-kable(res)
+res <- data.frame(
+  mt = 1:9,
+  phase = c(rep("A",4),rep("B",5)), 
+  values = c(3,6,4,7, 5,3,4,6,3), 
+  level_B = c(0,0,0,0,1,1,1,1,1)
+)
+kable(res) %>%
+  kable_classic()
 ```
 
 For estimating the *slope effect* of each phase, another kind of dummy variables have to be created. Like the dummy variables for level effects the values are set to zero for all measurements except the ones of the phase in focus. Here, values start to increase with every measurement until the end of the phase.\
 Various suggestions have been made regarding the way in which these values increase. The *B&L-B* model starts with a one at the first measurement of the phase and increases with every measurement while the *H-M* model starts with a zero.
 
 ```{r echo = FALSE}
-#scdf(c(3,6,4,7, 5,3,4,6,3), phase_design = c(A = 4, B = 5), dummy_level = c(0,0,0,0,1,1,1,1,1), "dummy_slop B&L-M" = c(0,0,0,0,1,2,3,4,5), "dummy_slope H-M" = c(0,0,0,0,0,1,2,3,4),name = "AB example", check.names = FALSE )
-res <- data.frame(phase = c(rep("A",4),rep("B",5)), values = c(3,6,4,7, 5,3,4,6,3), level = c(0,0,0,0,1,1,1,1,1), "slope B&L-M" = c(0,0,0,0,1,2,3,4,5), "slope H-M" = c(0,0,0,0,0,1,2,3,4),check.names = FALSE )
-kable(res)
+res <- data.frame(
+  mt = 1:9,
+  phase = c(rep("A",4),rep("B",5)), 
+  values = c(3,6,4,7, 5,3,4,6,3), 
+  level = c(0,0,0,0,1,1,1,1,1), 
+  "slope B&L-M" = c(0,0,0,0,1,2,3,4,5), 
+  "slope H-M" = c(0,0,0,0,0,1,2,3,4), 
+  check.names = FALSE )
+kable(res) %>%
+  kable_classic()
 ```
 
-With single-case studies with more than two phases it gets a bit more complicated. Applying the a fore described models to three phases would result in a comparison of each phase to the first phase (usually the A Phase). That is, regression weights and significance tests will depict differences of each phase to the values of phase A. This might be OK depending on what you are interested in. But in a lot of cases we are more interested in analyzing the effects of a phase compared to the previous one.\
-This is achieved applying the *JW* dummy model. In this model, the dummy variable for the level effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similar, the dummy variable for the slope effect is set to zero for all phases preceding the one in focus and starts with one for the first measurement of the target phase and increases until the last measurement of the case.
+Applying the *H-M* model will give you a "pure" level-effect while the *B&L-B* model will provide an estimation of the level-effect that is actually the level-effect plus on times the slope-effect (as the the model assumes that the slope variable is *1* at the first measurement of the B-phase). For most studies, the *H-M* model is more appropriate.
+
+Still, we have to be aware of another aspect. Usually, measurement-times in single-case designs are coded as starting with *1* and increasing in integers (e.g., 1, 2, 3, ...). At the same time, the estimation of the trend-effect is based on the measurement-time variable. In that case, the estimation of the model intercept (usually interpreted as the value at the start of the study) actually depicts the estimation of the start value plus one times the trend-effect. Therefore, I implemented the *W* model (since scan version `0.54.4`). Here, the trend-effect is estimated for a measurement-time variable that starts with *0*. As a result the intercept will then represent the estimated value at the first measurement fo the study. The *W* model handles the slope estimation the same way as the *H-M* model. Since scan version `0.54.4` the *W* model is the default.
+
+\
+
+```{r}
+res <- data.frame(
+  phase = c(rep("A",4),rep("B",5)), 
+  values = c(3,6,4,7, 5,3,4,6,3), 
+  level = c(0,0,0,0,1,1,1,1,1),
+  "mt B&L-M and H-M" = 1:9,
+  "slope B&L-M" = c(0,0,0,0,1,2,3,4,5), 
+  "slope H-M" = c(0,0,0,0,0,1,2,3,4), 
+  "mt W" = 0:8,
+  "slope W" = c(0,0,0,0,0,1,2,3,4), 
+  check.names = FALSE )
+kable(res) %>%
+  kable_classic()
+```
+
+### Designs with more than two phases: Setting the right contrasts
+
+With single-case studies with more than two phases it gets a bit more complicated. Applying the afore described models to three phases would result in a comparison of each phase to the first phase (usually the A Phase). That is, regression weights and significance tests will depict differences of each phase to the values of phase A. This might be OK depending on what you are interested in. Another usual application is to compare the effects of a phase to the preceding one.\
+Since scan version `0.54.4` plm allows to set a contrast argument. `contrast = "first"`\` (the default) will compare all slope and level-effects to the values in the first phase. `contrast = "preceding"`\` will compare the slope and level-effects to the preceding phase. (Note: Prior to scan version `0.54.4` you had to set `model = "JW"` which is identical to `model = "B&L-B", contrast = "preceding"`\`).
+
+For the *preceding contrast*, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similar, the dummy variable for the slope-effect is set to zero for all phases preceding the one in focus and starts with one for the first measurement of the target phase and increases until the last measurement of the case.
 
 ```{r echo = FALSE}
-#scdf(c(3,6,4,7, 5,3,4,6,3, 7,5,6,4,8), phase_design = c(A = 4, B = 5, C = 5), level_B = c(0,0,0,0,1,1,1,1,1,1,1,1,1,1), level_C = c(0,0,0,0, 0,0,0,0,0, 1,1,1,1,1), slope_B = c(0,0,0,0,1,2,3,4,5,6,7,8,9,10), slope_C = c(0,0,0,0,0,0,0,0,0,1,2,3,4,5), name = "ABC example")
 res <- data.frame(
   phase = c(rep("A", 4), rep("B", 5), rep("C", 5)), 
   values =  c(3,6,4,7, 5,3,4,6,3, 7,5,6,4,8), 
@@ -74,7 +108,8 @@ res <- data.frame(
   level_C = c(0,0,0,0, 0,0,0,0,0, 1,1,1,1,1), 
   slope_B = c(0,0,0,0, 1,2,3,4,5, 6,7,8,9,10), 
   slope_C = c(0,0,0,0, 0,0,0,0,0, 1,2,3,4,5))
-kable(res)
+kable(res) %>%
+  kable_classic()
 ```
 
 ### Adjusting the model
@@ -108,13 +143,13 @@ plm(exampleAB_add, update = .~. + cigarrets)
 
 The formula has two parts divided by a tilde. Left of the tilde is the variable to be predicted and right of it the predictors. A `1` indicates the intercept, the variable `mt` estimates the trend effect, `phaseB` the level effect of the B-phase and the variable `interB` the slope effect of the B-phase. If `formula` is not explicitly defined it is set to `formula = values ~ 1 + mt + phaseB + interB` (assuming an AB-design) to estimate the full piecewise regression model.
 
-### \[to be written\] Modelling autoregression
+### $$to be written$$ Modelling autoregression
 
 ```{r}
 autocorr(Grosche2011)
 ```
 
-## \[to be written\] Multivariate piecewise regression
+## $$to be written$$ Multivariate piecewise regression
 
 ```{r results='asis', echo=FALSE}
 function_structure("mplm")
@@ -163,7 +198,7 @@ L2 <- data.frame(
 L2
 ```
 
-Multilevel analyses require a high number of Level 2 units. The exact number depends on the complexity of the analyses, the size of the effects, the number of level 1 units, and the variability of the residuals. But surely we need at least about 30 level 2 units. In a single-case design that is, we need at least 30 single-cases (subjects) within the study. After setting the level 2 data frame we use the `data.l2` argument of the `hplm` function to include it into the analysis. Then we have to specify the regression function using the `update.fixed` argument. The level 2 variables can be added just like any other additional variable. For example, we have added a level 2 data-set with the two variables `sex` and `age`. `update` could be construed of the level 1 piecewise regression model `.~.` plus the additional level 2 variables of interest `+ sex + age`. The complete argument is `update.fixed = .~. + sex + age`. This analyses will estimate a main effect of sex and age on the overall performance. In case we want to analyze an interaction between the intervention effects and for example the sex of the subject we have to add an additional interaction term (a cross-level interaction). An interaction is defined with a colon. So `sex:phase` indicates an interaction of sex and the level effect in the single case study. The complete formula now is `update.fixed = .~. + sex + age + sex:phase`.
+Multilevel analyses require a high number of Level 2 units. The exact number depends on the complexity of the analyses, the size of the effects, the number of level 1 units, and the variability of the residuals. But surely we need at least about 30 level 2 units. In a single-case design that is, we need at least 30 single-cases (subjects) within the study. After setting the level 2 data frame we can merge it to the *scdf* with the `add_l2()`\` function (alternatively, we can use the `data.l2` argument of the `hplm` function). Then we have to specify the regression function using the `update.fixed` argument. The level 2 variables can be added just like any other additional variable. For example, we have added a level 2 data-set with the two variables `sex` and `age`. `update` could be construed of the level 1 piecewise regression model `.~.` plus the additional level 2 variables of interest `+ sex + age`. The complete argument is `update.fixed = .~. + sex + age`. This analyses will estimate a main effect of sex and age on the overall performance. In case we want to analyze an interaction between the intervention effects and for example the sex of the subject we have to add an additional interaction term (a cross-level interaction). An interaction is defined with a colon. So `sex:phase` indicates an interaction of sex and the level effect in the single case study. The complete formula now is `update.fixed = .~. + sex + age + sex:phase`.
 
 *scan* includes an example single-case study with 50 subjects `example50` and an additional level 2 data-set `example50.l2`. Here are the first 10 cases of `example50.l2`.
 
@@ -174,13 +209,20 @@ kable(head(exampleAB_50.l2, 10))
 Analyzing the data with `hplm` could look like this:
 
 ```{r hplm_l2}
-hplm(exampleAB_50, data.l2 = exampleAB_50.l2, update.fixed = .~. + sex + age)
+exampleAB_50 %>%
+  add_l2(exampleAB_50.l2) %>%
+  hplm(update.fixed = .~. + sex + age)
+
+# Alternatively:
+# hplm(exampleAB_50, data.l2 = exampleAB_50.l2, update.fixed = .~. + sex + age)
 ```
 
 `sex` is a factor with the levels `f` and `m`. So `sexm` is the effect of being male on the overall performance. `age` does not seem to have any effect. So we drop `age` out of the equation and add an interaction of sex and phase to see whether the `sex` effect is due to a weaker impact of the intervention on males.
 
 ```{r}
-hplm(exampleAB_50, data.l2 = exampleAB_50.l2, update.fixed = .~. + sex + sex:phaseB)
+exampleAB_50 %>%
+  add_l2(exampleAB_50.l2) %>%
+  hplm(update.fixed = .~. + sex + sex:phaseB)
 ```
 
 ```{r include=FALSE}

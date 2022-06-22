@@ -87,7 +87,8 @@
 <li><a class="" href="default-settings.html"><span class="header-section-number">11</span> Default settings</a></li>
 <li><a class="" href="example-datasets.html"><span class="header-section-number">12</span> Example datasets</a></li>
 <li><a class="active" href="exporting-scan-results.html"><span class="header-section-number">13</span> Exporting scan results</a></li>
-<li><a class="" href="appendix.html"><span class="header-section-number">14</span> Appendix</a></li>
+<li><a class="" href="scplot---adavanced-plotting-functions-for-single-case-data.html"><span class="header-section-number">14</span> scplot - Adavanced plotting functions for single-case data</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">15</span> Appendix</a></li>
 <li><a class="" href="about-the-author.html">About the author</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -125,11 +126,11 @@ In <code>RStudio</code></p>
 <h2>
 <span class="header-section-number">13.1</span> Single case data files<a class="anchor" aria-label="anchor" href="#single-case-data-files"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">export</span><span class="op">(</span><span class="va">exampleA1B1A2B2_zvt</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
 <caption>
-<span id="tab:unnamed-chunk-84">Table 13.1: </span>Single case data frame with 3 cases
+<span id="tab:unnamed-chunk-85">Table 13.1: </span>Single case data frame with 3 cases
 </caption>
 <thead>
 <tr>
@@ -652,12 +653,12 @@ B2
 <h2>
 <span class="header-section-number">13.2</span> Descriptive stats<a class="anchor" aria-label="anchor" href="#descriptive-stats"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">describe</span><span class="op">(</span><span class="va">GruenkeWilbert2014</span><span class="op">)</span>
 <span class="fu">export</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-<span id="tab:unnamed-chunk-85">Table 13.2: </span>Descriptive statistics
+<span id="tab:unnamed-chunk-86">Table 13.2: </span>Descriptive statistics
 </caption>
 <thead>
 <tr>
@@ -1164,14 +1165,14 @@ A-B
 <h2>
 <span class="header-section-number">13.3</span> Overlap indices<a class="anchor" aria-label="anchor" href="#overlap-indices"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">exampleA1B1A2B2_zvt</span> <span class="op">%&gt;%</span>
   <span class="fu">select_phases</span><span class="op">(</span>A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">overlap</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">export</span><span class="op">(</span>flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-<span id="tab:unnamed-chunk-86">Table 13.3: </span>Overlap indices. Comparing phase 1 against phase 2
+<span id="tab:unnamed-chunk-87">Table 13.3: </span>Overlap indices. Comparing phase 1 against phase 2
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -1388,12 +1389,12 @@ Hedges g
 <h2>
 <span class="header-section-number">13.4</span> Piecewise linear models<a class="anchor" aria-label="anchor" href="#piecewise-linear-models"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">plm</span><span class="op">(</span><span class="va">exampleA1B1A2B2</span><span class="op">$</span><span class="va">Pawel</span><span class="op">)</span>
 <span class="fu">export</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-<span id="tab:unnamed-chunk-87">Table 13.4: </span>Piecewise-regression model predicting variable ‘values’
+<span id="tab:unnamed-chunk-88">Table 13.4: </span>Piecewise-regression model predicting variable ‘values’
 </caption>
 <thead>
 <tr>
@@ -1440,22 +1441,22 @@ Delta R²
 Intercept
 </td>
 <td style="text-align:right;">
-12.47
+12.69
 </td>
 <td style="text-align:right;">
-4.90
+6.18
 </td>
 <td style="text-align:right;">
-20.03
+19.20
 </td>
 <td style="text-align:right;">
-3.86
+3.32
 </td>
 <td style="text-align:right;">
-3.23
+3.82
 </td>
 <td style="text-align:right;">
-&lt;.01
+&lt;.001
 </td>
 <td style="text-align:right;">
 </td>
@@ -1491,25 +1492,25 @@ Trend mt
 Level phase B1
 </td>
 <td style="text-align:right;">
-17.69
+16.28
 </td>
 <td style="text-align:right;">
-7.71
+6.31
 </td>
 <td style="text-align:right;">
-27.67
+26.26
 </td>
 <td style="text-align:right;">
 5.09
 </td>
 <td style="text-align:right;">
-3.48
+3.20
 </td>
 <td style="text-align:right;">
 &lt;.01
 </td>
 <td style="text-align:right;">
-.14
+.12
 </td>
 </tr>
 <tr>
@@ -1517,22 +1518,22 @@ Level phase B1
 Level phase A2
 </td>
 <td style="text-align:right;">
-2.58
+1.48
 </td>
 <td style="text-align:right;">
--16.96
+-18.81
 </td>
 <td style="text-align:right;">
-22.12
+21.76
 </td>
 <td style="text-align:right;">
-9.97
+10.35
 </td>
 <td style="text-align:right;">
-0.26
+0.14
 </td>
 <td style="text-align:right;">
-.79
+.88
 </td>
 <td style="text-align:right;">
 .00
@@ -1543,22 +1544,22 @@ Level phase A2
 Level phase B2
 </td>
 <td style="text-align:right;">
-12.54
+11.45
 </td>
 <td style="text-align:right;">
--18.46
+-20.49
 </td>
 <td style="text-align:right;">
-43.54
+43.40
 </td>
 <td style="text-align:right;">
-15.82
+16.30
 </td>
 <td style="text-align:right;">
-0.79
+0.70
 </td>
 <td style="text-align:right;">
-.43
+.48
 </td>
 <td style="text-align:right;">
 .01
@@ -1661,14 +1662,14 @@ Slope phase B2
 <h2>
 <span class="header-section-number">13.5</span> Hierarchical piecewise regressions<a class="anchor" aria-label="anchor" href="#hierarchical-piecewise-regressions"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">exampleAB_50</span> <span class="op">%&gt;%</span>
   <span class="fu">add_l2</span><span class="op">(</span><span class="va">exampleAB_50.l2</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">hplm</span><span class="op">(</span>lr.test <span class="op">=</span> <span class="cn">TRUE</span>, random.slopes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">export</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-<span id="tab:unnamed-chunk-88">Table 13.5: </span>Hierarchical Piecewise Linear Regression predicting variable ‘values’
+<span id="tab:unnamed-chunk-89">Table 13.5: </span>Hierarchical Piecewise Linear Regression predicting variable ‘values’
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -1701,16 +1702,16 @@ p
 Intercept
 </td>
 <td style="text-align:right;">
-47.59
+48.21
 </td>
 <td style="text-align:right;">
-1.42
+1.4
 </td>
 <td style="text-align:right;">
 1328
 </td>
 <td style="text-align:right;">
-33.43
+34.5
 </td>
 <td style="text-align:right;">
 &lt;.001
@@ -1730,7 +1731,7 @@ Trend mt
 1328
 </td>
 <td style="text-align:right;">
-5.51
+5.52
 </td>
 <td style="text-align:right;">
 &lt;.001
@@ -1741,16 +1742,16 @@ Trend mt
 Level phase B
 </td>
 <td style="text-align:right;">
-13.01
+13.87
 </td>
 <td style="text-align:right;">
-0.85
+0.89
 </td>
 <td style="text-align:right;">
 1328
 </td>
 <td style="text-align:right;">
-15.33
+15.51
 </td>
 <td style="text-align:right;">
 &lt;.001
@@ -1804,10 +1805,10 @@ p
 Intercept
 </td>
 <td style="text-align:right;">
-9.3
+9.35
 </td>
 <td style="text-align:right;">
-246.48
+348.85
 </td>
 <td style="text-align:right;">
 4
@@ -1826,7 +1827,7 @@ Trend mt
 0.1
 </td>
 <td style="text-align:right;">
-0.85
+0.83
 </td>
 <td style="text-align:right;">
 4
@@ -1845,7 +1846,7 @@ Level phase B
 4.54
 </td>
 <td style="text-align:right;">
-50.88
+42.82
 </td>
 <td style="text-align:right;">
 4
@@ -1864,7 +1865,7 @@ Slope phase B
 0.13
 </td>
 <td style="text-align:right;">
-0.78
+0.76
 </td>
 <td style="text-align:right;">
 4
@@ -1958,7 +1959,7 @@ p &lt;.001
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> Estimation method ML; Slope estimation method: B&amp;L-B; 50 cases
+<sup></sup> Estimation method ML; Slope estimation method: W; first; 50 cases
 </td>
 </tr>
 </tfoot>
@@ -1967,7 +1968,7 @@ p &lt;.001
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="example-datasets.html"><span class="header-section-number">12</span> Example datasets</a></div>
-<div class="next"><a href="appendix.html"><span class="header-section-number">14</span> Appendix</a></div>
+<div class="next"><a href="scplot---adavanced-plotting-functions-for-single-case-data.html"><span class="header-section-number">14</span> scplot - Adavanced plotting functions for single-case data</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -1994,7 +1995,7 @@ p &lt;.001
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-05-18.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-06-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

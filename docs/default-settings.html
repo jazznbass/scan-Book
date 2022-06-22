@@ -87,7 +87,8 @@
 <li><a class="active" href="default-settings.html"><span class="header-section-number">11</span> Default settings</a></li>
 <li><a class="" href="example-datasets.html"><span class="header-section-number">12</span> Example datasets</a></li>
 <li><a class="" href="exporting-scan-results.html"><span class="header-section-number">13</span> Exporting scan results</a></li>
-<li><a class="" href="appendix.html"><span class="header-section-number">14</span> Appendix</a></li>
+<li><a class="" href="scplot---adavanced-plotting-functions-for-single-case-data.html"><span class="header-section-number">14</span> scplot - Adavanced plotting functions for single-case data</a></li>
+<li><a class="" href="appendix.html"><span class="header-section-number">15</span> Appendix</a></li>
 <li><a class="" href="about-the-author.html">About the author</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -102,11 +103,11 @@
 <span class="header-section-number">11</span> Default settings<a class="anchor" aria-label="anchor" href="#default-settings"><i class="fas fa-link"></i></a>
 </h1>
 <p>Some of the default settings of scan can be changed with the <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> argument. Table <a href="default-settings.html#tab:table-options">11.1</a> shows a complete list of options and their default values.</p>
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get the current value of an option</span>
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"scan.print.rows"</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] 15</code></pre>
-<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># set option to a different value</span>
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scan.print.rows <span class="op">=</span> <span class="fl">5</span>, scan.print.scdf.name <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
@@ -119,7 +120,7 @@
      58  4     A ｜     51  4     A ｜     50  4     A ｜
      52  5     A ｜     52  5     A ｜     52  5     A ｜
 # ... up to 15 more rows</code></pre>
-<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scan.print.rows <span class="op">=</span> <span class="fl">15</span>, scan.print.scdf.name <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases
@@ -319,7 +320,7 @@ NA
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-05-18.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-06-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
