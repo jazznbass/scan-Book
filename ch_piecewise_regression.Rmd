@@ -68,7 +68,7 @@ res <- data.frame(
   "slope B&L-M" = c(0,0,0,0,1,2,3,4,5), 
   "slope H-M" = c(0,0,0,0,0,1,2,3,4), 
   check.names = FALSE )
-kable(res) %>%
+kable(res, full_width = FALSE) %>%
   kable_classic()
 ```
 
@@ -78,7 +78,7 @@ Still, we have to be aware of another aspect. Usually, measurement-times in sing
 
 \
 
-```{r}
+```{r echo=FALSE}
 res <- data.frame(
   phase = c(rep("A",4),rep("B",5)), 
   values = c(3,6,4,7, 5,3,4,6,3), 
@@ -89,7 +89,7 @@ res <- data.frame(
   "mt W" = 0:8,
   "slope W" = c(0,0,0,0,0,1,2,3,4), 
   check.names = FALSE )
-kable(res) %>%
+kable(res, full_width = FALSE) %>%
   kable_classic()
 ```
 
@@ -108,7 +108,7 @@ res <- data.frame(
   level_C = c(0,0,0,0, 0,0,0,0,0, 1,1,1,1,1), 
   slope_B = c(0,0,0,0, 1,2,3,4,5, 6,7,8,9,10), 
   slope_C = c(0,0,0,0, 0,0,0,0,0, 1,2,3,4,5))
-kable(res) %>%
+kable(res, full_width = FALSE) %>%
   kable_classic()
 ```
 
