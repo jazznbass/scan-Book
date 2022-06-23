@@ -444,11 +444,21 @@ A vs. B + Trend B - Trend A 0.642  0.164 3.91 0.000</code></pre>
  </tr></table></div>
 <p>This method has been proposed by <span class="citation">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span>. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The alternative Siegel repeated median regression is applied when <code>repeated = TRUE</code> <span class="citation">(<a href="references.html#ref-siegelRobustRegressionUsing1982" role="doc-biblioref">Siegel, 1982</a>)</span> and a continuity correction is applied when <code>continuity = TRUE</code> (both not the defaults).</p>
 <p>Here is a replication of an example provided by <span class="citation">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span> :</p>
-<p>plm(dat)</p>
 <div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">33</span>, <span class="fl">25</span>, <span class="fl">17</span>, <span class="fl">25</span>, <span class="fl">14</span>, <span class="fl">13</span>,<span class="fl">14</span>, 
-       B <span class="op">=</span> <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">15</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">9</span>, <span class="fl">5</span> ,<span class="fl">4</span> ,<span class="fl">2</span> ,<span class="fl">2</span> ,<span class="fl">8</span>, <span class="fl">11</span> ,<span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">corrected_tau</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">33</span>, <span class="fl">25</span>, <span class="fl">17</span>, <span class="fl">25</span>, <span class="fl">14</span>, <span class="fl">13</span>,<span class="fl">14</span>, 
+               B <span class="op">=</span> <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">15</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">9</span>, <span class="fl">5</span> ,<span class="fl">4</span> ,<span class="fl">2</span> ,<span class="fl">2</span> ,<span class="fl">8</span>, <span class="fl">11</span> ,<span class="fl">7</span><span class="op">)</span><span class="op">)</span>
+
+<span class="fu">scplot</span><span class="op">(</span><span class="va">case</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">add_statline</span><span class="op">(</span><span class="st">"trendA"</span>, method <span class="op">=</span> <span class="st">"theil-sen"</span>, color <span class="op">=</span> <span class="st">"black"</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">add_text</span><span class="op">(</span><span class="st">"Thein-Sen"</span>, x <span class="op">=</span> <span class="fl">9</span>, y <span class="op">=</span> <span class="fl">9</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">set_ylabel</span><span class="op">(</span><span class="st">"BDI (Depression)"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">set_xlabel</span><span class="op">(</span><span class="st">"Session"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">add_theme</span><span class="op">(</span><span class="st">"basic"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">set_casenames</span><span class="op">(</span><span class="st">" "</span><span class="op">)</span></code></pre></div>
+<pre><code>Warning: Removed 11 row(s) containing missing values (geom_path).</code></pre>
+<div class="inline-figure"><img src="scan-book_files/figure-html/bctau-example-1.png" width="672"></div>
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">corrected_tau</span><span class="op">(</span><span class="va">case</span><span class="op">)</span></code></pre></div>
 <pre><code>Baseline corrected tau
 
 Method: Theil-Sen regression
@@ -471,7 +481,7 @@ Baseline correction should be applied.</code></pre>
  </tr></table></div>
 <p>Basically, the reliable change index (rci) depicts if a post-test is above a pre-test value. Based on the reliability of the measurements and the standard-deviation the standard error is calculated. The mean difference between phase-A and phase-B is divided by the standard-error. Several authors proposed refined methods for calculating the rci.</p>
 <p>The <code>rci</code> function computes three indices of reliable change <span class="citation">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rci</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span>, rel <span class="op">=</span> <span class="fl">0.8</span>, graph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="scan-book_files/figure-html/unnamed-chunk-53-1.png" width="672"></div>
 <pre><code>Reliable Change Index
