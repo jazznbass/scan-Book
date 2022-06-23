@@ -126,11 +126,11 @@ In <code>RStudio</code></p>
 <h2>
 <span class="header-section-number">13.1</span> Single case data files<a class="anchor" aria-label="anchor" href="#single-case-data-files"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">export</span><span class="op">(</span><span class="va">exampleA1B1A2B2_zvt</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
 <caption>
-<span id="tab:unnamed-chunk-85">Table 13.1: </span>Single case data frame with 3 cases
+<span id="tab:unnamed-chunk-86">Table 13.1: </span>Single case data frame with 3 cases
 </caption>
 <thead>
 <tr>
@@ -653,12 +653,12 @@ B2
 <h2>
 <span class="header-section-number">13.2</span> Descriptive stats<a class="anchor" aria-label="anchor" href="#descriptive-stats"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">describe</span><span class="op">(</span><span class="va">GruenkeWilbert2014</span><span class="op">)</span>
 <span class="fu">export</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-<span id="tab:unnamed-chunk-86">Table 13.2: </span>Descriptive statistics
+<span id="tab:unnamed-chunk-87">Table 13.2: </span>Descriptive statistics
 </caption>
 <thead>
 <tr>
@@ -1165,14 +1165,14 @@ A-B
 <h2>
 <span class="header-section-number">13.3</span> Overlap indices<a class="anchor" aria-label="anchor" href="#overlap-indices"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">exampleA1B1A2B2_zvt</span> <span class="op">%&gt;%</span>
   <span class="fu">select_phases</span><span class="op">(</span>A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">overlap</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">export</span><span class="op">(</span>flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-<span id="tab:unnamed-chunk-87">Table 13.3: </span>Overlap indices. Comparing phase 1 against phase 2
+<span id="tab:unnamed-chunk-88">Table 13.3: </span>Overlap indices. Comparing phase 1 against phase 2
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -1389,12 +1389,12 @@ Hedges g
 <h2>
 <span class="header-section-number">13.4</span> Piecewise linear models<a class="anchor" aria-label="anchor" href="#piecewise-linear-models"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">plm</span><span class="op">(</span><span class="va">exampleA1B1A2B2</span><span class="op">$</span><span class="va">Pawel</span><span class="op">)</span>
 <span class="fu">export</span><span class="op">(</span><span class="va">res</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-<span id="tab:unnamed-chunk-88">Table 13.4: </span>Piecewise-regression model predicting variable ‘values’
+<span id="tab:unnamed-chunk-89">Table 13.4: </span>Piecewise-regression model predicting variable ‘values’
 </caption>
 <thead>
 <tr>
@@ -1662,14 +1662,14 @@ Slope phase B2
 <h2>
 <span class="header-section-number">13.5</span> Hierarchical piecewise regressions<a class="anchor" aria-label="anchor" href="#hierarchical-piecewise-regressions"><i class="fas fa-link"></i></a>
 </h2>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">exampleAB_50</span> <span class="op">%&gt;%</span>
   <span class="fu">add_l2</span><span class="op">(</span><span class="va">exampleAB_50.l2</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">hplm</span><span class="op">(</span>lr.test <span class="op">=</span> <span class="cn">TRUE</span>, random.slopes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">export</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; border-bottom: 0;">
 <caption>
-<span id="tab:unnamed-chunk-89">Table 13.5: </span>Hierarchical Piecewise Linear Regression predicting variable ‘values’
+<span id="tab:unnamed-chunk-90">Table 13.5: </span>Hierarchical Piecewise Linear Regression predicting variable ‘values’
 </caption>
 <thead><tr>
 <th style="text-align:left;">

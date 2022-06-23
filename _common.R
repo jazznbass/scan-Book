@@ -30,6 +30,8 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown', 'scan'
 ), 'packages.bib')
 
+# helper functions --------
+
 print_table <- function(data, caption, width_cols = c("15em", "30em"), ...) {
   
   kable(data, linesep = "", booktabs = TRUE, caption = caption,...) %>%

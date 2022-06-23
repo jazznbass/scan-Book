@@ -19,7 +19,16 @@ output:
 
 # The Scan-Book {.unnumbered}
  
-***Version `r format(Sys.Date(), "%y.%m")` ***
+```{r echo=FALSE}
+# Version check
+build <- yaml::read_yaml("_build.yml")
+build$build <- build$build + 1
+build$date <- Sys.time()
+build$r_version <- version
+yaml::write_yaml(build, "_build.yml")
+```
+
+***Version `r paste0(build$version, " (build ", build$build,")")` ***
 
 ![](images/cover.png){width="400px"}
 

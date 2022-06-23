@@ -103,11 +103,11 @@
 <span class="header-section-number">11</span> Default settings<a class="anchor" aria-label="anchor" href="#default-settings"><i class="fas fa-link"></i></a>
 </h1>
 <p>Some of the default settings of scan can be changed with the <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> argument. Table <a href="default-settings.html#tab:table-options">11.1</a> shows a complete list of options and their default values.</p>
-<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># get the current value of an option</span>
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"scan.print.rows"</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] 15</code></pre>
-<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># set option to a different value</span>
 <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scan.print.rows <span class="op">=</span> <span class="fl">5</span>, scan.print.scdf.name <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
@@ -120,7 +120,7 @@
      58  4     A ｜     51  4     A ｜     50  4     A ｜
      52  5     A ｜     52  5     A ｜     52  5     A ｜
 # ... up to 15 more rows</code></pre>
-<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scan.print.rows <span class="op">=</span> <span class="fl">15</span>, scan.print.scdf.name <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases

@@ -191,8 +191,8 @@ Cohen's d                         6.98   7.67   7.10</code></pre>
  </tr></table></div>
 <p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation">Scruggs, Mastropieri, &amp; Casto (<a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
 <div class="figure">
-<span style="display:block;" id="fig:unnamed-chunk-33"></span>
-<img src="scan-book_files/figure-html/unnamed-chunk-33-1.png" alt="Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A." width="384"><p class="caption">
+<span style="display:block;" id="fig:unnamed-chunk-34"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-34-1.png" alt="Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A." width="384"><p class="caption">
 Figure 7.1: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A.
 </p>
 </div>
@@ -218,8 +218,8 @@ Mean  : 93.33 %</code></pre>
  </tr></table></div>
 <p>The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.</p>
 <div class="figure">
-<span style="display:block;" id="fig:unnamed-chunk-36"></span>
-<img src="scan-book_files/figure-html/unnamed-chunk-36-1.png" alt="Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A." width="384"><p class="caption">
+<span style="display:block;" id="fig:unnamed-chunk-37"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-37-1.png" alt="Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A." width="384"><p class="caption">
 Figure 7.2: Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A.
 </p>
 </div>
@@ -257,8 +257,8 @@ Anja     100.000       0 100.000
 Binom.test: alternative hypothesis: true probability &gt; 50%
 PET CI: Percent of values greater than upper 95% confidence threshold (greater 1.645*se above predicted value)</code></pre>
 <div class="figure">
-<span style="display:block;" id="fig:unnamed-chunk-40"></span>
-<img src="scan-book_files/figure-html/unnamed-chunk-40-1.png" alt="Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A." width="384"><p class="caption">
+<span style="display:block;" id="fig:unnamed-chunk-41"></span>
+<img src="scan-book_files/figure-html/unnamed-chunk-41-1.png" alt="Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A." width="384"><p class="caption">
 Figure 7.3: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A.
 </p>
 </div>
@@ -442,25 +442,13 @@ A vs. B + Trend B - Trend A 0.642  0.164 3.91 0.000</code></pre>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> corrected_tau(data, dvar, pvar, mvar, phases = c(1, 2), alpha = 0.05, continuity = FALSE, repeated = FALSE) </font></td>
  </tr></table></div>
-<p>This method has been proposed by <span class="citation">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span>. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The more accurate Siegel repeated median regression is applied when <code>repeated = TRUE</code> <span class="citation">(<a href="references.html#ref-siegelRobustRegressionUsing1982" role="doc-biblioref">Siegel, 1982</a>)</span> and a continuity correction is applied when <code>continuity = TRUE</code> (both are the default settings).</p>
-<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">33</span>,<span class="fl">25</span>,<span class="fl">17</span>,<span class="fl">25</span>,<span class="fl">14</span>,<span class="fl">13</span>,<span class="fl">15</span>, B <span class="op">=</span> <span class="fl">15</span>,<span class="fl">16</span>,<span class="fl">16</span>,<span class="fl">5</span>,<span class="fl">7</span>,<span class="fl">9</span>,<span class="fl">6</span>,<span class="fl">5</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">8</span>,<span class="fl">11</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span>
-<span class="fu">corrected_tau</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
-<pre><code>Baseline corrected tau
-
-Method: Theil-Sen regression
-Continuity correction not applied.
-
-                           tau     z     p
-Baseline autocorrelation -0.68 -2.13  &lt;.05
-Uncorrected tau          -0.57 -2.94  &lt;.01
-Baseline corrected tau    0.70  3.61 &lt;.001
-
-Baseline correction should be applied.</code></pre>
+<p>This method has been proposed by <span class="citation">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span>. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The alternative Siegel repeated median regression is applied when <code>repeated = TRUE</code> <span class="citation">(<a href="references.html#ref-siegelRobustRegressionUsing1982" role="doc-biblioref">Siegel, 1982</a>)</span> and a continuity correction is applied when <code>continuity = TRUE</code> (both not the defaults).</p>
 <p>Here is a replication of an example provided by <span class="citation">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span> :</p>
-<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">33</span>, <span class="fl">25</span>, <span class="fl">17</span>, <span class="fl">25</span>, <span class="fl">14</span>, <span class="fl">13</span>,<span class="fl">14</span>, B <span class="op">=</span> <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">15</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">9</span>, <span class="fl">5</span> ,<span class="fl">4</span> ,<span class="fl">2</span> ,<span class="fl">2</span> ,<span class="fl">8</span>, <span class="fl">11</span> ,<span class="fl">7</span><span class="op">)</span><span class="op">)</span>
-<span class="fu">corrected_tau</span><span class="op">(</span><span class="va">dat</span>, repeated <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<p>plm(dat)</p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">scdf</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">33</span>, <span class="fl">25</span>, <span class="fl">17</span>, <span class="fl">25</span>, <span class="fl">14</span>, <span class="fl">13</span>,<span class="fl">14</span>, 
+       B <span class="op">=</span> <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">15</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">9</span>, <span class="fl">5</span> ,<span class="fl">4</span> ,<span class="fl">2</span> ,<span class="fl">2</span> ,<span class="fl">8</span>, <span class="fl">11</span> ,<span class="fl">7</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">corrected_tau</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>Baseline corrected tau
 
 Method: Theil-Sen regression
@@ -472,8 +460,6 @@ Uncorrected tau          -0.58 -2.98  &lt;.01
 Baseline corrected tau    0.69  3.57 &lt;.001
 
 Baseline correction should be applied.</code></pre>
-<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">plm</span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="reliable-change-index" class="section level2" number="7.9">
 <h2>
@@ -485,9 +471,9 @@ Baseline correction should be applied.</code></pre>
  </tr></table></div>
 <p>Basically, the reliable change index (rci) depicts if a post-test is above a pre-test value. Based on the reliability of the measurements and the standard-deviation the standard error is calculated. The mean difference between phase-A and phase-B is divided by the standard-error. Several authors proposed refined methods for calculating the rci.</p>
 <p>The <code>rci</code> function computes three indices of reliable change <span class="citation">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">rci</span><span class="op">(</span><span class="va">exampleAB</span><span class="op">$</span><span class="va">Johanna</span>, rel <span class="op">=</span> <span class="fl">0.8</span>, graph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="scan-book_files/figure-html/unnamed-chunk-52-1.png" width="672"></div>
+<div class="inline-figure"><img src="scan-book_files/figure-html/unnamed-chunk-53-1.png" width="672"></div>
 <pre><code>Reliable Change Index
 
 Mean Difference =  19.53333 
