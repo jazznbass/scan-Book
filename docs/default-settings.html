@@ -7,7 +7,7 @@
 <title>Chapter 11 Default settings | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
 <meta name="description" content="Some of the default settings of scan can be changed with the options() argument. Table 11.1 shows a complete list of options and their default values. # get the current value of an option...">
-<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta name="generator" content="bookdown 0.27 with bs4_book()">
 <meta property="og:title" content="Chapter 11 Default settings | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Some of the default settings of scan can be changed with the options() argument. Table 11.1 shows a complete list of options and their default values. # get the current value of an option...">
@@ -16,7 +16,7 @@
 <meta name="twitter:description" content="Some of the default settings of scan can be changed with the options() argument. Table 11.1 shows a complete list of options and their default values. # get the current value of an option...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -104,13 +104,13 @@
 </h1>
 <p>Some of the default settings of scan can be changed with the <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> argument. Table <a href="default-settings.html#tab:table-options">11.1</a> shows a complete list of options and their default values.</p>
 <div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># get the current value of an option</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"scan.print.rows"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># get the current value of an option</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"scan.print.rows"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 15</code></pre>
 <div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># set option to a different value</span>
-<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scan.print.rows <span class="op">=</span> <span class="fl">5</span>, scan.print.scdf.name <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># set option to a different value</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scan.print.rows <span class="op">=</span> <span class="fl">5</span>, scan.print.scdf.name <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases
 
  values mt phase ｜ values mt phase ｜ values mt phase ｜
@@ -121,8 +121,8 @@
      52  5     A ｜     52  5     A ｜     52  5     A ｜
 # ... up to 15 more rows</code></pre>
 <div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scan.print.rows <span class="op">=</span> <span class="fl">15</span>, scan.print.scdf.name <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>scan.print.rows <span class="op">=</span> <span class="fl">15</span>, scan.print.scdf.name <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">exampleAB</span><span class="op">)</span></span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases
 
  Johanna: values mt phase ｜ Karolina: values mt phase ｜ Anja: values mt phase
@@ -320,7 +320,7 @@ NA
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-06-23.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-08-29.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

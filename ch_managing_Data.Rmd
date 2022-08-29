@@ -10,7 +10,7 @@ Technically, an scdf object is a list containing data frames. It is of the class
 
 Several functions are available for creating, transforming, merging, and importing/exporting *scdfs*.
 
-## Creating scdfs
+## Creating scdfs {#scdf}
 
 ```{r results='asis', echo=FALSE}
 function_structure("scdf")
@@ -125,6 +125,8 @@ The simplest way is to use the base *R* functions `saveRDS` and `readRDS` for th
 
 ## Import and export *single-case data frames*
 
+### Import data {#read-scdf}
+
 ```{r results='asis', echo=FALSE}
 function_structure("read_scdf")
 ```
@@ -149,13 +151,15 @@ For some reasons, computer systems with a German (and some other) language setup
 
 `read_scdf` also allows for directly importing *Microsoft Excel* `.xlsx` or `.xls` files. You need to have the library `readxl` installed in your R setup for this to work. Excel files will be automatically detected by the filename extension `xls`or `xlsx` or by explicitly setting the `type` argument (e.g. `type = "xlsx"`).
 
+### Export data {#write-scdf}
+
 ```{r results='asis', echo=FALSE}
 function_structure("write_scdf")
 ```
 
 `write_scdf()` exports an scdf object as a comma-separated-variables file (*csv*) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The scdf object is converted into a single data frame with a *case* variable identifying the rows for each subject. The first argument of the command identifies the scdf to be exported and the second argument (`file`) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the `dec` and the `sep` arguments. For example, `write_scdf(example, file = "example.csv", dec = ",", sep = ";")` exports a csv variation usually used for example in Germany.
 
-## Convert an scdf object back to scan syntax
+## Convert an scdf object back to scan syntax {#convert}
 
 ```{r results='asis', echo=FALSE}
 function_structure("convert")
@@ -217,7 +221,7 @@ new.huber2014 <- Huber2014[c(1, 4)] #extracts cases 1 and 4
 new.huber2014
 ```
 
-### Select cases
+### Select cases {#select-cases}
 
 ```{r results='asis', echo=FALSE}
 function_structure("select_cases")
@@ -238,7 +242,7 @@ Huber2014 %>%
 # new_huber <- select_cases(Huber2014, "Adam", "Berta", 4)
 # summary(new_huber)
 ```
-### Select measurements
+### Select measurements {#subset}
 
 The `subset()` function helps with extracting measurements (or rows) by a specific criteria from a scdf.
 

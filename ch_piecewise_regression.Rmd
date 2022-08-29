@@ -185,7 +185,11 @@ Here is an example inlcuding random slopes:
 hplm(exampleAB_50, random.slopes = TRUE)
 ```
 
-### Adding additional L2-variables
+### Adding additional L2-variables {add-l2}
+
+```{r results='asis', echo=FALSE}
+function_structure("add_l2")
+```
 
 In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with *scan*. Therefore, we need to define a new *data frame* including the relevant information of the subjects of the single-case studies we want to analyze. This *data frame* consists of a variable labeled `case` which has to correspond to the case names of the *scfd* and further variables with attributes of the subjects. To build a *data frame* we can use the R function `data.frame`.
 

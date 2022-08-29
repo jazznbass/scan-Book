@@ -6,14 +6,15 @@ You can use the `install.packages` function to install *scan*.
 
 `install.packages("scan")` will install the stable version.
 
-The current stable release is version `0.54.1`. Please look at Section *Software reference* for which version of *scan* has been used for creating this book and make sure you have this version or a newer one installed.
+The current stable release is version `0.55`. Please look at Section *Software reference* for which version of *scan* has been used for creating this book and make sure you have this version or a newer one installed.
 
 R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing *scan* it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.
 
 For activating a package you need the `library` function. In this case `library(scan)`. You should get something like
 
-scan 0.54.1 (2022-04-03)\
-Single-Case Data Analysis for Single and Multiple Baseline Designs
+```{r results='markup', echo = FALSE}
+cat(scan:::.opt$startup_message)
+```
 
 indicating that everything went smoothly and *scan* is ready for the job.
 
@@ -44,63 +45,114 @@ The functions of the *scan* package can be divided into the following categories
 
 Table \@ref(tab:table-functions) gives an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here https://lifecycle.r-lib.org/articles/stages.html.
 
-```{r table-functions, echo = FALSE}
+
+
+
+### Management
+
+```{r table-functions-management, echo = FALSE}
 out <- tribble(
-  ~"Function", ~"What it does ...", ~"Category", ~"Lifecycle stage",
+  ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
   #
-  "scdf", "Creates a single-case data-frame", "Manage data", "Stable",
-  "select_cases", "Selects specific cases of an scdf", "Manage data", "Stable",
-  "select_phases", "Selects and/or recombines phases", "Manage data", "Stable",
-  "subset", "Selects specific measurements or variables of an scdf", "Manage data", "Stable",
-  "read_scdf", "Loads external data into an scdf", "Manage data", "Stable",
-  "write_scdf", "Writes scdf into an external file", "Manage data", "Stable",
-  "convert", "Converts an scdf object into R syntax", "Manage data", "Stable",
-  "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Manage data", "Stable",
-  "scdf_attr", "Gets and sets attributes of an scdf", "Manage data", "Stable",
-  "add_l2", "Adds level-two data to an scdf", "Manage data", "Stable",
-  "as.data.frame/as.data.frame.scdf", "Transforms an scdf into a data frame", "Manage data", "Stable",
-  "", "", "","",
-  "plot/plot.scdf", "Creates plots of single cases", "Depict", "Superseded",
-  "style_plot", "Defines single-case plot graphical styles", "Depict", "Superseded",
-  "export", "Creates html or latex tables from the output of various can functions", "Depict", "Experimental",
-  "print/print.sc", "Prints the results of various scan outputs", "Depict","Stable",
-  "print/print.scdf", "Prints an scdf", "Depict","Stable",
-  "summary/summary.scdf", "Summaizes an scdf", "Depict","Stable",
-  "plot_rand", "Create a distribution plot from a randomization test obejct", "Depict", "Experimental",
-  "", "", "","",
-  "autocorr", "Autocorrelations for each phase of each case", "Analyze","Stable",
-  "corrected_tau", "Baseline corrected tau", "Analyze","Stable",
-  "describe", "Descriptive statistics for each phase of each case", "Analyze","Stable",
-  "overlap", "An overview of overlap indeces for each case", "Analyze","Stable",
-  "smd", "Various standardized mean differences between phase A and B", "Analyze","Stable",
-  "rci", "Reliable change index", "Analyze","Experimental",
-  "rand_test", "Randomization test", "Analyze","Stable",
-  "tau_u", "Tau-U for each case and all cases", "Analyze","Stable",
-  "trend", "Trend analyses for each case", "Analyze","Stable",
-  "plm", "Piecewise linear regression model", "Analyze","Stable",
-  "mplm", "Multivariate piecewise linear regression model", "Analyze", "Experimental",
-  "hplm", "Hierarchical piecewise linear regression model", "Analyze", "Stable",
-  "nap", "Non-overlap of all pairs for each case", "Analyze","Stable",
-  "pnd", "Percentage of non overlapping data for each case", "Analyze", "Stable",
-  "pand", "Percentage of all non overlapping data for all cases", "Analyze", "Stable",
-  "pem", "Percantage exceeding the mean for each case", "Analyze", "Stable",
-  "pet", "Percentage exceeding the trend for each case", "Analyze", "Stable",
-  "cdc", "Conservative dual-criterion test", "Analyze", "Stable",
-  "outlier", "Detect outliers for all cases", "Analyse", "Stable",
-  "", "", "","",
-  "fill_missing", "Interpolate missign values or missing measurement times", "Manipulate", "Stable",
-  "ranks", "Covert data into ranked data across all cases", "Manipulate", "Stable",
-  "transform", "Change and create new variabes", "Manipulate", "Stable",
-  "smooth_cases", "Smoothes time series data", "Manipulate", "Stable",
-  "truncate_phase", "Deletes measurements of phases", "Manipulate", "Stable",
-  "standardize", "Standardizes or centers variables across cases", "Manipulate", "Stable",
-  "", "", "","",
-  "design", "Defines a design of one or multiple single-cases", "Simulate", "Stable",
-  "power_test", "Calculates power and alpha error of a specific analyzes for a specific single-case design", "Simulate", "Stable",
-  "estimate_design", "Extraxt a deisgn template from an existing scdf", "Simulate", "Experimental",
-  "random_scdf", "Creats random single-case studies from a single-case design", "Simulate", "Stable"
+  "scdf", "Creates a single-case data-frame", "Stable", "\\@ref(scdf)",
+  "select_cases", "Selects specific cases of an scdf", "Stable", "\\@ref(select-cases)",
+  "select_phases", "Selects and/or recombines phases", "Stable", "\\@ref(select-phases)",
+  "subset", "Selects specific measurements or variables of an scdf", "Stable", "\\@ref(subset)",
+  "read_scdf", "Loads external data into an scdf", "Stable", "\\@ref(read-scdf)",
+  "write_scdf", "Writes scdf into an external file", "Stable", "\\@ref(write-scdf)",
+  "convert", "Converts an scdf object into R syntax", "Stable", "\\@ref(convert)",
+  "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Stable", "-",
+  "scdf_attr", "Gets and sets attributes of an scdf", "Stable", "-",
+  "add_l2", "Adds level-two data to an scdf", "Stable", "\\@ref(add-l2)",
+  "as.data.frame/as.data.frame.scdf", "Transforms an scdf into a data frame", "Stable", "-"
 )
 
-print_table(out, "Functions in scan.",)
+print_table(out, "Functions for data management.",)
+
+```
+
+### Depiction
+
+```{r table-functions-depiction, echo = FALSE}
+out <- tribble(
+  ~"Function", ~"What it does ...", ~"Lifecycle stage",
+  #
+  "plot/plot.scdf", "Creates plots of single cases", "Superseded",
+  "scplot", "Add-on package `scplot`. Create advanced ggplot2 plots.", "Experimental",
+  "style_plot", "Defines single-case plot graphical styles", "Superseded",
+  "export", "Creates html or latex tables from the output of various can functions", "Experimental",
+  "print/print.sc", "Prints the results of various scan outputs", "Stable",
+  "print/print.scdf", "Prints an scdf", "Stable",
+  "summary/summary.scdf", "Summaizes an scdf", "Stable",
+  "plot_rand", "Create a distribution plot from a randomization test obejct", "Experimental"
+)
+
+print_table(out, "Functions for data depiction/visualisation.",)
+
+```
+
+### Analysis
+
+```{r table-functions-analysis, echo = FALSE}
+out <- tribble(
+  ~"Function", ~"What it does ...", ~"Lifecycle stage",
+  #
+  "autocorr", "Autocorrelations for each phase of each case", "Stable",
+  "corrected_tau", "Baseline corrected tau", "Stable",
+  "describe", "Descriptive statistics for each phase of each case", "Stable",
+  "overlap", "An overview of overlap indeces for each case", "Stable",
+  "smd", "Various standardized mean differences between phase A and B", "Stable",
+  "rci", "Reliable change index", "Experimental",
+  "rand_test", "Randomization test", "Stable",
+  "tau_u", "Tau-U for each case and all cases", "Stable",
+  "trend", "Trend analyses for each case", "Stable",
+  "plm", "Piecewise linear regression model", "Stable",
+  "mplm", "Multivariate piecewise linear regression model",  "Experimental",
+  "hplm", "Hierarchical piecewise linear regression model",  "Stable",
+  "nap", "Non-overlap of all pairs for each case", "Stable",
+  "pnd", "Percentage of non overlapping data for each case",  "Stable",
+  "pand", "Percentage of all non overlapping data for all cases",  "Stable",
+  "pem", "Percantage exceeding the mean for each case",  "Stable",
+  "pet", "Percentage exceeding the trend for each case",  "Stable",
+  "cdc", "Conservative dual-criterion test",  "Stable",
+  "outlier", "Detect outliers for all cases", "Stable"
+)
+
+print_table(out, "Functions for data analysis.",)
+
+```
+
+### Manipulation
+
+```{r table-functions-manipulation, echo = FALSE}
+out <- tribble(
+  ~"Function", ~"What it does ...", ~"Lifecycle stage",
+  #
+  "fill_missing", "Interpolate missign values or missing measurement times", "Stable",
+  "ranks", "Covert data into ranked data across all cases", "Stable",
+  "transform", "Change and create new variabes", "Stable",
+  "smooth_cases", "Smoothes time series data", "Stable",
+  "truncate_phase", "Deletes measurements of phases", "Stable",
+  "standardize", "Standardizes or centers variables across cases", "Stable"
+)
+
+print_table(out, "Functions for data manipulation.",)
+
+```
+
+### Simulation
+
+```{r table-functions-simulation, echo = FALSE}
+out <- tribble(
+  ~"Function", ~"What it does ...", ~"Lifecycle stage",
+  #
+  "design", "Defines a design of one or multiple single-cases", "Stable",
+  "power_test", "Calculates power and alpha error of a specific analyzes for a specific single-case design", "Stable",
+  "estimate_design", "Extraxt a deisgn template from an existing scdf", "Experimental",
+  "random_scdf", "Creats random single-case studies from a single-case design", "Stable",
+  "mcscan", "Add-on package `mcscan`. Create Monte-Carlo designs and analyses with `scan`", "(Upcoming not yet functioning)"
+)
+
+print_table(out, "Functions for data simulation.",)
 
 ```

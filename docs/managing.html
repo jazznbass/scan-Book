@@ -7,7 +7,7 @@
 <title>Chapter 4 Managing single-case data | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
 <meta name="description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
-<meta name="generator" content="bookdown 0.27 with bs4_book()">
+<meta name="generator" content="bookdown 0.26 with bs4_book()">
 <meta property="og:title" content="Chapter 4 Managing single-case data | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
 <meta property="og:description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
@@ -16,7 +16,7 @@
 <meta name="twitter:description" content="4.1 A single-case data frame Scan provides its own data-class for encoding single-case data: the single-case data frame (short scdf). An scdf is an object that contains one or multiple single-case...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -77,7 +77,7 @@
 <li><a class="" href="introduction.html"><span class="header-section-number">1</span> Introduction</a></li>
 <li><a class="" href="some-things-about-r.html"><span class="header-section-number">2</span> Some things about R</a></li>
 <li><a class="" href="the-scan-package.html"><span class="header-section-number">3</span> The scan package</a></li>
-<li><a class="active" href="managing-single-case-data.html"><span class="header-section-number">4</span> Managing single-case data</a></li>
+<li><a class="active" href="managing.html"><span class="header-section-number">4</span> Managing single-case data</a></li>
 <li><a class="" href="creating-a-single-case-data-plot.html"><span class="header-section-number">5</span> Creating a single-case data plot</a></li>
 <li><a class="" href="describe-and-manipulate-single-case-data-frames.html"><span class="header-section-number">6</span> Describe and manipulate single-case data frames</a></li>
 <li><a class="" href="overlapping-indices.html"><span class="header-section-number">7</span> Overlapping indices</a></li>
@@ -98,9 +98,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="managing-single-case-data" class="section level1" number="4">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="managing" class="section level1" number="4">
 <h1>
-<span class="header-section-number">4</span> Managing single-case data<a class="anchor" aria-label="anchor" href="#managing-single-case-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4</span> Managing single-case data<a class="anchor" aria-label="anchor" href="#managing"><i class="fas fa-link"></i></a>
 </h1>
 <div id="a-single-case-data-frame" class="section level2" number="4.1">
 <h2>
@@ -121,9 +121,9 @@ and <code>mt</code>.
 </div>
 <p>Several functions are available for creating, transforming, merging, and importing/exporting <em>scdfs</em>.</p>
 </div>
-<div id="scdf" class="section level2" number="4.2">
+<div id="creating-scdfs" class="section level2" number="4.2">
 <h2>
-<span class="header-section-number">4.2</span> Creating scdfs<a class="anchor" aria-label="anchor" href="#scdf"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2</span> Creating scdfs<a class="anchor" aria-label="anchor" href="#creating-scdfs"><i class="fas fa-link"></i></a>
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
@@ -131,22 +131,22 @@ and <code>mt</code>.
  </tr></table></div>
 <p>The <code>scdf</code> function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement <em>values</em> and the <em>phase</em> structure and a scdf object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the <code>B_start</code> argument, second, defining a design with the <code>phase_design</code> argument and third, setting parameters in a named vector of the dependent variable.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">### Three ways to code the same scdf</span></span>
-<span><span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>, B <span class="op">=</span> <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span><span class="op">)</span>, B_start <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span><span class="op">)</span>, phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">4</span>, B <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="co">### Three ways to code the same scdf</span>
+<span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>, B <span class="op">=</span> <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span><span class="op">)</span>, B_start <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span><span class="op">)</span>, phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">4</span>, B <span class="op">=</span> <span class="fl">6</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>The <code>B_start</code> argument is only applicable when the single-case consists of a single A-phase followed by a B-phase. It is a remnant from the time when <code>scan</code> could only handle sign-case designs with two phases. The number assigned to <code>B_start</code> indicates the measurement-time as defined in the <code>mt</code> argument. That is, assume a vector for the measurement times <code>mt = c(1,3,7,10,15,17,18,20)</code> and <code>B_start = 15</code> then the first measurement of the B-phase will start with the fifth measurement at which <em>mt</em> = 15.<br>
 The <code>phase_design</code> argument is a named vector with the name and length of each phase. The phase names can be set arbitrary, although I recommend to use capital letters (A, B, C, …) for each phase followed by, when indicated, a number if the phases repeat (A1, B1, A2, B2, …). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with <em>scan</em>.<br>
 When the vector of the dependent variable includes named values, a phase_design structure is created automatically. Each named value sets the beginning of a new phase. For example <code>c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)</code> will create an ABC-phase design with 3, 3, and 4 values per phase.<br>
 Use only one of the three methods at a time and I recommend to use the <code>phase_design</code> argument or the named vector method as they are the most versatile.<br>
 If no measurement times are given, scdf automatically adds them numbered sequentially 1, 2, 3, …, <em>N</em> where <em>N</em> is the number of measurements. in some circumstances it might be useful to define individual measurement times for each measurement. For example, if you want to include the days since the beginning of the study as time intervals between measurements are widely varying you might get more valid results this way when analyzing the data in a regression approach.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># example of a more complex design </span></span>
-<span><span class="fu">scdf</span><span class="op">(</span></span>
-<span>  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span>, <span class="fl">12</span>,<span class="fl">11</span>,<span class="fl">13</span><span class="op">)</span>, </span>
-<span>  mt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">6</span>, <span class="fl">8</span>,<span class="fl">9</span>,<span class="fl">11</span>,<span class="fl">12</span>,<span class="fl">16</span>,<span class="fl">18</span>, <span class="fl">27</span>,<span class="fl">28</span>,<span class="fl">29</span><span class="op">)</span>,</span>
-<span>  phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">4</span>, B <span class="op">=</span> <span class="fl">6</span>, C <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="co"># example of a more complex design </span>
+<span class="fu">scdf</span><span class="op">(</span>
+  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">5</span>, <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">8</span>,<span class="fl">7</span>, <span class="fl">12</span>,<span class="fl">11</span>,<span class="fl">13</span><span class="op">)</span>, 
+  mt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">6</span>, <span class="fl">8</span>,<span class="fl">9</span>,<span class="fl">11</span>,<span class="fl">12</span>,<span class="fl">16</span>,<span class="fl">18</span>, <span class="fl">27</span>,<span class="fl">28</span>,<span class="fl">29</span><span class="op">)</span>,
+  phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">4</span>, B <span class="op">=</span> <span class="fl">6</span>, C <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with one case
 
  Case1: values mt phase
@@ -165,14 +165,14 @@ If no measurement times are given, scdf automatically adds them numbered sequent
             13 29     C</code></pre>
 <p>Missing values could be coded using <code>NA</code> (not available).</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">2</span>,<span class="fl">2</span>,<span class="cn">NA</span>,<span class="fl">5</span>, B <span class="op">=</span> <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="cn">NA</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="fu">scdf</span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">2</span>,<span class="fl">2</span>,<span class="cn">NA</span>,<span class="fl">5</span>, B <span class="op">=</span> <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="cn">NA</span>,<span class="fl">7</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>More variables are implemented by adding new variable names with a vector containing the values. Please be aware that a new variable must never have the same name as one of the arguments of the function (i.e. B_start, phase_design, name, dvar, pvar, mvar).</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">scdf</span><span class="op">(</span></span>
-<span>  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">5</span>, B <span class="op">=</span> <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">7</span><span class="op">)</span>, </span>
-<span>  teacher <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, </span>
-<span>  hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">6</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="fu">scdf</span><span class="op">(</span>
+  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">5</span>, B <span class="op">=</span> <span class="fl">8</span>,<span class="fl">7</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">7</span>,<span class="fl">7</span><span class="op">)</span>, 
+  teacher <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, 
+  hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">6</span>,<span class="fl">5</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with one case
 
  Case1: values teacher hour mt phase
@@ -186,7 +186,7 @@ If no measurement times are given, scdf automatically adds them numbered sequent
              9       1    5  8     B
              7       0    2  9     B
              7       1    2 10     B</code></pre>
-<p>Table <a href="managing-single-case-data.html#tab:table-scdf">4.1</a> shows a complete list of arguments that could be passed to the function.</p>
+<p>Table <a href="managing.html#tab:table-scdf">4.1</a> shows a complete list of arguments that could be passed to the function.</p>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
 <caption>
 <span id="tab:table-scdf">Table 4.1: </span>Arguments of the scdf function
@@ -284,40 +284,40 @@ Any number of variables with a vector asigned to them.
 </table></div>
 <p>If you want to create a data-set comprising several single-cases the easiest way is to first create an scdf for each case and then join them into a new scdf with the <code>c</code> command:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">case1</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span></span>
-<span>  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">12</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">18</span>, <span class="fl">15</span>, <span class="fl">14</span>, <span class="fl">19</span><span class="op">)</span>, </span>
-<span>  name <span class="op">=</span> <span class="st">"Charlotte"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">case2</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span></span>
-<span>  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">5</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">12</span><span class="op">)</span>, </span>
-<span>  name <span class="op">=</span> <span class="st">"Theresa"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">case3</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span></span>
-<span>  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">7</span>, <span class="fl">5</span>, <span class="fl">7</span>, B <span class="op">=</span> <span class="fl">6</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">16</span><span class="op">)</span>, </span>
-<span>  name <span class="op">=</span> <span class="st">"Antonia"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">mbd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">case1</span>, <span class="va">case2</span>, <span class="va">case3</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">case1</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">12</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">18</span>, <span class="fl">15</span>, <span class="fl">14</span>, <span class="fl">19</span><span class="op">)</span>, 
+  name <span class="op">=</span> <span class="st">"Charlotte"</span>
+<span class="op">)</span>
+<span class="va">case2</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">5</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">12</span><span class="op">)</span>, 
+  name <span class="op">=</span> <span class="st">"Theresa"</span>
+<span class="op">)</span>
+<span class="va">case3</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">7</span>, <span class="fl">5</span>, <span class="fl">7</span>, B <span class="op">=</span> <span class="fl">6</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">16</span><span class="op">)</span>, 
+  name <span class="op">=</span> <span class="st">"Antonia"</span>
+<span class="op">)</span>
+<span class="va">mbd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">case1</span>, <span class="va">case2</span>, <span class="va">case3</span><span class="op">)</span></code></pre></div>
 <p>If you like to use other than the default variable names (“values”, “phase”, and “mt”) you could define these with the <code>dvar</code> (for the dependent variable), <code>pvar</code> (the variable indicating the phase), and <code>mvar</code> (the measurement-time variable) arguments.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Example: Using a different name for the dependent variable</span></span>
-<span><span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span></span>
-<span>  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">12</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">18</span>, <span class="fl">15</span>, <span class="fl">14</span>, <span class="fl">19</span><span class="op">)</span>, </span>
-<span>  dvar <span class="op">=</span> <span class="st">"score"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Example: Using new names for the dependent and the phase variables</span></span>
-<span><span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span></span>
-<span>  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">5</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">12</span><span class="op">)</span>, </span>
-<span>  dvar <span class="op">=</span> <span class="st">"score"</span>, pvar <span class="op">=</span> <span class="st">"section"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Example: Using new names for dependent, phase, and measurement-time variables</span></span>
-<span><span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span></span>
-<span>  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">7</span>, <span class="fl">5</span>, <span class="fl">7</span>, B <span class="op">=</span> <span class="fl">6</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">16</span><span class="op">)</span>, </span>
-<span>  name <span class="op">=</span> <span class="st">"Antonia"</span>, dvar <span class="op">=</span> <span class="st">"score"</span>, pvar <span class="op">=</span> <span class="st">"section"</span>, mvar <span class="op">=</span> <span class="st">"day"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">case</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="co"># Example: Using a different name for the dependent variable</span>
+<span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">12</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">10</span>, <span class="fl">18</span>, <span class="fl">15</span>, <span class="fl">14</span>, <span class="fl">19</span><span class="op">)</span>, 
+  dvar <span class="op">=</span> <span class="st">"score"</span>
+<span class="op">)</span>
+
+<span class="co"># Example: Using new names for the dependent and the phase variables</span>
+<span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">5</span>, B <span class="op">=</span> <span class="fl">7</span>, <span class="fl">4</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">10</span>, <span class="fl">12</span><span class="op">)</span>, 
+  dvar <span class="op">=</span> <span class="st">"score"</span>, pvar <span class="op">=</span> <span class="st">"section"</span>
+<span class="op">)</span>
+
+<span class="co"># Example: Using new names for dependent, phase, and measurement-time variables</span>
+<span class="va">case</span> <span class="op">&lt;-</span> <span class="fu">scdf</span><span class="op">(</span>
+  score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">8</span>, <span class="fl">7</span>, <span class="fl">5</span>, <span class="fl">7</span>, B <span class="op">=</span> <span class="fl">6</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">16</span><span class="op">)</span>, 
+  name <span class="op">=</span> <span class="st">"Antonia"</span>, dvar <span class="op">=</span> <span class="st">"score"</span>, pvar <span class="op">=</span> <span class="st">"section"</span>, mvar <span class="op">=</span> <span class="st">"day"</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">case</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with one case
 
          Measurements Design
@@ -339,10 +339,6 @@ The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> an
 <h2>
 <span class="header-section-number">4.4</span> Import and export <em>single-case data frames</em><a class="anchor" aria-label="anchor" href="#import-and-export-single-case-data-frames"><i class="fas fa-link"></i></a>
 </h2>
-<div id="read-scdf" class="section level3" number="4.4.1">
-<h3>
-<span class="header-section-number">4.4.1</span> Import data<a class="anchor" aria-label="anchor" href="#read-scdf"><i class="fas fa-link"></i></a>
-</h3>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> read_scdf(filename, data = NULL, sort.labels = FALSE, cvar = "case", pvar = "phase", dvar = "values", mvar = "mt", phase.names = NULL, sep = ",", dec = ".", type = NA, ...) </font></td>
@@ -353,13 +349,13 @@ The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> an
 </div>
 <p>In case your variables names differ from the standard (i.e. “case”, “values”, “phase”, and “mt” ), you could set additional arguments to fit your file. <code>read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")</code> for example will set the variables attributes of the resulting scdf. Cases will be split by the variable <code>"name"</code>, <code>"wellbeing"</code> is set as the dependent variable (default is <em>values</em>), phase information are in the variable <code>"intervention"</code>, and measurement times in the variable <code>"time"</code>. You could also reassign the phase names within the phase variable by setting the argument <code>phase.names</code>. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to “A” and “B” with <code>read_scdf("example.csv", phase.names = c("A", "B"))</code>.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">read_scdf</span><span class="op">(</span></span>
-<span>  <span class="st">"example2.xlsx"</span>, cvar <span class="op">=</span> <span class="st">"name"</span>, pvar <span class="op">=</span> <span class="st">"intervention"</span>, </span>
-<span>  dvar <span class="op">=</span> <span class="st">"wellbeing"</span>, mvar <span class="op">=</span> <span class="st">"time"</span>, phase.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">read_scdf</span><span class="op">(</span>
+  <span class="st">"example2.xlsx"</span>, cvar <span class="op">=</span> <span class="st">"name"</span>, pvar <span class="op">=</span> <span class="st">"intervention"</span>, 
+  dvar <span class="op">=</span> <span class="st">"wellbeing"</span>, mvar <span class="op">=</span> <span class="st">"time"</span>, phase.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>,<span class="st">"B"</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
 <pre><code>Loaded 20 cases.</code></pre>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 20 cases
 
           Measurements Design
@@ -394,21 +390,15 @@ gym</code></pre>
 <p>For some reasons, computer systems with a German (and some other) language setups export csv-files by default with a comma as a decimal point and a semicolon as a separator between values. In these cases you have to set two extra arguments to import the data:</p>
 <p><code>read_scdf("example.csv", dec = ",", sep = ";")</code></p>
 <p><code>read_scdf</code> also allows for directly importing <em>Microsoft Excel</em> <code>.xlsx</code> or <code>.xls</code> files. You need to have the library <code>readxl</code> installed in your R setup for this to work. Excel files will be automatically detected by the filename extension <code>xls</code>or <code>xlsx</code> or by explicitly setting the <code>type</code> argument (e.g. <code>type = "xlsx"</code>).</p>
-</div>
-<div id="write-scdf" class="section level3" number="4.4.2">
-<h3>
-<span class="header-section-number">4.4.2</span> Export data<a class="anchor" aria-label="anchor" href="#write-scdf"><i class="fas fa-link"></i></a>
-</h3>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> write_scdf(data, filename = NULL, sep = ",", dec = ".", ...) </font></td>
  </tr></table></div>
 <p><code>write_scdf()</code> exports an scdf object as a comma-separated-variables file (<em>csv</em>) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The scdf object is converted into a single data frame with a <em>case</em> variable identifying the rows for each subject. The first argument of the command identifies the scdf to be exported and the second argument (<code>file</code>) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the <code>dec</code> and the <code>sep</code> arguments. For example, <code>write_scdf(example, file = "example.csv", dec = ",", sep = ";")</code> exports a csv variation usually used for example in Germany.</p>
 </div>
-</div>
-<div id="convert" class="section level2" number="4.5">
+<div id="convert-an-scdf-object-back-to-scan-syntax" class="section level2" number="4.5">
 <h2>
-<span class="header-section-number">4.5</span> Convert an scdf object back to scan syntax<a class="anchor" aria-label="anchor" href="#convert"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5</span> Convert an scdf object back to scan syntax<a class="anchor" aria-label="anchor" href="#convert-an-scdf-object-back-to-scan-syntax"><i class="fas fa-link"></i></a>
 </h2>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
@@ -417,7 +407,7 @@ gym</code></pre>
 <p>You can also reconvert an scdf object back to “raw” scan syntax. This is a convenient way when you imported data from an Excel or csv file and want to keep everything clean and transparent within your R syntax files.</p>
 <p>Here is an example:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">convert</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="fu">convert</span><span class="op">(</span><span class="va">exampleABC</span><span class="op">)</span></code></pre></div>
 <pre><code>case1 &lt;- scdf(
    values = c(58, 56, 60, 63, 51, 45, 44, 59, 45, 39, 83, 65, 70, 83, 70, 85, 47, 66, 77, 75, 51, 87, 80, 68, 70, 56, 52, 70, 83, 63), 
    phase_design = c(A = 10, B = 10, C = 10),
@@ -445,8 +435,8 @@ study &lt;- c(case1, case2, case3)</code></pre>
 </h2>
 <p><em>scdf</em> are displayed by just typing the name of the object.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#Beretvas2008 is an example scdf included in scan</span></span>
-<span><span class="va">Beretvas2008</span></span></code></pre></div>
+<code class="sourceCode R"><span class="co">#Beretvas2008 is an example scdf included in scan</span>
+<span class="va">Beretvas2008</span></code></pre></div>
 <pre><code>#A single-case data frame with one case
 
  Case1: values mt phase
@@ -467,8 +457,8 @@ study &lt;- c(case1, case2, case3)</code></pre>
             14 15     B</code></pre>
 <p>The <code>print</code> command allows for specifying the output. Some possible arguments are <code>cases</code> (the number of cases to be displayed; Three by default), <code>rows</code> (the maximum number of rows to be displayed; Fifteen by default), and <code>digits</code> (number of digits). <code>cases = 'all'</code> and <code>rows = 'all'</code> prints all cases and rows.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#Huber2014 is an example scdf included in scan</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">Huber2014</span>, cases <span class="op">=</span> <span class="fl">2</span>, rows <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="co">#Huber2014 is an example scdf included in scan</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">Huber2014</span>, cases <span class="op">=</span> <span class="fl">2</span>, rows <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 4 cases
 
  Adam: mt compliance phase ｜ Berta: mt compliance phase ｜
@@ -487,7 +477,7 @@ study &lt;- c(case1, case2, case3)</code></pre>
 <p>The argument <code>long = TRUE</code> prints each case one after the other instead side by side (e.g., <code>print(exampleAB, long = TRUE)</code>).</p>
 <p><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> gives a very concise overview of the <em>scdf</em></p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Huber2014</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Huber2014</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 4 cases
 
            Measurements Design
@@ -515,14 +505,14 @@ Author of data:  Christian Huber </code></pre>
 </h3>
 <p>You can extract one or more single-cases from an <em>scdf</em> with multiple cases in two ways. If the case has a name, you can address it with the <code>$</code> operator.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Huber2014</span><span class="op">$</span><span class="va">David</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">Huber2014</span><span class="op">$</span><span class="va">David</span></code></pre></div>
 <p>or you can use squared brackets</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Huber2014</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co">#extracts case 1</span></span>
-<span><span class="va">Huber2014</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co">#extracts cases 2 and 3</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">Huber2014</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="co">#extracts case 1</span>
+<span class="va">Huber2014</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co">#extracts cases 2 and 3</span></code></pre></div>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">new.huber2014</span> <span class="op">&lt;-</span> <span class="va">Huber2014</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span> <span class="co">#extracts cases 1 and 4</span></span>
-<span><span class="va">new.huber2014</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">new.huber2014</span> <span class="op">&lt;-</span> <span class="va">Huber2014</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span> <span class="co">#extracts cases 1 and 4</span>
+<span class="va">new.huber2014</span></code></pre></div>
 <pre><code>#A single-case data frame with 2 cases
 
  Adam: mt compliance phase ｜ David: mt compliance phase ｜
@@ -554,10 +544,10 @@ Author of data:  Christian Huber </code></pre>
 <p>Since version 0.53 scan includes some functions to work with pipe-operators. Therefore, we will provide syntax examples with and without pipe operators.</p>
 <p>The <code>select_cases()</code> function takes case-names and/or numbers for selecting cases:</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># With pipes:</span></span>
-<span><span class="va">Huber2014</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">select_cases</span><span class="op">(</span><span class="st">"Adam"</span>, <span class="st">"Berta"</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="co"># With pipes:</span>
+<span class="va">Huber2014</span> <span class="op">%&gt;%</span>
+  <span class="fu">select_cases</span><span class="op">(</span><span class="st">"Adam"</span>, <span class="st">"Berta"</span>, <span class="fl">4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases
 
        Measurements Design
@@ -574,22 +564,22 @@ phase &lt;phase variable&gt;
 Note:  Behavioral data (compliance in percent).
 Author of data:  Christian Huber </code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Without pipes:</span></span>
-<span></span>
-<span><span class="co"># new_huber &lt;- select_cases(Huber2014, "Adam", "Berta", 4)</span></span>
-<span><span class="co"># summary(new_huber)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="co"># Without pipes:</span>
+
+<span class="co"># new_huber &lt;- select_cases(Huber2014, "Adam", "Berta", 4)</span>
+<span class="co"># summary(new_huber)</span></code></pre></div>
 </div>
-<div id="subset" class="section level3" number="4.7.3">
+<div id="select-measurements" class="section level3" number="4.7.3">
 <h3>
-<span class="header-section-number">4.7.3</span> Select measurements<a class="anchor" aria-label="anchor" href="#subset"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.7.3</span> Select measurements<a class="anchor" aria-label="anchor" href="#select-measurements"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> function helps with extracting measurements (or rows) by a specific criteria from a scdf.</p>
 <p>Subset takes a scdf as its first argument and a logical expression as the second argument (<code>filter</code>). Only measurements for which the logical argument is evaluated to be TRUE are inlcuded in the returning scdf object.</p>
 <p>For example, the scdf <code>Huber2014</code> has a variable <code>compliance</code> and we like to keep measurements where <code>compliance</code> is larger than 10 because we assume the others to be outliers:</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Huber2014</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">compliance</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">Huber2014</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">compliance</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 4 cases
 
            Measurements Design
@@ -608,9 +598,9 @@ Note:  Behavioral data (compliance in percent).
 Author of data:  Christian Huber </code></pre>
 <p>In an more complex example, we only like to keep values lower than 60 when they are in phase A or values equal or larger than 60 when they are in phase B:</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">exampleAB</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="op">(</span><span class="va">values</span> <span class="op">&lt;</span> <span class="fl">60</span> <span class="op">&amp;</span> <span class="va">phase</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="va">values</span> <span class="op">&gt;=</span> <span class="fl">60</span> <span class="op">&amp;</span> <span class="va">phase</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span class="va">exampleAB</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="op">(</span><span class="va">values</span> <span class="op">&lt;</span> <span class="fl">60</span> <span class="op">&amp;</span> <span class="va">phase</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">|</span> <span class="op">(</span><span class="va">values</span> <span class="op">&gt;=</span> <span class="fl">60</span> <span class="op">&amp;</span> <span class="va">phase</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#A single-case data frame with 3 cases
 
           Measurements Design
@@ -640,23 +630,18 @@ Note:  Randomly created data with normal distributed dependent variable.</code><
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#managing-single-case-data"><span class="header-section-number">4</span> Managing single-case data</a></li>
+<li><a class="nav-link" href="#managing"><span class="header-section-number">4</span> Managing single-case data</a></li>
 <li><a class="nav-link" href="#a-single-case-data-frame"><span class="header-section-number">4.1</span> A single-case data frame</a></li>
-<li><a class="nav-link" href="#scdf"><span class="header-section-number">4.2</span> Creating scdfs</a></li>
+<li><a class="nav-link" href="#creating-scdfs"><span class="header-section-number">4.2</span> Creating scdfs</a></li>
 <li><a class="nav-link" href="#saving-and-reading-single-case-data-frames"><span class="header-section-number">4.3</span> Saving and reading single-case data frames</a></li>
-<li>
-<a class="nav-link" href="#import-and-export-single-case-data-frames"><span class="header-section-number">4.4</span> Import and export single-case data frames</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#read-scdf"><span class="header-section-number">4.4.1</span> Import data</a></li>
-<li><a class="nav-link" href="#write-scdf"><span class="header-section-number">4.4.2</span> Export data</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#convert"><span class="header-section-number">4.5</span> Convert an scdf object back to scan syntax</a></li>
+<li><a class="nav-link" href="#import-and-export-single-case-data-frames"><span class="header-section-number">4.4</span> Import and export single-case data frames</a></li>
+<li><a class="nav-link" href="#convert-an-scdf-object-back-to-scan-syntax"><span class="header-section-number">4.5</span> Convert an scdf object back to scan syntax</a></li>
 <li><a class="nav-link" href="#displaying-scdf-files"><span class="header-section-number">4.6</span> Displaying scdf-files</a></li>
 <li>
 <a class="nav-link" href="#selecting-cases-and-measurements"><span class="header-section-number">4.7</span> Selecting cases and measurements</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#subsetting-cases-with-base-r-syntax"><span class="header-section-number">4.7.1</span> Subsetting cases with base R syntax</a></li>
 <li><a class="nav-link" href="#select-cases"><span class="header-section-number">4.7.2</span> Select cases</a></li>
-<li><a class="nav-link" href="#subset"><span class="header-section-number">4.7.3</span> Select measurements</a></li>
+<li><a class="nav-link" href="#select-measurements"><span class="header-section-number">4.7.3</span> Select measurements</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#change-and-create-variables"><span class="header-section-number">4.8</span> Change and create variables</a></li>
@@ -677,7 +662,7 @@ Note:  Randomly created data with normal distributed dependent variable.</code><
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-08-29.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-07-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -1,18 +1,32 @@
 # Overlapping indices
 
+## Overlap overview
+
 ```{r results='asis', echo=FALSE}
 function_structure("overlap")
 ```
 
-`overlap` provides a table with some of the most important overlap indices for each case of an *scdf*. For calculating overlap indicators is is important to know if a decrease or an increase of values is expected between phases. By default `overlap` assumes an increase in values. If the argument `decreasing = TRUE` is set, calculation will be based on the assumption of decreasing values.
+`overlap` provides a table with some of the most important overlap indices for each case of an *scdf*. For calculating overlap indicators it is important to know if a decrease or an increase of values is expected between phases. By default `overlap` assumes an increase in values. If the argument `decreasing = TRUE` is set, calculation will be based on the assumption of decreasing values.
 
 ```{r warning = FALSE}
 overlap(exampleAB)
 ```
 
-Overlap measures refer to a comparison of two phases within a single-case data-set. By default, `overlap` compares the first to the second phase. The `select_phases()` function is needed if you like to compare other phases or even like to combine several phases.
+Overlap measures refer to a comparison of two phases within a single-case data-set. By default, `overlap` compares the first to the second phase. 
 
-`select_phases()` has the arguments `A` and `B`. Each argument takes a vector with the names or the numbers of the phases to be selected. If you want to compare the first to the third phase you can set `select_phases(1,3)`. If the phases of your case are named 'A', 'B', and 'C' you could alternatively set `select_phases("A","C")`. It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the `c` command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases `select_phases( c(1,3), c(2,4) )` will do the trick.
+### Select and recombine phases {#select-phases}
+
+```{r results='asis', echo=FALSE}
+function_structure("select_phases")
+```
+
+The `select_phases()` function is needed if you like to compare specific phases or even like to combine several phases. `select_phases()` is designed to work within a pipe structure. So the first argument is an *scdf* and it returns an *scdf*.
+
+```{r eval = FALSE}
+scdf %>% select_phases(A = 1, B = 3) %>% ...
+```
+
+`select_phases()` has the arguments `A` and `B`. Each argument takes a vector with the names or the numbers of the phases to be selected. If you want to compare the first to the third phase you can set `select_phases(scdf, 1,3)`. If the phases of your case are named 'A', 'B', and 'C' you could alternatively set `select_phases(scdf, "A","C")`. It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the `c` command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases `select_phases(scdf, c(1,3), c(2,4) )` will do the trick.
 
 (As an alternative approach you can set the `phases` argument within the `overlap()` function. This argument takes a list with two elements where the first element defines the phases for the A-phase and the second argument the phases for the B-phase.)
 
@@ -173,7 +187,7 @@ This method has been proposed by @tarlowImprovedRankCorrelation2016a. The baseli
 
 Here is a replication of an example provided by @tarlowImprovedRankCorrelation2016a :
 
-```{r bctau-example}
+```{r bctau-example, echo = FALSE, message = FALSE}
 case <- scdf(c(A = 33, 25, 17, 25, 14, 13,14, 
                B = 14, 15, 15, 4, 6, 9, 5 ,4 ,2 ,2 ,8, 11 ,7))
 
