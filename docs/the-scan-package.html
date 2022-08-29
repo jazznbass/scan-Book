@@ -6,17 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 3 The scan package | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
-<meta name="description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.54.1....'>
-<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta name="description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.55....'>
+<meta name="generator" content="bookdown 0.27 with bs4_book()">
 <meta property="og:title" content="Chapter 3 The scan package | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
-<meta property="og:description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.54.1....'>
+<meta property="og:description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.55....'>
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 3 The scan package | Analyzing single-case data with R and scan">
-<meta name="twitter:description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.54.1....'>
+<meta name="twitter:description" content='3.1 Installing the scan package You can use the install.packages function to install scan. install.packages("scan") will install the stable version. The current stable release is version 0.55....'>
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -108,11 +108,11 @@
 </h2>
 <p>You can use the <code>install.packages</code> function to install <em>scan</em>.</p>
 <p><code>install.packages("scan")</code> will install the stable version.</p>
-<p>The current stable release is version <code>0.54.1</code>. Please look at Section <em>Software reference</em> for which version of <em>scan</em> has been used for creating this book and make sure you have this version or a newer one installed.</p>
+<p>The current stable release is version <code>0.55</code>. Please look at Section <em>Software reference</em> for which version of <em>scan</em> has been used for creating this book and make sure you have this version or a newer one installed.</p>
 <p>R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing <em>scan</em> it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.</p>
 <p>For activating a package you need the <code>library</code> function. In this case <code><a href="https://github.com/jazznbass/scan/">library(scan)</a></code>. You should get something like</p>
-<p>scan 0.54.1 (2022-04-03)<br>
-Single-Case Data Analysis for Single and Multiple Baseline Designs</p>
+<pre><code>scan 0.55 (2022-08-29)
+Single-Case Data Analysis for Single and Multiple Baseline Designs</code></pre>
 <p>indicating that everything went smoothly and <em>scan</em> is ready for the job.</p>
 </div>
 <div id="development-version-of-scan" class="section level2" number="3.2">
@@ -138,10 +138,14 @@ Single-Case Data Analysis for Single and Multiple Baseline Designs</p>
 <span class="header-section-number">3.4</span> Functions overview<a class="anchor" aria-label="anchor" href="#functions-overview"><i class="fas fa-link"></i></a>
 </h2>
 <p>The functions of the <em>scan</em> package can be divided into the following categories:<br><em>Manage data</em>, <em>analyze</em>, <em>manipulate</em>, <em>simulate</em>, and <em>depict</em>.</p>
-<p>Table <a href="the-scan-package.html#tab:table-functions">3.1</a> gives an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here <a href="https://lifecycle.r-lib.org/articles/stages.html" class="uri">https://lifecycle.r-lib.org/articles/stages.html</a>.</p>
+<p>Table <a href="#tab:table-functions"><strong>??</strong></a> gives an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here <a href="https://lifecycle.r-lib.org/articles/stages.html" class="uri">https://lifecycle.r-lib.org/articles/stages.html</a>.</p>
+<div id="management" class="section level3" number="3.4.1">
+<h3>
+<span class="header-section-number">3.4.1</span> Management<a class="anchor" aria-label="anchor" href="#management"><i class="fas fa-link"></i></a>
+</h3>
 <div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
 <caption>
-<span id="tab:table-functions">Table 3.1: </span>Functions in scan.
+<span id="tab:table-functions-management">Table 3.1: </span>Functions for data management.
 </caption>
 <thead><tr>
 <th style="text-align:left;">
@@ -151,10 +155,10 @@ Function
 What it does …
 </th>
 <th style="text-align:left;">
-Category
+Lifecycle stage
 </th>
 <th style="text-align:left;">
-Lifecycle stage
+Chapter
 </th>
 </tr></thead>
 <tbody>
@@ -166,10 +170,10 @@ scdf
 Creates a single-case data-frame
 </td>
 <td style="text-align:left;">
-Manage data
+Stable
 </td>
 <td style="text-align:left;">
-Stable
+<a href="managing-single-case-data.html#scdf">4.2</a>
 </td>
 </tr>
 <tr>
@@ -180,10 +184,10 @@ select_cases
 Selects specific cases of an scdf
 </td>
 <td style="text-align:left;">
-Manage data
+Stable
 </td>
 <td style="text-align:left;">
-Stable
+<a href="managing-single-case-data.html#select-cases">4.7.2</a>
 </td>
 </tr>
 <tr>
@@ -194,10 +198,10 @@ select_phases
 Selects and/or recombines phases
 </td>
 <td style="text-align:left;">
-Manage data
+Stable
 </td>
 <td style="text-align:left;">
-Stable
+<a href="overlapping-indices.html#select-phases">7.1.1</a>
 </td>
 </tr>
 <tr>
@@ -208,10 +212,10 @@ subset
 Selects specific measurements or variables of an scdf
 </td>
 <td style="text-align:left;">
-Manage data
+Stable
 </td>
 <td style="text-align:left;">
-Stable
+<a href="managing-single-case-data.html#subset">4.7.3</a>
 </td>
 </tr>
 <tr>
@@ -222,10 +226,10 @@ read_scdf
 Loads external data into an scdf
 </td>
 <td style="text-align:left;">
-Manage data
+Stable
 </td>
 <td style="text-align:left;">
-Stable
+<a href="managing-single-case-data.html#read-scdf">4.4.1</a>
 </td>
 </tr>
 <tr>
@@ -236,10 +240,10 @@ write_scdf
 Writes scdf into an external file
 </td>
 <td style="text-align:left;">
-Manage data
+Stable
 </td>
 <td style="text-align:left;">
-Stable
+<a href="managing-single-case-data.html#write-scdf">4.4.2</a>
 </td>
 </tr>
 <tr>
@@ -250,10 +254,10 @@ convert
 Converts an scdf object into R syntax
 </td>
 <td style="text-align:left;">
-Manage data
+Stable
 </td>
 <td style="text-align:left;">
-Stable
+<a href="managing-single-case-data.html#convert">4.5</a>
 </td>
 </tr>
 <tr>
@@ -264,10 +268,10 @@ set_var
 (Re)sets dependent, measurement, and phase variable of an scdf
 </td>
 <td style="text-align:left;">
-Manage data
+Stable
 </td>
 <td style="text-align:left;">
-Stable
+<ul><li></ul>
 </td>
 </tr>
 <tr>
@@ -278,10 +282,10 @@ scdf_attr
 Gets and sets attributes of an scdf
 </td>
 <td style="text-align:left;">
-Manage data
+Stable
 </td>
 <td style="text-align:left;">
-Stable
+<ul><li></ul>
 </td>
 </tr>
 <tr>
@@ -292,10 +296,10 @@ add_l2
 Adds level-two data to an scdf
 </td>
 <td style="text-align:left;">
-Manage data
+Stable
 </td>
 <td style="text-align:left;">
-Stable
+<a href="#add-l2"><strong>??</strong></a>
 </td>
 </tr>
 <tr>
@@ -306,22 +310,35 @@ as.data.frame/as.data.frame.scdf
 Transforms an scdf into a data frame
 </td>
 <td style="text-align:left;">
-Manage data
-</td>
-<td style="text-align:left;">
 Stable
 </td>
-</tr>
-<tr>
-<td style="text-align:left;font-weight: bold;width: 15em; ">
-</td>
-<td style="text-align:left;width: 30em; ">
-</td>
 <td style="text-align:left;">
-</td>
-<td style="text-align:left;">
+<ul><li></ul>
 </td>
 </tr>
+</tbody>
+</table></div>
+</div>
+<div id="depiction" class="section level3" number="3.4.2">
+<h3>
+<span class="header-section-number">3.4.2</span> Depiction<a class="anchor" aria-label="anchor" href="#depiction"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
+<caption>
+<span id="tab:table-functions-depiction">Table 3.2: </span>Functions for data depiction/visualisation.
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+What it does …
+</th>
+<th style="text-align:left;">
+Lifecycle stage
+</th>
+</tr></thead>
+<tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
 plot/plot.scdf
@@ -330,10 +347,18 @@ plot/plot.scdf
 Creates plots of single cases
 </td>
 <td style="text-align:left;">
-Depict
+Superseded
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+scplot
+</td>
+<td style="text-align:left;width: 30em; ">
+Add-on package <code>scplot</code>. Create advanced ggplot2 plots.
 </td>
 <td style="text-align:left;">
-Superseded
+Experimental
 </td>
 </tr>
 <tr>
@@ -342,9 +367,6 @@ style_plot
 </td>
 <td style="text-align:left;width: 30em; ">
 Defines single-case plot graphical styles
-</td>
-<td style="text-align:left;">
-Depict
 </td>
 <td style="text-align:left;">
 Superseded
@@ -358,9 +380,6 @@ export
 Creates html or latex tables from the output of various can functions
 </td>
 <td style="text-align:left;">
-Depict
-</td>
-<td style="text-align:left;">
 Experimental
 </td>
 </tr>
@@ -370,9 +389,6 @@ print/print.sc
 </td>
 <td style="text-align:left;width: 30em; ">
 Prints the results of various scan outputs
-</td>
-<td style="text-align:left;">
-Depict
 </td>
 <td style="text-align:left;">
 Stable
@@ -386,9 +402,6 @@ print/print.scdf
 Prints an scdf
 </td>
 <td style="text-align:left;">
-Depict
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -398,9 +411,6 @@ summary/summary.scdf
 </td>
 <td style="text-align:left;width: 30em; ">
 Summaizes an scdf
-</td>
-<td style="text-align:left;">
-Depict
 </td>
 <td style="text-align:left;">
 Stable
@@ -414,31 +424,38 @@ plot_rand
 Create a distribution plot from a randomization test obejct
 </td>
 <td style="text-align:left;">
-Depict
-</td>
-<td style="text-align:left;">
 Experimental
 </td>
 </tr>
-<tr>
-<td style="text-align:left;font-weight: bold;width: 15em; ">
-</td>
-<td style="text-align:left;width: 30em; ">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
+</tbody>
+</table></div>
+</div>
+<div id="analysis" class="section level3" number="3.4.3">
+<h3>
+<span class="header-section-number">3.4.3</span> Analysis<a class="anchor" aria-label="anchor" href="#analysis"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
+<caption>
+<span id="tab:table-functions-analysis">Table 3.3: </span>Functions for data analysis.
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+What it does …
+</th>
+<th style="text-align:left;">
+Lifecycle stage
+</th>
+</tr></thead>
+<tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
 autocorr
 </td>
 <td style="text-align:left;width: 30em; ">
 Autocorrelations for each phase of each case
-</td>
-<td style="text-align:left;">
-Analyze
 </td>
 <td style="text-align:left;">
 Stable
@@ -452,9 +469,6 @@ corrected_tau
 Baseline corrected tau
 </td>
 <td style="text-align:left;">
-Analyze
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -464,9 +478,6 @@ describe
 </td>
 <td style="text-align:left;width: 30em; ">
 Descriptive statistics for each phase of each case
-</td>
-<td style="text-align:left;">
-Analyze
 </td>
 <td style="text-align:left;">
 Stable
@@ -480,9 +491,6 @@ overlap
 An overview of overlap indeces for each case
 </td>
 <td style="text-align:left;">
-Analyze
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -492,9 +500,6 @@ smd
 </td>
 <td style="text-align:left;width: 30em; ">
 Various standardized mean differences between phase A and B
-</td>
-<td style="text-align:left;">
-Analyze
 </td>
 <td style="text-align:left;">
 Stable
@@ -508,9 +513,6 @@ rci
 Reliable change index
 </td>
 <td style="text-align:left;">
-Analyze
-</td>
-<td style="text-align:left;">
 Experimental
 </td>
 </tr>
@@ -520,9 +522,6 @@ rand_test
 </td>
 <td style="text-align:left;width: 30em; ">
 Randomization test
-</td>
-<td style="text-align:left;">
-Analyze
 </td>
 <td style="text-align:left;">
 Stable
@@ -536,9 +535,6 @@ tau_u
 Tau-U for each case and all cases
 </td>
 <td style="text-align:left;">
-Analyze
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -548,9 +544,6 @@ trend
 </td>
 <td style="text-align:left;width: 30em; ">
 Trend analyses for each case
-</td>
-<td style="text-align:left;">
-Analyze
 </td>
 <td style="text-align:left;">
 Stable
@@ -564,9 +557,6 @@ plm
 Piecewise linear regression model
 </td>
 <td style="text-align:left;">
-Analyze
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -576,9 +566,6 @@ mplm
 </td>
 <td style="text-align:left;width: 30em; ">
 Multivariate piecewise linear regression model
-</td>
-<td style="text-align:left;">
-Analyze
 </td>
 <td style="text-align:left;">
 Experimental
@@ -592,9 +579,6 @@ hplm
 Hierarchical piecewise linear regression model
 </td>
 <td style="text-align:left;">
-Analyze
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -604,9 +588,6 @@ nap
 </td>
 <td style="text-align:left;width: 30em; ">
 Non-overlap of all pairs for each case
-</td>
-<td style="text-align:left;">
-Analyze
 </td>
 <td style="text-align:left;">
 Stable
@@ -620,9 +601,6 @@ pnd
 Percentage of non overlapping data for each case
 </td>
 <td style="text-align:left;">
-Analyze
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -632,9 +610,6 @@ pand
 </td>
 <td style="text-align:left;width: 30em; ">
 Percentage of all non overlapping data for all cases
-</td>
-<td style="text-align:left;">
-Analyze
 </td>
 <td style="text-align:left;">
 Stable
@@ -648,9 +623,6 @@ pem
 Percantage exceeding the mean for each case
 </td>
 <td style="text-align:left;">
-Analyze
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -660,9 +632,6 @@ pet
 </td>
 <td style="text-align:left;width: 30em; ">
 Percentage exceeding the trend for each case
-</td>
-<td style="text-align:left;">
-Analyze
 </td>
 <td style="text-align:left;">
 Stable
@@ -676,9 +645,6 @@ cdc
 Conservative dual-criterion test
 </td>
 <td style="text-align:left;">
-Analyze
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -690,31 +656,38 @@ outlier
 Detect outliers for all cases
 </td>
 <td style="text-align:left;">
-Analyse
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
-<tr>
-<td style="text-align:left;font-weight: bold;width: 15em; ">
-</td>
-<td style="text-align:left;width: 30em; ">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
+</tbody>
+</table></div>
+</div>
+<div id="manipulation" class="section level3" number="3.4.4">
+<h3>
+<span class="header-section-number">3.4.4</span> Manipulation<a class="anchor" aria-label="anchor" href="#manipulation"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
+<caption>
+<span id="tab:table-functions-manipulation">Table 3.4: </span>Functions for data manipulation.
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+What it does …
+</th>
+<th style="text-align:left;">
+Lifecycle stage
+</th>
+</tr></thead>
+<tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
 fill_missing
 </td>
 <td style="text-align:left;width: 30em; ">
 Interpolate missign values or missing measurement times
-</td>
-<td style="text-align:left;">
-Manipulate
 </td>
 <td style="text-align:left;">
 Stable
@@ -728,9 +701,6 @@ ranks
 Covert data into ranked data across all cases
 </td>
 <td style="text-align:left;">
-Manipulate
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -740,9 +710,6 @@ transform
 </td>
 <td style="text-align:left;width: 30em; ">
 Change and create new variabes
-</td>
-<td style="text-align:left;">
-Manipulate
 </td>
 <td style="text-align:left;">
 Stable
@@ -756,9 +723,6 @@ smooth_cases
 Smoothes time series data
 </td>
 <td style="text-align:left;">
-Manipulate
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -768,9 +732,6 @@ truncate_phase
 </td>
 <td style="text-align:left;width: 30em; ">
 Deletes measurements of phases
-</td>
-<td style="text-align:left;">
-Manipulate
 </td>
 <td style="text-align:left;">
 Stable
@@ -784,31 +745,38 @@ standardize
 Standardizes or centers variables across cases
 </td>
 <td style="text-align:left;">
-Manipulate
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
-<tr>
-<td style="text-align:left;font-weight: bold;width: 15em; ">
-</td>
-<td style="text-align:left;width: 30em; ">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
+</tbody>
+</table></div>
+</div>
+<div id="simulation" class="section level3" number="3.4.5">
+<h3>
+<span class="header-section-number">3.4.5</span> Simulation<a class="anchor" aria-label="anchor" href="#simulation"><i class="fas fa-link"></i></a>
+</h3>
+<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
+<caption>
+<span id="tab:table-functions-simulation">Table 3.5: </span>Functions for data simulation.
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Function
+</th>
+<th style="text-align:left;">
+What it does …
+</th>
+<th style="text-align:left;">
+Lifecycle stage
+</th>
+</tr></thead>
+<tbody>
 <tr>
 <td style="text-align:left;font-weight: bold;width: 15em; ">
 design
 </td>
 <td style="text-align:left;width: 30em; ">
 Defines a design of one or multiple single-cases
-</td>
-<td style="text-align:left;">
-Simulate
 </td>
 <td style="text-align:left;">
 Stable
@@ -822,9 +790,6 @@ power_test
 Calculates power and alpha error of a specific analyzes for a specific single-case design
 </td>
 <td style="text-align:left;">
-Simulate
-</td>
-<td style="text-align:left;">
 Stable
 </td>
 </tr>
@@ -834,9 +799,6 @@ estimate_design
 </td>
 <td style="text-align:left;width: 30em; ">
 Extraxt a deisgn template from an existing scdf
-</td>
-<td style="text-align:left;">
-Simulate
 </td>
 <td style="text-align:left;">
 Experimental
@@ -850,14 +812,23 @@ random_scdf
 Creats random single-case studies from a single-case design
 </td>
 <td style="text-align:left;">
-Simulate
+Stable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;width: 15em; ">
+mcscan
+</td>
+<td style="text-align:left;width: 30em; ">
+Add-on package <code>mcscan</code>. Create Monte-Carlo designs and analyses with <code>scan</code>
 </td>
 <td style="text-align:left;">
-Stable
+(Upcoming not yet functioning)
 </td>
 </tr>
 </tbody>
 </table></div>
+</div>
 </div>
 </div>
   <div class="chapter-nav">
@@ -870,7 +841,15 @@ Stable
 <li><a class="nav-link" href="#installing-the-scan-package"><span class="header-section-number">3.1</span> Installing the scan package</a></li>
 <li><a class="nav-link" href="#development-version-of-scan"><span class="header-section-number">3.2</span> Development version of scan</a></li>
 <li><a class="nav-link" href="#reporting-issues-with-scan-and-suggesting-enhancements"><span class="header-section-number">3.3</span> Reporting issues with scan and suggesting enhancements</a></li>
-<li><a class="nav-link" href="#functions-overview"><span class="header-section-number">3.4</span> Functions overview</a></li>
+<li>
+<a class="nav-link" href="#functions-overview"><span class="header-section-number">3.4</span> Functions overview</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#management"><span class="header-section-number">3.4.1</span> Management</a></li>
+<li><a class="nav-link" href="#depiction"><span class="header-section-number">3.4.2</span> Depiction</a></li>
+<li><a class="nav-link" href="#analysis"><span class="header-section-number">3.4.3</span> Analysis</a></li>
+<li><a class="nav-link" href="#manipulation"><span class="header-section-number">3.4.4</span> Manipulation</a></li>
+<li><a class="nav-link" href="#simulation"><span class="header-section-number">3.4.5</span> Simulation</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -888,7 +867,7 @@ Stable
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-06-23.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-08-29.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

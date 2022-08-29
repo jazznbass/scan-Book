@@ -6,17 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 10 Power analyses (scan version 0.54 or later) | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
-<meta name="description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = 0.5, alpha_level = 0.05)  ...'>
-<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta name="description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = FALSE, binom_test_alpha =...'>
+<meta name="generator" content="bookdown 0.27 with bs4_book()">
 <meta property="og:title" content="Chapter 10 Power analyses (scan version 0.54 or later) | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
-<meta property="og:description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = 0.5, alpha_level = 0.05)  ...'>
+<meta property="og:description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = FALSE, binom_test_alpha =...'>
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 10 Power analyses (scan version 0.54 or later) | Analyzing single-case data with R and scan">
-<meta name="twitter:description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = 0.5, alpha_level = 0.05)  ...'>
+<meta name="twitter:description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = FALSE, binom_test_alpha =...'>
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -104,7 +104,7 @@
 </h1>
 <div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = 0.5, alpha_level = 0.05) </font></td>
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = FALSE, binom_test_alpha = FALSE, binom_test_power = FALSE, binom_test_correct = FALSE, ci = FALSE, alpha_level = 0.05) </font></td>
  </tr></table></div>
 <div id="the-idea-of-a-power-test" class="section level2" number="10.1">
 <h2>
@@ -253,25 +253,25 @@ If distribution is set ‘binomial’, prob passes the probability of occurrence
 </h2>
 <p>When conduction a power test you firstly need to define a design which you like to be tested.</p>
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu">design</span><span class="op">(</span>
-  n <span class="op">=</span> <span class="fl">1</span>,
-  phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,
-  level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">0</span>, B <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  trend <span class="op">=</span> <span class="fl">0.02</span>,
-  distribution <span class="op">=</span> <span class="st">"normal"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu">design</span><span class="op">(</span></span>
+<span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<span>  level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">0</span>, B <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  trend <span class="op">=</span> <span class="fl">0.02</span>,</span>
+<span>  distribution <span class="op">=</span> <span class="st">"normal"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Then you have to choose the statistical method. The <code>power_test</code> function applies three methods by default: <em>plm</em>, <em>randomization test</em>, and <em>Tau U</em>.
 These default values are only suitable when your design is a one case single-case study.</p>
 <p>Let us start with the defaults and conduct a power analysis for our previously set design: <em>(This might take some time. Even in the default setting with 100 simulations you might wait a few seconds. For more precise estimations I recommend 1000 simulations - or even higher.)</em></p>
 <div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span><span class="op">)</span>
-<span class="va">res</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span><span class="op">)</span></span>
+<span><span class="va">res</span></span></code></pre></div>
 <pre><code>Test-Power in percent:
 
-    Method Power Alpha Error Alpha:Beta Correct p
- plm_level    73           5      1:5.4    84.0 0
-      rand    67          10      1:3.3    78.5 0
-      tauU   100          25      1:0.0    87.5 0</code></pre>
+    Method Power Alpha Error Alpha:Beta Correct
+ plm_level    73           5      1:5.4      84
+      rand    67          10      1:3.3      78
+      tauU   100          25      1:0.0      88</code></pre>
 <p>The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to outliers of the random samples. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tau U test has an unacceptably high alpha-error which is due to the trend we put into the design. <em>Alpha:Beta</em> depicts the relation of the Alpha and Beta error (power = 1 - Beta). <em>Correct</em> is the overall proportion of correct categorizations and <em>p</em> is the results of a binomial-test of <em>Correct</em> against 50%.</p>
 </div>
 <div id="statistical-methods" class="section level2" number="10.4">
@@ -437,24 +437,24 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
 <p>Instead of one of the predefined character strings you can also create you own functions and implement these. You function must take an scdf as the first argument and return a single numeric p-value.</p>
 <p>Here is an example of a fast plm function for poisson distributed data based on the <code>fastglm</code> package:</p>
 <div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">plm_fast</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">data</span>, recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  <span class="va">y</span>  <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">values</span>
-  <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span>
-  <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span>
-  <span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">n1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n2</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">mt</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">mt</span>
-  <span class="va">inter</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">mt</span> <span class="op">-</span> <span class="va">mt</span><span class="op">[</span><span class="va">n1</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">D</span>
-  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n1</span> <span class="op">+</span> <span class="va">n2</span><span class="op">)</span>, <span class="va">mt</span>, <span class="va">D</span>, <span class="va">inter</span><span class="op">)</span>,
-    nrow <span class="op">=</span> <span class="va">n1</span> <span class="op">+</span> <span class="va">n2</span>,
-    ncol <span class="op">=</span> <span class="fl">4</span>
-  <span class="op">)</span>
-  <span class="va">full</span> <span class="op">&lt;-</span> <span class="fu">fastglm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fastglm/man/fastglm.html">fastglm</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, family <span class="op">=</span> <span class="st">"poisson"</span>, method <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">full</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">]</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">plm_fast</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">data</span>, recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  <span class="va">y</span>  <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">values</span></span>
+<span>  <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span></span>
+<span>  <span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span> <span class="st">"B"</span><span class="op">)</span></span>
+<span>  <span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">n1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">mt</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">mt</span></span>
+<span>  <span class="va">inter</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">mt</span> <span class="op">-</span> <span class="va">mt</span><span class="op">[</span><span class="va">n1</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="va">D</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n1</span> <span class="op">+</span> <span class="va">n2</span><span class="op">)</span>, <span class="va">mt</span>, <span class="va">D</span>, <span class="va">inter</span><span class="op">)</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="va">n1</span> <span class="op">+</span> <span class="va">n2</span>,</span>
+<span>    ncol <span class="op">=</span> <span class="fl">4</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="va">full</span> <span class="op">&lt;-</span> <span class="fu">fastglm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fastglm/man/fastglm.html">fastglm</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, family <span class="op">=</span> <span class="st">"poisson"</span>, method <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">full</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">]</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"fast plm"</span> <span class="op">=</span> <span class="va">plm_fast</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"fast plm"</span> <span class="op">=</span> <span class="va">plm_fast</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div id="computation-duration" class="section level2" number="10.5">
@@ -463,52 +463,53 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
 </h2>
 <p>You can print the returning object of the <code>power_test</code> function with added computation duration time by setting <code>duration = TRUE</code></p>
 <div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span>, duration <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span>, duration <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Test-Power in percent:
 
-    Method Power Alpha Error Alpha:Beta Correct p
- plm_level    73           5      1:5.4    84.0 0
-      rand    67          10      1:3.3    78.5 0
-      tauU   100          25      1:0.0    87.5 0
+    Method Power Alpha Error Alpha:Beta Correct
+ plm_level    73           5      1:5.4      84
+      rand    67          10      1:3.3      78
+      tauU   100          25      1:0.0      88
 
-Computation duration is 1 seconds.</code></pre>
+Computation duration is 1.9 seconds.</code></pre>
 <p>The duration depends heavily on the applied test methods. Regressions are faster than randomization tests and tau U tests are quiet slow:</p>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"plm_level"</span><span class="op">)</span>
-<span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"rand"</span><span class="op">)</span>
-<span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"tauU"</span><span class="op">)</span>
-
-<span class="co"># Elapsed time in seconds for each procedure</span>
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
-<span class="va">elapsed</span> 
-  <span class="fl">0.077</span> 
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res2</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
-<span class="va">elapsed</span> 
-  <span class="fl">0.211</span> 
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res3</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>
-<span class="va">elapsed</span> 
-  <span class="fl">0.748</span> </code></pre></div>
+<code class="sourceCode R"><span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"plm_level"</span><span class="op">)</span></span>
+<span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"rand"</span><span class="op">)</span></span>
+<span><span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"tauU"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Elapsed time in seconds for each procedure</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="va">elapsed</span> </span>
+<span>  <span class="fl">0.151</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res2</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="va">elapsed</span> </span>
+<span>    <span class="fl">0.4</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res3</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
+<span><span class="va">elapsed</span> </span>
+<span>  <span class="fl">1.345</span> </span></code></pre></div>
 <p>… and what about our fast-glm function?</p>
 <div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu">design</span><span class="op">(</span>
-  n <span class="op">=</span> <span class="fl">1</span>,
-  phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,
-  level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">0</span>, B <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,
-  trend <span class="op">=</span> <span class="fl">0.02</span>,
-  distribution <span class="op">=</span> <span class="st">"poisson"</span>
-<span class="op">)</span>
-
-<span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"fast plm"</span> <span class="op">=</span> <span class="va">plm_fast</span><span class="op">)</span><span class="op">)</span>
-<span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"rand"</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu">design</span><span class="op">(</span></span>
+<span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
+<span>  level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">0</span>, B <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  trend <span class="op">=</span> <span class="fl">0.02</span>,</span>
+<span>  distribution <span class="op">=</span> <span class="st">"poisson"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"fast plm"</span> <span class="op">=</span> <span class="va">plm_fast</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"rand"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res1</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <pre><code>elapsed 
-  0.131 </code></pre>
+  0.238 </code></pre>
 <div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res2</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res2</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <pre><code>elapsed 
-  0.216 </code></pre>
-<p>… it is more that two times faster!</p>
+  0.375 </code></pre>
+<p>… it is much faster!</p>
 
 </div>
 </div>
@@ -543,7 +544,7 @@ Computation duration is 1 seconds.</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-06-23.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-08-29.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

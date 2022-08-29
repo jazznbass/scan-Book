@@ -7,7 +7,7 @@
 <title>Chapter 2 Some things about R | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
 <meta name="description" content="In this chapter you will get a brief introduction to R. If you are familiar with R you might like to go directly to the next chapter. R is a programming language optimized for statistical...">
-<meta name="generator" content="bookdown 0.26 with bs4_book()">
+<meta name="generator" content="bookdown 0.27 with bs4_book()">
 <meta property="og:title" content="Chapter 2 Some things about R | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
 <meta property="og:description" content="In this chapter you will get a brief introduction to R. If you are familiar with R you might like to go directly to the next chapter. R is a programming language optimized for statistical...">
@@ -16,7 +16,7 @@
 <meta name="twitter:description" content="In this chapter you will get a brief introduction to R. If you are familiar with R you might like to go directly to the next chapter. R is a programming language optimized for statistical...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-145080763-1"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -120,34 +120,34 @@ R can be used in at least two ways:</p>
 <p><em>R</em> is a script language. That is, you type in text and let R execute the commands you wrote down. Either you work in a <em>console</em> or a <em>textfile</em>. In a <em>console</em> the command will be executed every time you press the RETURN-key. In a <em>textfile</em> you type down your code, mark the part you like to be executed, and run that code (with a click or a certain key). The latter text files can be saved and reused for later R sessions. Therefore, usually you will work in a text file.</p>
 <p>A value is assigned to a variable with the <code>&lt;-</code> operator. Which should be read as an arrow rather than a less sign and a minus sign. A <code>#</code> is followed by a comment to make your code more understandable. So, what follows a <code>#</code> is not interpreted by R. A vector is a chain of several values. With a vector you could describe the values of a measurement series. The <code>c</code> function is used to build a vector (e.g., <code>c(1, 2, 3, 4)</code>). If you like to see the content of a variable you could use the <code>print</code> function. <code>print(x)</code> will display the content of the variable <code>x</code>. A shortcut for this is just to type variable name (and press return) <code>x</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># x is assigned the value 10:</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">10</span>
-
-<span class="co"># See what's inside of x:</span>
-<span class="va">x</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># x is assigned the value 10:</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span></span>
+<span><span class="co"># See what's inside of x:</span></span>
+<span><span class="va">x</span></span></code></pre></div>
 <pre><code>[1] 10</code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># x is assigned a vector with three values:</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">15</span><span class="op">)</span>
-
-<span class="co"># ... and display the content of x:</span>
-<span class="va">x</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># x is assigned a vector with three values:</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">15</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ... and display the content of x:</span></span>
+<span><span class="va">x</span></span></code></pre></div>
 <pre><code>[1] 10 11 15</code></pre>
 <p>Two important concepts in <strong>R</strong> are <em>functions</em> and <em>arguments</em>. A <em>function</em> is the name for a procedure that does something with the <em>arguments</em> that are provided by you. For example, the function <code>mean</code> calculated the mean. <code>mean</code> has an argument <code>x</code> which “expects” that you provide a vector (a series of values) from which it will calculate the mean. <code>mean( x = c(1, 3, 5) )</code> will compute the mean of the values 1, 3, and 5 and return the result 3. Some <em>functions</em> can take several arguments. <code>mean</code> for example also takes the argument <code>trim</code>. For calculating a trimmed mean. <code>mean( x = c(1, 1, 3, 3, 5, 6, 7, 8, 9, 9), trim = 0.1)</code> will calculate the 10% trimmed mean of the provided values. The name of the first argument could be dropped. That is, <code>mean( c(1, 3, 5) )</code> will be interpreted by <strong>R</strong> as <code>mean( x = c(1, 3, 5) )</code>. You could also provide a variable to an argument.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">values</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">values</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 4.75</code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># or shorter:</span>
-<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># or shorter:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 4.75</code></pre>
 <p>The return value of a function can be assigned to a new variable instead:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span>
-<span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>
-<span class="co">#now res contains the mean of y:</span>
-<span class="va">res</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="co">#now res contains the mean of y:</span></span>
+<span><span class="va">res</span></span></code></pre></div>
 <pre><code>[1] 4.75</code></pre>
 <p>Every function in R has a help page written by the programmers. You can retrieve these pages with the <code>help</code> function or the short cut <code>?</code>. <code><a href="https://rdrr.io/r/base/mean.html">help("mean")</a></code> will display the help page for the <code>mean</code> function. The quotation marks are necessary here because you do not provide a variable with the name <em>mean</em> but a word ‘mean’. The shortcut works <code><a href="https://rdrr.io/r/base/mean.html">?mean</a></code>. A bit confusingly, you do not need the quotation marks here.</p>
 
@@ -178,7 +178,7 @@ R can be used in at least two ways:</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-06-23.</p>
+    <p>"<strong>Analyzing single-case data with R and scan</strong>" was written by Jürgen Wilbert. It was last built on 2022-08-29.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
