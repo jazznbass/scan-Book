@@ -6,12 +6,12 @@ function_structure("power_test")
 
 ## The idea of a power-test
 
-The `powert_test()` function provides the alpha error probability and power when analyzing a specific effect of a single-case design with a given statistical method.  
+The `powert_test()` function provides the alpha error probability and power when analyzing a specific effect of a single-case design with a given statistical method.
 
 For example, you have a one case design with phase length A = 10 and B = 20. You assume a strong level effect of d = 1 and you expect a slight trend effect of d = 0.02 (per measurement). You might be interested to answer two questions:
 
-1. How suitable is a plm model for detecting the level-effect? (also: what is the power to detect the level effect?).
-2. What if I had the same design but without a level-effect. How often would the plm falsely find a significant level-effect? (also: how large is the alpha-error probability for the level-effect?).
+1.  How suitable is a plm model for detecting the level-effect? (also: what is the power to detect the level effect?).
+2.  What if I had the same design but without a level-effect. How often would the plm falsely find a significant level-effect? (also: how large is the alpha-error probability for the level-effect?).
 
 In principle, `power_test()` takes a single case design and repeatedly generates random cases based on that design. Each case is now analyzed with a given statistical method. The proportion of significant effects in these analyses is an estimator of the test-power. In a second step the design is stripped of the target effect and again multiple cases are generated on this changed design and analyzed with the same method. Now, the proportion of significant effects is the estimator for the alpha-error probability.
 
@@ -22,7 +22,6 @@ function_structure("design")
 ```
 
 The `design` function sets up a single-case design. You can define various parameters of that design:
-
 
 ```{r design-arguments, echo=FALSE}
 tab <- tribble(
@@ -48,7 +47,7 @@ print_table(tab, "Core arguments of the design function")
 
 ## Conducting a power-test
 
-When conduction a power test you firstly need to define a design which you like to be tested.
+When conduction a power test, you firstly need to define a design which you like to be tested.
 
 ```{r}
 design <- design(
@@ -60,8 +59,7 @@ design <- design(
 )
 ```
 
-Then you have to choose the statistical method. The `power_test` function applies three methods by default: *plm*, *randomization test*, and *Tau U*.
-These default values are only suitable when your design is a one case single-case study.
+Then you have to choose the statistical method. The `power_test` function applies three methods by default: *plm*, *randomization test*, and *Tau U*. These default values are only suitable when your design is a one case single-case study.
 
 Let us start with the defaults and conduct a power analysis for our previously set design: *(This might take some time. Even in the default setting with 100 simulations you might wait a few seconds. For more precise estimations I recommend 1000 simulations - or even higher.)*
 
@@ -75,7 +73,6 @@ The results show that the plm test and the randomization test have similar power
 ## Statistical methods
 
 The `method` argument takes a list where each element depicts a statistical method. Currently, the following character strings are predefined:
-
 
 ```{r table-mc-func, echo = FALSE}
 out <- tribble(
@@ -99,15 +96,43 @@ print_table(out, "Statistical methods", width_cols = c("10em", "7em", "50em"))
 
 ```
 
-### Advanced methods
+## Confidence intervals and binomial tests
+
+With only 100 simulations you will have quite large confidence intervals for the power, alpha error probability, and correct estimations. You can calculate these intervals by setting the `ci` argument. For 95% CI's set `ci = 0.95` for 99% `ci = 0.99`.
+
+```{r power-test-ex-ci}
+power_test(design, ci = 0.95)
+```
+
+You can also test the power, alpha error, and correct estimates against predefined values. In order to do that, set `binom_test = TRUE`. The power will be tested against being greater or equal to 80%, the alpha error against being less or equal 5%, and the correct proportion against being greater equal 87.5%.
+
+```{r power-test-ex-bi}
+power_test(design, binom_test = TRUE)
+```
+
+If you want to define individual values for the three tests, set the `binom_test_power`. `binom_test_alpha`, and/or, the `binom_test_correct` arguments.
+
+## Advanced methods
 
 *Note: You need specific knowledge on how to create functions in R and on data structures to follow all aspects of this section.*
 
 Instead of one of the predefined character strings you can also create you own functions and implement these. You function must take an scdf as the first argument and return a single numeric p-value.
 
-Here is an example of a fast plm function for poisson distributed data based on the `fastglm` package:
+Here is an example that implements a method for the significance of a NAP (nonoverlap of all pairs) test. This is statistically identical to a U-Test comparing phase A and B.
 
-```{r}
+```{r power-test-ex-create-method-1}
+set.seed(1) # only needed to make this example replicable
+
+mcmethod_nap <- function(scdf) {
+  nap(scdf)$nap[1, "p"]
+}
+
+power_test(design, method = list(nap = mcmethod_nap, "rand", "plm_level"))
+```
+
+Here is another example for a fast plm function for poisson distributed data based on the `fastglm` package:
+
+```{r power-test-ex-create-method-2}
 plm_fast <- function(data) {
   data <- unlist(data, recursive = FALSE)
   y  <- data$values
@@ -126,11 +151,9 @@ plm_fast <- function(data) {
 }
 ```
 
-
 ```{r eval=FALSE, include=TRUE}
 power_test(design, method = list("fast plm" = plm_fast))
 ```
-
 
 ## Computation duration
 
@@ -153,7 +176,7 @@ attr(res2, "computation_duration")[3]
 attr(res3, "computation_duration")[3]
 ```
 
-... and what about our fast-glm function?
+... and what about our new fast-glm function?
 
 ```{r}
 set.seed(1)
@@ -166,12 +189,10 @@ design <- design(
 )
 
 res1 <- power_test(design, method = list("fast plm" = plm_fast))
-res2 <- power_test(design, method = "rand")
+res2 <- power_test(design, method = "plm_poisson_level")
 
 attr(res1, "computation_duration")[3]
 attr(res2, "computation_duration")[3]
 ```
 
 ... it is much faster!
-
-
