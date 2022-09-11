@@ -7,7 +7,7 @@
 <title>Chapter 10 Power analyses (scan version 0.54 or later) | Analyzing single-case data with R and scan</title>
 <meta name="author" content="Jürgen Wilbert">
 <meta name="description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = FALSE, binom_test_alpha =...'>
-<meta name="generator" content="bookdown 0.27 with bs4_book()">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
 <meta property="og:title" content="Chapter 10 Power analyses (scan version 0.54 or later) | Analyzing single-case data with R and scan">
 <meta property="og:type" content="book">
 <meta property="og:description" content='power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = FALSE, binom_test_alpha =...'>
@@ -92,8 +92,7 @@
 <li><a class="" href="about-the-author.html">About the author</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
-
-        <div class="book-extra">
+<div class="book-extra">
           <p><a id="book-repo" href="https://github.com/jazznbass/scan-Book">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
@@ -101,14 +100,16 @@
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="power-analyses-scan-version-0.54-or-later" class="section level1" number="10">
 <h1>
 <span class="header-section-number">10</span> Power analyses (scan version 0.54 or later)<a class="anchor" aria-label="anchor" href="#power-analyses-scan-version-0.54-or-later"><i class="fas fa-link"></i></a>
+<a class="anchor" aria-label="anchor" href="#power-analyses-scan-version-0.54-or-later"><i class="fas fa-link"></i></a>
 </h1>
-<div class="inline-table"><table class="table table-sm"><tr>
+<div class="inline-table"><div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = FALSE, binom_test_alpha = FALSE, binom_test_power = FALSE, binom_test_correct = FALSE, ci = FALSE, alpha_level = 0.05) </font></td>
- </tr></table></div>
+ </tr></table></div></div>
 <div id="the-idea-of-a-power-test" class="section level2" number="10.1">
 <h2>
 <span class="header-section-number">10.1</span> The idea of a power-test<a class="anchor" aria-label="anchor" href="#the-idea-of-a-power-test"><i class="fas fa-link"></i></a>
+<a class="anchor" aria-label="anchor" href="#the-idea-of-a-power-test"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <code>powert_test()</code> function provides the alpha error probability and power when analyzing a specific effect of a single-case design with a given statistical method.</p>
 <p>For example, you have a one case design with phase length A = 10 and B = 20. You assume a strong level effect of d = 1 and you expect a slight trend effect of d = 0.02 (per measurement). You might be interested to answer two questions:</p>
@@ -121,13 +122,14 @@
 <div id="set-up-a-single-case-design" class="section level2" number="10.2">
 <h2>
 <span class="header-section-number">10.2</span> Set up a single-case design<a class="anchor" aria-label="anchor" href="#set-up-a-single-case-design"><i class="fas fa-link"></i></a>
+<a class="anchor" aria-label="anchor" href="#set-up-a-single-case-design"><i class="fas fa-link"></i></a>
 </h2>
-<div class="inline-table"><table class="table table-sm"><tr>
+<div class="inline-table"><div class="inline-table"><table class="table table-sm"><tr>
 <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
   <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> design(n = 1, phase_design = list(A = 5, B = 15), trend = 0, level = list(0), slope = list(0), start_value = 50, s = 10, rtt = 0.8, extreme_prop = list(0), extreme_range = c(-4, -3), missing_prop = 0, distribution = "normal", n_trials = NULL, mt = NULL, B_start = NULL, m, MT) </font></td>
- </tr></table></div>
+ </tr></table></div></div>
 <p>The <code>design</code> function sets up a single-case design. You can define various parameters of that design:</p>
-<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
+<div class="inline-table"><div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
 <caption>
 <span id="tab:design-arguments">Table 10.1: </span>Core arguments of the design function
 </caption>
@@ -245,15 +247,17 @@ If distribution is set ‘binomial’, prob passes the probability of occurrence
 </td>
 </tr>
 </tbody>
-</table></div>
+</table></div></div>
 </div>
 <div id="conducting-a-power-test" class="section level2" number="10.3">
 <h2>
 <span class="header-section-number">10.3</span> Conducting a power-test<a class="anchor" aria-label="anchor" href="#conducting-a-power-test"><i class="fas fa-link"></i></a>
+<a class="anchor" aria-label="anchor" href="#conducting-a-power-test"><i class="fas fa-link"></i></a>
 </h2>
 <p>When conduction a power test, you firstly need to define a design which you like to be tested.</p>
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu">design</span><span class="op">(</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu">design</span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
 <span>  level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">0</span>, B <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
@@ -263,7 +267,8 @@ If distribution is set ‘binomial’, prob passes the probability of occurrence
 <p>Then you have to choose the statistical method. The <code>power_test</code> function applies three methods by default: <em>plm</em>, <em>randomization test</em>, and <em>Tau U</em>. These default values are only suitable when your design is a one case single-case study.</p>
 <p>Let us start with the defaults and conduct a power analysis for our previously set design: <em>(This might take some time. Even in the default setting with 100 simulations you might wait a few seconds. For more precise estimations I recommend 1000 simulations - or even higher.)</em></p>
 <div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span><span class="op">)</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span><span class="op">)</span></span>
 <span><span class="va">res</span></span></code></pre></div>
 <pre><code>Test-Power in percent:
 
@@ -276,9 +281,10 @@ If distribution is set ‘binomial’, prob passes the probability of occurrence
 <div id="statistical-methods" class="section level2" number="10.4">
 <h2>
 <span class="header-section-number">10.4</span> Statistical methods<a class="anchor" aria-label="anchor" href="#statistical-methods"><i class="fas fa-link"></i></a>
+<a class="anchor" aria-label="anchor" href="#statistical-methods"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <code>method</code> argument takes a list where each element depicts a statistical method. Currently, the following character strings are predefined:</p>
-<div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
+<div class="inline-table"><div class="inline-table"><table class=" lightable-classic" style="width: auto !important; ">
 <caption>
 <span id="tab:table-mc-func">Table 10.2: </span>Statistical methods
 </caption>
@@ -427,15 +433,17 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
 </td>
 </tr>
 </tbody>
-</table></div>
+</table></div></div>
 </div>
 <div id="confidence-intervals-and-binomial-tests" class="section level2" number="10.5">
 <h2>
 <span class="header-section-number">10.5</span> Confidence intervals and binomial tests<a class="anchor" aria-label="anchor" href="#confidence-intervals-and-binomial-tests"><i class="fas fa-link"></i></a>
+<a class="anchor" aria-label="anchor" href="#confidence-intervals-and-binomial-tests"><i class="fas fa-link"></i></a>
 </h2>
 <p>With only 100 simulations you will have quite large confidence intervals for the power, alpha error probability, and correct estimations. You can calculate these intervals by setting the <code>ci</code> argument. For 95% CI’s set <code>ci = 0.95</code> for 99% <code>ci = 0.99</code>.</p>
 <div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, ci <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, ci <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Test-Power in percent:
 
     Method Power 2.5% 97.5% Alpha Error 2.5% 97.5% Alpha:Beta Correct 2.5%
@@ -448,7 +456,8 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
     90</code></pre>
 <p>You can also test the power, alpha error, and correct estimates against predefined values. In order to do that, set <code>binom_test = TRUE</code>. The power will be tested against being greater or equal to 80%, the alpha error against being less or equal 5%, and the correct proportion against being greater equal 87.5%.</p>
 <div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, binom_test <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, binom_test <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct p Power&gt;=80 p Alpha Error&lt;=5
@@ -464,12 +473,14 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
 <div id="advanced-methods" class="section level2" number="10.6">
 <h2>
 <span class="header-section-number">10.6</span> Advanced methods<a class="anchor" aria-label="anchor" href="#advanced-methods"><i class="fas fa-link"></i></a>
+<a class="anchor" aria-label="anchor" href="#advanced-methods"><i class="fas fa-link"></i></a>
 </h2>
 <p><em>Note: You need specific knowledge on how to create functions in R and on data structures to follow all aspects of this section.</em></p>
 <p>Instead of one of the predefined character strings you can also create you own functions and implement these. You function must take an scdf as the first argument and return a single numeric p-value.</p>
 <p>Here is an example that implements a method for the significance of a NAP (nonoverlap of all pairs) test. This is statistically identical to a U-Test comparing phase A and B.</p>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="co"># only needed to make this example replicable</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="co"># only needed to make this example replicable</span></span>
 <span></span>
 <span><span class="va">mcmethod_nap</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">scdf</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">nap</span><span class="op">(</span><span class="va">scdf</span><span class="op">)</span><span class="op">$</span><span class="va">nap</span><span class="op">[</span><span class="fl">1</span>, <span class="st">"p"</span><span class="op">]</span></span>
@@ -484,7 +495,8 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
  plm_level    73           3      1:9.0      85</code></pre>
 <p>Here is another example for a fast plm function for poisson distributed data based on the <code>fastglm</code> package:</p>
 <div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">plm_fast</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="va">plm_fast</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">data</span>, recursive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span>  <span class="va">y</span>  <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">values</span></span>
 <span>  <span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span> <span class="st">"A"</span><span class="op">)</span></span>
@@ -501,15 +513,18 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">full</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="fl">3</span>, <span class="fl">4</span><span class="op">]</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"fast plm"</span> <span class="op">=</span> <span class="va">plm_fast</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"fast plm"</span> <span class="op">=</span> <span class="va">plm_fast</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="computation-duration" class="section level2" number="10.7">
 <h2>
 <span class="header-section-number">10.7</span> Computation duration<a class="anchor" aria-label="anchor" href="#computation-duration"><i class="fas fa-link"></i></a>
+<a class="anchor" aria-label="anchor" href="#computation-duration"><i class="fas fa-link"></i></a>
 </h2>
 <p>You can print the returning object of the <code>power_test</code> function with added computation duration time by setting <code>duration = TRUE</code></p>
 <div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span>, duration <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">res</span>, duration <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
@@ -520,7 +535,8 @@ A randomization test for ‘Mean B-A’ with 100 permutations.
 Computation duration is 1.7 seconds.</code></pre>
 <p>The duration depends heavily on the applied test methods. Regressions are faster than randomization tests and tau U tests are quiet slow:</p>
 <div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"plm_level"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="va">res1</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"plm_level"</span><span class="op">)</span></span>
 <span><span class="va">res2</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"rand"</span><span class="op">)</span></span>
 <span><span class="va">res3</span> <span class="op">&lt;-</span> <span class="fu">power_test</span><span class="op">(</span><span class="va">design</span>, method <span class="op">=</span> <span class="st">"tauU"</span><span class="op">)</span></span>
 <span></span>
@@ -536,7 +552,8 @@ Computation duration is 1.7 seconds.</code></pre>
 <span>  <span class="fl">1.215</span> </span></code></pre></div>
 <p>… and what about our new fast-glm function?</p>
 <div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu">design</span><span class="op">(</span></span>
 <span>  n <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  phase_design <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
@@ -552,7 +569,8 @@ Computation duration is 1.7 seconds.</code></pre>
 <pre><code>elapsed 
   0.213 </code></pre>
 <div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res2</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">res2</span>, <span class="st">"computation_duration"</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 <pre><code>elapsed 
   0.233 </code></pre>
 <p>… it is much faster!</p>
@@ -560,6 +578,10 @@ Computation duration is 1.7 seconds.</code></pre>
 </div>
 </div>
   <div class="chapter-nav">
+<div class="prev"><a href="randomization-tests.html"><span class="header-section-number">9</span> Randomization tests</a></div>
+<div class="next"><a href="default-settings.html"><span class="header-section-number">11</span> Default settings</a></div>
+</div>
+<div class="chapter-nav">
 <div class="prev"><a href="randomization-tests.html"><span class="header-section-number">9</span> Randomization tests</a></div>
 <div class="next"><a href="default-settings.html"><span class="header-section-number">11</span> Default settings</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
@@ -574,11 +596,9 @@ Computation duration is 1.7 seconds.</code></pre>
 <li><a class="nav-link" href="#advanced-methods"><span class="header-section-number">10.6</span> Advanced methods</a></li>
 <li><a class="nav-link" href="#computation-duration"><span class="header-section-number">10.7</span> Computation duration</a></li>
 </ul>
-
-      <div class="book-extra">
+<div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/jazznbass/scan-Book/blob/master/ch_powertest.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/jazznbass/scan-Book/edit/master/ch_powertest.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>
