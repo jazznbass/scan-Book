@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.175">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The Scan-Book - 10&nbsp; Power analyses (scan version 0.54 or later)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./ch_further_chapters.html" rel="next">
+<link href="./ch_randomization_test.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./" class="sidebar-logo-link">
+      <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">The Scan-Book</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
+    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+            <i class="bi bi-bi-twitter pe-1"></i>
+          Twitter
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <i class="bi bi-bi-facebook pe-1"></i>
+          Facebook
+          </a>
+        </li>
+    </ul>
+</div>
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Chapters</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_some_things.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Some things about R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The scan package</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_managing_Data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_creating_a_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_describe_manipulate.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Describe and manipulate single-case data frames</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Overlapping indices</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Randomization tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_further_chapters.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Default settings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_export.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link">About the author</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-idea-of-a-power-test" id="toc-the-idea-of-a-power-test" class="nav-link active" data-scroll-target="#the-idea-of-a-power-test"><span class="toc-section-number">10.1</span>  The idea of a power-test</a></li>
+  <li><a href="#set-up-a-single-case-design" id="toc-set-up-a-single-case-design" class="nav-link" data-scroll-target="#set-up-a-single-case-design"><span class="toc-section-number">10.2</span>  Set up a single-case design</a></li>
+  <li><a href="#conducting-a-power-test" id="toc-conducting-a-power-test" class="nav-link" data-scroll-target="#conducting-a-power-test"><span class="toc-section-number">10.3</span>  Conducting a power-test</a></li>
+  <li><a href="#statistical-methods" id="toc-statistical-methods" class="nav-link" data-scroll-target="#statistical-methods"><span class="toc-section-number">10.4</span>  Statistical methods</a></li>
+  <li><a href="#confidence-intervals-and-binomial-tests" id="toc-confidence-intervals-and-binomial-tests" class="nav-link" data-scroll-target="#confidence-intervals-and-binomial-tests"><span class="toc-section-number">10.5</span>  Confidence intervals and binomial tests</a></li>
+  <li><a href="#advanced-methods" id="toc-advanced-methods" class="nav-link" data-scroll-target="#advanced-methods"><span class="toc-section-number">10.6</span>  Advanced methods</a></li>
+  <li><a href="#computation-duration" id="toc-computation-duration" class="nav-link" data-scroll-target="#computation-duration"><span class="toc-section-number">10.7</span>  Computation duration</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+
+<table>
+ <tbody><tr>
+  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> power_test(design, method = c("plm_level", "rand", "tauU"), effect = "level", n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = FALSE, binom_test_alpha = FALSE, binom_test_power = FALSE, binom_test_correct = FALSE, ci = FALSE, alpha_level = 0.05) </font></td>
+ </tr>
+</tbody></table>  
+<section id="the-idea-of-a-power-test" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="the-idea-of-a-power-test"><span class="header-section-number">10.1</span> The idea of a power-test</h2>
+<p>The <code>powert_test()</code> function provides the alpha error probability and power when analyzing a specific effect of a single-case design with a given statistical method.</p>
+<p>For example, you have a one case design with phase length A = 10 and B = 20. You assume a strong level effect of d = 1 and you expect a slight trend effect of d = 0.02 (per measurement). You might be interested to answer two questions:</p>
+<ol type="1">
+<li>How suitable is a plm model for detecting the level-effect? (also: what is the power to detect the level effect?).</li>
+<li>What if I had the same design but without a level-effect. How often would the plm falsely find a significant level-effect? (also: how large is the alpha-error probability for the level-effect?).</li>
+</ol>
+<p>In principle, <code>power_test()</code> takes a single case design and repeatedly generates random cases based on that design. Each case is now analyzed with a given statistical method. The proportion of significant effects in these analyses is an estimator of the test-power. In a second step the design is stripped of the target effect and again multiple cases are generated on this changed design and analyzed with the same method. Now, the proportion of significant effects is the estimator for the alpha-error probability.</p>
+</section>
+<section id="set-up-a-single-case-design" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="set-up-a-single-case-design"><span class="header-section-number">10.2</span> Set up a single-case design</h2>
+
+<table>
+ <tbody><tr>
+  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
+  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> design(n = 1, phase_design = list(A = 5, B = 15), trend = 0, level = list(0), slope = list(0), start_value = 50, s = 10, rtt = 0.8, extreme_prop = list(0), extreme_range = c(-4, -3), missing_prop = 0, distribution = "normal", n_trials = NULL, mt = NULL, B_start = NULL, m, MT) </font></td>
+ </tr>
+</tbody></table>  
+<p>The <code>design</code> function sets up a single-case design. You can define various parameters of that design:</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class=" lightable-classic" style="width: auto !important; ">
+<caption>Core arguments of the design function</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Argument </th>
+   <th style="text-align:left;"> What it does ... </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> n </td>
+   <td style="text-align:left;width: 30em; "> Number of cases to be created (Default is n = 1). </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> phase_design </td>
+   <td style="text-align:left;width: 30em; "> A list defining the length and label of each phase. E.g., phase.length = list(A1 = 10, B1 = 10, A2 = 10, B2 = 10). Use vectors if you want to define different values for each case phase.length = list(A = c(10, 15), B = c(10, 15). </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> trend </td>
+   <td style="text-align:left;width: 30em; "> Defines the effect size of a trend added incrementally to each measurement across the whole data-set. To assign different trends to several single-cases, use a vector of values (e.g. trend = c(.1, .3, .5)). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the trend parameters indicate effect size d changes. When using a binomial or poisson distribution, trend indicates an increase in points / counts per measurement. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> level </td>
+   <td style="text-align:left;width: 30em; "> A list that defines the level increase (effect size d) at the beginning of each phase relative to the previous phase (e.g. list(A = 0, B = 1)). The first element must be zero as the first phase of a single-case has no level effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable level effects for each case (e.g. list(A = c(0, 0), B = c(1, 2))). When using a 'gaussian' distribution, the level parameters indicate effect size d changes. When using a binomial or poisson distribution, level indicates an increase in points / counts with the onset of each phase. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> slope </td>
+   <td style="text-align:left;width: 30em; "> A list that defines the increase per measurement for each phase compared to the previous phase. slope = list(A = 0, B = .1 generates an incremental increase of 0.1 per measurement starting at the B phase. The first list element must be zero as the first phase of a single-case has no slope effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable slope effects for each case (e.g. list(A = c(0, 0), B = c(0.1, 0.2))). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the slope parameters indicate effect size d changes per measurement. When using a binomial or poisson distribution, slope indicates an increase in points / counts per measurement. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> rtt </td>
+   <td style="text-align:left;width: 30em; "> Reliability of the underlying simulated measurements. Set rtt = .8 by default. To assign different reliabilities to several single-cases, use a vector of values (e.g. rtt = c(.6, .7, .8)). If the number of cases exceeds the length of the vector, values are repeated. rtt has no effect when you're using binomial or poisson distributed scores. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> start_value </td>
+   <td style="text-align:left;width: 30em; "> Starting value at the first measurement. Default is 50. To assign different start values to several single-cases, use a vector of values (e.g. c(50, 42, 56)). If the number of cases exceeds the length of the vector, values are recycled. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> s </td>
+   <td style="text-align:left;width: 30em; "> Standard deviation used to calculate absolute values from level, slope, trend effects and to calculate and error distribution from the rtt values. Set to 10 by default. To assign different variances to several single-cases, use a vector of values (e.g. s = c(5, 10, 15)). If the number of cases exceeds the length of the vector, values are recycled. if the distribution is 'poisson' or 'binomial' s is not applied. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> extreme_prop </td>
+   <td style="text-align:left;width: 30em; "> Probability of extreme values. extreme.p = .05 gives a five percent probability of an extreme value. A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> extreme_range </td>
+   <td style="text-align:left;width: 30em; "> Range for extreme values, expressed as effect size d. extreme.d = c(-7,-6) uses extreme values within a range of -7 and -6 standard deviations. In case of a binomial or poisson distribution, extreme.d indicates points / counts. Caution: the first value must be smaller than the second, otherwise the procedure will fail. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> missing_prop </td>
+   <td style="text-align:left;width: 30em; "> Portion of missing values. missing.p = 0.1 creates 10% of all values as missing). A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> distribution </td>
+   <td style="text-align:left;width: 30em; "> Distribution of the scores. Default is distribution = 'normal'. Possible values are 'normal' (or 'gaussian'), 'binomial', and 'poisson'. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 15em; "> prob </td>
+   <td style="text-align:left;width: 30em; "> If distribution is set 'binomial', prob passes the probability of occurrence. </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="conducting-a-power-test" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="conducting-a-power-test"><span class="header-section-number">10.3</span> Conducting a power-test</h2>
+<p>When conduction a power test, you firstly need to define a design which you like to be tested.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">design</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">1</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">phase_design =</span> <span class="fu">list</span>(<span class="at">A =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">20</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">level =</span> <span class="fu">list</span>(<span class="at">A =</span> <span class="dv">0</span>, <span class="at">B =</span> <span class="dv">1</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="fl">0.02</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">distribution =</span> <span class="st">"normal"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then you have to choose the statistical method. The <code>power_test</code> function applies three methods by default: <em>plm</em>, <em>randomization test</em>, and <em>Tau U</em>. These default values are only suitable when your design is a one case single-case study.</p>
+<p>Let us start with the defaults and conduct a power analysis for our previously set design: <em>(This might take some time. Even in the default setting with 100 simulations you might wait a few seconds. For more precise estimations I recommend 1000 simulations - or even higher.)</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">power_test</span>(design)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test-Power in percent:
+
+    Method Power Alpha Error Alpha:Beta Correct
+ plm_level    76           7      1:3.4      84
+      rand    78           4      1:5.5      87
+      tauU   100          21      1:0.0      90</code></pre>
+</div>
+</div>
+<p>The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to outliers of the random samples. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tau U test has an unacceptably high alpha-error which is due to the trend we put into the design. <em>Alpha:Beta</em> depicts the relation of the Alpha and Beta error (power = 1 - Beta). <em>Correct</em> is the overall proportion of correct categorizations and <em>p</em> is the results of a binomial-test of <em>Correct</em> against 50%.</p>
+</section>
+<section id="statistical-methods" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="statistical-methods"><span class="header-section-number">10.4</span> Statistical methods</h2>
+<p>The <code>method</code> argument takes a list where each element depicts a statistical method. Currently, the following character strings are predefined:</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class=" lightable-classic" style="width: auto !important; ">
+<caption>Statistical methods</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Name </th>
+   <th style="text-align:left;"> Single/ multiple cases </th>
+   <th style="text-align:left;"> What it means ... </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> plm_level </td>
+   <td style="text-align:left;width: 7em; "> single </td>
+   <td style="text-align:left;"> A complete plm model for normal distributed dependent variables. It checks for the level effect. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> plm_slope </td>
+   <td style="text-align:left;width: 7em; "> single </td>
+   <td style="text-align:left;"> A complete plm model for normal distributed dependent variables. It checks for the slope effect. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> plm_poisson_level </td>
+   <td style="text-align:left;width: 7em; "> single </td>
+   <td style="text-align:left;"> Like plm_level but for poisson distributed dependent variables. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> plm_poisson_slope </td>
+   <td style="text-align:left;width: 7em; "> single </td>
+   <td style="text-align:left;"> Like plm_slope but for poisson distributed dependent variables. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> hplm_level </td>
+   <td style="text-align:left;width: 7em; "> multiple </td>
+   <td style="text-align:left;"> A complete hplm model for normal distributed dependent variables. It checks for the level effect. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> hplm_slope </td>
+   <td style="text-align:left;width: 7em; "> multiple </td>
+   <td style="text-align:left;"> A complete hplm model for normal distributed dependent variables. It checks for the slope effect. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> tauU </td>
+   <td style="text-align:left;width: 7em; "> sinlge </td>
+   <td style="text-align:left;"> A tauU test with method complete and taub estimations. It checks the 'A vs. B - Trend A' variation. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> tauU_slope </td>
+   <td style="text-align:left;width: 7em; "> sinlge </td>
+   <td style="text-align:left;"> A tauU test with method complete and taub estimations. It checks the 'A vs. B - Trend A + Trend B' variation. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> tauU_meta </td>
+   <td style="text-align:left;width: 7em; "> multiple </td>
+   <td style="text-align:left;"> Like 'TauU' but with the results from a meta analyses (fixed effects). Very slow. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> tauU_slope_meta </td>
+   <td style="text-align:left;width: 7em; "> multiple </td>
+   <td style="text-align:left;"> Like 'TauU_slope' but with the results from a meta analyses (fixed effects). Very slow. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> base_tau </td>
+   <td style="text-align:left;width: 7em; "> single </td>
+   <td style="text-align:left;"> A baseline corrected tau test. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;width: 10em; "> rand </td>
+   <td style="text-align:left;width: 7em; "> single and multiple </td>
+   <td style="text-align:left;"> A randomization test for 'Mean B-A' with 100 permutations. </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+<section id="confidence-intervals-and-binomial-tests" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="confidence-intervals-and-binomial-tests"><span class="header-section-number">10.5</span> Confidence intervals and binomial tests</h2>
+<p>With only 100 simulations you will have quite large confidence intervals for the power, alpha error probability, and correct estimations. You can calculate these intervals by setting the <code>ci</code> argument. For 95% CI’s set <code>ci = 0.95</code> for 99% <code>ci = 0.99</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power_test</span>(design, <span class="at">ci =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test-Power in percent:
+
+    Method Power 2.5% 97.5% Alpha Error 2.5% 97.5% Alpha:Beta Correct 2.5%
+ plm_level    77   68    85           6    2    13      1:3.8      86   80
+      rand    71   61    80           9    4    16      1:3.2      81   75
+      tauU   100   96   100          27   19    37      1:0.0      86   81
+ 97.5%
+    90
+    86
+    91</code></pre>
+</div>
+</div>
+<p>You can also test the power, alpha error, and correct estimates against predefined values. In order to do that, set <code>binom_test = TRUE</code>. The power will be tested against being greater or equal to 80%, the alpha error against being less or equal 5%, and the correct proportion against being greater equal 87.5%.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power_test</span>(design, <span class="at">binom_test =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test-Power in percent:
+
+    Method Power Alpha Error Alpha:Beta Correct p Power&gt;=80 p Alpha Error&lt;=5
+ plm_level    75           4      1:6.2      86           1                0
+      rand    72           4      1:7.0      84           1                0
+      tauU   100          23      1:0.0      88           0                1
+ p Correct&gt;=87.5
+             0.8
+             0.9
+             0.4</code></pre>
+</div>
+</div>
+<p>If you want to define individual values for the three tests, set the <code>binom_test_power</code>. <code>binom_test_alpha</code>, and/or, the <code>binom_test_correct</code> arguments.</p>
+</section>
+<section id="advanced-methods" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="advanced-methods"><span class="header-section-number">10.6</span> Advanced methods</h2>
+<p><em>Note: You need specific knowledge on how to create functions in R and on data structures to follow all aspects of this section.</em></p>
+<p>Instead of one of the predefined character strings you can also create you own functions and implement these. You function must take an scdf as the first argument and return a single numeric p-value.</p>
+<p>Here is an example that implements a method for the significance of a NAP (nonoverlap of all pairs) test. This is statistically identical to a U-Test comparing phase A and B.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># only needed to make this example replicable</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>mcmethod_nap <span class="ot">&lt;-</span> <span class="cf">function</span>(scdf) {</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nap</span>(scdf)<span class="sc">$</span>nap[<span class="dv">1</span>, <span class="st">"p"</span>]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">power_test</span>(design, <span class="at">method =</span> <span class="fu">list</span>(<span class="at">nap =</span> mcmethod_nap, <span class="st">"rand"</span>, <span class="st">"plm_level"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test-Power in percent:
+
+    Method Power Alpha Error Alpha:Beta Correct
+       nap   100          47      1:0.0      76
+      rand    73           5      1:5.4      84
+ plm_level    73           3      1:9.0      85</code></pre>
+</div>
+</div>
+<p>Here is another example for a fast plm function for poisson distributed data based on the <code>fastglm</code> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plm_fast <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">unlist</span>(data, <span class="at">recursive =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  y  <span class="ot">&lt;-</span> data<span class="sc">$</span>values</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  n1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(data<span class="sc">$</span>phase <span class="sc">==</span> <span class="st">"A"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  n2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(data<span class="sc">$</span>phase <span class="sc">==</span> <span class="st">"B"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  D <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, n1), <span class="fu">rep</span>(<span class="dv">1</span>, n2))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  mt <span class="ot">&lt;-</span> data<span class="sc">$</span>mt</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  inter <span class="ot">&lt;-</span> (mt <span class="sc">-</span> mt[n1]) <span class="sc">*</span> D</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n1 <span class="sc">+</span> n2), mt, D, inter),</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> n1 <span class="sc">+</span> n2,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ncol =</span> <span class="dv">4</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  full <span class="ot">&lt;-</span> fastglm<span class="sc">::</span><span class="fu">fastglm</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">family =</span> <span class="st">"poisson"</span>, <span class="at">method =</span> <span class="dv">2</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(full)<span class="sc">$</span>coef[<span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power_test</span>(design, <span class="at">method =</span> <span class="fu">list</span>(<span class="st">"fast plm"</span> <span class="ot">=</span> plm_fast))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="computation-duration" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="computation-duration"><span class="header-section-number">10.7</span> Computation duration</h2>
+<p>You can print the returning object of the <code>power_test</code> function with added computation duration time by setting <code>duration = TRUE</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res, <span class="at">duration =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Test-Power in percent:
+
+    Method Power Alpha Error Alpha:Beta Correct
+ plm_level    76           7      1:3.4      84
+      rand    78           4      1:5.5      87
+      tauU   100          21      1:0.0      90
+
+Computation duration is 1.1 seconds.</code></pre>
+</div>
+</div>
+<p>The duration depends heavily on the applied test methods. Regressions are faster than randomization tests and tau U tests are quiet slow:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>res1 <span class="ot">&lt;-</span> <span class="fu">power_test</span>(design, <span class="at">method =</span> <span class="st">"plm_level"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> <span class="fu">power_test</span>(design, <span class="at">method =</span> <span class="st">"rand"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>res3 <span class="ot">&lt;-</span> <span class="fu">power_test</span>(design, <span class="at">method =</span> <span class="st">"tauU"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Elapsed time in seconds for each procedure</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res1, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.144</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.376</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res3, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.662</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>… and what about our new fast-glm function?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">design</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">1</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">phase_design =</span> <span class="fu">list</span>(<span class="at">A =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">20</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">level =</span> <span class="fu">list</span>(<span class="at">A =</span> <span class="dv">0</span>, <span class="at">B =</span> <span class="dv">1</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="fl">0.02</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">distribution =</span> <span class="st">"poisson"</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>res1 <span class="ot">&lt;-</span> <span class="fu">power_test</span>(design, <span class="at">method =</span> <span class="fu">list</span>(<span class="st">"fast plm"</span> <span class="ot">=</span> plm_fast))</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> <span class="fu">power_test</span>(design, <span class="at">method =</span> <span class="st">"plm_poisson_level"</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res1, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>elapsed 
+  0.209 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>elapsed 
+  0.226 </code></pre>
+</div>
+</div>
+<p>… it is much faster!</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./ch_randomization_test.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Randomization tests</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./ch_further_chapters.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Default settings</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

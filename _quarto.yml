@@ -1,0 +1,48 @@
+project:
+  type: book
+  output-dir: docs
+  pre-render: _prerender.R
+  
+book:
+  title: "The Scan-Book"
+  author: "Jürgen Wilbert"
+  logo: cover.png
+  repo-url: https://github.com/jazznbass/scan-Book
+  repo-branch: master
+  repo-actions: [issue]
+  sharing: [twitter, facebook]
+  chapters:
+    - index.qmd
+    - part: Chapters
+      chapters:
+        - ch_introduction.qmd
+        - ch_some_things.Rmd
+        - ch_scan_package.Rmd
+        - ch_managing_Data.Rmd
+        - ch_creating_a_plot.Rmd
+        - ch_describe_manipulate.Rmd
+        - ch_overlapping_indices.Rmd
+        - ch_piecewise_regression.Rmd
+        - ch_randomization_test.Rmd
+        - ch_powertest.Rmd
+        - ch_further_chapters.Rmd
+        - ch_export.Rmd
+        - ch_scplot.Rmd
+  appendices:
+    - appendix.Rmd
+    - app_author.Rmd
+    - app_references.qmd
+
+bibliography: [packages.bib, full.bib]
+csl: apa.csl
+
+execute: 
+  echo: true
+  comment: ''
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
