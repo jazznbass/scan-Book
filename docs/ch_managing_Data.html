@@ -210,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_managing_Data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
+  <a href="./ch_managing_data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -258,6 +258,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -270,17 +275,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix</span></a>
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Changes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link">About the author</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./app_references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">About the author</span></a>
   </div>
 </li>
       </ul>
@@ -295,20 +295,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#a-single-case-data-frame" id="toc-a-single-case-data-frame" class="nav-link active" data-scroll-target="#a-single-case-data-frame"><span class="toc-section-number">4.1</span>  A <strong><em>single-case data frame</em></strong></a></li>
-  <li><a href="#scdf" id="toc-scdf" class="nav-link" data-scroll-target="#scdf"><span class="toc-section-number">4.2</span>  Creating scdfs</a></li>
+  <li><a href="#sec-scdf" id="toc-sec-scdf" class="nav-link" data-scroll-target="#sec-scdf"><span class="toc-section-number">4.2</span>  Creating scdfs</a></li>
   <li><a href="#saving-and-reading-single-case-data-frames" id="toc-saving-and-reading-single-case-data-frames" class="nav-link" data-scroll-target="#saving-and-reading-single-case-data-frames"><span class="toc-section-number">4.3</span>  Saving and reading <em>single-case data frames</em></a></li>
   <li><a href="#import-and-export-single-case-data-frames" id="toc-import-and-export-single-case-data-frames" class="nav-link" data-scroll-target="#import-and-export-single-case-data-frames"><span class="toc-section-number">4.4</span>  Import and export <em>single-case data frames</em></a>
   <ul class="collapse">
-  <li><a href="#read-scdf" id="toc-read-scdf" class="nav-link" data-scroll-target="#read-scdf"><span class="toc-section-number">4.4.1</span>  Import data</a></li>
-  <li><a href="#write-scdf" id="toc-write-scdf" class="nav-link" data-scroll-target="#write-scdf"><span class="toc-section-number">4.4.2</span>  Export data</a></li>
+  <li><a href="#sec-read-scdf" id="toc-sec-read-scdf" class="nav-link" data-scroll-target="#sec-read-scdf"><span class="toc-section-number">4.4.1</span>  Import data</a></li>
+  <li><a href="#sec-write-scdf" id="toc-sec-write-scdf" class="nav-link" data-scroll-target="#sec-write-scdf"><span class="toc-section-number">4.4.2</span>  Export data</a></li>
   </ul></li>
-  <li><a href="#convert" id="toc-convert" class="nav-link" data-scroll-target="#convert"><span class="toc-section-number">4.5</span>  Convert an scdf object back to scan syntax</a></li>
+  <li><a href="#sec-convert" id="toc-sec-convert" class="nav-link" data-scroll-target="#sec-convert"><span class="toc-section-number">4.5</span>  Convert an scdf object back to scan syntax</a></li>
   <li><a href="#displaying-scdf-files" id="toc-displaying-scdf-files" class="nav-link" data-scroll-target="#displaying-scdf-files"><span class="toc-section-number">4.6</span>  Displaying scdf-files</a></li>
   <li><a href="#selecting-cases-and-measurements" id="toc-selecting-cases-and-measurements" class="nav-link" data-scroll-target="#selecting-cases-and-measurements"><span class="toc-section-number">4.7</span>  Selecting cases and measurements</a>
   <ul class="collapse">
   <li><a href="#subsetting-cases-with-base-r-syntax" id="toc-subsetting-cases-with-base-r-syntax" class="nav-link" data-scroll-target="#subsetting-cases-with-base-r-syntax"><span class="toc-section-number">4.7.1</span>  Subsetting cases with base R syntax</a></li>
-  <li><a href="#select-cases" id="toc-select-cases" class="nav-link" data-scroll-target="#select-cases"><span class="toc-section-number">4.7.2</span>  Select cases</a></li>
-  <li><a href="#subset" id="toc-subset" class="nav-link" data-scroll-target="#subset"><span class="toc-section-number">4.7.3</span>  Select measurements</a></li>
+  <li><a href="#sec-select-cases" id="toc-sec-select-cases" class="nav-link" data-scroll-target="#sec-select-cases"><span class="toc-section-number">4.7.2</span>  Select cases</a></li>
+  <li><a href="#sec-subset" id="toc-sec-subset" class="nav-link" data-scroll-target="#sec-subset"><span class="toc-section-number">4.7.3</span>  Select measurements</a></li>
   </ul></li>
   <li><a href="#change-and-create-variables" id="toc-change-and-create-variables" class="nav-link" data-scroll-target="#change-and-create-variables"><span class="toc-section-number">4.8</span>  Change and create variables</a></li>
   </ul>
@@ -336,24 +336,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="a-single-case-data-frame" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="a-single-case-data-frame"><span class="header-section-number">4.1</span> A <strong><em>single-case data frame</em></strong></h2>
 <p>Scan provides its own data-class for encoding single-case data: the <em>single-case data frame</em> (short <em>scdf</em>). An <em>scdf</em> is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an scdf as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured <strong>values</strong>, the <strong>phase</strong> identifier for each measured value, and the measurement time (<strong>mt</strong>) of each measure. Optionally, scdfs could include further variables for each single-case (e.g., control variables), and also a name for each case.</p>
-<div class="cell" type="rmdnote">
-<div class="rmdnote">
-<p>
-Technically, an scdf object is a list containing data frames. It is of the class <code>c(“scdf”,“list”)</code>. Additionally, an <em>scdf</em> entails an attribute <code>scdf</code> with a list with further attributes. <code>var.values</code>, <code>var.phase</code>, and <code>var.mt</code> contain the names of the <code>values</code>, <code>phase</code>, and the <code>measurement time</code> variable. By default, these names are set to <code>values</code>, <code>phase</code>, and <code>mt</code>.
-</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Technically, an scdf object is a list containing data frames. It is of the class <code>c("scdf","list")</code>. Additionally, an <em>scdf</em> entails an attribute <code>scdf</code> with a list with further attributes. <code>var.values</code>, <code>var.phase</code>, and <code>var.mt</code> contain the names of the <code>values</code>, <code>phase</code>, and the <code>measurement time</code> variable. By default, these names are set to <code>values</code>, <code>phase</code>, and <code>mt</code>.</p>
 </div>
 </div>
 <p>Several functions are available for creating, transforming, merging, and importing/exporting <em>scdfs</em>.</p>
 </section>
-<section id="scdf" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="scdf"><span class="header-section-number">4.2</span> Creating scdfs</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> scdf(values, B_start, mt, phase, phase_design = NULL, name = NULL, dvar = "values", pvar = "phase", mvar = "mt", ...) </font></td>
- </tr>
-</tbody></table>  
+<section id="sec-scdf" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-scdf"><span class="header-section-number">4.2</span> Creating scdfs</h2>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The scdf function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>scdf(values, B_start, mt, phase, phase_design = NULL, name = NULL, dvar = “values”, pvar = “phase”, mvar = “mt”, …)</p>
+</div>
+</div>
 <p>The <code>scdf</code> function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement <em>values</em> and the <em>phase</em> structure and a scdf object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the <code>B_start</code> argument, second, defining a design with the <code>phase_design</code> argument and third, setting parameters in a named vector of the dependent variable.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Three ways to code the same scdf</span></span>
@@ -419,12 +431,12 @@ If no measurement times are given, scdf automatically adds them numbered sequent
              7       1    2 10     B</code></pre>
 </div>
 </div>
-<p>Table @ref(tab:table-scdf) shows a complete list of arguments that could be passed to the function.</p>
+<p>Table <a href="#tbl-scdf">Table&nbsp;<span>4.1</span></a>) shows a complete list of arguments that could be passed to the function.</p>
 <div class="cell">
 <div class="cell-output-display">
+<div id="tbl-scdf" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; ">
-<caption>Arguments of the scdf function</caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;4.1:  Arguments of the scdf function </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Argument </th>
@@ -475,6 +487,7 @@ If no measurement times are given, scdf automatically adds them numbered sequent
 </tbody>
 </table>
 
+</div>
 </div>
 </div>
 <p>If you want to create a data-set comprising several single-cases the easiest way is to first create an scdf for each case and then join them into a new scdf with the <code>c</code> command:</p>
@@ -534,15 +547,21 @@ The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> an
 </section>
 <section id="import-and-export-single-case-data-frames" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="import-and-export-single-case-data-frames"><span class="header-section-number">4.4</span> Import and export <em>single-case data frames</em></h2>
-<section id="read-scdf" class="level3" data-number="4.4.1">
-<h3 data-number="4.4.1" class="anchored" data-anchor-id="read-scdf"><span class="header-section-number">4.4.1</span> Import data</h3>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> read_scdf(filename, data = NULL, sort.labels = FALSE, cvar = "case", pvar = "phase", dvar = "values", mvar = "mt", phase.names = NULL, sep = ",", dec = ".", type = NA, ...) </font></td>
- </tr>
-</tbody></table>  
+<section id="sec-read-scdf" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="sec-read-scdf"><span class="header-section-number">4.4.1</span> Import data</h3>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The read_scdf function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>read_scdf(filename, data = NULL, sort.labels = FALSE, cvar = “case”, pvar = “phase”, dvar = “values”, mvar = “mt”, phase.names = NULL, sep = “,”, dec = “.”, type = NA, …)</p>
+</div>
+</div>
 <p>When you are working with other programs besides <strong>R</strong> you need to export and import the <em>scdf</em> into a common file format. <code>read_scdf</code> imports a comma-separated-variable (<em>csv</em>) file and converts it into an <em>scdf</em> object. By default, the csv-file has to contain the columns <em>case</em>, <em>phase</em>, and <em>values</em>. Optionally, a further column named <em>mt</em> could be provided. The csv file should be build up like this:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -598,27 +617,39 @@ gym</code></pre>
 <p><code>read_scdf("example.csv", dec = ",", sep = ";")</code></p>
 <p><code>read_scdf</code> also allows for directly importing <em>Microsoft Excel</em> <code>.xlsx</code> or <code>.xls</code> files. You need to have the library <code>readxl</code> installed in your R setup for this to work. Excel files will be automatically detected by the filename extension <code>xls</code>or <code>xlsx</code> or by explicitly setting the <code>type</code> argument (e.g.&nbsp;<code>type = "xlsx"</code>).</p>
 </section>
-<section id="write-scdf" class="level3" data-number="4.4.2">
-<h3 data-number="4.4.2" class="anchored" data-anchor-id="write-scdf"><span class="header-section-number">4.4.2</span> Export data</h3>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> write_scdf(data, filename = NULL, sep = ",", dec = ".", ...) </font></td>
- </tr>
-</tbody></table>  
+<section id="sec-write-scdf" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="sec-write-scdf"><span class="header-section-number">4.4.2</span> Export data</h3>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The write_scdf function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>write_scdf(data, filename = NULL, sep = “,”, dec = “.”, …)</p>
+</div>
+</div>
 <p><code>write_scdf()</code> exports an scdf object as a comma-separated-variables file (<em>csv</em>) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The scdf object is converted into a single data frame with a <em>case</em> variable identifying the rows for each subject. The first argument of the command identifies the scdf to be exported and the second argument (<code>file</code>) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the <code>dec</code> and the <code>sep</code> arguments. For example, <code>write_scdf(example, file = "example.csv", dec = ",", sep = ";")</code> exports a csv variation usually used for example in Germany.</p>
 </section>
 </section>
-<section id="convert" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="convert"><span class="header-section-number">4.5</span> Convert an scdf object back to scan syntax</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> convert(scdf, file = "", study_name = "study") </font></td>
- </tr>
-</tbody></table>  
+<section id="sec-convert" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="sec-convert"><span class="header-section-number">4.5</span> Convert an scdf object back to scan syntax</h2>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The convert function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>convert(scdf, file = ““, study_name =”study”)</p>
+</div>
+</div>
 <p>You can also reconvert an scdf object back to “raw” scan syntax. This is a convenient way when you imported data from an Excel or csv file and want to keep everything clean and transparent within your R syntax files.</p>
 <p>Here is an example:</p>
 <div class="cell">
@@ -759,15 +790,21 @@ Author of data:  Christian Huber </code></pre>
 </div>
 </div>
 </section>
-<section id="select-cases" class="level3" data-number="4.7.2">
-<h3 data-number="4.7.2" class="anchored" data-anchor-id="select-cases"><span class="header-section-number">4.7.2</span> Select cases</h3>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> select_cases(scdf, ...) </font></td>
- </tr>
-</tbody></table>  
+<section id="sec-select-cases" class="level3" data-number="4.7.2">
+<h3 data-number="4.7.2" class="anchored" data-anchor-id="sec-select-cases"><span class="header-section-number">4.7.2</span> Select cases</h3>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The select_cases function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>select_cases(scdf, …)</p>
+</div>
+</div>
 <p>Since version 0.53 scan includes some functions to work with pipe-operators. Therefore, we will provide syntax examples with and without pipe operators.</p>
 <p>The <code>select_cases()</code> function takes case-names and/or numbers for selecting cases:</p>
 <div class="cell">
@@ -798,8 +835,8 @@ Author of data:  Christian Huber </code></pre>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(new_huber)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="subset" class="level3" data-number="4.7.3">
-<h3 data-number="4.7.3" class="anchored" data-anchor-id="subset"><span class="header-section-number">4.7.3</span> Select measurements</h3>
+<section id="sec-subset" class="level3" data-number="4.7.3">
+<h3 data-number="4.7.3" class="anchored" data-anchor-id="sec-subset"><span class="header-section-number">4.7.3</span> Select measurements</h3>
 <p>The <code>subset()</code> function helps with extracting measurements (or rows) by a specific criteria from a scdf.</p>
 <p>Subset takes a scdf as its first argument and a logical expression as the second argument (<code>filter</code>). Only measurements for which the logical argument is evaluated to be TRUE are inlcuded in the returning scdf object.</p>
 <p>For example, the scdf <code>Huber2014</code> has a variable <code>compliance</code> and we like to keep measurements where <code>compliance</code> is larger than 10 because we assume the others to be outliers:</p>

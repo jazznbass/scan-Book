@@ -229,7 +229,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_managing_Data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
+  <a href="./ch_managing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -277,6 +277,11 @@ div.csl-indent {
   <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -289,17 +294,12 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix</span></a>
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Changes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link">About the author</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./app_references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">About the author</span></a>
   </div>
 </li>
       </ul>
@@ -364,19 +364,24 @@ Note:  Behavioral data (compliance in percent).
 Author of data:  Christian Huber </code></pre>
 </div>
 </div>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> describe(data, dvar, pvar, mvar) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The describe function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>describe(data, dvar, pvar, mvar)</p>
+</div>
+</div>
 <p><code>describe</code> is the basic command to get an overview on descriptive statistics. As an argument it only takes the name of the <em>scdf</em> object. For each case of the <em>scdf</em> and each phase within a case descriptive statistics are provided. The output table contains statistical indicators followed by a dot and the name of the phase (e.g., <code>n.A</code> for the number of measurements of phase A).</p>
 <div class="cell">
 <div class="cell-output-display">
 
-<table class=" lightable-classic" style="width: auto !important; ">
-<caption>Statistics of the describe command</caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Statistics of the describe command</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Parameter </th>
@@ -467,31 +472,40 @@ trend.C  -0.194   -2.929 -14.000</code></pre>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(res<span class="sc">$</span>descriptives, <span class="at">file =</span> <span class="st">"descriptive data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The file is written to the currently active working directory. If you are not sure where that is, type <code>getwd()</code> (you can use the <code>setwd()</code> command to define a different working directory. To get further details type <code>help(setwd)</code> into R).</p>
-<div class="cell" type="rmdnote">
-<div class="rmdnote">
-<p>
-<strong>Conflicting function names</strong><br> Sometimes R packages include the same function names. For example, the <code>describe()</code> function is also part of the <code>psych</code> package. Now, if you have loaded the <code>psych</code> package with <code>library(psych)</code> after <code>scan</code> the <code>describe()</code> function of scan will be masked (<code>describe()</code> would now call the corresponding function of the <code>psych</code> package).<br> There are two solutions to this problem:
-</p>
-<ol style="list-style-type: decimal">
-<li>
-activate the <code>psych</code> library before the <code>scan</code> library (now the psych <code>describe()</code> function will be masked) or
-</li>
-<li>
-include the package name into the function call with the prefix <code>scan::</code>: <code>scan::describe()</code>.
-</li>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Conflicting function names
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sometimes R packages include the same function names. For example, the <code>describe()</code> function is also part of the <code>psych</code> package. Now, if you have loaded the <code>psych</code> package with <code>library(psych)</code> after <code>scan</code> the <code>describe()</code> function of scan will be masked (<code>describe()</code> would now call the corresponding function of the <code>psych</code> package).<br>
+There are two solutions to this problem:</p>
+<ol type="1">
+<li>activate the <code>psych</code> library before the <code>scan</code> library (now the psych <code>describe()</code> function will be masked) or</li>
+<li>include the package name into the function call with the prefix <code>scan::</code>: <code>scan::describe()</code>.</li>
 </ol>
 </div>
 </div>
 </section>
 <section id="autoregression-and-trendanalyses" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="autoregression-and-trendanalyses"><span class="header-section-number">6.2</span> Autoregression and trendanalyses</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> autocorr(data, dvar, pvar, mvar, lag_max = 3, ...) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The autocorr function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>autocorr(data, dvar, pvar, mvar, lag_max = 3, …)</p>
+</div>
+</div>
 <p>The <code>autocorr</code> function calculates autocorrelations within each phase and across all phases. The <code>lag.max</code> argument defines the lag up to which the autocorrelation will be computed.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autocorr</span>(exampleABC, <span class="at">lag.max =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -609,14 +623,20 @@ Hedges_g      1.71 1.90             1.96</code></pre>
 </section>
 <section id="outlieranalysis" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="outlieranalysis"><span class="header-section-number">6.4</span> Outlieranalysis</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> outlier(data, dvar, pvar, mvar, criteria = c("MAD", "3.5")) </font></td>
- </tr>
-</tbody></table>  
-<p><em>scan</em> provides several methods for analyzing outliers. All of them are implemented in the <code>outliers</code> function. Available methods are the <strong>standard deviation</strong>, <strong>mean average deviation</strong>, <strong>confidence intervals</strong>, and <strong>Cook’s distance</strong>. The criteria argument takes a vector with two information, the first defines the analyzing method (“SD”, “MAD”, CI”, “Cook”) and the second the criteria. For “SD” the criteria is the number of standard deviations (<strong>sd</strong>) from the mean of each phase for which a value is not considered to be an outlier. For example, <code>criteria = c("SD",2)</code> would identify every value exceeding two <strong>sd</strong> above or below the mean as an outlier whereas <strong>sd</strong> and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin <span class="citation" data-cites="iglewicz_how_1993">Iglewicz &amp; Hoaglin (<a href="app_references.html#ref-iglewicz_how_1993" role="doc-biblioref">1993</a>)</span> recommend the use the much more robust median average deviation (<strong>MAD</strong>) instead. The <strong>MAD</strong> is is constructed similar to the <strong>sd</strong> but uses the median instead of the mean. Multiplying the <strong>MAD</strong> by 1.4826 approximates the <strong>sd</strong> in a normal distributed sample. This corrected MAD is applied in the <code>outlier</code> function. A deviation of 3.5 times the corrected <strong>MAD</strong> from the median is suggested to be an outlier. To use this criterion set <code>criteria = c("MAD", 3.5)</code>. <code>criteria = c("CI", 0.95)</code> takes exceeding the 95% confidence interval as the criteria for outliers. The Cook’s distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook’s distance analyses are based on a piecewise-regression model. Most commonly, Cook’s distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c(“Cook”,“4/n”).</p>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The outlier function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>outlier(data, dvar, pvar, mvar, criteria = c(“MAD”, “3.5”))</p>
+</div>
+</div>
+<p><em>scan</em> provides several methods for analyzing outliers. All of them are implemented in the <code>outliers</code> function. Available methods are the <strong>standard deviation</strong>, <strong>mean average deviation</strong>, <strong>confidence intervals</strong>, and <strong>Cook’s distance</strong>. The criteria argument takes a vector with two information, the first defines the analyzing method (“SD”, “MAD”, CI”, “Cook”) and the second the criteria. For “SD” the criteria is the number of standard deviations (<strong>sd</strong>) from the mean of each phase for which a value is not considered to be an outlier. For example, <code>criteria = c("SD",2)</code> would identify every value exceeding two <strong>sd</strong> above or below the mean as an outlier whereas <strong>sd</strong> and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin <span class="citation" data-cites="iglewicz_how_1993">Iglewicz &amp; Hoaglin (<a href="references.html#ref-iglewicz_how_1993" role="doc-biblioref">1993</a>)</span> recommend the use the much more robust median average deviation (<strong>MAD</strong>) instead. The <strong>MAD</strong> is is constructed similar to the <strong>sd</strong> but uses the median instead of the mean. Multiplying the <strong>MAD</strong> by 1.4826 approximates the <strong>sd</strong> in a normal distributed sample. This corrected MAD is applied in the <code>outlier</code> function. A deviation of 3.5 times the corrected <strong>MAD</strong> from the median is suggested to be an outlier. To use this criterion set <code>criteria = c("MAD", 3.5)</code>. <code>criteria = c("CI", 0.95)</code> takes exceeding the 95% confidence interval as the criteria for outliers. The Cook’s distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook’s distance analyses are based on a piecewise-regression model. Most commonly, Cook’s distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c(“Cook”,“4/n”).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">outlier</span>(exampleABC_outlier, <span class="at">criteria =</span> <span class="fu">c</span>(<span class="st">"MAD"</span>, <span class="fl">3.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -656,13 +676,19 @@ Case Amy : Dropped 3 </code></pre>
 </section>
 <section id="smoothing-data" class="level2" data-number="6.5">
 <h2 data-number="6.5" class="anchored" data-anchor-id="smoothing-data"><span class="header-section-number">6.5</span> Smoothing data</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> smooth_cases(data, dvar, mvar, FUN = "movingMedian", intensity = NULL) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The smooth_cases function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>smooth_cases(data, dvar, mvar, FUN = “movingMedian”, intensity = NULL)</p>
+</div>
+</div>
 <p>The <code>smooth_cases</code> function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A <em>lag</em> defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.<br>
 The function returns am scdf with smoothed data points.</p>
 <div class="cell">

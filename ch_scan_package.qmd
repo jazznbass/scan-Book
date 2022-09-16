@@ -12,7 +12,10 @@ R contains many packages and it would significantly slow down if all packages wo
 
 For activating a package you need the `library` function. In this case `library(scan)`. You should get something like
 
-```{r results='markup', echo = FALSE}
+```{r}
+#| echo: false
+#| results: markup
+
 cat(scan:::.opt$startup_message)
 ```
 
@@ -22,7 +25,7 @@ indicating that everything went smoothly and *scan* is ready for the job.
 
 Alternatively, you can compile the development version of *scan* yourself. This might be necessary if the stable version has some bugs or missing functions which has been fixed.
 
-You may need some computer expertise to get the development version running. It is hosted on gitHub at [\<https://github.com/jazznbass/scan>](https://github.com/jazznbass/scan){.uri}.
+You may need some computer expertise to get the development version running. It is hosted on gitHub at [\<https://github.com/jazznbass/scan\>](https://github.com/jazznbass/scan){.uri}.
 
 For installation, you can apply the `install_github` function from the `devtools` package (make sure you have installed the `devtools` package before):
 
@@ -30,11 +33,11 @@ For installation, you can apply the `install_github` function from the `devtools
 
 When you are running a Windows operating system you will probably have to install Rtools before. Rtools contains additional programs (e.g. compilers) that are needed to compile R source packages.
 
-You can find Rtools here: [\<https://cran.r-project.org/bin/windows/Rtools/>](https://cran.r-project.org/bin/windows/Rtools/){.uri}
+You can find Rtools here: [\<https://cran.r-project.org/bin/windows/Rtools/\>](https://cran.r-project.org/bin/windows/Rtools/){.uri}
 
 ## Reporting issues with *scan* and suggesting enhancements
 
-The *scan* gitHub repository at [\<https://github.com/jazznbass/scan>](https://github.com/jazznbass/scan){.uri} is the ideal place to report bugs, problems, or ideas for enhancing *scan*. Please use the issue tool (direct link: [\<https://github.com/jazznbass/scan/issues>](https://github.com/jazznbass/scan/issues){.uri}).
+The *scan* gitHub repository at [\<https://github.com/jazznbass/scan\>](https://github.com/jazznbass/scan){.uri} is the ideal place to report bugs, problems, or ideas for enhancing *scan*. Please use the issue tool (direct link: [\<https://github.com/jazznbass/scan/issues\>](https://github.com/jazznbass/scan/issues){.uri}).
 
 We are very thankful for any feedback, corrections, or whatever helps to improve *scan*!
 
@@ -43,37 +46,45 @@ We are very thankful for any feedback, corrections, or whatever helps to improve
 The functions of the *scan* package can be divided into the following categories:\
 *Manage data*, *analyze*, *manipulate*, *simulate*, and *depict*.
 
-Table \@ref(tab:table-functions) gives an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here https://lifecycle.r-lib.org/articles/stages.html.
-
-
-
+The following tables give an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here https://lifecycle.r-lib.org/articles/stages.html.
 
 ### Management
 
-```{r table-functions-management, echo = FALSE}
+```{r}
+#| echo: false
+#| label: tbl-functions-management
+#| tbl-cap: Functions for data management
+#| results: asis
+
 out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
   #
-  "scdf", "Creates a single-case data-frame", "Stable", "\\@ref(scdf)",
-  "select_cases", "Selects specific cases of an scdf", "Stable", "\\@ref(select-cases)",
-  "select_phases", "Selects and/or recombines phases", "Stable", "\\@ref(select-phases)",
-  "subset", "Selects specific measurements or variables of an scdf", "Stable", "\\@ref(subset)",
-  "read_scdf", "Loads external data into an scdf", "Stable", "\\@ref(read-scdf)",
-  "write_scdf", "Writes scdf into an external file", "Stable", "\\@ref(write-scdf)",
-  "convert", "Converts an scdf object into R syntax", "Stable", "\\@ref(convert)",
+  "scdf", "Creates a single-case data-frame", "Stable", "@sec-scdf",
+  "select_cases", "Selects specific cases of an scdf", "Stable", "@sec-select-cases)",
+  "select_phases", "Selects and/or recombines phases", "Stable", "@sec-select-phases)",
+  "subset", "Selects specific measurements or variables of an scdf", "stable", "@sec-subset",
+  "read_scdf", "Loads external data into an scdf", "Stable", "@sec-read-scdf)",
+  "write_scdf", "Writes scdf into an external file", "Stable", "@sec-write-scdf)",
+  "convert", "Converts an scdf object into R syntax", "Stable", "@sec-convert",
   "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Stable", "-",
   "scdf_attr", "Gets and sets attributes of an scdf", "Stable", "-",
-  "add_l2", "Adds level-two data to an scdf", "Stable", "\\@ref(add-l2)",
+  "add_l2", "Adds level-two data to an scdf", "Stable", "@sec-add-l2)",
   "as.data.frame/as.data.frame.scdf", "Transforms an scdf into a data frame", "Stable", "-"
 )
 
-print_table(out, "Functions for data management.",)
+kable(out,format = "pipe")
+
+#print_table(out)
 
 ```
 
 ### Depiction
 
-```{r table-functions-depiction, echo = FALSE}
+```{r}
+#| echo: false
+#| label: tbl-functions-depiction
+#| tbl-cap: Functions for data depiction/visualisation
+
 out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage",
   #
@@ -87,13 +98,17 @@ out <- tribble(
   "plot_rand", "Create a distribution plot from a randomization test obejct", "Experimental"
 )
 
-print_table(out, "Functions for data depiction/visualisation.",)
+print_table(out)
 
 ```
 
 ### Analysis
 
-```{r table-functions-analysis, echo = FALSE}
+```{r}
+#| echo: false
+#| label: tbl-functions-analysis
+#| tbl-cap: Functions for data analysis
+
 out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage",
   #
@@ -118,13 +133,17 @@ out <- tribble(
   "outlier", "Detect outliers for all cases", "Stable"
 )
 
-print_table(out, "Functions for data analysis.",)
+print_table(out)
 
 ```
 
 ### Manipulation
 
-```{r table-functions-manipulation, echo = FALSE}
+```{r}
+#| echo: false
+#| label: tbl-functions-manipulation
+#| tbl-cap: Functions for data manipulation
+
 out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage",
   #
@@ -136,13 +155,17 @@ out <- tribble(
   "standardize", "Standardizes or centers variables across cases", "Stable"
 )
 
-print_table(out, "Functions for data manipulation.",)
+print_table(out)
 
 ```
 
 ### Simulation
 
-```{r table-functions-simulation, echo = FALSE}
+```{r}
+#| echo: false
+#| label: tbl-functions-simulation
+#| tbl-cap: Functions for data simulation
+
 out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage",
   #
@@ -153,6 +176,6 @@ out <- tribble(
   "mcscan", "Add-on package `mcscan`. Create Monte-Carlo designs and analyses with `scan`", "(Upcoming not yet functioning)"
 )
 
-print_table(out, "Functions for data simulation.",)
+print_table(out)
 
 ```

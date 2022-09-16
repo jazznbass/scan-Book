@@ -18,7 +18,7 @@ knitr::write_bib(c(
 
 # helper functions --------
 
-print_table <- function(data, caption, width_cols = c("15em", "30em"), ...) {
+print_table <- function(data, caption = NULL, width_cols = c("15em", "30em"), ...) {
   
   kable(data, linesep = "", booktabs = TRUE, caption = caption,...) %>%
     kable_styling(
@@ -33,7 +33,7 @@ print_table <- function(data, caption, width_cols = c("15em", "30em"), ...) {
   
 }
 
-function_structure <- function(name, 
+old_function_structure <- function(name, 
                                skip = c("B.start", "phase.design", "lag.max",
                                         "extreme.p", "extreme.d", "missing.p"
                                )) {
@@ -69,4 +69,39 @@ function_structure <- function(name,
   
   cat("\n\n")
   
+}
+
+function_structure <- function(name, 
+                               skip = c("B.start", "phase.design", "lag.max",
+                                        "extreme.p", "extreme.d", "missing.p"
+                               )) {
+  
+  args <- names(formals(name))
+  values <- formals(name)
+  
+  if (!is.null(skip)) {
+    filter <- !args %in% skip
+    args <- args[filter]
+    values <- values[filter]
+  }
+  
+  for(i in seq_along(values)) {
+    if (inherits(values[[i]], "character")) values[[i]] <- paste0("\"", values[[i]], "\"")
+  }
+  
+  values <- as.character(values)
+  
+  out <- paste0(name, "(", paste0(args, " = ", values, collapse = ", "), ")")   
+  out <- gsub(" = ,", ",", out)
+  out <- gsub(" = )", ")", out)
+  
+  cat('::: {.callout-tip appearance="simple"}\n')
+  cat("# The ", name, " function call\n\n")
+  cat(
+    #"``` {.r}", "\n",  
+    out, "\n", 
+    #"```", 
+    "\n")
+  cat(':::\n\n')
+
 }

@@ -14,7 +14,11 @@ function_structure("describe")
 
 `describe` is the basic command to get an overview on descriptive statistics. As an argument it only takes the name of the *scdf* object. For each case of the *scdf* and each phase within a case descriptive statistics are provided. The output table contains statistical indicators followed by a dot and the name of the phase (e.g., `n.A` for the number of measurements of phase A).
 
-```{r table-describe, echo = FALSE}
+```{r table-describe}
+#| echo: false
+#| label: table-describe
+#| tbl-cap: Statistics of the describe command
+
 out <- tribble(
   ~"Parameter", ~"What it means ...",
   "n", "Number of measurements.",
@@ -27,8 +31,7 @@ out <- tribble(
   "trend", "Slope of a regression line through values by time."
 )
 
-print_table(out, "Statistics of the describe command")
-
+print_table(out)
 ```
 
 ```{r describe_example}
@@ -46,15 +49,15 @@ write.csv(res$descriptives, file = "descriptive data.csv")
 
 The file is written to the currently active working directory. If you are not sure where that is, type `getwd()` (you can use the `setwd()` command to define a different working directory. To get further details type `help(setwd)` into R).
 
-```{block note_duplicate_function_names, type='rmdnote'}
-**Conflicting function names**  
+::: callout-note
+## Conflicting function names
+
 Sometimes R packages include the same function names. For example, the `describe()` function is also part of the `psych` package. Now, if you have loaded the `psych` package with `library(psych)` after `scan` the `describe()` function of scan will be masked (`describe()` would now call the corresponding function of the `psych` package).  
 There are two solutions to this problem: 
 
 1. activate the `psych` library before the  `scan` library (now the psych `describe()` function will be masked) or 
 2. include the package name into the function call with the prefix `scan::`: `scan::describe()`.
-
-```
+:::
 
 ## Autoregression and trendanalyses
 

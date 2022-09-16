@@ -226,7 +226,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_managing_Data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
+  <a href="./ch_managing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -274,6 +274,11 @@ div.csl-indent {
   <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -286,17 +291,12 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix</span></a>
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Changes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link">About the author</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./app_references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">About the author</span></a>
   </div>
 </li>
       </ul>
@@ -312,7 +312,7 @@ div.csl-indent {
   <ul>
   <li><a href="#overlap-overview" id="toc-overlap-overview" class="nav-link active" data-scroll-target="#overlap-overview"><span class="toc-section-number">7.1</span>  Overlap overview</a>
   <ul class="collapse">
-  <li><a href="#select-phases" id="toc-select-phases" class="nav-link" data-scroll-target="#select-phases"><span class="toc-section-number">7.1.1</span>  Select and recombine phases</a></li>
+  <li><a href="#sec-select-phases" id="toc-sec-select-phases" class="nav-link" data-scroll-target="#sec-select-phases"><span class="toc-section-number">7.1.1</span>  Select and recombine phases</a></li>
   </ul></li>
   <li><a href="#standardized-mean-differences" id="toc-standardized-mean-differences" class="nav-link" data-scroll-target="#standardized-mean-differences"><span class="toc-section-number">7.2</span>  Standardized mean differences</a></li>
   <li><a href="#percentage-non-overlapping-data-pnd" id="toc-percentage-non-overlapping-data-pnd" class="nav-link" data-scroll-target="#percentage-non-overlapping-data-pnd"><span class="toc-section-number">7.3</span>  Percentage non-overlapping data (PND)</a></li>
@@ -347,13 +347,19 @@ div.csl-indent {
 
 <section id="overlap-overview" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="overlap-overview"><span class="header-section-number">7.1</span> Overlap overview</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> overlap(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2)) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The overlap function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>overlap(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2))</p>
+</div>
+</div>
 <p><code>overlap</code> provides a table with some of the most important overlap indices for each case of an <em>scdf</em>. For calculating overlap indicators it is important to know if a decrease or an increase of values is expected between phases. By default <code>overlap</code> assumes an increase in values. If the argument <code>decreasing = TRUE</code> is set, calculation will be based on the assumption of decreasing values.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">overlap</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -379,15 +385,21 @@ Hedges_g        2.35     2.26  2.87</code></pre>
 </div>
 </div>
 <p>Overlap measures refer to a comparison of two phases within a single-case data-set. By default, <code>overlap</code> compares the first to the second phase.</p>
-<section id="select-phases" class="level3" data-number="7.1.1">
-<h3 data-number="7.1.1" class="anchored" data-anchor-id="select-phases"><span class="header-section-number">7.1.1</span> Select and recombine phases</h3>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> select_phases(data, A, B) </font></td>
- </tr>
-</tbody></table>  
+<section id="sec-select-phases" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="sec-select-phases"><span class="header-section-number">7.1.1</span> Select and recombine phases</h3>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The select_phases function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>select_phases(data, A, B)</p>
+</div>
+</div>
 <p>The <code>select_phases()</code> function is needed if you like to compare specific phases or even like to combine several phases. <code>select_phases()</code> is designed to work within a pipe structure. So the first argument is an <em>scdf</em> and it returns an <em>scdf</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scdf <span class="sc">%&gt;%</span> <span class="fu">select_phases</span>(<span class="at">A =</span> <span class="dv">1</span>, <span class="at">B =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -425,13 +437,19 @@ Hedges_g      2.07   2.72   2.98</code></pre>
 </section>
 <section id="standardized-mean-differences" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="standardized-mean-differences"><span class="header-section-number">7.2</span> Standardized mean differences</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> smd(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2)) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The smd function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>smd(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2))</p>
+</div>
+</div>
 <p>Standardized mean differences can be calculated in various ways. They refer to the difference in the means of two phases. The <code>smd</code> function provides an overview of the most common parameters for each single-case:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">smd</span>(exampleAB_score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -455,20 +473,26 @@ Cohen's d                         6.98   7.67   7.10</code></pre>
 </section>
 <section id="percentage-non-overlapping-data-pnd" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="percentage-non-overlapping-data-pnd"><span class="header-section-number">7.3</span> Percentage non-overlapping data (PND)</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> pnd(data, dvar, pvar, decreasing = FALSE, phases = c("A", "B")) </font></td>
- </tr>
-</tbody></table>  
-<p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation" data-cites="scruggs_quantitative_1987">Scruggs, Mastropieri, &amp; Casto (<a href="app_references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The pnd function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>pnd(data, dvar, pvar, decreasing = FALSE, phases = c(“A”, “B”))</p>
+</div>
+</div>
+<p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation" data-cites="scruggs_quantitative_1987">Scruggs, Mastropieri, &amp; Casto (<a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="384"></p>
-<p></p><figcaption class="figure-caption">Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -490,20 +514,26 @@ Mean  : 93.33 %</code></pre>
 </section>
 <section id="percentage-exceeding-the-median-pem" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="percentage-exceeding-the-median-pem"><span class="header-section-number">7.4</span> Percentage exceeding the median (PEM)</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> pem(data, dvar, pvar, decreasing = FALSE, binom.test = TRUE, chi.test = FALSE, FUN = median, phases = c(1, 2), ...) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The pem function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>pem(data, dvar, pvar, decreasing = FALSE, binom.test = TRUE, chi.test = FALSE, FUN = median, phases = c(1, 2), …)</p>
+</div>
+</div>
 <p>The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="384"></p>
-<p></p><figcaption class="figure-caption">Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -524,13 +554,19 @@ Alternative hypothesis: true probability &gt; 50%</code></pre>
 </section>
 <section id="percentage-exceeding-the-regression-trend-pet" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="percentage-exceeding-the-regression-trend-pet"><span class="header-section-number">7.5</span> Percentage exceeding the regression trend (PET)</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> pet(data, dvar, pvar, mvar, ci = 0.95, decreasing = FALSE, phases = c(1, 2)) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The pet function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>pet(data, dvar, pvar, mvar, ci = 0.95, decreasing = FALSE, phases = c(1, 2))</p>
+</div>
+</div>
 <p>The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent confidence interval of the predicted progress is computed.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pet</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -553,7 +589,7 @@ PET CI: Percent of values greater than upper 95% confidence threshold (greater 1
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="384"></p>
-<p></p><figcaption class="figure-caption">Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -561,14 +597,20 @@ PET CI: Percent of values greater than upper 95% confidence threshold (greater 1
 </section>
 <section id="percentage-of-all-non-overlapping-data-pand" class="level2" data-number="7.6">
 <h2 data-number="7.6" class="anchored" data-anchor-id="percentage-of-all-non-overlapping-data-pand"><span class="header-section-number">7.6</span> Percentage of all non-overlapping data (PAND)</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> pand(data, dvar, pvar, decreasing = FALSE, correction = TRUE, phases = c(1, 2)) </font></td>
- </tr>
-</tbody></table>  
-<p>The <code>pand</code> function calculates the percentage of all non-overlapping data <span class="citation" data-cites="parker_percentage_2007">(<a href="app_references.html#ref-parker_percentage_2007" role="doc-biblioref">Richard I. Parker, Hagan-Burke, &amp; Vannest, 2007</a>)</span>, an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The argument <code>correction = TRUE</code> makes <code>pand</code> use a frequency matrix, which is corrected for ties. A tie is counted as the half of a measurement in both phases. Set <code>correction = FALSE</code> to use the uncorrected matrix, which is not recommended.</p>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The pand function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>pand(data, dvar, pvar, decreasing = FALSE, correction = TRUE, phases = c(1, 2))</p>
+</div>
+</div>
+<p>The <code>pand</code> function calculates the percentage of all non-overlapping data <span class="citation" data-cites="parker_percentage_2007">(<a href="references.html#ref-parker_percentage_2007" role="doc-biblioref">Richard I. Parker, Hagan-Burke, &amp; Vannest, 2007</a>)</span>, an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The argument <code>correction = TRUE</code> makes <code>pand</code> use a frequency matrix, which is corrected for ties. A tie is counted as the half of a measurement in both phases. Set <code>correction = FALSE</code> to use the uncorrected matrix, which is not recommended.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pand</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -604,18 +646,24 @@ Correlation based analysis:
 z = 6.316, p = 0.000, τ = 0.822 </code></pre>
 </div>
 </div>
-<p>PAND indicates nonoverlap between phase A and B data (like PND), but uses all data and is therefore not based on one single (probably unrepresentative) datapoint. Furthermore, PAND allows the comparison of real and expected associations (Chi-square test) and estimation of the effect size Phi, which equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance. The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power <span class="citation" data-cites="parker_effect_2011">(<a href="app_references.html#ref-parker_effect_2011" role="doc-biblioref">Richard I. Parker, Vannest, &amp; Davis, 2011a</a>)</span>.</p>
+<p>PAND indicates nonoverlap between phase A and B data (like PND), but uses all data and is therefore not based on one single (probably unrepresentative) datapoint. Furthermore, PAND allows the comparison of real and expected associations (Chi-square test) and estimation of the effect size Phi, which equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance. The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power <span class="citation" data-cites="parker_effect_2011">(<a href="references.html#ref-parker_effect_2011" role="doc-biblioref">Richard I. Parker, Vannest, &amp; Davis, 2011a</a>)</span>.</p>
 </section>
 <section id="nonoverlap-of-all-pairs-nap" class="level2" data-number="7.7">
 <h2 data-number="7.7" class="anchored" data-anchor-id="nonoverlap-of-all-pairs-nap"><span class="header-section-number">7.7</span> Nonoverlap of all pairs (NAP)</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> nap(data, dvar, pvar, decreasing = FALSE, phases = c(1, 2)) </font></td>
- </tr>
-</tbody></table>  
-<p>The <code>nap</code> function calculates the nonoverlap of all pairs <span class="citation" data-cites="parker_improved_2009">(<a href="app_references.html#ref-parker_improved_2009" role="doc-biblioref">Richard I. Parker &amp; Vannest, 2009</a>)</span>. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP can only take values between 50 and 100 percent, a rescaled and therefore more intuitive NAP (0-100%) is also displayed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case.</p>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The nap function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>nap(data, dvar, pvar, decreasing = FALSE, phases = c(1, 2))</p>
+</div>
+</div>
+<p>The <code>nap</code> function calculates the nonoverlap of all pairs <span class="citation" data-cites="parker_improved_2009">(<a href="references.html#ref-parker_improved_2009" role="doc-biblioref">Richard I. Parker &amp; Vannest, 2009</a>)</span>. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP can only take values between 50 and 100 percent, a rescaled and therefore more intuitive NAP (0-100%) is also displayed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nap</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -630,16 +678,22 @@ z = 6.316, p = 0.000, τ = 0.822 </code></pre>
 </section>
 <section id="tau-u" class="level2" data-number="7.8">
 <h2 data-number="7.8" class="anchored" data-anchor-id="tau-u"><span class="header-section-number">7.8</span> Tau-U</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> tau_u(data, dvar, pvar, tau_method = "b", method = "complete", phases = c(1, 2), meta_method = "random", ci = 0.95, continuity_correction = FALSE) </font></td>
- </tr>
-</tbody></table>  
-<p>The <em>Tau-U</em> statistic has been proposed by <span class="citation" data-cites="parker_combining_2011">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="app_references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span> and is one of the more broadly used approach for reporting effect sizes of single case data. Unfortunately, various and ambiguous implementations of Tau-U exist <span class="citation" data-cites="pustejovsky2016 brossart2018a">(<a href="app_references.html#ref-brossart2018a" role="doc-biblioref">Brossart, Laird, &amp; Armstrong, 2018</a>; <a href="app_references.html#ref-pustejovsky2016" role="doc-biblioref">Pustejovsky, 2016</a>)</span>. The <code>tau_u</code> function tries to cover several of these implementation. It takes a <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases based on a meta-analysis.</p>
-<p>Several arguments an be set to define how Tau-U should be calculated. By setting the argument <code>method = "parker"</code>, Tau-U is calculated as described in <span class="citation" data-cites="parker_combining_2011">Richard I. Parker et al. (<a href="app_references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = "complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate. In the original method proposed by <span class="citation" data-cites="parker_combining_2011">Richard I. Parker et al. (<a href="app_references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span> data, calculations are based on Kendall’s Tau A which does not correct for ties. Alternatively, Kendall’s Tau B has a correction for Tau in the presence of ties. The <code>tau_method</code>` can be set to decide on the tau method to use <code>"a"</code> for Kendall’s Tau A and <code>"b"</code>` for Kendall’s Tau B.</p>
-<p>Here is an example with setting that reconstruct the values from the original example in <span class="citation" data-cites="parker2011">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="app_references.html#ref-parker2011" role="doc-biblioref">2011c</a>)</span> :</p>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The tau_u function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>tau_u(data, dvar, pvar, tau_method = “b”, method = “complete”, phases = c(1, 2), meta_method = “random”, ci = 0.95, continuity_correction = FALSE)</p>
+</div>
+</div>
+<p>The <em>Tau-U</em> statistic has been proposed by <span class="citation" data-cites="parker_combining_2011">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span> and is one of the more broadly used approach for reporting effect sizes of single case data. Unfortunately, various and ambiguous implementations of Tau-U exist <span class="citation" data-cites="pustejovsky2016 brossart2018a">(<a href="references.html#ref-brossart2018a" role="doc-biblioref">Brossart, Laird, &amp; Armstrong, 2018</a>; <a href="references.html#ref-pustejovsky2016" role="doc-biblioref">Pustejovsky, 2016</a>)</span>. The <code>tau_u</code> function tries to cover several of these implementation. It takes a <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases based on a meta-analysis.</p>
+<p>Several arguments an be set to define how Tau-U should be calculated. By setting the argument <code>method = "parker"</code>, Tau-U is calculated as described in <span class="citation" data-cites="parker_combining_2011">Richard I. Parker et al. (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = "complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate. In the original method proposed by <span class="citation" data-cites="parker_combining_2011">Richard I. Parker et al. (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span> data, calculations are based on Kendall’s Tau A which does not correct for ties. Alternatively, Kendall’s Tau B has a correction for Tau in the presence of ties. The <code>tau_method</code>` can be set to decide on the tau method to use <code>"a"</code> for Kendall’s Tau A and <code>"b"</code>` for Kendall’s Tau B.</p>
+<p>Here is an example with setting that reconstruct the values from the original example in <span class="citation" data-cites="parker2011">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="references.html#ref-parker2011" role="doc-biblioref">2011c</a>)</span> :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(Parker2011, <span class="at">method =</span> <span class="st">"parker"</span>, <span class="at">tau_method =</span> <span class="st">"a"</span>, <span class="at">continuity_correction =</span> <span class="cn">FALSE</span>, <span class="at">ci =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -756,15 +810,21 @@ A vs. B + Trend B - Trend A 0.642  0.164 3.91 0.000</code></pre>
 </section>
 <section id="baseline-corrected-tau" class="level2" data-number="7.9">
 <h2 data-number="7.9" class="anchored" data-anchor-id="baseline-corrected-tau"><span class="header-section-number">7.9</span> Baseline corrected tau</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> corrected_tau(data, dvar, pvar, mvar, phases = c(1, 2), alpha = 0.05, continuity = FALSE, repeated = FALSE) </font></td>
- </tr>
-</tbody></table>  
-<p>This method has been proposed by <span class="citation" data-cites="tarlowImprovedRankCorrelation2016a">Tarlow (<a href="app_references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span>. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The alternative Siegel repeated median regression is applied when <code>repeated = TRUE</code> <span class="citation" data-cites="siegelRobustRegressionUsing1982">(<a href="app_references.html#ref-siegelRobustRegressionUsing1982" role="doc-biblioref">Siegel, 1982</a>)</span> and a continuity correction is applied when <code>continuity = TRUE</code> (both not the defaults).</p>
-<p>Here is a replication of an example provided by <span class="citation" data-cites="tarlowImprovedRankCorrelation2016a">Tarlow (<a href="app_references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span> :</p>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The corrected_tau function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>corrected_tau(data, dvar, pvar, mvar, phases = c(1, 2), alpha = 0.05, continuity = FALSE, repeated = FALSE)</p>
+</div>
+</div>
+<p>This method has been proposed by <span class="citation" data-cites="tarlowImprovedRankCorrelation2016a">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span>. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The alternative Siegel repeated median regression is applied when <code>repeated = TRUE</code> <span class="citation" data-cites="siegelRobustRegressionUsing1982">(<a href="references.html#ref-siegelRobustRegressionUsing1982" role="doc-biblioref">Siegel, 1982</a>)</span> and a continuity correction is applied when <code>continuity = TRUE</code> (both not the defaults).</p>
+<p>Here is a replication of an example provided by <span class="citation" data-cites="tarlowImprovedRankCorrelation2016a">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span> :</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 11 row(s) containing missing values (geom_path).</code></pre>
@@ -789,15 +849,21 @@ Baseline correction should be applied.</code></pre>
 </section>
 <section id="reliable-change-index" class="level2" data-number="7.10">
 <h2 data-number="7.10" class="anchored" data-anchor-id="reliable-change-index"><span class="header-section-number">7.10</span> Reliable change index</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> rci(data, dvar, pvar, rel, ci = 0.95, graph = FALSE, phases = c(1, 2)) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The rci function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>rci(data, dvar, pvar, rel, ci = 0.95, graph = FALSE, phases = c(1, 2))</p>
+</div>
+</div>
 <p>Basically, the reliable change index (rci) depicts if a post-test is above a pre-test value. Based on the reliability of the measurements and the standard-deviation the standard error is calculated. The mean difference between phase-A and phase-B is divided by the standard-error. Several authors proposed refined methods for calculating the rci.</p>
-<p>The <code>rci</code> function computes three indices of reliable change <span class="citation" data-cites="wise_methods_2004">(<a href="app_references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
+<p>The <code>rci</code> function computes three indices of reliable change <span class="citation" data-cites="wise_methods_2004">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rci</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">rel =</span> <span class="fl">0.8</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">

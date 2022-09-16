@@ -14,7 +14,7 @@ overlap(exampleAB)
 
 Overlap measures refer to a comparison of two phases within a single-case data-set. By default, `overlap` compares the first to the second phase. 
 
-### Select and recombine phases {#select-phases}
+### Select and recombine phases {#sec-select-phases}
 
 ```{r results='asis', echo=FALSE}
 function_structure("select_phases")
@@ -59,12 +59,16 @@ function_structure("pnd")
 
 The percentage of non-overlapping data (PND) effect size measure was described by @scruggs_quantitative_1987 . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.
 
-```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A."}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 3
+#| fig-cap: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A
+
 random_scdf(design(1, level = 1.0),round = 0, seed = 1212) %>%
   scplot() %>% add_statline("max", phase = "A", color = "red") %>%
   add_text("Maximum of A", x = 1, y = 60, hjust = 0, color = "red", size = 1) %>%
   add_marks(positions = "values > max(values[phase == 'A'])", size = 2, shape = 16)
-
 ```
 
 The function `pnd` provides the PND for each case as well as the mean of all PNDs of that *scdf*. When you expect decreasing values set `decreasing = TRUE`. When there are more than two phases or phases are not named A and B, use the `phases` argument as described at the beginning of this chapter.
@@ -81,7 +85,12 @@ function_structure("pem")
 
 The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.
 
-```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A."}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 3
+#| fig-cap: Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A
+
 random_scdf(design(1, level = 1.0),round = 0, seed = 1212) %>%
   scplot() %>% add_statline("median", phase = "A", color = "red") %>%
   add_text("Median of A", x = 1, y = 53, hjust = 0, color = "red", size = 1) %>%
@@ -104,7 +113,12 @@ The pet function provides the percentage of phase B data points exceeding the pr
 pet(exampleAB)
 ```
 
-```{r echo = FALSE, fig.width = 4, fig.height = 3,fig.cap = "Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A."}
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 3
+#| fig-cap: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A
+
 random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 0, seed = 9871) %>% 
   scplot() %>% add_statline("trendA", color = "red") %>%
   add_text("Trend of A", x = 1, y = 52, hjust = 0, color = "red", size = 1) %>%

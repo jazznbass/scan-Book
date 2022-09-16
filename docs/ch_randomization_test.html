@@ -207,7 +207,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_managing_Data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
+  <a href="./ch_managing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -255,6 +255,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -267,17 +272,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix</span></a>
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Changes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link">About the author</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./app_references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">About the author</span></a>
   </div>
 </li>
       </ul>
@@ -308,13 +308,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> rand_test(data, dvar, pvar, statistic = "Mean B-A", number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, graph = FALSE, output = "c", phases = c("A", "B"), seed = NULL) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The rand_test function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>rand_test(data, dvar, pvar, statistic = “Mean B-A”, number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, graph = FALSE, output = “c”, phases = c(“A”, “B”), seed = NULL)</p>
+</div>
+</div>
 <p>The <code>rand_test</code> function computes a randomization test for single or multiple baseline single-case data. The function is based on an algorithm from the SCRT package (Bulte &amp; Onghena, 2009, 2012), but rewritten and extended for the use in AB designs.</p>
 <p>The <code>statsitics</code> argument defines the statistic on which the comparison of the phases is based on. The following comparisons are possible:</p>
 <ul>
@@ -356,18 +362,18 @@ Observed statistic =  20.55556
 
 Distribution based on a random sample of all 1331 possible combinations.
 n   =  500 
-M   =  18.53965 
-SD  =  1.129066 
-Min =  16.06667 
-Max =  21.31136 
+M   =  18.56659 
+SD  =  1.109667 
+Min =  16.05185 
+Max =  21.35421 
 
 Probability of observed statistic based on distribution:
-p   =  0.022 
+p   =  0.04 
 
-Shapiro-Wilk Normality Test: W = 0.970; p = 0.000  (Hypothesis of normality rejected)
+Shapiro-Wilk Normality Test: W = 0.978; p = 0.000  (Hypothesis of normality rejected)
 
 Probabilty of observed statistic based on the assumption of normality:
-z = 1.7855, p = 0.0371 (single sided)</code></pre>
+z = 1.7924, p = 0.0365 (single sided)</code></pre>
 </div>
 </div>
 

@@ -230,7 +230,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_managing_Data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
+  <a href="./ch_managing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -278,6 +278,11 @@ div.csl-indent {
   <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -290,17 +295,12 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix</span></a>
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Changes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link">About the author</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./app_references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">About the author</span></a>
   </div>
 </li>
       </ul>
@@ -325,7 +325,7 @@ div.csl-indent {
   <li><a href="#to-be-written-multivariate-piecewise-regression" id="toc-to-be-written-multivariate-piecewise-regression" class="nav-link" data-scroll-target="#to-be-written-multivariate-piecewise-regression"><span class="toc-section-number">8.2</span>  <span class="math display">\[to be written\]</span> Multivariate piecewise regression</a></li>
   <li><a href="#multilevel-plm-analyses" id="toc-multilevel-plm-analyses" class="nav-link" data-scroll-target="#multilevel-plm-analyses"><span class="toc-section-number">8.3</span>  Multilevel plm analyses</a>
   <ul class="collapse">
-  <li><a href="#adding-additional-l2-variables-add-l2" id="toc-adding-additional-l2-variables-add-l2" class="nav-link" data-scroll-target="#adding-additional-l2-variables-add-l2"><span class="toc-section-number">8.3.1</span>  Adding additional L2-variables {add-l2}</a></li>
+  <li><a href="#sec-add-l2" id="toc-sec-add-l2" class="nav-link" data-scroll-target="#sec-add-l2"><span class="toc-section-number">8.3.1</span>  Adding additional L2-variables</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -349,7 +349,7 @@ div.csl-indent {
 
 </header>
 
-<p>In a piecewise-regression analysis (sometimes called segmented regression) a dataset is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean <span class="citation" data-cites="huitema_design_2000">Huitema &amp; Mckean (<a href="app_references.html#ref-huitema_design_2000" role="doc-biblioref">2000</a>)</span>. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention’s start and lasting throughout the intervention (B-phase).</p>
+<p>In a piecewise-regression analysis (sometimes called segmented regression) a dataset is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean <span class="citation" data-cites="huitema_design_2000">Huitema &amp; Mckean (<a href="references.html#ref-huitema_design_2000" role="doc-biblioref">2000</a>)</span>. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention’s start and lasting throughout the intervention (B-phase).</p>
 <p>In this model, four parameters predict the outcome at a specific measurement point:</p>
 <ol type="1">
 <li><p>The performance at the beginning of the study (<strong>intercept</strong>),</p></li>
@@ -372,13 +372,19 @@ div.csl-indent {
 </ul>
 <section id="the-basic-plm-function" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="the-basic-plm-function"><span class="header-section-number">8.1</span> The basic plm function</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> plm(data, dvar, pvar, mvar, AR = 0, model = "W", family = "gaussian", trend = TRUE, level = TRUE, slope = TRUE, contrast = "first", formula = NULL, update = NULL, na.action = na.omit, r_squared = TRUE, var_trials = NULL, dvar_percentage = FALSE, ...) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The plm function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>plm(data, dvar, pvar, mvar, AR = 0, model = “W”, family = “gaussian”, trend = TRUE, level = TRUE, slope = TRUE, contrast = “first”, formula = NULL, update = NULL, na.action = na.omit, r_squared = TRUE, var_trials = NULL, dvar_percentage = FALSE, …)</p>
+</div>
+</div>
 <p>The basic function for applying a regression analyzes to a single-case dataset is <code>plm</code>. This function analyzes one single-case. In its simplest way, <code>plm</code> takes one argument with an <em>scdf</em> object and it returns a full piecewise-regression analyzes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB<span class="sc">$</span>Johanna)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -951,13 +957,19 @@ Olaf
 </section>
 <section id="to-be-written-multivariate-piecewise-regression" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="to-be-written-multivariate-piecewise-regression"><span class="header-section-number">8.2</span> <span class="math display">\[to be written\]</span> Multivariate piecewise regression</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> mplm(data, dvar, mvar, pvar, model = "W", contrast = "first", trend = TRUE, level = TRUE, slope = TRUE, formula = NULL, update = NULL, na.action = na.omit, ...) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The mplm function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>mplm(data, dvar, mvar, pvar, model = “W”, contrast = “first”, trend = TRUE, level = TRUE, slope = TRUE, formula = NULL, update = NULL, na.action = na.omit, …)</p>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mplm</span>(exampleAB_add, <span class="at">dvar =</span> <span class="fu">c</span>(<span class="st">"wellbeing"</span>, <span class="st">"depression"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -990,13 +1002,19 @@ The following variables were used in this analysis:
 </section>
 <section id="multilevel-plm-analyses" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="multilevel-plm-analyses"><span class="header-section-number">8.3</span> Multilevel plm analyses</h2>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> hplm(data, dvar, pvar, mvar, model = "W", contrast = "first", method = "ML", control = list(opt = "optim"), random.slopes = FALSE, lr.test = FALSE, ICC = TRUE, trend = TRUE, level = TRUE, slope = TRUE, fixed = NULL, random = NULL, update.fixed = NULL, data.l2 = NULL, ...) </font></td>
- </tr>
-</tbody></table>  
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The hplm function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>hplm(data, dvar, pvar, mvar, model = “W”, contrast = “first”, method = “ML”, control = list(opt = “optim”), random.slopes = FALSE, lr.test = FALSE, ICC = TRUE, trend = TRUE, level = TRUE, slope = TRUE, fixed = NULL, random = NULL, update.fixed = NULL, data.l2 = NULL, …)</p>
+</div>
+</div>
 <p>Multilevel analyses can take the piecewise-regression approach even further. It allows for</p>
 <ul>
 <li>analyzing the effects between phases for multiple single-cases at once</li>
@@ -1061,15 +1079,21 @@ Slope phase B      0.126
 Residual           4.974</code></pre>
 </div>
 </div>
-<section id="adding-additional-l2-variables-add-l2" class="level3" data-number="8.3.1">
-<h3 data-number="8.3.1" class="anchored" data-anchor-id="adding-additional-l2-variables-add-l2"><span class="header-section-number">8.3.1</span> Adding additional L2-variables {add-l2}</h3>
-
-<table>
- <tbody><tr>
-  <td width="75px" style="background-color:#EEEEEE"><img src="images/function.png" alt="" height="49" width="45"></td> 
-  <td style="background-color:#EEEEEE"><font face="Courier New" size="2"> add_l2(data, data_l2, cvar = "case") </font></td>
- </tr>
-</tbody></table>  
+<section id="sec-add-l2" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="sec-add-l2"><span class="header-section-number">8.3.1</span> Adding additional L2-variables</h3>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The add_l2 function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add_l2(data, data_l2, cvar = “case”)</p>
+</div>
+</div>
 <p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze. This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects. To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>L2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
@@ -1088,7 +1112,7 @@ Residual           4.974</code></pre>
 6     Marie  14   f</code></pre>
 </div>
 </div>
-<p>Multilevel analyses require a high number of Level 2 units. The exact number depends on the complexity of the analyses, the size of the effects, the number of level 1 units, and the variability of the residuals. But surely we need at least about 30 level 2 units. In a single-case design that is, we need at least 30 single-cases (subjects) within the study. After setting the level 2 data frame we can merge it to the <em>scdf</em> with the <code>add_l2()</code>` function (alternatively, we can use the <code>data.l2</code> argument of the <code>hplm</code> function). Then we have to specify the regression function using the <code>update.fixed</code> argument. The level 2 variables can be added just like any other additional variable. For example, we have added a level 2 data-set with the two variables <code>sex</code> and <code>age</code>. <code>update</code> could be construed of the level 1 piecewise regression model <code>.~.</code> plus the additional level 2 variables of interest <code>+ sex + age</code>. The complete argument is <code>update.fixed = .~. + sex + age</code>. This analyses will estimate a main effect of sex and age on the overall performance. In case we want to analyze an interaction between the intervention effects and for example the sex of the subject we have to add an additional interaction term (a cross-level interaction). An interaction is defined with a colon. So <code>sex:phase</code> indicates an interaction of sex and the level effect in the single case study. The complete formula now is <code>update.fixed = .~. + sex + age + sex:phase</code>.</p>
+<p>Multilevel analyses require a high number of Level 2 units. The exact number depends on the complexity of the analyses, the size of the effects, the number of level 1 units, and the variability of the residuals. But surely we need at least about 30 level 2 units. In a single-case design that is, we need at least 30 single-cases (subjects) within the study. After setting the level 2 data frame we can merge it to the <em>scdf</em> with the <code>add_l2()</code> function (alternatively, we can use the <code>data.l2</code> argument of the <code>hplm</code> function). Then we have to specify the regression function using the <code>update.fixed</code> argument. The level 2 variables can be added just like any other additional variable. For example, we have added a level 2 data-set with the two variables <code>sex</code> and <code>age</code>. <code>update</code> could be construed of the level 1 piecewise regression model <code>.~.</code> plus the additional level 2 variables of interest <code>+ sex + age</code>. The complete argument is <code>update.fixed = .~. + sex + age</code>. This analyses will estimate a main effect of sex and age on the overall performance. In case we want to analyze an interaction between the intervention effects and for example the sex of the subject we have to add an additional interaction term (a cross-level interaction). An interaction is defined with a colon. So <code>sex:phase</code> indicates an interaction of sex and the level effect in the single case study. The complete formula now is <code>update.fixed = .~. + sex + age + sex:phase</code>.</p>
 <p><em>scan</em> includes an example single-case study with 50 subjects <code>example50</code> and an additional level 2 data-set <code>example50.l2</code>. Here are the first 10 cases of <code>example50.l2</code>.</p>
 <div class="cell">
 <div class="cell-output-display">

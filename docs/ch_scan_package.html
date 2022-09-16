@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./ch_managing_Data.html" rel="next">
+<link href="./ch_managing_data.html" rel="next">
 <link href="./ch_some_things.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -147,7 +147,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_managing_Data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
+  <a href="./ch_managing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -195,6 +195,11 @@ ul.task-list li input[type="checkbox"] {
   <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -207,17 +212,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix</span></a>
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Changes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link">About the author</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./app_references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">About the author</span></a>
   </div>
 </li>
       </ul>
@@ -297,92 +297,98 @@ Single-Case Data Analysis for Single and Multiple Baseline Designs</code></pre>
 <h2 data-number="3.4" class="anchored" data-anchor-id="functions-overview"><span class="header-section-number">3.4</span> Functions overview</h2>
 <p>The functions of the <em>scan</em> package can be divided into the following categories:<br>
 <em>Manage data</em>, <em>analyze</em>, <em>manipulate</em>, <em>simulate</em>, and <em>depict</em>.</p>
-<p>Table @ref(tab:table-functions) gives an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here https://lifecycle.r-lib.org/articles/stages.html.</p>
+<p>The following tables give an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here https://lifecycle.r-lib.org/articles/stages.html.</p>
 <section id="management" class="level3" data-number="3.4.1">
 <h3 data-number="3.4.1" class="anchored" data-anchor-id="management"><span class="header-section-number">3.4.1</span> Management</h3>
 <div class="cell">
 <div class="cell-output-display">
-
-<table class=" lightable-classic" style="width: auto !important; ">
-<caption>Functions for data management.</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Function </th>
-   <th style="text-align:left;"> What it does ... </th>
-   <th style="text-align:left;"> Lifecycle stage </th>
-   <th style="text-align:left;"> Chapter </th>
-  </tr>
- </thead>
+<div id="tbl-functions-management" class="anchored">
+<table class="table table-sm table-striped">
+<caption>Table&nbsp;3.1: Functions for data management</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 47%">
+<col style="width: 12%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Function</th>
+<th style="text-align: left;">What it does …</th>
+<th style="text-align: left;">Lifecycle stage</th>
+<th style="text-align: left;">Chapter</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> scdf </td>
-   <td style="text-align:left;width: 30em; "> Creates a single-case data-frame </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> \@ref(scdf) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> select_cases </td>
-   <td style="text-align:left;width: 30em; "> Selects specific cases of an scdf </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> \@ref(select-cases) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> select_phases </td>
-   <td style="text-align:left;width: 30em; "> Selects and/or recombines phases </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> \@ref(select-phases) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> subset </td>
-   <td style="text-align:left;width: 30em; "> Selects specific measurements or variables of an scdf </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> \@ref(subset) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> read_scdf </td>
-   <td style="text-align:left;width: 30em; "> Loads external data into an scdf </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> \@ref(read-scdf) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> write_scdf </td>
-   <td style="text-align:left;width: 30em; "> Writes scdf into an external file </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> \@ref(write-scdf) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> convert </td>
-   <td style="text-align:left;width: 30em; "> Converts an scdf object into R syntax </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> \@ref(convert) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> set_var </td>
-   <td style="text-align:left;width: 30em; "> (Re)sets dependent, measurement, and phase variable of an scdf </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> - </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> scdf_attr </td>
-   <td style="text-align:left;width: 30em; "> Gets and sets attributes of an scdf </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> - </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> add_l2 </td>
-   <td style="text-align:left;width: 30em; "> Adds level-two data to an scdf </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> \@ref(add-l2) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> as.data.frame/as.data.frame.scdf </td>
-   <td style="text-align:left;width: 30em; "> Transforms an scdf into a data frame </td>
-   <td style="text-align:left;"> Stable </td>
-   <td style="text-align:left;"> - </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">scdf</td>
+<td style="text-align: left;">Creates a single-case data-frame</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;"><a href="ch_managing_data.html#sec-scdf"><span>Section&nbsp;4.2</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">select_cases</td>
+<td style="text-align: left;">Selects specific cases of an scdf</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;"><a href="ch_managing_data.html#sec-select-cases"><span>Section&nbsp;4.7.2</span></a>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">select_phases</td>
+<td style="text-align: left;">Selects and/or recombines phases</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;"><a href="ch_overlapping_indices.html#sec-select-phases"><span>Section&nbsp;7.1.1</span></a>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">subset</td>
+<td style="text-align: left;">Selects specific measurements or variables of an scdf</td>
+<td style="text-align: left;">stable</td>
+<td style="text-align: left;"><a href="ch_managing_data.html#sec-subset"><span>Section&nbsp;4.7.3</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">read_scdf</td>
+<td style="text-align: left;">Loads external data into an scdf</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;"><a href="ch_managing_data.html#sec-read-scdf"><span>Section&nbsp;4.4.1</span></a>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">write_scdf</td>
+<td style="text-align: left;">Writes scdf into an external file</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;"><a href="ch_managing_data.html#sec-write-scdf"><span>Section&nbsp;4.4.2</span></a>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">convert</td>
+<td style="text-align: left;">Converts an scdf object into R syntax</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;"><a href="ch_managing_data.html#sec-convert"><span>Section&nbsp;4.5</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_var</td>
+<td style="text-align: left;">(Re)sets dependent, measurement, and phase variable of an scdf</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">scdf_attr</td>
+<td style="text-align: left;">Gets and sets attributes of an scdf</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">add_l2</td>
+<td style="text-align: left;">Adds level-two data to an scdf</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;"><a href="ch_piecewise_regression.html#sec-add-l2"><span>Section&nbsp;8.3.1</span></a>)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">as.data.frame/as.data.frame.scdf</td>
+<td style="text-align: left;">Transforms an scdf into a data frame</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;">-</td>
+</tr>
 </tbody>
 </table>
-
+</div>
 </div>
 </div>
 </section>
@@ -390,9 +396,9 @@ Single-Case Data Analysis for Single and Multiple Baseline Designs</code></pre>
 <h3 data-number="3.4.2" class="anchored" data-anchor-id="depiction"><span class="header-section-number">3.4.2</span> Depiction</h3>
 <div class="cell">
 <div class="cell-output-display">
+<div id="tbl-functions-depiction" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; ">
-<caption>Functions for data depiction/visualisation.</caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;3.2:  Functions for data depiction/visualisation </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Function </th>
@@ -446,14 +452,15 @@ Single-Case Data Analysis for Single and Multiple Baseline Designs</code></pre>
 
 </div>
 </div>
+</div>
 </section>
 <section id="analysis" class="level3" data-number="3.4.3">
 <h3 data-number="3.4.3" class="anchored" data-anchor-id="analysis"><span class="header-section-number">3.4.3</span> Analysis</h3>
 <div class="cell">
 <div class="cell-output-display">
+<div id="tbl-functions-analysis" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; ">
-<caption>Functions for data analysis.</caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;3.3:  Functions for data analysis </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Function </th>
@@ -562,14 +569,15 @@ Single-Case Data Analysis for Single and Multiple Baseline Designs</code></pre>
 
 </div>
 </div>
+</div>
 </section>
 <section id="manipulation" class="level3" data-number="3.4.4">
 <h3 data-number="3.4.4" class="anchored" data-anchor-id="manipulation"><span class="header-section-number">3.4.4</span> Manipulation</h3>
 <div class="cell">
 <div class="cell-output-display">
+<div id="tbl-functions-manipulation" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; ">
-<caption>Functions for data manipulation.</caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;3.4:  Functions for data manipulation </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Function </th>
@@ -613,14 +621,15 @@ Single-Case Data Analysis for Single and Multiple Baseline Designs</code></pre>
 
 </div>
 </div>
+</div>
 </section>
 <section id="simulation" class="level3" data-number="3.4.5">
 <h3 data-number="3.4.5" class="anchored" data-anchor-id="simulation"><span class="header-section-number">3.4.5</span> Simulation</h3>
 <div class="cell">
 <div class="cell-output-display">
+<div id="tbl-functions-simulation" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; ">
-<caption>Functions for data simulation.</caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;3.5:  Functions for data simulation </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Function </th>
@@ -657,6 +666,7 @@ Single-Case Data Analysis for Single and Multiple Baseline Designs</code></pre>
 </tbody>
 </table>
 
+</div>
 </div>
 </div>
 
@@ -770,7 +780,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ch_managing_Data.html" class="pagination-link">
+      <a href="./ch_managing_data.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Managing single-case data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
