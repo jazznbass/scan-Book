@@ -20,9 +20,13 @@ To allow for smooth "piping" we began adding some functions `select_phases`, `su
 
 With version 0.50 scan introduced new names for its functions. The old function names are still usable but they will return a "deprecated" warning telling you to use the new function names.
 
-Table \@ref(tab:table-aliases) shows the changes.
+@rtbl-aliases shows the changes.
 
-```{r table-aliases, echo = FALSE}
+```{r}
+#| tbl-cap: Scan previous and current function names
+#| echo: false
+#| label: tbl-aliases
+
 out <- tribble(
   ~"Current function name", ~"Previous function name",
   "autocorr", "autocorrSC",
@@ -43,7 +47,7 @@ out <- tribble(
   "truncate_phase", "truncateSC"
 )
 
-print_table(out, "scan previous and current function names.")
+print_table(out)
 
 ```
 

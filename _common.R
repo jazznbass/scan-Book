@@ -33,6 +33,12 @@ print_table <- function(data, caption = NULL, width_cols = c("15em", "30em"), ..
   
 }
 
+print_table_simple <- function(data) {
+  
+  kable(data, format = "pipe")
+
+}
+
 old_function_structure <- function(name, 
                                skip = c("B.start", "phase.design", "lag.max",
                                         "extreme.p", "extreme.d", "missing.p"

@@ -1,6 +1,6 @@
 # Default settings
 
-Some of the default settings of scan can be changed with the `options()` argument. Table \@ref(tab:table-options) shows a complete list of options and their default values.
+Some of the default settings of scan can be changed with the `options()` argument. @tbl-options shows a complete list of options and their default values.
 
 ```{r scan-options-example}
 # get the current value of an option
@@ -14,7 +14,11 @@ options(scan.print.rows = 15, scan.print.scdf.name = TRUE)
 print(exampleAB)
 ```
 
-```{r table-options, echo = FALSE}
+```{r}
+#| echo: false
+#| label: tbl-options
+#| tbl-cap: Scan Options
+
 out <- tribble(
   ~`Option`, ~`Default`, ~`What it does ...`,
   
@@ -39,12 +43,16 @@ out[["Default"]] <- unlist(
   apply(out[, 1:2], 1, function(x) deparse(getOption(x[1]), width.cutoff = 500))
 )
 
-print_table(out, "Scan Options", width_cols = c("15em", "15em") )
+print_table(out, width_cols = c("15em", "15em") )
 ```
 
 # Example datasets
 
 ```{r scanex, echo = FALSE}
+#| echo: false
+#| label: tbl-example-scdf
+#| tbl-cap: Example scdfs
+ 
 ex_names <- data(package = "scan")$results[,3]
 ex_names <- substring(ex_names, 1, nchar(ex_names) - 12)
 
@@ -63,7 +71,7 @@ author <- unlist(sapply(ex_names, function(x) {
 
 out <- data.frame(Name = ex_names, Info = info, Author = author)
 row.names(out) <- NULL
-print_table(out, "Scan Options", width_cols = c("7em", "20em", "15em") )
+print_table(out, width_cols = c("7em", "20em", "15em") )
 
 ```
 

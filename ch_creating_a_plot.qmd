@@ -5,7 +5,7 @@
 function_structure("plotSC")
 ```
 
-Plotting the data is a first important approach of analyzing. After you build an *scdf* the `plot` command helps to visualize the data. When the `scdf` includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. Table \@ref(tab:table-plot-arguments) gives an overview of all available arguments.
+Plotting the data is a first important approach of analyzing. After you build an *scdf* the `plot` command helps to visualize the data. When the `scdf` includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. @tbl-plot-arguments gives an overview of all available arguments.
 
 ```{r ex-simple-plot, fig.cap = "A simple plot does not need much."}
 plot(exampleA1B1A2B2_zvt)
@@ -30,7 +30,10 @@ plot(
 ```
 
 
-```{r table-plot-arguments, echo = FALSE}
+```{r}
+#| tbl-cap: Arguments of the plot function
+#| echo: false
+#| label: tbl-plot-arguments
 
 out <- tribble(
   ~`Argument`, ~`What it does ...`,
@@ -48,14 +51,18 @@ out <- tribble(
   "xinc", "An integer. Increment of the x-axis. 1 : each mt value will be printed, 2 : every other value, 3 : every third values etc."
 )
 
-print_table(out, "Arguments of the plot function")
+print_table(out)
 ```
 
 ## Adding lines
 
 Extra lines can be added to the plot using the `lines` argument. The lines argument takes several separate sub-arguments which have to be provided in a list. In its most simple form this list contains one element. `lines = list(type = 'median')` adds a line with the median of each phase to the plot. Additional arguments like `col` or `lwd` help to format these lines. For adding red thick median lines use the command `lines = list(type = 'median', col = 'red', lwd = '2')`.
 
-```{r table-lines-arguments, echo = FALSE}
+```{r}
+#| tbl-cap: Values of the lines argument
+#| echo: false
+#| label: tbl-lines-arguments
+
 out <- tribble(
   ~`Argument`, ~`What it does ...`,
   "median","separate lines for the medians of each phase",
@@ -73,7 +80,7 @@ out <- tribble(
   "lwd","Line thickness, e.g., `lwd = 4`.",
   "col","Line colour, e.g., `col = 'red'`.")
 
-print_table(out, "Values of the lines argument" )
+print_table(out)
 
 ```
 
@@ -110,11 +117,15 @@ function_structure("style_plot")
 
 The `style` argument of the plot function allows to specify a specific design of a plot. By default, the `grid` style is applied. `scan` includes some further predefined styles. `default, yaxis, tiny, small, big, chart, ridge, annotate, grid, grid2, dark, nodot, and sienna`. The name of a style is provided as a character string (e.g., `style = "grid"`).  
 Some styles only address specific elements (e.g., "small" or "tiny" just influence text  and line sizes). These styles lend themselves to be combined with other styles. This could be achieved by providing several style names to the plot argument: `style = c("grid", "annotate", "small")`. A style overwrites the settings of all previously included style.  
-Beyond predefined styles, styles can be individually modified and created. New styles are provided as a `list` of several design parameters that are passed to the `style` argument of the `plot` function. Table \@ref(tab:table-style) shows all design parameter that could be defined.  
+Beyond predefined styles, styles can be individually modified and created. New styles are provided as a `list` of several design parameters that are passed to the `style` argument of the `plot` function. @tbl-style shows all design parameter that could be defined.  
 To define a new style, first create a list containing a plain design. The `style_plot` function returns such a list with the default values for a plain design (e.g., `mystyle <- style_plot()`). Single design parameters can now be set by assigning a specific value within the list. For example, `newstyle$fill <- "grey90"` will set the `fill` parameter to `"grey90"`. Alternatively, changes to the plain design can already by defined within the `style_plot` function. To set a light-blue background color and also an orange grid, create the style `style_plot(fill.bg = "lightblue", grid = "orange")`.
 If you do not want to start with the plain design but a different of the predefined styles, set the `style` argument. If, for example, you like to have the `grid` combined with the `big` style but want to change the color of the grid to orange type `style_plot(style = c("grid", "big"), col.grid = "orange")`. `plot(mydata, style = mystyle)` will apply the new style in a plot. Please note that the new style is not passed in quotation marks.  
 
-```{r table-style, echo = FALSE}
+```{r}
+#| tbl-cap: Arguments of the style plot function
+#| echo: false
+#| label: tbl-style
+
 out <- tribble(
   ~`Argument`, ~`What it does ...`,
   "fill", "If TRUE area under the line is filled.", 
@@ -134,7 +145,7 @@ out <- tribble(
   "...", "Further arguments passed to the plot command."
 )
 
-print_table(out, "Arguments of the style plot function")
+print_table(out)
 ```
 
 The width of the lines are set with the `lwd` argument, `col` is used to set the line colour and `pch` sets the symbol for a data point.

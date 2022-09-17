@@ -1,6 +1,6 @@
 # scplot - Adavanced plotting functions for single-case data
 
-We started developing a new add-on package to `scan`for visualizing single-case data: `scplot`. This function will gradually replace the `plot.scdf()` (short: `plot()`) function already included in `scan` and finally be included into to the `scan` package. 
+We started developing a new add-on package to `scan` for visualizing single-case data: `scplot`. This function will gradually replace the `plot.scdf()` (short: `plot()`) function already included in `scan` and finally be included into to the `scan` package. 
 Here are some advantages of using `scplot` over the standard scan `plot` function:
 
 - `scplot` is already much more versatile than `plot` has been. 
@@ -10,8 +10,6 @@ Here are some advantages of using `scplot` over the standard scan `plot` functio
 We consider the state of `scplot` to be *experimental*. That is, the code and syntax might change in future versions so backward compatibility is not guaranteed.
 
 But we will keep the "old" `plot.scdf` in future versions of `scan`.
-
-Here are a few plots that have been generated with `scplot` to demonstrate its possibilities.
 
 ## Install `scplot`
 
@@ -24,7 +22,7 @@ The package has to be compiled. When you are running R on a Windows machine you 
 
 You start by providing an scdf object (a single-case data frame as returned from the `scdf()` function of scan) to the `scplot()` function (e.g. `scplot(exampleAB)`). Now you use a series of pipe-operators (`%>%`) to add and change characteristics of the resulting plot. For example:
 
-```{r basic1, eval=FALSE}
+```{.r}
 scplot(exampleABC) %>%
   add_title("My plot") %>%
   add_caption("Note: A nice plot")

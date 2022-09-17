@@ -358,7 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>We started developing a new add-on package to <code>scan</code>for visualizing single-case data: <code>scplot</code>. This function will gradually replace the <code>plot.scdf()</code> (short: <code>plot()</code>) function already included in <code>scan</code> and finally be included into to the <code>scan</code> package. Here are some advantages of using <code>scplot</code> over the standard scan <code>plot</code> function:</p>
+<p>We started developing a new add-on package to <code>scan</code> for visualizing single-case data: <code>scplot</code>. This function will gradually replace the <code>plot.scdf()</code> (short: <code>plot()</code>) function already included in <code>scan</code> and finally be included into to the <code>scan</code> package. Here are some advantages of using <code>scplot</code> over the standard scan <code>plot</code> function:</p>
 <ul>
 <li><code>scplot</code> is already much more versatile than <code>plot</code> has been.</li>
 <li><code>scplot</code> was designed to encompass a pipe style coding which is much cleaner, more intelligible and easier to code.</li>
@@ -366,7 +366,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>We consider the state of <code>scplot</code> to be <em>experimental</em>. That is, the code and syntax might change in future versions so backward compatibility is not guaranteed.</p>
 <p>But we will keep the “old” <code>plot.scdf</code> in future versions of <code>scan</code>.</p>
-<p>Here are a few plots that have been generated with <code>scplot</code> to demonstrate its possibilities.</p>
 <section id="install-scplot" class="level2" data-number="13.1">
 <h2 data-number="13.1" class="anchored" data-anchor-id="install-scplot"><span class="header-section-number">13.1</span> Install <code>scplot</code></h2>
 <p>scplot is hosted as a gitHub project at https://github.com/jazznbass/scplot. You can install it with <code>devtools::install_github("jazznbass/scplot", dependencies = TRUE)</code> from your R console. Make sure you have the package <code>devtools</code> installed before. The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/. MacOs and Linux users usually do not need to take this extra step.</p>
@@ -374,11 +373,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="basic-principal" class="level2" data-number="13.2">
 <h2 data-number="13.2" class="anchored" data-anchor-id="basic-principal"><span class="header-section-number">13.2</span> Basic principal</h2>
 <p>You start by providing an scdf object (a single-case data frame as returned from the <code>scdf()</code> function of scan) to the <code>scplot()</code> function (e.g.&nbsp;<code>scplot(exampleAB)</code>). Now you use a series of pipe-operators (<code>%&gt;%</code>) to add and change characteristics of the resulting plot. For example:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"My plot"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note: A nice plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="the-standard-style" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="the-standard-style"><span class="header-section-number">13.3</span> The standard style</h2>

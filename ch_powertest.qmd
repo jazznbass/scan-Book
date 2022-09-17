@@ -23,7 +23,11 @@ function_structure("design")
 
 The `design` function sets up a single-case design. You can define various parameters of that design:
 
-```{r design-arguments, echo=FALSE}
+```{r}
+#| tbl-cap: Core arguments of the design function
+#| echo: false
+#| label: tbl-design-arguments
+
 tab <- tribble(
   ~Argument, ~"What it does ...",
 "n", "Number of cases to be created (Default is n = 1).",
@@ -41,7 +45,7 @@ tab <- tribble(
 "prob", "If distribution is set 'binomial', prob passes the probability of occurrence."
 )
 
-print_table(tab, "Core arguments of the design function")
+print_table(tab)
 
 ```
 
@@ -74,7 +78,11 @@ The results show that the plm test and the randomization test have similar power
 
 The `method` argument takes a list where each element depicts a statistical method. Currently, the following character strings are predefined:
 
-```{r table-mc-func, echo = FALSE}
+```{r}
+#| tbl-cap: Statistical methods
+#| echo: false
+#| label: tbl-mc-func
+
 out <- tribble(
   ~"Name", ~"Single/ multiple cases", ~"What it means ...",
   "plm_level", "single", "A complete plm model for normal distributed dependent variables. It checks for the level effect.",
@@ -92,7 +100,7 @@ out <- tribble(
   
 )
 
-print_table(out, "Statistical methods", width_cols = c("10em", "7em", "50em"))
+print_table(out, width_cols = c("10em", "7em", "50em"))
 
 ```
 

@@ -333,7 +333,7 @@ The plotSC function call
 <p>plotSC(data, dvar, pvar, mvar, ylim = NULL, xlim = NULL, xinc = 1, lines = NULL, marks = NULL, phase.names = NULL, xlab = NULL, ylab = NULL, main = ““, case.names = NULL, style = getOption(”scan.plot.style”), …)</p>
 </div>
 </div>
-<p>Plotting the data is a first important approach of analyzing. After you build an <em>scdf</em> the <code>plot</code> command helps to visualize the data. When the <code>scdf</code> includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. Table @ref(tab:table-plot-arguments) gives an overview of all available arguments.</p>
+<p>Plotting the data is a first important approach of analyzing. After you build an <em>scdf</em> the <code>plot</code> command helps to visualize the data. When the <code>scdf</code> includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. <a href="#tbl-plot-arguments">Table&nbsp;<span>5.1</span></a> gives an overview of all available arguments.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(exampleA1B1A2B2_zvt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -370,9 +370,9 @@ The plotSC function call
 </div>
 <div class="cell">
 <div class="cell-output-display">
+<div id="tbl-plot-arguments" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; ">
-<caption>Arguments of the plot function</caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;5.1:  Arguments of the plot function </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Argument </th>
@@ -433,15 +433,16 @@ The plotSC function call
 
 </div>
 </div>
+</div>
 </section>
 <section id="adding-lines" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="adding-lines"><span class="header-section-number">5.2</span> Adding lines</h2>
 <p>Extra lines can be added to the plot using the <code>lines</code> argument. The lines argument takes several separate sub-arguments which have to be provided in a list. In its most simple form this list contains one element. <code>lines = list(type = 'median')</code> adds a line with the median of each phase to the plot. Additional arguments like <code>col</code> or <code>lwd</code> help to format these lines. For adding red thick median lines use the command <code>lines = list(type = 'median', col = 'red', lwd = '2')</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
+<div id="tbl-lines-arguments" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; ">
-<caption>Values of the lines argument</caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;5.2:  Values of the lines argument </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Argument </th>
@@ -510,6 +511,7 @@ The plotSC function call
 
 </div>
 </div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  exampleAB, </span>
@@ -567,13 +569,13 @@ The style_plot function call
 </div>
 <p>The <code>style</code> argument of the plot function allows to specify a specific design of a plot. By default, the <code>grid</code> style is applied. <code>scan</code> includes some further predefined styles. <code>default, yaxis, tiny, small, big, chart, ridge, annotate, grid, grid2, dark, nodot, and sienna</code>. The name of a style is provided as a character string (e.g., <code>style = "grid"</code>).<br>
 Some styles only address specific elements (e.g., “small” or “tiny” just influence text and line sizes). These styles lend themselves to be combined with other styles. This could be achieved by providing several style names to the plot argument: <code>style = c("grid", "annotate", "small")</code>. A style overwrites the settings of all previously included style.<br>
-Beyond predefined styles, styles can be individually modified and created. New styles are provided as a <code>list</code> of several design parameters that are passed to the <code>style</code> argument of the <code>plot</code> function. Table @ref(tab:table-style) shows all design parameter that could be defined.<br>
+Beyond predefined styles, styles can be individually modified and created. New styles are provided as a <code>list</code> of several design parameters that are passed to the <code>style</code> argument of the <code>plot</code> function. <a href="#tbl-style">Table&nbsp;<span>5.3</span></a> shows all design parameter that could be defined.<br>
 To define a new style, first create a list containing a plain design. The <code>style_plot</code> function returns such a list with the default values for a plain design (e.g., <code>mystyle &lt;- style_plot()</code>). Single design parameters can now be set by assigning a specific value within the list. For example, <code>newstyle$fill &lt;- "grey90"</code> will set the <code>fill</code> parameter to <code>"grey90"</code>. Alternatively, changes to the plain design can already by defined within the <code>style_plot</code> function. To set a light-blue background color and also an orange grid, create the style <code>style_plot(fill.bg = "lightblue", grid = "orange")</code>. If you do not want to start with the plain design but a different of the predefined styles, set the <code>style</code> argument. If, for example, you like to have the <code>grid</code> combined with the <code>big</code> style but want to change the color of the grid to orange type <code>style_plot(style = c("grid", "big"), col.grid = "orange")</code>. <code>plot(mydata, style = mystyle)</code> will apply the new style in a plot. Please note that the new style is not passed in quotation marks.</p>
 <div class="cell">
 <div class="cell-output-display">
+<div id="tbl-style" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; ">
-<caption>Arguments of the style plot function</caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;5.3:  Arguments of the style plot function </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Argument </th>
@@ -644,6 +646,7 @@ To define a new style, first create a list containing a plain design. The <code>
 </tbody>
 </table>
 
+</div>
 </div>
 </div>
 <p>The width of the lines are set with the <code>lwd</code> argument, <code>col</code> is used to set the line colour and <code>pch</code> sets the symbol for a data point. The <code>pch</code> argument can take several values for defining the symbol in which data points are plotted.</p>
