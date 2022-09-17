@@ -63,8 +63,8 @@ res <- data.frame(
   values = c(3,6,4,7, 5,3,4,6,3), 
   level_B = c(0,0,0,0,1,1,1,1,1)
 )
-kable(res) %>%
-  kable_classic()
+knitr::kable(res) %>%
+  kableExtra::kable_classic()
 ```
 
 For estimating the *slope effect* of each phase, another kind of dummy variables have to be created. Like the dummy variables for level effects the values are set to zero for all measurements except the ones of the phase in focus. Here, values start to increase with every measurement until the end of the phase.\
@@ -79,8 +79,8 @@ res <- data.frame(
   "slope B&L-M" = c(0,0,0,0,1,2,3,4,5), 
   "slope H-M" = c(0,0,0,0,0,1,2,3,4), 
   check.names = FALSE )
-kable(res, full_width = FALSE) %>%
-  kable_classic()
+knitr::kable(res, full_width = FALSE) %>%
+  kableExtra::kable_classic()
 ```
 
 Applying the *H-M* model will give you a "pure" level-effect while the *B&L-B* model will provide an estimation of the level-effect that is actually the level-effect plus on times the slope-effect (as the the model assumes that the slope variable is *1* at the first measurement of the B-phase). For most studies, the *H-M* model is more appropriate.
@@ -100,8 +100,8 @@ res <- data.frame(
   "mt W" = 0:8,
   "slope W" = c(0,0,0,0,0,1,2,3,4), 
   check.names = FALSE )
-kable(res, full_width = FALSE) %>%
-  kable_classic()
+knitr::kable(res, full_width = FALSE) %>%
+  kableExtra::kable_classic()
 ```
 
 ### Designs with more than two phases: Setting the right contrasts
@@ -119,8 +119,8 @@ res <- data.frame(
   level_C = c(0,0,0,0, 0,0,0,0,0, 1,1,1,1,1), 
   slope_B = c(0,0,0,0, 1,2,3,4,5, 6,7,8,9,10), 
   slope_C = c(0,0,0,0, 0,0,0,0,0, 1,2,3,4,5))
-kable(res, full_width = FALSE) %>%
-  kable_classic()
+knitr::kable(res, full_width = FALSE) %>%
+  kableExtra::kable_classic()
 ```
 
 ### Adjusting the model
@@ -218,7 +218,7 @@ Multilevel analyses require a high number of Level 2 units. The exact number dep
 *scan* includes an example single-case study with 50 subjects `example50` and an additional level 2 data-set `example50.l2`. Here are the first 10 cases of `example50.l2`.
 
 ```{r echo = FALSE}
-kable(head(exampleAB_50.l2, 10))
+knitr::kable(head(exampleAB_50.l2, 10))
 ```
 
 Analyzing the data with `hplm` could look like this:

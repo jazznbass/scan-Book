@@ -37,7 +37,7 @@ out <- tribble(
 op <- names(options())
 op <- op[which(startsWith(op, "scan."))]
 op <- op[which(!op %in% out[[1]])]
-out <- bind_rows(out, data.frame(Option = op))
+out <- dplyr::bind_rows(out, data.frame(Option = op))
 
 out[["Default"]] <- unlist(
   apply(out[, 1:2], 1, function(x) deparse(getOption(x[1]), width.cutoff = 500))

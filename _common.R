@@ -1,4 +1,8 @@
-pkg <- c("scan", "scplot", "knitr", "kableExtra", "pander", "tidyverse")
+
+pkg <- c("scan", "scplot", "tibble")
+
+#, "tidyverse","knitr", "kableExtra", "pander"
+
 
 tmp <- sapply(
   pkg, 
@@ -20,22 +24,22 @@ knitr::write_bib(c(
 
 print_table <- function(data, caption = NULL, width_cols = c("15em", "30em"), ...) {
   
-  kable(data, linesep = "", booktabs = TRUE, caption = caption,...) %>%
-    kable_styling(
+  knitr::kable(data, linesep = "", booktabs = TRUE, caption = caption,...)  |> 
+    kableExtra::kable_styling(
       full_width = FALSE, 
       htmltable_class = "lightable-classic",
       position = "left",
       latex_options = c("repeat_header")
-    ) %>%
-    column_spec(1, bold = TRUE) %>%
-    column_spec(1, width = width_cols[1]) %>%
-    column_spec(2, width = width_cols[2])
+    ) |> 
+    kableExtra::column_spec(1, bold = TRUE)  |> 
+    kableExtra::column_spec(1, width = width_cols[1])  |> 
+    kableExtra::column_spec(2, width = width_cols[2])
   
 }
 
 print_table_simple <- function(data) {
   
-  kable(data, format = "pipe")
+  knitr::kable(data, format = "pipe")
 
 }
 
