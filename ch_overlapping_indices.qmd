@@ -1,0 +1,232 @@
+# Overlapping indices
+
+## Overlap overview
+
+```{r results='asis', echo=FALSE}
+function_structure("overlap")
+```
+
+`overlap` provides a table with some of the most important overlap indices for each case of an *scdf*. For calculating overlap indicators it is important to know if a decrease or an increase of values is expected between phases. By default `overlap` assumes an increase in values. If the argument `decreasing = TRUE` is set, calculation will be based on the assumption of decreasing values.
+
+```{r warning = FALSE}
+overlap(exampleAB)
+```
+
+Overlap measures refer to a comparison of two phases within a single-case data-set. By default, `overlap` compares the first to the second phase. 
+
+### Select and recombine phases {#sec-select-phases}
+
+```{r results='asis', echo=FALSE}
+function_structure("select_phases")
+```
+
+The `select_phases()` function is needed if you like to compare specific phases or even like to combine several phases. `select_phases()` is designed to work within a pipe structure. So the first argument is an *scdf* and it returns an *scdf*.
+
+```{r eval = FALSE}
+scdf %>% select_phases(A = 1, B = 3) %>% ...
+```
+
+`select_phases()` has the arguments `A` and `B`. Each argument takes a vector with the names or the numbers of the phases to be selected. If you want to compare the first to the third phase you can set `select_phases(scdf, 1,3)`. If the phases of your case are named 'A', 'B', and 'C' you could alternatively set `select_phases(scdf, "A","C")`. It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the `c` command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases `select_phases(scdf, c(1,3), c(2,4) )` will do the trick.
+
+(As an alternative approach you can set the `phases` argument within the `overlap()` function. This argument takes a list with two elements where the first element defines the phases for the A-phase and the second argument the phases for the B-phase.)
+
+```{r warning = FALSE}
+exampleA1B1A2B2 %>%
+  select_phases(c("A1","A2"), c("B1","B2")) %>%
+  overlap()
+
+# Alternatively:
+# overlap(exampleA1B1A2B2, phases = list( c("A1","A2"), c("B1","B2")))
+```
+
+## Standardized mean differences
+
+```{r results='asis', echo=FALSE}
+function_structure("smd")
+```
+
+Standardized mean differences can be calculated in various ways. They refer to the difference in the means of two phases. The `smd` function provides an overview of the most common parameters for each single-case:
+
+```{r}
+smd(exampleAB_score)
+```
+
+## Percentage non-overlapping data (PND)
+
+```{r results='asis', echo=FALSE}
+function_structure("pnd")
+```
+
+The percentage of non-overlapping data (PND) effect size measure was described by @scruggs_quantitative_1987 . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 3
+#| fig-cap: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A
+
+random_scdf(design(1, level = 1.0),round = 0, seed = 1212) %>%
+  scplot() %>% add_statline("max", phase = "A", color = "red") %>%
+  add_text("Maximum of A", x = 1, y = 60, hjust = 0, color = "red", size = 1) %>%
+  add_marks(positions = "values > max(values[phase == 'A'])", size = 2, shape = 16)
+```
+
+The function `pnd` provides the PND for each case as well as the mean of all PNDs of that *scdf*. When you expect decreasing values set `decreasing = TRUE`. When there are more than two phases or phases are not named A and B, use the `phases` argument as described at the beginning of this chapter.
+
+```{r}
+pnd(exampleAB)
+```
+
+## Percentage exceeding the median (PEM)
+
+```{r results='asis', echo=FALSE}
+function_structure("pem")
+```
+
+The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 3
+#| fig-cap: Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A
+
+random_scdf(design(1, level = 1.0),round = 0, seed = 1212) %>%
+  scplot() %>% add_statline("median", phase = "A", color = "red") %>%
+  add_text("Median of A", x = 1, y = 53, hjust = 0, color = "red", size = 1) %>%
+  add_marks(positions = "values > median(values[phase == 'A']) & phase == 'B'", size = 2, shape = 16)
+```
+
+```{r}
+pem(exampleAB)
+```
+
+## Percentage exceeding the regression trend (PET)
+
+```{r results='asis', echo=FALSE}
+function_structure("pet")
+```
+
+The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent confidence interval of the predicted progress is computed.
+
+```{r}
+pet(exampleAB)
+```
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 3
+#| fig-cap: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A
+
+random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 0, seed = 9871) %>% 
+  scplot() %>% add_statline("trendA", color = "red") %>%
+  add_text("Trend of A", x = 1, y = 52, hjust = 0, color = "red", size = 1) %>%
+  add_marks(positions = c(12, 14:19, 21, 22,25), size = 2, shape = 16)
+```
+
+## Percentage of all non-overlapping data (PAND)
+
+```{r results='asis', echo=FALSE}
+function_structure("pand")
+```
+
+The `pand` function calculates the percentage of all non-overlapping data [@parker_percentage_2007], an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The argument `correction = TRUE` makes `pand` use a frequency matrix, which is corrected for ties. A tie is counted as the half of a measurement in both phases. Set `correction = FALSE` to use the uncorrected matrix, which is not recommended.
+
+```{r pand}
+pand(exampleAB)
+```
+
+PAND indicates nonoverlap between phase A and B data (like PND), but uses all data and is therefore not based on one single (probably unrepresentative) datapoint. Furthermore, PAND allows the comparison of real and expected associations (Chi-square test) and estimation of the effect size Phi, which equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance. The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power [@parker_effect_2011].
+
+## Nonoverlap of all pairs (NAP)
+
+```{r results='asis', echo=FALSE}
+function_structure("nap")
+```
+
+The `nap` function calculates the nonoverlap of all pairs [@parker_improved_2009]. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP can only take values between 50 and 100 percent, a rescaled and therefore more intuitive NAP (0-100%) is also displayed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case.
+
+```{r}
+nap(exampleAB)
+```
+
+## Tau-U
+
+```{r results='asis', echo=FALSE}
+function_structure("tau_u")
+```
+
+The *Tau-U* statistic has been proposed by @parker_combining_2011 and is one of the more broadly used approach for reporting effect sizes of single case data. Unfortunately, various and ambiguous implementations of Tau-U exist [@pustejovsky2016; @brossart2018a]. The `tau_u` function tries to cover several of these implementation. It takes a *scdf* and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases based on a meta-analysis.
+
+Several arguments an be set to define how Tau-U should be calculated. By setting the argument `method = "parker"`, Tau-U is calculated as described in @parker_combining_2011. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. `method = "complete`, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate. In the original method proposed by @parker_combining_2011 data, calculations are based on Kendall's Tau A which does not correct for ties. Alternatively, Kendall's Tau B has a correction for Tau in the presence of ties. The `tau_method`\` can be set to decide on the tau method to use `"a"` for Kendall's Tau A and `"b"`\` for Kendall's Tau B.
+
+Here is an example with setting that reconstruct the values from the original example in @parker2011 :
+
+```{r}
+tau_u(Parker2011, method = "parker", tau_method = "a", continuity_correction = FALSE, ci = NA)
+```
+
+A different implementation of the method (provided at [http://www.singlecaseresearch.org/calculators/tau-u)](http://www.singlecaseresearch.org/calculators/tau-u)) uses Kendall's Tau B:
+
+```{r}
+tau_u(exampleAB$Johanna, method = "parker", tau_method = "b", continuity_correction = FALSE)
+```
+
+A different online calculator created by Rumen Manolov is available at <https://manolov.shinyapps.io/Overlap/> it applies an R code developed by Kevin Tarlow for caluclating Tau-U. This setting will replicated results from this approach:
+
+```{r}
+tau_u(exampleAB$Johanna, method = "complete", tau_method = "a", continuity_correction = FALSE)
+```
+
+The standard return of the `tau_u` function does not display all calculations. If you like to have more details, apply the `print` function with the additional argument `complete = TRUE`.
+
+```{r}
+tau_u(exampleAB$Johanna) %>% print(complete = TRUE)
+```
+
+When you provide multiple single-cases to the `tau-u` function, it will calculate a Tau-U table for each case and an overall calculation. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. You can choose between a random- and a fixed-effect approach for the meta-analyses (`meta_method = "random"` or `"fixed"`).
+
+```{r}
+tau_u(exampleAB)
+```
+
+## Baseline corrected tau
+
+```{r results='asis', echo=FALSE}
+function_structure("corrected_tau")
+```
+
+This method has been proposed by @tarlowImprovedRankCorrelation2016a. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The alternative Siegel repeated median regression is applied when `repeated = TRUE` [@siegelRobustRegressionUsing1982] and a continuity correction is applied when `continuity = TRUE` (both not the defaults).
+
+Here is a replication of an example provided by @tarlowImprovedRankCorrelation2016a :
+
+```{r bctau-example, echo = FALSE, message = FALSE}
+case <- scdf(c(A = 33, 25, 17, 25, 14, 13,14, 
+               B = 14, 15, 15, 4, 6, 9, 5 ,4 ,2 ,2 ,8, 11 ,7))
+
+scplot(case) %>% 
+  add_statline("trendA", method = "theil-sen", color = "black", linetype = "dotted") %>%
+  add_text("Thein-Sen", x = 9, y = 9) %>%
+  set_ylabel("BDI (Depression)") %>%
+  set_xlabel("Session") %>%
+  add_theme("basic") %>% 
+  set_casenames(" ")
+
+corrected_tau(case)
+
+```
+
+## Reliable change index
+
+```{r results='asis', echo=FALSE}
+function_structure("rci")
+```
+
+Basically, the reliable change index (rci) depicts if a post-test is above a pre-test value. Based on the reliability of the measurements and the standard-deviation the standard error is calculated. The mean difference between phase-A and phase-B is divided by the standard-error. Several authors proposed refined methods for calculating the rci.
+
+The `rci` function computes three indices of reliable change [@wise_methods_2004] and corresponding descriptive statistics.
+
+```{r}
+rci(exampleAB$Johanna, rel = 0.8, graph = TRUE)
+```

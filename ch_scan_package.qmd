@@ -1,0 +1,181 @@
+# The scan package
+
+## Installing the *scan* package
+
+You can use the `install.packages` function to install *scan*.
+
+`install.packages("scan")` will install the stable version.
+
+The current stable release is version `0.55`. Please look at Section *Software reference* for which version of *scan* has been used for creating this book and make sure you have this version or a newer one installed.
+
+R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing *scan* it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.
+
+For activating a package you need the `library` function. In this case `library(scan)`. You should get something like
+
+```{r}
+#| echo: false
+#| results: markup
+
+cat(scan:::.opt$startup_message)
+```
+
+indicating that everything went smoothly and *scan* is ready for the job.
+
+## Development version of scan
+
+Alternatively, you can compile the development version of *scan* yourself. This might be necessary if the stable version has some bugs or missing functions which has been fixed.
+
+You may need some computer expertise to get the development version running. It is hosted on gitHub at [\<https://github.com/jazznbass/scan\>](https://github.com/jazznbass/scan){.uri}.
+
+For installation, you can apply the `install_github` function from the `devtools` package (make sure you have installed the `devtools` package before):
+
+`devtools::install_github("jazznbass/scan", dependencies = TRUE)`
+
+When you are running a Windows operating system you will probably have to install Rtools before. Rtools contains additional programs (e.g. compilers) that are needed to compile R source packages.
+
+You can find Rtools here: [\<https://cran.r-project.org/bin/windows/Rtools/\>](https://cran.r-project.org/bin/windows/Rtools/){.uri}
+
+## Reporting issues with *scan* and suggesting enhancements
+
+The *scan* gitHub repository at [\<https://github.com/jazznbass/scan\>](https://github.com/jazznbass/scan){.uri} is the ideal place to report bugs, problems, or ideas for enhancing *scan*. Please use the issue tool (direct link: [\<https://github.com/jazznbass/scan/issues\>](https://github.com/jazznbass/scan/issues){.uri}).
+
+We are very thankful for any feedback, corrections, or whatever helps to improve *scan*!
+
+## Functions overview
+
+The functions of the *scan* package can be divided into the following categories:\
+*Manage data*, *analyze*, *manipulate*, *simulate*, and *depict*.
+
+The following tables give an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here https://lifecycle.r-lib.org/articles/stages.html.
+
+### Management
+
+```{r}
+#| echo: false
+#| label: tbl-functions-management
+#| tbl-cap: Functions for data management
+#| results: asis
+
+out <- tribble(
+  ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
+  #
+  "scdf", "Creates a single-case data-frame", "Stable", "@sec-scdf",
+  "select_cases", "Selects specific cases of an scdf", "Stable", "@sec-select-cases)",
+  "select_phases", "Selects and/or recombines phases", "Stable", "@sec-select-phases)",
+  "subset", "Selects specific measurements or variables of an scdf", "stable", "@sec-subset",
+  "read_scdf", "Loads external data into an scdf", "Stable", "@sec-read-scdf)",
+  "write_scdf", "Writes scdf into an external file", "Stable", "@sec-write-scdf)",
+  "convert", "Converts an scdf object into R syntax", "Stable", "@sec-convert",
+  "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Stable", "-",
+  "scdf_attr", "Gets and sets attributes of an scdf", "Stable", "-",
+  "add_l2", "Adds level-two data to an scdf", "Stable", "@sec-add-l2)",
+  "as.data.frame/as.data.frame.scdf", "Transforms an scdf into a data frame", "Stable", "-"
+)
+
+kable(out,format = "pipe")
+
+#print_table(out)
+
+```
+
+### Depiction
+
+```{r}
+#| echo: false
+#| label: tbl-functions-depiction
+#| tbl-cap: Functions for data depiction/visualisation
+
+out <- tribble(
+  ~"Function", ~"What it does ...", ~"Lifecycle stage",
+  #
+  "plot/plot.scdf", "Creates plots of single cases", "Superseded",
+  "scplot", "Add-on package `scplot`. Create advanced ggplot2 plots.", "Experimental",
+  "style_plot", "Defines single-case plot graphical styles", "Superseded",
+  "export", "Creates html or latex tables from the output of various can functions", "Experimental",
+  "print/print.sc", "Prints the results of various scan outputs", "Stable",
+  "print/print.scdf", "Prints an scdf", "Stable",
+  "summary/summary.scdf", "Summaizes an scdf", "Stable",
+  "plot_rand", "Create a distribution plot from a randomization test obejct", "Experimental"
+)
+
+print_table(out)
+
+```
+
+### Analysis
+
+```{r}
+#| echo: false
+#| label: tbl-functions-analysis
+#| tbl-cap: Functions for data analysis
+
+out <- tribble(
+  ~"Function", ~"What it does ...", ~"Lifecycle stage",
+  #
+  "autocorr", "Autocorrelations for each phase of each case", "Stable",
+  "corrected_tau", "Baseline corrected tau", "Stable",
+  "describe", "Descriptive statistics for each phase of each case", "Stable",
+  "overlap", "An overview of overlap indeces for each case", "Stable",
+  "smd", "Various standardized mean differences between phase A and B", "Stable",
+  "rci", "Reliable change index", "Experimental",
+  "rand_test", "Randomization test", "Stable",
+  "tau_u", "Tau-U for each case and all cases", "Stable",
+  "trend", "Trend analyses for each case", "Stable",
+  "plm", "Piecewise linear regression model", "Stable",
+  "mplm", "Multivariate piecewise linear regression model",  "Experimental",
+  "hplm", "Hierarchical piecewise linear regression model",  "Stable",
+  "nap", "Non-overlap of all pairs for each case", "Stable",
+  "pnd", "Percentage of non overlapping data for each case",  "Stable",
+  "pand", "Percentage of all non overlapping data for all cases",  "Stable",
+  "pem", "Percantage exceeding the mean for each case",  "Stable",
+  "pet", "Percentage exceeding the trend for each case",  "Stable",
+  "cdc", "Conservative dual-criterion test",  "Stable",
+  "outlier", "Detect outliers for all cases", "Stable"
+)
+
+print_table(out)
+
+```
+
+### Manipulation
+
+```{r}
+#| echo: false
+#| label: tbl-functions-manipulation
+#| tbl-cap: Functions for data manipulation
+
+out <- tribble(
+  ~"Function", ~"What it does ...", ~"Lifecycle stage",
+  #
+  "fill_missing", "Interpolate missign values or missing measurement times", "Stable",
+  "ranks", "Covert data into ranked data across all cases", "Stable",
+  "transform", "Change and create new variabes", "Stable",
+  "smooth_cases", "Smoothes time series data", "Stable",
+  "truncate_phase", "Deletes measurements of phases", "Stable",
+  "standardize", "Standardizes or centers variables across cases", "Stable"
+)
+
+print_table(out)
+
+```
+
+### Simulation
+
+```{r}
+#| echo: false
+#| label: tbl-functions-simulation
+#| tbl-cap: Functions for data simulation
+
+out <- tribble(
+  ~"Function", ~"What it does ...", ~"Lifecycle stage",
+  #
+  "design", "Defines a design of one or multiple single-cases", "Stable",
+  "power_test", "Calculates power and alpha error of a specific analyzes for a specific single-case design", "Stable",
+  "estimate_design", "Extraxt a deisgn template from an existing scdf", "Experimental",
+  "random_scdf", "Creats random single-case studies from a single-case design", "Stable",
+  "mcscan", "Add-on package `mcscan`. Create Monte-Carlo designs and analyses with `scan`", "(Upcoming not yet functioning)"
+)
+
+print_table(out)
+
+```

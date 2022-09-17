@@ -1,0 +1,206 @@
+# Power analyses (scan version 0.54 or later)
+
+```{r results='asis', echo=FALSE}
+function_structure("power_test")
+```
+
+## The idea of a power-test
+
+The `powert_test()` function provides the alpha error probability and power when analyzing a specific effect of a single-case design with a given statistical method.
+
+For example, you have a one case design with phase length A = 10 and B = 20. You assume a strong level effect of d = 1 and you expect a slight trend effect of d = 0.02 (per measurement). You might be interested to answer two questions:
+
+1.  How suitable is a plm model for detecting the level-effect? (also: what is the power to detect the level effect?).
+2.  What if I had the same design but without a level-effect. How often would the plm falsely find a significant level-effect? (also: how large is the alpha-error probability for the level-effect?).
+
+In principle, `power_test()` takes a single case design and repeatedly generates random cases based on that design. Each case is now analyzed with a given statistical method. The proportion of significant effects in these analyses is an estimator of the test-power. In a second step the design is stripped of the target effect and again multiple cases are generated on this changed design and analyzed with the same method. Now, the proportion of significant effects is the estimator for the alpha-error probability.
+
+## Set up a single-case design
+
+```{r results='asis', echo=FALSE}
+function_structure("design")
+```
+
+The `design` function sets up a single-case design. You can define various parameters of that design:
+
+```{r}
+#| tbl-cap: Core arguments of the design function
+#| echo: false
+#| label: tbl-design-arguments
+
+tab <- tribble(
+  ~Argument, ~"What it does ...",
+"n", "Number of cases to be created (Default is n = 1).",
+"phase_design", "A list defining the length and label of each phase. E.g., phase.length = list(A1 = 10, B1 = 10, A2 = 10, B2 = 10). Use vectors if you want to define different values for each case phase.length = list(A = c(10, 15), B = c(10, 15).",
+"trend", "Defines the effect size of a trend added incrementally to each measurement across the whole data-set. To assign different trends to several single-cases, use a vector of values (e.g. trend = c(.1, .3, .5)). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the trend parameters indicate effect size d changes. When using a binomial or poisson distribution, trend indicates an increase in points / counts per measurement.",
+"level","A list that defines the level increase (effect size d) at the beginning of each phase relative to the previous phase (e.g. list(A = 0, B = 1)). The first element must be zero as the first phase of a single-case has no level effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable level effects for each case (e.g. list(A = c(0, 0), B = c(1, 2))). When using a 'gaussian' distribution, the level parameters indicate effect size d changes. When using a binomial or poisson distribution, level indicates an increase in points / counts with the onset of each phase.",
+"slope", "A list that defines the increase per measurement for each phase compared to the previous phase. slope = list(A = 0, B = .1 generates an incremental increase of 0.1 per measurement starting at the B phase. The first list element must be zero as the first phase of a single-case has no slope effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable slope effects for each case (e.g. list(A = c(0, 0), B = c(0.1, 0.2))). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the slope parameters indicate effect size d changes per measurement. When using a binomial or poisson distribution, slope indicates an increase in points / counts per measurement.",
+"rtt", "Reliability of the underlying simulated measurements. Set rtt = .8 by default. To assign different reliabilities to several single-cases, use a vector of values (e.g. rtt = c(.6, .7, .8)). If the number of cases exceeds the length of the vector, values are repeated. rtt has no effect when you're using binomial or poisson distributed scores.",
+"start_value", "Starting value at the first measurement. Default is 50. To assign different start values to several single-cases, use a vector of values (e.g. c(50, 42, 56)). If the number of cases exceeds the length of the vector, values are recycled.",
+"s", "Standard deviation used to calculate absolute values from level, slope, trend effects and to calculate and error distribution from the rtt values. Set to 10 by default. To assign different variances to several single-cases, use a vector of values (e.g. s = c(5, 10, 15)). If the number of cases exceeds the length of the vector, values are recycled. if the distribution is 'poisson' or 'binomial' s is not applied.",
+"extreme_prop", "Probability of extreme values. extreme.p = .05 gives a five percent probability of an extreme value. A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.",
+"extreme_range", "Range for extreme values, expressed as effect size d. extreme.d = c(-7,-6) uses extreme values within a range of -7 and -6 standard deviations. In case of a binomial or poisson distribution, extreme.d indicates points / counts. Caution: the first value must be smaller than the second, otherwise the procedure will fail.",
+"missing_prop", "Portion of missing values. missing.p = 0.1 creates 10% of all values as missing). A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.",
+"distribution", "Distribution of the scores. Default is distribution = 'normal'. Possible values are 'normal' (or 'gaussian'), 'binomial', and 'poisson'.",
+"prob", "If distribution is set 'binomial', prob passes the probability of occurrence."
+)
+
+print_table(tab)
+
+```
+
+## Conducting a power-test
+
+When conduction a power test, you firstly need to define a design which you like to be tested.
+
+```{r}
+design <- design(
+  n = 1,
+  phase_design = list(A = 10, B = 20),
+  level = list(A = 0, B = 1),
+  trend = 0.02,
+  distribution = "normal"
+)
+```
+
+Then you have to choose the statistical method. The `power_test` function applies three methods by default: *plm*, *randomization test*, and *Tau U*. These default values are only suitable when your design is a one case single-case study.
+
+Let us start with the defaults and conduct a power analysis for our previously set design: *(This might take some time. Even in the default setting with 100 simulations you might wait a few seconds. For more precise estimations I recommend 1000 simulations - or even higher.)*
+
+```{r power-test-ex-1}
+res <- power_test(design)
+res
+```
+
+The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to outliers of the random samples. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tau U test has an unacceptably high alpha-error which is due to the trend we put into the design. *Alpha:Beta* depicts the relation of the Alpha and Beta error (power = 1 - Beta). *Correct* is the overall proportion of correct categorizations and *p* is the results of a binomial-test of *Correct* against 50%.
+
+## Statistical methods
+
+The `method` argument takes a list where each element depicts a statistical method. Currently, the following character strings are predefined:
+
+```{r}
+#| tbl-cap: Statistical methods
+#| echo: false
+#| label: tbl-mc-func
+
+out <- tribble(
+  ~"Name", ~"Single/ multiple cases", ~"What it means ...",
+  "plm_level", "single", "A complete plm model for normal distributed dependent variables. It checks for the level effect.",
+  "plm_slope", "single", "A complete plm model for normal distributed dependent variables. It checks for the slope effect.",
+    "plm_poisson_level", "single", "Like plm_level but for poisson distributed dependent variables.",
+  "plm_poisson_slope", "single", "Like plm_slope but for poisson distributed dependent variables.",
+  "hplm_level", "multiple", "A complete hplm model for normal distributed dependent variables. It checks for the level effect.",
+  "hplm_slope", "multiple", "A complete hplm model for normal distributed dependent variables. It checks for the slope effect.",
+  "tauU", "sinlge", "A tauU test with method complete and taub estimations. It checks the 'A vs. B - Trend A' variation.",
+  "tauU_slope", "sinlge", "A tauU test with method complete and taub estimations. It checks the 'A vs. B - Trend A + Trend B' variation.",
+  "tauU_meta", "multiple", "Like 'TauU' but with the results from a meta analyses (fixed effects). Very slow.",
+  "tauU_slope_meta", "multiple", "Like 'TauU_slope' but with the results from a meta analyses (fixed effects). Very slow.",
+  "base_tau", "single", "A baseline corrected tau test.",
+  "rand", "single and multiple", "A randomization test for 'Mean B-A' with 100 permutations."
+  
+)
+
+print_table(out, width_cols = c("10em", "7em", "50em"))
+
+```
+
+## Confidence intervals and binomial tests
+
+With only 100 simulations you will have quite large confidence intervals for the power, alpha error probability, and correct estimations. You can calculate these intervals by setting the `ci` argument. For 95% CI's set `ci = 0.95` for 99% `ci = 0.99`.
+
+```{r power-test-ex-ci}
+power_test(design, ci = 0.95)
+```
+
+You can also test the power, alpha error, and correct estimates against predefined values. In order to do that, set `binom_test = TRUE`. The power will be tested against being greater or equal to 80%, the alpha error against being less or equal 5%, and the correct proportion against being greater equal 87.5%.
+
+```{r power-test-ex-bi}
+power_test(design, binom_test = TRUE)
+```
+
+If you want to define individual values for the three tests, set the `binom_test_power`. `binom_test_alpha`, and/or, the `binom_test_correct` arguments.
+
+## Advanced methods
+
+*Note: You need specific knowledge on how to create functions in R and on data structures to follow all aspects of this section.*
+
+Instead of one of the predefined character strings you can also create you own functions and implement these. You function must take an scdf as the first argument and return a single numeric p-value.
+
+Here is an example that implements a method for the significance of a NAP (nonoverlap of all pairs) test. This is statistically identical to a U-Test comparing phase A and B.
+
+```{r power-test-ex-create-method-1}
+set.seed(1) # only needed to make this example replicable
+
+mcmethod_nap <- function(scdf) {
+  nap(scdf)$nap[1, "p"]
+}
+
+power_test(design, method = list(nap = mcmethod_nap, "rand", "plm_level"))
+```
+
+Here is another example for a fast plm function for poisson distributed data based on the `fastglm` package:
+
+```{r power-test-ex-create-method-2}
+plm_fast <- function(data) {
+  data <- unlist(data, recursive = FALSE)
+  y  <- data$values
+  n1 <- sum(data$phase == "A")
+  n2 <- sum(data$phase == "B")
+  D <- c(rep(0, n1), rep(1, n2))
+  mt <- data$mt
+  inter <- (mt - mt[n1]) * D
+  x <- matrix(
+    c(rep(1, n1 + n2), mt, D, inter),
+    nrow = n1 + n2,
+    ncol = 4
+  )
+  full <- fastglm::fastglm(x = x, y = y, family = "poisson", method = 2)
+  summary(full)$coef[3, 4]
+}
+```
+
+```{r eval=FALSE, include=TRUE}
+power_test(design, method = list("fast plm" = plm_fast))
+```
+
+## Computation duration
+
+You can print the returning object of the `power_test` function with added computation duration time by setting `duration = TRUE`
+
+```{r}
+print(res, duration = TRUE)
+```
+
+The duration depends heavily on the applied test methods. Regressions are faster than randomization tests and tau U tests are quiet slow:
+
+```{r power-test-duration,collapse=TRUE}
+res1 <- power_test(design, method = "plm_level")
+res2 <- power_test(design, method = "rand")
+res3 <- power_test(design, method = "tauU")
+
+# Elapsed time in seconds for each procedure
+attr(res1, "computation_duration")[3]
+attr(res2, "computation_duration")[3]
+attr(res3, "computation_duration")[3]
+```
+
+... and what about our new fast-glm function?
+
+```{r}
+set.seed(1)
+design <- design(
+  n = 1,
+  phase_design = list(A = 10, B = 20),
+  level = list(A = 0, B = 1),
+  trend = 0.02,
+  distribution = "poisson"
+)
+
+res1 <- power_test(design, method = list("fast plm" = plm_fast))
+res2 <- power_test(design, method = "plm_poisson_level")
+
+attr(res1, "computation_duration")[3]
+attr(res2, "computation_duration")[3]
+```
+
+... it is much faster!
