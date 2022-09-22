@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jürgen Wilbert">
 
-<title>The Scan-Book</title>
+<title>The Scan-Book - 9&nbsp; Randomization tests</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
@@ -50,7 +112,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./ch_introduction.html" rel="next">
+<link href="./ch_powertest.html" rel="next">
+<link href="./ch_piecewise_regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -89,7 +152,7 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">The Scan-Book</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Randomization tests</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -135,7 +198,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -188,7 +251,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Randomization tests</span></a>
+  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Randomization tests</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -247,10 +310,8 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
-  <ul class="collapse">
-  <li><a href="#software-reference" id="toc-software-reference" class="nav-link" data-scroll-target="#software-reference">Software reference</a></li>
-  </ul></li>
+  <li><a href="#arguments-of-the-rand_test-function" id="toc-arguments-of-the-rand_test-function" class="nav-link active" data-scroll-target="#arguments-of-the-rand_test-function"><span class="toc-section-number">9.1</span>  Arguments of the <code>rand_test()</code> function</a></li>
+  <li><a href="#exanple" id="toc-exanple" class="nav-link" data-scroll-target="#exanple"><span class="toc-section-number">9.2</span>  Exanple</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -259,19 +320,13 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">The Scan-Book</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Randomization tests</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jürgen Wilbert </p>
-          </div>
-  </div>
     
     
   </div>
@@ -279,37 +334,101 @@ div.csl-indent {
 
 </header>
 
-<p><strong><em>Version 22.9 (build 41)</em></strong></p>
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>Hello!</p>
-<p>I am glad your found your way to this book as is tells me you are beginning to use the scan package. While <code>scan</code> is quiet thoroughly developed, this book is at an early stage (about 30% is done). I am continuously working on it and extending it. At this point in time there is no release of this book available. Only this draft which is full of errors (code and typos).<br>
-If you have any suggestions how to enhance the book or would like to report errors, comments, feedback etc. you can do so by posting an issue to the gitHub repository of this book. You can find the repository at <a href="https://github.com/jazznbass/scan-Book" class="uri">https://github.com/jazznbass/scan-Book</a>.</p>
-<p>Thank you!</p>
-<p>Jürgen</p>
-<p>22 September 2022</p>
-<section id="software-reference" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="software-reference">Software reference</h2>
-<p>This book has been created using the <a href="https://quarto.org/"><code>Quarto</code></a> within the RStudio <span class="citation" data-cites="RStudio">(<a href="references.html#ref-RStudio" role="doc-biblioref">RStudio Team, 2018</a>)</span> environment. The analyses have been conducted with the <strong>R</strong> package <code>scan</code> at version 0.55.2 <span class="citation" data-cites="R-scan">(<a href="references.html#ref-R-scan" role="doc-biblioref">Wilbert &amp; Lueke, 2022</a>)</span> and <code>scplot</code> at version 0.2.6 <span class="citation" data-cites="R-scplot">(<a href="references.html#ref-R-scplot" role="doc-biblioref">Wilbert, 2022</a>)</span>. R version 4.2.1 (2022-06-23) was used <span class="citation" data-cites="R-base">(<a href="references.html#ref-R-base" role="doc-biblioref">R Core Team, 2022</a>)</span>.</p>
-<p>Note: The cover has been designed by Tony Wilbert and Henry Ritter.<br>
-Thanx for that!</p>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The rand_test function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>rand_test(data, dvar, pvar, statistic = “Mean B-A”, number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, graph = FALSE, output = “c”, phases = c(“A”, “B”), seed = NULL)</p>
+</div>
+</div>
+<p>The <code>rand_test</code> function computes a randomization test for single or multiple baseline single-case data. The function is based on an algorithm from the SCRT package <span class="citation" data-cites="bulté2008 bulté2009">(<a href="references.html#ref-bulté2008" role="doc-biblioref">Bulté &amp; Onghena, 2008</a>, <a href="references.html#ref-bulté2009" role="doc-biblioref">2009</a>)</span>, but rewritten and extended.</p>
+<p>The basic idea of a randomization thest is to think counter factually “Assuming the phase had no influence of the measured data: what would the difference between the phases of my case be, if I would have started phase B at a different time?”. Considering the possible differences between the phases under the assumption that the phase had no influence, how likely are the real phase differences of the original case?</p>
+<p>Therefore, a number of new cases are generated with a random start of each phase. That is, these new cases have the same data as the original case but different starting points for each phase. Now, a specific <em>statistic</em> (e.g., the mean difference between the phase A and phase B data) is calculated for each new case. When enough random cases are generated, we also generate a series of new statistic values (e.g.&nbsp;mean differences). The statistic for the original case is now compared to this new statistic values. The percentile of the original statistic within the new generated statistic values is the probability of the original statistic under the assumption of a random distribution of starting points of each phase. This percentile is returned as the <em>p-value</em> of the randomization test analyses.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ex-rand-test" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="ch_randomization_test_files/figure-html/fig-ex-rand-test-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;9.1: Illustration of a randomization test</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="arguments-of-the-rand_test-function" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="arguments-of-the-rand_test-function"><span class="header-section-number">9.1</span> Arguments of the <code>rand_test()</code> function</h2>
+<p>The <code>statsitics</code> argument defines the statistic on which the comparison of the phases is based on. The following comparisons are possible:</p>
+<ul>
+<li>“Mean A-B”: Uses the difference between the mean of phase A and the mean of phase B. * This is appropriate if a decrease of scores is expected for phase B.</li>
+<li>“Mean B-A”: Uses the difference between the mean of phase B and the mean of phase A. This is appropriate if an increase of scores is expected for phase B.</li>
+<li>“Mean |A-B|”: Uses the absolute value of the difference between the means of phases A and B.</li>
+<li>“Median A-B”: The same as “Mean A-B”, but based on the median.</li>
+<li>“Median B-A”: The same as “Mean B-A”, but based on the median.</li>
+</ul>
+<p><em>number</em><br>
+Sample size of the randomization distribution. The exactness of the p-value can not exceed 1/number (i.e., number = 100 results in p-values with an exactness of one percent). Default is number = 500. For faster processing use number = 100. For more precise p-values set number = 1000.</p>
+<p><em>complete</em><br>
+If TRUE, the distribution is based on a complete permutation of all possible starting combinations. This setting overwrites the number Argument. The default setting is FALSE.</p>
+<p><em>limit</em><br>
+Minimal number of data points per phase in the sample. The first number refers to the A-phase and the second to the B-phase (e.g., limit = c(5, 3)). If only one number is given, this number is applied to both phases. Default is limit = 5.</p>
+<p><em>startpoints</em><br>
+Alternative to the limit-parameter, startpoints exactly defines the possible start points of phase B (e.g., startpoints = 4:9 restricts the phase B start points to measurements 4 to 9. startpoints overwrite the limit-parameter.</p>
+<p><em>exclude.equal</em><br>
+If set to FALSE, which is the default, random distribution values equal to the observed distribution are counted as null-hypothesis conform. That is, they decrease the probability of rejecting the null-hypothesis (increase the p-value). exclude.equal should be set to TRUE if you analyse one single-case design (not a multiple baseline data set) to reach a sufficient power. But be aware, that it increases the chance of an alpha-error.</p>
+<p><em>graph</em><br>
+If set TRUE, a histogram of the resulting distribution is plotted.</p>
+<p><em>phases</em><br>
+A vector of two characters or numbers indicating the two phases that should be compared. E.g., phases = c(“A”,“C”) or phases = c(2,4) for comparing the second and the fourth phase. Phases could be combined by providing a list with two elements. E.g., phases = list(A = c(1,3), B = c(2,4)) will compare phases 1 and 3 (as A) against 2 and 4 (as B). Default is phases = c(“A”,“B”).</p>
+</section>
+<section id="exanple" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="exanple"><span class="header-section-number">9.2</span> Exanple</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rand_test</span>(exampleAB, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ch_randomization_test_files/figure-html/rand-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Randomization Test
+
+Test for 3 cases.
+
+Comparing phase A against phase B 
+Statistic:  Mean B-A 
+
+Minimal length of each phase: A = 5 , B = 5 
+Observed statistic =  20.55556 
+
+Distribution based on a random sample of all 1331 possible combinations.
+n   =  500 
+M   =  18.69037 
+SD  =  1.14372 
+Min =  16.05185 
+Max =  21.31136 
+
+Probability of observed statistic based on distribution:
+p   =  0.05 
+
+Shapiro-Wilk Normality Test: W = 0.975; p = 0.000  (Hypothesis of normality rejected)
+
+Probabilty of observed statistic based on the assumption of normality:
+z = 1.6308, p = 0.0515 (single sided)</code></pre>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
-<div id="ref-R-base" class="csl-entry" role="doc-biblioentry">
-R Core Team. (2022). <em>R: A language and environment for statistical computing</em>. Retrieved from <a href="https://www.R-project.org/">https://www.R-project.org/</a>
+<div id="ref-bulté2008" class="csl-entry" role="doc-biblioentry">
+Bulté, I., &amp; Onghena, P. (2008). An r package for single-case randomization tests. <em>Behavior Research Methods</em>, <em>40</em>(2), 467–478. <a href="https://doi.org/10.3758/BRM.40.2.467">https://doi.org/10.3758/BRM.40.2.467</a>
 </div>
-<div id="ref-RStudio" class="csl-entry" role="doc-biblioentry">
-RStudio Team. (2018). <em>RStudio: Integrated development environment for r</em>. Retrieved from <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>
-</div>
-<div id="ref-R-scplot" class="csl-entry" role="doc-biblioentry">
-Wilbert, J. (2022). <em>Scplot: Single-case plots for scan</em>.
-</div>
-<div id="ref-R-scan" class="csl-entry" role="doc-biblioentry">
-Wilbert, J., &amp; Lueke, T. (2022). <em>Scan: Single-case data analyses for single and multiple baseline designs</em>.
+<div id="ref-bulté2009" class="csl-entry" role="doc-biblioentry">
+Bulté, I., &amp; Onghena, P. (2009). Randomization tests for multiple-baseline designs: An extension of the SCRT-r package. <em>Behavior Research Methods</em>, <em>41</em>(2), 477–485. <a href="https://doi.org/10.3758/BRM.41.2.477">https://doi.org/10.3758/BRM.41.2.477</a>
 </div>
 </div>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -413,10 +532,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./ch_piecewise_regression.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ch_introduction.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ch_powertest.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
