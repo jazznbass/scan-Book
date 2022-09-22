@@ -2,21 +2,21 @@
 
 ## A ***single-case data frame***
 
-Scan provides its own data-class for encoding single-case data: the *single-case data frame* (short *scdf*). An *scdf* is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an scdf as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured **values**, the **phase** identifier for each measured value, and the measurement time (**mt**) of each measure. Optionally, scdfs could include further variables for each single-case (e.g., control variables), and also a name for each case.
+Scan provides its own data-class for encoding single-case data: the *single-case data frame* (short *scdf*). An *scdf* is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an *scdf* as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured **values**, the **phase** identifier for each measured value, and the measurement time (**mt**) of each measure. Optionally, scdfs could include further variables for each single-case (e.g., control variables), and also a name for each case.
 
 ::: callout-note
-Technically, an scdf object is a list containing data frames. It is of the class `c("scdf","list")`. Additionally, an *scdf* entails an attribute `scdf` with a list with further attributes. `var.values`, `var.phase`,  and `var.mt` contain the names of the `values`, `phase`, and the `measurement time` variable. By default, these names are set to `values`, `phase`, and `mt`. 
+Technically, an *scdf* object is a list containing data frames. It is of the class `c("scdf","list")`. Additionally, an *scdf* entails an attribute `scdf` with a list with further attributes. `var.values`, `var.phase`, and `var.mt` contain the names of the `values`, `phase`, and the `measurement time` variable. By default, these names are set to `values`, `phase`, and `mt`.
 :::
 
 Several functions are available for creating, transforming, merging, and importing/exporting *scdfs*.
 
-## Creating scdfs {#sec-scdf}
+## Creating *scdfs* {#sec-scdf}
 
 ```{r results='asis', echo=FALSE}
 function_structure("scdf")
 ```
 
-The `scdf` function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement *values* and the *phase* structure and a scdf object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the `B_start` argument, second, defining a design with the `phase_design` argument and third, setting parameters in a named vector of the dependent variable.
+The `scdf()` function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement *values* and the *phase* structure and an *scdf* object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the `B_start` argument, second, defining a design with the `phase_design` argument and third, setting parameters in a named vector of the dependent variable.
 
 ```{r scdf, results = 'hide'}
 ### Three ways to code the same scdf
@@ -29,7 +29,7 @@ The `B_start` argument is only applicable when the single-case consists of a sin
 The `phase_design` argument is a named vector with the name and length of each phase. The phase names can be set arbitrary, although I recommend to use capital letters (A, B, C, ...) for each phase followed by, when indicated, a number if the phases repeat (A1, B1, A2, B2, ...). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with *scan*.\
 When the vector of the dependent variable includes named values, a phase_design structure is created automatically. Each named value sets the beginning of a new phase. For example `c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)` will create an ABC-phase design with 3, 3, and 4 values per phase.\
 Use only one of the three methods at a time and I recommend to use the `phase_design` argument or the named vector method as they are the most versatile.\
-If no measurement times are given, scdf automatically adds them numbered sequentially 1, 2, 3, ..., *N* where *N* is the number of measurements. in some circumstances it might be useful to define individual measurement times for each measurement. For example, if you want to include the days since the beginning of the study as time intervals between measurements are widely varying you might get more valid results this way when analyzing the data in a regression approach.
+If no measurement times are specified, they are automatically created as a series 1, 2, 3, ..., *N*, where *N* is the number of measurements. in some circumstances it might be useful to define individual measurement times for each measurement. For example, if you want to include the days since the beginning of the study as time intervals between measurements are widely varying you might get more valid results this way when analyzing the data in a regression approach.
 
 ```{r scdf2}
 # example of a more complex design 
@@ -56,7 +56,7 @@ scdf(
 )
 ```
 
-Table @tbl-scdf) shows a complete list of arguments that could be passed to the function.
+@tbl-scdf shows a complete list of arguments that could be passed to the function.
 
 ```{r}
 #| echo: false
@@ -80,7 +80,7 @@ out <- tribble(
 print_table(out)
 ```
 
-If you want to create a data-set comprising several single-cases the easiest way is to first create an scdf for each case and then join them into a new scdf with the `c` command:
+If you want to create a dataset comprising several singlecases, the easiest way is to first create an scdf for each case and then merge them into a new scdf using the `c` command:
 
 ```{r combine_multi_cases, results = 'hide'}
 case1 <- scdf(
@@ -98,7 +98,7 @@ case3 <- scdf(
 mbd <- c(case1, case2, case3)
 ```
 
-If you like to use other than the default variable names ("values", "phase", and "mt") you could define these with the `dvar` (for the dependent variable), `pvar` (the variable indicating the phase), and `mvar` (the measurement-time variable) arguments.
+If you want to use other than the default variable names ("values", "phase" and "mt"), you can define them with the arguments `dvar` (for the dependent variable), `pvar` (the variable specifying the phase) and `mvar` (the measurement time variable).
 
 ```{r scdf_rename_vars}
 # Example: Using a different name for the dependent variable
@@ -124,8 +124,8 @@ summary(case)
 
 ## Saving and reading *single-case data frames*
 
-Usually, it is not needed to save an scdf to a separate file on your computer. In most of the cases you could keep the coding of the *scdf* as described above and rerun it every time that you are working with your data. But sometimes it is more convenient to separately save the data to a file for later use or to send them to a colleague.\
-The simplest way is to use the base *R* functions `saveRDS` and `readRDS` for this purpose. `saveRDS` takes at least two arguments: the first is the object you like to save and the second is a file name for the resulting file. If you have an *scdf* with the name `study1` the line `saveRDS(study1, "study1.rds")` will save the *scdf* to your drive. You could later read this file with `study1 <- readRDS("study1.rds")`. `getwd()` will return the current active folder that you are working in.
+Normally, it is not necessary to save an *scdf* in a separate file on your computer. In most cases, you can keep the coding of the *scdf* as described above and run it again each time you work with your data. However, for large files, it is sometimes more convenient to save the data separately in a file for later use.\
+The easiest way is to use the *R* base functions `saveRDS` and `readRDS` for this purpose. `saveRDS` takes at least two arguments: The first is the object you want to save, and the second is a filename for the resulting file. If you have an *scdf* named `study1`, you can use `saveRDS(study1, "study1.rds")` to save the *scdf* to your drive. You can read this file with `study1 <- readRDS("study1.rds")`. With `getwd()` you get the path to the current active folder you are saving and reading data from.
 
 ## Import and export *single-case data frames*
 
@@ -139,7 +139,15 @@ When you are working with other programs besides **R** you need to export and im
 
 ![How to format a single-case file in a spreadsheet program for importing into scan](images/readSC.jpg){width="300px"}
 
-In case your variables names differ from the standard (i.e. "case", "values", "phase", and "mt" ), you could set additional arguments to fit your file. `read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")` for example will set the variables attributes of the resulting scdf. Cases will be split by the variable `"name"`, `"wellbeing"` is set as the dependent variable (default is *values*), phase information are in the variable `"intervention"`, and measurement times in the variable `"time"`. You could also reassign the phase names within the phase variable by setting the argument `phase.names`. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to "A" and "B" with `read_scdf("example.csv", phase.names = c("A", "B"))`.
+In case your variables names differ from the standard (i.e. "case", "values", "phase", and "mt" ), you could set additional arguments to fit your file. `read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")` for example will set the variables attributes of the resulting *scdf*. Cases will be split by the variable `"name"`, `"wellbeing"` is set as the dependent variable (default is *values*), phase information are in the variable `"intervention"`, and measurement times in the variable `"time"`. You could also reassign the phase names within the phase variable by setting the argument `phase.names`. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to "A" and "B" with `read_scdf("example.csv", phase.names = c("A", "B"))`.
+
+For some reasons, computer systems with a German (and some other) language setups export csv-files by default with a comma as a decimal point and a semicolon as a separator between values. In these cases you have to set two extra arguments to import the data:
+
+`read_scdf("example.csv", dec = ",", sep = ";")`
+
+### Other data formats
+
+`read_scdf` also allows for directly importing *Microsoft Excel* `.xlsx` or `.xls` files. You need to have the library `readxl` installed in your R setup for this to work. Excel files will be automatically detected by the filename extension `xls`or `xlsx` or by explicitly setting the `type` argument (e.g. `type = "xlsx"`).
 
 ```{r read-scdf-excel-example}
 dat <- read_scdf(
@@ -149,27 +157,41 @@ dat <- read_scdf(
 summary(dat)
 ```
 
-For some reasons, computer systems with a German (and some other) language setups export csv-files by default with a comma as a decimal point and a semicolon as a separator between values. In these cases you have to set two extra arguments to import the data:
-
-`read_scdf("example.csv", dec = ",", sep = ";")`
-
-`read_scdf` also allows for directly importing *Microsoft Excel* `.xlsx` or `.xls` files. You need to have the library `readxl` installed in your R setup for this to work. Excel files will be automatically detected by the filename extension `xls`or `xlsx` or by explicitly setting the `type` argument (e.g. `type = "xlsx"`).
-
 ### Export data {#sec-write-scdf}
 
 ```{r results='asis', echo=FALSE}
 function_structure("write_scdf")
 ```
 
-`write_scdf()` exports an scdf object as a comma-separated-variables file (*csv*) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The scdf object is converted into a single data frame with a *case* variable identifying the rows for each subject. The first argument of the command identifies the scdf to be exported and the second argument (`file`) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the `dec` and the `sep` arguments. For example, `write_scdf(example, file = "example.csv", dec = ",", sep = ";")` exports a csv variation usually used for example in Germany.
+`write_scdf()` exports an *scdf* object as a comma-separated-variables file (*csv*) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The *scdf* object is converted into a single data frame with a *case* variable identifying the rows for each subject. The first argument of the command identifies the *scdf* to be exported and the second argument (`file`) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the `dec` and the `sep` arguments. For example, `write_scdf(example, file = "example.csv", dec = ",", sep = ";")` exports a csv variation usually used for example in Germany.
 
-## Convert an scdf object back to scan syntax {#sec-convert}
+### Other data formats
+
+The ***R*** system has many add on packages that allow to write data to almost any file format available. If you like to export an *scdf* in those formats, you firstly need to convert the *scdf* into a standard R data-frame with the `as.data.frame()` function. Now you can export the resulting data-frame applying the respective function from another package.
+
+```{r}
+#| eval: false
+#| label: export-other-formats
+
+df <- as.data.frame(exampleABC)
+
+# Open document example. You need to have the readODS package installed.
+readODS::write_ods(df, "filename.ods")
+
+# Excel example. You need to have the openxlsx package installed.
+openxlsx::write.xlsx(df, "filename.xlsx")
+
+# SPSS example. You need to have the haven package installed.
+haven::write_sav(df, "filename.sav")
+```
+
+## Convert an *scdf* object back to scan syntax {#sec-convert}
 
 ```{r results='asis', echo=FALSE}
 function_structure("convert")
 ```
 
-You can also reconvert an scdf object back to "raw" scan syntax. This is a convenient way when you imported data from an Excel or csv file and want to keep everything clean and transparent within your R syntax files.
+You can also reconvert an *scdf* object back to "raw" scan syntax. This is a convenient way when you imported data from an Excel or csv file and want to keep everything clean and transparent within your R syntax files.
 
 Here is an example:
 
@@ -249,9 +271,9 @@ Huber2014 %>%
 
 ### Select measurements {#sec-subset}
 
-The `subset()` function helps with extracting measurements (or rows) by a specific criteria from a scdf.
+The `subset()` function helps with extracting measurements (or rows) by a specific criteria from an scdf.
 
-Subset takes a scdf as its first argument and a logical expression as the second argument (`filter`). Only measurements for which the logical argument is evaluated to be TRUE are inlcuded in the returning scdf object.
+Subset takes an scdf as its first argument and a logical expression as the second argument (`filter`). Only measurements for which the logical argument is evaluated to be TRUE are inlcuded in the returning scdf object.
 
 For example, the scdf `Huber2014` has a variable `compliance` and we like to keep measurements where `compliance` is larger than 10 because we assume the others to be outliers:
 

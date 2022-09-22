@@ -295,14 +295,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#a-single-case-data-frame" id="toc-a-single-case-data-frame" class="nav-link active" data-scroll-target="#a-single-case-data-frame"><span class="toc-section-number">4.1</span>  A <strong><em>single-case data frame</em></strong></a></li>
-  <li><a href="#sec-scdf" id="toc-sec-scdf" class="nav-link" data-scroll-target="#sec-scdf"><span class="toc-section-number">4.2</span>  Creating scdfs</a></li>
+  <li><a href="#sec-scdf" id="toc-sec-scdf" class="nav-link" data-scroll-target="#sec-scdf"><span class="toc-section-number">4.2</span>  Creating <em>scdfs</em></a></li>
   <li><a href="#saving-and-reading-single-case-data-frames" id="toc-saving-and-reading-single-case-data-frames" class="nav-link" data-scroll-target="#saving-and-reading-single-case-data-frames"><span class="toc-section-number">4.3</span>  Saving and reading <em>single-case data frames</em></a></li>
   <li><a href="#import-and-export-single-case-data-frames" id="toc-import-and-export-single-case-data-frames" class="nav-link" data-scroll-target="#import-and-export-single-case-data-frames"><span class="toc-section-number">4.4</span>  Import and export <em>single-case data frames</em></a>
   <ul class="collapse">
   <li><a href="#sec-read-scdf" id="toc-sec-read-scdf" class="nav-link" data-scroll-target="#sec-read-scdf"><span class="toc-section-number">4.4.1</span>  Import data</a></li>
-  <li><a href="#sec-write-scdf" id="toc-sec-write-scdf" class="nav-link" data-scroll-target="#sec-write-scdf"><span class="toc-section-number">4.4.2</span>  Export data</a></li>
+  <li><a href="#other-data-formats" id="toc-other-data-formats" class="nav-link" data-scroll-target="#other-data-formats"><span class="toc-section-number">4.4.2</span>  Other data formats</a></li>
+  <li><a href="#sec-write-scdf" id="toc-sec-write-scdf" class="nav-link" data-scroll-target="#sec-write-scdf"><span class="toc-section-number">4.4.3</span>  Export data</a></li>
+  <li><a href="#other-data-formats-1" id="toc-other-data-formats-1" class="nav-link" data-scroll-target="#other-data-formats-1"><span class="toc-section-number">4.4.4</span>  Other data formats</a></li>
   </ul></li>
-  <li><a href="#sec-convert" id="toc-sec-convert" class="nav-link" data-scroll-target="#sec-convert"><span class="toc-section-number">4.5</span>  Convert an scdf object back to scan syntax</a></li>
+  <li><a href="#sec-convert" id="toc-sec-convert" class="nav-link" data-scroll-target="#sec-convert"><span class="toc-section-number">4.5</span>  Convert an <em>scdf</em> object back to scan syntax</a></li>
   <li><a href="#displaying-scdf-files" id="toc-displaying-scdf-files" class="nav-link" data-scroll-target="#displaying-scdf-files"><span class="toc-section-number">4.6</span>  Displaying scdf-files</a></li>
   <li><a href="#selecting-cases-and-measurements" id="toc-selecting-cases-and-measurements" class="nav-link" data-scroll-target="#selecting-cases-and-measurements"><span class="toc-section-number">4.7</span>  Selecting cases and measurements</a>
   <ul class="collapse">
@@ -335,7 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="a-single-case-data-frame" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="a-single-case-data-frame"><span class="header-section-number">4.1</span> A <strong><em>single-case data frame</em></strong></h2>
-<p>Scan provides its own data-class for encoding single-case data: the <em>single-case data frame</em> (short <em>scdf</em>). An <em>scdf</em> is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an scdf as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured <strong>values</strong>, the <strong>phase</strong> identifier for each measured value, and the measurement time (<strong>mt</strong>) of each measure. Optionally, scdfs could include further variables for each single-case (e.g., control variables), and also a name for each case.</p>
+<p>Scan provides its own data-class for encoding single-case data: the <em>single-case data frame</em> (short <em>scdf</em>). An <em>scdf</em> is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an <em>scdf</em> as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured <strong>values</strong>, the <strong>phase</strong> identifier for each measured value, and the measurement time (<strong>mt</strong>) of each measure. Optionally, scdfs could include further variables for each single-case (e.g., control variables), and also a name for each case.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -346,13 +348,13 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Technically, an scdf object is a list containing data frames. It is of the class <code>c("scdf","list")</code>. Additionally, an <em>scdf</em> entails an attribute <code>scdf</code> with a list with further attributes. <code>var.values</code>, <code>var.phase</code>, and <code>var.mt</code> contain the names of the <code>values</code>, <code>phase</code>, and the <code>measurement time</code> variable. By default, these names are set to <code>values</code>, <code>phase</code>, and <code>mt</code>.</p>
+<p>Technically, an <em>scdf</em> object is a list containing data frames. It is of the class <code>c("scdf","list")</code>. Additionally, an <em>scdf</em> entails an attribute <code>scdf</code> with a list with further attributes. <code>var.values</code>, <code>var.phase</code>, and <code>var.mt</code> contain the names of the <code>values</code>, <code>phase</code>, and the <code>measurement time</code> variable. By default, these names are set to <code>values</code>, <code>phase</code>, and <code>mt</code>.</p>
 </div>
 </div>
 <p>Several functions are available for creating, transforming, merging, and importing/exporting <em>scdfs</em>.</p>
 </section>
 <section id="sec-scdf" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="sec-scdf"><span class="header-section-number">4.2</span> Creating scdfs</h2>
+<h2 data-number="4.2" class="anchored" data-anchor-id="sec-scdf"><span class="header-section-number">4.2</span> Creating <em>scdfs</em></h2>
 <div class="callout-tip callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -366,7 +368,7 @@ The scdf function call
 <p>scdf(values, B_start, mt, phase, phase_design = NULL, name = NULL, dvar = “values”, pvar = “phase”, mvar = “mt”, …)</p>
 </div>
 </div>
-<p>The <code>scdf</code> function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement <em>values</em> and the <em>phase</em> structure and a scdf object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the <code>B_start</code> argument, second, defining a design with the <code>phase_design</code> argument and third, setting parameters in a named vector of the dependent variable.</p>
+<p>The <code>scdf()</code> function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement <em>values</em> and the <em>phase</em> structure and an <em>scdf</em> object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the <code>B_start</code> argument, second, defining a design with the <code>phase_design</code> argument and third, setting parameters in a named vector of the dependent variable.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Three ways to code the same scdf</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>, <span class="at">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>))</span>
@@ -377,7 +379,7 @@ The scdf function call
 The <code>phase_design</code> argument is a named vector with the name and length of each phase. The phase names can be set arbitrary, although I recommend to use capital letters (A, B, C, …) for each phase followed by, when indicated, a number if the phases repeat (A1, B1, A2, B2, …). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with <em>scan</em>.<br>
 When the vector of the dependent variable includes named values, a phase_design structure is created automatically. Each named value sets the beginning of a new phase. For example <code>c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)</code> will create an ABC-phase design with 3, 3, and 4 values per phase.<br>
 Use only one of the three methods at a time and I recommend to use the <code>phase_design</code> argument or the named vector method as they are the most versatile.<br>
-If no measurement times are given, scdf automatically adds them numbered sequentially 1, 2, 3, …, <em>N</em> where <em>N</em> is the number of measurements. in some circumstances it might be useful to define individual measurement times for each measurement. For example, if you want to include the days since the beginning of the study as time intervals between measurements are widely varying you might get more valid results this way when analyzing the data in a regression approach.</p>
+If no measurement times are specified, they are automatically created as a series 1, 2, 3, …, <em>N</em>, where <em>N</em> is the number of measurements. in some circumstances it might be useful to define individual measurement times for each measurement. For example, if you want to include the days since the beginning of the study as time intervals between measurements are widely varying you might get more valid results this way when analyzing the data in a regression approach.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example of a more complex design </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(</span>
@@ -431,7 +433,7 @@ If no measurement times are given, scdf automatically adds them numbered sequent
              7       1    2 10     B</code></pre>
 </div>
 </div>
-<p>Table <a href="#tbl-scdf">Table&nbsp;<span>4.1</span></a>) shows a complete list of arguments that could be passed to the function.</p>
+<p><a href="#tbl-scdf">Table&nbsp;<span>4.1</span></a> shows a complete list of arguments that could be passed to the function.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-scdf" class="anchored">
@@ -490,7 +492,7 @@ If no measurement times are given, scdf automatically adds them numbered sequent
 </div>
 </div>
 </div>
-<p>If you want to create a data-set comprising several single-cases the easiest way is to first create an scdf for each case and then join them into a new scdf with the <code>c</code> command:</p>
+<p>If you want to create a dataset comprising several singlecases, the easiest way is to first create an scdf for each case and then merge them into a new scdf using the <code>c</code> command:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="at">B =</span> <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">19</span>), </span>
@@ -506,7 +508,7 @@ If no measurement times are given, scdf automatically adds them numbered sequent
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>mbd <span class="ot">&lt;-</span> <span class="fu">c</span>(case1, case2, case3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If you like to use other than the default variable names (“values”, “phase”, and “mt”) you could define these with the <code>dvar</code> (for the dependent variable), <code>pvar</code> (the variable indicating the phase), and <code>mvar</code> (the measurement-time variable) arguments.</p>
+<p>If you want to use other than the default variable names (“values”, “phase” and “mt”), you can define them with the arguments <code>dvar</code> (for the dependent variable), <code>pvar</code> (the variable specifying the phase) and <code>mvar</code> (the measurement time variable).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Using a different name for the dependent variable</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
@@ -542,8 +544,8 @@ section &lt;phase variable&gt;</code></pre>
 </section>
 <section id="saving-and-reading-single-case-data-frames" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="saving-and-reading-single-case-data-frames"><span class="header-section-number">4.3</span> Saving and reading <em>single-case data frames</em></h2>
-<p>Usually, it is not needed to save an scdf to a separate file on your computer. In most of the cases you could keep the coding of the <em>scdf</em> as described above and rerun it every time that you are working with your data. But sometimes it is more convenient to separately save the data to a file for later use or to send them to a colleague.<br>
-The simplest way is to use the base <em>R</em> functions <code>saveRDS</code> and <code>readRDS</code> for this purpose. <code>saveRDS</code> takes at least two arguments: the first is the object you like to save and the second is a file name for the resulting file. If you have an <em>scdf</em> with the name <code>study1</code> the line <code>saveRDS(study1, "study1.rds")</code> will save the <em>scdf</em> to your drive. You could later read this file with <code>study1 &lt;- readRDS("study1.rds")</code>. <code>getwd()</code> will return the current active folder that you are working in.</p>
+<p>Normally, it is not necessary to save an <em>scdf</em> in a separate file on your computer. In most cases, you can keep the coding of the <em>scdf</em> as described above and run it again each time you work with your data. However, for large files, it is sometimes more convenient to save the data separately in a file for later use.<br>
+The easiest way is to use the <em>R</em> base functions <code>saveRDS</code> and <code>readRDS</code> for this purpose. <code>saveRDS</code> takes at least two arguments: The first is the object you want to save, and the second is a filename for the resulting file. If you have an <em>scdf</em> named <code>study1</code>, you can use <code>saveRDS(study1, "study1.rds")</code> to save the <em>scdf</em> to your drive. You can read this file with <code>study1 &lt;- readRDS("study1.rds")</code>. With <code>getwd()</code> you get the path to the current active folder you are saving and reading data from.</p>
 </section>
 <section id="import-and-export-single-case-data-frames" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="import-and-export-single-case-data-frames"><span class="header-section-number">4.4</span> Import and export <em>single-case data frames</em></h2>
@@ -559,7 +561,7 @@ The read_scdf function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>read_scdf(filename, data = NULL, sort.labels = FALSE, cvar = “case”, pvar = “phase”, dvar = “values”, mvar = “mt”, phase.names = NULL, sep = “,”, dec = “.”, type = NA, …)</p>
+<p>read_scdf(file, cvar = “case”, pvar = “phase”, dvar = “values”, mvar = “mt”, sort_cases = FALSE, phase_names = NULL, type = NA, sort.labels = NULL, phase.names = NULL, …)</p>
 </div>
 </div>
 <p>When you are working with other programs besides <strong>R</strong> you need to export and import the <em>scdf</em> into a common file format. <code>read_scdf</code> imports a comma-separated-variable (<em>csv</em>) file and converts it into an <em>scdf</em> object. By default, the csv-file has to contain the columns <em>case</em>, <em>phase</em>, and <em>values</em>. Optionally, a further column named <em>mt</em> could be provided. The csv file should be build up like this:</p>
@@ -569,14 +571,20 @@ The read_scdf function call
 <p></p><figcaption class="figure-caption">How to format a single-case file in a spreadsheet program for importing into scan</figcaption><p></p>
 </figure>
 </div>
-<p>In case your variables names differ from the standard (i.e.&nbsp;“case”, “values”, “phase”, and “mt” ), you could set additional arguments to fit your file. <code>read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")</code> for example will set the variables attributes of the resulting scdf. Cases will be split by the variable <code>"name"</code>, <code>"wellbeing"</code> is set as the dependent variable (default is <em>values</em>), phase information are in the variable <code>"intervention"</code>, and measurement times in the variable <code>"time"</code>. You could also reassign the phase names within the phase variable by setting the argument <code>phase.names</code>. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to “A” and “B” with <code>read_scdf("example.csv", phase.names = c("A", "B"))</code>.</p>
+<p>In case your variables names differ from the standard (i.e.&nbsp;“case”, “values”, “phase”, and “mt” ), you could set additional arguments to fit your file. <code>read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")</code> for example will set the variables attributes of the resulting <em>scdf</em>. Cases will be split by the variable <code>"name"</code>, <code>"wellbeing"</code> is set as the dependent variable (default is <em>values</em>), phase information are in the variable <code>"intervention"</code>, and measurement times in the variable <code>"time"</code>. You could also reassign the phase names within the phase variable by setting the argument <code>phase.names</code>. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to “A” and “B” with <code>read_scdf("example.csv", phase.names = c("A", "B"))</code>.</p>
+<p>For some reasons, computer systems with a German (and some other) language setups export csv-files by default with a comma as a decimal point and a semicolon as a separator between values. In these cases you have to set two extra arguments to import the data:</p>
+<p><code>read_scdf("example.csv", dec = ",", sep = ";")</code></p>
+</section>
+<section id="other-data-formats" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="other-data-formats"><span class="header-section-number">4.4.2</span> Other data formats</h3>
+<p><code>read_scdf</code> also allows for directly importing <em>Microsoft Excel</em> <code>.xlsx</code> or <code>.xls</code> files. You need to have the library <code>readxl</code> installed in your R setup for this to work. Excel files will be automatically detected by the filename extension <code>xls</code>or <code>xlsx</code> or by explicitly setting the <code>type</code> argument (e.g.&nbsp;<code>type = "xlsx"</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_scdf</span>(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"example2.xlsx"</span>, <span class="at">cvar =</span> <span class="st">"name"</span>, <span class="at">pvar =</span> <span class="st">"intervention"</span>, </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dvar =</span> <span class="st">"wellbeing"</span>, <span class="at">mvar =</span> <span class="st">"time"</span>, <span class="at">phase.names =</span> <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Loaded 20 cases.</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>Imported 20 cases</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -613,12 +621,9 @@ gender
 gym</code></pre>
 </div>
 </div>
-<p>For some reasons, computer systems with a German (and some other) language setups export csv-files by default with a comma as a decimal point and a semicolon as a separator between values. In these cases you have to set two extra arguments to import the data:</p>
-<p><code>read_scdf("example.csv", dec = ",", sep = ";")</code></p>
-<p><code>read_scdf</code> also allows for directly importing <em>Microsoft Excel</em> <code>.xlsx</code> or <code>.xls</code> files. You need to have the library <code>readxl</code> installed in your R setup for this to work. Excel files will be automatically detected by the filename extension <code>xls</code>or <code>xlsx</code> or by explicitly setting the <code>type</code> argument (e.g.&nbsp;<code>type = "xlsx"</code>).</p>
 </section>
-<section id="sec-write-scdf" class="level3" data-number="4.4.2">
-<h3 data-number="4.4.2" class="anchored" data-anchor-id="sec-write-scdf"><span class="header-section-number">4.4.2</span> Export data</h3>
+<section id="sec-write-scdf" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="sec-write-scdf"><span class="header-section-number">4.4.3</span> Export data</h3>
 <div class="callout-tip callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -632,11 +637,27 @@ The write_scdf function call
 <p>write_scdf(data, filename = NULL, sep = “,”, dec = “.”, …)</p>
 </div>
 </div>
-<p><code>write_scdf()</code> exports an scdf object as a comma-separated-variables file (<em>csv</em>) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The scdf object is converted into a single data frame with a <em>case</em> variable identifying the rows for each subject. The first argument of the command identifies the scdf to be exported and the second argument (<code>file</code>) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the <code>dec</code> and the <code>sep</code> arguments. For example, <code>write_scdf(example, file = "example.csv", dec = ",", sep = ";")</code> exports a csv variation usually used for example in Germany.</p>
+<p><code>write_scdf()</code> exports an <em>scdf</em> object as a comma-separated-variables file (<em>csv</em>) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The <em>scdf</em> object is converted into a single data frame with a <em>case</em> variable identifying the rows for each subject. The first argument of the command identifies the <em>scdf</em> to be exported and the second argument (<code>file</code>) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the <code>dec</code> and the <code>sep</code> arguments. For example, <code>write_scdf(example, file = "example.csv", dec = ",", sep = ";")</code> exports a csv variation usually used for example in Germany.</p>
+</section>
+<section id="other-data-formats-1" class="level3" data-number="4.4.4">
+<h3 data-number="4.4.4" class="anchored" data-anchor-id="other-data-formats-1"><span class="header-section-number">4.4.4</span> Other data formats</h3>
+<p>The <strong><em>R</em></strong> system has many add on packages that allow to write data to almost any file format available. If you like to export an <em>scdf</em> in those formats, you firstly need to convert the <em>scdf</em> into a standard R data-frame with the <code>as.data.frame()</code> function. Now you can export the resulting data-frame applying the respective function from another package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(exampleABC)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Open document example. You need to have the readODS package installed.</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>readODS<span class="sc">::</span><span class="fu">write_ods</span>(df, <span class="st">"filename.ods"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Excel example. You need to have the openxlsx package installed.</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(df, <span class="st">"filename.xlsx"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># SPSS example. You need to have the haven package installed.</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>haven<span class="sc">::</span><span class="fu">write_sav</span>(df, <span class="st">"filename.sav"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="sec-convert" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="sec-convert"><span class="header-section-number">4.5</span> Convert an scdf object back to scan syntax</h2>
+<h2 data-number="4.5" class="anchored" data-anchor-id="sec-convert"><span class="header-section-number">4.5</span> Convert an <em>scdf</em> object back to scan syntax</h2>
 <div class="callout-tip callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -650,10 +671,10 @@ The convert function call
 <p>convert(scdf, file = ““, study_name =”study”)</p>
 </div>
 </div>
-<p>You can also reconvert an scdf object back to “raw” scan syntax. This is a convenient way when you imported data from an Excel or csv file and want to keep everything clean and transparent within your R syntax files.</p>
+<p>You can also reconvert an <em>scdf</em> object back to “raw” scan syntax. This is a convenient way when you imported data from an Excel or csv file and want to keep everything clean and transparent within your R syntax files.</p>
 <p>Here is an example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">convert</span>(exampleABC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">convert</span>(exampleABC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>case1 &lt;- scdf(
    values = c(58, 56, 60, 63, 51, 45, 44, 59, 45, 39, 83, 65, 70, 83, 70, 85, 47, 66, 77, 75, 51, 87, 80, 68, 70, 56, 52, 70, 83, 63), 
@@ -682,8 +703,8 @@ study &lt;- c(case1, case2, case3)</code></pre>
 <h2 data-number="4.6" class="anchored" data-anchor-id="displaying-scdf-files"><span class="header-section-number">4.6</span> Displaying scdf-files</h2>
 <p><em>scdf</em> are displayed by just typing the name of the object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Beretvas2008 is an example scdf included in scan</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>Beretvas2008</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Beretvas2008 is an example scdf included in scan</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Beretvas2008</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#A single-case data frame with one case
 
@@ -707,8 +728,8 @@ study &lt;- c(case1, case2, case3)</code></pre>
 </div>
 <p>The <code>print</code> command allows for specifying the output. Some possible arguments are <code>cases</code> (the number of cases to be displayed; Three by default), <code>rows</code> (the maximum number of rows to be displayed; Fifteen by default), and <code>digits</code> (number of digits). <code>cases = 'all'</code> and <code>rows = 'all'</code> prints all cases and rows.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Huber2014 is an example scdf included in scan</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Huber2014, <span class="at">cases =</span> <span class="dv">2</span>, <span class="at">rows =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Huber2014 is an example scdf included in scan</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Huber2014, <span class="at">cases =</span> <span class="dv">2</span>, <span class="at">rows =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#A single-case data frame with 4 cases
 
@@ -730,7 +751,7 @@ study &lt;- c(case1, case2, case3)</code></pre>
 <p>The argument <code>long = TRUE</code> prints each case one after the other instead side by side (e.g., <code>print(exampleAB, long = TRUE)</code>).</p>
 <p><code>summary()</code> gives a very concise overview of the <em>scdf</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Huber2014)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Huber2014)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#A single-case data frame with 4 cases
 
@@ -757,16 +778,16 @@ Author of data:  Christian Huber </code></pre>
 <h3 data-number="4.7.1" class="anchored" data-anchor-id="subsetting-cases-with-base-r-syntax"><span class="header-section-number">4.7.1</span> Subsetting cases with base R syntax</h3>
 <p>You can extract one or more single-cases from an <em>scdf</em> with multiple cases in two ways. If the case has a name, you can address it with the <code>$</code> operator.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Huber2014<span class="sc">$</span>David</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Huber2014<span class="sc">$</span>David</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>or you can use squared brackets</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Huber2014[<span class="dv">1</span>] <span class="co">#extracts case 1</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>Huber2014[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="co">#extracts cases 2 and 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Huber2014[<span class="dv">1</span>] <span class="co">#extracts case 1</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Huber2014[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="co">#extracts cases 2 and 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>new.huber2014 <span class="ot">&lt;-</span> Huber2014[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>)] <span class="co">#extracts cases 1 and 4</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>new.huber2014</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>new.huber2014 <span class="ot">&lt;-</span> Huber2014[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>)] <span class="co">#extracts cases 1 and 4</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>new.huber2014</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#A single-case data frame with 2 cases
 
@@ -808,10 +829,10 @@ The select_cases function call
 <p>Since version 0.53 scan includes some functions to work with pipe-operators. Therefore, we will provide syntax examples with and without pipe operators.</p>
 <p>The <code>select_cases()</code> function takes case-names and/or numbers for selecting cases:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With pipes:</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>Huber2014 <span class="sc">%&gt;%</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_cases</span>(<span class="st">"Adam"</span>, <span class="st">"Berta"</span>, <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With pipes:</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>Huber2014 <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_cases</span>(<span class="st">"Adam"</span>, <span class="st">"Berta"</span>, <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#A single-case data frame with 3 cases
 
@@ -829,21 +850,21 @@ phase &lt;phase variable&gt;
 Note:  Behavioral data (compliance in percent).
 Author of data:  Christian Huber </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Without pipes:</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># new_huber &lt;- select_cases(Huber2014, "Adam", "Berta", 4)</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(new_huber)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Without pipes:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># new_huber &lt;- select_cases(Huber2014, "Adam", "Berta", 4)</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(new_huber)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="sec-subset" class="level3" data-number="4.7.3">
 <h3 data-number="4.7.3" class="anchored" data-anchor-id="sec-subset"><span class="header-section-number">4.7.3</span> Select measurements</h3>
-<p>The <code>subset()</code> function helps with extracting measurements (or rows) by a specific criteria from a scdf.</p>
-<p>Subset takes a scdf as its first argument and a logical expression as the second argument (<code>filter</code>). Only measurements for which the logical argument is evaluated to be TRUE are inlcuded in the returning scdf object.</p>
+<p>The <code>subset()</code> function helps with extracting measurements (or rows) by a specific criteria from an scdf.</p>
+<p>Subset takes an scdf as its first argument and a logical expression as the second argument (<code>filter</code>). Only measurements for which the logical argument is evaluated to be TRUE are inlcuded in the returning scdf object.</p>
 <p>For example, the scdf <code>Huber2014</code> has a variable <code>compliance</code> and we like to keep measurements where <code>compliance</code> is larger than 10 because we assume the others to be outliers:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>Huber2014 <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(compliance <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Huber2014 <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(compliance <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#A single-case data frame with 4 cases
 
@@ -865,9 +886,9 @@ Author of data:  Christian Huber </code></pre>
 </div>
 <p>In an more complex example, we only like to keep values lower than 60 when they are in phase A or values equal or larger than 60 when they are in phase B:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>exampleAB <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>((values <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">&amp;</span> phase <span class="sc">==</span> <span class="st">"A"</span>) <span class="sc">|</span> (values <span class="sc">&gt;=</span> <span class="dv">60</span> <span class="sc">&amp;</span> phase <span class="sc">==</span> <span class="st">"B"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>exampleAB <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>((values <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">&amp;</span> phase <span class="sc">==</span> <span class="st">"A"</span>) <span class="sc">|</span> (values <span class="sc">&gt;=</span> <span class="dv">60</span> <span class="sc">&amp;</span> phase <span class="sc">==</span> <span class="st">"B"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#A single-case data frame with 3 cases
 
