@@ -1,12 +1,13 @@
 
+
 pkg <- c("scan", "scplot", "tibble")
 
 #, "tidyverse","knitr", "kableExtra", "pander"
 
-
-tmp <- sapply(
-  pkg, 
-  function(x) library(x, character.only = TRUE, quietly = TRUE,warn.conflicts = FALSE)
+suppressPackageStartupMessages(
+  lapply(pkg, 
+    function(x) library(x, character.only = TRUE, quietly = TRUE,warn.conflicts = FALSE)
+  )
 )
 
 knitr::opts_chunk$set(echo = TRUE)

@@ -1,11 +1,10 @@
-# scplot - Adavanced plotting functions for single-case data
+# scplot - Adavanced plotting functions for single-case data {#sec-scplot}
 
-We started developing a new add-on package to `scan` for visualizing single-case data: `scplot`. This function will gradually replace the `plot.scdf()` (short: `plot()`) function already included in `scan` and finally be included into to the `scan` package. 
-Here are some advantages of using `scplot` over the standard scan `plot` function:
+We started developing a new add-on package to `scan` for visualizing single-case data: `scplot`. This function will gradually replace the `plot.scdf()` (short: `plot()`) function already included in `scan` and finally be included into to the `scan` package. Here are some advantages of using `scplot` over the standard scan `plot` function:
 
-- `scplot` is already much more versatile than `plot` has been. 
-- `scplot` was designed to encompass a pipe style coding which is much cleaner, more intelligible and easier to code. 
-- `scplot` is based on `ggplot2` and produces a `ggplot2` object which can be modified and extended to any wishes.
+-   `scplot` is already much more versatile than `plot` has been.
+-   `scplot` was designed to encompass a pipe style coding which is much cleaner, more intelligible and easier to code.
+-   `scplot` is based on `ggplot2` and produces a `ggplot2` object which can be modified and extended to any wishes.
 
 We consider the state of `scplot` to be *experimental*. That is, the code and syntax might change in future versions so backward compatibility is not guaranteed.
 
@@ -13,16 +12,13 @@ But we will keep the "old" `plot.scdf` in future versions of `scan`.
 
 ## Install `scplot`
 
-scplot is hosted as a gitHub project at https://github.com/jazznbass/scplot.
-You can install it with `devtools::install_github("jazznbass/scplot", dependencies = TRUE)` from your R console.
-Make sure you have the package `devtools` installed before.
-The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/. MacOs and Linux users usually do not need to take this extra step.
+scplot is hosted as a gitHub project at https://github.com/jazznbass/scplot. You can install it with `devtools::install_github("jazznbass/scplot", dependencies = TRUE)` from your R console. Make sure you have the package `devtools` installed before. The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/. MacOs and Linux users usually do not need to take this extra step.
 
 ## Basic principal
 
 You start by providing an scdf object (a single-case data frame as returned from the `scdf()` function of scan) to the `scplot()` function (e.g. `scplot(exampleAB)`). Now you use a series of pipe-operators (`%>%`) to add and change characteristics of the resulting plot. For example:
 
-```{.r}
+``` r
 scplot(exampleABC) %>%
   add_title("My plot") %>%
   add_caption("Note: A nice plot")
@@ -89,11 +85,11 @@ scplot(exampleABC) %>%
 
 ### Refine with addidtional arguments
 
-`mean` : `trim`  
-`quantile`: `probs`  
-`movingMean`, `movingMedian`: `lag`  
-`loess`: `span`  
-`lowess`: `f`  
+`mean` : `trim`\
+`quantile`: `probs`\
+`movingMean`, `movingMedian`: `lag`\
+`loess`: `span`\
+`lowess`: `f`
 
 ```{r statline5}
 scplot(exampleABC) %>%
@@ -140,7 +136,6 @@ yellow: values < 20% quantile of all cases")
 ```
 
 And the positions argument can take the results from a scan outlier analyses and mark the positions of the outliers of each case:
-
 
 ```{r marks3}
 scplot(exampleABC_outlier) %>% 
@@ -207,7 +202,7 @@ Themes are complete styles that define various elements of a plot.
 
 Function `add_theme("theme_name")`
 
-Possible themes: 
+Possible themes:
 
 ```{r theme1, results='asis', echo=FALSE}
 themes <- paste0("`", names(scplot:::.scplot_themes), "`")
@@ -297,8 +292,7 @@ scplot(exampleABC) %>%
 
 ## Customize axis settings
 
-When axis ticks are to close together set the increment argument to leave additional space (e.g. `increment = 2` will annotate every other value).
-When you set `increment_from = 0` an additional tick will be set at 1 although counting of the increments will start at 0.
+When axis ticks are to close together set the increment argument to leave additional space (e.g. `increment = 2` will annotate every other value). When you set `increment_from = 0` an additional tick will be set at 1 although counting of the increments will start at 0.
 
 ```{r axis1}
 scplot(exampleA1B1A2B2) %>% 
@@ -332,7 +326,6 @@ scplot(exampleA1B1A2B2) %>%
 
 ## Add value labels
 
-
 ```{r valuelabels1}
 scplot(exampleABC) %>% 
   add_labels(text = list(color = "black", size = 0.7), 
@@ -360,7 +353,6 @@ scplot(exampleAB_mpd) %>%
 
 `scplot()` generates ggplot2 objects. You can keep the ggplot2 object and assign it into a new object with the `as_ggplot()` function. Thereby, you can use many ggplot2 functions to rework your graphics:
 
-
 ```{r extend1}
 
 p1 <- scplot(byHeart2011$`Lisa (Turkish)`) %>% 
@@ -381,10 +373,9 @@ p1 + p2 + p3 + p4 + plot_annotation(tag_levels = "a", tag_suffix =  ")")
 
 ```
 
-
 ## Complexs examples
 
-Here are some more complex examples 
+Here are some more complex examples
 
 ```{r complex1}
 scplot(example_A24) %>% 
@@ -464,10 +455,9 @@ scplot(exampleA1B1A2B2) %>%
 
 Adding bars is a bit more complicated:
 
-- Set the `type` argument to `"bar"`  
-- Extend the limits of the x-axis by 1 (here from `0` to `41`)  
-- Set the left margin of the x-axis to `0` with the `expand` argument.   
-
+-   Set the `type` argument to `"bar"`\
+-   Extend the limits of the x-axis by 1 (here from `0` to `41`)\
+-   Set the left margin of the x-axis to `0` with the `expand` argument.
 
 ```{r complex4}
 scplot(exampleAB_add) %>%
@@ -477,7 +467,3 @@ scplot(exampleAB_add) %>%
   add_statline("trend", linetype = "dashed") %>%
   set_casenames(position = "strip")
 ```
-
-
-
-

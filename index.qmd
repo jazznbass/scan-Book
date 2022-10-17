@@ -1,11 +1,9 @@
 ```{r include = FALSE}
-
 build <- yaml::read_yaml("_build.yml")
 build$build <- build$build + 1
 build$date <- as.character(Sys.time())
 build$r_version <- version
 yaml::write_yaml(build, "_build.yml")
-
 ```
 
 ***Version `r build <- yaml::read_yaml("_build.yml"); paste0(build$version, " (build ", build$build,")")`***
@@ -14,8 +12,8 @@ yaml::write_yaml(build, "_build.yml")
 
 Hello!
 
-I am glad your found your way to this book as is tells me you are beginning to use the scan package. While `scan` is quiet thoroughly developed, this book is at an early stage (about 30% is done). I am continuously working on it and extending it. At this point in time there is no release of this book available. Only this draft which is full of errors (code and typos).\
-If you have any suggestions how to enhance the book or would like to report errors, comments, feedback etc. you can do so by posting an issue to the gitHub repository of this book. You can find the repository at <https://github.com/jazznbass/scan-Book>.
+I am glad your found your way to this book as is tells me you are beginning to use the scan package. While `scan` is quiet thoroughly developed, this book is at an early stage (about 35% is done). I am continuously working on it and extending it. At this point in time there is no release of this book available. Only this draft, which most likely contains many errors.\
+If you have any suggestions how to enhance the book or would like to report errors, comments, feedback etc. go to the gitHub repository of this book and contribute here <https://github.com/jazznbass/scan-Book/discussions>
 
 Thank you!
 
@@ -23,7 +21,7 @@ Jürgen
 
 `r format(Sys.time(), "%d %B %Y")`
 
-## Software reference {.unnumbered}
+## General references {.unnumbered}
 
 This book has been created using [`Quarto`](https://quarto.org/) within the RStudio [@RStudio] environment. The analyses have been conducted with the **R** package `scan` at version `r packageVersion("scan")` [@R-scan] and `scplot` at version `r packageVersion("scplot")` [@R-scplot]. `r R.version$version.string` was used [@R-base].
 

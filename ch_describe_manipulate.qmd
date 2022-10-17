@@ -4,7 +4,7 @@
 
 A short description of the *scdf* is provided by the `summary` command. The results are pretty much self explaining
 
-```{r summary_example2}
+```{r summary-example2}
 summary(Huber2014)
 ```
 
@@ -34,13 +34,15 @@ out <- tribble(
 print_table(out)
 ```
 
-```{r describe_example}
+```{r}
+#| label: describe-example
 describe(exampleABC)
 ```
 
 The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the `describe` command into an R object and then use the `write.csv` (or `write.csv2` for a German OS system setup) to export the `descriptives` element of the object.
 
-```{r describe_write_example}
+```{r}
+#| label: describe-write-example
 # write the results into a new R object named `res`
 res <- describe(exampleABC)
 # create a new file containing the descriptives on your harddrive
@@ -52,29 +54,32 @@ The file is written to the currently active working directory. If you are not su
 ::: callout-note
 ## Conflicting function names
 
-Sometimes R packages include the same function names. For example, the `describe()` function is also part of the `psych` package. Now, if you have loaded the `psych` package with `library(psych)` after `scan` the `describe()` function of scan will be masked (`describe()` would now call the corresponding function of the `psych` package).  
-There are two solutions to this problem: 
+Sometimes R packages include the same function names. For example, the `describe()` function is also part of the `psych` package. Now, if you have loaded the `psych` package with `library(psych)` after `scan` the `describe()` function of scan will be masked (`describe()` would now call the corresponding function of the `psych` package).\
+There are two solutions to this problem:
 
-1. activate the `psych` library before the  `scan` library (now the psych `describe()` function will be masked) or 
-2. include the package name into the function call with the prefix `scan::`: `scan::describe()`.
+1.  activate the `psych` library before the `scan` library (now the psych `describe()` function will be masked) or
+2.  include the package name into the function call with the prefix `scan::`: `scan::describe()`.
 :::
 
 ## Autoregression and trendanalyses
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: fenced
 function_structure("autocorr")
 ```
 
-The `autocorr` function calculates autocorrelations within each phase and across all phases. The `lag.max` argument defines the lag up to which the autocorrelation will be computed. 
+The `autocorr` function calculates autocorrelations within each phase and across all phases. The `lag.max` argument defines the lag up to which the autocorrelation will be computed.
 
-```{r autocorr_example}
+```{r}
+#| label: autocorr-example
 autocorr(exampleABC, lag.max = 4)
 ```
 
 The `trend` function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.
 
-
-```{r trend_example}
+```{r}
+#| label: trend-example
 # Simple example
 trend(exampleABC[1])
 
@@ -88,20 +93,19 @@ trend(exampleAB$Johanna, offset = 0,
 
 There are two kinds of missing values in single-case data series. First, missings that were explicitly recorded as `NA` and assigned to a phase and measurement-time as in the following example:
 
-```
-scdf(c(5, 3, 4, 6, 8, 7, 9, 7, NA, 6), phase_design = c(A = 4, B = 6))
-```
+    scdf(c(5, 3, 4, 6, 8, 7, 9, 7, NA, 6), phase_design = c(A = 4, B = 6))
 
 The second type of missing occurs when there are gaps between measurement-times that are not explicitly coded as in the following example:
 
-```
-scdf(c(5, 3, 4, 6, 8, 7, 9, 7, 6), phase_design = c(A = 4, B = 5), 
-     mt = c(1, 2, 3, 4, 5, 6, 7, 8, 10))
-```
+    scdf(c(5, 3, 4, 6, 8, 7, 9, 7, 6), phase_design = c(A = 4, B = 5), 
+         mt = c(1, 2, 3, 4, 5, 6, 7, 8, 10))
 
-In both cases, missing values pose a threat to the internal validity of overlap indices. Randomization tests are more robust against the first type of missing values but are affected by the second type. Regression approaches are less impacted by both types as they take the interval between measurement-times into account.  
+In both cases, missing values pose a threat to the internal validity of overlap indices. Randomization tests are more robust against the first type of missing values but are affected by the second type. Regression approaches are less impacted by both types as they take the interval between measurement-times into account.
 
-```{r fillmissing_example, fig.height=5, fig.width=5}
+```{r}
+#| label: fillmissing-example
+#| fig-width: 5
+#| fig-height: 5
 case1 <- scdf(c(3,6,2,4,3,5,2,6,3,2, 6,7,5,8,6,7,4,8,5,6), 
               phase_design = c(A = 10, B = 10), name = "no NA")
 case2 <- scdf(c(3,6,2,4,3,5,2,NA,3,2, 6,7,5,8,6,NA,4,8,5,6), 
@@ -113,13 +117,22 @@ plot(ex)
 overlap(ex)
 ```
 
+Here is the syntax for the upcoming `scplot()` function (see @sec-scplot):
+
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+scplot(ex)
+```
+
+
 ## Outlieranalysis
 
 ```{r results='asis', echo=FALSE}
 function_structure("outlier")
 ```
 
-*scan* provides several methods for analyzing outliers. All of them are implemented in the `outliers` function. Available methods are the __standard deviation__, __mean average deviation__, __confidence intervals__, and __Cook's distance__. The criteria argument takes a vector with two information, the first defines the analyzing method ("SD", "MAD", CI", "Cook") and the second the criteria. For "SD" the criteria is the number of standard deviations (__sd__) from the mean of each phase for which a value is not considered to be an outlier. For example, `criteria = c("SD",2)` would identify every value exceeding two __sd__ above or below the mean as an outlier whereas __sd__ and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin @iglewicz_how_1993 recommend the use the much more robust median average deviation (__MAD__) instead. The __MAD__ is is constructed similar to the __sd__ but uses the median instead of the mean. Multiplying the __MAD__ by 1.4826 approximates the __sd__ in a normal distributed sample. This corrected MAD is applied in the `outlier` function. A deviation of 3.5 times the corrected __MAD__ from the median is suggested to be an outlier. To use this criterion set `criteria = c("MAD", 3.5)`. `criteria = c("CI", 0.95)` takes exceeding the 95% confidence interval as the criteria for outliers. The Cook's distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook's distance analyses are based on a piecewise-regression model. Most commonly, Cook's distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c("Cook","4/n").
+*scan* provides several methods for analyzing outliers. All of them are implemented in the `outliers` function. Available methods are the **standard deviation**, **mean average deviation**, **confidence intervals**, and **Cook's distance**. The criteria argument takes a vector with two information, the first defines the analyzing method ("SD", "MAD", CI", "Cook") and the second the criteria. For "SD" the criteria is the number of standard deviations (**sd**) from the mean of each phase for which a value is not considered to be an outlier. For example, `criteria = c("SD",2)` would identify every value exceeding two **sd** above or below the mean as an outlier whereas **sd** and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin @iglewicz_how_1993 recommend the use the much more robust median average deviation (**MAD**) instead. The **MAD** is is constructed similar to the **sd** but uses the median instead of the mean. Multiplying the **MAD** by 1.4826 approximates the **sd** in a normal distributed sample. This corrected MAD is applied in the `outlier` function. A deviation of 3.5 times the corrected **MAD** from the median is suggested to be an outlier. To use this criterion set `criteria = c("MAD", 3.5)`. `criteria = c("CI", 0.95)` takes exceeding the 95% confidence interval as the criteria for outliers. The Cook's distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook's distance analyses are based on a piecewise-regression model. Most commonly, Cook's distance exceeding 4/n is used as a criteria. This could be implemented setting \`criteria = c("Cook","4/n").
 
 ```{r outlier}
 outlier(exampleABC_outlier, criteria = c("MAD", 3.5))
@@ -129,13 +142,25 @@ res <- outlier(exampleABC_outlier, criteria = c("MAD", 3.5))
 plot(exampleABC_outlier, marks = res, style = "annotate", ylim = c(40,160))
 ```
 
-## Smoothing data
+Here is the syntax for the upcoming `scplot()` function (see @sec-scplot).
+
+```{r}
+scplot(exampleABC_outlier) %>%
+  add_labels(nudge_y = 15, text = list(size = 0.7)) %>%
+  add_marks(positions = res) %>%
+  add_theme("basic") %>%
+  set_casenames(position = "strip") %>%
+  set_yaxis(limits = c(NA, 140))
+
+```
+
+## Smoothing data {#sec-smoothing}
 
 ```{r results='asis', echo=FALSE}
 function_structure("smooth_cases")
 ```
 
-The `smooth_cases` function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A *lag* defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.  
+The `smooth_cases` function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A *lag* defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.\
 The function returns am scdf with smoothed data points.
 
 ```{r smooth_example, fig.width=5, fig.height=5}
@@ -146,4 +171,11 @@ berta_lre <- smooth_cases(Huber2014$Berta, FUN = "localRegression")
 new_study <- c(Huber2014$Berta, berta_mmd, berta_mmn, berta_lre)
 names(new_study) <- c("Original", "Moving Median", "Moving Mean", "Local Regression")
 plot(new_study, style = "grid2")
+```
+
+Here is the syntax for the upcoming `scplot()` function (see @sec-scplot):
+
+```{r fig.width=5, fig.height=5}
+
+scplot(new_study) %>% add_ridge()
 ```
