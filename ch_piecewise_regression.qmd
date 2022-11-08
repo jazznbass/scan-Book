@@ -274,8 +274,6 @@ $$
 33.388 \approx  74.855 - 60.618 - 10*-1.915
 $$
 
-The `levelB`-effect is the difference between the estimated first measurement of phase B and the last measurement of phase A.
-
 <!--
 $$
 slope_{phaseB} = slope_{phaseA} + slopeB
@@ -302,6 +300,12 @@ The `slopeB`-effect is the difference between the slopes of phase B and phase A.
 
 For *contrast level first/ slope first*, `levelC` indicates an increase of 46.558 compared to phase A (the intercept) ans `slopeC` an increase of 1.721.
 
+This contrast answers the following question:  
+
+Level question: *Where would the values be, if the slope of phase A (slope A = trend) continued until the beginning of phase C and what is the difference to the actual value at the first measurement of phase C?*
+
+Slope question: *What is the difference between the slope in phase C and the slope in phase A (slope A = trend)?*
+
 <!--
 $$
 intercept_{phaseC} = intercept + n_{phaseA+B} * trend + levelC
@@ -311,7 +315,7 @@ $$68.873 \approx 60.618 + 20*-1.915 + 46.558$$
 -->
 
 $$
-levelC = intercept_{phaseC} - intercept - (n_{phaseA+B} * trend)
+levelC = intercept_{phaseC} - intercept_{phaseA} - (n_{phaseA+B} * slope_{phaseA})
 $$ {#eq-contrast-ff-1}
 
 $$46.558 \approx 68.873 - 60.618 - (20*-1.915) $$
@@ -332,7 +336,23 @@ $$ {#eq-contrast-ff-2}
 
 $$1.721 \approx -0.194 - (-1.915)$$
 
+```{r}
+#| echo: false
+#| label: fig-contrast-first-preceding
+#| fig-cap: LevelC and SlopeC effects.
+exampleABC$Marie %>% 
+  subset(phase != "B") %>%
+  scplot() %>% 
+  add_statline("trend", color = "darkred") %>%
+  add_statline("trendA", color = "darkred") %>%
+  set_yaxis(limits = c(0,100)) %>%
+  add_arrow(x0 =21, y0 = 25,x1 = 21, y1 = 67,ends = "both", color = "darkblue",type = "closed") %>%
+  add_text("Level C", x = 20, y = 50, hjust = 1) %>%
+  add_theme("basic") %>% 
+  set_casenames(" ")
+```
 
+The `levelC`-effect is the difference between the estimated first measurement of phase C (intercept B) and the extrapolated values of the trend line (slope A) at the last measurement of phase B.
 
 #### Level preceding and slope preceding contrasts
 
@@ -368,6 +388,7 @@ $$0.418 \approx -0.194 - (-0.612)$$
 
 For *contrast level first/ slope preceding*, `levelC` indicates an increase of 33.388 compared to phase B and `slopeC` an increase of 0.418.
 
+<!--
 $$
 intercept_{phaseC} = intercept +n_{phaseA+B} * trend + 10 * slopeB + levelC
 $$ {#eq-contrast-fp-1}
@@ -381,10 +402,27 @@ slope_{phaseC} = slope_{phaseB} + slopeC
 $$ {#eq-contrast-fp-2}
 
 $$-0.194 \approx -0.612 + 0.418$$
+-->
+
+$$
+levelC = intercept_{phaseC} - intercept_{phaseA}  - n_{phaseA+B} * slope_{phaseA} - 10 * slope_{phaseB}
+$$ {#eq-contrast-fp-1}
+
+$$
+33.527 \approx 68.873 - 60.618 - 20 * -1.915 - 10 * 1.303 
+$$
+
+$$
+slopeC = slope_{phaseC} - slope_{phaseB}
+$$ {#eq-contrast-fp-2}
+
+$$0.418 \approx -0.194 - (-0.612)$$
 
 #### Level preceding and slope first contrasts
 
 For *contrast level preceding/ slope first*, `level C` indicates an increase of 13.170 compared to phase B and `slope C` an increase of 1.721.
+
+<!--
 
 $$
 intercept_{phaseC} = intercept_{phaseB} + n_{phaseB} * trend + levelC
@@ -402,120 +440,20 @@ $$
 -0.194 \approx -1.915 + 1.721
 $$
 
-# Modelling autoregression
+-->
 
-<!--# to be written -->
+$$
+levelC = intercept_{phaseC} - intercept_{phaseB} - n_{phaseB} * slope_{phaseA}
+$$ {#eq-contrast-pf-1}
 
-```{r}
-autocorr(Grosche2011)
-```
+$$
+13.170\approx 68.873 - 74.855 - 10*-1.915
+$$
 
-# Multivariate piecewise regression {#sec-mplm}
+$$
+slopeC = slope_{phaseC} - slope_{phaseA}
+$$ {#eq-contrast-pf-2}
 
-<!--# to be written -->
-
-::: callout-note
-Read @sec-plm before you start with this chapter.
-:::
-
-```{r}
-#| echo: false
-#| results: asis
-
-function_structure("mplm")
-```
-
-```{r}
-mplm(exampleAB_add, dvar = c("wellbeing", "depression"))
-```
-
-# Multilevel plm analyses {#sec-hplm}
-
-::: callout-note
-Read @sec-plm before you start with this chapter.
-:::
-
-```{r}
-#| echo: false
-#| results: asis
-function_structure("hplm")
-```
-
-Multilevel analyses can take the piecewise-regression approach even further. It allows for
-
--   analyzing the effects between phases for multiple single-cases at once
--   describing variability between subjects regarding these effects, and
--   introducing variables and factors for explaining the differences.
-
-The basic function for applying a multilevel piecewise regression analysis is `hplm`. The `hplm` function is similar to the `plm` function, so I recommend that you get familar with `plm` before applying an `hplm`.
-
-Here is a simple example:
-
-```{r}
-#| label: hplm
-hplm(exampleAB_50)
-```
-
-Here is an example inlcuding random slopes:
-
-```{r}
-#| label: hplm-random
-hplm(exampleAB_50, random.slopes = TRUE)
-```
-
-### Adding additional L2-variables {#sec-add-l2}
-
-```{r}
-#| echo: false
-#| results: asis
-function_structure("add_l2")
-```
-
-In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with *scan*. Therefore, we need to define a new *data frame* including the relevant information of the subjects of the single-case studies we want to analyze. This *data frame* consists of a variable labeled `case` which has to correspond to the case names of the *scfd* and further variables with attributes of the subjects. To build a *data frame* we can use the R function `data.frame`.
-
-```{r}
-#| label: hplm-df-l2
-L2 <- data.frame(
-  case = c("Antonia","Theresa", "Charlotte", "Luis", "Bennett", "Marie"), 
-  age = c(16, 13, 13, 10, 5, 14), 
-  sex = c("f","f","f","m","m","f")
-)
-L2
-```
-
-Multilevel analyses require a high number of Level 2 units. The exact number depends on the complexity of the analyses, the size of the effects, the number of level 1 units, and the variability of the residuals. But surely we need at least about 30 level 2 units. In a single-case design that is, we need at least 30 single-cases (subjects) within the study. After setting the level 2 data frame we can merge it to the *scdf* with the `add_l2()` function (alternatively, we can use the `data.l2` argument of the `hplm` function). Then we have to specify the regression function using the `update.fixed` argument. The level 2 variables can be added just like any other additional variable. For example, we have added a level 2 data-set with the two variables `sex` and `age`. `update` could be construed of the level 1 piecewise regression model `.~.` plus the additional level 2 variables of interest `+ sex + age`. The complete argument is `update.fixed = .~. + sex + age`. This analyses will estimate a main effect of sex and age on the overall performance. In case we want to analyze an interaction between the intervention effects and for example the sex of the subject we have to add an additional interaction term (a cross-level interaction). An interaction is defined with a colon. So `sex:phase` indicates an interaction of sex and the level effect in the single case study. The complete formula now is `update.fixed = .~. + sex + age + sex:phase`.
-
-*scan* includes an example single-case study with 50 subjects `example50` and an additional level 2 data-set `example50.l2`. Here are the first 10 cases of `example50.l2`.
-
-```{r}
-#| echo: false
-knitr::kable(head(exampleAB_50.l2, 10))
-```
-
-Analyzing the data with `hplm` could look like this:
-
-```{r}
-#| label: hplm-l2
-exampleAB_50 %>%
-  add_l2(exampleAB_50.l2) %>%
-  hplm(update.fixed = .~. + sex + age)
-
-# Alternatively:
-# hplm(exampleAB_50, data.l2 = exampleAB_50.l2, update.fixed = .~. + sex + age)
-```
-
-`sex` is a factor with the levels `f` and `m`. So `sexm` is the effect of being male on the overall performance. `age` does not seem to have any effect. So we drop `age` out of the equation and add an interaction of sex and phase to see whether the `sex` effect is due to a weaker impact of the intervention on males.
-
-```{r}
-exampleAB_50 %>%
-  add_l2(exampleAB_50.l2) %>%
-  hplm(update.fixed = .~. + sex + sex:phaseB)
-```
-
-```{r}
-#| include: false
-res <- hplm(exampleAB_50, data.l2 = exampleAB_50.l2, update.fixed = .~. + sex + sex:phaseB)
-res <- res$hplm$coefficients$fixed
-```
-
-Now the interaction `phase:sexm` is significant and the main effect is no longer relevant. It looks like the intervention effect is $`r abs(round(res["phaseB:sexm"], 1))`$ points lower for male subjects. While the level-effect is $`r round(res["phaseB"], 1)`$ points for female subjects it is $`r round(res["phaseB"], 1)`$ - $`r abs(round(res["phaseB:sexm"], 1))`$ = $`r round(res["phaseB"], 1) - abs(round(res["phaseB:sexm"], 1))`$ for males.
+$$
+1.721 \approx -0.194 - (-1.915)
+$$
