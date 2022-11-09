@@ -234,10 +234,10 @@ Now we estimate a plm model with four contrast settings:
 #| label: tbl-contrast-first-preceding
 #| tbl-cap: Estimates of a piecewise-linear regression with contrast models "first" and "preceding".
 df <- rbind(
-  coef(plm(exampleABC$Marie, contrast = list("first", "first")))[,"Estimate"],
-  coef(plm(exampleABC$Marie, contrast = list("preceding", "preceding")))[,"Estimate"],
-  coef(plm(exampleABC$Marie, contrast = list("first", "preceding")))[,"Estimate"],
-  coef(plm(exampleABC$Marie, contrast = list("preceding", "first")))[,"Estimate"]
+  coef(plm(exampleABC$Marie, contrast_level = "first", contrast_slope = "first"))[,"Estimate"],
+  coef(plm(exampleABC$Marie, contrast_level = "preceding", contrast_slope = "preceding"))[,"Estimate"],
+  coef(plm(exampleABC$Marie, contrast_level = "first", contrast_slope = "preceding"))[,"Estimate"],
+  coef(plm(exampleABC$Marie, contrast_level = "preceding", contrast_slope = "first"))[,"Estimate"]
 ) %>% 
   round(3) %>% as.data.frame()
 names(df) <- c("intercept", "trend", "level B", "level C", "slope B", "slope C")
