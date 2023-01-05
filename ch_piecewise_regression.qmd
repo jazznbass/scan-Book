@@ -64,11 +64,13 @@ plm(exampleAB$Johanna)
 
 ## Adjusting the model
 
-The plm model is a complex model specifically suited for single-case studies. It entails a series of important parameters. Nevertheless, oftentimes we have specific theoretical assumption that do no include some of these parameters. We might, for example, only expect an immediate but not a continuous change from a medical intervention. Therefore, it would not be useful to include the slope-effect into our modelling. Vice versa, we could investigate an intervention that will just develop across time without an immediate change with the intervention start. Here we should drop the level-effect from out model. Even the assumption of a trend-effect can be dropped in cases where we do not expect a serial dependency of the data and we do not assume intervention independent changes within the time-frame of the study.
+The plm model is a complex model specifically suited for single-case studies. It entails a series of important parameters. Nevertheless, often we have specific theoretical assumption that do no include some of these parameters. We might, for example, only expect an immediate but not a continuous change from a medical intervention. Therefore, it would not be useful to include the slope-effect into our modelling. Vice versa, we could investigate an intervention that will just develop across time without an immediate change with the intervention start. Here we should drop the level-effect from out model. Even the assumption of a trend-effect can be dropped in cases where we do not expect a serial dependency of the data and we do not assume intervention independent changes within the time-frame of the study.
 
-It is important to keep in mind, that an overly complex model might have negative effects on the test power of an analyzes (that is, the probability of detecting an actually existing effect is diminished) [see @wilbert2022]
+It is important to keep in mind, that an overly complex model might have negative effects on the test power of an analyses (that is, the probability of detecting an actually existing effect is diminished) [see @wilbert2022]
 
 ### The `slope`, `level`, and `trend` arguments
+
+<!--# treat each argument separately and add more examples -->
 
 The plm function comes with three arguments (`slope`, `level`, and `trend`) to include or drop the respective predictors from the plm model. Buy default, all arguments are set `TRUE` and a full plm model is applied to the data.
 
@@ -83,7 +85,7 @@ example <- scdf(
 plm(example)
 ```
 
-The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. he easiest way to do this is by setting the `slope` argument to `FALSE`.
+The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. The easiest way to do this is to set the `slope` argument to `FALSE`.
 
 ```{r}
 plm(example, slope = FALSE)
@@ -93,9 +95,9 @@ In the resulting estimations the trend and level effects are now significant. Th
 
 ## Adding additional predictors
 
-In more complex analyses additional predictors can be included in the piecewise regression model.
+In more complex analyses, additional predictors can be included in the piecewise regression model.
 
-To do this, we have to change the regression formula 'manually' by applying the `update` argument. The `update` argument allows to change the underlying regression formula. To add a new variable named for example `newVar`, set `update = .~. + newVar`. The `.~.` part takes the internally build formula and `+ newVar` adds a variable named `newVar` to the equation.
+To do this, we have to change the regression formula 'manually' by applying the `update` argument. The `update` argument allows to change the underlying regression formula. To add a new variable named for example `newVar`, set `update = .~. + newVar`. The `.~.` part takes the internally build model formula (based on the number of phases in your model and the setting of the `slope`, `level`, and `trend` arguments) and `+ newVar` adds a variable called `newVar` to the equation.
 
 Here is an example adding the control variable `cigarrets` to the model:
 
@@ -103,8 +105,18 @@ Here is an example adding the control variable `cigarrets` to the model:
 plm(exampleAB_add, update = .~. + cigarrets)
 ```
 
-The formula has two parts divided by a tilde. Left of the tilde is the variable to be predicted and right of it the predictors. A `1` indicates the intercept, the variable `mt` estimates the trend effect, `phaseB` the level effect of the B-phase and the variable `interB` the slope effect of the B-phase (the *inter*action of measurement-time and phase). If `formula` is not explicitly defined, it is set to `formula = values ~ 1 + mt + phaseB + interB` (assuming an AB-design) to estimate the full piecewise regression model.
+The output of the plm-function shows the resulting formula for the regression model that includes the cigarrets variable:\
+`Formula: wellbeing ~ day + phaseMedication + interMedication + cigarrets`
 
+```{=html}
+<!--#  
+
+completely changing the regression formula:
+
+The formula has two parts divided by a tilde. Left of the tilde is the variable to be predicted and right of it the predictors. A 1 indicates the intercept, the variable mt estimates the trend effect, phaseB the level effect of the B-phase and the variable interB the slope effect of the B-phase (the interaction of measurement-time and phase). If formula is not explicitly defined, it is set to formula = values ~ 1 + mt + phaseB + interB (assuming an AB-design) to estimate the full piecewise regression model.
+
+-->
+```
 ## Dummy models
 
 The `model` argument is used to code the *dummy variables*. These *dummy variables* are used to compute the slope and level effects of the *phase* variable.\
@@ -168,7 +180,9 @@ kable(res, align = "c") %>%
 
 ## Designs with more than two phases: Setting the right contrasts
 
-With single-case studies with more than two phases it gets a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the phase A values. Another common use is to compare the effects of one phase with the preceding phase.\
+With single-case studies with more than two phases it gets a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the phase A values. Another common use is to compare the effects of one phase with the preceding phase.
+
+<!--# correct for new arguments contrast_level and contrast_slope -->\
 Since scan version `0.54.4` plm allows to set a contrast argument. `contrast = "first"`\` (the default) will compare all slope and level-effects to the values in the first phase. `contrast = "preceding"`\` will compare the slope and level-effects to the preceding phase. (Note: Prior to scan version `0.54.4` you had to set `model = "JW"` which is identical to `model = "B&L-B", contrast = "preceding"`\`).
 
 For the *preceding contrast*, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similar, the dummy variable for the slope-effect is set to zero for all phases preceding the one in focus and starts with one for the first measurement of the target phase and increases until the last measurement of the case.
@@ -256,6 +270,7 @@ All regression models in @tbl-contrast-first-preceding have the same estimates f
 
 [^ch_piecewise_regression-1]: Differences here and in the following calculations are due to rounding errors.
 
+```{=html}
 <!--
 $$
 intercept_{phaseB} = intercept + n_{PhaseA} * trend + levelB
@@ -265,7 +280,7 @@ $$
 74.855 \approx 60.618 + 10*-1.915 + 33.388
 $$
 -->
-
+```
 $$
 levelB = intercept_{phaseB} - intercept_{phaseA} - (n_{PhaseA} * slope_{phaseA})
 $$ {#eq-contrast-level-2}
@@ -274,6 +289,7 @@ $$
 33.388 \approx  74.855 - 60.618 - 10*-1.915
 $$
 
+```{=html}
 <!--
 $$
 slope_{phaseB} = slope_{phaseA} + slopeB
@@ -283,7 +299,7 @@ $$
 -0.612 \approx -1.915 + 1.303
 $$
 -->
-
+```
 $$
 slopeB = slope_{phaseB} - slope_{phaseA}
 $$ {#eq-contrast-slope-2}
@@ -300,12 +316,13 @@ The `slopeB`-effect is the difference between the slopes of phase B and phase A.
 
 For *contrast level first/ slope first*, `levelC` indicates an increase of 46.558 compared to phase A (the intercept) ans `slopeC` an increase of 1.721.
 
-This contrast answers the following question:  
+This contrast answers the following question:
 
 Level question: *Where would the values be, if the slope of phase A (slope A = trend) continued until the beginning of phase C and what is the difference to the actual value at the first measurement of phase C?*
 
 Slope question: *What is the difference between the slope in phase C and the slope in phase A (slope A = trend)?*
 
+```{=html}
 <!--
 $$
 intercept_{phaseC} = intercept + n_{phaseA+B} * trend + levelC
@@ -313,15 +330,14 @@ $$ {#eq-contrast-ff-1}
 
 $$68.873 \approx 60.618 + 20*-1.915 + 46.558$$
 -->
-
+```
 $$
 levelC = intercept_{phaseC} - intercept_{phaseA} - (n_{phaseA+B} * slope_{phaseA})
 $$ {#eq-contrast-ff-1}
 
 $$46.558 \approx 68.873 - 60.618 - (20*-1.915) $$
 
-
-
+```{=html}
 <!--
 $$
 slope_{phaseC} \approx trend + slopeC
@@ -329,7 +345,7 @@ $$ {#eq-contrast-ff-2}
 
 $$-0.194 \approx -1.915 + 1.721$$
 -->
-
+```
 $$
 slopeC = slope_{phaseC} - slope_{phaseA} 
 $$ {#eq-contrast-ff-2}
@@ -356,8 +372,11 @@ The `levelC`-effect is the difference between the estimated first measurement of
 
 #### Level preceding and slope preceding contrasts
 
+<!--#  This contrast answers the following question:-->
+
 For *contrast level preceding/ slope preceding*, `levelC` indicates an increase of 0.139 compared to phase B and `slopeC` an increase of 0.418.
 
+```{=html}
 <!--
 $$
 intercept_{phaseC} = intercept_{phaseB} + n_{phaseB} * slope_{phaseB} + levelC 
@@ -371,7 +390,7 @@ $$ {#eq-contrast-pp-2}
 
 $$-0.194 \approx -0.612 + 0.418$$
 -->
-
+```
 $$
 levelC = intercept_{phaseC} - intercept_{phaseB} - (n_{phaseB} * slope_{phaseB})
 $$ {#eq-contrast-pp-1}
@@ -386,8 +405,11 @@ $$0.418 \approx -0.194 - (-0.612)$$
 
 #### Level first and slope preceding contrasts
 
+<!--# This contrast answers the following question: -->
+
 For *contrast level first/ slope preceding*, `levelC` indicates an increase of 33.388 compared to phase B and `slopeC` an increase of 0.418.
 
+```{=html}
 <!--
 $$
 intercept_{phaseC} = intercept +n_{phaseA+B} * trend + 10 * slopeB + levelC
@@ -403,7 +425,7 @@ $$ {#eq-contrast-fp-2}
 
 $$-0.194 \approx -0.612 + 0.418$$
 -->
-
+```
 $$
 levelC = intercept_{phaseC} - intercept_{phaseA}  - n_{phaseA+B} * slope_{phaseA} - 10 * slope_{phaseB}
 $$ {#eq-contrast-fp-1}
@@ -420,8 +442,11 @@ $$0.418 \approx -0.194 - (-0.612)$$
 
 #### Level preceding and slope first contrasts
 
+<!--# This contrast answers the following question: -->
+
 For *contrast level preceding/ slope first*, `level C` indicates an increase of 13.170 compared to phase B and `slope C` an increase of 1.721.
 
+```{=html}
 <!--
 
 $$
@@ -441,7 +466,7 @@ $$
 $$
 
 -->
-
+```
 $$
 levelC = intercept_{phaseC} - intercept_{phaseB} - n_{phaseB} * slope_{phaseA}
 $$ {#eq-contrast-pf-1}
@@ -457,3 +482,5 @@ $$ {#eq-contrast-pf-2}
 $$
 1.721 \approx -0.194 - (-1.915)
 $$
+
+<!--# same analyses for models without level estimators and models without slope estimators -->
