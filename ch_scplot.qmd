@@ -1,6 +1,6 @@
 # scplot - Adavanced plotting functions for single-case data {#sec-scplot}
 
-We started developing a new add-on package to `scan` for visualizing single-case data: `scplot`. This function will gradually replace the `plot.scdf()` (short: `plot()`) function already included in `scan` and finally be included into to the `scan` package. Here are some advantages of using `scplot` over the standard scan `plot` function:
+`scplot` is an add-on package to `scan` for visualizing single-case data. This set of functions will gradually replace the `plot.scdf()` (short: `plot()`) function already included in `scan` and finally be included into to the `scan` package. Here are some advantages of using `scplot` over the standard scan `plot` function:
 
 -   `scplot` is already much more versatile than `plot` has been.
 -   `scplot` was designed to encompass a pipe style coding which is much cleaner, more intelligible and easier to code.
@@ -14,11 +14,13 @@ But we will keep the "old" `plot.scdf` in future versions of `scan`.
 
 scplot is hosted as a gitHub project at https://github.com/jazznbass/scplot. You can install it with `devtools::install_github("jazznbass/scplot", dependencies = TRUE)` from your R console. Make sure you have the package `devtools` installed before. The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/. MacOs and Linux users usually do not need to take this extra step.
 
+The following chapter has been written with scplot version `r packageVersion("scplot")`. If you have problems replicating the examples, please update to this version.
+
 ## Basic principal
 
-You start by providing an scdf object (a single-case data frame as returned from the `scdf()` function of scan) to the `scplot()` function (e.g. `scplot(exampleAB)`). Now you use a series of pipe-operators (`%>%`) to add and change characteristics of the resulting plot. For example:
+You start by providing an scdf object (a single-case data frame as returned from the `scdf()` function of scan) to the `scplot()` function (e.g. `scplot(exampleAB)`). Now you use a series of pipe-operators (`%>%` or `|>`) to add and change characteristics of the resulting plot. For example:
 
-``` r
+```{r basic1, eval=FALSE}
 scplot(exampleABC) %>%
   add_title("My plot") %>%
   add_caption("Note: A nice plot")
@@ -85,11 +87,11 @@ scplot(exampleABC) %>%
 
 ### Refine with addidtional arguments
 
-`mean` : `trim`\
-`quantile`: `probs`\
-`movingMean`, `movingMedian`: `lag`\
-`loess`: `span`\
-`lowess`: `f`
+`mean` : `trim`  
+`quantile`: `probs`  
+`movingMean`, `movingMedian`: `lag`  
+`loess`: `span`  
+`lowess`: `f`  
 
 ```{r statline5}
 scplot(exampleABC) %>%
@@ -137,6 +139,7 @@ yellow: values < 20% quantile of all cases")
 
 And the positions argument can take the results from a scan outlier analyses and mark the positions of the outliers of each case:
 
+
 ```{r marks3}
 scplot(exampleABC_outlier) %>% 
   add_marks(positions = outlier(exampleABC_outlier), size = 3)
@@ -163,7 +166,7 @@ scplot(exampleABC) %>%
 
 ```{r line1}
 scplot(exampleABC) %>%
-  set_dataline(colour = "blue", size = 1, linetype = "dotted", 
+  set_dataline(colour = "blue", linewidth = 1, linetype = "dotted", 
                point = list(colour = "red", size = 1, shape = 2) )
 
 # Equivalent_
@@ -202,7 +205,7 @@ Themes are complete styles that define various elements of a plot.
 
 Function `add_theme("theme_name")`
 
-Possible themes:
+Possible themes: 
 
 ```{r theme1, results='asis', echo=FALSE}
 themes <- paste0("`", names(scplot:::.scplot_themes), "`")
@@ -274,7 +277,7 @@ scplot(exampleAB_decreasing) %>%
 ```{r legend1}
 scplot(exampleABC) %>%
   add_statline("mean", color = "darkred") %>%
-  add_statline("min", phase = "B", size = 0.2, color = "darkblue") %>%
+  add_statline("min", phase = "B", linewidth = 0.2, color = "darkblue") %>%
   add_legend()
 ```
 
@@ -292,7 +295,8 @@ scplot(exampleABC) %>%
 
 ## Customize axis settings
 
-When axis ticks are to close together set the increment argument to leave additional space (e.g. `increment = 2` will annotate every other value). When you set `increment_from = 0` an additional tick will be set at 1 although counting of the increments will start at 0.
+When axis ticks are to close together set the increment argument to leave additional space (e.g. `increment = 2` will annotate every other value).
+When you set `increment_from = 0` an additional tick will be set at 1 although counting of the increments will start at 0.
 
 ```{r axis1}
 scplot(exampleA1B1A2B2) %>% 
@@ -326,6 +330,7 @@ scplot(exampleA1B1A2B2) %>%
 
 ## Add value labels
 
+
 ```{r valuelabels1}
 scplot(exampleABC) %>% 
   add_labels(text = list(color = "black", size = 0.7), 
@@ -353,6 +358,7 @@ scplot(exampleAB_mpd) %>%
 
 `scplot()` generates ggplot2 objects. You can keep the ggplot2 object and assign it into a new object with the `as_ggplot()` function. Thereby, you can use many ggplot2 functions to rework your graphics:
 
+
 ```{r extend1}
 
 p1 <- scplot(byHeart2011$`Lisa (Turkish)`) %>% 
@@ -373,22 +379,23 @@ p1 + p2 + p3 + p4 + plot_annotation(tag_levels = "a", tag_suffix =  ")")
 
 ```
 
+
 ## Complexs examples
 
-Here are some more complex examples
+Here are some more complex examples 
 
 ```{r complex1}
 scplot(example_A24) %>% 
   add_theme("default") %>%
-  add_statline("lowess", color = "darkred", size = 1.5) %>%
-  add_statline("loess", color = "red", size = 1.5) %>%
-  add_statline("movingMean", lag = 3, color = "lightpink", size = 1.5) %>%
+  add_statline("lowess", color = "darkred", linewidth = 1.5) %>%
+  add_statline("loess", color = "red", linewidth = 1.5) %>%
+  add_statline("movingMean", lag = 3, color = "lightpink", linewidth = 1.5) %>%
   set_xaxis(size = 0.8, angle = 35) %>%
   set_dataline(point = "none") %>%
   add_legend(position = c(0.8, 0.75), background = list(color = "grey50")) %>%
   set_phasenames(c("no speedlimit", "with speedlimit"), position = "left", 
                  hjust = 0, vjust = 1) %>%
-  set_casenames("") %>%
+  set_casenames(position = "none") %>%
   add_title("Effect of a speedlimit on the A24") %>%
   add_caption("Note: Moving mean calculated with lag three", face = 3) %>%
   add_ridge(color = "lightblue")
@@ -434,7 +441,7 @@ scplot(exampleA1B1A2B2) %>%
   add_ridge(alpha("lightblue", 0.5)) %>%
   set_casenames(labels = sample_names(3), color = "steelblue4", size = 0.7) %>%
   set_panel(fill = c("grey80", "grey95"), color = "sienna4") %>%
-  add_grid(color = "grey85", size = 0.5) %>%
+  add_grid(color = "grey85", linewidth = 0.1) %>%
   set_dataline(size = 0.5, linetype = "solid", 
                point = list(colour = "sienna4", size = 0.5, shape = 18)) %>%
   add_labels(text = list(color = "sienna", size = 0.7), nudge_y = 4) %>%
@@ -455,15 +462,19 @@ scplot(exampleA1B1A2B2) %>%
 
 Adding bars is a bit more complicated:
 
--   Set the `type` argument to `"bar"`\
--   Extend the limits of the x-axis by 1 (here from `0` to `41`)\
--   Set the left margin of the x-axis to `0` with the `expand` argument.
+- Set the `type` argument to `"bar"`  
+- Extend the limits of the x-axis by 1 (here from `0` to `41`)  
+- Set the left margin of the x-axis to `0` with the `expand` argument.   
+
 
 ```{r complex4}
 scplot(exampleAB_add) %>%
   set_xaxis(expand = c(0, 0), limits = c(0, 41)) %>%
-  add_dataline("cigarrets", type = "bar", size = 0.6, point = "none") %>%
+  add_dataline("cigarrets", type = "bar", linewidth = 0.6, point = "none") %>%
   add_statline("mean", variable = "cigarrets", color = "darkred") %>%
   add_statline("trend", linetype = "dashed") %>%
   set_casenames(position = "strip")
 ```
+
+
+

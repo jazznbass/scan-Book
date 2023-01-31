@@ -7,7 +7,7 @@ library(knitr)
 library(kableExtra)
 ```
 
-In a piecewise-regression analysis (sometimes called segmented regression) a dataset is split at a specific break point and regression parameters (intercept and slopes) are calculated separately for data before and after the break point. This is done because we assume that at the break point a qualitative change happens affecting intercept and slope. This approach lends itself perfectly to analyze single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been suggested by Huitema and McKean @huitema_design_2000. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements beginning at the intervention's start and lasting throughout the intervention (B-phase).
+In a piecewise-regression analysis (sometimes called segmented regression) a dataset is split at a particular break point and the regression parameters (intercept and slopes) are calculated separately for the data before and after the break point. This is done because we assume that there is a qualitative change at the break point that affects the intercept and slope. This approach is well suited to the analysis of single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been proposed by Huitema and McKean @huitema_design_2000. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements starting at the beginning of the intervention and continuing throughout intervention (B-phase).
 
 In this model, four parameters predict the outcome at a specific measurement point:
 
@@ -182,7 +182,9 @@ kable(res, align = "c") %>%
 
 With single-case studies with more than two phases it gets a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the phase A values. Another common use is to compare the effects of one phase with the preceding phase.
 
-<!--# correct for new arguments contrast_level and contrast_slope -->\
+<!--# correct for new arguments contrast_level and contrast_slope -->
+
+\
 Since scan version `0.54.4` plm allows to set a contrast argument. `contrast = "first"`\` (the default) will compare all slope and level-effects to the values in the first phase. `contrast = "preceding"`\` will compare the slope and level-effects to the preceding phase. (Note: Prior to scan version `0.54.4` you had to set `model = "JW"` which is identical to `model = "B&L-B", contrast = "preceding"`\`).
 
 For the *preceding contrast*, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similar, the dummy variable for the slope-effect is set to zero for all phases preceding the one in focus and starts with one for the first measurement of the target phase and increases until the last measurement of the case.
@@ -211,7 +213,7 @@ kable(res, align = "c") %>%
   add_header_above(c(" " = 3, "contrast\nfirst" = 4, "contrast\npreceeding" = 4))
 ```
 
-### Understanding and interpreting contrasts
+## Understanding and interpreting contrasts
 
 In this section, we will calculate four plm models with different contrast settings for the same single-case data.
 
@@ -264,42 +266,20 @@ data.frame(
   kable_classic(full_width = FALSE)
 ```
 
-#### Phase B estimates
+### Phase B estimates
 
 All regression models in @tbl-contrast-first-preceding have the same estimates for `intercept` and `trend`. These are not affected by the contrasts and are identical to those for phase A in @tbl-contrasts-ex-2. In addition, in @tbl-contrast-first-preceding, the estimates for `levelB` and `slopeC` are identical since all models contrast the same phase (the first and the preceding phase are both phase A). The values here can be calculated from @tbl-contrasts-ex-2[^ch_piecewise_regression-1]:
 
 [^ch_piecewise_regression-1]: Differences here and in the following calculations are due to rounding errors.
 
-```{=html}
-<!--
 $$
-intercept_{phaseB} = intercept + n_{PhaseA} * trend + levelB
-$$ {#eq-contrast-level}
-
-$$
-74.855 \approx 60.618 + 10*-1.915 + 33.388
-$$
--->
-```
-$$
-levelB = intercept_{phaseB} - intercept_{phaseA} - (n_{PhaseA} * slope_{phaseA})
+levelB = intercept_{phaseB} - (intercept_{phaseA} + n_{PhaseA} * slope_{phaseA})
 $$ {#eq-contrast-level-2}
 
 $$
-33.388 \approx  74.855 - 60.618 - 10*-1.915
+33.388 \approx  74.855 - (60.618 + 10*-1.915)
 $$
 
-```{=html}
-<!--
-$$
-slope_{phaseB} = slope_{phaseA} + slopeB
-$$ {#eq-contrast-slope}
-
-$$
--0.612 \approx -1.915 + 1.303
-$$
--->
-```
 $$
 slopeB = slope_{phaseB} - slope_{phaseA}
 $$ {#eq-contrast-slope-2}
@@ -310,7 +290,7 @@ $$
 
 The `slopeB`-effect is the difference between the slopes of phase B and phase A.
 
-#### Level first and slope first contrasts
+### Level first and slope first contrasts
 
 `levelC` and `slopeC` estimates are different for "first" and "preceding" models. The estimates from @tbl-contrasts-ex-2 are $intercept_{phaseC} = 68.873$ and $slope_{phaseC} = -0.194$.
 
@@ -318,34 +298,18 @@ For *contrast level first/ slope first*, `levelC` indicates an increase of 46.55
 
 This contrast answers the following question:
 
-Level question: *Where would the values be, if the slope of phase A (slope A = trend) continued until the beginning of phase C and what is the difference to the actual value at the first measurement of phase C?*
+Level question: *Where would the value be if the slope of phase A (slope A = trend) continued through phase B until the beginning of phase C and what is the difference to the actual value at the first measurement of phase C?*
+
+*Alternatively: What would the value be if there had been no level or slope effect in phase B, but only the continuing trend effect, and what is the difference to the actual value at the first measurement in phase C?*
 
 Slope question: *What is the difference between the slope in phase C and the slope in phase A (slope A = trend)?*
 
-```{=html}
-<!--
 $$
-intercept_{phaseC} = intercept + n_{phaseA+B} * trend + levelC
+levelC = intercept_{phaseC} - (Intercept_{phaseA} + n_{phaseA+B} * slope_{phaseA})
 $$ {#eq-contrast-ff-1}
 
-$$68.873 \approx 60.618 + 20*-1.915 + 46.558$$
--->
-```
-$$
-levelC = intercept_{phaseC} - intercept_{phaseA} - (n_{phaseA+B} * slope_{phaseA})
-$$ {#eq-contrast-ff-1}
+$$46.558 \approx 68.873 - (60.618 + 20*-1.915) $$
 
-$$46.558 \approx 68.873 - 60.618 - (20*-1.915) $$
-
-```{=html}
-<!--
-$$
-slope_{phaseC} \approx trend + slopeC
-$$ {#eq-contrast-ff-2}
-
-$$-0.194 \approx -1.915 + 1.721$$
--->
-```
 $$
 slopeC = slope_{phaseC} - slope_{phaseA} 
 $$ {#eq-contrast-ff-2}
@@ -355,7 +319,7 @@ $$1.721 \approx -0.194 - (-1.915)$$
 ```{r}
 #| echo: false
 #| label: fig-contrast-first-preceding
-#| fig-cap: LevelC and SlopeC effects.
+#| fig-cap: "LevelC-effect: The difference between the values where the blue arrow is pointing. SlopeC effect: The difference of the slopes of the two red regression lines."
 exampleABC$Marie %>% 
   subset(phase != "B") %>%
   scplot() %>% 
@@ -368,34 +332,23 @@ exampleABC$Marie %>%
   set_casenames(" ")
 ```
 
-The `levelC`-effect is the difference between the estimated first measurement of phase C (intercept B) and the extrapolated values of the trend line (slope A) at the last measurement of phase B.
+The `levelC`-effect is the difference between the estimated first measurement of phase C (intercept C) and the extrapolated values of the trend line (slope A) at the first measurement of phase C.
 
-#### Level preceding and slope preceding contrasts
-
-<!--#  This contrast answers the following question:-->
+### Level preceding and slope preceding contrasts
 
 For *contrast level preceding/ slope preceding*, `levelC` indicates an increase of 0.139 compared to phase B and `slopeC` an increase of 0.418.
 
-```{=html}
-<!--
+This contrast answers the following question:
+
+Level question: *What would be the value if phase B had continued to the beginning of phase C and what is the difference to the actual value at the first measurement of phase C?*
+
+Slope question: *What is the difference between the slope of phase C and the slope of phase B?*
+
 $$
-intercept_{phaseC} = intercept_{phaseB} + n_{phaseB} * slope_{phaseB} + levelC 
+levelC = intercept_{phaseC} - (intercept_{phaseB} + n_{phaseB} * slope_{phaseB})
 $$ {#eq-contrast-pp-1}
 
-$$68.873 \approx 74.855 + 10*-0.612 + 0.139$$
-
-$$
-slope_{phaseC} = slope_{phaseB} + slopeC
-$$ {#eq-contrast-pp-2}
-
-$$-0.194 \approx -0.612 + 0.418$$
--->
-```
-$$
-levelC = intercept_{phaseC} - intercept_{phaseB} - (n_{phaseB} * slope_{phaseB})
-$$ {#eq-contrast-pp-1}
-
-$$0.139 \approx 68.873 - 74.855 - (10*-0.612)$$
+$$0.139 \approx 68.873 - (74.855 + 10*-0.612)$$
 
 $$
 slopeC = slope_{phaseC} - slope_{phaseB}
@@ -403,35 +356,22 @@ $$ {#eq-contrast-pp-2}
 
 $$0.418 \approx -0.194 - (-0.612)$$
 
-#### Level first and slope preceding contrasts
-
-<!--# This contrast answers the following question: -->
+### Level first and slope preceding contrasts
 
 For *contrast level first/ slope preceding*, `levelC` indicates an increase of 33.388 compared to phase B and `slopeC` an increase of 0.418.
 
-```{=html}
-<!--
+This contrast answers the following question:
+
+Level question: What would the value be if phase A had continued to the beginning of phase C, assuming that a slope effect of phase B exists (but no level effect)? And what is the difference to the actual value at the first measurement of phase C?
+
+Slope question: *What is the difference between the slope of phase C and the slope of phase B?*
+
 $$
-intercept_{phaseC} = intercept +n_{phaseA+B} * trend + 10 * slopeB + levelC
+levelC = intercept_{phaseC} - (intercept_{phaseA}  + n_{phaseA} * slope_{phaseA} + n_{phaseB} * slope_{phaseB})
 $$ {#eq-contrast-fp-1}
 
 $$
-68.873 \approx 60.618 + 20 * -1.915 + 10 * 1.303 + 33.527
-$$
-
-$$
-slope_{phaseC} = slope_{phaseB} + slopeC
-$$ {#eq-contrast-fp-2}
-
-$$-0.194 \approx -0.612 + 0.418$$
--->
-```
-$$
-levelC = intercept_{phaseC} - intercept_{phaseA}  - n_{phaseA+B} * slope_{phaseA} - 10 * slope_{phaseB}
-$$ {#eq-contrast-fp-1}
-
-$$
-33.527 \approx 68.873 - 60.618 - 20 * -1.915 - 10 * 1.303 
+33.527 \approx 68.873 - (60.618 + 10 * -1.915 + 10 * -0.612)
 $$
 
 $$
@@ -440,39 +380,20 @@ $$ {#eq-contrast-fp-2}
 
 $$0.418 \approx -0.194 - (-0.612)$$
 
-#### Level preceding and slope first contrasts
-
-<!--# This contrast answers the following question: -->
+### Level preceding and slope first contrasts
 
 For *contrast level preceding/ slope first*, `level C` indicates an increase of 13.170 compared to phase B and `slope C` an increase of 1.721.
 
-```{=html}
-<!--
+Level question: What would the value be if phase B had continued to the beginning of phase C, assuming that phase B did not have a slope effect? And what is the difference to the actual value at the first measurement of phase C?
+
+Slope question: *What is the difference between the slope of phase C and the slope of phase A (slope phase A = trend)?*
 
 $$
-intercept_{phaseC} = intercept_{phaseB} + n_{phaseB} * trend + levelC
+levelC = intercept_{phaseC} - (intercept_{phaseB} + n_{phaseB} * slope_{phaseA})
 $$ {#eq-contrast-pf-1}
 
 $$
-68.873 \approx 74.855 + 10*-1.915 + 13.170
-$$
-
-$$
-slope_{phaseC} = trend + slopeC
-$$ {#eq-contrast-pf-2}
-
-$$
--0.194 \approx -1.915 + 1.721
-$$
-
--->
-```
-$$
-levelC = intercept_{phaseC} - intercept_{phaseB} - n_{phaseB} * slope_{phaseA}
-$$ {#eq-contrast-pf-1}
-
-$$
-13.170\approx 68.873 - 74.855 - 10*-1.915
+13.170\approx 68.873 - (74.855 + 10*-1.915)
 $$
 
 $$

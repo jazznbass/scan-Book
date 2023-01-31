@@ -61,7 +61,22 @@ There are two solutions to this problem:
 2.  include the package name into the function call with the prefix `scan::`: `scan::describe()`.
 :::
 
-## Autoregression and trendanalyses
+## Standardized mean differences
+
+```{r}
+#| results: asis
+#| echo: fenced
+function_structure("smd")
+```
+
+Standardized mean differences are measures of effect sizes. The `smd` functions calculated various variations.
+
+```{r}
+#| label: smd-example
+smd(exampleAB)
+```
+
+## Auto-regression and trend-analyses
 
 ```{r}
 #| results: asis
@@ -76,16 +91,23 @@ The `autocorr` function calculates autocorrelations within each phase and across
 autocorr(exampleABC, lag.max = 4)
 ```
 
+```{r}
+#| results: asis
+#| echo: fenced
+function_structure("trend")
+```
+
 The `trend` function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.
 
 ```{r}
 #| label: trend-example
 # Simple example
-trend(exampleABC[1])
+trend(exampleABC$Marie)
 
 # Complex example
 trend(exampleAB$Johanna, offset = 0, 
-        model = c("Cubic" = values ~ I(mt^3), "Log Time" = values ~ log(mt))
+      model = c("Cubic" = values ~ I(mt^3), 
+                "Log Time" = values ~ log(mt))
 )
 ```
 
@@ -124,7 +146,6 @@ Here is the syntax for the upcoming `scplot()` function (see @sec-scplot):
 #| fig-height: 5
 scplot(ex)
 ```
-
 
 ## Outlieranalysis
 
