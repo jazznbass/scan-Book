@@ -12,7 +12,7 @@ function_structure("overlap")
 overlap(exampleAB)
 ```
 
-Overlap measures refer to a comparison of two phases within a single-case data-set. By default, `overlap` compares the first to the second phase. 
+Overlap measures refer to a comparison of two phases within a single-case data-set. By default, `overlap` compares the first to the second phase.
 
 ### Select and recombine phases {#sec-select-phases}
 
@@ -159,12 +159,14 @@ function_structure("tau_u")
 
 The *Tau-U* statistic has been proposed by @parker_combining_2011 and is one of the more broadly used approach for reporting effect sizes of single case data. Unfortunately, various and ambiguous implementations of Tau-U exist [@pustejovsky2016; @brossart2018a]. The `tau_u` function tries to cover several of these implementation. It takes a *scdf* and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases based on a meta-analysis.
 
-Several arguments an be set to define how Tau-U should be calculated. By setting the argument `method = "parker"`, Tau-U is calculated as described in @parker_combining_2011. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. `method = "complete`, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate. In the original method proposed by @parker_combining_2011 data, calculations are based on Kendall's Tau A which does not correct for ties. Alternatively, Kendall's Tau B has a correction for Tau in the presence of ties. The `tau_method`\` can be set to decide on the tau method to use `"a"` for Kendall's Tau A and `"b"`\` for Kendall's Tau B.
+### Variations of Tau-U
+
+Several arguments an be set to define how Tau-U should be calculated. By setting the argument `method = "parker"`, Tau-U is calculated as described in @parker_combining_2011. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. `method = "complete`, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate. In the original method proposed by @parker_combining_2011 data, calculations are based on Kendall's Tau A which does not correct for ties. Alternatively, Kendall's Tau B has a correction for Tau in the presence of ties. The `tau_method` can be set to decide on the tau method to use `"a"` for Kendall's Tau A and `"b"`\` for Kendall's Tau B.
 
 Here is an example with setting that reconstruct the values from the original example in @parker2011 :
 
 ```{r}
-tau_u(Parker2011, method = "parker", tau_method = "a", continuity_correction = FALSE, ci = NA)
+tau_u(Parker2011, method = "parker", tau_method = "a", continuity_correction = FALSE)
 ```
 
 A different implementation of the method (provided at [http://www.singlecaseresearch.org/calculators/tau-u)](http://www.singlecaseresearch.org/calculators/tau-u)) uses Kendall's Tau B:
@@ -173,7 +175,7 @@ A different implementation of the method (provided at [http://www.singlecaserese
 tau_u(exampleAB$Johanna, method = "parker", tau_method = "b", continuity_correction = FALSE)
 ```
 
-A different online calculator created by Rumen Manolov is available at <https://manolov.shinyapps.io/Overlap/> it applies an R code developed by Kevin Tarlow for caluclating Tau-U. This setting will replicated results from this approach:
+Another online calculator created by Rumen Manolov is available at <https://manolov.shinyapps.io/Overlap/>. It uses an R code developed by Kevin Tarlow to calculate Tau-U. This setting will replicate the results of this approach:
 
 ```{r}
 tau_u(exampleAB$Johanna, method = "complete", tau_method = "a", continuity_correction = FALSE)
@@ -185,10 +187,49 @@ The standard return of the `tau_u` function does not display all calculations. I
 tau_u(exampleAB$Johanna) %>% print(complete = TRUE)
 ```
 
-When you provide multiple single-cases to the `tau-u` function, it will calculate a Tau-U table for each case and an overall calculation. The overall Tau-U value is the average of all Tau-U values weighted by their standard error. You can choose between a random- and a fixed-effect approach for the meta-analyses (`meta_method = "random"` or `"fixed"`).
+### Meta analyses
+
+::: callout-note
+The procedure for calculating the meta-analyses has changed with scan version 0.55.7. Please make sure you are using the latest scan version.
+:::
+
+If you pass multiple cases to the `tau-u` function, it will calculate a Tau-U table for each case and an overall calculation via a meta-analysis.
+
+::: callout-note
+## Calculating a Tau-U meta analysis
+
+The calculation of the Tau-U-meta-analyses involves the following steps:
+
+1.  The tau values are Fisher-Z transformed to $Tau_z$.
+
+2.  The standard error for each transformed value is calculated as either:
+
+    $se_z = {1 \over \sqrt{n-3}}$ [@hotelling1953]
+
+    or\
+    $se_z = \sqrt{0.437 \over n-4}$ [@fieller1957]
+
+3.  The average $tau_z$ is the mean of $tau_z$ weighted by $1 \over se_z^2$
+
+4.  The standard error of the average $tau_z$ is $se_{M_{tau_z}} = \sqrt{\frac{1}{\sum{weights}}}$ [@cooper2009]
+
+5.  The p value is calculated with a Z-test (form $Z = \frac{M_{tau_z}}{se_{M_{tau_z}}}$ )
+
+6.  The overall tau value is derived from an inverse-Fisher-Z-transformation.
+:::
+
+### Confidence intervals
+
+::: callout-note
+The default method for calculating the confidence interval has changed with scan version 0.55.7. Confidence intervals could have been outside the \[-1, 1\] in earlier versions. Set `ci_method = "s"` for a replication of results from scan version 0.55.6 or earlier.
+:::
+
+By default, 95% percent intervals are calculated for each tau value. You can specify a different interval with the `ci` argument (`ci = 0.90` will calculate a 90% interval). There are three alternative approaches to calculating the confidence intervals. When `ci_method = "z"` is set (the default), a general formula for calculating the standard-error of Fisher-Z values is used [@hotelling1953]. If `ci_method = "tau",` a specific formula for Fisher-Z transformed tau values is applied [@fieller1957]. Both approaches give similar results. A third approach is derived from the standard deviation of the S statistic[^ch_overlapping_indices-1]. Set `ci_method = "s"` for this method. The S method could lead to implausible values blow -1 or above 1. I recommend to use the common "z" method or the accurate "tau" method.
+
+[^ch_overlapping_indices-1]: S is the difference between concordant and discordant comparisons in a Kendall's tau calculation. This is the same statistic used to calculate the p-value.
 
 ```{r}
-tau_u(exampleAB)
+tau_u(exampleAB, ci = 0.90, ci_method = "tau")
 ```
 
 ## Baseline corrected tau
