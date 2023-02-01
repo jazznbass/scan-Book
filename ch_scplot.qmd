@@ -1,11 +1,10 @@
-# scplot - Adavanced plotting functions for single-case data
+# scplot - Adavanced plotting functions for single-case data {#sec-scplot}
 
-We started developing a new add-on package to `scan` for visualizing single-case data: `scplot`. This function will gradually replace the `plot.scdf()` (short: `plot()`) function already included in `scan` and finally be included into to the `scan` package. 
-Here are some advantages of using `scplot` over the standard scan `plot` function:
+`scplot` is an add-on package to `scan` for visualizing single-case data. This set of functions will gradually replace the `plot.scdf()` (short: `plot()`) function already included in `scan` and finally be included into to the `scan` package. Here are some advantages of using `scplot` over the standard scan `plot` function:
 
-- `scplot` is already much more versatile than `plot` has been. 
-- `scplot` was designed to encompass a pipe style coding which is much cleaner, more intelligible and easier to code. 
-- `scplot` is based on `ggplot2` and produces a `ggplot2` object which can be modified and extended to any wishes.
+-   `scplot` is already much more versatile than `plot` has been.
+-   `scplot` was designed to encompass a pipe style coding which is much cleaner, more intelligible and easier to code.
+-   `scplot` is based on `ggplot2` and produces a `ggplot2` object which can be modified and extended to any wishes.
 
 We consider the state of `scplot` to be *experimental*. That is, the code and syntax might change in future versions so backward compatibility is not guaranteed.
 
@@ -13,16 +12,15 @@ But we will keep the "old" `plot.scdf` in future versions of `scan`.
 
 ## Install `scplot`
 
-scplot is hosted as a gitHub project at https://github.com/jazznbass/scplot.
-You can install it with `devtools::install_github("jazznbass/scplot", dependencies = TRUE)` from your R console.
-Make sure you have the package `devtools` installed before.
-The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/. MacOs and Linux users usually do not need to take this extra step.
+scplot is hosted as a gitHub project at https://github.com/jazznbass/scplot. You can install it with `devtools::install_github("jazznbass/scplot", dependencies = TRUE)` from your R console. Make sure you have the package `devtools` installed before. The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/. MacOs and Linux users usually do not need to take this extra step.
+
+The following chapter has been written with scplot version `r packageVersion("scplot")`. If you have problems replicating the examples, please update to this version.
 
 ## Basic principal
 
-You start by providing an scdf object (a single-case data frame as returned from the `scdf()` function of scan) to the `scplot()` function (e.g. `scplot(exampleAB)`). Now you use a series of pipe-operators (`%>%`) to add and change characteristics of the resulting plot. For example:
+You start by providing an scdf object (a single-case data frame as returned from the `scdf()` function of scan) to the `scplot()` function (e.g. `scplot(exampleAB)`). Now you use a series of pipe-operators (`%>%` or `|>`) to add and change characteristics of the resulting plot. For example:
 
-```{.r}
+```{r basic1, eval=FALSE}
 scplot(exampleABC) %>%
   add_title("My plot") %>%
   add_caption("Note: A nice plot")
@@ -168,7 +166,7 @@ scplot(exampleABC) %>%
 
 ```{r line1}
 scplot(exampleABC) %>%
-  set_dataline(colour = "blue", size = 1, linetype = "dotted", 
+  set_dataline(colour = "blue", linewidth = 1, linetype = "dotted", 
                point = list(colour = "red", size = 1, shape = 2) )
 
 # Equivalent_
@@ -279,7 +277,7 @@ scplot(exampleAB_decreasing) %>%
 ```{r legend1}
 scplot(exampleABC) %>%
   add_statline("mean", color = "darkred") %>%
-  add_statline("min", phase = "B", size = 0.2, color = "darkblue") %>%
+  add_statline("min", phase = "B", linewidth = 0.2, color = "darkblue") %>%
   add_legend()
 ```
 
@@ -389,15 +387,15 @@ Here are some more complex examples
 ```{r complex1}
 scplot(example_A24) %>% 
   add_theme("default") %>%
-  add_statline("lowess", color = "darkred", size = 1.5) %>%
-  add_statline("loess", color = "red", size = 1.5) %>%
-  add_statline("movingMean", lag = 3, color = "lightpink", size = 1.5) %>%
+  add_statline("lowess", color = "darkred", linewidth = 1.5) %>%
+  add_statline("loess", color = "red", linewidth = 1.5) %>%
+  add_statline("movingMean", lag = 3, color = "lightpink", linewidth = 1.5) %>%
   set_xaxis(size = 0.8, angle = 35) %>%
   set_dataline(point = "none") %>%
   add_legend(position = c(0.8, 0.75), background = list(color = "grey50")) %>%
   set_phasenames(c("no speedlimit", "with speedlimit"), position = "left", 
                  hjust = 0, vjust = 1) %>%
-  set_casenames("") %>%
+  set_casenames(position = "none") %>%
   add_title("Effect of a speedlimit on the A24") %>%
   add_caption("Note: Moving mean calculated with lag three", face = 3) %>%
   add_ridge(color = "lightblue")
@@ -443,7 +441,7 @@ scplot(exampleA1B1A2B2) %>%
   add_ridge(alpha("lightblue", 0.5)) %>%
   set_casenames(labels = sample_names(3), color = "steelblue4", size = 0.7) %>%
   set_panel(fill = c("grey80", "grey95"), color = "sienna4") %>%
-  add_grid(color = "grey85", size = 0.5) %>%
+  add_grid(color = "grey85", linewidth = 0.1) %>%
   set_dataline(size = 0.5, linetype = "solid", 
                point = list(colour = "sienna4", size = 0.5, shape = 18)) %>%
   add_labels(text = list(color = "sienna", size = 0.7), nudge_y = 4) %>%
@@ -472,12 +470,11 @@ Adding bars is a bit more complicated:
 ```{r complex4}
 scplot(exampleAB_add) %>%
   set_xaxis(expand = c(0, 0), limits = c(0, 41)) %>%
-  add_dataline("cigarrets", type = "bar", size = 0.6, point = "none") %>%
+  add_dataline("cigarrets", type = "bar", linewidth = 0.6, point = "none") %>%
   add_statline("mean", variable = "cigarrets", color = "darkred") %>%
   add_statline("trend", linetype = "dashed") %>%
   set_casenames(position = "strip")
 ```
-
 
 
 

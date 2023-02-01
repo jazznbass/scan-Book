@@ -2,7 +2,7 @@
 
 ## A ***single-case data frame***
 
-Scan provides its own data-class for encoding single-case data: the *single-case data frame* (short *scdf*). An *scdf* is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an *scdf* as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured **values**, the **phase** identifier for each measured value, and the measurement time (**mt**) of each measure. Optionally, scdfs could include further variables for each single-case (e.g., control variables), and also a name for each case.
+Scan provides its own data-class for encoding single-case data: the *single-case data frame* (short *scdf*). An *scdf* is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an *scdf* as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured **values**, the **phase** identifier for each measured value, and the measurement time (**mt**) of each measure. Optionally, *scdfs* could include further variables for each single-case (e.g., control variables), and also a name for each case.
 
 ::: callout-note
 Technically, an *scdf* object is a list containing data frames. It is of the class `c("scdf","list")`. Additionally, an *scdf* entails an attribute `scdf` with a list with further attributes. `var.values`, `var.phase`, and `var.mt` contain the names of the `values`, `phase`, and the `measurement time` variable. By default, these names are set to `values`, `phase`, and `mt`.
@@ -137,7 +137,7 @@ function_structure("read_scdf")
 
 When you are working with other programs besides **R** you need to export and import the *scdf* into a common file format. `read_scdf` imports a comma-separated-variable (*csv*) file and converts it into an *scdf* object. By default, the csv-file has to contain the columns *case*, *phase*, and *values*. Optionally, a further column named *mt* could be provided. The csv file should be build up like this:
 
-![How to format a single-case file in a spreadsheet program for importing into scan](images/readSC.jpg){width="300px"}
+![How to format a single-case file in a spreadsheet program for importing into scan](images/readSC.jpg){width="300px" #fig-spreadsheet}
 
 In case your variables names differ from the standard (i.e. "case", "values", "phase", and "mt" ), you could set additional arguments to fit your file. `read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")` for example will set the variables attributes of the resulting *scdf*. Cases will be split by the variable `"name"`, `"wellbeing"` is set as the dependent variable (default is *values*), phase information are in the variable `"intervention"`, and measurement times in the variable `"time"`. You could also reassign the phase names within the phase variable by setting the argument `phase.names`. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to "A" and "B" with `read_scdf("example.csv", phase.names = c("A", "B"))`.
 
@@ -155,6 +155,21 @@ dat <- read_scdf(
   dvar = "wellbeing", mvar = "time", phase.names = c("A","B")
 )
 summary(dat)
+```
+
+Basically, you can import data from any file format with the help of additional R packages. Here are two examples:
+
+```{r}
+#| eval: false
+#| label: import-other-formats
+
+# Open document example. You need to have the readODS package installed.
+df <- readODS::read_ods("filename.ods")
+scdf <- as_scdf(df)
+
+# SPSS example. You need to have the haven package installed.
+df <- haven::read_sav("filename.sav")
+scdf <- as_scdf(df)
 ```
 
 ### Export data {#sec-write-scdf}
@@ -205,15 +220,15 @@ Now you can copy and past the output into your R file or you set the `file` argu
 
 *scdf* are displayed by just typing the name of the object.
 
-```{r scdf_print_example}
+```{r scdf-print-example}
 #Beretvas2008 is an example scdf included in scan
 Beretvas2008
 ```
 
 The `print` command allows for specifying the output. Some possible arguments are `cases` (the number of cases to be displayed; Three by default), `rows` (the maximum number of rows to be displayed; Fifteen by default), and `digits` (number of digits). `cases = 'all'` and `rows = 'all'` prints all cases and rows.
 
-```{r scdf_print_arguments}
-#Huber2014 is an example scdf included in scan
+```{r scdf-print-arguments}
+# Huber2014 is an example scdf included in scan
 print(Huber2014, cases = 2, rows = 10)
 ```
 
@@ -221,7 +236,7 @@ The argument `long = TRUE` prints each case one after the other instead side by 
 
 `summary()` gives a very concise overview of the *scdf*
 
-```{r scdf_summary}
+```{r scdf-summary}
 summary(Huber2014)
 ```
 
@@ -231,25 +246,33 @@ summary(Huber2014)
 
 You can extract one or more single-cases from an *scdf* with multiple cases in two ways. If the case has a name, you can address it with the `$` operator.
 
-```{r scdf_extract_case, results = 'hide'}
+```{r}
+#| eval: false
+#| label: scdf-extract-case
 Huber2014$David
 ```
 
 or you can use squared brackets
 
-```{r scdf_extract_case2, results = 'hide'}
+```{r}
+#| eval: false
+#| label: scdf-extract-case2
 Huber2014[1] #extracts case 1
 Huber2014[2:3] #extracts cases 2 and 3
 ```
 
-```{r scdf_extract_case3}
+```{r}
+#| label: scdf-extract-case3
 new.huber2014 <- Huber2014[c(1, 4)] #extracts cases 1 and 4
 new.huber2014
 ```
 
 ### Select cases {#sec-select-cases}
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
+#| label: function-call-select-cases
 function_structure("select_cases")
 ```
 
@@ -257,23 +280,33 @@ Since version 0.53 scan includes some functions to work with pipe-operators. The
 
 The `select_cases()` function takes case-names and/or numbers for selecting cases:
 
-```{r select_cases}
+```{r}
+#| label: select-cases-1
 # With pipes:
 Huber2014 %>%
-  select_cases("Adam", "Berta", 4) %>%
+  select_cases(Adam, Berta, 4) %>%
   summary()
 
 # Without pipes:
 
-# new_huber <- select_cases(Huber2014, "Adam", "Berta", 4)
+# new_huber <- select_cases(Huber2014, Adam, Berta, 4)
 # summary(new_huber)
+```
+
+Casenames can also be defined within a specific interval by the colon operator:
+
+```{r}
+#| label: select-cases-2
+Huber2014 %>%
+  select_cases(Berta:David) %>%
+  summary()
 ```
 
 ### Select measurements {#sec-subset}
 
 The `subset()` function helps with extracting measurements (or rows) by a specific criteria from an scdf.
 
-Subset takes an scdf as its first argument and a logical expression as the second argument (`filter`). Only measurements for which the logical argument is evaluated to be TRUE are inlcuded in the returning scdf object.
+Subset takes an scdf as its first argument and a logical expression as the second argument (`filter`). Only measurements for which the logical argument is evaluated to be TRUE are included in the returning *scdf* object.
 
 For example, the scdf `Huber2014` has a variable `compliance` and we like to keep measurements where `compliance` is larger than 10 because we assume the others to be outliers:
 
@@ -292,3 +325,44 @@ exampleAB %>%
 ```
 
 ## Change and create variables
+
+```{r}
+#| results: asis
+#| echo: false
+function_structure("transform")
+```
+
+With the help of the `transform()` function you can add new variables or change existing variables to each case of an an *scdf*. This might be helpful when you
+
+- like to Z-standardise a variable,
+- calculate a new variable as the sum of two existing variables,
+- turn a frequency into percentages,
+
+or in many other cases.
+
+::: callout-note
+The transform function is a method for the generic `transform` function. To call the help file you have to add the class to the functionname: `?transform.scdf` 
+:::
+
+Here is an example where the dependent variable `values` is z-standardized:
+
+```{r}
+exampleAB_z <- transform(exampleAB, values = (values - mean(values)) / sd(values) )
+names(exampleAB_z) <- paste0(names(exampleAB), "_z")
+smd(c(exampleAB, exampleAB_z))
+
+# note: alternatively for the same result:
+# exampleAB_z <- transform(exampleAB, values = scale(values))
+```
+
+Here is an example where a new percentage variable is added and the measurement times shifted to start with `0`:
+
+```{r}
+exampleAB_score %>%
+  transform(
+    percentage = values / trials * 100,
+    mt = mt - mt[1]
+  )
+```
+
+

@@ -1,15 +1,20 @@
 # Introduction
 
+::: callout-note
+You need a basic degree of familiarity with the R language. @sec-R gives a brief introduction.
+:::
+
 Single case research has become an important and broadly accepted method for gaining insight into educational processes. Especially the field of special education has adopted single-case research as a proper method for evaluating the effectiveness of an intervention or the developmental processes underlying problems in acquiring academic skills. Single-case studies are also popular among teachers and educators who are interested in evaluating the learning progress of their students. The resulting information of a single-case research design provide helpful information for pedagogical decision processes regarding further teaching processes of an individual student but also help to decide, whether or how to implement certain teaching methods into a classroom.\
 Despite its usefulness, standards on how to conduct single-case studies, how to analyze the data, and how to present the results is less well developed compared to group based research designs. Moreover, while there is ample software helping to analyse data, most of the software is designed towards analyzing group based data sets. Visualizing single-case data sets oftentimes means to tinker with spreadsheet programs and analyzing becomes a cumbersome endeavor. This book addresses this gap. It has been written around a specialized software tool for managing, visualizing, and analyzing single-case data. This tool is an extension package for the software `R` [@R-base] named `scan`, an acronym for **single-case analyses**.
 
 ## A teaser
 
-Before I go into the details on how `scan` exactly works, I like to provide an example of what you can do with `scan`. It is meant to be a teaser to get you motivated to tackle the steep learning curve associated with the use of `R` (but there is a land of milk and honey behind this curve!). So, do not mind if you do not understand every detail of this example, it will all be explained and obvious to you once you get familiar with `scan`.
+Before going into the details of how `scan` works, I would like to give you an example of what you can do with `scan`. It is meant as a teaser to get you motivated to tackle the steep learning curve associated with using `R` (but there is a land of milk and honey behind that curve!). So, do not worry if you do not understand every detail of this example, it will all be explained and obvious to you once you become familiar with `scan`.
 
-Let us set a fictional context. Let us assume you are researching on a method to foster the calculation abilities of struggling fourth grade students. You developed an intervention program named *KUNO*. In a pilot study you like to get some evidence on the effectiveness of that new method and you set up a multi-baseline single-case study comprising three students that take part in the *KUNO* program across a period of ten weeks. Throughout that course you regularly measured the calculation abilities of each student 20 times with a reliable test. You also implemented a follow up after eight weeks with additional five measures. The calculation test gives you the number of correctly solved calculation tasks within ten minutes.\
-Now, I invent some data for this fictitious *KUNO* study as it would be to laborious to conduct a real study and actually to evolve a real intervention method.\
-We use the `scan` package to code the data. Each case consists of 25 measurements. We have three phases: pre intervention (A), during the intervention (B), and follow-up (C). Phases A and B have different lengths. The cases are named and combined into a single object called `strange_study`.
+Let us set a fictional context. Suppose you are researching a method to improve the arithmetic skills of struggling fourth-grade students. You have developed an intervention programme called KUNO. In a pilot study, you want to get some evidence about the effectiveness of this new method, and you set up a multi-baseline single-case study with three students participating in the KUNO programme over a period of ten weeks. Throughout the course, you regularly measured each student's numeracy skills 20 times using a reliable test. You also carried out a follow-up after eight weeks with five additional measures. I am now going to make up some data for this fictitious KUNO study, because it would be too difficult to carry out a real study and actually develop a real intervention method.
+
+\
+We use the `scan` package to code the data. Each case has 25 measurements. We have three phases: before the intervention (A), during the intervention (B), and a follow-up (C). Phases A and B are of different lengths. The cases are named and combined into a single object called `strange_study`.
 
 ```{r build-strange-study}
 case1 <- scdf(
