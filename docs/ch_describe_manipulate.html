@@ -604,7 +604,7 @@ The trend function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>trend(data, dvar, pvar, mvar, offset = -1, model = NULL)</p>
+<p>trend(data, dvar, pvar, mvar, offset = “deprecated”, first_mt = 0, model = NULL)</p>
 </div>
 </div>
 <p>The <code>trend</code> function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.</p>
@@ -614,15 +614,15 @@ The trend function call
 <div class="cell-output cell-output-stdout">
 <pre><code>Trend for each phase
 
-            Intercept      B   Beta
-Linear.ALL     55.159  0.612  0.392
-Linear.A       60.618 -1.915 -0.700
-Linear.B       74.855 -0.612 -0.163
-Linear.C       68.873 -0.194 -0.046
-Squared.ALL    59.135  0.017  0.330
-Squared.A      57.937 -0.208 -0.712
-Squared.B      73.217 -0.039 -0.098
-Squared.C      68.490 -0.017 -0.038
+              Intercept      B   Beta
+Linear.ALL       55.159  0.612  0.392
+Linear.A         60.618 -1.915 -0.700
+Linear.B         74.855 -0.612 -0.163
+Linear.C         68.873 -0.194 -0.046
+Quadratic.ALL    59.135  0.017  0.330
+Quadratic.A      57.937 -0.208 -0.712
+Quadratic.B      73.217 -0.039 -0.098
+Quadratic.C      68.490 -0.017 -0.038
 
 Note. Measurement-times start at 0  for each phase</code></pre>
 </div>
@@ -634,19 +634,19 @@ Note. Measurement-times start at 0  for each phase</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>Trend for each phase
 
-             Intercept      B   Beta
-Linear.ALL      50.484  1.787  0.908
-Linear.A        54.300  0.100  0.066
-Linear.B        61.133  1.625  0.813
-Squared.ALL     57.879  0.079  0.871
-Squared.A       54.747 -0.013 -0.054
-Squared.B       66.343  0.094  0.775
-Cubic.ALL       60.886  0.004  0.816
-Cubic.A         54.959 -0.008 -0.169
-Cubic.B         68.368  0.006  0.732
-Log Time.ALL    43.532 12.149  0.848
-Log Time.A      54.032  0.593  0.156
-Log Time.B      57.300  9.051  0.791
+              Intercept      B   Beta
+Linear.ALL       50.484  1.787  0.908
+Linear.A         54.300  0.100  0.066
+Linear.B         61.133  1.625  0.813
+Quadratic.ALL    57.879  0.079  0.871
+Quadratic.A      54.747 -0.013 -0.054
+Quadratic.B      66.343  0.094  0.775
+Cubic.ALL        60.886  0.004  0.816
+Cubic.A          54.959 -0.008 -0.169
+Cubic.B          68.368  0.006  0.732
+Log Time.ALL     43.532 12.149  0.848
+Log Time.A       54.032  0.593  0.156
+Log Time.B       57.300  9.051  0.791
 
 Note. Measurement-times start at 1  for each phase</code></pre>
 </div>
@@ -782,7 +782,7 @@ The smooth_cases function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>smooth_cases(data, dvar, mvar, FUN = “movingMedian”, intensity = NULL)</p>
+<p>smooth_cases(data, dvar, mvar, method = “mean”, intensity = NULL, FUN = NULL)</p>
 </div>
 </div>
 <p>The <code>smooth_cases</code> function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A <em>lag</em> defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.<br>
