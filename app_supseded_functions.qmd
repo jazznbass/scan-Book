@@ -1,0 +1,28 @@
+# Supseded functions
+
+## Smoothing data {#sec-smoothing}
+
+
+```{r results='asis', echo=FALSE}
+function_structure("smooth_cases")
+```
+
+The `smooth_cases` function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A *lag* defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.\
+The function returns am scdf with smoothed data points.
+
+```{r smooth_example, fig.width=5, fig.height=5}
+## Use the three different smoothing functions and compare the results
+berta_mmd <- smooth_cases(Huber2014$Berta)
+berta_mmn <- smooth_cases(Huber2014$Berta, FUN = "movingMean")
+berta_lre <- smooth_cases(Huber2014$Berta, FUN = "localRegression")
+new_study <- c(Huber2014$Berta, berta_mmd, berta_mmn, berta_lre)
+names(new_study) <- c("Original", "Moving Median", "Moving Mean", "Local Regression")
+plot(new_study, style = "grid2")
+```
+
+Here is the syntax for the upcoming `scplot()` function (see @sec-scplot):
+
+```{r fig.width=5, fig.height=5}
+
+scplot(new_study) %>% add_ridge()
+```
