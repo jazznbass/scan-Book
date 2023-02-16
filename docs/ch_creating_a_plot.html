@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Scan-Book - 4&nbsp; Creating a single-case data plot</title>
+<title>The Scan-Book - 5&nbsp; Creating a single-case data plot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,8 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./ch_describe_manipulate.html" rel="next">
-<link href="./ch_managing_data.html" rel="prev">
+<link href="./ch_missing_values_outliers.html" rel="next">
+<link href="./ch_working_with_scdfs.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -185,9 +185,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Chapters</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">The single-case data frame</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -195,89 +205,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./ch_create_display_and_store_scdfs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></a>
+  <a href="./ch_working_with_scdfs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_managing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
+  <a href="./ch_creating_a_plot.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_creating_a_plot.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_describe_manipulate.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Describe and manipulate single-case data frames</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Overlapping indices</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomization tests</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_further_chapters.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Default settings</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_export.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Appendices</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Data analysis</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_describe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_export.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./app_some_things.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></a>
@@ -290,7 +305,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">About the author</span></a>
+  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_supseded_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">About the author</span></a>
   </div>
 </li>
       </ul>
@@ -304,10 +329,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#plot-axis" id="toc-plot-axis" class="nav-link active" data-scroll-target="#plot-axis"><span class="toc-section-number">4.1</span>  Plot axis</a></li>
-  <li><a href="#adding-lines" id="toc-adding-lines" class="nav-link" data-scroll-target="#adding-lines"><span class="toc-section-number">4.2</span>  Adding lines</a></li>
-  <li><a href="#mark-data-points" id="toc-mark-data-points" class="nav-link" data-scroll-target="#mark-data-points"><span class="toc-section-number">4.3</span>  Mark data points</a></li>
-  <li><a href="#graphical-styles-of-a-plot" id="toc-graphical-styles-of-a-plot" class="nav-link" data-scroll-target="#graphical-styles-of-a-plot"><span class="toc-section-number">4.4</span>  Graphical styles of a plot</a></li>
+  <li><a href="#plot-axis" id="toc-plot-axis" class="nav-link active" data-scroll-target="#plot-axis"><span class="toc-section-number">5.1</span>  Plot axis</a></li>
+  <li><a href="#adding-lines" id="toc-adding-lines" class="nav-link" data-scroll-target="#adding-lines"><span class="toc-section-number">5.2</span>  Adding lines</a></li>
+  <li><a href="#mark-data-points" id="toc-mark-data-points" class="nav-link" data-scroll-target="#mark-data-points"><span class="toc-section-number">5.3</span>  Mark data points</a></li>
+  <li><a href="#graphical-styles-of-a-plot" id="toc-graphical-styles-of-a-plot" class="nav-link" data-scroll-target="#graphical-styles-of-a-plot"><span class="toc-section-number">5.4</span>  Graphical styles of a plot</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -316,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></h1>
 </div>
 
 
@@ -344,7 +369,7 @@ The plotSC function call
 <p>plotSC(data, dvar, pvar, mvar, ylim = NULL, xlim = NULL, xinc = 1, lines = NULL, marks = NULL, phase.names = NULL, xlab = NULL, ylab = NULL, main = ““, case.names = NULL, style = getOption(”scan.plot.style”), …)</p>
 </div>
 </div>
-<p>Plotting the data is a first important approach of analyzing. After you build an <em>scdf</em> the <code>plot</code> command helps to visualize the data. When the <code>scdf</code> includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. <a href="#tbl-plot-arguments">Table&nbsp;<span>4.1</span></a> gives an overview of all available arguments.</p>
+<p>Plotting the data is a first important approach of analyzing. After you build an <em>scdf</em> the <code>plot</code> command helps to visualize the data. When the <code>scdf</code> includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. <a href="#tbl-plot-arguments">Table&nbsp;<span>5.1</span></a> gives an overview of all available arguments.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(exampleA1B1A2B2_zvt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -356,8 +381,8 @@ The plotSC function call
 </div>
 </div>
 </div>
-<section id="plot-axis" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="plot-axis"><span class="header-section-number">4.1</span> Plot axis</h2>
+<section id="plot-axis" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="plot-axis"><span class="header-section-number">5.1</span> Plot axis</h2>
 <p>Labels of the axes and for the phases can be changed with the <code>xlab</code>, <code>ylab</code>, and the <code>phase.names</code> arguments. The x- and y-scaling of the graphs are by default calculated as the minimum and the maximum of all included single cases. The <code>xlim</code> and the <code>ylim</code> argument are used to set specific values. The argument takes a vector of two numbers. The first for the lower and the second for the upper limit of the scale. In case of multiple single cases an <code>NA</code> sets the individual minimum or maximum for each case. Assume for example the study contains three single cases <code>ylim = c(0, NA)</code> will set the lower limit for all three single cases to <code>0</code> and the upper limit individually at the maximum of each case. The argument <code>xinc</code> sets the incremental steps for the x-axis ticks with corresponding values. For example <code>xinc = 1</code> will set a tick for every measurement time increase of 1 while <code>xinc = 5</code> will only set every ffith tick.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
@@ -383,7 +408,7 @@ The plotSC function call
 <div class="cell-output-display">
 <div id="tbl-plot-arguments" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;4.1:  Arguments of the plot function </caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;5.1:  Arguments of the plot function </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Argument </th>
@@ -446,14 +471,14 @@ The plotSC function call
 </div>
 </div>
 </section>
-<section id="adding-lines" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="adding-lines"><span class="header-section-number">4.2</span> Adding lines</h2>
+<section id="adding-lines" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="adding-lines"><span class="header-section-number">5.2</span> Adding lines</h2>
 <p>Extra lines can be added to the plot using the <code>lines</code> argument. The lines argument takes several separate sub-arguments which have to be provided in a list. In its most simple form this list contains one element. <code>lines = list(type = 'median')</code> adds a line with the median of each phase to the plot. Additional arguments like <code>col</code> or <code>lwd</code> help to format these lines. For adding red thick median lines use the command <code>lines = list(type = 'median', col = 'red', lwd = '2')</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-lines-arguments" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;4.2:  Values of the lines argument </caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;5.2:  Values of the lines argument </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Argument </th>
@@ -542,8 +567,8 @@ The plotSC function call
 </div>
 </div>
 </section>
-<section id="mark-data-points" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="mark-data-points"><span class="header-section-number">4.3</span> Mark data points</h2>
+<section id="mark-data-points" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="mark-data-points"><span class="header-section-number">5.3</span> Mark data points</h2>
 <p>Specific data points can be highlighted using the <code>marks</code> argument. A <code>list</code> defines the measurement times to be marked, the marking color and the size of the marking. <code>marks = list(position = c(1,5,6))</code> marks the first, fifth, and sixth measurement time. If the <em>scdf</em> contains more than one data-set marking would be the same for all data sets in this example. In case you define a <code>list</code> Containing vectors, marking can be individually defined for each data set. Assume, for example, we have an <em>scdf</em> comprising three data sets, then <code>marks = list(position = list(c(1,2), c(3,4), c(5,6)))</code> will highlight measurement times one and two for the first data set, three and four for the second and five and six for the third. <code>pch</code>, <code>col</code> and <code>cex</code> define symbol, colour and size of the markings.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot with marks in a red circles 2.5 times larger than the standard symbol </span></span>
@@ -563,8 +588,8 @@ The plotSC function call
 </div>
 </div>
 </section>
-<section id="graphical-styles-of-a-plot" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="graphical-styles-of-a-plot"><span class="header-section-number">4.4</span> Graphical styles of a plot</h2>
+<section id="graphical-styles-of-a-plot" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="graphical-styles-of-a-plot"><span class="header-section-number">5.4</span> Graphical styles of a plot</h2>
 <div class="callout-tip callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -580,13 +605,13 @@ The style_plot function call
 </div>
 <p>The <code>style</code> argument of the plot function allows to specify a specific design of a plot. By default, the <code>grid</code> style is applied. <code>scan</code> includes some further predefined styles. <code>default, yaxis, tiny, small, big, chart, ridge, annotate, grid, grid2, dark, nodot, and sienna</code>. The name of a style is provided as a character string (e.g., <code>style = "grid"</code>).<br>
 Some styles only address specific elements (e.g., “small” or “tiny” just influence text and line sizes). These styles lend themselves to be combined with other styles. This could be achieved by providing several style names to the plot argument: <code>style = c("grid", "annotate", "small")</code>. A style overwrites the settings of all previously included style.<br>
-Beyond predefined styles, styles can be individually modified and created. New styles are provided as a <code>list</code> of several design parameters that are passed to the <code>style</code> argument of the <code>plot</code> function. <a href="#tbl-style">Table&nbsp;<span>4.3</span></a> shows all design parameter that could be defined.<br>
+Beyond predefined styles, styles can be individually modified and created. New styles are provided as a <code>list</code> of several design parameters that are passed to the <code>style</code> argument of the <code>plot</code> function. <a href="#tbl-style">Table&nbsp;<span>5.3</span></a> shows all design parameter that could be defined.<br>
 To define a new style, first create a list containing a plain design. The <code>style_plot</code> function returns such a list with the default values for a plain design (e.g., <code>mystyle &lt;- style_plot()</code>). Single design parameters can now be set by assigning a specific value within the list. For example, <code>newstyle$fill &lt;- "grey90"</code> will set the <code>fill</code> parameter to <code>"grey90"</code>. Alternatively, changes to the plain design can already by defined within the <code>style_plot</code> function. To set a light-blue background color and also an orange grid, create the style <code>style_plot(fill.bg = "lightblue", grid = "orange")</code>. If you do not want to start with the plain design but a different of the predefined styles, set the <code>style</code> argument. If, for example, you like to have the <code>grid</code> combined with the <code>big</code> style but want to change the color of the grid to orange type <code>style_plot(style = c("grid", "big"), col.grid = "orange")</code>. <code>plot(mydata, style = mystyle)</code> will apply the new style in a plot. Please note that the new style is not passed in quotation marks.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-style" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;4.3:  Arguments of the style plot function </caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;5.3:  Arguments of the style plot function </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Argument </th>
@@ -832,13 +857,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ch_managing_data.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Managing single-case data</span></span>
+      <a href="./ch_working_with_scdfs.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ch_describe_manipulate.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Describe and manipulate single-case data frames</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ch_missing_values_outliers.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
