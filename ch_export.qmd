@@ -17,11 +17,19 @@ In `RStudio`
 
 ## Single case data files
 
+```{r results='asis', echo=FALSE}
+function_structure(scan:::export.scdf, label="scdf export", fname="export")
+```
+
 ```{r warning=FALSE}
 export(exampleA1B1A2B2_zvt)
 ```
 
 ## Descriptive stats
+
+```{r results='asis', echo=FALSE}
+function_structure(scan:::export.sc_desc, label="describe export", fname="export")
+```
 
 ```{r warning=FALSE}
 res <- describe(GruenkeWilbert2014)
@@ -30,11 +38,32 @@ export(res)
 
 ## Standardized mean differences
 
+```{r results='asis', echo=FALSE}
+function_structure(scan:::export.sc_smd, label="smd export", fname="export")
+```
+
 ```{r warning=FALSE}
 smd(exampleAB) |> export(flip = TRUE)
 ```
 
+## Trend analysis
+
+```{r results='asis', echo=FALSE}
+function_structure(scan:::export.sc_trend, label="trend export", fname="export")
+```
+
+```{r warning=FALSE}
+exampleABC$Marie %>%
+  trend() %>%
+  export()
+```
+
+
 ## Overlap indices
+
+```{r results='asis', echo=FALSE}
+function_structure(scan:::export.sc_overlap, label="overlap export", fname="export")
+```
 
 ```{r warning=FALSE}
 exampleA1B1A2B2_zvt %>%
@@ -46,6 +75,10 @@ exampleA1B1A2B2_zvt %>%
 tau_u(exampleAB_decreasing) |> export()
 
 ## Tau-U
+
+```{r results='asis', echo=FALSE}
+function_structure(scan:::export.sc_tauu, label="tauu export", fname="export")
+```
 
 Set the argument `case = "meta"` (the default) to get the results of the meta analysis or set `case = "all"` to get a table with each case.
 
@@ -59,12 +92,20 @@ tau_u(exampleAB_decreasing) |> export(case = "all")
 
 ## Piecewise linear models
 
+```{r results='asis', echo=FALSE}
+function_structure(scan:::export.sc_plm, label="plm export", fname="export")
+```
+
 ```{r warning=FALSE}
 res <- plm(exampleA1B1A2B2$Pawel)
 export(res)
 ```
 
 ## Hierarchical piecewise regressions
+
+```{r results='asis', echo=FALSE}
+function_structure(scan:::export.sc_hplm, label="hplm export", fname="export")
+```
 
 ```{r warning=FALSE}
 exampleAB_50 %>%
@@ -74,6 +115,10 @@ exampleAB_50 %>%
 ```
 
 ## Power analyses
+
+```{r results='asis', echo=FALSE}
+function_structure(scan:::export.sc_power, label="power_test export", fname="export")
+```
 
 ```{r warning=FALSE}
 design <- design(

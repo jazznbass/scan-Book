@@ -1,0 +1,184 @@
+# Working with *single-case data frames*
+
+## Select cases {#sec-select-cases}
+
+You can extract one or more single-cases from an *scdf* with multiple cases in two ways.
+
+The first method follows the basic rules of the R syntax. If the case has a name, you can address it with the `$` operator
+
+```{r}
+#| eval: false
+#| label: scdf-extract-case
+Huber2014$David
+```
+
+or you can use squared brackets to select by the number (its position) of a case
+
+```{r}
+#| eval: false
+#| label: scdf-extract-case2
+Huber2014[1] #extracts case 1
+Huber2014[2:3] #extracts cases 2 and 3
+```
+
+```{r}
+#| label: scdf-extract-case3
+new.huber2014 <- Huber2014[c(1, 4)] #extracts cases 1 and 4
+new.huber2014
+```
+
+The second method is to use the `select_cases` function.
+
+```{r}
+#| results: asis
+#| echo: false
+#| label: function-call-select-cases
+function_structure("select_cases")
+```
+
+::: callout-note
+Since version 0.53, scan includes functions to work with pipe-operators. `scan` imports the pipe operator `%>%` from the magrittr package. Alternatively, you can use R's native pipe operator `|>.`
+:::
+
+The `select_cases()` function takes case names and/or numbers for selecting cases:
+
+```{r}
+#| label: select-cases-1
+# With pipes:
+Huber2014 %>%
+  select_cases(Adam, Berta, 4) %>%
+  summary()
+
+# 1. Take the scdf Huber2014,
+# 2. select the cases Adam, Berta and case number four,
+# 3. show a summary of the remaining cases in the study. 
+```
+
+Case names can also be defined within a specific range by the colon operator:
+
+```{r}
+#| label: select-cases-2
+Huber2014 %>%
+  select_cases(Berta:David) %>%
+  summary()
+```
+
+## Select measurements {#sec-subset}
+
+```{r results='asis', echo=FALSE}
+function_structure("subset")
+```
+
+The `subset()` function helps to extract measurements (or rows) from an scdf according to specific criteria.
+
+Subset takes an scdf as the first argument and a logical expression (`filter`) as the second argument. Only measurements for which the logical argument is true are included in the returned scdf object.
+
+For example, the scdf `Huber2014` has a variable `compliance` and we want to keep measurements where `compliance` is greater than 10 because we assume the others are outliers:
+
+```{r}
+Huber2014 %>%
+  subset(compliance > 10) %>%
+  summary()
+```
+
+In a more complex example, we only want to keep values less than 60 when they are in phase A, or values equal to or greater than 60 when they are in phase B:
+
+```{r}
+exampleAB %>%
+  subset((values < 60 & phase == "A") | (values >= 60 & phase == "B")) %>%
+  summary()
+```
+
+## Change and create variables
+
+```{r}
+#| results: asis
+#| echo: false
+function_structure("transform")
+```
+
+With the help of the `transform()` function, you can add new variables or change existing variables for each case of an *scdf*. This can be useful if you want to
+
+-   z-standardize a variable,
+-   calculate a new variable as the sum of two existing variables
+-   convert a frequency to a percentage,
+
+or in many other cases.
+
+::: callout-note
+The transform function is a method for the generic `transform` function. To call the help file you have to add the class to the function name: `?transform.scdf`
+:::
+
+Here is an example of standardizing the dependent variable "values":
+
+```{r}
+exampleAB_z <- transform(
+  exampleAB, values = (values-mean(values)) / sd(values)
+)
+
+# note: alternatively for the same result:
+# exampleAB_z <- transform(exampleAB, values = scale(values))
+```
+
+Here is an example where a new percentage variable is added and the measurement times shifted to start with `0`:
+
+```{r}
+exampleAB_score %>%
+  transform(
+    percentage = values / trials * 100,
+    mt = mt - mt[1]
+  )
+```
+
+### all_cases
+
+The `all_cases` helper function returns the values of a variable across all cases. This allows for calculations where you need values within a case and values across cases, for example when you want to standardize a variable based on all cases:
+
+```{r}
+exampleAB %>%
+  transform(
+    values = (values - mean(all_cases(values))) / sd(all_cases(values))
+  ) %>%
+  setNames(paste0(names(exampleAB), "_z")) %>%
+  c(exampleAB) %>%
+  smd()
+
+# 1. Take the exampleAB scdf,
+# 2. Z-standardise the values of each case based on all measurements,
+# 3. rename the cases by adding a "_z" suffix,
+# 4. add the original untransformed cases,
+# 5. analyse the data by calculating measures of standardized mean differences.
+
+```
+
+### Smoothing
+
+For smoothing the data dependent variable, transform has a number of helper functions: 
+
+- `moving_mean` calculates the moving median of a series of values. The `lag` argument specifies the number of values from which to calculate the mean (the default is 1, where the mean is calculated from a value and a measurement before and after that value), 
+- `moving_median` is the same as before, but calculates the median instead of the mean,
+- `local_regression` regresses each value on the surrounding values. The argument `f` defines the fraction of the values (the default `f = 0.2` considers the surrounding 20% of the values). You must also provide the measurement time variable with the argument `mt`.
+
+
+```{r}
+transform(Huber2014,
+  "compliance (moving median)" = moving_median(compliance),
+  "compliance (moving mean)" = moving_mean(compliance),
+  "compliance (local regression)" = local_regression(compliance, mt = mt)
+)
+```
+
+### Transform values at the begining of a phase
+
+The `first_of` helper function is specifically designed to replace values at or around the beginning of a phase. The first argument is a logical vector defining a selection criterion. The `positions` argument is a vector of positions to be addressed. Negative numbers refer to positions before and positive numbers to positions after the selection criteria. This is useful, for example, if you want to discard the first two measurements of a phase.
+
+Here is an example that replaces the values at the beginning of phase A and the value after that to missing (NA), and also replaces the values at the beginning of phase B and the value before that to NA: 
+
+```{r}
+byHeart2011 %>%
+  transform(
+    values = replace(values, first_of(phase == "A", 0:1), NA),
+    values = replace(values, first_of(phase == "B", -1:0), NA)
+  )
+```
+

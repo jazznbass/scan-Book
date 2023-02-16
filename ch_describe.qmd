@@ -1,0 +1,111 @@
+# Describe single-case data frames
+
+## Descriptive statistics
+
+```{r results='asis', echo=FALSE}
+function_structure("describe")
+```
+
+`describe` is the basic command to get an overview on descriptive statistics. As an argument it only takes the name of an *scdf* object. For each case of the *scdf* and each phase within a case descriptive statistics are provided. The output table contains statistical indicators followed by a dot and the name of the phase (e.g., `n.A` for the number of measurements of phase A).
+
+```{r table-describe}
+#| echo: false
+#| label: table-describe
+#| tbl-cap: Statistics of the describe command
+
+out <- tribble(
+  ~"Parameter", ~"What it means ...",
+  "n", "Number of measurements.",
+  "mis", "Number of missing values.",
+  "m", "Mean values.",
+  "md", "Median of values.",
+  "sd", "Standard deviation of values.",
+  "mad", "Median average deviation of values.",
+  "min/max", "Min and max of values.",
+  "trend", "Slope of a regression line through values by time."
+)
+
+print_table(out)
+```
+
+```{r}
+#| label: describe-example
+describe(exampleABC)
+```
+
+The resulting table could be exported into a csv file to be used in other software (e.g., to inserted in a word processing document). Therefore, first write the results of the `describe` command into an R object and then use the `write.csv` to export the `descriptives` element of the object.
+
+```{r}
+#| label: describe-write-example
+#| eval: false
+# write the results into a new R object named `res`
+res <- describe(exampleABC)
+# create a new file containing the descriptives on your harddrive
+write.csv(res$descriptives, file = "descriptive data.csv")
+```
+
+The file is written to the currently active working directory. If you are not sure where that is, type `getwd()` (you can use the `setwd()` command to define a different working directory. To get further details type `help(setwd)` into R).
+
+::: callout-note
+## Conflicting function names
+
+Sometimes R packages include the same function names. For example, the `describe()` function is also part of the `psych` package. Now, if you have loaded the `psych` package with `library(psych)` after `scan` the `describe()` function of scan will be masked (`describe()` would now call the corresponding function of the `psych` package).\
+There are two solutions to this problem:
+
+1.  activate the `psych` library before the `scan` library (now the psych `describe()` function will be masked) or
+2.  include the package name into the function call with the prefix `scan::`: `scan::describe()`.
+:::
+
+## Standardized mean differences
+
+```{r}
+#| results: asis
+#| echo: fenced
+function_structure("smd")
+```
+
+Standardized mean differences are measures of effect sizes. The `smd` functions calculated various variations.
+
+```{r}
+#| label: smd-example
+smd(exampleAB)
+```
+
+## Auto-regression
+
+```{r}
+#| results: asis
+#| echo: fenced
+function_structure("autocorr")
+```
+
+The `autocorr` function calculates autocorrelations within each phase and across all phases. The `lag_max` argument defines the lag up to which the autocorrelation will be computed.
+
+```{r}
+#| label: autocorr-example
+autocorr(exampleABC, lag_max = 4)
+```
+
+## Trend analysis
+
+```{r}
+#| results: asis
+#| echo: fenced
+function_structure("trend")
+```
+
+The `trend` function provides an overview of linear trends in single-case data. By default, it gives you the intercept and slope of a linear and a squared regression of measurement-time on scores. Models are computed separately for each phase and across all phases. For a more advanced application, you can add regression models using the R specific formula class.
+
+```{r}
+#| label: trend-example
+# Simple example
+trend(exampleABC$Marie)
+
+# Complex example
+trend(
+  exampleAB$Johanna, 
+  model = c("Cubic" = values ~ I(mt^3), 
+            "Log Time" = values ~ log(mt+1))
+)
+```
+

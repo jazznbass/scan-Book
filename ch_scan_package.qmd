@@ -6,11 +6,11 @@ You can use the `install.packages` function to install *scan*.
 
 `install.packages("scan")` will install the stable version.
 
-The current stable release is version `0.55`. Please look at Section *Software reference* for which version of *scan* has been used for creating this book and make sure you have this version or a newer one installed.
+The current stable release is version `0.56`. Please refer to the *Software Reference* section to see which version of *scan* was used to create this book, and make sure you have this or a newer version installed.
 
-R contains many packages and it would significantly slow down if all packages would be loaded into the computer memory at the beginning of each R session. Therefore, after installing *scan* it needs to be activated at the beginning of each session you use R. Usually a session starts when you start the R program and ends with closing R.
+R contains many packages, and it would slow things down considerably if all packages were loaded into memory at the beginning of each R session. Therefore, after installing *scan*, you need to enable it at the beginning of each session in which you use R. Normally, a session starts when you start the R program and ends when you quit it.
 
-For activating a package you need the `library` function. In this case `library(scan)`. You should get something like
+To activate a package, you need the `library` function. In this case, `library(scan)`. You should get something like
 
 ```{r}
 #| echo: false
@@ -19,19 +19,19 @@ For activating a package you need the `library` function. In this case `library(
 cat(scan:::.opt$startup_message)
 ```
 
-indicating that everything went smoothly and *scan* is ready for the job.
+indicating that everything went smoothly and *scan* is ready for work.
 
 ## Development version of scan
 
-Alternatively, you can compile the development version of *scan* yourself. This might be necessary if the stable version has some bugs or missing functions which has been fixed.
+Alternatively, you can compile the development version of *scan* yourself. This may be necessary if the stable version has some bugs or missing features that have been fixed.
 
-You may need some computer expertise to get the development version running. It is hosted on gitHub at [\<https://github.com/jazznbass/scan\>](https://github.com/jazznbass/scan){.uri}.
+You may need some computer knowledge to get the development version running. It is hosted on gitHub at [\<https://github.com/jazznbass/scan\>](https://github.com/jazznbass/scan){.uri}.
 
 For installation, you can apply the `install_github` function from the `devtools` package (make sure you have installed the `devtools` package before):
 
 `devtools::install_github("jazznbass/scan", dependencies = TRUE)`
 
-When you are running a Windows operating system you will probably have to install Rtools before. Rtools contains additional programs (e.g. compilers) that are needed to compile R source packages.
+If you are using a Windows operating system, you will probably need to install Rtools first. Rtools contains additional programs (e.g. compilers) needed to compile R source packages.
 
 You can find Rtools here: [\<https://cran.r-project.org/bin/windows/Rtools/\>](https://cran.r-project.org/bin/windows/Rtools/){.uri}
 
@@ -46,7 +46,7 @@ We are very thankful for any feedback, corrections, or whatever helps to improve
 The functions of the *scan* package can be divided into the following categories:\
 *Manage data*, *analyze*, *manipulate*, *simulate*, and *depict*.
 
-The following tables give an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here https://lifecycle.r-lib.org/articles/stages.html.
+The following tables give an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here <https://lifecycle.r-lib.org/articles/stages.html>.
 
 ### Management
 
@@ -63,8 +63,8 @@ out <- tribble(
   "select_cases", "Selects specific cases of an scdf", "Stable", "@sec-select-cases)",
   "select_phases", "Selects and/or recombines phases", "Stable", "@sec-select-phases)",
   "subset", "Selects specific measurements or variables of an scdf", "stable", "@sec-subset",
-  "read_scdf", "Loads external data into an scdf", "Stable", "@sec-read-scdf)",
-  "write_scdf", "Writes scdf into an external file", "Stable", "@sec-write-scdf)",
+  "read_scdf", "Loads external data into an scdf", "Stable", "@sec-read-scdf",
+  "write_scdf", "Writes scdf into an external file", "Stable", "@sec-write-scdf",
   "convert", "Converts an scdf object into R syntax", "Stable", "@sec-convert",
   "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Stable", "-",
   "scdf_attr", "Gets and sets attributes of an scdf", "Stable", "-",
@@ -88,7 +88,7 @@ print_table_simple(out)
 out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage",
   #
-  "plot/plot.scdf", "Creates plots of single cases", "Superseded",
+  "plot/plot.scdf", "Creates plots of single cases", "Stable",
   "scplot", "Add-on package `scplot`. Create advanced ggplot2 plots.", "Experimental",
   "style_plot", "Defines single-case plot graphical styles", "Superseded",
   "export", "Creates html or latex tables from the output of various can functions", "Experimental",
@@ -147,12 +147,18 @@ print_table(out)
 out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage",
   #
+  "transform", "Calculate new and change existing variables", "Stable",
+  "all_cases", "Helper function for transform that executes an expression across all cases of an scdf", "Stable",
+  "across_cases", "Helper function for transform that calculates a variable for all cases of an scdf", "Stable",
+  "moving_mean", "Helper function for transform to smooth with moving means", "Stable",
+  "moving_media", "Helper function for transform to smooth with moving medians", "Stable",
+  "local_regression", "Helper function for transform to smooth with local regressions", "Stable",
   "fill_missing", "Interpolate missign values or missing measurement times", "Stable",
-  "ranks", "Covert data into ranked data across all cases", "Stable",
-  "transform", "Change and create new variabes", "Stable",
-  "smooth_cases", "Smoothes time series data", "Stable",
-  "truncate_phase", "Deletes measurements of phases", "Stable",
-  "standardize", "Standardizes or centers variables across cases", "Stable"
+  "ranks", "Covert data into ranked data across all cases", "Superseded",
+  "transform", "Change and create new variabes", "Superseded",
+  "smooth_cases", "Smoothes time series data", "Superseded",
+  "truncate_phase", "Deletes measurements of phases", "Superseded",
+  "standardize", "Standardizes or centers variables across cases", "Superseded"
 )
 
 print_table(out)
