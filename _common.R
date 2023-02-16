@@ -44,10 +44,55 @@ print_table_simple <- function(data) {
 
 }
 
+
+function_structure <- function(name, 
+                               skip = c(
+                                 "B.start", "phase.design", "lag.max",
+                                 "extreme.p", "extreme.d", "missing.p"
+                               ),
+                               label = NULL,
+                               fname = NULL){
+  
+  if (is.null(label)) label <- name
+  if (is.null(fname)) fname <- name
+  
+  args <- names(formals(name))
+  values <- formals(name)
+  
+  if (!is.null(skip)) {
+    filter <- !args %in% skip
+    args <- args[filter]
+    values <- values[filter]
+  }
+ 
+  for(i in seq_along(values)) {
+    if (inherits(values[[i]], "character")) 
+      values[[i]] <- paste0("\"", values[[i]], "\"")
+  }
+  
+  values <- as.character(values)
+  
+  out <- paste0(fname, "(", paste0(args, " = ", values, collapse = ", "), ")")   
+  out <- gsub(" = ,", ",", out)
+  out <- gsub(" = )", ")", out)
+  
+  cat('::: {.callout-tip appearance="simple"}\n')
+  cat("# The", label, "function call\n\n")
+  cat(
+    #"``` {.r}", "\n",  
+    out, "\n", 
+    #"```", 
+    "\n")
+  cat(':::\n\n')
+
+}
+
+
+###
 old_function_structure <- function(name, 
-                               skip = c("B.start", "phase.design", "lag.max",
-                                        "extreme.p", "extreme.d", "missing.p"
-                               )) {
+                                   skip = c("B.start", "phase.design", "lag.max",
+                                            "extreme.p", "extreme.d", "missing.p"
+                                   )) {
   
   args <- names(formals(name))
   values <- formals(name)
@@ -82,37 +127,3 @@ old_function_structure <- function(name,
   
 }
 
-function_structure <- function(name, 
-                               skip = c("B.start", "phase.design", "lag.max",
-                                        "extreme.p", "extreme.d", "missing.p"
-                               )) {
-  
-  args <- names(formals(name))
-  values <- formals(name)
-  
-  if (!is.null(skip)) {
-    filter <- !args %in% skip
-    args <- args[filter]
-    values <- values[filter]
-  }
-  
-  for(i in seq_along(values)) {
-    if (inherits(values[[i]], "character")) values[[i]] <- paste0("\"", values[[i]], "\"")
-  }
-  
-  values <- as.character(values)
-  
-  out <- paste0(name, "(", paste0(args, " = ", values, collapse = ", "), ")")   
-  out <- gsub(" = ,", ",", out)
-  out <- gsub(" = )", ")", out)
-  
-  cat('::: {.callout-tip appearance="simple"}\n')
-  cat("# The ", name, " function call\n\n")
-  cat(
-    #"``` {.r}", "\n",  
-    out, "\n", 
-    #"```", 
-    "\n")
-  cat(':::\n\n')
-
-}

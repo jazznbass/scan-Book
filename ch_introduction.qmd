@@ -1,19 +1,17 @@
 # Introduction
 
 ::: callout-note
-You need a basic degree of familiarity with the R language. @sec-R gives a brief introduction.
+You will need a basic degree of familiarity with the R language. @sec-R gives a brief introduction.
 :::
 
-Single case research has become an important and broadly accepted method for gaining insight into educational processes. Especially the field of special education has adopted single-case research as a proper method for evaluating the effectiveness of an intervention or the developmental processes underlying problems in acquiring academic skills. Single-case studies are also popular among teachers and educators who are interested in evaluating the learning progress of their students. The resulting information of a single-case research design provide helpful information for pedagogical decision processes regarding further teaching processes of an individual student but also help to decide, whether or how to implement certain teaching methods into a classroom.\
-Despite its usefulness, standards on how to conduct single-case studies, how to analyze the data, and how to present the results is less well developed compared to group based research designs. Moreover, while there is ample software helping to analyse data, most of the software is designed towards analyzing group based data sets. Visualizing single-case data sets oftentimes means to tinker with spreadsheet programs and analyzing becomes a cumbersome endeavor. This book addresses this gap. It has been written around a specialized software tool for managing, visualizing, and analyzing single-case data. This tool is an extension package for the software `R` [@R-base] named `scan`, an acronym for **single-case analyses**.
+Single case research has become an important and widely accepted method for gaining insight into educational processes. In particular, the field of special education has embraced single case research as an appropriate method for evaluating the effectiveness of an intervention or the developmental processes underlying problems in the acquisition of academic skills. Single case studies are also popular with teachers and educators who are interested in evaluating the learning progress of their students. Despite their usefulness, standards for conducting single-case studies, analysing the data, and presenting the results are less well developed than for group-based research designs. Furthermore, while there is a wealth of software available to help analyse data, most of it is designed to analyse group-based datasets. Visualising single case data sets often means fiddling with spreadsheets, and analysis becomes a cumbersome endeavour. This book fills that gap. It has been written around a specialised software tool for managing, visualising and analysing single case data. This tool is an extension package for the R software [@R-base] called *scan*, an acronym for single case analysis.
 
 ## A teaser
 
 Before going into the details of how `scan` works, I would like to give you an example of what you can do with `scan`. It is meant as a teaser to get you motivated to tackle the steep learning curve associated with using `R` (but there is a land of milk and honey behind that curve!). So, do not worry if you do not understand every detail of this example, it will all be explained and obvious to you once you become familiar with `scan`.
 
-Let us set a fictional context. Suppose you are researching a method to improve the arithmetic skills of struggling fourth-grade students. You have developed an intervention programme called KUNO. In a pilot study, you want to get some evidence about the effectiveness of this new method, and you set up a multi-baseline single-case study with three students participating in the KUNO programme over a period of ten weeks. Throughout the course, you regularly measured each student's numeracy skills 20 times using a reliable test. You also carried out a follow-up after eight weeks with five additional measures. I am now going to make up some data for this fictitious KUNO study, because it would be too difficult to carry out a real study and actually develop a real intervention method.
+Let us set a fictional context. Suppose you are researching a method to improve the arithmetic skills of struggling fourth-grade students. You have developed an intervention programme called KUNO. In a pilot study, you want to get some evidence about the effectiveness of this new method, and you set up a multi-baseline single-case study with three students who participated in the KUNO programme over a period of ten weeks. during the course, you regularly measured each student's numeracy skills 20 times using a reliable test. You also carried out a follow-up after eight weeks with five additional measures. I am now going to make up some data for this fictitious KUNO study, because it would be too difficult to carry out a real study and actually develop a real intervention method.
 
-\
 We use the `scan` package to code the data. Each case has 25 measurements. We have three phases: before the intervention (A), during the intervention (B), and a follow-up (C). Phases A and B are of different lengths. The cases are named and combined into a single object called `strange_study`.
 
 ```{r build-strange-study}
@@ -64,7 +62,7 @@ res <- describe(strange_study)
 export(res, flip = TRUE)
 ```
 
-Single-case data are oftentimes analyzed with overlap indices. Let us get an overview comparing phases A and B:
+Single-case data are often analysed using overlap indices. Let us get an overview by comparing phases A and B:
 
 ```{r overlapAB-strange-study-print, eval=FALSE}
 overlap(strange_study)

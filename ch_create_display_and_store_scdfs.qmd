@@ -1,4 +1,4 @@
-# Managing single-case data
+# Create, display, and store single-case data
 
 ## A ***single-case data frame***
 
@@ -10,7 +10,7 @@ Technically, an *scdf* object is a list containing data frames. It is of the cla
 
 Several functions are available for creating, transforming, merging, and importing/exporting *scdfs*.
 
-## Creating *scdfs* {#sec-scdf}
+## Create *single-case data frames* {#sec-scdf}
 
 ```{r results='asis', echo=FALSE}
 function_structure("scdf")
@@ -122,7 +122,7 @@ case <- scdf(
 summary(case)
 ```
 
-## Saving and reading *single-case data frames*
+## Save and read *single-case data frames*
 
 Normally, it is not necessary to save an *scdf* in a separate file on your computer. In most cases, you can keep the coding of the *scdf* as described above and run it again each time you work with your data. However, for large files, it is sometimes more convenient to save the data separately in a file for later use.\
 The easiest way is to use the *R* base functions `saveRDS` and `readRDS` for this purpose. `saveRDS` takes at least two arguments: The first is the object you want to save, and the second is a filename for the resulting file. If you have an *scdf* named `study1`, you can use `saveRDS(study1, "study1.rds")` to save the *scdf* to your drive. You can read this file with `study1 <- readRDS("study1.rds")`. With `getwd()` you get the path to the current active folder you are saving and reading data from.
@@ -137,7 +137,7 @@ function_structure("read_scdf")
 
 When you are working with other programs besides **R** you need to export and import the *scdf* into a common file format. `read_scdf` imports a comma-separated-variable (*csv*) file and converts it into an *scdf* object. By default, the csv-file has to contain the columns *case*, *phase*, and *values*. Optionally, a further column named *mt* could be provided. The csv file should be build up like this:
 
-![How to format a single-case file in a spreadsheet program for importing into scan](images/readSC.jpg){width="300px" #fig-spreadsheet}
+![How to format a single-case file in a spreadsheet program for importing into scan](images/readSC.jpg){#fig-spreadsheet width="300px"}
 
 In case your variables names differ from the standard (i.e. "case", "values", "phase", and "mt" ), you could set additional arguments to fit your file. `read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")` for example will set the variables attributes of the resulting *scdf*. Cases will be split by the variable `"name"`, `"wellbeing"` is set as the dependent variable (default is *values*), phase information are in the variable `"intervention"`, and measurement times in the variable `"time"`. You could also reassign the phase names within the phase variable by setting the argument `phase.names`. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to "A" and "B" with `read_scdf("example.csv", phase.names = c("A", "B"))`.
 
@@ -216,7 +216,7 @@ convert(exampleABC)
 
 Now you can copy and past the output into your R file or you set the `file` argument to save the output into an R file `convert(exampleABC, file = "scdf.R")`.
 
-## Displaying scdf-files
+## Display *single-case data frames*
 
 *scdf* are displayed by just typing the name of the object.
 
@@ -225,144 +225,21 @@ Now you can copy and past the output into your R file or you set the `file` argu
 Beretvas2008
 ```
 
-The `print` command allows for specifying the output. Some possible arguments are `cases` (the number of cases to be displayed; Three by default), `rows` (the maximum number of rows to be displayed; Fifteen by default), and `digits` (number of digits). `cases = 'all'` and `rows = 'all'` prints all cases and rows.
+The `print` command allows you to specify the output. Some possible arguments are `cases` (the number of cases to display; three by default), `rows` (the maximum number of rows to display; fifteen by default), and `digits` (the number of digits). `cases = 'all'` and `rows = 'all'` prints all cases and rows.
 
 ```{r scdf-print-arguments}
 # Huber2014 is an example scdf included in scan
 print(Huber2014, cases = 2, rows = 10)
 ```
 
-The argument `long = TRUE` prints each case one after the other instead side by side (e.g., `print(exampleAB, long = TRUE)`).
+The argument `long = TRUE` prints each case one after the other instead of side by side (e.g., `print(exampleAB, long = TRUE)`).
 
-`summary()` gives a very concise overview of the *scdf*
+A short description of the *scdf* is provided by the `summary` command. The results are pretty much self explaining:
+
+`summary()` gives a very concise overview of an *scdf*
 
 ```{r scdf-summary}
 summary(Huber2014)
 ```
 
-## Selecting cases and measurements
-
-### Subsetting cases with base R syntax
-
-You can extract one or more single-cases from an *scdf* with multiple cases in two ways. If the case has a name, you can address it with the `$` operator.
-
-```{r}
-#| eval: false
-#| label: scdf-extract-case
-Huber2014$David
-```
-
-or you can use squared brackets
-
-```{r}
-#| eval: false
-#| label: scdf-extract-case2
-Huber2014[1] #extracts case 1
-Huber2014[2:3] #extracts cases 2 and 3
-```
-
-```{r}
-#| label: scdf-extract-case3
-new.huber2014 <- Huber2014[c(1, 4)] #extracts cases 1 and 4
-new.huber2014
-```
-
-### Select cases {#sec-select-cases}
-
-```{r}
-#| results: asis
-#| echo: false
-#| label: function-call-select-cases
-function_structure("select_cases")
-```
-
-Since version 0.53 scan includes some functions to work with pipe-operators. Therefore, we will provide syntax examples with and without pipe operators.
-
-The `select_cases()` function takes case-names and/or numbers for selecting cases:
-
-```{r}
-#| label: select-cases-1
-# With pipes:
-Huber2014 %>%
-  select_cases(Adam, Berta, 4) %>%
-  summary()
-
-# Without pipes:
-
-# new_huber <- select_cases(Huber2014, Adam, Berta, 4)
-# summary(new_huber)
-```
-
-Casenames can also be defined within a specific interval by the colon operator:
-
-```{r}
-#| label: select-cases-2
-Huber2014 %>%
-  select_cases(Berta:David) %>%
-  summary()
-```
-
-### Select measurements {#sec-subset}
-
-The `subset()` function helps with extracting measurements (or rows) by a specific criteria from an scdf.
-
-Subset takes an scdf as its first argument and a logical expression as the second argument (`filter`). Only measurements for which the logical argument is evaluated to be TRUE are included in the returning *scdf* object.
-
-For example, the scdf `Huber2014` has a variable `compliance` and we like to keep measurements where `compliance` is larger than 10 because we assume the others to be outliers:
-
-```{r}
-Huber2014 %>%
-  subset(compliance > 10) %>%
-  summary()
-```
-
-In an more complex example, we only like to keep values lower than 60 when they are in phase A or values equal or larger than 60 when they are in phase B:
-
-```{r}
-exampleAB %>%
-  subset((values < 60 & phase == "A") | (values >= 60 & phase == "B")) %>%
-  summary()
-```
-
-## Change and create variables
-
-```{r}
-#| results: asis
-#| echo: false
-function_structure("transform")
-```
-
-With the help of the `transform()` function you can add new variables or change existing variables to each case of an an *scdf*. This might be helpful when you
-
-- like to Z-standardise a variable,
-- calculate a new variable as the sum of two existing variables,
-- turn a frequency into percentages,
-
-or in many other cases.
-
-::: callout-note
-The transform function is a method for the generic `transform` function. To call the help file you have to add the class to the functionname: `?transform.scdf` 
-:::
-
-Here is an example where the dependent variable `values` is z-standardized:
-
-```{r}
-exampleAB_z <- transform(exampleAB, values = (values - mean(values)) / sd(values) )
-names(exampleAB_z) <- paste0(names(exampleAB), "_z")
-smd(c(exampleAB, exampleAB_z))
-
-# note: alternatively for the same result:
-# exampleAB_z <- transform(exampleAB, values = scale(values))
-```
-
-Here is an example where a new percentage variable is added and the measurement times shifted to start with `0`:
-
-```{r}
-exampleAB_score %>%
-  transform(
-    percentage = values / trials * 100,
-    mt = mt - mt[1]
-  )
-```
-
-
+<!--# export function -->
