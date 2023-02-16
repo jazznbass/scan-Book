@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Scan-Book - 11&nbsp; Power analyses (scan version 0.54 or later)</title>
+<title>The Scan-Book - 13&nbsp; Power analyses (scan version 0.54 or later)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,7 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./ch_further_chapters.html" rel="next">
+<link href="./ch_export.html" rel="next">
 <link href="./ch_randomization_test.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -185,9 +185,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Chapters</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">The single-case data frame</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -195,89 +205,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./ch_create_display_and_store_scdfs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></a>
+  <a href="./ch_working_with_scdfs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_managing_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Managing single-case data</span></a>
+  <a href="./ch_creating_a_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_creating_a_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_describe_manipulate.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Describe and manipulate single-case data frames</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Overlapping indices</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomization tests</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_further_chapters.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Default settings</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_export.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Appendices</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Data analysis</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_describe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_export.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Appendices</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./app_some_things.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></a>
@@ -290,7 +305,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">About the author</span></a>
+  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_supseded_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">About the author</span></a>
   </div>
 </li>
       </ul>
@@ -304,13 +329,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-idea-of-a-power-test" id="toc-the-idea-of-a-power-test" class="nav-link active" data-scroll-target="#the-idea-of-a-power-test"><span class="toc-section-number">11.1</span>  The idea of a power-test</a></li>
-  <li><a href="#set-up-a-single-case-design" id="toc-set-up-a-single-case-design" class="nav-link" data-scroll-target="#set-up-a-single-case-design"><span class="toc-section-number">11.2</span>  Set up a single-case design</a></li>
-  <li><a href="#conducting-a-power-test" id="toc-conducting-a-power-test" class="nav-link" data-scroll-target="#conducting-a-power-test"><span class="toc-section-number">11.3</span>  Conducting a power-test</a></li>
-  <li><a href="#statistical-methods" id="toc-statistical-methods" class="nav-link" data-scroll-target="#statistical-methods"><span class="toc-section-number">11.4</span>  Statistical methods</a></li>
-  <li><a href="#confidence-intervals-and-binomial-tests" id="toc-confidence-intervals-and-binomial-tests" class="nav-link" data-scroll-target="#confidence-intervals-and-binomial-tests"><span class="toc-section-number">11.5</span>  Confidence intervals and binomial tests</a></li>
-  <li><a href="#advanced-methods" id="toc-advanced-methods" class="nav-link" data-scroll-target="#advanced-methods"><span class="toc-section-number">11.6</span>  Advanced methods</a></li>
-  <li><a href="#computation-duration" id="toc-computation-duration" class="nav-link" data-scroll-target="#computation-duration"><span class="toc-section-number">11.7</span>  Computation duration</a></li>
+  <li><a href="#the-idea-of-a-power-test" id="toc-the-idea-of-a-power-test" class="nav-link active" data-scroll-target="#the-idea-of-a-power-test"><span class="toc-section-number">13.1</span>  The idea of a power-test</a></li>
+  <li><a href="#set-up-a-single-case-design" id="toc-set-up-a-single-case-design" class="nav-link" data-scroll-target="#set-up-a-single-case-design"><span class="toc-section-number">13.2</span>  Set up a single-case design</a></li>
+  <li><a href="#conducting-a-power-test" id="toc-conducting-a-power-test" class="nav-link" data-scroll-target="#conducting-a-power-test"><span class="toc-section-number">13.3</span>  Conducting a power-test</a></li>
+  <li><a href="#statistical-methods" id="toc-statistical-methods" class="nav-link" data-scroll-target="#statistical-methods"><span class="toc-section-number">13.4</span>  Statistical methods</a></li>
+  <li><a href="#confidence-intervals-and-binomial-tests" id="toc-confidence-intervals-and-binomial-tests" class="nav-link" data-scroll-target="#confidence-intervals-and-binomial-tests"><span class="toc-section-number">13.5</span>  Confidence intervals and binomial tests</a></li>
+  <li><a href="#advanced-methods" id="toc-advanced-methods" class="nav-link" data-scroll-target="#advanced-methods"><span class="toc-section-number">13.6</span>  Advanced methods</a></li>
+  <li><a href="#computation-duration" id="toc-computation-duration" class="nav-link" data-scroll-target="#computation-duration"><span class="toc-section-number">13.7</span>  Computation duration</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -319,7 +344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></h1>
 </div>
 
 
@@ -347,8 +372,8 @@ The power_test function call
 <p>power_test(design, method = c(“plm_level”, “rand”, “tauU”), effect = “level”, n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = FALSE, binom_test_alpha = FALSE, binom_test_power = FALSE, binom_test_correct = FALSE, ci = FALSE, alpha_level = 0.05)</p>
 </div>
 </div>
-<section id="the-idea-of-a-power-test" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="the-idea-of-a-power-test"><span class="header-section-number">11.1</span> The idea of a power-test</h2>
+<section id="the-idea-of-a-power-test" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="the-idea-of-a-power-test"><span class="header-section-number">13.1</span> The idea of a power-test</h2>
 <p>The <code>powert_test()</code> function provides the alpha error probability and power when analyzing a specific effect of a single-case design with a given statistical method.</p>
 <p>For example, you have a one case design with phase length A = 10 and B = 20. You assume a strong level effect of d = 1 and you expect a slight trend effect of d = 0.02 (per measurement). You might be interested to answer two questions:</p>
 <ol type="1">
@@ -357,8 +382,8 @@ The power_test function call
 </ol>
 <p>In principle, <code>power_test()</code> takes a single case design and repeatedly generates random cases based on that design. Each case is now analyzed with a given statistical method. The proportion of significant effects in these analyses is an estimator of the test-power. In a second step the design is stripped of the target effect and again multiple cases are generated on this changed design and analyzed with the same method. Now, the proportion of significant effects is the estimator for the alpha-error probability.</p>
 </section>
-<section id="set-up-a-single-case-design" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="set-up-a-single-case-design"><span class="header-section-number">11.2</span> Set up a single-case design</h2>
+<section id="set-up-a-single-case-design" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="set-up-a-single-case-design"><span class="header-section-number">13.2</span> Set up a single-case design</h2>
 <div class="callout-tip callout callout-style-simple callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -377,7 +402,7 @@ The design function call
 <div class="cell-output-display">
 <div id="tbl-design-arguments" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;11.1:  Core arguments of the design function </caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;13.1:  Core arguments of the design function </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Argument </th>
@@ -444,8 +469,8 @@ The design function call
 </div>
 </div>
 </section>
-<section id="conducting-a-power-test" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="conducting-a-power-test"><span class="header-section-number">11.3</span> Conducting a power-test</h2>
+<section id="conducting-a-power-test" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="conducting-a-power-test"><span class="header-section-number">13.3</span> Conducting a power-test</h2>
 <p>When conduction a power test, you firstly need to define a design which you like to be tested.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">design</span>(</span>
@@ -465,21 +490,21 @@ The design function call
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
- plm_level    79           8      1:2.6      86
-      rand    67           7      1:4.7      80
-      tauU   100          25      1:0.0      88</code></pre>
+ plm_level    72           5      1:5.6      84
+      rand    72           6      1:4.7      83
+      tauU   100          20      1:0.0      90</code></pre>
 </div>
 </div>
 <p>The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to outliers of the random samples. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tau U test has an unacceptably high alpha-error which is due to the trend we put into the design. <em>Alpha:Beta</em> depicts the relation of the Alpha and Beta error (power = 1 - Beta). <em>Correct</em> is the overall proportion of correct categorizations and <em>p</em> is the results of a binomial-test of <em>Correct</em> against 50%.</p>
 </section>
-<section id="statistical-methods" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="statistical-methods"><span class="header-section-number">11.4</span> Statistical methods</h2>
+<section id="statistical-methods" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="statistical-methods"><span class="header-section-number">13.4</span> Statistical methods</h2>
 <p>The <code>method</code> argument takes a list where each element depicts a statistical method. Currently, the following character strings are predefined:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-mc-func" class="anchored">
 
-<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;11.2:  Statistical methods </caption>
+<table class=" lightable-classic" style="width: auto !important; "><caption>Table&nbsp;13.2:  Statistical methods </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Name </th>
@@ -555,8 +580,8 @@ The design function call
 </div>
 </div>
 </section>
-<section id="confidence-intervals-and-binomial-tests" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="confidence-intervals-and-binomial-tests"><span class="header-section-number">11.5</span> Confidence intervals and binomial tests</h2>
+<section id="confidence-intervals-and-binomial-tests" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="confidence-intervals-and-binomial-tests"><span class="header-section-number">13.5</span> Confidence intervals and binomial tests</h2>
 <p>With only 100 simulations you will have quite large confidence intervals for the power, alpha error probability, and correct estimations. You can calculate these intervals by setting the <code>ci</code> argument. For 95% CI’s set <code>ci = 0.95</code> for 99% <code>ci = 0.99</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power_test</span>(design, <span class="at">ci =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -564,13 +589,13 @@ The design function call
 <pre><code>Test-Power in percent:
 
     Method Power 2.5% 97.5% Alpha Error 2.5% 97.5% Alpha:Beta Correct 2.5%
- plm_level    76   66    84           5    2    11      1:4.8      86   80
-      rand    73   63    81           7    3    14      1:3.9      83   77
-      tauU   100   96   100          28   19    38      1:0.0      86   80
+ plm_level    83   74    90           3  0.6     9      1:5.7      90   85
+      rand    75   65    83           5  1.6    11      1:5.0      85   79
+      tauU   100   96   100          20 12.7    29      1:0.0      90   85
  97.5%
+    94
     90
-    88
-    90</code></pre>
+    94</code></pre>
 </div>
 </div>
 <p>You can also test the power, alpha error, and correct estimates against predefined values. In order to do that, set <code>binom_test = TRUE</code>. The power will be tested against being greater or equal to 80%, the alpha error against being less or equal 5%, and the correct proportion against being greater equal 87.5%.</p>
@@ -580,19 +605,19 @@ The design function call
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct p Power&gt;=80 p Alpha Error&lt;=5
- plm_level    79           1     1:21.0      89           1                0
-      rand    68          10      1:3.2      79           1                1
-      tauU   100          27      1:0.0      86           0                1
+ plm_level    69           3     1:10.3      83           1                0
+      rand    66           2     1:17.0      82           1                0
+      tauU   100          18      1:0.0      91           0                1
  p Correct&gt;=87.5
-             0.3
-             1.0
-             0.7</code></pre>
+            0.97
+            0.99
+            0.08</code></pre>
 </div>
 </div>
 <p>If you want to define individual values for the three tests, set the <code>binom_test_power</code>. <code>binom_test_alpha</code>, and/or, the <code>binom_test_correct</code> arguments.</p>
 </section>
-<section id="advanced-methods" class="level2" data-number="11.6">
-<h2 data-number="11.6" class="anchored" data-anchor-id="advanced-methods"><span class="header-section-number">11.6</span> Advanced methods</h2>
+<section id="advanced-methods" class="level2" data-number="13.6">
+<h2 data-number="13.6" class="anchored" data-anchor-id="advanced-methods"><span class="header-section-number">13.6</span> Advanced methods</h2>
 <p><em>Note: You need specific knowledge on how to create functions in R and on data structures to follow all aspects of this section.</em></p>
 <p>Instead of one of the predefined character strings you can also create you own functions and implement these. You function must take an scdf as the first argument and return a single numeric p-value.</p>
 <p>Here is an example that implements a method for the significance of a NAP (nonoverlap of all pairs) test. This is statistically identical to a U-Test comparing phase A and B.</p>
@@ -636,8 +661,8 @@ The design function call
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">power_test</span>(design, <span class="at">method =</span> <span class="fu">list</span>(<span class="st">"fast plm"</span> <span class="ot">=</span> plm_fast))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="computation-duration" class="level2" data-number="11.7">
-<h2 data-number="11.7" class="anchored" data-anchor-id="computation-duration"><span class="header-section-number">11.7</span> Computation duration</h2>
+<section id="computation-duration" class="level2" data-number="13.7">
+<h2 data-number="13.7" class="anchored" data-anchor-id="computation-duration"><span class="header-section-number">13.7</span> Computation duration</h2>
 <p>You can print the returning object of the <code>power_test</code> function with added computation duration time by setting <code>duration = TRUE</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res, <span class="at">duration =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -645,9 +670,9 @@ The design function call
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
- plm_level    79           8      1:2.6      86
-      rand    67           7      1:4.7      80
-      tauU   100          25      1:0.0      88
+ plm_level    72           5      1:5.6      84
+      rand    72           6      1:4.7      83
+      tauU   100          20      1:0.0      90
 
 Computation duration is 0.9 seconds.</code></pre>
 </div>
@@ -661,13 +686,13 @@ Computation duration is 0.9 seconds.</code></pre>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Elapsed time in seconds for each procedure</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res1, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.072</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.074</span></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.215</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.217</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res3, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.465</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.458</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>… and what about our new fast-glm function?</p>
 <div class="cell">
@@ -686,12 +711,12 @@ Computation duration is 0.9 seconds.</code></pre>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res1, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>elapsed 
-  0.158 </code></pre>
+  0.147 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>elapsed 
-  0.134 </code></pre>
+  0.133 </code></pre>
 </div>
 </div>
 <p>… it is much faster!</p>
@@ -836,12 +861,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./ch_randomization_test.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Randomization tests</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ch_further_chapters.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Default settings</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ch_export.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

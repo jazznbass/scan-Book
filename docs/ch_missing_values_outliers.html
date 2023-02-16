@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Scan-Book - Appendix A — Some things about R</title>
+<title>The Scan-Book - 6&nbsp; Missing values and outliers</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,6 +83,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -93,8 +112,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./app_changes.html" rel="next">
-<link href="./references.html" rel="prev">
+<link href="./ch_describe.html" rel="next">
+<link href="./ch_creating_a_plot.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -133,7 +152,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Appendix A — Some things about R</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -217,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a>
+  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a>
   </div>
 </li>
       </ul>
@@ -292,7 +311,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_some_things.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></a>
+  <a href="./app_some_things.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -326,7 +345,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#basic-r" id="toc-basic-r" class="nav-link active" data-scroll-target="#basic-r"><span class="toc-section-number">A.1</span>  Basic R</a></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link active" data-scroll-target="#missing-values"><span class="toc-section-number">6.1</span>  Missing values</a></li>
+  <li><a href="#outlieranalysis" id="toc-outlieranalysis" class="nav-link" data-scroll-target="#outlieranalysis"><span class="toc-section-number">6.2</span>  Outlieranalysis</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -335,7 +355,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-R" class="quarto-section-identifier d-none d-lg-block">Appendix A — Some things about R</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></h1>
 </div>
 
 
@@ -350,63 +370,133 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>R is a programming language optimized for statistical purposes. It was created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland. Since then it has been developed continuously and became one of the leading statistical software programs. R is unmatched in its versatility. It is used for teaching introductory courses into statistics up to doing the most sophisticated mathematical analysis. It has become the defacto standard in many scientific disciplines from the natural to the social sciences.<br>
-R is completely community driven . That is, it is developed and extended by anybody who likes to participate . It comes at no costs and can be downloaded for free for all major and many minor platforms at <a href="http://www.r-project.org">www.r-project.org</a>. Yet, it is as reliable as other proprietary software like Mplus, STATA, SPSS etc . You can tell from my writing that is hard not to become an R-fan when you are into statistics :-)<br>
-R can be used in at least two ways:</p>
-<ol type="1">
-<li>You can use it for applying data analyses. In that way it functions like most other statistical programs. You have to learn the specific syntax of R and it will compute the data analysis you need. For example <code>mean(x)</code> will return the mean of the variable <code>x</code>; <code>lm(y ~ x)</code> will calculate a linear regression with the criteria <code>y</code> and the predictor <code>x</code> for you or <code>plot(x, y)</code> will return a scatter-plot of the variables <code>x</code> and <code>y</code>.</li>
-<li>You can use R to program new statistical procedures, or extend previous ones.</li>
-</ol>
-<p>It is the second function that is the origin of R’s huge success and versatility. New statistical procedures and functions can be published to be used for everyone in so called packages. A package usually contains several functions, help files and example data-sets. Hundreds of such packages are available to help in all kinds of specialized analyses. The basic installation of R comes with a large variety of packages per installed. New packages can most of the times be easily installed from within R. Admittedly, if you must have the latest developmental version of a new package installation sometimes can get a bit more complex. But with a bit of help and persistence it is not to difficult to accomplish.</p>
-<p>The book at hand describes the use of such an additional package named <em>scan</em> providing specialized functions for single-case analyses. <em>scan</em> comes in two versions: A “stable” version and a developmental version. Both versions can be installed directly from within R. The stable version is much older and only provides a limited functionality. Therefore, I will refer to the developmental version in this book.</p>
-<section id="basic-r" class="level2" data-number="A.1">
-<h2 data-number="A.1" class="anchored" data-anchor-id="basic-r"><span class="header-section-number">A.1</span> Basic R</h2>
-<p><em>R</em> is a script language. That is, you type in text and let R execute the commands you wrote down. Either you work in a <em>console</em> or a <em>textfile</em>. In a <em>console</em> the command will be executed every time you press the RETURN-key. In a <em>textfile</em> you type down your code, mark the part you like to be executed, and run that code (with a click or a certain key). The latter text files can be saved and reused for later R sessions. Therefore, usually you will work in a text file.</p>
-<p>A value is assigned to a variable with the <code>&lt;-</code> operator. Which should be read as an arrow rather than a less sign and a minus sign. A <code>#</code> is followed by a comment to make your code more understandable. So, what follows a <code>#</code> is not interpreted by R. A vector is a chain of several values. With a vector you could describe the values of a measurement series. The <code>c</code> function is used to build a vector (e.g., <code>c(1, 2, 3, 4)</code>). If you like to see the content of a variable you could use the <code>print</code> function. <code>print(x)</code> will display the content of the variable <code>x</code>. A shortcut for this is just to type variable name (and press return) <code>x</code>.</p>
+<section id="missing-values" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="missing-values"><span class="header-section-number">6.1</span> Missing values</h2>
+<p>There are two kinds of missing values in single-case data series. First, missings that were explicitly recorded as <code>NA</code> and assigned to a phase and measurement-time as in the following example:</p>
+<pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, NA, 6), phase_design = c(A = 4, B = 6))</code></pre>
+<p>The second type of missing occurs when there are gaps between measurement-times that are not explicitly coded as in the following example:</p>
+<pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, 6), phase_design = c(A = 4, B = 5), 
+     mt = c(1, 2, 3, 4, 5, 6, 7, 8, 10))</code></pre>
+<p>In both cases, missing values pose a threat to the internal validity of overlap indices. Randomization tests are more robust against the first type of missing values but are affected by the second type. Regression approaches are less impacted by both types as they take the interval between measurement-times into account.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x is assigned the value 10:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># See what's inside of x:</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">2</span>, <span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">6</span>), </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">phase_design =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">10</span>), <span class="at">name =</span> <span class="st">"no NA"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>case2 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="dv">3</span>,<span class="dv">2</span>, <span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="cn">NA</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">6</span>), </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">phase_design =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">10</span>, <span class="at">B =</span> <span class="dv">10</span>), <span class="at">name =</span> <span class="st">"NAs"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>case3 <span class="ot">&lt;-</span> <span class="fu">fill_missing</span>(case2)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(case3) <span class="ot">&lt;-</span> <span class="st">"interpolated NAs"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="fu">c</span>(case1, case2, case3)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ch_missing_values_outliers_files/figure-html/fillmissing-example-1.png" class="img-fluid" width="480"></p>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">overlap</span>(ex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 10</code></pre>
+<pre><code>Overlap Indices
+
+Comparing phase 1 against phase 2 
+
+             no NA  NAs interpolated NAs
+Design         A-B  A-B              A-B
+PND             40   33               30
+PEM            100  100              100
+PET            100  100              100
+NAP             88   91               92
+NAP rescaled    77   83               83
+PAND            72   81               80
+Tau_U         0.45 0.51             0.50
+Base_Tau      0.59 0.64             0.64
+Diff_mean     2.60 2.78             2.75
+Diff_trend    0.02 0.11             0.12
+SMD           1.65 1.96             2.02
+Hedges_g      1.71 1.90             1.96</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x is assigned a vector with three values:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">15</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ... and display the content of x:</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10 11 15</code></pre>
 </div>
-</div>
-<p>Two important concepts in <strong>R</strong> are <em>functions</em> and <em>arguments</em>. A <em>function</em> is the name for a procedure that does something with the <em>arguments</em> that are provided by you. For example, the function <code>mean</code> calculated the mean. <code>mean</code> has an argument <code>x</code> which “expects” that you provide a vector (a series of values) from which it will calculate the mean. <code>mean( x = c(1, 3, 5) )</code> will compute the mean of the values 1, 3, and 5 and return the result 3. Some <em>functions</em> can take several arguments. <code>mean</code> for example also takes the argument <code>trim</code>. For calculating a trimmed mean. <code>mean( x = c(1, 1, 3, 3, 5, 6, 7, 8, 9, 9), trim = 0.1)</code> will calculate the 10% trimmed mean of the provided values. The name of the first argument could be dropped. That is, <code>mean( c(1, 3, 5) )</code> will be interpreted by <strong>R</strong> as <code>mean( x = c(1, 3, 5) )</code>. You could also provide a variable to an argument.</p>
+<p>Here is the syntax for the upcoming <code>scplot()</code> function (see <a href="ch_scplot.html"><span>Chapter&nbsp;15</span></a>):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(<span class="at">x =</span> values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.75</code></pre>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(ex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values (`geom_point()`).</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or shorter:</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.75</code></pre>
+<div class="cell-output-display">
+<p><img src="ch_missing_values_outliers_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
-<p>The return value of a function can be assigned to a new variable instead:</p>
+</section>
+<section id="outlieranalysis" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="outlieranalysis"><span class="header-section-number">6.2</span> Outlieranalysis</h2>
+<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+The outlier function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>outlier(data, dvar, pvar, mvar, criteria = c(“MAD”, “3.5”))</p>
+</div>
+</div>
+<p><em>scan</em> provides several methods for analyzing outliers. All of them are implemented in the <code>outliers</code> function. Available methods are the <strong>standard deviation</strong>, <strong>mean average deviation</strong>, <strong>confidence intervals</strong>, and <strong>Cook’s distance</strong>. The criteria argument takes a vector with two information, the first defines the analyzing method (“SD”, “MAD”, CI”, “Cook”) and the second the criteria. For “SD” the criteria is the number of standard deviations (<strong>sd</strong>) from the mean of each phase for which a value is not considered to be an outlier. For example, <code>criteria = c("SD",2)</code> would identify every value exceeding two <strong>sd</strong> above or below the mean as an outlier whereas <strong>sd</strong> and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin <span class="citation" data-cites="iglewicz_how_1993">Iglewicz &amp; Hoaglin (<a href="references.html#ref-iglewicz_how_1993" role="doc-biblioref">1993</a>)</span> recommend the use the much more robust median average deviation (<strong>MAD</strong>) instead. The <strong>MAD</strong> is is constructed similar to the <strong>sd</strong> but uses the median instead of the mean. Multiplying the <strong>MAD</strong> by 1.4826 approximates the <strong>sd</strong> in a normal distributed sample. This corrected MAD is applied in the <code>outlier</code> function. A deviation of 3.5 times the corrected <strong>MAD</strong> from the median is suggested to be an outlier. To use this criterion set <code>criteria = c("MAD", 3.5)</code>. <code>criteria = c("CI", 0.95)</code> takes exceeding the 95% confidence interval as the criteria for outliers. The Cook’s distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook’s distance analyses are based on a piecewise-regression model. Most commonly, Cook’s distance exceeding 4/n is used as a criteria. This could be implemented setting <code>criteria = c("Cook","4/n")</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">5</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#now res contains the mean of y:</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">outlier</span>(exampleABC_outlier, <span class="at">criteria =</span> <span class="fu">c</span>(<span class="st">"MAD"</span>, <span class="fl">3.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.75</code></pre>
+<pre><code>Outlier Analysis for Single-Case Data
+
+Criteria: Exceeds 3.5 Mean Average Deviations
+
+$Bernadette
+  phase md mad   lower    upper
+1     A 57   9 10.2981 103.7019
+2     B 76   7 39.6763 112.3237
+3     C 69  12  6.7308 131.2692
+
+$Penny
+  phase md mad   lower    upper
+1     A 52   6 20.8654  83.1346
+2     B 74  10 22.1090 125.8910
+3     C 68   8 26.4872 109.5128
+
+$Amy
+  phase md mad   lower    upper
+1     A 54   9  7.2981 100.7019
+2     B 73  11 15.9199 130.0801
+3     C 76  14  3.3526 148.6474
+
+Case Bernadette : Dropped 3 
+Case Penny : Dropped 2 
+Case Amy : Dropped 3 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizing outliers with the plot function</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">outlier</span>(exampleABC_outlier, <span class="at">criteria =</span> <span class="fu">c</span>(<span class="st">"MAD"</span>, <span class="fl">3.5</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(exampleABC_outlier, <span class="at">marks =</span> res, <span class="at">style =</span> <span class="st">"annotate"</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">40</span>,<span class="dv">160</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ch_missing_values_outliers_files/figure-html/outlier-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Every function in R has a help page written by the programmers. You can retrieve these pages with the <code>help</code> function or the short cut <code>?</code>. <code>help("mean")</code> will display the help page for the <code>mean</code> function. The quotation marks are necessary here because you do not provide a variable with the name <em>mean</em> but a word ‘mean’. The shortcut works <code>?mean</code>. A bit confusingly, you do not need the quotation marks here.</p>
+<p>Here is the syntax for the upcoming <code>scplot()</code> function (see <a href="ch_scplot.html"><span>Chapter&nbsp;15</span></a>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC_outlier) <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">nudge_y =</span> <span class="dv">15</span>, <span class="at">text =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="fl">0.7</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> res) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_theme</span>(<span class="st">"basic"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_yaxis</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">120</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing missing values (`geom_text()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="ch_missing_values_outliers_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
+<div id="ref-iglewicz_how_1993" class="csl-entry" role="doc-biblioentry">
+Iglewicz, B., &amp; Hoaglin, D. C. (1993). <em>How to detect and handle outliers</em>. Milwaukee, Wis. : ASQC Quality Press.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -545,13 +635,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./references.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">References</span>
+      <a href="./ch_creating_a_plot.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./app_changes.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changes</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ch_describe.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
