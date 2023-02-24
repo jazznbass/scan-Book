@@ -405,7 +405,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="install-scplot" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="install-scplot"><span class="header-section-number">15.1</span> Install <code>scplot</code></h2>
 <p>scplot is hosted as a gitHub project at https://github.com/jazznbass/scplot. You can install it with <code>devtools::install_github("jazznbass/scplot", dependencies = TRUE)</code> from your R console. Make sure you have the package <code>devtools</code> installed before. The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/. MacOs and Linux users usually do not need to take this extra step.</p>
-<p>The following chapter has been written with scplot version 0.2.8. If you have problems replicating the examples, please update to this version.</p>
+<p>The following chapter has been written with scplot version 0.2.10. If you have problems replicating the examples, please update to this version.</p>
 </section>
 <section id="basic-principal" class="level2" data-number="15.2">
 <h2 data-number="15.2" class="anchored" data-anchor-id="basic-principal"><span class="header-section-number">15.2</span> Basic principal</h2>
@@ -813,8 +813,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_mpd) <span class="sc">%&gt;%</span> </span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="st">"grey50"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in scan:::.prepare_scdf(scdf): Phase design is not identical for all
-cases.</code></pre>
+<pre><code>Warning in check_scdf(data): Phase design is not identical for all cases.</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/ridge1-1.png" class="img-fluid" width="672"></p>
