@@ -435,7 +435,7 @@ The outlier function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>outlier(data, dvar, pvar, mvar, criteria = c(“MAD”, “3.5”))</p>
+<p>outlier(data, dvar, pvar, mvar, method = c(“MAD”, “Cook”, “SD”, “CI”), criteria = 3.5)</p>
 </div>
 </div>
 <p><em>scan</em> provides several methods for analyzing outliers. All of them are implemented in the <code>outliers</code> function. Available methods are the <strong>standard deviation</strong>, <strong>mean average deviation</strong>, <strong>confidence intervals</strong>, and <strong>Cook’s distance</strong>. The criteria argument takes a vector with two information, the first defines the analyzing method (“SD”, “MAD”, CI”, “Cook”) and the second the criteria. For “SD” the criteria is the number of standard deviations (<strong>sd</strong>) from the mean of each phase for which a value is not considered to be an outlier. For example, <code>criteria = c("SD",2)</code> would identify every value exceeding two <strong>sd</strong> above or below the mean as an outlier whereas <strong>sd</strong> and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin <span class="citation" data-cites="iglewicz_how_1993">Iglewicz &amp; Hoaglin (<a href="references.html#ref-iglewicz_how_1993" role="doc-biblioref">1993</a>)</span> recommend the use the much more robust median average deviation (<strong>MAD</strong>) instead. The <strong>MAD</strong> is is constructed similar to the <strong>sd</strong> but uses the median instead of the mean. Multiplying the <strong>MAD</strong> by 1.4826 approximates the <strong>sd</strong> in a normal distributed sample. This corrected MAD is applied in the <code>outlier</code> function. A deviation of 3.5 times the corrected <strong>MAD</strong> from the median is suggested to be an outlier. To use this criterion set <code>criteria = c("MAD", 3.5)</code>. <code>criteria = c("CI", 0.95)</code> takes exceeding the 95% confidence interval as the criteria for outliers. The Cook’s distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook’s distance analyses are based on a piecewise-regression model. Most commonly, Cook’s distance exceeding 4/n is used as a criteria. This could be implemented setting <code>criteria = c("Cook","4/n")</code>.</p>
@@ -443,26 +443,6 @@ The outlier function call
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">outlier</span>(exampleABC_outlier, <span class="at">criteria =</span> <span class="fu">c</span>(<span class="st">"MAD"</span>, <span class="fl">3.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Outlier Analysis for Single-Case Data
-
-Criteria: Exceeds 3.5 Mean Average Deviations
-
-$Bernadette
-  phase md mad   lower    upper
-1     A 57   9 10.2981 103.7019
-2     B 76   7 39.6763 112.3237
-3     C 69  12  6.7308 131.2692
-
-$Penny
-  phase md mad   lower    upper
-1     A 52   6 20.8654  83.1346
-2     B 74  10 22.1090 125.8910
-3     C 68   8 26.4872 109.5128
-
-$Amy
-  phase md mad   lower    upper
-1     A 54   9  7.2981 100.7019
-2     B 73  11 15.9199 130.0801
-3     C 76  14  3.3526 148.6474
 
 Case Bernadette : Dropped 3 
 Case Penny : Dropped 2 

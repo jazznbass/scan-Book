@@ -566,8 +566,8 @@ If no measurement times are specified, they are automatically created as a serie
 
 Variable names:
 score &lt;dependent variable&gt;
-day &lt;measurement-time variable&gt;
-section &lt;phase variable&gt;</code></pre>
+section &lt;phase variable&gt;
+day &lt;measurement-time variable&gt;</code></pre>
 </div>
 </div>
 </section>
@@ -630,20 +630,11 @@ The read_scdf function call
  Aleigha            20    A-B
  Greta              20    A-B
  Alijah             20    A-B
- Ricardo            20    A-B
- Dallas             20    A-B
- Edith              20    A-B
- Braylee            20    A-B
- Giovanni           20    A-B
- Ismael             20    A-B
- Grady              20    A-B
- Raina              20    A-B
- Cambria            20    A-B
- Lincoln            20    A-B
+... [skipped 10 cases]
 
 Variable names:
-intervention &lt;phase variable&gt;
 wellbeing &lt;dependent variable&gt;
+intervention &lt;phase variable&gt;
 time &lt;measurement-time variable&gt;
 age
 gender
@@ -707,7 +698,7 @@ The convert function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>convert(scdf, file = ““, study_name =”study”)</p>
+<p>convert(scdf, file = ““, study_name =”study”, case_name = “case”, indent = 3)</p>
 </div>
 </div>
 <p>You can also reconvert an <em>scdf</em> object back to “raw” scan syntax. This is a convenient way when you imported data from an Excel or csv file and want to keep everything clean and transparent within your R syntax files.</p>
@@ -718,7 +709,7 @@ The convert function call
 <pre><code>case1 &lt;- scdf(
    values = c(58, 56, 60, 63, 51, 45, 44, 59, 45, 39, 83, 65, 70, 83, 70,
               85, 47, 66, 77, 75, 51, 87, 80, 68, 70, 56, 52, 70, 83,
-              63), 
+              63),
    phase_design = c(A = 10, B = 10, C = 10),
    name = "Marie"
 )
@@ -726,7 +717,7 @@ The convert function call
 case2 &lt;- scdf(
    values = c(47, 41, 47, 52, 54, 65, 55, 37, 51, 60, 60, 65, 55, 46, 49,
               54, 77, 73, 97, 64, 84, 71, 66, 74, 78, 68, 52, 76, 63,
-              54), 
+              54),
    phase_design = c(A = 15, B = 8, C = 7),
    name = "Rosalind"
 )
@@ -734,7 +725,7 @@ case2 &lt;- scdf(
 case3 &lt;- scdf(
    values = c(50, 45, 63, 53, 66, 57, 35, 45, 74, 63, 47, 45, 47, 36, 51,
               55, 35, 66, 59, 55, 73, 60, 85, 62, 79, 69, 87, 76, 90,
-              48), 
+              48),
    phase_design = c(A = 20, B = 7, C = 3),
    name = "Lise"
 )
@@ -808,13 +799,13 @@ study &lt;- c(case1, case2, case3)</code></pre>
  David               76    A-B
 
 Variable names:
-mt &lt;measurement-time variable&gt;
 compliance &lt;dependent variable&gt;
 phase &lt;phase variable&gt;
+mt &lt;measurement-time variable&gt;
 
+Note: Behavioral data (compliance in percent). 
 
-Note:  Behavioral data (compliance in percent).
-Author of data:  Christian Huber </code></pre>
+Author of data: Christian Huber </code></pre>
 </div>
 </div>
 <!--# export function -->

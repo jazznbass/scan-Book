@@ -6,7 +6,7 @@ You can use the `install.packages` function to install *scan*.
 
 `install.packages("scan")` will install the stable version.
 
-The current stable release is version `0.56`. Please refer to the *Software Reference* section to see which version of *scan* was used to create this book, and make sure you have this or a newer version installed.
+The current stable release is version `0.57`. Please refer to the *Software Reference* section to see which version of *scan* was used to create this book, and make sure you have this or a newer version installed.
 
 R contains many packages, and it would slow things down considerably if all packages were loaded into memory at the beginning of each R session. Therefore, after installing *scan*, you need to enable it at the beginning of each session in which you use R. Normally, a session starts when you start the R program and ends when you quit it.
 
@@ -46,7 +46,7 @@ We are very thankful for any feedback, corrections, or whatever helps to improve
 The functions of the *scan* package can be divided into the following categories:\
 *Manage data*, *analyze*, *manipulate*, *simulate*, and *depict*.
 
-The following tables give an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here <https://lifecycle.r-lib.org/articles/stages.html>.
+The following tables give an overview of the central functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here <https://lifecycle.r-lib.org/articles/stages.html>.
 
 ### Management
 
@@ -67,8 +67,8 @@ out <- tribble(
   "write_scdf", "Writes scdf into an external file", "Stable", "@sec-write-scdf",
   "convert", "Converts an scdf object into R syntax", "Stable", "@sec-convert",
   "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Stable", "-",
-  "scdf_attr", "Gets and sets attributes of an scdf", "Stable", "-",
   "add_l2", "Adds level-two data to an scdf", "Stable", "@sec-add-l2)",
+  "as_scdf", "Transforms a data.frame into an scdf", "-",
   "as.data.frame/as.data.frame.scdf", "Transforms an scdf into a data frame", "Stable", "-"
 )
 
@@ -92,7 +92,6 @@ out <- tribble(
   "scplot", "Add-on package `scplot`. Create advanced ggplot2 plots.", "Experimental",
   "style_plot", "Defines single-case plot graphical styles", "Superseded",
   "export", "Creates html or latex tables from the output of various can functions", "Experimental",
-  "print/print.sc", "Prints the results of various scan outputs", "Stable",
   "print/print.scdf", "Prints an scdf", "Stable",
   "summary/summary.scdf", "Summaizes an scdf", "Stable",
   "plot_rand", "Create a distribution plot from a randomization test obejct", "Experimental"

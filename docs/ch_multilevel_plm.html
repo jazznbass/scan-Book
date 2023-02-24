@@ -374,7 +374,7 @@ The hplm function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>hplm(data, dvar, pvar, mvar, model = “W”, contrast = “first”, contrast_level = NA, contrast_slope = NA, method = “ML”, control = list(opt = “optim”), random.slopes = FALSE, lr.test = FALSE, ICC = TRUE, trend = TRUE, level = TRUE, slope = TRUE, fixed = NULL, random = NULL, update.fixed = NULL, data.l2 = NULL, …)</p>
+<p>hplm(data, dvar, pvar, mvar, model = c(“W”, “H-M”, “B&amp;L-B”, “JW”), contrast = c(“first”, “preceding”), contrast_level = NA, contrast_slope = NA, method = c(“ML”, “REML”), control = list(opt = “optim”), random.slopes = FALSE, lr.test = FALSE, ICC = TRUE, trend = TRUE, level = TRUE, slope = TRUE, fixed = NULL, random = NULL, update.fixed = NULL, data.l2 = NULL, …)</p>
 </div>
 </div>
 <p>Multilevel analyses can take the piecewise-regression approach even further. It allows for</p>
@@ -453,7 +453,7 @@ The add_l2 function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>add_l2(data, data_l2, cvar = “case”)</p>
+<p>add_l2(scdf, data_l2, cvar = “case”)</p>
 </div>
 </div>
 <p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze. This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects. To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>

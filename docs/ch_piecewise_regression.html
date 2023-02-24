@@ -419,7 +419,7 @@ The plm function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>plm(data, dvar, pvar, mvar, AR = 0, model = “W”, family = “gaussian”, trend = TRUE, level = TRUE, slope = TRUE, contrast = “first”, contrast_level = NA, contrast_slope = NA, formula = NULL, update = NULL, na.action = na.omit, r_squared = TRUE, var_trials = NULL, dvar_percentage = FALSE, …)</p>
+<p>plm(data, dvar, pvar, mvar, AR = 0, model = c(“W”, “H-M”, “B&amp;L-B”, “JW”), family = “gaussian”, trend = TRUE, level = TRUE, slope = TRUE, contrast = c(“first”, “preceding”), contrast_level = c(NA, “first”, “preceding”), contrast_slope = c(NA, “first”, “preceding”), formula = NULL, update = NULL, na.action = na.omit, r_squared = TRUE, var_trials = NULL, dvar_percentage = FALSE, …)</p>
 </div>
 </div>
 <p>The basic function for applying a regression analyzes to a single-case dataset is <code>plm</code>. This function analyzes one single-case. In its simplest way, <code>plm</code> takes one argument with an <em>scdf</em> object and it returns a full piecewise-regression analyzes.</p>

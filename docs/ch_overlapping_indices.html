@@ -730,7 +730,7 @@ The tau_u function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>tau_u(data, dvar, pvar, tau_method = “b”, method = “complete”, phases = c(1, 2), meta_analyses = TRUE, ci = 0.95, ci_method = “z”, meta_weight_method = “z”, continuity_correction = FALSE, meta_method = NULL)</p>
+<p>tau_u(data, dvar, pvar, tau_method = c(“b”, “a”), method = c(“complete”, “parker”), phases = c(1, 2), meta_analyses = TRUE, ci = 0.95, ci_method = c(“z”, “tau”), meta_weight_method = c(“z”, “tau”), continuity_correction = FALSE, meta_method = NULL)</p>
 </div>
 </div>
 <p>The <em>Tau-U</em> statistic has been proposed by <span class="citation" data-cites="parker_combining_2011">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span> and is one of the more broadly used approach for reporting effect sizes of single case data. Unfortunately, various and ambiguous implementations of Tau-U exist <span class="citation" data-cites="pustejovsky2016 brossart2018a">(<a href="references.html#ref-brossart2018a" role="doc-biblioref">Brossart, Laird, &amp; Armstrong, 2018</a>; <a href="references.html#ref-pustejovsky2016" role="doc-biblioref">Pustejovsky, 2016</a>)</span>. The <code>tau_u</code> function tries to cover several of these implementation. It takes an <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases based on a meta-analysis.</p>
@@ -949,6 +949,7 @@ The corrected_tau function call
 Method: Theil-Sen regression
 Continuity correction not applied.
 
+Case1 :
                            tau     z     p
 Baseline autocorrelation -0.75 -2.31  &lt;.05
 Uncorrected tau          -0.58 -2.98  &lt;.01
