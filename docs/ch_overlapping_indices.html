@@ -418,7 +418,8 @@ PET              100       93   100
 NAP              100       97    98
 NAP rescaled     100       93    96
 PAND             100       90    90
-Tau_U           0.77     0.78  0.64
+Tau_U(A)        0.59     0.55  0.62
+Tau_U(BA)       0.77     0.78  0.64
 Base_Tau        0.63     0.59  0.61
 Diff_mean      19.53    21.67 20.47
 Diff_trend      1.53     0.54  2.50
@@ -439,7 +440,7 @@ The select_phases function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>select_phases(data, A, B)</p>
+<p>select_phases(data, A, B, phase_names = “auto”)</p>
 </div>
 </div>
 <p>The <code>select_phases()</code> function is needed if you like to compare specific phases or even like to combine several phases. <code>select_phases()</code> is designed to work within a pipe structure. So the first argument is an <em>scdf</em> and it returns an <em>scdf</em>.</p>
@@ -457,20 +458,21 @@ The select_phases function call
 
 Comparing phase 1 against phase 2 
 
-             Pawel Moritz Jannis
-Design         A-B    A-B    A-B
-PND             55     78     71
-PEM            100    100    100
-PET            100    100    100
-NAP             94     97     98
-NAP rescaled    89     94     97
-PAND            82     85     90
-Tau_U         0.45   0.46   0.38
-Base_Tau      0.65   0.68   0.68
-Diff_mean    12.25  13.58  15.27
-Diff_trend   -0.05   0.00  -0.54
-SMD           2.68   3.27   3.62
-Hedges_g      2.07   2.72   2.98</code></pre>
+                 Pawel    Moritz    Jannis
+Design       A1A2-B1B2 A1A2-B1B2 A1A2-B1B2
+PND                 55        78        71
+PEM                100       100       100
+PET                100       100       100
+NAP                 94        97        98
+NAP rescaled        89        94        97
+PAND                82        85        90
+Tau_U(A)          0.54      0.44      0.43
+Tau_U(BA)         0.45      0.46      0.38
+Base_Tau          0.65      0.68      0.68
+Diff_mean        12.25     13.58     15.27
+Diff_trend       -0.05      0.00     -0.54
+SMD               2.68      3.27      3.62
+Hedges_g          2.07      2.72      2.98</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively:</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># overlap(exampleA1B1A2B2, phases = list( c("A1","A2"), c("B1","B2")))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -525,7 +527,7 @@ The pnd function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>pnd(data, dvar, pvar, decreasing = FALSE, phases = c(“A”, “B”))</p>
+<p>pnd(data, dvar, pvar, decreasing = FALSE, phases = c(1, 2))</p>
 </div>
 </div>
 <p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation" data-cites="scruggs_quantitative_1987">Scruggs, Mastropieri, &amp; Casto (<a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
@@ -711,10 +713,10 @@ The nap function call
 <div class="cell-output cell-output-stdout">
 <pre><code>Nonoverlap of All Pairs
 
-     Case NAP Rescaled Pairs Positives Ties   W       p
-  Johanna 100      100    75        75    0 0.0 0.00062
- Karolina  97       93    75        72    1 2.5 0.00129
-     Anja  98       96    75        73    1 1.5 0.00095</code></pre>
+         NAP Rescaled Pairs Positives Ties   w     p
+Johanna  100      100    75        75    0   0 &lt;.001
+Karolina  97       93    75        72    1 2.5  &lt;.01
+Anja      98       96    75        73    1 1.5 &lt;.001</code></pre>
 </div>
 </div>
 </section>

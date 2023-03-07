@@ -304,12 +304,12 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="2.1" class="anchored" data-anchor-id="installing-the-scan-package"><span class="header-section-number">2.1</span> Installing the <em>scan</em> package</h2>
 <p>You can use the <code>install.packages</code> function to install <em>scan</em>.</p>
 <p><code>install.packages("scan")</code> will install the stable version.</p>
-<p>The current stable release is version <code>0.56</code>. Please refer to the <em>Software Reference</em> section to see which version of <em>scan</em> was used to create this book, and make sure you have this or a newer version installed.</p>
+<p>The current stable release is version <code>0.57</code>. Please refer to the <em>Software Reference</em> section to see which version of <em>scan</em> was used to create this book, and make sure you have this or a newer version installed.</p>
 <p>R contains many packages, and it would slow things down considerably if all packages were loaded into memory at the beginning of each R session. Therefore, after installing <em>scan</em>, you need to enable it at the beginning of each session in which you use R. Normally, a session starts when you start the R program and ends when you quit it.</p>
 <p>To activate a package, you need the <code>library</code> function. In this case, <code>library(scan)</code>. You should get something like</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[34mscan 0.56.3 (2023-02-23)
+<pre><code>[34mscan 0.57.3 (2023-03-06)
 [31mFor information on citing scan, type citation("scan").</code></pre>
 </div>
 </div>
@@ -333,7 +333,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="2.4" class="anchored" data-anchor-id="functions-overview"><span class="header-section-number">2.4</span> Functions overview</h2>
 <p>The functions of the <em>scan</em> package can be divided into the following categories:<br>
 <em>Manage data</em>, <em>analyze</em>, <em>manipulate</em>, <em>simulate</em>, and <em>depict</em>.</p>
-<p>The following tables give an overview of all functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here <a href="https://lifecycle.r-lib.org/articles/stages.html" class="uri">https://lifecycle.r-lib.org/articles/stages.html</a>.</p>
+<p>The following tables give an overview of the central functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here <a href="https://lifecycle.r-lib.org/articles/stages.html" class="uri">https://lifecycle.r-lib.org/articles/stages.html</a>.</p>
 <section id="management" class="level3" data-number="2.4.1">
 <h3 data-number="2.4.1" class="anchored" data-anchor-id="management"><span class="header-section-number">2.4.1</span> Management</h3>
 <div class="cell">
@@ -343,9 +343,9 @@ ul.task-list li input[type="checkbox"] {
 <caption>Table&nbsp;2.1: Functions for data management</caption>
 <colgroup>
 <col style="width: 25%">
-<col style="width: 47%">
+<col style="width: 48%">
 <col style="width: 12%">
-<col style="width: 15%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -366,13 +366,13 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">select_cases</td>
 <td style="text-align: left;">Selects specific cases of an scdf</td>
 <td style="text-align: left;">Stable</td>
-<td style="text-align: left;"><a href="ch_working_with_scdfs.html#sec-select-cases"><span>Section&nbsp;4.1</span></a>)</td>
+<td style="text-align: left;"><a href="ch_working_with_scdfs.html#sec-select-cases"><span>Section&nbsp;4.1</span></a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">select_phases</td>
 <td style="text-align: left;">Selects and/or recombines phases</td>
 <td style="text-align: left;">Stable</td>
-<td style="text-align: left;"><a href="ch_overlapping_indices.html#sec-select-phases"><span>Section&nbsp;8.1.1</span></a>)</td>
+<td style="text-align: left;"><a href="ch_overlapping_indices.html#sec-select-phases"><span>Section&nbsp;8.1.1</span></a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">subset</td>
@@ -405,16 +405,16 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">-</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">scdf_attr</td>
-<td style="text-align: left;">Gets and sets attributes of an scdf</td>
-<td style="text-align: left;">Stable</td>
-<td style="text-align: left;">-</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">add_l2</td>
 <td style="text-align: left;">Adds level-two data to an scdf</td>
 <td style="text-align: left;">Stable</td>
-<td style="text-align: left;"><a href="ch_multilevel_plm.html#sec-add-l2"><span>Section&nbsp;10.0.1</span></a>)</td>
+<td style="text-align: left;"><a href="ch_multilevel_plm.html#sec-add-l2"><span>Section&nbsp;10.0.1</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">as_scdf</td>
+<td style="text-align: left;">Transforms a data.frame into an scdf</td>
+<td style="text-align: left;">Stable</td>
+<td style="text-align: left;">-</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">as.data.frame/as.data.frame.scdf</td>
@@ -462,11 +462,6 @@ ul.task-list li input[type="checkbox"] {
    <td style="text-align:left;font-weight: bold;width: 15em; "> export </td>
    <td style="text-align:left;width: 30em; "> Creates html or latex tables from the output of various can functions </td>
    <td style="text-align:left;"> Experimental </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;width: 15em; "> print/print.sc </td>
-   <td style="text-align:left;width: 30em; "> Prints the results of various scan outputs </td>
-   <td style="text-align:left;"> Stable </td>
   </tr>
   <tr>
    <td style="text-align:left;font-weight: bold;width: 15em; "> print/print.scdf </td>

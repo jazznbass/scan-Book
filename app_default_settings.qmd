@@ -54,7 +54,6 @@ print_table(out, width_cols = c("15em", "15em") )
 #| tbl-cap: Example scdfs
  
 ex_names <- data(package = "scan")$results[,3]
-ex_names <- substring(ex_names, 1, nchar(ex_names) - 12)
 
 info <- unlist(sapply(ex_names, function(x) {
   out <- scdf_attr(eval(str2lang(x)), "info")
