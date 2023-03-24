@@ -235,7 +235,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_creating_a_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a>
+  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -293,11 +293,6 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_export.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -394,6 +389,9 @@ div.csl-indent {
 <li><p>a second intervention effect that evolves continuously with the beginning of the intervention (<strong>slope effect</strong>).</p></li>
 </ol>
 <div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in add_theme(., "minimal"): Deprecated. Please use `set_theme()`</code></pre>
+</div>
 <div class="cell-output-display">
 <p><img src="ch_piecewise_regression_files/figure-html/figure-plm-1.png" class="img-fluid" width="576"></p>
 </div>
@@ -424,7 +422,7 @@ The plm function call
 </div>
 <p>The basic function for applying a regression analyzes to a single-case dataset is <code>plm</code>. This function analyzes one single-case. In its simplest way, <code>plm</code> takes one argument with an <em>scdf</em> object and it returns a full piecewise-regression analyzes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB<span class="sc">$</span>Johanna)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB<span class="sc">$</span>Johanna)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -460,12 +458,12 @@ Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 <p>The plm function comes with three arguments (<code>slope</code>, <code>level</code>, and <code>trend</code>) to include or drop the respective predictors from the plm model. Buy default, all arguments are set <code>TRUE</code> and a full plm model is applied to the data.</p>
 <p>Consider the following data example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">55</span>, <span class="dv">58</span>, <span class="dv">53</span>, <span class="dv">50</span>, <span class="dv">52</span>, </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">B =</span> <span class="dv">55</span>, <span class="dv">68</span>, <span class="dv">68</span>, <span class="dv">81</span>, <span class="dv">67</span>, <span class="dv">78</span>, <span class="dv">73</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">81</span>, <span class="dv">78</span>, <span class="dv">71</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">76</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">55</span>, <span class="dv">58</span>, <span class="dv">53</span>, <span class="dv">50</span>, <span class="dv">52</span>, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">B =</span> <span class="dv">55</span>, <span class="dv">68</span>, <span class="dv">68</span>, <span class="dv">81</span>, <span class="dv">67</span>, <span class="dv">78</span>, <span class="dv">73</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">81</span>, <span class="dv">78</span>, <span class="dv">71</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">76</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -491,7 +489,7 @@ Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 </div>
 <p>The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. The easiest way to do this is to set the <code>slope</code> argument to <code>FALSE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -523,7 +521,7 @@ Formula: values ~ 1 + mt + phaseB</code></pre>
 <p>To do this, we have to change the regression formula ‘manually’ by applying the <code>update</code> argument. The <code>update</code> argument allows to change the underlying regression formula. To add a new variable named for example <code>newVar</code>, set <code>update = .~. + newVar</code>. The <code>.~.</code> part takes the internally build model formula (based on the number of phases in your model and the setting of the <code>slope</code>, <code>level</code>, and <code>trend</code> arguments) and <code>+ newVar</code> adds a variable called <code>newVar</code> to the equation.</p>
 <p>Here is an example adding the control variable <code>cigarrets</code> to the model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_add, <span class="at">update =</span> .<span class="sc">~</span>. <span class="sc">+</span> cigarrets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_add, <span class="at">update =</span> .<span class="sc">~</span>. <span class="sc">+</span> cigarrets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 

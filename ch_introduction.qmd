@@ -38,18 +38,22 @@ strange_study <- c(case1, case2, case3)
 
 Now we visualize the cases:
 
-```{r plot-strange-study, fig.width=5}
-plot(
-  strange_study,
-  ylab = "Correct",
-  xlab = "Days",
-  lines = c("loreg", col = "red"),
-  phase.names = c("Baseline", "Intervention", "Follow-up"),
-  style = "chart",
-  ylim = c(0, 30),
-  xinc = 2
-)
+```{r}
+#| label: plot-strange-study
+#| fig-width: 5
+
+scplot(strange_study) %>%
+  set_ylabel("Correct") %>%
+  set_xlabel ("Days") %>%
+  add_statline("lowess", color = "red") %>%
+  set_phasenames(c("Baseline", "Intervention", "Follow-up")) %>%
+  set_yaxis(limits = c(0, 30)) %>%
+  set_xaxis(increment = 2) %>%
+  add_ridge(color = "lightblue") %>%
+  set_theme("basic")
+
 ```
+
 
 Now we need some descriptive statistics:
 
