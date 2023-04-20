@@ -15,6 +15,9 @@ Let us set a fictional context. Suppose you are researching a method to improve 
 We use the `scan` package to code the data. Each case has 25 measurements. We have three phases: before the intervention (A), during the intervention (B), and a follow-up (C). Phases A and B are of different lengths. The cases are named and combined into a single object called `strange_study`.
 
 ```{r build-strange-study}
+library(scan)
+library(scplot)
+
 case1 <- scdf(
   c(A = 3, 2, 4, 6, 4, 3, 
     B = 6, 5, 4, 6, 7, 5, 6, 8, 6, 7, 8, 9, 7, 8, 

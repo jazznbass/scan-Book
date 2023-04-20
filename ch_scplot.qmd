@@ -1,15 +1,8 @@
 # Creating a single-case data plot {#sec-scplot}
 
-Plotting the data is a first important approach of analyzing. After you build an *scdf* the `scplot` command helps to visualize the data. When the `scdf` includes more than one case a multiple baseline figure is provided.
+Plotting the data is a first important approach to analysis. After you create a scdf, the `scplot()` command helps you visualize the data. If the `scdf` contains more than one case, a multiple baseline plot is provided.
 
-`scplot` is an add-on package to `scan` for visualizing single-case data. This set of functions replaces the `plot.scdf()` (short: `plot()`) function already included in `scan` (see @sec-plotsc). Here are some advantages of using `scplot` over the previous scan `plot` function:
-
--   `scplot` creates better scaled graphics.
--   `scplot` is already much more versatile than `plot` has been.
--   `scplot` was designed to encompass a pipe style coding which is much cleaner, more intelligible and easier to code.
--   `scplot` is based on `ggplot2` and produces a `ggplot2` object which can be modified and extended to any wishes.
-
-For the time being, the "old" `plot.scdf` will be kept in future versions of `scan`.
+`scplot` is an *add-on package* to `scan` for visualizing single-case data. It replaces the `plot.scdf()` (or: `plotSC()`) function already included in `scan` (see @sec-plotsc). For the time being, the "old" `plot.scdf` will be kept in future versions of `scan`.
 
 ## Install `scplot`
 
@@ -17,25 +10,92 @@ For the time being, the "old" `plot.scdf` will be kept in future versions of `sc
 
 If you are more adventures you can install the developmental version of *scplot* from github.The project is hosted at https://github.com/jazznbass/scplot. You can install it with `devtools::install_github("jazznbass/scplot")` from your R console. Make sure you have the package `devtools` installed before. The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/.
 
-The following chapter has been written with scplot version `r packageVersion("scplot")`. If you have problems replicating the examples, please update to this version.
+The following chapter has been written with *scplot* version `r packageVersion("scplot")`. If you have problems replicating the examples, please update to this version.
 
 ## Basic principal
 
-You start by providing an scdf object (see @sec-scdf) to the `scplot()` function (e.g. `scplot(exampleAB)`). This already creates a default plot. Now you use a series of pipe-operators (`%>%` or `|>`) to add and change characteristics of the resulting plot. For example:
+You start by providing an scdf object (see @sec-scdf) to the `scplot()` function (e.g. `scplot(exampleAB)`). This already creates a default plot. 
 
 ```{r}
 #| label: scplot-basic-1
-#| eval: false
-scplot(exampleABC) %>%
-  add_title("My plot") %>%
-  add_caption("Note: A nice plot")
+scplot(exampleAB)
 ```
 
-## The standard style
+Now you use a series of pipe-operators (`%>%` or `|>`) to add elements and change characteristics of the resulting plot. For example:
 
 ```{r}
 #| label: scplot-basic-2
-scplot(exampleAB)
+#| eval: false
+
+scplot(exampleABC) %>%
+  add_title("My plot") %>%
+  set_xlabel("Days", color = "red", size = 1.3)
+```
+
+Here is an overview of possible functions:
+
+```{r}
+#| echo: false
+#| label: tbl-functions-scplot
+#| tbl-cap: scplot functions
+
+out <- tribble(
+  ~"Function", ~"What it does ...",
+  #
+  "set_dataline", "Add a new dataline or change the default dataline",
+  "add_statline", "Add a line or curve representing statistical parameters",
+  
+  "add_arrow", "Add an arrow to a specific case at a specific position",
+  "add_grid", "Add a grid to the plot pannel",
+  "add_labels", "Add value labels to each data-point",
+  "add_legend", "Add a plot legend",
+  "add_marks", "Mark specific data points of specific cases",
+  "add_ridge", "Colour the area below the dataline",
+  "add_text", "Add text to a specific case at a specific position",
+  "add_caption", "Add a caption below the plot",
+  "set_theme", "Apply a predefined visual theme",
+  "set_theme_element", "Style specific elements of the plot",
+  "add_title", "Add a title above the plot",
+  "as_ggplot", "Return a ggplot2 object for further processing",
+  "new_theme", "Create/define a new visual theme",
+  "set_background", "Set colour and texture of the plot background",
+  "set_panel", "Set colour and texture of the plot panel",
+  "set_phasenames", "Rename and style the phases",
+  "set_casenames", "Rename and style the phases",
+  "set_separator", "Style the vertical separator line between phases",
+  "set_xaxis/ set_yaxis", "Set the value range, increments etc. of the x- and y-axis",
+  "set_xlabel/ set_ylabel", "Change and style axis labels"
+)
+
+print_table(out)
+
+```
+
+All text, line, dot, and area elements have a set of arguments to change visual characteristics. 
+
+Text arguments can be applied to the following functions:
+`add_caption()`, `add_labels()`, `add_legend()`, `add_text()`, `add_title()`, `set_xlabel()`, `set_ylabel()`, `set_phasenames()`, `set_casenames()`.
+
+Possible arguments are:
+
+```{r}
+#| echo: false
+#| label: tbl-arguments-text
+#| tbl-cap: Arguments for text elements
+
+out <- tribble(
+  ~"Argument", ~"What it does ...",
+  #
+  "color", "Change color. Either a color name or a color code (e.g. 'red' or '#110044').",
+  "size", "Relativ size to the base text size.",
+  "family", "",
+  "face", "",
+  "hjust", "",
+  "vjust", ""
+)
+
+print_table(out)
+
 ```
 
 ## Set and add datalines
