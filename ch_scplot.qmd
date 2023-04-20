@@ -42,9 +42,8 @@ Here is an overview of possible functions:
 out <- tribble(
   ~"Function", ~"What it does ...",
   #
-  "set_dataline", "Add a new dataline or change the default dataline",
+  "set_dataline", "Change the default dataline / add an additional dataline",
   "add_statline", "Add a line or curve representing statistical parameters",
-  
   "add_arrow", "Add an arrow to a specific case at a specific position",
   "add_grid", "Add a grid to the plot pannel",
   "add_labels", "Add value labels to each data-point",
@@ -52,19 +51,19 @@ out <- tribble(
   "add_marks", "Mark specific data points of specific cases",
   "add_ridge", "Colour the area below the dataline",
   "add_text", "Add text to a specific case at a specific position",
-  "add_caption", "Add a caption below the plot",
-  "set_theme", "Apply a predefined visual theme",
-  "set_theme_element", "Style specific elements of the plot",
   "add_title", "Add a title above the plot",
-  "as_ggplot", "Return a ggplot2 object for further processing",
-  "new_theme", "Create/define a new visual theme",
+  "add_caption", "Add a caption below the plot",
+  "set_xlabel/ set_ylabel", "Change and style axis labels",
+  "set_xaxis/ set_yaxis", "Set the value range, increments etc. of the x- and y-axis",
   "set_background", "Set colour and texture of the plot background",
   "set_panel", "Set colour and texture of the plot panel",
   "set_phasenames", "Rename and style the phases",
   "set_casenames", "Rename and style the phases",
   "set_separator", "Style the vertical separator line between phases",
-  "set_xaxis/ set_yaxis", "Set the value range, increments etc. of the x- and y-axis",
-  "set_xlabel/ set_ylabel", "Change and style axis labels"
+  "set_theme", "Apply a predefined visual theme",
+  "set_theme_element", "Style specific elements of the plot",
+  "as_ggplot", "Return a ggplot2 object for further processing",
+  "new_theme", "Create/define a new visual theme"
 )
 
 print_table(out)
@@ -88,10 +87,10 @@ out <- tribble(
   #
   "color", "Change color. Either a color name or a color code (e.g. 'red' or '#110044').",
   "size", "Relativ size to the base text size.",
-  "family", "",
-  "face", "",
-  "hjust", "",
-  "vjust", ""
+  "family", "The font ('serif', 'sans', 'mono')",
+  "face", 'The font face ("plain","bold","italic","bold.italic")',
+  "hjust", "Horizontal alignment (0 = left, 0.5 = centered, 1 = right)",
+  "vjust", "Vertical alignment (0 = upper, 0.5 = centered, 1 = lower)"
 )
 
 print_table(out)
