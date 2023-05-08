@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.280">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Scan-Book - 15&nbsp; scplot - Adavanced plotting functions for single-case data</title>
+<title>The Scan-Book - 5&nbsp; Creating a single-case data plot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -93,8 +64,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
-<link href="./ch_export.html" rel="prev">
+<link href="./ch_missing_values_outliers.html" rel="next">
+<link href="./ch_working_with_scdfs.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -124,6 +95,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 </head>
 
@@ -131,11 +105,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html">The single-case data frame</a></li><li class="breadcrumb-item"><a href="./ch_scplot.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -143,7 +122,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
       <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -151,168 +130,189 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The Scan-Book</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
-    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-            <i class="bi bi-bi-twitter pe-1"></i>
-          Twitter
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-            <i class="bi bi-bi-facebook pe-1"></i>
-          Facebook
-          </a>
-        </li>
-    </ul>
+    <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></a>
+  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">The single-case data frame</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">The single-case data frame</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_create_display_and_store_scdfs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></a>
+  <a href="./ch_create_display_and_store_scdfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_working_with_scdfs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></a>
+  <a href="./ch_working_with_scdfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_creating_a_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a>
+  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a>
+  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Data analysis</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Data analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_describe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></a>
+  <a href="./ch_describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></a>
+  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a>
+  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></a>
+  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></a>
+  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></a>
+  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></a>
+  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_export.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></a>
+  <a href="./ch_export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_some_things.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></a>
+  <a href="./app_some_things.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_changes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changes</span></a>
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></a>
+  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_supseded_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></a>
+  <a href="./app_supseded_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">About the author</span></a>
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">About the author</span></span></a>
   </div>
 </li>
       </ul>
@@ -320,57 +320,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#install-scplot" id="toc-install-scplot" class="nav-link active" data-scroll-target="#install-scplot"><span class="toc-section-number">15.1</span>  Install <code>scplot</code></a></li>
-  <li><a href="#basic-principal" id="toc-basic-principal" class="nav-link" data-scroll-target="#basic-principal"><span class="toc-section-number">15.2</span>  Basic principal</a></li>
-  <li><a href="#the-standard-style" id="toc-the-standard-style" class="nav-link" data-scroll-target="#the-standard-style"><span class="toc-section-number">15.3</span>  The standard style</a></li>
-  <li><a href="#add-datalines" id="toc-add-datalines" class="nav-link" data-scroll-target="#add-datalines"><span class="toc-section-number">15.4</span>  Add datalines</a></li>
-  <li><a href="#add-statlines" id="toc-add-statlines" class="nav-link" data-scroll-target="#add-statlines"><span class="toc-section-number">15.5</span>  Add statlines</a>
+  <li><a href="#install-scplot" id="toc-install-scplot" class="nav-link active" data-scroll-target="#install-scplot"><span class="header-section-number">5.1</span> Install <code>scplot</code></a></li>
+  <li><a href="#basic-principal" id="toc-basic-principal" class="nav-link" data-scroll-target="#basic-principal"><span class="header-section-number">5.2</span> Basic principal</a></li>
+  <li><a href="#set-and-add-datalines" id="toc-set-and-add-datalines" class="nav-link" data-scroll-target="#set-and-add-datalines"><span class="header-section-number">5.3</span> Set and add datalines</a></li>
+  <li><a href="#add-statlines" id="toc-add-statlines" class="nav-link" data-scroll-target="#add-statlines"><span class="header-section-number">5.4</span> Add statlines</a>
   <ul class="collapse">
-  <li><a href="#lines-indicating-a-constant-for-each-phase" id="toc-lines-indicating-a-constant-for-each-phase" class="nav-link" data-scroll-target="#lines-indicating-a-constant-for-each-phase"><span class="toc-section-number">15.5.1</span>  Lines indicating a constant for each phase</a></li>
-  <li><a href="#lines-indicating-a-constant-for-a-specific-phase" id="toc-lines-indicating-a-constant-for-a-specific-phase" class="nav-link" data-scroll-target="#lines-indicating-a-constant-for-a-specific-phase"><span class="toc-section-number">15.5.2</span>  Lines indicating a constant for a specific phase</a></li>
-  <li><a href="#trend-lines" id="toc-trend-lines" class="nav-link" data-scroll-target="#trend-lines"><span class="toc-section-number">15.5.3</span>  Trend-lines</a></li>
-  <li><a href="#smoothed-curves" id="toc-smoothed-curves" class="nav-link" data-scroll-target="#smoothed-curves"><span class="toc-section-number">15.5.4</span>  Smoothed curves</a></li>
-  <li><a href="#refine-with-addidtional-arguments" id="toc-refine-with-addidtional-arguments" class="nav-link" data-scroll-target="#refine-with-addidtional-arguments"><span class="toc-section-number">15.5.5</span>  Refine with addidtional arguments</a></li>
-  <li><a href="#specify-data-line" id="toc-specify-data-line" class="nav-link" data-scroll-target="#specify-data-line"><span class="toc-section-number">15.5.6</span>  Specify data-line</a></li>
+  <li><a href="#lines-indicating-a-constant-for-each-phase" id="toc-lines-indicating-a-constant-for-each-phase" class="nav-link" data-scroll-target="#lines-indicating-a-constant-for-each-phase"><span class="header-section-number">5.4.1</span> Lines indicating a constant for each phase</a></li>
+  <li><a href="#lines-indicating-a-constant-for-a-specific-phase" id="toc-lines-indicating-a-constant-for-a-specific-phase" class="nav-link" data-scroll-target="#lines-indicating-a-constant-for-a-specific-phase"><span class="header-section-number">5.4.2</span> Lines indicating a constant for a specific phase</a></li>
+  <li><a href="#trend-lines" id="toc-trend-lines" class="nav-link" data-scroll-target="#trend-lines"><span class="header-section-number">5.4.3</span> Trend-lines</a></li>
+  <li><a href="#smoothed-curves" id="toc-smoothed-curves" class="nav-link" data-scroll-target="#smoothed-curves"><span class="header-section-number">5.4.4</span> Smoothed curves</a></li>
+  <li><a href="#refine-with-addidtional-arguments" id="toc-refine-with-addidtional-arguments" class="nav-link" data-scroll-target="#refine-with-addidtional-arguments"><span class="header-section-number">5.4.5</span> Refine with addidtional arguments</a></li>
+  <li><a href="#specify-data-line" id="toc-specify-data-line" class="nav-link" data-scroll-target="#specify-data-line"><span class="header-section-number">5.4.6</span> Specify data-line</a></li>
   </ul></li>
-  <li><a href="#annotate-and-mark" id="toc-annotate-and-mark" class="nav-link" data-scroll-target="#annotate-and-mark"><span class="toc-section-number">15.6</span>  Annotate and mark</a>
+  <li><a href="#annotate-and-mark" id="toc-annotate-and-mark" class="nav-link" data-scroll-target="#annotate-and-mark"><span class="header-section-number">5.5</span> Annotate and mark</a>
   <ul class="collapse">
-  <li><a href="#add-marks" id="toc-add-marks" class="nav-link" data-scroll-target="#add-marks"><span class="toc-section-number">15.6.1</span>  Add marks</a></li>
-  <li><a href="#add-text" id="toc-add-text" class="nav-link" data-scroll-target="#add-text"><span class="toc-section-number">15.6.2</span>  Add text</a></li>
-  <li><a href="#add-arrow" id="toc-add-arrow" class="nav-link" data-scroll-target="#add-arrow"><span class="toc-section-number">15.6.3</span>  Add arrow</a></li>
+  <li><a href="#add-marks" id="toc-add-marks" class="nav-link" data-scroll-target="#add-marks"><span class="header-section-number">5.5.1</span> Add marks</a></li>
+  <li><a href="#add-text" id="toc-add-text" class="nav-link" data-scroll-target="#add-text"><span class="header-section-number">5.5.2</span> Add text</a></li>
+  <li><a href="#add-arrow" id="toc-add-arrow" class="nav-link" data-scroll-target="#add-arrow"><span class="header-section-number">5.5.3</span> Add arrow</a></li>
   </ul></li>
-  <li><a href="#change-appearance-of-basic-plot-elements" id="toc-change-appearance-of-basic-plot-elements" class="nav-link" data-scroll-target="#change-appearance-of-basic-plot-elements"><span class="toc-section-number">15.7</span>  Change appearance of basic plot elements</a>
+  <li><a href="#change-appearance-of-basic-plot-elements" id="toc-change-appearance-of-basic-plot-elements" class="nav-link" data-scroll-target="#change-appearance-of-basic-plot-elements"><span class="header-section-number">5.6</span> Change appearance of basic plot elements</a>
   <ul class="collapse">
-  <li><a href="#data-line" id="toc-data-line" class="nav-link" data-scroll-target="#data-line"><span class="toc-section-number">15.7.1</span>  Data line</a></li>
-  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background"><span class="toc-section-number">15.7.2</span>  Background</a></li>
-  <li><a href="#panel" id="toc-panel" class="nav-link" data-scroll-target="#panel"><span class="toc-section-number">15.7.3</span>  Panel</a></li>
-  <li><a href="#a-different-panel-color-for-each-phase" id="toc-a-different-panel-color-for-each-phase" class="nav-link" data-scroll-target="#a-different-panel-color-for-each-phase"><span class="toc-section-number">15.7.4</span>  A different panel color for each phase</a></li>
+  <li><a href="#data-line" id="toc-data-line" class="nav-link" data-scroll-target="#data-line"><span class="header-section-number">5.6.1</span> Data line</a></li>
+  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background"><span class="header-section-number">5.6.2</span> Background</a></li>
+  <li><a href="#panel" id="toc-panel" class="nav-link" data-scroll-target="#panel"><span class="header-section-number">5.6.3</span> Panel</a></li>
+  <li><a href="#a-different-panel-color-for-each-phase" id="toc-a-different-panel-color-for-each-phase" class="nav-link" data-scroll-target="#a-different-panel-color-for-each-phase"><span class="header-section-number">5.6.4</span> A different panel color for each phase</a></li>
   </ul></li>
-  <li><a href="#themes" id="toc-themes" class="nav-link" data-scroll-target="#themes"><span class="toc-section-number">15.8</span>  Themes</a>
+  <li><a href="#themes" id="toc-themes" class="nav-link" data-scroll-target="#themes"><span class="header-section-number">5.7</span> Themes</a>
   <ul class="collapse">
-  <li><a href="#the-default-theme" id="toc-the-default-theme" class="nav-link" data-scroll-target="#the-default-theme"><span class="toc-section-number">15.8.1</span>  The ‘default’ theme</a></li>
-  <li><a href="#theme-basic" id="toc-theme-basic" class="nav-link" data-scroll-target="#theme-basic"><span class="toc-section-number">15.8.2</span>  Theme ‘basic’</a></li>
-  <li><a href="#theme-minimal" id="toc-theme-minimal" class="nav-link" data-scroll-target="#theme-minimal"><span class="toc-section-number">15.8.3</span>  Theme ‘minimal’</a></li>
-  <li><a href="#theme-dark" id="toc-theme-dark" class="nav-link" data-scroll-target="#theme-dark"><span class="toc-section-number">15.8.4</span>  Theme ‘dark’</a></li>
-  <li><a href="#theme-sienna" id="toc-theme-sienna" class="nav-link" data-scroll-target="#theme-sienna"><span class="toc-section-number">15.8.5</span>  Theme ‘sienna’</a></li>
-  <li><a href="#combine-themes" id="toc-combine-themes" class="nav-link" data-scroll-target="#combine-themes"><span class="toc-section-number">15.8.6</span>  Combine themes</a></li>
-  <li><a href="#set-base-text" id="toc-set-base-text" class="nav-link" data-scroll-target="#set-base-text"><span class="toc-section-number">15.8.7</span>  Set base text</a></li>
+  <li><a href="#an-overview" id="toc-an-overview" class="nav-link" data-scroll-target="#an-overview"><span class="header-section-number">5.7.1</span> An overview</a></li>
+  <li><a href="#the-default-theme" id="toc-the-default-theme" class="nav-link" data-scroll-target="#the-default-theme"><span class="header-section-number">5.7.2</span> The ‘default’ theme</a></li>
+  <li><a href="#theme-basic" id="toc-theme-basic" class="nav-link" data-scroll-target="#theme-basic"><span class="header-section-number">5.7.3</span> Theme ‘basic’</a></li>
+  <li><a href="#theme-minimal" id="toc-theme-minimal" class="nav-link" data-scroll-target="#theme-minimal"><span class="header-section-number">5.7.4</span> Theme ‘minimal’</a></li>
+  <li><a href="#theme-dark" id="toc-theme-dark" class="nav-link" data-scroll-target="#theme-dark"><span class="header-section-number">5.7.5</span> Theme ‘dark’</a></li>
+  <li><a href="#theme-sienna" id="toc-theme-sienna" class="nav-link" data-scroll-target="#theme-sienna"><span class="header-section-number">5.7.6</span> Theme ‘sienna’</a></li>
+  <li><a href="#combine-themes" id="toc-combine-themes" class="nav-link" data-scroll-target="#combine-themes"><span class="header-section-number">5.7.7</span> Combine themes</a></li>
+  <li><a href="#set-base-text" id="toc-set-base-text" class="nav-link" data-scroll-target="#set-base-text"><span class="header-section-number">5.7.8</span> Set base text</a></li>
   </ul></li>
-  <li><a href="#add-title-and-caption" id="toc-add-title-and-caption" class="nav-link" data-scroll-target="#add-title-and-caption"><span class="toc-section-number">15.9</span>  Add title and caption</a></li>
-  <li><a href="#add-a-legend" id="toc-add-a-legend" class="nav-link" data-scroll-target="#add-a-legend"><span class="toc-section-number">15.10</span>  Add a legend</a></li>
-  <li><a href="#customize-axis-settings" id="toc-customize-axis-settings" class="nav-link" data-scroll-target="#customize-axis-settings"><span class="toc-section-number">15.11</span>  Customize axis settings</a></li>
-  <li><a href="#customize-axis-labels" id="toc-customize-axis-labels" class="nav-link" data-scroll-target="#customize-axis-labels"><span class="toc-section-number">15.12</span>  Customize axis labels</a></li>
-  <li><a href="#change-casenames" id="toc-change-casenames" class="nav-link" data-scroll-target="#change-casenames"><span class="toc-section-number">15.13</span>  Change Casenames</a></li>
-  <li><a href="#add-value-labels" id="toc-add-value-labels" class="nav-link" data-scroll-target="#add-value-labels"><span class="toc-section-number">15.14</span>  Add value labels</a></li>
-  <li><a href="#add-a-ridge" id="toc-add-a-ridge" class="nav-link" data-scroll-target="#add-a-ridge"><span class="toc-section-number">15.15</span>  Add a ridge</a></li>
-  <li><a href="#extending-scplot-with-ggplot2" id="toc-extending-scplot-with-ggplot2" class="nav-link" data-scroll-target="#extending-scplot-with-ggplot2"><span class="toc-section-number">15.16</span>  Extending scplot with ggplot2</a></li>
-  <li><a href="#complexs-examples" id="toc-complexs-examples" class="nav-link" data-scroll-target="#complexs-examples"><span class="toc-section-number">15.17</span>  Complexs examples</a></li>
+  <li><a href="#add-title-and-caption" id="toc-add-title-and-caption" class="nav-link" data-scroll-target="#add-title-and-caption"><span class="header-section-number">5.8</span> Add title and caption</a></li>
+  <li><a href="#add-a-legend" id="toc-add-a-legend" class="nav-link" data-scroll-target="#add-a-legend"><span class="header-section-number">5.9</span> Add a legend</a></li>
+  <li><a href="#customize-axis-settings" id="toc-customize-axis-settings" class="nav-link" data-scroll-target="#customize-axis-settings"><span class="header-section-number">5.10</span> Customize axis settings</a></li>
+  <li><a href="#customize-axis-labels" id="toc-customize-axis-labels" class="nav-link" data-scroll-target="#customize-axis-labels"><span class="header-section-number">5.11</span> Customize axis labels</a></li>
+  <li><a href="#change-casenames" id="toc-change-casenames" class="nav-link" data-scroll-target="#change-casenames"><span class="header-section-number">5.12</span> Change Casenames</a></li>
+  <li><a href="#add-value-labels" id="toc-add-value-labels" class="nav-link" data-scroll-target="#add-value-labels"><span class="header-section-number">5.13</span> Add value labels</a></li>
+  <li><a href="#add-a-ridge" id="toc-add-a-ridge" class="nav-link" data-scroll-target="#add-a-ridge"><span class="header-section-number">5.14</span> Add a ridge</a></li>
+  <li><a href="#extending-scplot-with-ggplot2" id="toc-extending-scplot-with-ggplot2" class="nav-link" data-scroll-target="#extending-scplot-with-ggplot2"><span class="header-section-number">5.15</span> Extending scplot with ggplot2</a></li>
+  <li><a href="#complexs-examples" id="toc-complexs-examples" class="nav-link" data-scroll-target="#complexs-examples"><span class="header-section-number">5.16</span> Complexs examples</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -379,7 +380,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-scplot" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></span></h1>
+<h1 class="title"><span id="sec-scplot" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></span></h1>
 </div>
 
 
@@ -394,402 +395,600 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p><code>scplot</code> is an add-on package to <code>scan</code> for visualizing single-case data. This set of functions will gradually replace the <code>plot.scdf()</code> (short: <code>plot()</code>) function already included in <code>scan</code> and finally be included into to the <code>scan</code> package. Here are some advantages of using <code>scplot</code> over the standard scan <code>plot</code> function:</p>
-<ul>
-<li><code>scplot</code> is already much more versatile than <code>plot</code> has been.</li>
-<li><code>scplot</code> was designed to encompass a pipe style coding which is much cleaner, more intelligible and easier to code.</li>
-<li><code>scplot</code> is based on <code>ggplot2</code> and produces a <code>ggplot2</code> object which can be modified and extended to any wishes.</li>
-</ul>
-<p>We consider the state of <code>scplot</code> to be <em>experimental</em>. That is, the code and syntax might change in future versions so backward compatibility is not guaranteed.</p>
-<p>But we will keep the “old” <code>plot.scdf</code> in future versions of <code>scan</code>.</p>
-<section id="install-scplot" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="install-scplot"><span class="header-section-number">15.1</span> Install <code>scplot</code></h2>
-<p>scplot is hosted as a gitHub project at https://github.com/jazznbass/scplot. You can install it with <code>devtools::install_github("jazznbass/scplot", dependencies = TRUE)</code> from your R console. Make sure you have the package <code>devtools</code> installed before. The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/. MacOs and Linux users usually do not need to take this extra step.</p>
-<p>The following chapter has been written with scplot version 0.2.10. If you have problems replicating the examples, please update to this version.</p>
+<p>Plotting the data is a first important approach to analysis. After you create a scdf, the <code>scplot()</code> command helps you visualize the data. If the <code>scdf</code> contains more than one case, a multiple baseline plot is provided.</p>
+<p><code>scplot</code> is an <em>add-on package</em> to <code>scan</code> for visualizing single-case data. It replaces the <code>plot.scdf()</code> (or: <code>plotSC()</code>) function already included in <code>scan</code> (see <a href="app_supseded_functions.html#sec-plotsc"><span>Section&nbsp;D.1</span></a>). For the time being, the “old” <code>plot.scdf</code> will be kept in future versions of <code>scan</code>.</p>
+<section id="install-scplot" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="install-scplot"><span class="header-section-number">5.1</span> Install <code>scplot</code></h2>
+<p><code>splot</code> is available from the CRAN repository. Execute <code>install.packages("scplot")</code> to install it.</p>
+<p>If you are more adventures you can install the developmental version of <em>scplot</em> from github.The project is hosted at https://github.com/jazznbass/scplot. You can install it with <code>devtools::install_github("jazznbass/scplot")</code> from your R console. Make sure you have the package <code>devtools</code> installed before. The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/.</p>
+<p>The following chapter has been written with <em>scplot</em> version 0.3.1. If you have problems replicating the examples, please update to this version.</p>
 </section>
-<section id="basic-principal" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="basic-principal"><span class="header-section-number">15.2</span> Basic principal</h2>
-<p>You start by providing an scdf object (a single-case data frame as returned from the <code>scdf()</code> function of scan) to the <code>scplot()</code> function (e.g.&nbsp;<code>scplot(exampleAB)</code>). Now you use a series of pipe-operators (<code>%&gt;%</code> or <code>|&gt;</code>) to add and change characteristics of the resulting plot. For example:</p>
+<section id="basic-principal" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="basic-principal"><span class="header-section-number">5.2</span> Basic principal</h2>
+<p>You start by providing an scdf object (see <a href="ch_create_display_and_store_scdfs.html#sec-scdf"><span>Section&nbsp;3.2</span></a>) to the <code>scplot()</code> function (e.g.&nbsp;<code>scplot(exampleAB)</code>). This already creates a default plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"My plot"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note: A nice plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="the-standard-style" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="the-standard-style"><span class="header-section-number">15.3</span> The standard style</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/basic2-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/scplot-basic-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Now you use a series of pipe-operators (<code>%&gt;%</code> or <code>|&gt;</code>) to add elements and change characteristics of the resulting plot. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"My plot"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Days"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">1.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here is an overview of possible functions:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-functions-scplot" class="anchored">
+<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Table&nbsp;5.1: scplot functions</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">What it does ...</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">set_dataline</td>
+<td style="text-align: left; width: 30em;">Change the default dataline / add an additional dataline</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">add_statline</td>
+<td style="text-align: left; width: 30em;">Add a line or curve representing statistical parameters</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">add_arrow</td>
+<td style="text-align: left; width: 30em;">Add an arrow to a specific case at a specific position</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">add_grid</td>
+<td style="text-align: left; width: 30em;">Add a grid to the plot pannel</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">add_labels</td>
+<td style="text-align: left; width: 30em;">Add value labels to each data-point</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">add_legend</td>
+<td style="text-align: left; width: 30em;">Add a plot legend</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">add_marks</td>
+<td style="text-align: left; width: 30em;">Mark specific data points of specific cases</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">add_ridge</td>
+<td style="text-align: left; width: 30em;">Colour the area below the dataline</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">add_text</td>
+<td style="text-align: left; width: 30em;">Add text to a specific case at a specific position</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">add_title</td>
+<td style="text-align: left; width: 30em;">Add a title above the plot</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">add_caption</td>
+<td style="text-align: left; width: 30em;">Add a caption below the plot</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">set_xlabel/ set_ylabel</td>
+<td style="text-align: left; width: 30em;">Change and style axis labels</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">set_xaxis/ set_yaxis</td>
+<td style="text-align: left; width: 30em;">Set the value range, increments etc. of the x- and y-axis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">set_background</td>
+<td style="text-align: left; width: 30em;">Set colour and texture of the plot background</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">set_panel</td>
+<td style="text-align: left; width: 30em;">Set colour and texture of the plot panel</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">set_phasenames</td>
+<td style="text-align: left; width: 30em;">Rename and style the phases</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">set_casenames</td>
+<td style="text-align: left; width: 30em;">Rename and style the phases</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">set_separator</td>
+<td style="text-align: left; width: 30em;">Style the vertical separator line between phases</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">set_theme</td>
+<td style="text-align: left; width: 30em;">Apply a predefined visual theme</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">set_theme_element</td>
+<td style="text-align: left; width: 30em;">Style specific elements of the plot</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">as_ggplot</td>
+<td style="text-align: left; width: 30em;">Return a ggplot2 object for further processing</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">new_theme</td>
+<td style="text-align: left; width: 30em;">Create/define a new visual theme</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<p>All text, line, dot, and area elements have a set of arguments to change visual characteristics.</p>
+<p>Text arguments can be applied to the following functions: <code>add_caption()</code>, <code>add_labels()</code>, <code>add_legend()</code>, <code>add_text()</code>, <code>add_title()</code>, <code>set_xlabel()</code>, <code>set_ylabel()</code>, <code>set_phasenames()</code>, <code>set_casenames()</code>.</p>
+<p>Possible arguments are:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-arguments-text" class="anchored">
+<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Table&nbsp;5.2: Arguments for text elements</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">What it does ...</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">color</td>
+<td style="text-align: left; width: 30em;">Change color. Either a color name or a color code (e.g. 'red' or '#110044').</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">size</td>
+<td style="text-align: left; width: 30em;">Relativ size to the base text size.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">family</td>
+<td style="text-align: left; width: 30em;">The font ('serif', 'sans', 'mono')</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">face</td>
+<td style="text-align: left; width: 30em;">The font face ("plain","bold","italic","bold.italic")</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">hjust</td>
+<td style="text-align: left; width: 30em;">Horizontal alignment (0 = left, 0.5 = centered, 1 = right)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">vjust</td>
+<td style="text-align: left; width: 30em;">Vertical alignment (0 = upper, 0.5 = centered, 1 = lower)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
 </div>
 </div>
 </section>
-<section id="add-datalines" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="add-datalines"><span class="header-section-number">15.4</span> Add datalines</h2>
+<section id="set-and-add-datalines" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="set-and-add-datalines"><span class="header-section-number">5.3</span> Set and add datalines</h2>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The set_dataline function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>set_dataline(object, variable = NULL, line, point, type = “continuous”, …)</p>
+</div>
+</div>
+<p>By default, the single-case plot will depict the main dependent variable as defined in the scdf object. For changing this default behaviour or adding a second data line, use the <code>set_dataline()</code> function. The function takes the argument <code>variable</code> (with the main dependent variable as a default) which must correspond to a variable name within the applied scdf.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_dataline</span>(<span class="st">"depression"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"depression"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/basic3-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/scplot-basic-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="add-statlines" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="add-statlines"><span class="header-section-number">15.5</span> Add statlines</h2>
-<section id="lines-indicating-a-constant-for-each-phase" class="level3" data-number="15.5.1">
-<h3 data-number="15.5.1" class="anchored" data-anchor-id="lines-indicating-a-constant-for-each-phase"><span class="header-section-number">15.5.1</span> Lines indicating a constant for each phase</h3>
-<p>Possible functions: <code>mean</code>, <code>min</code>, <code>max</code>, <code>quantile</code></p>
+<p>Styling parameters like line and point colour will be set automatically based on the applied graphic theme. We will learn later about how to change and modify these themes. If you want to directly change the styling parameters, you can use the <code>line</code> and <code>point</code> arguments which take lists with styling parameters. For <code>line</code>, the parameters are <code>colour</code>, <code>linewidth</code>, <code>linetype</code>, <code>lineend</code>, and <code>arrow</code>. For <code>point</code> the parameters are <code>colour</code>, <code>size</code>, and <code>shape</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"max"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">color =</span> <span class="st">"brown"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">line =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"darkred"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>), </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">point =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">15</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/statline1-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="lines-indicating-a-constant-for-a-specific-phase" class="level3" data-number="15.5.2">
-<h3 data-number="15.5.2" class="anchored" data-anchor-id="lines-indicating-a-constant-for-a-specific-phase"><span class="header-section-number">15.5.2</span> Lines indicating a constant for a specific phase</h3>
-<p>Set the <code>phase</code> argument with one or multiple phase-names or phase-numbers</p>
+<section id="add-statlines" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="add-statlines"><span class="header-section-number">5.4</span> Add statlines</h2>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The add_statline function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>add_statline(object, stat = c(“mean”, “median”, “min”, “max”, “quantile”, “sd”, “mad”, “trend”, “trendA”, “trendA bisplit”, “trendA trisplit”, “trendA theil-sen”, “movingMean”, “moving mean”, “moving median”, “movingMedian”, “loreg”, “lowess”, “loess”), phase = NULL, color = NULL, linewidth = NULL, linetype = NULL, variable = NULL, …)</p>
+</div>
+</div>
+<section id="lines-indicating-a-constant-for-each-phase" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="lines-indicating-a-constant-for-each-phase"><span class="header-section-number">5.4.1</span> Lines indicating a constant for each phase</h3>
 <p>Possible functions: <code>mean</code>, <code>min</code>, <code>max</code>, <code>quantile</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">phase =</span> <span class="st">"A"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"max"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="at">color =</span> <span class="st">"orange"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"max"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/statline2-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/scplot-statline-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="trend-lines" class="level3" data-number="15.5.3">
-<h3 data-number="15.5.3" class="anchored" data-anchor-id="trend-lines"><span class="header-section-number">15.5.3</span> Trend-lines</h3>
-<p><code>trend</code> (separate trend-line for each phase), <code>trendA</code> (extrapolated trend-line of first phase):</p>
+<section id="lines-indicating-a-constant-for-a-specific-phase" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="lines-indicating-a-constant-for-a-specific-phase"><span class="header-section-number">5.4.2</span> Lines indicating a constant for a specific phase</h3>
+<p>Set the <code>phase</code> argument with one or multiple phase-names or phase-numbers</p>
+<p>Possible functions: <code>mean</code>, <code>min</code>, <code>max</code>, <code>quantile</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trendA"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">phase =</span> <span class="st">"A"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"max"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="st">"B"</span>, <span class="st">"C"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/statline3-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/scplot-statline-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="smoothed-curves" class="level3" data-number="15.5.4">
-<h3 data-number="15.5.4" class="anchored" data-anchor-id="smoothed-curves"><span class="header-section-number">15.5.4</span> Smoothed curves</h3>
-<p>Possible functions: <code>movingMean</code>, <code>movingMedian</code>, <code>loess</code>, <code>lowess</code>:</p>
+<section id="trend-lines" class="level3" data-number="5.4.3">
+<h3 data-number="5.4.3" class="anchored" data-anchor-id="trend-lines"><span class="header-section-number">5.4.3</span> Trend-lines</h3>
+<p><code>trend</code> (separate trend-line for each phase), <code>trendA</code> (extrapolated trend-line of first phase):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"loess"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"movingMean"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trendA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/statline4-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/scplot-statline-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="refine-with-addidtional-arguments" class="level3" data-number="15.5.5">
-<h3 data-number="15.5.5" class="anchored" data-anchor-id="refine-with-addidtional-arguments"><span class="header-section-number">15.5.5</span> Refine with addidtional arguments</h3>
+<section id="smoothed-curves" class="level3" data-number="5.4.4">
+<h3 data-number="5.4.4" class="anchored" data-anchor-id="smoothed-curves"><span class="header-section-number">5.4.4</span> Smoothed curves</h3>
+<p>Possible functions: <code>movingMean</code>, <code>movingMedian</code>, <code>loess</code>, <code>lowess</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"loess"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"movingMean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ch_scplot_files/figure-html/scplot-statline-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="refine-with-addidtional-arguments" class="level3" data-number="5.4.5">
+<h3 data-number="5.4.5" class="anchored" data-anchor-id="refine-with-addidtional-arguments"><span class="header-section-number">5.4.5</span> Refine with addidtional arguments</h3>
 <p><code>mean</code> : <code>trim</code><br>
 <code>quantile</code>: <code>probs</code><br>
 <code>movingMean</code>, <code>movingMedian</code>: <code>lag</code><br>
 <code>loess</code>: <code>span</code><br>
 <code>lowess</code>: <code>f</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"movingMean"</span>, <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"quantile"</span>, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">color =</span> <span class="st">"darkred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"movingMean"</span>, <span class="at">lag =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"quantile"</span>, <span class="at">probs =</span> <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/statline5-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/scplot-statline-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="specify-data-line" class="level3" data-number="15.5.6">
-<h3 data-number="15.5.6" class="anchored" data-anchor-id="specify-data-line"><span class="header-section-number">15.5.6</span> Specify data-line</h3>
-<p>If you do not specify the <code>variable</code> argument the default first data-line is addressed.</p>
+<section id="specify-data-line" class="level3" data-number="5.4.6">
+<h3 data-number="5.4.6" class="anchored" data-anchor-id="specify-data-line"><span class="header-section-number">5.4.6</span> Specify data-line</h3>
+<p>If you do not specify the <code>variable</code> argument, the default first data-line is addressed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_dataline</span>(<span class="st">"cigarrets"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"cigarrets"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/dataline1-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/scplot-dataline-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 </section>
-<section id="annotate-and-mark" class="level2" data-number="15.6">
-<h2 data-number="15.6" class="anchored" data-anchor-id="annotate-and-mark"><span class="header-section-number">15.6</span> Annotate and mark</h2>
-<section id="add-marks" class="level3" data-number="15.6.1">
-<h3 data-number="15.6.1" class="anchored" data-anchor-id="add-marks"><span class="header-section-number">15.6.1</span> Add marks</h3>
+<section id="annotate-and-mark" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="annotate-and-mark"><span class="header-section-number">5.5</span> Annotate and mark</h2>
+<section id="add-marks" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="add-marks"><span class="header-section-number">5.5.1</span> Add marks</h3>
 <p>The positions argument can take a numeric vector:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">12</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">17</span>), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">12</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">17</span>), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/marks1-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/scplot-marks-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The positions argument can also be a string containing a logical expression. This will be evaluated and the respective positions will be marked.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">positions =</span> <span class="st">"mt &gt; 15"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">2</span>, <span class="at">positions =</span> <span class="st">'phase == "B"'</span>, <span class="at">color =</span> <span class="st">"green"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">positions =</span> <span class="st">"values &gt; quantile(values, probs = 0.80)"</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="st">"all"</span>, <span class="at">positions =</span> <span class="st">"values &lt; quantile(values, probs = 0.20)"</span>, <span class="at">color =</span> <span class="st">"yellow"</span>, <span class="at">size =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note.</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="st">red: mt &gt; 15 in case 1; </span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="st">green: phase 'B' in case 2; </span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">blue: values &gt; 80% quantile of case 3; </span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="st">yellow: values &lt; 20% quantile of all cases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">positions =</span> <span class="st">"mt &gt; 15"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">2</span>, <span class="at">positions =</span> <span class="st">'phase == "B"'</span>, <span class="at">color =</span> <span class="st">"green"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">positions =</span> <span class="st">"values &gt; quantile(values, probs = 0.80)"</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="st">"all"</span>, <span class="at">positions =</span> <span class="st">"values &lt; quantile(values, probs = 0.20)"</span>, <span class="at">color =</span> <span class="st">"yellow"</span>, <span class="at">size =</span> <span class="dv">7</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note.</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="st">red: mt &gt; 15 in case 1; </span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">green: phase 'B' in case 2; </span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="st">blue: values &gt; 80% quantile of case 3; </span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="st">yellow: values &lt; 20% quantile of all cases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/marks2-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/scplot-marks-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>And the positions argument can take the results from a scan outlier analyses and mark the positions of the outliers of each case:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC_outlier) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">outlier</span>(exampleABC_outlier), <span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC_outlier) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">outlier</span>(exampleABC_outlier), <span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_scplot_files/figure-html/marks3-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_scplot_files/figure-html/scplot-marks-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="add-text" class="level3" data-number="15.6.2">
-<h3 data-number="15.6.2" class="anchored" data-anchor-id="add-text"><span class="header-section-number">15.6.2</span> Add text</h3>
+<section id="add-text" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="add-text"><span class="header-section-number">5.5.2</span> Add text</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="st">"Here!"</span>, <span class="at">case =</span> <span class="dv">2</span>, <span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> <span class="dv">80</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="st">"Here!"</span>, <span class="at">case =</span> <span class="dv">2</span>, <span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> <span class="dv">80</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/text1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="add-arrow" class="level3" data-number="15.6.3">
-<h3 data-number="15.6.3" class="anchored" data-anchor-id="add-arrow"><span class="header-section-number">15.6.3</span> Add arrow</h3>
+<section id="add-arrow" class="level3" data-number="5.5.3">
+<h3 data-number="5.5.3" class="anchored" data-anchor-id="add-arrow"><span class="header-section-number">5.5.3</span> Add arrow</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_arrow</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">x0 =</span> <span class="dv">6</span>, <span class="at">y0 =</span> <span class="dv">90</span>, <span class="at">x1 =</span> <span class="dv">3</span>, <span class="at">y1 =</span> <span class="dv">63</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="st">"Problem"</span>, <span class="at">case =</span> <span class="dv">1</span>, <span class="at">x =</span> <span class="dv">6</span>, <span class="at">y =</span> <span class="dv">94</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">0</span> ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_arrow</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">x0 =</span> <span class="dv">6</span>, <span class="at">y0 =</span> <span class="dv">90</span>, <span class="at">x1 =</span> <span class="dv">3</span>, <span class="at">y1 =</span> <span class="dv">63</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="st">"Problem"</span>, <span class="at">case =</span> <span class="dv">1</span>, <span class="at">x =</span> <span class="dv">6</span>, <span class="at">y =</span> <span class="dv">94</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">0</span> ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/arrow1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 </section>
-<section id="change-appearance-of-basic-plot-elements" class="level2" data-number="15.7">
-<h2 data-number="15.7" class="anchored" data-anchor-id="change-appearance-of-basic-plot-elements"><span class="header-section-number">15.7</span> Change appearance of basic plot elements</h2>
-<section id="data-line" class="level3" data-number="15.7.1">
-<h3 data-number="15.7.1" class="anchored" data-anchor-id="data-line"><span class="header-section-number">15.7.1</span> Data line</h3>
+<section id="change-appearance-of-basic-plot-elements" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="change-appearance-of-basic-plot-elements"><span class="header-section-number">5.6</span> Change appearance of basic plot elements</h2>
+<section id="data-line" class="level3" data-number="5.6.1">
+<h3 data-number="5.6.1" class="anchored" data-anchor-id="data-line"><span class="header-section-number">5.6.1</span> Data line</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">colour =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>, </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">point =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">shape =</span> <span class="dv">2</span>) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">colour =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">point =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">shape =</span> <span class="dv">2</span>) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/line1-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivalent_</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># scplot(exampleABC) %&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   set_dataline(line = list(colour = "blue", size = 1, linetype = "dotted"), </span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                point = list(colour = "red", size = 1, shape = 2)) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivalent_</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># scplot(exampleABC) %&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   set_dataline(line = list(colour = "blue", size = 1, linetype = "dotted"), </span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                point = list(colour = "red", size = 1, shape = 2)) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="background" class="level3" data-number="15.7.2">
-<h3 data-number="15.7.2" class="anchored" data-anchor-id="background"><span class="header-section-number">15.7.2</span> Background</h3>
+<section id="background" class="level3" data-number="5.6.2">
+<h3 data-number="5.6.2" class="anchored" data-anchor-id="background"><span class="header-section-number">5.6.2</span> Background</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_background</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_background</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/background1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="panel" class="level3" data-number="15.7.3">
-<h3 data-number="15.7.3" class="anchored" data-anchor-id="panel"><span class="header-section-number">15.7.3</span> Panel</h3>
+<section id="panel" class="level3" data-number="5.6.3">
+<h3 data-number="5.6.3" class="anchored" data-anchor-id="panel"><span class="header-section-number">5.6.3</span> Panel</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="st">"tan1"</span>, <span class="at">color =</span> <span class="st">"palevioletred"</span>, <span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="st">"tan1"</span>, <span class="at">color =</span> <span class="st">"palevioletred"</span>, <span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/pannel1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="a-different-panel-color-for-each-phase" class="level3" data-number="15.7.4">
-<h3 data-number="15.7.4" class="anchored" data-anchor-id="a-different-panel-color-for-each-phase"><span class="header-section-number">15.7.4</span> A different panel color for each phase</h3>
+<section id="a-different-panel-color-for-each-phase" class="level3" data-number="5.6.4">
+<h3 data-number="5.6.4" class="anchored" data-anchor-id="a-different-panel-color-for-each-phase"><span class="header-section-number">5.6.4</span> A different panel color for each phase</h3>
 <p>Note: The colors are 50% transparent. So they might appear different.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"grey80"</span>, <span class="st">"white"</span>, <span class="st">"blue4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"grey80"</span>, <span class="st">"white"</span>, <span class="st">"blue4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/pannel2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 </section>
-<section id="themes" class="level2" data-number="15.8">
-<h2 data-number="15.8" class="anchored" data-anchor-id="themes"><span class="header-section-number">15.8</span> Themes</h2>
+<section id="themes" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="themes"><span class="header-section-number">5.7</span> Themes</h2>
 <p>Themes are complete styles that define various elements of a plot.</p>
-<p>Function <code>add_theme("theme_name")</code></p>
+<p>Function <code>set_theme("theme_name")</code></p>
 <p>Possible themes:</p>
 <p><code>basic</code>, <code>grid</code>, <code>default</code>, <code>small</code>, <code>tiny</code>, <code>big</code>, <code>minimal</code>, <code>dark</code>, <code>sienna</code>, <code>phase_color</code>, <code>phase_shade</code>, <code>grid2</code></p>
-<section id="the-default-theme" class="level3" data-number="15.8.1">
-<h3 data-number="15.8.1" class="anchored" data-anchor-id="the-default-theme"><span class="header-section-number">15.8.1</span> The ‘default’ theme</h3>
+<section id="an-overview" class="level3" data-number="5.7.1">
+<h3 data-number="5.7.1" class="anchored" data-anchor-id="an-overview"><span class="header-section-number">5.7.1</span> An overview</h3>
+<div class="cell" data-lable="scplot-themes">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Various scplot themes.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-default-theme" class="level3" data-number="5.7.2">
+<h3 data-number="5.7.2" class="anchored" data-anchor-id="the-default-theme"><span class="header-section-number">5.7.2</span> The ‘default’ theme</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/theme2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="theme-basic" class="level3" data-number="15.8.2">
-<h3 data-number="15.8.2" class="anchored" data-anchor-id="theme-basic"><span class="header-section-number">15.8.2</span> Theme ‘basic’</h3>
+<section id="theme-basic" class="level3" data-number="5.7.3">
+<h3 data-number="5.7.3" class="anchored" data-anchor-id="theme-basic"><span class="header-section-number">5.7.3</span> Theme ‘basic’</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_theme</span>(<span class="st">"basic"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"basic"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/theme3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="theme-minimal" class="level3" data-number="15.8.3">
-<h3 data-number="15.8.3" class="anchored" data-anchor-id="theme-minimal"><span class="header-section-number">15.8.3</span> Theme ‘minimal’</h3>
+<section id="theme-minimal" class="level3" data-number="5.7.4">
+<h3 data-number="5.7.4" class="anchored" data-anchor-id="theme-minimal"><span class="header-section-number">5.7.4</span> Theme ‘minimal’</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_theme</span>(<span class="st">"minimal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"minimal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/theme4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="theme-dark" class="level3" data-number="15.8.4">
-<h3 data-number="15.8.4" class="anchored" data-anchor-id="theme-dark"><span class="header-section-number">15.8.4</span> Theme ‘dark’</h3>
+<section id="theme-dark" class="level3" data-number="5.7.5">
+<h3 data-number="5.7.5" class="anchored" data-anchor-id="theme-dark"><span class="header-section-number">5.7.5</span> Theme ‘dark’</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_theme</span>(<span class="st">"dark"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"dark"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/theme5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="theme-sienna" class="level3" data-number="15.8.5">
-<h3 data-number="15.8.5" class="anchored" data-anchor-id="theme-sienna"><span class="header-section-number">15.8.5</span> Theme ‘sienna’</h3>
+<section id="theme-sienna" class="level3" data-number="5.7.6">
+<h3 data-number="5.7.6" class="anchored" data-anchor-id="theme-sienna"><span class="header-section-number">5.7.6</span> Theme ‘sienna’</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_theme</span>(<span class="st">"sienna"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"sienna"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/theme6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="combine-themes" class="level3" data-number="15.8.6">
-<h3 data-number="15.8.6" class="anchored" data-anchor-id="combine-themes"><span class="header-section-number">15.8.6</span> Combine themes</h3>
+<section id="combine-themes" class="level3" data-number="5.7.7">
+<h3 data-number="5.7.7" class="anchored" data-anchor-id="combine-themes"><span class="header-section-number">5.7.7</span> Combine themes</h3>
 <p>When providing multiple themes the order is important as the latter overwrites styles of the former.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_theme</span>(<span class="st">"sienna"</span>, <span class="st">"minimal"</span>, <span class="st">"small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"sienna"</span>, <span class="st">"minimal"</span>, <span class="st">"small"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/theme7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="set-base-text" class="level3" data-number="15.8.7">
-<h3 data-number="15.8.7" class="anchored" data-anchor-id="set-base-text"><span class="header-section-number">15.8.7</span> Set base text</h3>
+<section id="set-base-text" class="level3" data-number="5.7.8">
+<h3 data-number="5.7.8" class="anchored" data-anchor-id="set-base-text"><span class="header-section-number">5.7.8</span> Set base text</h3>
 <p>The base text size is the absolute size. All other text sizes are relative to this base text size.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_decreasing<span class="sc">$</span>Peter) <span class="sc">%&gt;%</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_base_text</span>(<span class="at">colour =</span> <span class="st">"blue"</span>, <span class="at">family =</span> <span class="st">"serif"</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">size =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_decreasing<span class="sc">$</span>Peter) <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_base_text</span>(<span class="at">colour =</span> <span class="st">"blue"</span>, <span class="at">family =</span> <span class="st">"serif"</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">size =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/base1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 </section>
-<section id="add-title-and-caption" class="level2" data-number="15.9">
-<h2 data-number="15.9" class="anchored" data-anchor-id="add-title-and-caption"><span class="header-section-number">15.9</span> Add title and caption</h2>
+<section id="add-title-and-caption" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="add-title-and-caption"><span class="header-section-number">5.8</span> Add title and caption</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_decreasing) <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"A new plot"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="fl">1.3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note. What a nice plot!"</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">colour =</span> <span class="st">"darkred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_decreasing) <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"A new plot"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="fl">1.3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note. What a nice plot!"</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">colour =</span> <span class="st">"darkred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/title1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="add-a-legend" class="level2" data-number="15.10">
-<h2 data-number="15.10" class="anchored" data-anchor-id="add-a-legend"><span class="header-section-number">15.10</span> Add a legend</h2>
+<section id="add-a-legend" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="add-a-legend"><span class="header-section-number">5.9</span> Add a legend</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="st">"B"</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="st">"B"</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/legend1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>and set specific elements</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"left"</span>, </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"italic"</span>),</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey95"</span>, <span class="at">colour =</span> <span class="st">"black"</span>)</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"left"</span>, </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"italic"</span>),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey95"</span>, <span class="at">colour =</span> <span class="st">"black"</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/legend2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="customize-axis-settings" class="level2" data-number="15.11">
-<h2 data-number="15.11" class="anchored" data-anchor-id="customize-axis-settings"><span class="header-section-number">15.11</span> Customize axis settings</h2>
+<section id="customize-axis-settings" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="customize-axis-settings"><span class="header-section-number">5.10</span> Customize axis settings</h2>
 <p>When axis ticks are to close together set the increment argument to leave additional space (e.g.&nbsp;<code>increment = 2</code> will annotate every other value). When you set <code>increment_from = 0</code> an additional tick will be set at 1 although counting of the increments will start at 0.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment_from =</span> <span class="dv">0</span>, <span class="at">increment =</span> <span class="dv">5</span>, </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">size =</span> <span class="fl">0.7</span>, <span class="at">angle =</span> <span class="sc">-</span><span class="dv">90</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_yaxis</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>), <span class="at">size =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment_from =</span> <span class="dv">0</span>, <span class="at">increment =</span> <span class="dv">5</span>, </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">size =</span> <span class="fl">0.7</span>, <span class="at">angle =</span> <span class="sc">-</span><span class="dv">90</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_yaxis</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>), <span class="at">size =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/axis1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="customize-axis-labels" class="level2" data-number="15.12">
-<h2 data-number="15.12" class="anchored" data-anchor-id="customize-axis-labels"><span class="header-section-number">15.12</span> Customize axis labels</h2>
+<section id="customize-axis-labels" class="level2" data-number="5.11">
+<h2 data-number="5.11" class="anchored" data-anchor-id="customize-axis-labels"><span class="header-section-number">5.11</span> Customize axis labels</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_ylabel</span>(<span class="st">"Score"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">angle =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Session"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_ylabel</span>(<span class="st">"Score"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">angle =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Session"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/axis2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="change-casenames" class="level2" data-number="15.13">
-<h2 data-number="15.13" class="anchored" data-anchor-id="change-casenames"><span class="header-section-number">15.13</span> Change Casenames</h2>
+<section id="change-casenames" class="level2" data-number="5.12">
+<h2 data-number="5.12" class="anchored" data-anchor-id="change-casenames"><span class="header-section-number">5.12</span> Change Casenames</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/casenames1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Casenames as strips:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>, </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>, </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/casenames2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="add-value-labels" class="level2" data-number="15.14">
-<h2 data-number="15.14" class="anchored" data-anchor-id="add-value-labels"><span class="header-section-number">15.14</span> Add value labels</h2>
+<section id="add-value-labels" class="level2" data-number="5.13">
+<h2 data-number="5.13" class="anchored" data-anchor-id="add-value-labels"><span class="header-section-number">5.13</span> Add value labels</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey98"</span>), <span class="at">nudge_y =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey98"</span>), <span class="at">nudge_y =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1 rows containing missing values (`geom_label()`).</code></pre>
 </div>
@@ -799,42 +998,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>If you set the <code>nudge_y</code> argument to 0, the label will be set on-top the datapoints:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey98"</span>), <span class="at">nudge_y =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey98"</span>), <span class="at">nudge_y =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/valuelabels2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="add-a-ridge" class="level2" data-number="15.15">
-<h2 data-number="15.15" class="anchored" data-anchor-id="add-a-ridge"><span class="header-section-number">15.15</span> Add a ridge</h2>
+<section id="add-a-ridge" class="level2" data-number="5.14">
+<h2 data-number="5.14" class="anchored" data-anchor-id="add-a-ridge"><span class="header-section-number">5.14</span> Add a ridge</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_mpd) <span class="sc">%&gt;%</span> </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="st">"grey50"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in check_scdf(data): Phase design is not identical for all cases.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_mpd) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="st">"grey50"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/ridge1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="extending-scplot-with-ggplot2" class="level2" data-number="15.16">
-<h2 data-number="15.16" class="anchored" data-anchor-id="extending-scplot-with-ggplot2"><span class="header-section-number">15.16</span> Extending scplot with ggplot2</h2>
+<section id="extending-scplot-with-ggplot2" class="level2" data-number="5.15">
+<h2 data-number="5.15" class="anchored" data-anchor-id="extending-scplot-with-ggplot2"><span class="header-section-number">5.15</span> Extending scplot with ggplot2</h2>
 <p><code>scplot()</code> generates ggplot2 objects. You can keep the ggplot2 object and assign it into a new object with the <code>as_ggplot()</code> function. Thereby, you can use many ggplot2 functions to rework your graphics:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Lisa (Turkish)</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">add_theme</span>(<span class="st">"minimal"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Patrick (Spanish)</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">add_theme</span>(<span class="st">"minimal"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
 <span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Anna (Twi)</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">add_theme</span>(<span class="st">"minimal"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
 <span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Melanie (Swedish)</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">add_theme</span>(<span class="st">"minimal"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
 <span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
@@ -844,31 +1040,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="complexs-examples" class="level2" data-number="15.17">
-<h2 data-number="15.17" class="anchored" data-anchor-id="complexs-examples"><span class="header-section-number">15.17</span> Complexs examples</h2>
+<section id="complexs-examples" class="level2" data-number="5.16">
+<h2 data-number="5.16" class="anchored" data-anchor-id="complexs-examples"><span class="header-section-number">5.16</span> Complexs examples</h2>
 <p>Here are some more complex examples</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(example_A24) <span class="sc">%&gt;%</span> </span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_theme</span>(<span class="st">"default"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"lowess"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"loess"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"movingMean"</span>, <span class="at">lag =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"lightpink"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">angle =</span> <span class="dv">35</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">point =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.75</span>), <span class="at">background =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"grey50"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="fu">c</span>(<span class="st">"no speedlimit"</span>, <span class="st">"with speedlimit"</span>), <span class="at">position =</span> <span class="st">"left"</span>, </span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"Effect of a speedlimit on the A24"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note: Moving mean calculated with lag three"</span>, <span class="at">face =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="at">color =</span> <span class="st">"lightblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"lowess"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"loess"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"moving mean"</span>, <span class="at">lag =</span> <span class="dv">3</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">angle =</span> <span class="dv">35</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">point =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.75</span>), <span class="at">background =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"grey50"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="fu">c</span>(<span class="st">"no speedlimit"</span>, <span class="st">"with speedlimit"</span>), </span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">position =</span> <span class="st">"left"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"Effect of a speedlimit on the A24"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note: Moving mean calculated with lag three"</span>, <span class="at">face =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="at">color =</span> <span class="st">"lightblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/complex1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">%&gt;%</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_dataline</span>(<span class="st">"cigarrets"</span>, <span class="at">point =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"cigarrets"</span>, <span class="at">point =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">14</span>,<span class="dv">20</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>)<span class="sc">%&gt;%</span></span>
@@ -896,7 +1091,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">%&gt;%</span> </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"brown"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_yaxis</span>(<span class="at">color =</span> <span class="st">"sienna3"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_ylabel</span>(<span class="st">"Points"</span>, <span class="at">color =</span> <span class="st">"sienna3"</span>, <span class="at">angle =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Weeks"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"brown"</span>) <span class="sc">%&gt;%</span></span>
@@ -923,7 +1118,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">angle =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_arrow</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">5</span>, <span class="dv">22</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_background</span>(<span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"basic"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme_element</span>(<span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">"points"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 6 rows containing missing values (`geom_text()`).</code></pre>
 </div>
@@ -942,7 +1139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">%&gt;%</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">41</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_dataline</span>(<span class="st">"cigarrets"</span>, <span class="at">type =</span> <span class="st">"bar"</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>, <span class="at">point =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"cigarrets"</span>, <span class="at">type =</span> <span class="st">"bar"</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>, <span class="at">point =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -982,9 +1179,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1049,6 +1260,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1090,13 +1387,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ch_export.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span>
+      <a href="./ch_working_with_scdfs.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ch_missing_values_outliers.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

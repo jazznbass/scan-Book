@@ -15,6 +15,9 @@ Let us set a fictional context. Suppose you are researching a method to improve 
 We use the `scan` package to code the data. Each case has 25 measurements. We have three phases: before the intervention (A), during the intervention (B), and a follow-up (C). Phases A and B are of different lengths. The cases are named and combined into a single object called `strange_study`.
 
 ```{r build-strange-study}
+library(scan)
+library(scplot)
+
 case1 <- scdf(
   c(A = 3, 2, 4, 6, 4, 3, 
     B = 6, 5, 4, 6, 7, 5, 6, 8, 6, 7, 8, 9, 7, 8, 
@@ -38,18 +41,22 @@ strange_study <- c(case1, case2, case3)
 
 Now we visualize the cases:
 
-```{r plot-strange-study, fig.width=5}
-plot(
-  strange_study,
-  ylab = "Correct",
-  xlab = "Days",
-  lines = c("loreg", col = "red"),
-  phase.names = c("Baseline", "Intervention", "Follow-up"),
-  style = "chart",
-  ylim = c(0, 30),
-  xinc = 2
-)
+```{r}
+#| label: plot-strange-study
+#| fig-width: 5
+
+scplot(strange_study) %>%
+  set_ylabel("Correct") %>%
+  set_xlabel ("Days") %>%
+  add_statline("lowess", color = "red") %>%
+  set_phasenames(c("Baseline", "Intervention", "Follow-up")) %>%
+  set_yaxis(limits = c(0, 30)) %>%
+  set_xaxis(increment = 2) %>%
+  add_ridge(color = "lightblue") %>%
+  set_theme("basic")
+
 ```
+
 
 Now we need some descriptive statistics:
 

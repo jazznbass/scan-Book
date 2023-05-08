@@ -24,7 +24,7 @@ case2 <- scdf(c(3,6,2,4,3,5,2,NA,3,2, 6,7,5,8,6,NA,4,8,5,6),
 case3 <- fill_missing(case2)
 names(case3) <- "interpolated NAs"
 ex <- c(case1, case2, case3)
-plot(ex)
+scplot(ex)
 overlap(ex)
 ```
 
@@ -49,12 +49,7 @@ outlier(exampleABC_outlier, criteria = c("MAD", 3.5))
 
 # Visualizing outliers with the plot function
 res <- outlier(exampleABC_outlier, criteria = c("MAD", 3.5))
-plot(exampleABC_outlier, marks = res, style = "annotate", ylim = c(40,160))
-```
 
-Here is the syntax for the upcoming `scplot()` function (see @sec-scplot).
-
-```{r}
 scplot(exampleABC_outlier) %>%
   add_labels(nudge_y = 15, text = list(size = 0.7)) %>%
   add_marks(positions = res) %>%
@@ -62,3 +57,4 @@ scplot(exampleABC_outlier) %>%
   set_casenames(position = "strip") %>%
   set_yaxis(limits = c(20, 120))
 ```
+

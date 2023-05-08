@@ -21,6 +21,8 @@ cat(scan:::.opt$startup_message)
 
 indicating that everything went smoothly and *scan* is ready for work.
 
+For creating single-case plots, please install the add-on package `scplot` with `install.packages("scplot")`.
+
 ## Development version of scan
 
 Alternatively, you can compile the development version of *scan* yourself. This may be necessary if the stable version has some bugs or missing features that have been fixed.
@@ -60,15 +62,15 @@ out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
   #
   "scdf", "Creates a single-case data-frame", "Stable", "@sec-scdf",
-  "select_cases", "Selects specific cases of an scdf", "Stable", "@sec-select-cases)",
-  "select_phases", "Selects and/or recombines phases", "Stable", "@sec-select-phases)",
+  "select_cases", "Selects specific cases of an scdf", "Stable", "@sec-select-cases",
+  "select_phases", "Selects and/or recombines phases", "Stable", "@sec-select-phases",
   "subset", "Selects specific measurements or variables of an scdf", "stable", "@sec-subset",
   "read_scdf", "Loads external data into an scdf", "Stable", "@sec-read-scdf",
   "write_scdf", "Writes scdf into an external file", "Stable", "@sec-write-scdf",
   "convert", "Converts an scdf object into R syntax", "Stable", "@sec-convert",
   "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Stable", "-",
-  "add_l2", "Adds level-two data to an scdf", "Stable", "@sec-add-l2)",
-  "as_scdf", "Transforms a data.frame into an scdf", "-",
+  "add_l2", "Adds level-two data to an scdf", "Stable", "@sec-add-l2",
+  "as_scdf", "Transforms a data.frame into an scdf", "Stable", "-",
   "as.data.frame/as.data.frame.scdf", "Transforms an scdf into a data frame", "Stable", "-"
 )
 
@@ -89,7 +91,7 @@ out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage",
   #
   "plot/plot.scdf", "Creates plots of single cases", "Stable",
-  "scplot", "Add-on package `scplot`. Create advanced ggplot2 plots.", "Experimental",
+  "scplot", "Add-on package `scplot`. Create advanced ggplot2 plots.", "Stable",
   "style_plot", "Defines single-case plot graphical styles", "Superseded",
   "export", "Creates html or latex tables from the output of various can functions", "Experimental",
   "print/print.scdf", "Prints an scdf", "Stable",

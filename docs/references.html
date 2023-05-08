@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.280">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,14 +17,15 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -38,8 +39,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -50,7 +50,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./app_some_things.html" rel="next">
-<link href="./ch_scplot.html" rel="prev">
+<link href="./ch_export.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -87,11 +87,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">References</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -99,7 +104,7 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
       <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -107,168 +112,189 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The Scan-Book</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
-    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-            <i class="bi bi-bi-twitter pe-1"></i>
-          Twitter
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-            <i class="bi bi-bi-facebook pe-1"></i>
-          Facebook
-          </a>
-        </li>
-    </ul>
+    <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></a>
+  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">The single-case data frame</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">The single-case data frame</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_create_display_and_store_scdfs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></a>
+  <a href="./ch_create_display_and_store_scdfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_working_with_scdfs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></a>
+  <a href="./ch_working_with_scdfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_creating_a_plot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a>
+  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a>
+  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Data analysis</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Data analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_describe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></a>
+  <a href="./ch_describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></a>
+  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a>
+  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></a>
+  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></a>
+  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></a>
+  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></a>
+  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_export.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></a>
+  <a href="./ch_export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_some_things.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></a>
+  <a href="./app_some_things.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_changes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changes</span></a>
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></a>
+  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_supseded_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></a>
+  <a href="./app_supseded_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">About the author</span></a>
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">About the author</span></span></a>
   </div>
 </li>
       </ul>
@@ -276,6 +302,7 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
@@ -285,7 +312,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">References</h1>
+<h1 class="title">References</h1>
 </div>
 
 
@@ -300,119 +327,120 @@ div.csl-indent {
 
 </header>
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography">
-<div id="ref-brossart2018a" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+<div id="ref-brossart2018a" class="csl-entry" role="listitem">
 Brossart, D. F., Laird, V. C., &amp; Armstrong, T. W. (2018).
 Interpreting Kendall<span>’</span>s Tau and Tau-U for single-case
 experimental designs. <em>Cogent Psychology</em>, <em>5</em>(1), 1–26.
 <a href="https://doi.org/10.1080/23311908.2018.1518687">https://doi.org/10.1080/23311908.2018.1518687</a>
 </div>
-<div id="ref-bulté2008" class="csl-entry" role="doc-biblioentry">
+<div id="ref-bulté2008" class="csl-entry" role="listitem">
 Bulté, I., &amp; Onghena, P. (2008). An r package for single-case
 randomization tests. <em>Behavior Research Methods</em>, <em>40</em>(2),
 467–478. <a href="https://doi.org/10.3758/BRM.40.2.467">https://doi.org/10.3758/BRM.40.2.467</a>
 </div>
-<div id="ref-bulté2009" class="csl-entry" role="doc-biblioentry">
+<div id="ref-bulté2009" class="csl-entry" role="listitem">
 Bulté, I., &amp; Onghena, P. (2009). Randomization tests for
 multiple-baseline designs: An extension of the SCRT-r package.
 <em>Behavior Research Methods</em>, <em>41</em>(2), 477–485. <a href="https://doi.org/10.3758/BRM.41.2.477">https://doi.org/10.3758/BRM.41.2.477</a>
 </div>
-<div id="ref-cooper2009" class="csl-entry" role="doc-biblioentry">
+<div id="ref-cooper2009" class="csl-entry" role="listitem">
 Cooper, H., Hedges, L. V., &amp; Valentine, J. C. (2009). <em>Handbook
 of research synthesis and meta-analysis, the</em>. Retrieved from <a href="https://www.jstor.org/stable/10.7758/9781610441384">https://www.jstor.org/stable/10.7758/9781610441384</a>
 </div>
-<div id="ref-fieller1957" class="csl-entry" role="doc-biblioentry">
+<div id="ref-fieller1957" class="csl-entry" role="listitem">
 Fieller, E. C., Hartley, H. O., &amp; Pearson, E. S. (1957). Tests for
 rank correlation coefficients. <em>Biometrika</em>, <em>44</em>,
 470–481.
 </div>
-<div id="ref-hotelling1953" class="csl-entry" role="doc-biblioentry">
+<div id="ref-hotelling1953" class="csl-entry" role="listitem">
 Hotelling, H. (1953). New Light on the Correlation Coefficient and its
 Transforms. <em>Journal of the Royal Statistical Society: Series B
 (Methodological)</em>, <em>15</em>(2), 193–225. <a href="https://doi.org/10.1111/j.2517-6161.1953.tb00135.x">https://doi.org/10.1111/j.2517-6161.1953.tb00135.x</a>
 </div>
-<div id="ref-huitema_design_2000" class="csl-entry" role="doc-biblioentry">
+<div id="ref-huitema_design_2000" class="csl-entry" role="listitem">
 Huitema, B. E., &amp; Mckean, J. W. (2000). Design specification issues
 in time-series intervention models. <em>Educational and Psychological
 Measurement</em>, <em>60</em>(1), 38–58. Retrieved from <a href="http://epm.sagepub.com/content/60/1/38.short">http://epm.sagepub.com/content/60/1/38.short</a>
 </div>
-<div id="ref-iglewicz_how_1993" class="csl-entry" role="doc-biblioentry">
+<div id="ref-iglewicz_how_1993" class="csl-entry" role="listitem">
 Iglewicz, B., &amp; Hoaglin, D. C. (1993). <em>How to detect and handle
 outliers</em>. Milwaukee, Wis. : ASQC Quality Press.
 </div>
-<div id="ref-parker_percentage_2007" class="csl-entry" role="doc-biblioentry">
+<div id="ref-parker_percentage_2007" class="csl-entry" role="listitem">
 Parker, Richard I., Hagan-Burke, S., &amp; Vannest, K. (2007).
 Percentage of <span>All</span> <span>Non</span>-<span>Overlapping</span>
 <span>Data</span> (<span>PAND</span>) <span>An</span>
 <span>Alternative</span> to <span>PND</span>. <em>The Journal of Special
 Education</em>, <em>40</em>(4), 194–204. Retrieved from <a href="http://sed.sagepub.com/content/40/4/194.short">http://sed.sagepub.com/content/40/4/194.short</a>
 </div>
-<div id="ref-parker_improved_2009" class="csl-entry" role="doc-biblioentry">
+<div id="ref-parker_improved_2009" class="csl-entry" role="listitem">
 Parker, Richard I., &amp; Vannest, K. (2009). An improved effect size
 for single-case research: <span>Nonoverlap</span> of all pairs.
 <em>Behavior Therapy</em>, <em>40</em>(4), 357–367. Retrieved from <a href="http://www.sciencedirect.com/science/article/pii/S0005789408000816">http://www.sciencedirect.com/science/article/pii/S0005789408000816</a>
 </div>
-<div id="ref-parker_effect_2011" class="csl-entry" role="doc-biblioentry">
+<div id="ref-parker_effect_2011" class="csl-entry" role="listitem">
 Parker, Richard I., Vannest, K. J., &amp; Davis, J. L. (2011). Effect
 <span>Size</span> in <span>Single</span>-<span>Case</span>
 <span>Research</span>: <span>A</span> <span>Review</span> of
 <span>Nine</span> <span>Nonoverlap</span> <span>Techniques</span>.
 <em>Behavior Modification</em>, <em>35</em>(4), 303–322. <a href="https://doi.org/10.1177/0145445511399147">https://doi.org/10.1177/0145445511399147</a>
 </div>
-<div id="ref-parker_combining_2011" class="csl-entry" role="doc-biblioentry">
+<div id="ref-parker_combining_2011" class="csl-entry" role="listitem">
 Parker, Richard I., Vannest, K. J., Davis, J. L., &amp; Sauber, S. B.
 (2011b). Combining <span>Nonoverlap</span> and <span>Trend</span> for
 <span>Single</span>-<span>Case</span> <span>Research</span>:
 <span>Tau</span>-<span>U</span>. <em>Behavior Therapy</em>,
 <em>42</em>(2), 284–299. <a href="https://doi.org/10.1016/j.beth.2010.08.006">https://doi.org/10.1016/j.beth.2010.08.006</a>
 </div>
-<div id="ref-parker2011" class="csl-entry" role="doc-biblioentry">
+<div id="ref-parker2011" class="csl-entry" role="listitem">
 Parker, Richard I., Vannest, K. J., Davis, J. L., &amp; Sauber, S. B.
 (2011a). Combining nonoverlap and trend for single-case research: Tau-u.
 <em>Behavior Therapy</em>, <em>42</em>(2), 284–299. <a href="https://doi.org/10.1016/j.beth.2010.08.006">https://doi.org/10.1016/j.beth.2010.08.006</a>
 </div>
-<div id="ref-pustejovsky2016" class="csl-entry" role="doc-biblioentry">
+<div id="ref-pustejovsky2016" class="csl-entry" role="listitem">
 Pustejovsky, J. E. (2016). <em>What is tau-u?</em> Retrieved from <a href="https://www.jepusto.com/what-is-tau-u/">https://www.jepusto.com/what-is-tau-u/</a>
 </div>
-<div id="ref-R-base" class="csl-entry" role="doc-biblioentry">
-R Core Team. (2022). <em>R: A language and environment for statistical
+<div id="ref-R-base" class="csl-entry" role="listitem">
+R Core Team. (2023). <em>R: A language and environment for statistical
 computing</em>. Retrieved from <a href="https://www.R-project.org/">https://www.R-project.org/</a>
 </div>
-<div id="ref-RStudio" class="csl-entry" role="doc-biblioentry">
+<div id="ref-RStudio" class="csl-entry" role="listitem">
 RStudio Team. (2018). <em>RStudio: Integrated development environment
 for r</em>. Retrieved from <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>
 </div>
-<div id="ref-scruggs_quantitative_1987" class="csl-entry" role="doc-biblioentry">
+<div id="ref-scruggs_quantitative_1987" class="csl-entry" role="listitem">
 Scruggs, T. E., Mastropieri, M. A., &amp; Casto, G. (1987). The
 <span>Quantitative</span> <span>Synthesis</span> of
 <span>Single</span>-<span>Subject</span> <span>Research</span>
 <span>Methodology</span> and <span>Validation</span>. <em>Remedial and
 Special Education</em>, <em>8</em>(2), 24–33. <a href="https://doi.org/10.1177/074193258700800206">https://doi.org/10.1177/074193258700800206</a>
 </div>
-<div id="ref-siegelRobustRegressionUsing1982" class="csl-entry" role="doc-biblioentry">
+<div id="ref-siegelRobustRegressionUsing1982" class="csl-entry" role="listitem">
 Siegel, A. F. (1982). Robust <span>Regression Using Repeated
 Medians</span>. <em>Biometrika</em>, <em>69</em>(1), 242–244. <a href="https://doi.org/10.2307/2335877">https://doi.org/10.2307/2335877</a>
 </div>
-<div id="ref-tarlowImprovedRankCorrelation2016a" class="csl-entry" role="doc-biblioentry">
+<div id="ref-tarlowImprovedRankCorrelation2016a" class="csl-entry" role="listitem">
 Tarlow, K. R. (2016). An <span>Improved Rank Correlation Effect Size
 Statistic</span> for <span>Single</span>-<span>Case Designs</span>:
 Baseline <span>Corrected Tau</span>. <em>Behavior Modification</em>,
 <em>41</em>(4), 427–467. <a href="https://doi.org/10.1177/0145445516676750">https://doi.org/10.1177/0145445516676750</a>
 </div>
-<div id="ref-R-scplot" class="csl-entry" role="doc-biblioentry">
-Wilbert, Juergen. (2023). <em>Scplot: Single-case plots for scan</em>.
+<div id="ref-R-scplot" class="csl-entry" role="listitem">
+Wilbert, Juergen. (2023). <em>Scplot: Plot function for single-case data
+frames</em>.
 </div>
-<div id="ref-R-scan" class="csl-entry" role="doc-biblioentry">
+<div id="ref-R-scan" class="csl-entry" role="listitem">
 Wilbert, Juergen, &amp; Lueke, T. (2023). <em>Scan: Single-case data
 analyses for single and multiple baseline designs</em>.
 </div>
-<div id="ref-wilbert2022" class="csl-entry" role="doc-biblioentry">
+<div id="ref-wilbert2022" class="csl-entry" role="listitem">
 Wilbert, Jürgen, Lüke, T., &amp; Börnert-Ringleb, M. (2022). Statistical
 power of piecewise regression analyses of single-case experimental
 studies addressing behavior problems. <em>Frontiers in Education
 Educational Psychology</em>, <em>7</em>. <a href="https://doi.org/10.3389/feduc.2022.917944">https://doi.org/10.3389/feduc.2022.917944</a>
 </div>
-<div id="ref-wise_methods_2004" class="csl-entry" role="doc-biblioentry">
+<div id="ref-wise_methods_2004" class="csl-entry" role="listitem">
 Wise, E. A. (2004). Methods for analyzing psychotherapy outcomes:
 <span>A</span> review of clinical significance, reliable change, and
 recommendations for future directions. <em>Journal of Personality
@@ -450,9 +478,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -517,6 +559,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -558,8 +686,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ch_scplot.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">scplot - Adavanced plotting functions for single-case data</span></span>
+      <a href="./ch_export.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -572,4 +700,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer></body></html>
