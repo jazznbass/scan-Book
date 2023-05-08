@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.280">
+<meta name="generator" content="quarto-1.3.340">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,48 +47,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -101,8 +73,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -143,6 +114,7 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -151,11 +123,16 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_overlapping_indices.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -163,7 +140,7 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
       <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -171,163 +148,189 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">The Scan-Book</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="" title="Share" id="sidebar-tool-dropdown-0" class="sidebar-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-share"></i></a>
-    <ul class="dropdown-menu" aria-labelledby="sidebar-tool-dropdown-0">
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-            <i class="bi bi-bi-twitter pe-1"></i>
-          Twitter
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-            <i class="bi bi-bi-facebook pe-1"></i>
-          Facebook
-          </a>
-        </li>
-    </ul>
+    <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></a>
+  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">The single-case data frame</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">The single-case data frame</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_create_display_and_store_scdfs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></a>
+  <a href="./ch_create_display_and_store_scdfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_working_with_scdfs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></a>
+  <a href="./ch_working_with_scdfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a>
+  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a>
+  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Data analysis</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Data analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_describe.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></a>
+  <a href="./ch_describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></a>
+  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a>
+  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></a>
+  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></a>
+  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></a>
+  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></a>
+  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_export.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></a>
+  <a href="./ch_export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Appendices</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_some_things.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></a>
+  <a href="./app_some_things.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_changes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changes</span></a>
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></a>
+  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_supseded_functions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></a>
+  <a href="./app_supseded_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_author.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">About the author</span></a>
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">About the author</span></span></a>
   </div>
 </li>
       </ul>
@@ -335,30 +338,31 @@ div.csl-indent {
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#overlap-overview" id="toc-overlap-overview" class="nav-link active" data-scroll-target="#overlap-overview"><span class="toc-section-number">8.1</span>  Overlap overview</a>
+  <li><a href="#overlap-overview" id="toc-overlap-overview" class="nav-link active" data-scroll-target="#overlap-overview"><span class="header-section-number">8.1</span> Overlap overview</a>
   <ul class="collapse">
-  <li><a href="#sec-select-phases" id="toc-sec-select-phases" class="nav-link" data-scroll-target="#sec-select-phases"><span class="toc-section-number">8.1.1</span>  Select and recombine phases</a></li>
+  <li><a href="#sec-select-phases" id="toc-sec-select-phases" class="nav-link" data-scroll-target="#sec-select-phases"><span class="header-section-number">8.1.1</span> Select and recombine phases</a></li>
   </ul></li>
-  <li><a href="#standardized-mean-differences" id="toc-standardized-mean-differences" class="nav-link" data-scroll-target="#standardized-mean-differences"><span class="toc-section-number">8.2</span>  Standardized mean differences</a></li>
-  <li><a href="#percentage-non-overlapping-data-pnd" id="toc-percentage-non-overlapping-data-pnd" class="nav-link" data-scroll-target="#percentage-non-overlapping-data-pnd"><span class="toc-section-number">8.3</span>  Percentage non-overlapping data (PND)</a></li>
-  <li><a href="#percentage-exceeding-the-median-pem" id="toc-percentage-exceeding-the-median-pem" class="nav-link" data-scroll-target="#percentage-exceeding-the-median-pem"><span class="toc-section-number">8.4</span>  Percentage exceeding the median (PEM)</a></li>
-  <li><a href="#percentage-exceeding-the-regression-trend-pet" id="toc-percentage-exceeding-the-regression-trend-pet" class="nav-link" data-scroll-target="#percentage-exceeding-the-regression-trend-pet"><span class="toc-section-number">8.5</span>  Percentage exceeding the regression trend (PET)</a></li>
-  <li><a href="#percentage-of-all-non-overlapping-data-pand" id="toc-percentage-of-all-non-overlapping-data-pand" class="nav-link" data-scroll-target="#percentage-of-all-non-overlapping-data-pand"><span class="toc-section-number">8.6</span>  Percentage of all non-overlapping data (PAND)</a></li>
-  <li><a href="#nonoverlap-of-all-pairs-nap" id="toc-nonoverlap-of-all-pairs-nap" class="nav-link" data-scroll-target="#nonoverlap-of-all-pairs-nap"><span class="toc-section-number">8.7</span>  Nonoverlap of all pairs (NAP)</a></li>
-  <li><a href="#tau-u" id="toc-tau-u" class="nav-link" data-scroll-target="#tau-u"><span class="toc-section-number">8.8</span>  Tau-U</a>
+  <li><a href="#standardized-mean-differences" id="toc-standardized-mean-differences" class="nav-link" data-scroll-target="#standardized-mean-differences"><span class="header-section-number">8.2</span> Standardized mean differences</a></li>
+  <li><a href="#percentage-non-overlapping-data-pnd" id="toc-percentage-non-overlapping-data-pnd" class="nav-link" data-scroll-target="#percentage-non-overlapping-data-pnd"><span class="header-section-number">8.3</span> Percentage non-overlapping data (PND)</a></li>
+  <li><a href="#percentage-exceeding-the-median-pem" id="toc-percentage-exceeding-the-median-pem" class="nav-link" data-scroll-target="#percentage-exceeding-the-median-pem"><span class="header-section-number">8.4</span> Percentage exceeding the median (PEM)</a></li>
+  <li><a href="#percentage-exceeding-the-regression-trend-pet" id="toc-percentage-exceeding-the-regression-trend-pet" class="nav-link" data-scroll-target="#percentage-exceeding-the-regression-trend-pet"><span class="header-section-number">8.5</span> Percentage exceeding the regression trend (PET)</a></li>
+  <li><a href="#percentage-of-all-non-overlapping-data-pand" id="toc-percentage-of-all-non-overlapping-data-pand" class="nav-link" data-scroll-target="#percentage-of-all-non-overlapping-data-pand"><span class="header-section-number">8.6</span> Percentage of all non-overlapping data (PAND)</a></li>
+  <li><a href="#nonoverlap-of-all-pairs-nap" id="toc-nonoverlap-of-all-pairs-nap" class="nav-link" data-scroll-target="#nonoverlap-of-all-pairs-nap"><span class="header-section-number">8.7</span> Nonoverlap of all pairs (NAP)</a></li>
+  <li><a href="#tau-u" id="toc-tau-u" class="nav-link" data-scroll-target="#tau-u"><span class="header-section-number">8.8</span> Tau-U</a>
   <ul class="collapse">
-  <li><a href="#variations-of-tau-u" id="toc-variations-of-tau-u" class="nav-link" data-scroll-target="#variations-of-tau-u"><span class="toc-section-number">8.8.1</span>  Variations of Tau-U</a></li>
-  <li><a href="#meta-analyses" id="toc-meta-analyses" class="nav-link" data-scroll-target="#meta-analyses"><span class="toc-section-number">8.8.2</span>  Meta analyses</a></li>
-  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="toc-section-number">8.8.3</span>  Confidence intervals</a></li>
+  <li><a href="#variations-of-tau-u" id="toc-variations-of-tau-u" class="nav-link" data-scroll-target="#variations-of-tau-u"><span class="header-section-number">8.8.1</span> Variations of Tau-U</a></li>
+  <li><a href="#meta-analyses" id="toc-meta-analyses" class="nav-link" data-scroll-target="#meta-analyses"><span class="header-section-number">8.8.2</span> Meta analyses</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">8.8.3</span> Confidence intervals</a></li>
   </ul></li>
-  <li><a href="#baseline-corrected-tau" id="toc-baseline-corrected-tau" class="nav-link" data-scroll-target="#baseline-corrected-tau"><span class="toc-section-number">8.9</span>  Baseline corrected tau</a></li>
-  <li><a href="#reliable-change-index" id="toc-reliable-change-index" class="nav-link" data-scroll-target="#reliable-change-index"><span class="toc-section-number">8.10</span>  Reliable change index</a></li>
+  <li><a href="#baseline-corrected-tau" id="toc-baseline-corrected-tau" class="nav-link" data-scroll-target="#baseline-corrected-tau"><span class="header-section-number">8.9</span> Baseline corrected tau</a></li>
+  <li><a href="#reliable-change-index" id="toc-reliable-change-index" class="nav-link" data-scroll-target="#reliable-change-index"><span class="header-section-number">8.10</span> Reliable change index</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -367,7 +371,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></h1>
 </div>
 
 
@@ -384,12 +388,12 @@ div.csl-indent {
 
 <section id="overlap-overview" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="overlap-overview"><span class="header-section-number">8.1</span> Overlap overview</h2>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The overlap function call
 </div>
 </div>
@@ -425,12 +429,12 @@ Hedges_g        2.35     2.26  2.87</code></pre>
 <p>Overlap measures refer to a comparison of two phases within a single-case data-set. By default, <code>overlap</code> compares the first to the second phase.</p>
 <section id="sec-select-phases" class="level3" data-number="8.1.1">
 <h3 data-number="8.1.1" class="anchored" data-anchor-id="sec-select-phases"><span class="header-section-number">8.1.1</span> Select and recombine phases</h3>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The select_phases function call
 </div>
 </div>
@@ -476,12 +480,12 @@ Hedges_g          2.07      2.72      2.98</code></pre>
 </section>
 <section id="standardized-mean-differences" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="standardized-mean-differences"><span class="header-section-number">8.2</span> Standardized mean differences</h2>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The smd function call
 </div>
 </div>
@@ -512,12 +516,12 @@ Cohen's d                         6.98   7.67   7.10</code></pre>
 </section>
 <section id="percentage-non-overlapping-data-pnd" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="percentage-non-overlapping-data-pnd"><span class="header-section-number">8.3</span> Percentage non-overlapping data (PND)</h2>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The pnd function call
 </div>
 </div>
@@ -531,7 +535,7 @@ The pnd function call
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="384"></p>
-<p></p><figcaption class="figure-caption">Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A</figcaption><p></p>
+<figcaption class="figure-caption">Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A</figcaption>
 </figure>
 </div>
 </div>
@@ -553,12 +557,12 @@ Mean  : 93.33 %</code></pre>
 </section>
 <section id="percentage-exceeding-the-median-pem" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="percentage-exceeding-the-median-pem"><span class="header-section-number">8.4</span> Percentage exceeding the median (PEM)</h2>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The pem function call
 </div>
 </div>
@@ -572,7 +576,7 @@ The pem function call
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="384"></p>
-<p></p><figcaption class="figure-caption">Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A</figcaption><p></p>
+<figcaption class="figure-caption">Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A</figcaption>
 </figure>
 </div>
 </div>
@@ -593,12 +597,12 @@ Alternative hypothesis: true probability &gt; 50%</code></pre>
 </section>
 <section id="percentage-exceeding-the-regression-trend-pet" class="level2" data-number="8.5">
 <h2 data-number="8.5" class="anchored" data-anchor-id="percentage-exceeding-the-regression-trend-pet"><span class="header-section-number">8.5</span> Percentage exceeding the regression trend (PET)</h2>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The pet function call
 </div>
 </div>
@@ -628,7 +632,7 @@ PET CI: Percent of values greater than upper 95% confidence threshold (greater 1
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="384"></p>
-<p></p><figcaption class="figure-caption">Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A</figcaption><p></p>
+<figcaption class="figure-caption">Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A</figcaption>
 </figure>
 </div>
 </div>
@@ -636,12 +640,12 @@ PET CI: Percent of values greater than upper 95% confidence threshold (greater 1
 </section>
 <section id="percentage-of-all-non-overlapping-data-pand" class="level2" data-number="8.6">
 <h2 data-number="8.6" class="anchored" data-anchor-id="percentage-of-all-non-overlapping-data-pand"><span class="header-section-number">8.6</span> Percentage of all non-overlapping data (PAND)</h2>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The pand function call
 </div>
 </div>
@@ -689,12 +693,12 @@ z = 6.316, p = 0.000, τ = 0.822 </code></pre>
 </section>
 <section id="nonoverlap-of-all-pairs-nap" class="level2" data-number="8.7">
 <h2 data-number="8.7" class="anchored" data-anchor-id="nonoverlap-of-all-pairs-nap"><span class="header-section-number">8.7</span> Nonoverlap of all pairs (NAP)</h2>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The nap function call
 </div>
 </div>
@@ -717,12 +721,12 @@ Anja      98       96    75        73    1 1.5 &lt;.001</code></pre>
 </section>
 <section id="tau-u" class="level2" data-number="8.8">
 <h2 data-number="8.8" class="anchored" data-anchor-id="tau-u"><span class="header-section-number">8.8</span> Tau-U</h2>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The tau_u function call
 </div>
 </div>
@@ -818,12 +822,12 @@ A vs. B + Trend B - Trend A     0.90 30.81 949.00   0.16 4.71 &lt;.001 20</code>
 </section>
 <section id="meta-analyses" class="level3" data-number="8.8.2">
 <h3 data-number="8.8.2" class="anchored" data-anchor-id="meta-analyses"><span class="header-section-number">8.8.2</span> Meta analyses</h3>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -832,12 +836,12 @@ Note
 </div>
 </div>
 <p>If you pass multiple cases to the <code>tau-u</code> function, it will calculate a Tau-U table for each case and an overall calculation via a meta-analysis.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Calculating a Tau-U meta analysis
 </div>
 </div>
@@ -859,12 +863,12 @@ Calculating a Tau-U meta analysis
 </section>
 <section id="confidence-intervals" class="level3" data-number="8.8.3">
 <h3 data-number="8.8.3" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">8.8.3</span> Confidence intervals</h3>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Note
 </div>
 </div>
@@ -918,12 +922,12 @@ A vs. B + Trend B - Trend A 0.64     0.45     0.78 30.71 3.91 &lt;.001</code></p
 </section>
 <section id="baseline-corrected-tau" class="level2" data-number="8.9">
 <h2 data-number="8.9" class="anchored" data-anchor-id="baseline-corrected-tau"><span class="header-section-number">8.9</span> Baseline corrected tau</h2>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The corrected_tau function call
 </div>
 </div>
@@ -938,7 +942,7 @@ The corrected_tau function call
 <pre><code>Warning in add_theme(., "basic"): Deprecated. Please use `set_theme()`</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 4 rows containing missing values (`geom_line()`).</code></pre>
+<pre><code>Warning: Removed 11 rows containing missing values (`geom_line()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="ch_overlapping_indices_files/figure-html/bctau-example-1.png" class="img-fluid" width="672"></p>
@@ -961,12 +965,12 @@ Baseline correction should be applied.</code></pre>
 </section>
 <section id="reliable-change-index" class="level2" data-number="8.10">
 <h2 data-number="8.10" class="anchored" data-anchor-id="reliable-change-index"><span class="header-section-number">8.10</span> Reliable change index</h2>
-<div class="callout-tip callout callout-style-simple callout-captioned">
+<div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 The rci function call
 </div>
 </div>
@@ -1008,47 +1012,47 @@ Hageman and Arrindell   18.49426</code></pre>
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography" style="display: none">
-<div id="ref-brossart2018a" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-brossart2018a" class="csl-entry" role="listitem">
 Brossart, D. F., Laird, V. C., &amp; Armstrong, T. W. (2018). Interpreting Kendall<span>’</span>s Tau and Tau-U for single-case experimental designs. <em>Cogent Psychology</em>, <em>5</em>(1), 1–26. <a href="https://doi.org/10.1080/23311908.2018.1518687">https://doi.org/10.1080/23311908.2018.1518687</a>
 </div>
-<div id="ref-cooper2009" class="csl-entry" role="doc-biblioentry">
+<div id="ref-cooper2009" class="csl-entry" role="listitem">
 Cooper, H., Hedges, L. V., &amp; Valentine, J. C. (2009). <em>Handbook of research synthesis and meta-analysis, the</em>. Retrieved from <a href="https://www.jstor.org/stable/10.7758/9781610441384">https://www.jstor.org/stable/10.7758/9781610441384</a>
 </div>
-<div id="ref-fieller1957" class="csl-entry" role="doc-biblioentry">
+<div id="ref-fieller1957" class="csl-entry" role="listitem">
 Fieller, E. C., Hartley, H. O., &amp; Pearson, E. S. (1957). Tests for rank correlation coefficients. <em>Biometrika</em>, <em>44</em>, 470–481.
 </div>
-<div id="ref-hotelling1953" class="csl-entry" role="doc-biblioentry">
+<div id="ref-hotelling1953" class="csl-entry" role="listitem">
 Hotelling, H. (1953). New Light on the Correlation Coefficient and its Transforms. <em>Journal of the Royal Statistical Society: Series B (Methodological)</em>, <em>15</em>(2), 193–225. <a href="https://doi.org/10.1111/j.2517-6161.1953.tb00135.x">https://doi.org/10.1111/j.2517-6161.1953.tb00135.x</a>
 </div>
-<div id="ref-parker_percentage_2007" class="csl-entry" role="doc-biblioentry">
+<div id="ref-parker_percentage_2007" class="csl-entry" role="listitem">
 Parker, Richard I., Hagan-Burke, S., &amp; Vannest, K. (2007). Percentage of <span>All</span> <span>Non</span>-<span>Overlapping</span> <span>Data</span> (<span>PAND</span>) <span>An</span> <span>Alternative</span> to <span>PND</span>. <em>The Journal of Special Education</em>, <em>40</em>(4), 194–204. Retrieved from <a href="http://sed.sagepub.com/content/40/4/194.short">http://sed.sagepub.com/content/40/4/194.short</a>
 </div>
-<div id="ref-parker_improved_2009" class="csl-entry" role="doc-biblioentry">
+<div id="ref-parker_improved_2009" class="csl-entry" role="listitem">
 Parker, Richard I., &amp; Vannest, K. (2009). An improved effect size for single-case research: <span>Nonoverlap</span> of all pairs. <em>Behavior Therapy</em>, <em>40</em>(4), 357–367. Retrieved from <a href="http://www.sciencedirect.com/science/article/pii/S0005789408000816">http://www.sciencedirect.com/science/article/pii/S0005789408000816</a>
 </div>
-<div id="ref-parker_effect_2011" class="csl-entry" role="doc-biblioentry">
+<div id="ref-parker_effect_2011" class="csl-entry" role="listitem">
 Parker, Richard I., Vannest, K. J., &amp; Davis, J. L. (2011a). Effect <span>Size</span> in <span>Single</span>-<span>Case</span> <span>Research</span>: <span>A</span> <span>Review</span> of <span>Nine</span> <span>Nonoverlap</span> <span>Techniques</span>. <em>Behavior Modification</em>, <em>35</em>(4), 303–322. <a href="https://doi.org/10.1177/0145445511399147">https://doi.org/10.1177/0145445511399147</a>
 </div>
-<div id="ref-parker_combining_2011" class="csl-entry" role="doc-biblioentry">
+<div id="ref-parker_combining_2011" class="csl-entry" role="listitem">
 Parker, Richard I., Vannest, K. J., Davis, J. L., &amp; Sauber, S. B. (2011b). Combining <span>Nonoverlap</span> and <span>Trend</span> for <span>Single</span>-<span>Case</span> <span>Research</span>: <span>Tau</span>-<span>U</span>. <em>Behavior Therapy</em>, <em>42</em>(2), 284–299. <a href="https://doi.org/10.1016/j.beth.2010.08.006">https://doi.org/10.1016/j.beth.2010.08.006</a>
 </div>
-<div id="ref-parker2011" class="csl-entry" role="doc-biblioentry">
+<div id="ref-parker2011" class="csl-entry" role="listitem">
 Parker, Richard I., Vannest, K. J., Davis, J. L., &amp; Sauber, S. B. (2011c). Combining nonoverlap and trend for single-case research: Tau-u. <em>Behavior Therapy</em>, <em>42</em>(2), 284–299. <a href="https://doi.org/10.1016/j.beth.2010.08.006">https://doi.org/10.1016/j.beth.2010.08.006</a>
 </div>
-<div id="ref-pustejovsky2016" class="csl-entry" role="doc-biblioentry">
+<div id="ref-pustejovsky2016" class="csl-entry" role="listitem">
 Pustejovsky, J. E. (2016). <em>What is tau-u?</em> Retrieved from <a href="https://www.jepusto.com/what-is-tau-u/">https://www.jepusto.com/what-is-tau-u/</a>
 </div>
-<div id="ref-scruggs_quantitative_1987" class="csl-entry" role="doc-biblioentry">
+<div id="ref-scruggs_quantitative_1987" class="csl-entry" role="listitem">
 Scruggs, T. E., Mastropieri, M. A., &amp; Casto, G. (1987). The <span>Quantitative</span> <span>Synthesis</span> of <span>Single</span>-<span>Subject</span> <span>Research</span> <span>Methodology</span> and <span>Validation</span>. <em>Remedial and Special Education</em>, <em>8</em>(2), 24–33. <a href="https://doi.org/10.1177/074193258700800206">https://doi.org/10.1177/074193258700800206</a>
 </div>
-<div id="ref-siegelRobustRegressionUsing1982" class="csl-entry" role="doc-biblioentry">
+<div id="ref-siegelRobustRegressionUsing1982" class="csl-entry" role="listitem">
 Siegel, A. F. (1982). Robust <span>Regression Using Repeated Medians</span>. <em>Biometrika</em>, <em>69</em>(1), 242–244. <a href="https://doi.org/10.2307/2335877">https://doi.org/10.2307/2335877</a>
 </div>
-<div id="ref-tarlowImprovedRankCorrelation2016a" class="csl-entry" role="doc-biblioentry">
+<div id="ref-tarlowImprovedRankCorrelation2016a" class="csl-entry" role="listitem">
 Tarlow, K. R. (2016). An <span>Improved Rank Correlation Effect Size Statistic</span> for <span>Single</span>-<span>Case Designs</span>: Baseline <span>Corrected Tau</span>. <em>Behavior Modification</em>, <em>41</em>(4), 427–467. <a href="https://doi.org/10.1177/0145445516676750">https://doi.org/10.1177/0145445516676750</a>
 </div>
-<div id="ref-wise_methods_2004" class="csl-entry" role="doc-biblioentry">
+<div id="ref-wise_methods_2004" class="csl-entry" role="listitem">
 Wise, E. A. (2004). Methods for analyzing psychotherapy outcomes: <span>A</span> review of clinical significance, reliable change, and recommendations for future directions. <em>Journal of Personality Assessment</em>, <em>82</em>(1), 50–59. Retrieved from <a href="http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10">http://www.tandfonline.com/doi/abs/10.1207/s15327752jpa8201_10</a>
 </div>
 </div>
@@ -1088,9 +1092,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1155,6 +1173,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
