@@ -1,7 +1,9 @@
 ```{r include = FALSE}
 build <- yaml::read_yaml("_build.yml")
-build$build <- build$build + 1
+build$build <- as.integer(build$build + 1)
 build$date <- as.character(Sys.time())
+build$scan_version <- packageVersion("scan")
+build$scplot_version <- packageVersion("scplot")
 build$r_version <- version
 yaml::write_yaml(build, "_build.yml")
 ```
