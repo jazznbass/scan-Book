@@ -213,7 +213,7 @@ The calculation of the Tau-U-meta-analyses involves the following steps:
 
 4.  The standard error of the average $tau_z$ is $se_{M_{tau_z}} = \sqrt{\frac{1}{\sum{weights}}}$ [@cooper2009]
 
-5.  The p value is calculated with a Z-test (form $Z = \frac{M_{tau_z}}{se_{M_{tau_z}}}$ )
+5.  The p value is calculated with a Z-test (from $Z = \frac{M_{tau_z}}{se_{M_{tau_z}}}$ )
 
 6.  The overall tau value is derived from an inverse-Fisher-Z-transformation.
 :::
@@ -224,7 +224,7 @@ The calculation of the Tau-U-meta-analyses involves the following steps:
 The default method for calculating the confidence interval has changed with scan version 0.55.7. Confidence intervals could have been outside the \[-1, 1\] in earlier versions. Set `ci_method = "s"` for a replication of results from scan version 0.55.6 or earlier.
 :::
 
-By default, 95% percent intervals are calculated for each tau value. You can specify a different interval with the `ci` argument (`ci = 0.90` will calculate a 90% interval). There are three alternative approaches to calculating the confidence intervals. When `ci_method = "z"` is set (the default), a general formula for calculating the standard-error of Fisher-Z values is used [@hotelling1953]. If `ci_method = "tau",` a specific formula for Fisher-Z transformed tau values is applied [@fieller1957]. Both approaches give similar results. A third approach is derived from the standard deviation of the S statistic[^ch_overlapping_indices-1]. Set `ci_method = "s"` for this method. The S method could lead to implausible values blow -1 or above 1. I recommend to use the common "z" method or the accurate "tau" method.
+By default, 95% confidence intervals are calculated for each tau value. You can specify a different interval with the `ci` argument (`ci = 0.90` will calculate a 90% interval). There are three alternative methods for calculating the confidence intervals. When `ci_method = "z"` is set (the default), a general formula for calculating the standard-error of Fisher-Z values is used [@hotelling1953]. If `ci_method = "tau",` a specific formula for Fisher-Z transformed tau values is applied [@fieller1957]. Both approaches give similar results. A third approach is derived from the standard deviation of the S statistic[^ch_overlapping_indices-1]. For this method, set `ci_method = "s"`. The S method can give implausible values less than -1 or greater than 1. I recommend using the general "z" method or the accurate "tau" method.å
 
 [^ch_overlapping_indices-1]: S is the difference between concordant and discordant comparisons in a Kendall's tau calculation. This is the same statistic used to calculate the p-value.
 
