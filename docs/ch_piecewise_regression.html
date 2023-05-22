@@ -417,13 +417,13 @@ The regression model
 y_i = \beta_1 + \beta_2 (time_i-time_1) + \beta_3 phase_i + \beta_4 (time_i-time_{n_A+1})*phase_i
 \]</span></p>
 <p>Where:</p>
-<p><span class="math inline">\(i\)</span> := a specific measurement.</p>
+<p><span class="math inline">\(i\)</span> := the session<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> number.</p>
 <p><span class="math inline">\(\beta_1\)</span> := the intercept.</p>
-<p><span class="math inline">\(\beta_2 time\)</span> := the continuous effect of measurement time (the trend effect).</p>
-<p><span class="math inline">\(\beta_3 phase\)</span> := the discrete effect of a phase switch (the level effect).</p>
-<p><span class="math inline">\(\beta_4 (time-n_{A+1})*phase\)</span> := the continuous effect of a phase switch (the slope effect).</p>
-<p><span class="math inline">\(n_{A+1}\)</span> := the first measurement of phase B.</p>
-<p>For <span class="math inline">\(\beta_2\)</span> and <span class="math inline">\(\beta_4\)</span>, the time variables are shifted to start with a 0 at the first measurement of the respetive phase.</p>
+<p><span class="math inline">\(\beta_2 time\)</span> := the continuous effect of the measurement time (the trend effect).</p>
+<p><span class="math inline">\(\beta_3 phase\)</span> := the discrete effect of the phase switch (the level effect).</p>
+<p><span class="math inline">\(\beta_4 (time-n_{A+1})*phase\)</span> := the continuous effect of the phase switch (the slope effect).</p>
+<p><span class="math inline">\(n_{A+1}\)</span> := the first session of phase B.</p>
+<p>For <span class="math inline">\(\beta_2\)</span> and <span class="math inline">\(\beta_4\)</span>, the time variables are shifted to start with a 0 at the first session of the respective phase.</p>
 </div>
 </div>
 <p><em>scan</em> provides an implementation based on this piecewise-regression approach. Though the original model is extended by several factors:</p>
@@ -477,7 +477,7 @@ Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 </div>
 </div>
 <p>The output shows the specific contrast settings for the phase and slope calculation (see below for a detailed explanation). Next, the overall model fit is provided. In this specific example the model fit is quite high explaining more than 80% of the variance of the dependent variable. The following regression table shows the unstandardised estimates (B), the lower and upper boundaries of a 95% confidence interval, the standard-error, the t-test statistic, the p-value, and the delta R squared for each predictor.</p>
-<p>In this example, the intercept is the score estimation at the beginning of the study (here: at the first measurement-time, see <a href="#fig-plm-ex-1">Figure&nbsp;<span>9.2</span></a>). The trend effect (variable mt) is 0.100. That is, the score increased 0.100 with each measurement-time. As this example has a total of 20 measurements, the overall increase due to the trend is <span class="math inline">\(19 * 0.100 = 1.9\)</span> points. The level effect (variable phase with level B) is 7.858. That is, all measurements of phase B are increase by 7.858 points. The slope effect (for phase B) is 1.525. That is, with each measurement following the first measurement of phase B, the score increases by 1.525. As this example has 15 phase B measurements, the total increase due to the slope Effect is <span class="math inline">\(14 * 1.525 = 21.35\)</span> points.</p>
+<p>In this example, the intercept is the score estimation at the beginning of the study (here: at the first session, see <a href="#fig-plm-ex-1">Figure&nbsp;<span>9.2</span></a>). The trend effect (variable mt) is 0.100. That is, the score increased 0.100 with each measurement-time. As this example has a total of 20 measurements, the overall increase due to the trend is <span class="math inline">\(19 * 0.100 = 1.9\)</span> points. The level effect (variable phase with level B) is 7.858. That is, all measurements of phase B are increase by 7.858 points. The slope effect (for phase B) is 1.525. That is, with each measurement following the first measurement of phase B, the score increases by 1.525. As this example has 15 phase B measurements, the total increase due to the slope Effect is <span class="math inline">\(14 * 1.525 = 21.35\)</span> points.</p>
 <p>Based on these values, each data-point can be estimated. For example, the last measurement (<span class="math inline">\(i=20\)</span>) is estimated with <span class="math inline">\(54.400 + 19 * 0.100 + 7.858 + 14 * 1.525 = 85.508\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">|&gt;</span> <span class="fu">add_statline</span>(<span class="st">"trend"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1282,7 +1282,7 @@ slope
 </div>
 <section id="phase-b-estimates" class="level3" data-number="9.6.1">
 <h3 data-number="9.6.1" class="anchored" data-anchor-id="phase-b-estimates"><span class="header-section-number">9.6.1</span> Phase B estimates</h3>
-<p>All regression models in <a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a> have the same estimates for <code>intercept</code> and <code>trend</code>. These are not affected by the contrasts and are identical to those for phase A in <a href="#tbl-contrasts-ex-2">Table&nbsp;<span>9.1</span></a>. In addition, in <a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a>, the estimates for <code>levelB</code> and <code>slopeC</code> are identical since all models contrast the same phase (the first and the preceding phase are both phase A). The values here can be calculated from <a href="#tbl-contrasts-ex-2">Table&nbsp;<span>9.1</span></a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
+<p>All regression models in <a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a> have the same estimates for <code>intercept</code> and <code>trend</code>. These are not affected by the contrasts and are identical to those for phase A in <a href="#tbl-contrasts-ex-2">Table&nbsp;<span>9.1</span></a>. In addition, in <a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a>, the estimates for <code>levelB</code> and <code>slopeC</code> are identical since all models contrast the same phase (the first and the preceding phase are both phase A). The values here can be calculated from <a href="#tbl-contrasts-ex-2">Table&nbsp;<span>9.1</span></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <p><span id="eq-contrast-level-2"><span class="math display">\[
 levelB = intercept_{phaseB} - (intercept_{phaseA} + n_{PhaseA} * slope_{phaseA})
 \tag{9.1}\]</span></span></p>
@@ -1321,7 +1321,7 @@ slopeB = slope_{phaseB} - slope_{phaseA}
 <td>first</td>
 <td>first</td>
 <td>What would be the value if phase A had continued until to the start of phase C and what is the difference to the actual value at the first measurement of phase C?</td>
-<td>What is the difference between the slopes of phase C and A<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>?</td>
+<td>What is the difference between the slopes of phase C and A<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>?</td>
 </tr>
 <tr class="even">
 <td>preceding</td>
@@ -1406,8 +1406,9 @@ Wilbert, J., Lüke, T., &amp; Börnert-Ringleb, M. (2022). Statistical power of 
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Differences here and in the following calculations are due to rounding errors.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>The slope of phase A is the trend effect.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>The session is the ordinal number (1st, 2nd, 3rd, …) of the measurements. While the measurement time is often identical to the session number, this is not necessarily the case. The measurement time sometimes represents days since the start of the study or other intervals. Therefore, I refer to <em>session or session-number for the ordinal position of the measurement and measurement-time</em><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Differences here and in the following calculations are due to rounding errors.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The slope of phase A is the trend effect.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
