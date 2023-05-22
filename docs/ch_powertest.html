@@ -489,9 +489,9 @@ The design function call
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
- plm_level    78           0      1:Inf      89
-      rand    72           8      1:3.5      82
-      tauU   100          24      1:0.0      88</code></pre>
+ plm_level    72           1     1:28.0      86
+      rand    71           5      1:5.8      83
+      tauU   100          18      1:0.0      91</code></pre>
 </div>
 </div>
 <p>The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to outliers of the random samples. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tau U test has an unacceptably high alpha-error which is due to the trend we put into the design. <em>Alpha:Beta</em> depicts the relation of the Alpha and Beta error (power = 1 - Beta). <em>Correct</em> is the overall proportion of correct categorizations and <em>p</em> is the results of a binomial-test of <em>Correct</em> against 50%.</p>
@@ -589,13 +589,13 @@ The design function call
 <pre><code>Test-Power in percent:
 
     Method Power 2.5% 97.5% Alpha Error 2.5% 97.5% Alpha:Beta Correct 2.5%
- plm_level    68   58    77           2  0.2     7     1:16.0      83   77
-      rand    65   55    74           6  2.2    13      1:5.8      80   73
-      tauU   100   96   100          21 13.5    30      1:0.0      90   84
+ plm_level    76   66    84           5    2    11      1:4.8      86   80
+      rand    68   58    77           4    1    10      1:8.0      82   76
+      tauU   100   96   100          28   19    38      1:0.0      86   80
  97.5%
-    88
-    85
-    93</code></pre>
+    90
+    87
+    90</code></pre>
 </div>
 </div>
 <p>You can also test the power, alpha error, and correct estimates against predefined values. In order to do that, set <code>binom_test = TRUE</code>. The power will be tested against being greater or equal to 80%, the alpha error against being less or equal 5%, and the correct proportion against being greater equal 87.5%.</p>
@@ -605,13 +605,13 @@ The design function call
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct p Power&gt;=80 p Alpha Error&lt;=5
- plm_level    68           6      1:5.3      81           1                1
-      rand    66          10      1:3.4      78           1                1
-      tauU   100          26      1:0.0      87           0                1
+ plm_level    75           4      1:6.2      86           1                0
+      rand    72           8      1:3.5      82           1                1
+      tauU   100          30      1:0.0      85           0                1
  p Correct&gt;=87.5
+             0.8
              1.0
-             1.0
-             0.6</code></pre>
+             0.9</code></pre>
 </div>
 </div>
 <p>If you want to define individual values for the three tests, set the <code>binom_test_power</code>. <code>binom_test_alpha</code>, and/or, the <code>binom_test_correct</code> arguments.</p>
@@ -670,9 +670,9 @@ The design function call
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
- plm_level    78           0      1:Inf      89
-      rand    72           8      1:3.5      82
-      tauU   100          24      1:0.0      88
+ plm_level    72           1     1:28.0      86
+      rand    71           5      1:5.8      83
+      tauU   100          18      1:0.0      91
 
 Computation duration is 0.9 seconds.</code></pre>
 </div>
@@ -686,13 +686,13 @@ Computation duration is 0.9 seconds.</code></pre>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Elapsed time in seconds for each procedure</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res1, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.072</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.075</span></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.23</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.233</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res3, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.472</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.481</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>… and what about our new fast-glm function?</p>
 <div class="cell">
@@ -711,7 +711,7 @@ Computation duration is 0.9 seconds.</code></pre>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res1, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>elapsed 
-  0.115 </code></pre>
+  0.212 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

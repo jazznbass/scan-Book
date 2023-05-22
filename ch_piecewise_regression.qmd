@@ -67,7 +67,7 @@ $n_{A+1}$ := the first session of phase B.
 For $\beta_2$ and $\beta_4$, the time variables are shifted to start with a 0 at the first session of the respective phase.
 :::
 
-[^ch_piecewise_regression-1]: The session is the ordinal number (1st, 2nd, 3rd, ...) of the measurements. While the measurement time is often identical to the session number, this is not necessarily the case. The measurement time sometimes represents days since the start of the study or other intervals. Therefore, I refer to *session* or *session-number* for the ordinal position of the measurement and *measurement-time* for the value of the time variable at that session number.
+[^ch_piecewise_regression-1]: The session is the ordinal number (1st, 2nd, 3rd, ...) of the measurements. While the measurement-time (the value of the measurement-time variable at a specific session/ measurement) is often identical to the session number, this is not necessarily the case. The measurement-time sometimes represents days since the start of the study or other intervals. Therefore, I refer to *session* or *measurement* for the ordinal position of the measurement and *measurement-time* for the value of the time variable at that session number.
 
 *scan* provides an implementation based on this piecewise-regression approach. Though the original model is extended by several factors:
 
@@ -132,7 +132,7 @@ The piecewise regression reveals a significant level effect and two non signific
 plm(example, slope = FALSE)
 ```
 
-In the resulting estimations the trend and level effects are now significant. The model estimated a trend effect of 1.01 points per measurement time and a level effect of 10.33 points. That is, with the beginning of the intervention (the B-phase) the score increases by 15.38 points (5 x 1.01 + 10.33).
+In the resulting estimations the trend and level effects are now significant. The model estimated a trend effect of 1.01 points for every one point increase in measurement-time and a level effect of 10.33 points. That is, with the beginning of the intervention (the B-phase) the score increases by $5 x 1.01 + 10.33 = 15.38$ points (the measurement-time is increases by five, from one to six, at the first session of phase B).
 
 ## Adding additional predictors
 
@@ -158,7 +158,7 @@ The formula has two parts divided by a tilde. Left of the tilde is the variable 
 
 -->
 ```
-## Dummy models
+## Dummy models {#sec-dummy-model}
 
 The `model` argument is used to code the *dummy variables*. These *dummy variables* are used to compute the slope and level effects of the *phase* variable.\
 The *phase* variable is categorical, identifying the phase of each measurement. Typically, categorical variables are implemented by means of dummy variables. In a piecewise regression model two phase effects have to be estimated: a level effect and a slope effect. The level effect is implemented quite straight forward: for each phase beginning with the second phase a new dummy variable is created with values of zero for all measurements except the measurements of the phase in focus where values of one are set.
@@ -178,7 +178,7 @@ kable(res, align = "c") %>%
 ```
 
 For estimating the *slope effect* of each phase, another kind of dummy variables have to be created. Like the dummy variables for level effects the values are set to zero for all measurements except the ones of the phase in focus. Here, values start to increase with every measurement until the end of the phase.\
-Various suggestions have been made regarding the way in which these values increase [see @huitema_design_2000]. The *B&L-B* model starts with a one at the first measurement of the phase and increases with every measurement while the *H-M* model starts with a zero.
+Various suggestions have been made regarding the way in which these values increase [see @huitema_design_2000]. The *B&L-B* model starts with a one at the first session of the phase and increases with every session while the *H-M* model starts with a zero.
 
 ```{r}
 #| echo: false
@@ -197,9 +197,9 @@ kable(res, align = "c") %>%
   add_header_above(c(" " = 4, "slope B" = 2))
 ```
 
-Applying the *H-M* model will give you a "pure" level-effect while the *B&L-B* model will provide an estimation of the level-effect that is actually the level-effect plus on times the slope-effect (as the the model assumes that the slope variable is *1* at the first measurement of the B-phase). For most studies, the *H-M* model is more appropriate.
+Applying the *H-M* model will give you a "pure" level-effect while the *B&L-B* model will provide an estimation of the level-effect that is actually the level-effect plus on times the slope-effect (as the model assumes that the slope variable is *1* at the first measurement of the B-phase). For most studies, the *H-M* model is more appropriate.
 
-Still, we have to be aware of another aspect. Usually, measurement-times in single-case designs are coded as starting with *1* and increasing in integers (e.g., 1, 2, 3, ...). At the same time, the estimation of the trend-effect is based on the measurement-time variable. In that case, the estimation of the model intercept (usually interpreted as the value at the start of the study) actually depicts the estimation of the start value plus one times the trend-effect. Therefore, I implemented the *W* model (since scan version `0.54.4`). Here, the trend-effect is estimated for a measurement-time variable that starts with *0*. As a result the intercept will then represent the estimated value at the first measurement fo the study. The *W* model handles the slope estimation the same way as the *H-M* model. Since scan version `0.54.4` the *W* model is the default.
+However, there is another aspect to be aware of. Usually, in single case designs, the measurement times are coded as starting with *1* and increasing in integers (1, 2, 3, ...). At the same time, the estimation of the trend effect is based on the measurement time variable. In this case, the estimate of the model intercept (usually interpreted as the value at the beginning of the study) actually represents the estimate of the starting value plus one times the trend effect. Therefore, I have implemented the *W* model (since scan version `0.54.4`). Here the trend effect is estimated for a time variable shifted to start at *0*. As a result, the intercept represents the estimated value at the first measurement of the study. The *W* model treats slope estimation in the same way as the *H-M* model. That is, the measurement-time for calculating the slope effect is set to *0* for the first session of each phase. Since scan version `0.54.4` the *W* model is the default.
 
 ```{r}
 #| echo: false
@@ -221,11 +221,11 @@ kable(res, align = "c") %>%
 
 ## Designs with more than two phases: Setting the right contrasts
 
-With single-case studies with more than two phases it gets a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the phase A values. Another common use is to compare the effects of one phase with the preceding phase.
+For single case studies with more than two phases, things get a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the values from phase A. Another common use is to compare the effects of a phase with the previous phase.
 
-Since scan version `0.54.4` plm allows to set a contrast argument. `contrast = "first"` (the default) will compare all slope and level-effects to the values in the first phase. `contrast = "preceding"` will compare the slope and level-effects to the preceding phase.
+As of scan version `0.54.4`, plm allows to set a contrast argument. `contrast = "first"` (the default) will compare all slope and level-effects to the values in the first phase. `contrast = "preceding"` will compare the slope and level-effects to the preceding phase.
 
-For the *preceding contrast*, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similar, the dummy variable for the slope-effect is set to zero for all phases preceding the one in focus and starts with one for the first measurement of the target phase and increases until the last measurement of the case.
+For the *preceding contrast*, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see @sec-dummy-model) for the first measurement of the target phase and increases until the last measurement of the case.
 
 You can set the contrast differently for the level and slope effects with the arguments `constrast_level` and `contrast_slope`. Both can be either `"first"` or `"preceding"`.
 
