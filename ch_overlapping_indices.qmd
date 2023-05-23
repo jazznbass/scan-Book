@@ -248,11 +248,11 @@ case <- scdf(c(A = 33, 25, 17, 25, 14, 13,14,
 
 scplot(case) %>% 
   add_statline("trendA", method = "theil-sen", color = "black", linetype = "dotted") %>%
-  add_text("Thein-Sen", x = 9, y = 9) %>%
+  add_text("Theil-Sen", x = 9, y = 9) %>%
   set_ylabel("BDI (Depression)") %>%
   set_xlabel("Session") %>%
-  add_theme("basic") %>% 
-  set_casenames(" ")
+  set_theme("basic") %>% 
+  set_casenames("")
 
 corrected_tau(case)
 
@@ -264,9 +264,9 @@ corrected_tau(case)
 function_structure("rci")
 ```
 
-Basically, the reliable change index (rci) depicts if a post-test is above a pre-test value. Based on the reliability of the measurements and the standard-deviation the standard error is calculated. The mean difference between phase-A and phase-B is divided by the standard-error. Several authors proposed refined methods for calculating the rci.
+Basically, the reliable change index (rci) shows whether a post-test is above a pre-test value. Based on the reliability of the measurements and the standard deviation, the standard error is calculated. The mean difference between phase A and phase B is divided by the standard error. Several authors have proposed refined methods for calculating the rci.
 
-The `rci` function computes three indices of reliable change [@wise_methods_2004] and corresponding descriptive statistics.
+The `rci` function calculates three indices of reliable change [@wise_methods_2004] and corresponding descriptive statistics.
 
 ```{r}
 rci(exampleAB$Johanna, rel = 0.8, graph = TRUE)
