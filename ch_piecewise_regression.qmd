@@ -47,24 +47,24 @@ scplot(ex) %>%
 The default model applied in the plm function has the formula
 
 $$
-y_i = \beta_1 + \beta_2 (time_i-time_1) + \beta_3 phase_i + \beta_4 (time_i-time_{n_A+1})*phase_i 
+y_i = \beta_0 + \beta_1 (time_i-time_1) + \beta_2 phase_i + \beta_3 (time_i-time_{n_A+1})*phase_i 
 $$
 
 Where:
 
 $i$ := the session[^ch_piecewise_regression-1] number.
 
-$\beta_1$ := the intercept.
+$\beta_0$ := the intercept.
 
-$\beta_2 time$ := the continuous effect of the measurement time (the trend effect).
+$\beta_1 time$ := the continuous effect of the measurement time (the trend effect).
 
-$\beta_3 phase$ := the discrete effect of the phase switch (the level effect).
+$\beta_2 phase$ := the discrete effect of the phase switch (the level effect).
 
-$\beta_4 (time-n_{A+1})*phase$ := the continuous effect of the phase switch (the slope effect).
+$\beta_3 (time-n_{A+1})*phase$ := the continuous effect of the phase switch (the slope effect).
 
 $n_{A+1}$ := the first session of phase B.
 
-For $\beta_2$ and $\beta_4$, the time variables are shifted to start with a 0 at the first session of the respective phase.
+For $\beta_1$ and $\beta_3$, the time variables are shifted to start with a 0 at the first session of the respective phase.
 :::
 
 [^ch_piecewise_regression-1]: The session is the ordinal number (1st, 2nd, 3rd, ...) of the measurements. While the measurement-time (the value of the measurement-time variable at a specific session/ measurement) is often identical to the session number, this is not necessarily the case. The measurement-time sometimes represents days since the start of the study or other intervals. Therefore, I refer to *session* or *measurement* for the ordinal position of the measurement and *measurement-time* for the value of the time variable at that session number.
