@@ -939,9 +939,6 @@ The corrected_tau function call
 <p>Here is a replication of an example provided by <span class="citation" data-cites="tarlowImprovedRankCorrelation2016a">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span> :</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in add_theme(., "basic"): Deprecated. Please use `set_theme()`</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 11 rows containing missing values (`geom_line()`).</code></pre>
 </div>
 <div class="cell-output-display">
@@ -978,10 +975,10 @@ The rci function call
 <p>rci(data, dvar, pvar, rel, ci = 0.95, graph = FALSE, phases = c(1, 2))</p>
 </div>
 </div>
-<p>Basically, the reliable change index (rci) depicts if a post-test is above a pre-test value. Based on the reliability of the measurements and the standard-deviation the standard error is calculated. The mean difference between phase-A and phase-B is divided by the standard-error. Several authors proposed refined methods for calculating the rci.</p>
-<p>The <code>rci</code> function computes three indices of reliable change <span class="citation" data-cites="wise_methods_2004">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
+<p>Basically, the reliable change index (rci) shows whether a post-test is above a pre-test value. Based on the reliability of the measurements and the standard deviation, the standard error is calculated. The mean difference between phase A and phase B is divided by the standard error. Several authors have proposed refined methods for calculating the rci.</p>
+<p>The <code>rci</code> function calculates three indices of reliable change <span class="citation" data-cites="wise_methods_2004">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rci</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">rel =</span> <span class="fl">0.8</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rci</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">rel =</span> <span class="fl">0.8</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
 </div>
