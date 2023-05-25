@@ -414,16 +414,16 @@ The regression model
 <div class="callout-body-container callout-body">
 <p>The default model applied in the plm function has the formula</p>
 <p><span class="math display">\[
-y_i = \beta_1 + \beta_2 (time_i-time_1) + \beta_3 phase_i + \beta_4 (time_i-time_{n_A+1})*phase_i
+y_i = \beta_0 + \beta_1 (time_i-time_1) + \beta_2 phase_i + \beta_3 (time_i-time_{n_A+1})*phase_i
 \]</span></p>
 <p>Where:</p>
 <p><span class="math inline">\(i\)</span> := the session<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> number.</p>
-<p><span class="math inline">\(\beta_1\)</span> := the intercept.</p>
-<p><span class="math inline">\(\beta_2 time\)</span> := the continuous effect of the measurement time (the trend effect).</p>
-<p><span class="math inline">\(\beta_3 phase\)</span> := the discrete effect of the phase switch (the level effect).</p>
-<p><span class="math inline">\(\beta_4 (time-n_{A+1})*phase\)</span> := the continuous effect of the phase switch (the slope effect).</p>
+<p><span class="math inline">\(\beta_0\)</span> := the intercept.</p>
+<p><span class="math inline">\(\beta_1 time\)</span> := the continuous effect of the measurement time (the trend effect).</p>
+<p><span class="math inline">\(\beta_2 phase\)</span> := the discrete effect of the phase switch (the level effect).</p>
+<p><span class="math inline">\(\beta_3 (time-n_{A+1})*phase\)</span> := the continuous effect of the phase switch (the slope effect).</p>
 <p><span class="math inline">\(n_{A+1}\)</span> := the first session of phase B.</p>
-<p>For <span class="math inline">\(\beta_2\)</span> and <span class="math inline">\(\beta_4\)</span>, the time variables are shifted to start with a 0 at the first session of the respective phase.</p>
+<p>For <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_3\)</span>, the time variables are shifted to start with a 0 at the first session of the respective phase.</p>
 </div>
 </div>
 <p><em>scan</em> provides an implementation based on this piecewise-regression approach. Though the original model is extended by several factors:</p>
