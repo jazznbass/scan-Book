@@ -344,7 +344,7 @@ div.csl-indent {
    
   <ul>
   <li><a href="#arguments-of-the-rand_test-function" id="toc-arguments-of-the-rand_test-function" class="nav-link active" data-scroll-target="#arguments-of-the-rand_test-function"><span class="header-section-number">12.1</span> Arguments of the <code>rand_test()</code> function</a></li>
-  <li><a href="#exanple" id="toc-exanple" class="nav-link" data-scroll-target="#exanple"><span class="header-section-number">12.2</span> Exanple</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">12.2</span> Example</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -378,12 +378,12 @@ The rand_test function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>rand_test(data, dvar, pvar, statistic = c(“Mean B-A”, “Mean A-B”, “Median B-A”, “Median A-B”, “Mean |A-B|”), number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, phases = c(1, 2), graph = FALSE, output = NULL, seed = NULL)</p>
+<p>rand_test(data, dvar, pvar, statistic = c(“Mean B-A”, “Mean A-B”, “Median B-A”, “Median A-B”, “Mean |A-B|”, “Median |A-B|”), number = 500, complete = FALSE, limit = 5, startpoints = NA, exclude.equal = FALSE, phases = c(1, 2), graph = FALSE, output = NULL, seed = NULL)</p>
 </div>
 </div>
-<p>The <code>rand_test</code> function computes a randomization test for single or multiple baseline single-case data. The function is based on an algorithm from the SCRT package <span class="citation" data-cites="bulté2008 bulté2009">(<a href="references.html#ref-bulté2008" role="doc-biblioref">Bulté &amp; Onghena, 2008</a>, <a href="references.html#ref-bulté2009" role="doc-biblioref">2009</a>)</span>, but rewritten and extended.</p>
-<p>The basic idea of a randomization thest is to think counter factually “Assuming the phase had no influence of the measured data: what would the difference between the phases of my case be, if I would have started phase B at a different time?”. Considering the possible differences between the phases under the assumption that the phase had no influence, how likely are the real phase differences of the original case?</p>
-<p>Therefore, a number of new cases are generated with a random start of each phase. That is, these new cases have the same data as the original case but different starting points for each phase. Now, a specific <em>statistic</em> (e.g., the mean difference between the phase A and phase B data) is calculated for each new case. When enough random cases are generated, we also generate a series of new statistic values (e.g.&nbsp;mean differences). The statistic for the original case is now compared to this new statistic values. The percentile of the original statistic within the new generated statistic values is the probability of the original statistic under the assumption of a random distribution of starting points of each phase. This percentile is returned as the <em>p-value</em> of the randomization test analyses.</p>
+<p>The <code>rand_test</code> function computes a randomization test for single or multiple baseline single-case data. The function is based on an algorithm from the SCRT package <span class="citation" data-cites="bulté2008 bulté2009">(<a href="references.html#ref-bulté2008" role="doc-biblioref">Bulté &amp; Onghena, 2008</a>, <a href="references.html#ref-bulté2009" role="doc-biblioref">2009</a>)</span>, but has been rewritten and extended.</p>
+<p>The basic idea of a randomization test is to think counterfactually: “Assuming that the phase had no effect on the measured data, what would be the difference between the phases of my case if I had started phase B at a different time? Given the possible phase differences under the assumption that phase had no effect, how likely are the actual phase differences of the original case?”</p>
+<p>Therefore, a number of new cases are generated with a random start for each phase. This means that these new cases have the same data as the original case, but different starting points for each phase. A specific statistic (e.g., the mean difference between Phase A and Phase B data) is now calculated for each new case. When enough random cases have been generated, we also generate a series of new statistics (e.g., mean differences). The statistic for the original case is now compared to these new statistic values. The percentile of the original statistic within the new generated statistic values is the probability of the original statistic assuming a random distribution of starting points for each phase. This percentile is returned as the p-value in the randomization test analyses.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in add_theme(., "basic"): Deprecated. Please use `set_theme()`</code></pre>
@@ -399,36 +399,77 @@ The rand_test function call
 </div>
 <section id="arguments-of-the-rand_test-function" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="arguments-of-the-rand_test-function"><span class="header-section-number">12.1</span> Arguments of the <code>rand_test()</code> function</h2>
-<p>The <code>statsitics</code> argument defines the statistic on which the comparison of the phases is based on. The following comparisons are possible:</p>
-<ul>
-<li>“Mean A-B”: Uses the difference between the mean of phase A and the mean of phase B. * This is appropriate if a decrease of scores is expected for phase B.</li>
-<li>“Mean B-A”: Uses the difference between the mean of phase B and the mean of phase A. This is appropriate if an increase of scores is expected for phase B.</li>
-<li>“Mean |A-B|”: Uses the absolute value of the difference between the means of phases A and B.</li>
-<li>“Median A-B”: The same as “Mean A-B”, but based on the median.</li>
-<li>“Median B-A”: The same as “Mean B-A”, but based on the median.</li>
-</ul>
-<p><em>number</em><br>
-Sample size of the randomization distribution. The exactness of the p-value can not exceed 1/number (i.e., number = 100 results in p-values with an exactness of one percent). Default is number = 500. For faster processing use number = 100. For more precise p-values set number = 1000.</p>
-<p><em>complete</em><br>
-If TRUE, the distribution is based on a complete permutation of all possible starting combinations. This setting overwrites the number Argument. The default setting is FALSE.</p>
-<p><em>limit</em><br>
-Minimal number of data points per phase in the sample. The first number refers to the A-phase and the second to the B-phase (e.g., limit = c(5, 3)). If only one number is given, this number is applied to both phases. Default is limit = 5.</p>
-<p><em>startpoints</em><br>
-Alternative to the limit-parameter, startpoints exactly defines the possible start points of phase B (e.g., startpoints = 4:9 restricts the phase B start points to measurements 4 to 9. startpoints overwrite the limit-parameter.</p>
-<p><em>exclude.equal</em><br>
-If set to FALSE, which is the default, random distribution values equal to the observed distribution are counted as null-hypothesis conform. That is, they decrease the probability of rejecting the null-hypothesis (increase the p-value). exclude.equal should be set to TRUE if you analyse one single-case design (not a multiple baseline data set) to reach a sufficient power. But be aware, that it increases the chance of an alpha-error.</p>
-<p><em>graph</em><br>
-If set TRUE, a histogram of the resulting distribution is plotted.</p>
-<p><em>phases</em><br>
-A vector of two characters or numbers indicating the two phases that should be compared. E.g., phases = c(“A”,“C”) or phases = c(2,4) for comparing the second and the fourth phase. Phases could be combined by providing a list with two elements. E.g., phases = list(A = c(1,3), B = c(2,4)) will compare phases 1 and 3 (as A) against 2 and 4 (as B). Default is phases = c(“A”,“B”).</p>
+<p>The <code>statistics</code> argument defines the statistics on which the phase comparison is based. The following comparisons can be made:</p>
+<table class="table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Mean A-B</td>
+<td>Uses the difference between the mean of Phase A and the mean of Phase B. This is appropriate if a decrease in scores is expected for Phase B.</td>
+</tr>
+<tr class="even">
+<td>Mean B-A</td>
+<td>Uses the difference between the mean of Phase B and the mean of Phase A. This is appropriate if a increase in scores is expected for Phase B.</td>
+</tr>
+<tr class="odd">
+<td>Mean |A-B|</td>
+<td>Uses the absolute value of the difference between the means of Phases A and B.</td>
+</tr>
+<tr class="even">
+<td>Median A-B</td>
+<td>The same as <em>Mean A-B</em>, but based on the median.</td>
+</tr>
+<tr class="odd">
+<td>Median B-A</td>
+<td>The same as <em>Mean B-A</em>, but based on the median.</td>
+</tr>
+</tbody>
+</table>
+<p>Further argument are</p>
+<table class="table">
+<caption>Arguments of the randomization test function.</caption>
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>What it does …</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>number</em></td>
+<td>Sample size of the randomization distribution. The exactness of the p-value can not exceed 1/number (i.e., number = 100 results in p-values with an exactness of one percent). Default is number = 500. For faster processing use number = 100. For more precise p-values set number = 1000.</td>
+</tr>
+<tr class="even">
+<td><em>complete</em></td>
+<td>If TRUE, the distribution is based on a complete permutation of all possible starting combinations. This setting overwrites the number Argument. The default setting is FALSE.</td>
+</tr>
+<tr class="odd">
+<td><em>limit</em></td>
+<td>Minimal number of data points per phase in the sample. The first number refers to the A-phase and the second to the B-phase (e.g., limit = c(5, 3)). If only one number is given, this number is applied to both phases. Default is limit = 5.</td>
+</tr>
+<tr class="even">
+<td><em>startpoints</em></td>
+<td>Alternative to the limit-parameter, startpoints exactly defines the possible start points of phase B (e.g., startpoints = 4:9 restricts the phase B start points to measurements 4 to 9. startpoints overwrite the limit-parameter.</td>
+</tr>
+<tr class="odd">
+<td><em>exclude.equal</em></td>
+<td>If set to FALSE, which is the default, random distribution values equal to the observed distribution are counted as null-hypothesis conform. That is, they decrease the probability of rejecting the null-hypothesis (increase the p-value). exclude.equal should be set to TRUE if you analyse one single-case design (not a multiple baseline data set) to reach a sufficient power. But be aware, that it increases the chance of an alpha-error.</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="exanple" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="exanple"><span class="header-section-number">12.2</span> Exanple</h2>
+<section id="example" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="example"><span class="header-section-number">12.2</span> Example</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rand_test</span>(exampleAB, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="ch_randomization_test_files/figure-html/rand-1.png" class="img-fluid" width="672"></p>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">rand_test</span>(exampleAB)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Randomization Test
 
@@ -442,18 +483,38 @@ Observed statistic =  20.55556
 
 Distribution based on a random sample of all 1331 possible combinations.
 n   =  500 
-M   =  18.64637 
-SD  =  1.150928 
-Min =  16.06667 
-Max =  21.35421 
+M   =  18.63084 
+SD  =  1.111769 
+Min =  16.05185 
+Max =  21.34493 
 
 Probability of observed statistic based on distribution:
-p   =  0.042 
+p   =  0.032 
 
-Shapiro-Wilk Normality Test: W = 0.977; p = 0.000  (Hypothesis of normality rejected)
+Shapiro-Wilk Normality Test: W = 0.981; p = 0.000  (Hypothesis of normality rejected)
 
 Probabilty of observed statistic based on the assumption of normality:
-z = 1.6588, p = 0.0486 (single sided)</code></pre>
+z = 1.7312, p = 0.0417 (single sided)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The plot_rand function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>plot_rand(object, xlab = NA, ylab = “Frequency”, title = “Random distribution”, text_observed = “observed”, color = “lightgrey”, …)</p>
+</div>
+</div>
+<p>The <code>print_rand()</code> function plots a distribution of the random sample against the observed statistic:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_rand</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ch_randomization_test_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
