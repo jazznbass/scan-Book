@@ -485,6 +485,19 @@ The subset function call
 <p>subset(x, …)</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The subset function is a method for the generic <code>subset</code> function. To call the help file you have to add the class to the function name: <code>?subset.scdf</code></p>
+</div>
+</div>
 <p>The <code>subset()</code> function helps to extract measurements (or rows) from an scdf according to specific criteria.</p>
 <p>Subset takes an scdf as the first argument and a logical expression (<code>filter</code>) as the second argument. Only measurements for which the logical argument is true are included in the returned scdf object.</p>
 <p>For example, the scdf <code>Huber2014</code> has a variable <code>compliance</code> and we want to keep measurements where <code>compliance</code> is greater than 10 because we assume the others are outliers:</p>
@@ -511,7 +524,7 @@ Note: Behavioral data (compliance in percent).
 Author of data: Christian Huber </code></pre>
 </div>
 </div>
-<p>In a more complex example, we only want to keep values less than 60 when they are in phase A, or values equal to or greater than 60 when they are in phase B:</p>
+<p>In a more complex example, we want to keep only values less than 60 when they are in phase A, or values equal to or greater than 60 when they are in phase B:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>exampleAB <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>((values <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">&amp;</span> phase <span class="sc">==</span> <span class="st">"A"</span>) <span class="sc">|</span> (values <span class="sc">&gt;=</span> <span class="dv">60</span> <span class="sc">&amp;</span> phase <span class="sc">==</span> <span class="st">"B"</span>)) <span class="sc">%&gt;%</span></span>

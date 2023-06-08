@@ -731,7 +731,7 @@ The tau_u function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>tau_u(data, dvar, pvar, tau_method = c(“b”, “a”), method = c(“complete”, “parker”), phases = c(1, 2), meta_analyses = TRUE, ci = 0.95, ci_method = c(“z”, “tau”), meta_weight_method = c(“z”, “tau”), continuity_correction = FALSE, meta_method = NULL)</p>
+<p>tau_u(data, dvar, pvar, tau_method = c(“b”, “a”), method = c(“complete”, “parker”), phases = c(1, 2), meta_analyses = TRUE, ci = 0.95, ci_method = c(“z”, “tau”, “s”), meta_weight_method = c(“z”, “tau”), continuity_correction = FALSE, meta_method = NULL)</p>
 </div>
 </div>
 <p>The <em>Tau-U</em> statistic has been proposed by <span class="citation" data-cites="parker_combining_2011">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span> and is one of the more broadly used approach for reporting effect sizes of single case data. Unfortunately, various and ambiguous implementations of Tau-U exist <span class="citation" data-cites="pustejovsky2016 brossart2018a">(<a href="references.html#ref-brossart2018a" role="doc-biblioref">Brossart, Laird, &amp; Armstrong, 2018</a>; <a href="references.html#ref-pustejovsky2016" role="doc-biblioref">Pustejovsky, 2016</a>)</span>. The <code>tau_u</code> function tries to cover several of these implementation. It takes an <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases based on a meta-analysis.</p>
@@ -746,7 +746,7 @@ The tau_u function call
 Method: parker 
 Applied Kendall's Tau-a
 95% CIs for tau are reported.
-CI method: 
+CI method: z
 
 Case: Case1 
                              Tau CI lower CI upper SD_S    Z    p
@@ -764,7 +764,7 @@ A vs. B + Trend B - Trend A 0.56    -0.17     0.89 9.59 2.09 &lt;.05</code></pre
 Method: parker 
 Applied Kendall's Tau-b
 95% CIs for tau are reported.
-CI method: 
+CI method: z
 
 Case: Johanna 
                              Tau CI lower CI upper  SD_S    Z     p
@@ -782,7 +782,7 @@ A vs. B + Trend B - Trend A 0.77     0.49     0.90 30.81 4.71 &lt;.001</code></p
 Method: complete 
 Applied Kendall's Tau-a
 95% CIs for tau are reported.
-CI method: 
+CI method: z
 
 Case: Johanna 
                              Tau CI lower CI upper  SD_S    Z     p
@@ -800,7 +800,7 @@ A vs. B + Trend B - Trend A 0.76     0.48     0.90 30.82 4.70 &lt;.001</code></p
 Method: complete 
 Applied Kendall's Tau-b
 95% CIs for tau are reported.
-CI method: 
+CI method: z
 
 Case: Johanna 
                             pairs pos neg ties   S      D  Tau CI lower
@@ -884,7 +884,7 @@ Note
 Method: complete 
 Applied Kendall's Tau-b
 90% CIs for tau are reported.
-CI method: 
+CI method: tau
 
 Tau-U meta analyses:
 Weight method: z

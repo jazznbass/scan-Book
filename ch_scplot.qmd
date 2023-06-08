@@ -166,27 +166,27 @@ scplot(exampleABC) %>%
 
 ### Smoothed curves
 
-Possible functions: `movingMean`, `movingMedian`, `loess`, `lowess`:
+Possible functions: `moving mean`, `moving median`, `loess`, `lowess`:
 
 ```{r}
 #| label: scplot-statline-4
 scplot(exampleABC) %>%
   add_statline("loess") %>%
-  add_statline("movingMean")
+  add_statline("moving mean")
 ```
 
 ### Refine with addidtional arguments
 
 `mean` : `trim`\
 `quantile`: `probs`\
-`movingMean`, `movingMedian`: `lag`\
+`moving mean`, `moving median`: `lag`\
 `loess`: `span`\
 `lowess`: `f`
 
 ```{r}
 #| label: scplot-statline-5
 scplot(exampleABC) %>%
-  add_statline("movingMean", lag = 1) %>%
+  add_statline("moving mean", lag = 1) %>%
   add_statline("quantile", probs = 0.75)
 ```
 
@@ -552,7 +552,7 @@ scplot(exampleA1B1A2B2) %>%
               color = "black", size = 1, face = 3) %>%
   set_phasenames(c("Baseline", "Intervention", "Fall-Back", "Intervention_2"), 
                  size = 0) %>%
-  add_ridge(alpha("lightblue", 0.5)) %>%
+  add_ridge(scales::alpha("lightblue", 0.5)) %>%
   set_casenames(labels = sample_names(3), color = "steelblue4", size = 0.7) %>%
   set_panel(fill = c("grey80", "grey95"), color = "sienna4") %>%
   add_grid(color = "grey85", linewidth = 0.1) %>%

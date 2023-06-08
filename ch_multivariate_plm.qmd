@@ -14,5 +14,10 @@ function_structure("mplm")
 ```
 
 ```{r}
-mplm(exampleAB_add, dvar = c("wellbeing", "depression"))
+fit <- mplm(exampleAB_add, dvar = c("wellbeing", "depression"))
+fit
+```
+
+```{r}
+print(fit, std = TRUE)
 ```
