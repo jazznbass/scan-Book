@@ -401,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.1" class="anchored" data-anchor-id="install-scplot"><span class="header-section-number">5.1</span> Install <code>scplot</code></h2>
 <p><code>splot</code> is available from the CRAN repository. Execute <code>install.packages("scplot")</code> to install it.</p>
 <p>If you are more adventures you can install the developmental version of <em>scplot</em> from github.The project is hosted at https://github.com/jazznbass/scplot. You can install it with <code>devtools::install_github("jazznbass/scplot")</code> from your R console. Make sure you have the package <code>devtools</code> installed before. The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/.</p>
-<p>The following chapter has been written with <em>scplot</em> version 0.3.1. If you have problems replicating the examples, please update to this version.</p>
+<p>The following chapter has been written with <em>scplot</em> version 0.3.3. If you have problems replicating the examples, please update to this version.</p>
 </section>
 <section id="basic-principal" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="basic-principal"><span class="header-section-number">5.2</span> Basic principal</h2>
@@ -664,11 +664,11 @@ The add_statline function call
 </section>
 <section id="smoothed-curves" class="level3" data-number="5.4.4">
 <h3 data-number="5.4.4" class="anchored" data-anchor-id="smoothed-curves"><span class="header-section-number">5.4.4</span> Smoothed curves</h3>
-<p>Possible functions: <code>movingMean</code>, <code>movingMedian</code>, <code>loess</code>, <code>lowess</code>:</p>
+<p>Possible functions: <code>moving mean</code>, <code>moving median</code>, <code>loess</code>, <code>lowess</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"loess"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"movingMean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"moving mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/scplot-statline-4-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -678,12 +678,12 @@ The add_statline function call
 <h3 data-number="5.4.5" class="anchored" data-anchor-id="refine-with-addidtional-arguments"><span class="header-section-number">5.4.5</span> Refine with addidtional arguments</h3>
 <p><code>mean</code> : <code>trim</code><br>
 <code>quantile</code>: <code>probs</code><br>
-<code>movingMean</code>, <code>movingMedian</code>: <code>lag</code><br>
+<code>moving mean</code>, <code>moving median</code>: <code>lag</code><br>
 <code>loess</code>: <code>span</code><br>
 <code>lowess</code>: <code>f</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"movingMean"</span>, <span class="at">lag =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"moving mean"</span>, <span class="at">lag =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"quantile"</span>, <span class="at">probs =</span> <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="ch_scplot_files/figure-html/scplot-statline-5-1.png" class="img-fluid" width="672"></p>
@@ -1100,7 +1100,7 @@ The add_statline function call
 <span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">face =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"Intervention"</span>, <span class="st">"Fall-Back"</span>, <span class="st">"Intervention_2"</span>), </span>
 <span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="fu">alpha</span>(<span class="st">"lightblue"</span>, <span class="fl">0.5</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(scales<span class="sc">::</span><span class="fu">alpha</span>(<span class="st">"lightblue"</span>, <span class="fl">0.5</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">labels =</span> <span class="fu">sample_names</span>(<span class="dv">3</span>), <span class="at">color =</span> <span class="st">"steelblue4"</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"grey80"</span>, <span class="st">"grey95"</span>), <span class="at">color =</span> <span class="st">"sienna4"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_grid</span>(<span class="at">color =</span> <span class="st">"grey85"</span>, <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span></span>

@@ -69,6 +69,10 @@ Huber2014 %>%
 function_structure("subset")
 ```
 
+::: callout-note
+The subset function is a method for the generic `subset` function. To call the help file you have to add the class to the function name: `?subset.scdf`
+:::
+
 The `subset()` function helps to extract measurements (or rows) from an scdf according to specific criteria.
 
 Subset takes an scdf as the first argument and a logical expression (`filter`) as the second argument. Only measurements for which the logical argument is true are included in the returned scdf object.
@@ -81,7 +85,7 @@ Huber2014 %>%
   summary()
 ```
 
-In a more complex example, we only want to keep values less than 60 when they are in phase A, or values equal to or greater than 60 when they are in phase B:
+In a more complex example, we want to keep only values less than 60 when they are in phase A, or values equal to or greater than 60 when they are in phase B:
 
 ```{r}
 exampleAB %>%
