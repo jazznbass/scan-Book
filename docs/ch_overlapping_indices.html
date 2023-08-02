@@ -277,7 +277,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
   </div>
 </li>
       </ul>
@@ -417,6 +417,7 @@ PET              100       93   100
 NAP              100       97    98
 NAP rescaled     100       93    96
 PAND             100       90    90
+IRD             1.00     0.73  0.87
 Tau_U(A)        0.59     0.55  0.62
 Tau_U(BA)       0.77     0.78  0.64
 Base_Tau        0.63     0.59  0.61
@@ -465,6 +466,7 @@ PET                100       100       100
 NAP                 94        97        98
 NAP rescaled        89        94        97
 PAND                85        85        90
+IRD               0.75      0.80      0.89
 Tau_U(A)          0.54      0.44      0.43
 Tau_U(BA)         0.45      0.46      0.38
 Base_Tau          0.65      0.68      0.68
@@ -953,12 +955,17 @@ The corrected_tau function call
 <p>This method has been proposed by <span class="citation" data-cites="tarlowImprovedRankCorrelation2016a">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span>. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The alternative Siegel repeated median regression is applied when <code>repeated = TRUE</code> <span class="citation" data-cites="siegelRobustRegressionUsing1982">(<a href="references.html#ref-siegelRobustRegressionUsing1982" role="doc-biblioref">Siegel, 1982</a>)</span> and a continuity correction is applied when <code>continuity = TRUE</code> (both not the defaults).</p>
 <p>Here is a replication of an example provided by <span class="citation" data-cites="tarlowImprovedRankCorrelation2016a">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span> :</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 11 rows containing missing values (`geom_line()`).</code></pre>
-</div>
 <div class="cell-output-display">
-<p><img src="ch_overlapping_indices_files/figure-html/bctau-example-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_overlapping_indices_files/figure-html/bctau-example-plot-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">33</span>, <span class="dv">25</span>, <span class="dv">17</span>, <span class="dv">25</span>, <span class="dv">14</span>, <span class="dv">13</span>,<span class="dv">14</span>, </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">B =</span> <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">5</span> ,<span class="dv">4</span> ,<span class="dv">2</span> ,<span class="dv">2</span> ,<span class="dv">8</span>, <span class="dv">11</span> ,<span class="dv">7</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrected_tau</span>(case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Baseline corrected tau
 
@@ -996,7 +1003,7 @@ The rci function call
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rci</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">rel =</span> <span class="fl">0.8</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reliable Change Index

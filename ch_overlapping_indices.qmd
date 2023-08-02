@@ -263,21 +263,34 @@ This method has been proposed by @tarlowImprovedRankCorrelation2016a. The baseli
 
 Here is a replication of an example provided by @tarlowImprovedRankCorrelation2016a :
 
-```{r bctau-example, echo = FALSE, message = FALSE}
+```{r}
+#| label: bctau-example-plot
+#| echo: false
+#| message: false
+
 case <- scdf(c(A = 33, 25, 17, 25, 14, 13,14, 
                B = 14, 15, 15, 4, 6, 9, 5 ,4 ,2 ,2 ,8, 11 ,7))
 
 scplot(case) %>% 
-  add_statline("trendA", method = "theil-sen", color = "black", linetype = "dotted") %>%
+  add_statline("trendA theil-sen", color = "black", linetype = "dotted") %>%
   add_text("Theil-Sen", x = 9, y = 9) %>%
   set_ylabel("BDI (Depression)") %>%
   set_xlabel("Session") %>%
   set_theme("basic") %>% 
   set_casenames("")
+```
+
+```{r}
+#| label: bctau-example
+
+case <- scdf(
+  c(A = 33, 25, 17, 25, 14, 13,14, 
+    B = 14, 15, 15, 4, 6, 9, 5 ,4 ,2 ,2 ,8, 11 ,7)
+)
 
 corrected_tau(case)
-
 ```
+
 
 ## Reliable change index
 

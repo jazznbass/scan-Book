@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
   </div>
 </li>
       </ul>
@@ -589,7 +589,7 @@ The read_scdf function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>read_scdf(file, cvar = “case”, pvar = “phase”, dvar = “values”, mvar = “mt”, sort_cases = FALSE, phase_names = NULL, type = NA, sort.labels = NULL, phase.names = NULL, …)</p>
+<p>read_scdf(file, cvar = “case”, pvar = “phase”, dvar = “values”, mvar = “mt”, sort_cases = FALSE, phase_names = NULL, type = NA, na = c(““,”NA”), sort.labels = NULL, phase.names = NULL, …)</p>
 </div>
 </div>
 <p>When you are working with other programs besides <strong>R</strong> you need to export and import the <em>scdf</em> into a common file format. <code>read_scdf</code> imports a comma-separated-variable (<em>csv</em>) file and converts it into an <em>scdf</em> object. By default, the csv-file has to contain the columns <em>case</em>, <em>phase</em>, and <em>values</em>. Optionally, a further column named <em>mt</em> could be provided. The csv file should be build up like this:</p>
@@ -771,7 +771,7 @@ study &lt;- c(
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Huber2014 is an example scdf included in scan</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Huber2014, <span class="at">cases =</span> <span class="dv">2</span>, <span class="at">rows =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with 4 cases
+<pre><code>#A single-case data frame with four cases
 
  Adam: mt compliance phase ｜ Berta: mt compliance phase ｜
         1         25     A ｜         1         25     A ｜
@@ -785,7 +785,7 @@ study &lt;- c(
         9       28.1     A ｜         9       31.3     A ｜
        10         40     A ｜        10       32.5     A ｜
 # ... up to 66 more rows
-#  2 more cases</code></pre>
+#  two more cases</code></pre>
 </div>
 </div>
 <p>The argument <code>long = TRUE</code> prints each case one after the other instead of side by side (e.g., <code>print(exampleAB, long = TRUE)</code>).</p>
@@ -794,7 +794,7 @@ study &lt;- c(
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Huber2014)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with 4 cases
+<pre><code>#A single-case data frame with four cases
 
            Measurements Design
  Adam                37    A-B
