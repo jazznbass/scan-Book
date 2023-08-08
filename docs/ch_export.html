@@ -1130,7 +1130,7 @@ The overlap export function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>export(object, caption = NA, footnote = NA, filename = NA, kable_styling_options = list(), kable_options = list(), round = 2, flip = FALSE, …)</p>
+<p>export(object, caption = NA, footnote = NULL, filename = NA, kable_styling_options = list(), kable_options = list(), round = 2, flip = FALSE, …)</p>
 </div>
 </div>
 <div class="cell">
@@ -1614,9 +1614,17 @@ The hplm export function call
 <div class="cell-output-display">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Hierarchical Piecewise Linear Regression predicting variable 'values'</caption>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Parameter</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Predictors</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">B</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">SE</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">df</th>
@@ -1625,10 +1633,7 @@ The hplm export function call
 </tr>
 </thead>
 <tbody>
-<tr class="odd" data-grouplength="4">
-<td colspan="6" style="border-bottom: 1px solid"><strong>Fixed effects</strong></td>
-</tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Intercept</td>
 <td style="text-align: center;">48.21</td>
 <td style="text-align: center;">1.4</td>
@@ -1636,7 +1641,7 @@ The hplm export function call
 <td style="text-align: center;">34.5</td>
 <td style="text-align: center;">&lt;.001</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Trend mt</td>
 <td style="text-align: center;">0.62</td>
 <td style="text-align: center;">0.11</td>
@@ -1644,7 +1649,7 @@ The hplm export function call
 <td style="text-align: center;">5.52</td>
 <td style="text-align: center;">&lt;.001</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Level phase B</td>
 <td style="text-align: center;">13.87</td>
 <td style="text-align: center;">0.89</td>
@@ -1652,7 +1657,7 @@ The hplm export function call
 <td style="text-align: center;">15.51</td>
 <td style="text-align: center;">&lt;.001</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Slope phase B</td>
 <td style="text-align: center;">0.86</td>
 <td style="text-align: center;">0.12</td>
@@ -1660,10 +1665,11 @@ The hplm export function call
 <td style="text-align: center;">7.43</td>
 <td style="text-align: center;">&lt;.001</td>
 </tr>
-<tr class="even" data-grouplength="6">
-<td colspan="6" style="border-bottom: 1px solid"><strong>Random effects</strong></td>
+<tr class="odd" data-grouplength="9">
+<td colspan="6" style="text-align: left; border-bottom: 1px solid;"><strong><br>
+Random effects</strong></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;"></td>
 <td style="text-align: center;">SD</td>
 <td style="text-align: center;">L</td>
@@ -1671,7 +1677,7 @@ The hplm export function call
 <td style="text-align: center;">p</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Intercept</td>
 <td style="text-align: center;">9.35</td>
 <td style="text-align: center;">348.85</td>
@@ -1679,7 +1685,7 @@ The hplm export function call
 <td style="text-align: center;">&lt;.001</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Trend mt</td>
 <td style="text-align: center;">0.1</td>
 <td style="text-align: center;">0.83</td>
@@ -1687,7 +1693,7 @@ The hplm export function call
 <td style="text-align: center;">.93</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Level phase B</td>
 <td style="text-align: center;">4.54</td>
 <td style="text-align: center;">42.82</td>
@@ -1695,7 +1701,7 @@ The hplm export function call
 <td style="text-align: center;">&lt;.001</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Slope phase B</td>
 <td style="text-align: center;">0.13</td>
 <td style="text-align: center;">0.76</td>
@@ -1703,7 +1709,7 @@ The hplm export function call
 <td style="text-align: center;">.94</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">Residual</td>
 <td style="text-align: center;">4.97</td>
 <td style="text-align: center;">NA</td>
@@ -1711,10 +1717,11 @@ The hplm export function call
 <td style="text-align: center;">NA</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr class="odd" data-grouplength="3">
-<td colspan="6" style="border-bottom: 1px solid"><strong>Model</strong></td>
+<tr class="even" data-grouplength="3">
+<td colspan="6" style="text-align: left; border-bottom: 1px solid;"><strong><br>
+Model</strong></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">AIC</td>
 <td style="text-align: center;">8693.2</td>
 <td style="text-align: center;"></td>
@@ -1722,7 +1729,7 @@ The hplm export function call
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">BIC</td>
 <td style="text-align: center;">8771.7</td>
 <td style="text-align: center;"></td>
@@ -1730,7 +1737,7 @@ The hplm export function call
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">ICC</td>
 <td style="text-align: center;">0.29</td>
 <td style="text-align: center;">L = 339</td>
@@ -1739,21 +1746,21 @@ The hplm export function call
 <td style="text-align: center;"></td>
 </tr>
 </tbody><tfoot>
-<tr class="odd">
-<td style="padding: 0"><span style="font-style: italic;">Note: </span></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 <tr class="even">
-<td style="padding: 0"><sup></sup> Estimation method ML; Slope estimation method: W; first; 50 cases.</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><sup></sup> Estimation method ML; Slope estimation method: W; first; 50 cases.</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
 </tr>
 </tfoot>
 
