@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Scan-Book - 4&nbsp; Working with single-case data frames</title>
+<title>Analyzing Single-Case Data with R and Scan - 4&nbsp; Working with single-case data frames</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -125,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">The Scan-Book</a> 
+      <a href="./">Analyzing Single-Case Data with R and Scan</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
@@ -256,7 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
   </div>
 </li>
       </ul>
@@ -371,7 +371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>new.huber2014 <span class="ot">&lt;-</span> Huber2014[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">4</span>)] <span class="co">#extracts cases 1 and 4</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>new.huber2014</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with 2 cases
+<pre><code>#A single-case data frame with two cases
 
  Adam: mt compliance phase ｜ David: mt compliance phase ｜
         1         25     A ｜         1       65.6     A ｜
@@ -426,7 +426,7 @@ Note
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_cases</span>(Adam, Berta, <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with 3 cases
+<pre><code>#A single-case data frame with three cases
 
        Measurements Design
  Adam            37    A-B
@@ -452,7 +452,7 @@ Author of data: Christian Huber </code></pre>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_cases</span>(Berta<span class="sc">:</span>David) <span class="sc">%&gt;%</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with 3 cases
+<pre><code>#A single-case data frame with three cases
 
            Measurements Design
  Berta               29    A-B
@@ -506,7 +506,7 @@ Note
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(compliance <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with 4 cases
+<pre><code>#A single-case data frame with four cases
 
            Measurements Design
  Adam                37    A-B
@@ -530,7 +530,7 @@ Author of data: Christian Huber </code></pre>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>((values <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">&amp;</span> phase <span class="sc">==</span> <span class="st">"A"</span>) <span class="sc">|</span> (values <span class="sc">&gt;=</span> <span class="dv">60</span> <span class="sc">&amp;</span> phase <span class="sc">==</span> <span class="st">"B"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with 3 cases
+<pre><code>#A single-case data frame with three cases
 
           Measurements Design
  Johanna            20    A-B
@@ -598,7 +598,7 @@ Note
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mt =</span> mt <span class="sc">-</span> mt[<span class="dv">1</span>]</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with 3 cases
+<pre><code>#A single-case data frame with three cases
 
  Christiano: values trials mt phase percentage
                   1     20  0     A          5
@@ -617,7 +617,7 @@ Note
                  11     20 13     B         55
                  15     20 14     B         75
 # ... up to 15 more rows
-#  2 more cases</code></pre>
+#  two more cases</code></pre>
 </div>
 </div>
 <section id="all_cases" class="level3" data-number="4.3.1">
@@ -669,7 +669,7 @@ Cohen's d                       2.983      2.572  3.545    2.98     2.57  3.54</
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"compliance (local regression)"</span> <span class="ot">=</span> <span class="fu">local_regression</span>(compliance, <span class="at">mt =</span> mt)</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with 4 cases
+<pre><code>#A single-case data frame with four cases
 
  Adam: mt compliance phase compliance (moving median) compliance (moving mean)
         1         25     A                         25                       25
@@ -704,7 +704,7 @@ Cohen's d                       2.983      2.572  3.545    2.98     2.57  3.54</
                          29.11
                          28.94
 # ... up to 61 more rows
-#  3 more cases</code></pre>
+#  three more cases</code></pre>
 </div>
 </div>
 </section>
@@ -738,7 +738,7 @@ Cohen's d                       2.983      2.572  3.545    2.98     2.57  3.54</
                      14 14     B ｜                        14 14     B ｜
                      17 15     B ｜                        15 15     B ｜
 # ... up to 11 more rows
-#  9 more cases</code></pre>
+#  nine more cases</code></pre>
 </div>
 </div>
 

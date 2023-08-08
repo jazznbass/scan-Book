@@ -131,13 +131,34 @@ random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 
 function_structure("pand")
 ```
 
-The `pand` function calculates the percentage of all non-overlapping data [@parker_percentage_2007], an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The argument `correction = TRUE` makes `pand` use a frequency matrix, which is corrected for ties. A tie is counted as the half of a measurement in both phases. Set `correction = FALSE` to use the uncorrected matrix, which is not recommended.
+The `pand` function calculates the percentage of all non-overlapping data [@parker_percentage_2007], an index to quantify a level increase (or decrease) in performance after the onset of an intervention. 
+The authors emphasize that PAND is designed for application in a multiple case design with
+a substantial number of measurements, technically at least 20 to 25, but preferably 60 or more. PAND is defined as 100% minus the percentage of data points that need to be removed from either phase in order to ensure nonoverlap between the phases. 
 
-```{r pand}
-pand(exampleAB)
+Several approaches have been suggested to calculate PAND, leading to potentially different outcomes. In their 2007 paper, Parker and colleagues present an algorithm for computing PAND. The algorithm involves sorting the scores of a time series, including the associated phases, and comparing the resulting phase order with the original phase order using a contingency table. To account for ties, the algorithm includes a randomization
+process where ties are randomly assigned to one of the two phases. Consequently, executing the algorithm multiple times could yield different results. It is important to note that this algorithm does not produce the same results as the PAND definition provided earlier in the same paper. However, it offers the advantage of allowing the calculation of an effect size measure `phi`, and the application of statistical tests for frequency distributions. `phi` equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance. 
+
+Pustejovsky (2019) presented a mathematical formulation of Parker's original definition for comparing two phases of a single case: 
+
+$$PAND = \frac{1}{m+n}max\{(i+j)I(y^A_{i}<y^B_{n+1-j}\}$$
+
+This formulation provides accurate results for PAND, but the original definition has the drawback of an
+unknown distribution under the null hypothesis, making a statistical test
+difficult. 
+
+The `pand()` function enables the calculation of PAND using both methods. The first approach (`method = "sort"`) follows the algorithm described above, with the exclusion of randomization before sorting to avoid ambiguity. It calculates a phi measure and provides the results of a chi-squared test and a Fisher exact test. The second approach (`method = "minimum"`) applies the aforementioned formula. For a multiple case design, overlaps are calculated for each case, summed, and then divided by the total number of measurements. No statistical test is conducted for this method.
+
+
+```{r pand-1}
+pand(Parker2007)
 ```
 
-PAND indicates nonoverlap between phase A and B data (like PND), but uses all data and is therefore not based on one single (probably unrepresentative) datapoint. Furthermore, PAND allows the comparison of real and expected associations (Chi-square test) and estimation of the effect size Phi, which equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance. The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power [@parker_effect_2011].
+```{r pand-2}
+pand(Parker2007, method = "minimum")
+```
+
+
+The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power [@parker_effect_2011].
 
 ## Nonoverlap of all pairs (NAP)
 
@@ -242,21 +263,34 @@ This method has been proposed by @tarlowImprovedRankCorrelation2016a. The baseli
 
 Here is a replication of an example provided by @tarlowImprovedRankCorrelation2016a :
 
-```{r bctau-example, echo = FALSE, message = FALSE}
+```{r}
+#| label: bctau-example-plot
+#| echo: false
+#| message: false
+
 case <- scdf(c(A = 33, 25, 17, 25, 14, 13,14, 
                B = 14, 15, 15, 4, 6, 9, 5 ,4 ,2 ,2 ,8, 11 ,7))
 
 scplot(case) %>% 
-  add_statline("trendA", method = "theil-sen", color = "black", linetype = "dotted") %>%
+  add_statline("trendA theil-sen", color = "black", linetype = "dotted") %>%
   add_text("Theil-Sen", x = 9, y = 9) %>%
   set_ylabel("BDI (Depression)") %>%
   set_xlabel("Session") %>%
   set_theme("basic") %>% 
   set_casenames("")
+```
+
+```{r}
+#| label: bctau-example
+
+case <- scdf(
+  c(A = 33, 25, 17, 25, 14, 13,14, 
+    B = 14, 15, 15, 4, 6, 9, 5 ,4 ,2 ,2 ,8, 11 ,7)
+)
 
 corrected_tau(case)
-
 ```
+
 
 ## Reliable change index
 

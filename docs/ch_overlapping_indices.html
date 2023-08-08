@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Scan-Book - 8&nbsp; Overlapping indices</title>
+<title>Analyzing Single-Case Data with R and Scan - 8&nbsp; Overlapping indices</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -146,7 +146,7 @@ div.csl-indent {
       <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">The Scan-Book</a> 
+      <a href="./">Analyzing Single-Case Data with R and Scan</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
@@ -277,7 +277,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
   </div>
 </li>
       </ul>
@@ -417,6 +417,7 @@ PET              100       93   100
 NAP              100       97    98
 NAP rescaled     100       93    96
 PAND             100       90    90
+IRD             1.00     0.73  0.87
 Tau_U(A)        0.59     0.55  0.62
 Tau_U(BA)       0.77     0.78  0.64
 Base_Tau        0.63     0.59  0.61
@@ -464,7 +465,8 @@ PEM                100       100       100
 PET                100       100       100
 NAP                 94        97        98
 NAP rescaled        89        94        97
-PAND                82        85        90
+PAND                85        85        90
+IRD               0.75      0.80      0.89
 Tau_U(A)          0.54      0.44      0.43
 Tau_U(BA)         0.45      0.46      0.38
 Base_Tau          0.65      0.68      0.68
@@ -650,46 +652,61 @@ The pand function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>pand(data, dvar, pvar, decreasing = FALSE, correction = TRUE, phases = c(1, 2))</p>
+<p>pand(data, dvar, pvar, decreasing = FALSE, phases = c(1, 2), method = c(“sort”, “minimum”))</p>
 </div>
 </div>
-<p>The <code>pand</code> function calculates the percentage of all non-overlapping data <span class="citation" data-cites="parker_percentage_2007">(<a href="references.html#ref-parker_percentage_2007" role="doc-biblioref">Richard I. Parker, Hagan-Burke, &amp; Vannest, 2007</a>)</span>, an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The argument <code>correction = TRUE</code> makes <code>pand</code> use a frequency matrix, which is corrected for ties. A tie is counted as the half of a measurement in both phases. Set <code>correction = FALSE</code> to use the uncorrected matrix, which is not recommended.</p>
+<p>The <code>pand</code> function calculates the percentage of all non-overlapping data <span class="citation" data-cites="parker_percentage_2007">(<a href="references.html#ref-parker_percentage_2007" role="doc-biblioref">Richard I. Parker, Hagan-Burke, &amp; Vannest, 2007</a>)</span>, an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The authors emphasize that PAND is designed for application in a multiple case design with a substantial number of measurements, technically at least 20 to 25, but preferably 60 or more. PAND is defined as 100% minus the percentage of data points that need to be removed from either phase in order to ensure nonoverlap between the phases.</p>
+<p>Several approaches have been suggested to calculate PAND, leading to potentially different outcomes. In their 2007 paper, Parker and colleagues present an algorithm for computing PAND. The algorithm involves sorting the scores of a time series, including the associated phases, and comparing the resulting phase order with the original phase order using a contingency table. To account for ties, the algorithm includes a randomization process where ties are randomly assigned to one of the two phases. Consequently, executing the algorithm multiple times could yield different results. It is important to note that this algorithm does not produce the same results as the PAND definition provided earlier in the same paper. However, it offers the advantage of allowing the calculation of an effect size measure <code>phi</code>, and the application of statistical tests for frequency distributions. <code>phi</code> equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance.</p>
+<p>Pustejovsky (2019) presented a mathematical formulation of Parker’s original definition for comparing two phases of a single case:</p>
+<p><span class="math display">\[PAND = \frac{1}{m+n}max\{(i+j)I(y^A_{i}&lt;y^B_{n+1-j}\}\]</span></p>
+<p>This formulation provides accurate results for PAND, but the original definition has the drawback of an unknown distribution under the null hypothesis, making a statistical test difficult.</p>
+<p>The <code>pand()</code> function enables the calculation of PAND using both methods. The first approach (<code>method = "sort"</code>) follows the algorithm described above, with the exclusion of randomization before sorting to avoid ambiguity. It calculates a phi measure and provides the results of a chi-squared test and a Fisher exact test. The second approach (<code>method = "minimum"</code>) applies the aforementioned formula. For a multiple case design, overlaps are calculated for each case, summed, and then divided by the total number of measurements. No statistical test is conducted for this method.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pand</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pand</span>(Parker2007)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Percentage of all non-overlapping data
 
-PAND =  93.3 %
-Φ =  0.822  ; Φ² =  0.676 
+Method: sort 
 
-Number of cases: 3 
-Total measurements: 60  (in phase A: 15; in phase B: 45)
-n overlapping data per case: 0, 2, 2
-Total overlapping data: n = 4 ; percentage = 6.7 
+PAND = 85.7%
+Φ =  0.713  ; Φ² =  0.508 
 
-2 x 2 Matrix of proportions
-    % expected
-    A   B   total
-%    A  21.7    3.3 25
-real B  3.3 71.7    75
- total  25  75
+28 measurements (13 Phase A, 15 Phase B) in 3 cases
+Overlapping data: n = 4 ; percentage = 14.3 
+
+2 x 2 Matrix of percentages
+         A    B total
+A     39.3  7.1  46.4
+B      7.1 46.4  53.6
+total 46.4 53.6 100.0
 
 2 x 2 Matrix of counts
-    expected
-    A   B   total
-     A  13  2   15
-real B  2   43  45
- total  15  45
+       A  B total
+A     11  2    13
+B      2 13    15
+total 13 15    28
 
 
-Note. Matrix is corrected for ties
+Chi-Squared test:
+X-Squared = 14.227, df = 1, p = 0.000 
 
-Correlation based analysis:
-
-z = 6.316, p = 0.000, τ = 0.822 </code></pre>
+Fisher exact test:
+Odds ratio = 29.007, p = 0.000 </code></pre>
 </div>
 </div>
-<p>PAND indicates nonoverlap between phase A and B data (like PND), but uses all data and is therefore not based on one single (probably unrepresentative) datapoint. Furthermore, PAND allows the comparison of real and expected associations (Chi-square test) and estimation of the effect size Phi, which equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance. The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power <span class="citation" data-cites="parker_effect_2011">(<a href="references.html#ref-parker_effect_2011" role="doc-biblioref">Richard I. Parker, Vannest, &amp; Davis, 2011a</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pand</span>(Parker2007, <span class="at">method =</span> <span class="st">"minimum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Percentage of all non-overlapping data
+
+Method: minimum 
+
+PAND = 85.7%
+28 measurements (13 Phase A, 15 Phase B) in 3 cases
+Overlapping data: n = 4 ; percentage = 14.3 </code></pre>
+</div>
+</div>
+<p>The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power <span class="citation" data-cites="parker_effect_2011">(<a href="references.html#ref-parker_effect_2011" role="doc-biblioref">Richard I. Parker, Vannest, &amp; Davis, 2011a</a>)</span>.</p>
 </section>
 <section id="nonoverlap-of-all-pairs-nap" class="level2" data-number="8.7">
 <h2 data-number="8.7" class="anchored" data-anchor-id="nonoverlap-of-all-pairs-nap"><span class="header-section-number">8.7</span> Nonoverlap of all pairs (NAP)</h2>
@@ -708,7 +725,7 @@ The nap function call
 </div>
 <p>The <code>nap</code> function calculates the nonoverlap of all pairs <span class="citation" data-cites="parker_improved_2009">(<a href="references.html#ref-parker_improved_2009" role="doc-biblioref">Richard I. Parker &amp; Vannest, 2009</a>)</span>. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP can only take values between 50 and 100 percent, a rescaled and therefore more intuitive NAP (0-100%) is also displayed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nap</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nap</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Nonoverlap of All Pairs
 
@@ -740,7 +757,7 @@ The tau_u function call
 <p>Several arguments an be set to define how Tau-U should be calculated. By setting the argument <code>method = "parker"</code>, Tau-U is calculated as described in <span class="citation" data-cites="parker_combining_2011">Richard I. Parker et al. (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span>. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. <code>method = "complete</code>, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate. In the original method proposed by <span class="citation" data-cites="parker_combining_2011">Richard I. Parker et al. (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span> data, calculations are based on Kendall’s Tau A which does not correct for ties. Alternatively, Kendall’s Tau B has a correction for Tau in the presence of ties. The <code>tau_method</code> can be set to decide on the tau method to use <code>"a"</code> for Kendall’s Tau A and <code>"b"</code>` for Kendall’s Tau B.</p>
 <p>Here is an example with setting that reconstruct the values from the original example in <span class="citation" data-cites="parker2011">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="references.html#ref-parker2011" role="doc-biblioref">2011c</a>)</span> :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(Parker2011, <span class="at">method =</span> <span class="st">"parker"</span>, <span class="at">tau_method =</span> <span class="st">"a"</span>, <span class="at">continuity_correction =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(Parker2011, <span class="at">method =</span> <span class="st">"parker"</span>, <span class="at">tau_method =</span> <span class="st">"a"</span>, <span class="at">continuity_correction =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: parker 
@@ -758,7 +775,7 @@ A vs. B + Trend B - Trend A 0.56    -0.17     0.89 9.59 2.09 &lt;.05</code></pre
 </div>
 <p>A different implementation of the method (provided at <a href="http://www.singlecaseresearch.org/calculators/tau-u">http://www.singlecaseresearch.org/calculators/tau-u)</a>) uses Kendall’s Tau B:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">method =</span> <span class="st">"parker"</span>, <span class="at">tau_method =</span> <span class="st">"b"</span>, <span class="at">continuity_correction =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">method =</span> <span class="st">"parker"</span>, <span class="at">tau_method =</span> <span class="st">"b"</span>, <span class="at">continuity_correction =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: parker 
@@ -776,7 +793,7 @@ A vs. B + Trend B - Trend A 0.77     0.49     0.90 30.81 4.71 &lt;.001</code></p
 </div>
 <p>Another online calculator created by Rumen Manolov is available at <a href="https://manolov.shinyapps.io/Overlap/" class="uri">https://manolov.shinyapps.io/Overlap/</a>. It uses an R code developed by Kevin Tarlow to calculate Tau-U. This setting will replicate the results of this approach:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">method =</span> <span class="st">"complete"</span>, <span class="at">tau_method =</span> <span class="st">"a"</span>, <span class="at">continuity_correction =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">method =</span> <span class="st">"complete"</span>, <span class="at">tau_method =</span> <span class="st">"a"</span>, <span class="at">continuity_correction =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: complete 
@@ -794,7 +811,7 @@ A vs. B + Trend B - Trend A 0.76     0.48     0.90 30.82 4.70 &lt;.001</code></p
 </div>
 <p>The standard return of the <code>tau_u</code> function does not display all calculations. If you like to have more details, apply the <code>print</code> function with the additional argument <code>complete = TRUE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">complete =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">complete =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: complete 
@@ -878,7 +895,7 @@ Note
 </div>
 <p>By default, 95% confidence intervals are calculated for each tau value. You can specify a different interval with the <code>ci</code> argument (<code>ci = 0.90</code> will calculate a 90% interval). There are three alternative methods for calculating the confidence intervals. When <code>ci_method = "z"</code> is set (the default), a general formula for calculating the standard-error of Fisher-Z values is used <span class="citation" data-cites="hotelling1953">(<a href="references.html#ref-hotelling1953" role="doc-biblioref">Hotelling, 1953</a>)</span>. If <code>ci_method = "tau",</code> a specific formula for Fisher-Z transformed tau values is applied <span class="citation" data-cites="fieller1957">(<a href="references.html#ref-fieller1957" role="doc-biblioref">Fieller et al., 1957</a>)</span>. Both approaches give similar results. A third approach is derived from the standard deviation of the S statistic<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. For this method, set <code>ci_method = "s"</code>. The S method can give implausible values less than -1 or greater than 1. I recommend using the general “z” method or the accurate “tau” method.å</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB, <span class="at">ci =</span> <span class="fl">0.90</span>, <span class="at">ci_method =</span> <span class="st">"tau"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB, <span class="at">ci =</span> <span class="fl">0.90</span>, <span class="at">ci_method =</span> <span class="st">"tau"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: complete 
@@ -932,22 +949,28 @@ The corrected_tau function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>corrected_tau(data, dvar, pvar, mvar, phases = c(1, 2), alpha = 0.05, continuity = FALSE, repeated = FALSE)</p>
+<p>corrected_tau(data, dvar, pvar, mvar, phases = c(1, 2), alpha = 0.05, continuity = FALSE, repeated = FALSE, tau_method = “b”)</p>
 </div>
 </div>
 <p>This method has been proposed by <span class="citation" data-cites="tarlowImprovedRankCorrelation2016a">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span>. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The alternative Siegel repeated median regression is applied when <code>repeated = TRUE</code> <span class="citation" data-cites="siegelRobustRegressionUsing1982">(<a href="references.html#ref-siegelRobustRegressionUsing1982" role="doc-biblioref">Siegel, 1982</a>)</span> and a continuity correction is applied when <code>continuity = TRUE</code> (both not the defaults).</p>
 <p>Here is a replication of an example provided by <span class="citation" data-cites="tarlowImprovedRankCorrelation2016a">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span> :</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 11 rows containing missing values (`geom_line()`).</code></pre>
-</div>
 <div class="cell-output-display">
-<p><img src="ch_overlapping_indices_files/figure-html/bctau-example-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_overlapping_indices_files/figure-html/bctau-example-plot-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">33</span>, <span class="dv">25</span>, <span class="dv">17</span>, <span class="dv">25</span>, <span class="dv">14</span>, <span class="dv">13</span>,<span class="dv">14</span>, </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">B =</span> <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">5</span> ,<span class="dv">4</span> ,<span class="dv">2</span> ,<span class="dv">2</span> ,<span class="dv">8</span>, <span class="dv">11</span> ,<span class="dv">7</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrected_tau</span>(case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Baseline corrected tau
 
 Method: Theil-Sen regression
+Kendall's tau b applied.
 Continuity correction not applied.
 
 Case1 :
@@ -978,9 +1001,9 @@ The rci function call
 <p>Basically, the reliable change index (rci) shows whether a post-test is above a pre-test value. Based on the reliability of the measurements and the standard deviation, the standard error is calculated. The mean difference between phase A and phase B is divided by the standard error. Several authors have proposed refined methods for calculating the rci.</p>
 <p>The <code>rci</code> function calculates three indices of reliable change <span class="citation" data-cites="wise_methods_2004">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rci</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">rel =</span> <span class="fl">0.8</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rci</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">rel =</span> <span class="fl">0.8</span>, <span class="at">graph =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reliable Change Index

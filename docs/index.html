@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jürgen Wilbert">
 
-<title>The Scan-Book</title>
+<title>Analyzing Single-Case Data with R and Scan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,7 +110,7 @@ div.csl-indent {
       <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">The Scan-Book</a> 
+      <a href="./">Analyzing Single-Case Data with R and Scan</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
@@ -241,7 +241,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses (scan version 0.54 or later)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
   </div>
 </li>
       </ul>
@@ -321,7 +321,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">The Scan-Book</h1>
+<h1 class="title">Analyzing Single-Case Data with R and Scan</h1>
 </div>
 
 
@@ -342,19 +342,19 @@ div.csl-indent {
 
 </header>
 
-<p><strong><em>Version 23.06 (build 19)</em></strong></p>
+<p><strong><em>Version 23.08 (build 11)</em></strong></p>
 <section id="preface" class="level1 unnumbered">
 <h1 class="unnumbered">Preface</h1>
 <p>Hello everyone!</p>
-<p>I am delighted to see that you have discovered this book, as it indicates that you are starting to explore the scan package. While scan has undergone extensive development, this book is still a work in progress (approximately 42% complete). I am continuously working on expanding its content. Currently, there is no official release version available; only this draft, which may contain errors.</p>
+<p>I am delighted to see that you have discovered this book, as it indicates that you are starting to explore the scan package. While scan has undergone extensive development, this book is still a work in progress (approximately 44% complete). I am continuously working on expanding its content. Currently, there is no official release version available; only this draft, which may contain errors.</p>
 <p>If you have any suggestions for improving the book, wish to report bugs, or provide comments, feedback, and more, please visit the GitHub repository of this book and contribute here:<br>
 <a href="https://github.com/jazznbass/scan-Book/discussions." class="uri">https://github.com/jazznbass/scan-Book/discussions.</a></p>
 <p>Thank you very much!</p>
 <p>Jürgen</p>
-<p>08 June 2023</p>
+<p>08 August 2023</p>
 <section id="general-references" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="general-references">General references</h2>
-<p>This book has been created using <a href="https://quarto.org/"><code>Quarto</code></a> within the RStudio <span class="citation" data-cites="RStudio">(<a href="references.html#ref-RStudio" role="doc-biblioref">RStudio Team, 2018</a>)</span> environment. The analyses have been conducted with the <strong>R</strong> package <code>scan</code> at version 0.59.0.9000 <span class="citation" data-cites="R-scan">(<a href="references.html#ref-R-scan" role="doc-biblioref">Wilbert &amp; Lueke, 2023</a>)</span> and <code>scplot</code> at version 0.3.3 <span class="citation" data-cites="R-scplot">(<a href="references.html#ref-R-scplot" role="doc-biblioref">Wilbert, 2023</a>)</span>. R version 4.3.0 (2023-04-21) was used <span class="citation" data-cites="R-base">(<a href="references.html#ref-R-base" role="doc-biblioref">R Core Team, 2023</a>)</span>.</p>
+<p>This book has been created using <a href="https://quarto.org/"><code>Quarto</code></a> within the RStudio <span class="citation" data-cites="RStudio">(<a href="references.html#ref-RStudio" role="doc-biblioref">RStudio Team, 2018</a>)</span> environment. The analyses have been conducted with the <strong>R</strong> package <code>scan</code> at version 0.60.0 <span class="citation" data-cites="R-scan">(<a href="references.html#ref-R-scan" role="doc-biblioref">Wilbert &amp; Lueke, 2023</a>)</span> and <code>scplot</code> at version 0.3.3.9000 <span class="citation" data-cites="R-scplot">(<a href="references.html#ref-R-scplot" role="doc-biblioref">Wilbert, 2023</a>)</span>. R version 4.3.1 (2023-06-16) was used <span class="citation" data-cites="R-base">(<a href="references.html#ref-R-base" role="doc-biblioref">R Core Team, 2023</a>)</span>.</p>
 <p>Note: The cover has been designed by Tony Wilbert and Henry Ritter.<br>
 Thanx for that!</p>
 
@@ -367,7 +367,7 @@ R Core Team. (2023). <em>R: A language and environment for statistical computing
 RStudio Team. (2018). <em>RStudio: Integrated development environment for r</em>. Retrieved from <a href="http://www.rstudio.com/">http://www.rstudio.com/</a>
 </div>
 <div id="ref-R-scplot" class="csl-entry" role="listitem">
-Wilbert, J. (2023). <em>Scplot: Plot function for single-case data frames</em>. Retrieved from <a href="https://CRAN.R-project.org/package=scplot">https://CRAN.R-project.org/package=scplot</a>
+Wilbert, J. (2023). <em>Scplot: Plot function for single-case data frames</em>.
 </div>
 <div id="ref-R-scan" class="csl-entry" role="listitem">
 Wilbert, J., &amp; Lueke, T. (2023). <em>Scan: Single-case data analyses for single and multiple baseline designs</em>.

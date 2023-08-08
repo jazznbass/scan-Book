@@ -10,10 +10,22 @@ The `export` function will make it easier to convert the results of your `scan` 
 `export` it build on top of the `knitr` and `kableextra` packages. The list provided in the `kable_options` argument is implemented in the `kable` function of `knitr` and the list provided to the `kable_styling_options` is implemented in the `kable_styling` command of the `kableExtra` package. `export` sets some defaults for these functions but you can play around and overwrite them.
 :::
 
-`export` works best when used within an rmarkdown file and/or within `RStudio`.\
-In `RStudio`
+`export` works best when used within an rmarkdown file and/or within `RStudio`. In `RStudio`, the html table will be displayed in the *Viewer* pane. There you can click the export button (![](images/Screenshot 2023-08-02 at 13.31.05.png){width="78" height="18"}) to export an html or bitmap file or you can try *drag and drop* ➡️ *copy* and *paste* the table into another application.
 
-<!--# more explanations needed -->
+Alternatively, you can set the `filename` argument to export the table directly from within the export function. The file name extension you provide will define the resulting file format (e.g. `filename = "results.html"`). Possible extensions are *html*, *png*, and *jpg*.
+
+If you need more control on the output parameters, use the `save_kable()` function from the `kableExtra` package.
+
+```{r}
+#| eval: false
+
+exampleAB |> 
+  overlap() |> 
+  export() |> 
+  kableExtra::save_kable("my_file.png", zoom = 4)
+```
+
+Most of the tables will have a default caption and footnotes. If you want to change these, use the `caption` and `footnote` arguments.
 
 ## Single case data files
 
@@ -58,7 +70,6 @@ exampleABC$Marie %>%
   export()
 ```
 
-
 ## Overlap indices
 
 ```{r results='asis', echo=FALSE}
@@ -72,7 +83,7 @@ exampleA1B1A2B2_zvt %>%
   export(flip = TRUE)
 ```
 
-tau_u(exampleAB_decreasing) |> export()
+tau_u(exampleAB_decreasing) \|\> export()
 
 ## Tau-U
 
@@ -80,14 +91,14 @@ tau_u(exampleAB_decreasing) |> export()
 function_structure(scan:::export.sc_tauu, label="tauu export", fname="export")
 ```
 
-Set the argument `case = "meta"` (the default) to get the results of the meta analysis or set `case = "all"` to get a table with each case.
+Set the argument `meta = TRUE` (the default) to get the results of the meta analysis or set `meta = FALSE` to get a table with each case.
 
 ```{r warning=FALSE}
 tau_u(exampleAB_decreasing) |> export()
 ```
 
 ```{r warning=FALSE}
-tau_u(exampleAB_decreasing) |> export(case = "all")
+tau_u(exampleAB_decreasing) |> export(meta = FALSE)
 ```
 
 ## Piecewise linear models
