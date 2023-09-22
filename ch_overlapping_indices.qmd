@@ -23,7 +23,7 @@ function_structure("select_phases")
 The `select_phases()` function is needed if you like to compare specific phases or even like to combine several phases. `select_phases()` is designed to work within a pipe structure. So the first argument is an *scdf* and it returns an *scdf*.
 
 ```{r eval = FALSE}
-scdf %>% select_phases(A = 1, B = 3) %>% ...
+scdf |> select_phases(A = 1, B = 3) |> ...
 ```
 
 `select_phases()` has the arguments `A` and `B`. Each argument takes a vector with the names or the numbers of the phases to be selected. If you want to compare the first to the third phase you can set `select_phases(scdf, 1,3)`. If the phases of your case are named 'A', 'B', and 'C' you could alternatively set `select_phases(scdf, "A","C")`. It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the `c` command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases `select_phases(scdf, c(1,3), c(2,4) )` will do the trick.
@@ -31,8 +31,8 @@ scdf %>% select_phases(A = 1, B = 3) %>% ...
 (As an alternative approach you can set the `phases` argument within the `overlap()` function. This argument takes a list with two elements where the first element defines the phases for the A-phase and the second argument the phases for the B-phase.)
 
 ```{r warning = FALSE}
-exampleA1B1A2B2 %>%
-  select_phases(c("A1","A2"), c("B1","B2")) %>%
+exampleA1B1A2B2 |>
+  select_phases(c("A1","A2"), c("B1","B2")) |>
   overlap()
 
 # Alternatively:
@@ -65,9 +65,9 @@ The percentage of non-overlapping data (PND) effect size measure was described b
 #| fig-height: 3
 #| fig-cap: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A
 
-random_scdf(design(1, level = 1.0),round = 0, seed = 1212) %>%
-  scplot() %>% add_statline("max", phase = "A", color = "red") %>%
-  add_text("Maximum of A", x = 1, y = 60, hjust = 0, color = "red", size = 1) %>%
+random_scdf(design(1, level = 1.0),round = 0, seed = 1212) |>
+  scplot() |> add_statline("max", phase = "A", color = "red") |>
+  add_text("Maximum of A", x = 1, y = 60, hjust = 0, color = "red", size = 1) |>
   add_marks(positions = "values > max(values[phase == 'A'])", size = 2, shape = 16)
 ```
 
@@ -91,9 +91,9 @@ The pem function returns the percentage of phase B data exceeding the phase A me
 #| fig-height: 3
 #| fig-cap: Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A
 
-random_scdf(design(1, level = 1.0),round = 0, seed = 1212) %>%
-  scplot() %>% add_statline("median", phase = "A", color = "red") %>%
-  add_text("Median of A", x = 1, y = 53, hjust = 0, color = "red", size = 1) %>%
+random_scdf(design(1, level = 1.0),round = 0, seed = 1212) |>
+  scplot() |> add_statline("median", phase = "A", color = "red") |>
+  add_text("Median of A", x = 1, y = 53, hjust = 0, color = "red", size = 1) |>
   add_marks(positions = "values > median(values[phase == 'A']) & phase == 'B'", size = 2, shape = 16)
 ```
 
@@ -119,9 +119,9 @@ pet(exampleAB)
 #| fig-height: 3
 #| fig-cap: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A
 
-random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 0, seed = 9871) %>% 
-  scplot() %>% add_statline("trendA", color = "red") %>%
-  add_text("Trend of A", x = 1, y = 52, hjust = 0, color = "red", size = 1) %>%
+random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 0, seed = 9871) |> 
+  scplot() |> add_statline("trendA", color = "red") |>
+  add_text("Trend of A", x = 1, y = 52, hjust = 0, color = "red", size = 1) |>
   add_marks(positions = c(12, 14:19, 21, 22,25), size = 2, shape = 16)
 ```
 
@@ -166,7 +166,7 @@ The original procedure for computing PAND does not account for ambivalent datapo
 function_structure("nap")
 ```
 
-The `nap` function calculates the nonoverlap of all pairs [@parker_improved_2009]. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP can only take values between 50 and 100 percent, a rescaled and therefore more intuitive NAP (0-100%) is also displayed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case.
+The `nap` function calculates the nonoverlap of all pairs [@parker_improved_2009]. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP has values between 0 and 100% where 50% is no effect, a rescaled NAP (ranging between -100  and 100% where 0% is no effect) has been proposed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case. Additionally, effect sizes d and R squared are reported following Parker and colleagues.
 
 ```{r}
 nap(exampleAB)
@@ -205,7 +205,7 @@ tau_u(exampleAB$Johanna, method = "complete", tau_method = "a", continuity_corre
 The standard return of the `tau_u` function does not display all calculations. If you like to have more details, apply the `print` function with the additional argument `complete = TRUE`.
 
 ```{r}
-tau_u(exampleAB$Johanna) %>% print(complete = TRUE)
+tau_u(exampleAB$Johanna) |> print(complete = TRUE)
 ```
 
 ### Meta analyses
@@ -271,12 +271,12 @@ Here is a replication of an example provided by @tarlowImprovedRankCorrelation20
 case <- scdf(c(A = 33, 25, 17, 25, 14, 13,14, 
                B = 14, 15, 15, 4, 6, 9, 5 ,4 ,2 ,2 ,8, 11 ,7))
 
-scplot(case) %>% 
-  add_statline("trendA theil-sen", color = "black", linetype = "dotted") %>%
-  add_text("Theil-Sen", x = 9, y = 9) %>%
-  set_ylabel("BDI (Depression)") %>%
-  set_xlabel("Session") %>%
-  set_theme("basic") %>% 
+scplot(case) |> 
+  add_statline("trendA", method = "theil-sen",  color = "black", linetype = "dotted")  |> 
+  add_text("Theil-Sen", x = 9, y = 9)  |> 
+  set_ylabel("BDI (Depression)")  |> 
+  set_xlabel("Session")  |> 
+  set_theme("basic") |> 
   set_casenames("")
 ```
 

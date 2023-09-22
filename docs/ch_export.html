@@ -865,29 +865,7 @@ Trend
 </tr>
 </tbody><tfoot>
 <tr class="even">
-<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> n = Number of measurements; Missing = Number of missing values; M = Mean; Median = Median; SD = Standard deviation; MAD = Median average deviation; Min = Minimum; Max = Maximum; Trend = Slope of dependent variable regressed on measurement-time.</td>
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span> <sup></sup> n = Number of measurements; Missing = Number of missing values; M = Mean; Median = Median; SD = Standard deviation; MAD = Median average deviation; Min = Minimum; Max = Maximum; Trend = Slope of dependent variable regressed on measurement-time.</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
@@ -1007,13 +985,7 @@ The smd export function call
 </tr>
 </tbody><tfoot>
 <tr class="odd">
-<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> SD Cohen = unweigted average of the variance of both phases; SD Hedges = weighted average of the variance of both phases with a degrees of freedom correction; Glass' delta = mean difference divided by the standard deviation of the A-phase; Hedges' g = mean difference divided by SD Hedges; Hedges' g (durlak) correction = approaches for correcting Hedges' g for small sample sizes; Cohens d = mean difference divided by SD Cohen.</td>
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span> <sup></sup> SD Cohen = unweigted average of the variance of both phases; SD Hedges = weighted average of the variance of both phases with a degrees of freedom correction; Glass' delta = mean difference divided by the standard deviation of the A-phase; Hedges' g = mean difference divided by SD Hedges; Hedges' g (durlak) correction = approaches for correcting Hedges' g for small sample sizes; Cohens d = mean difference divided by SD Cohen.</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
@@ -1236,13 +1208,7 @@ The overlap export function call
 </tr>
 </tbody><tfoot>
 <tr class="odd">
-<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled; PAND = Percentage all nonoverlapping data; IRD = Improvement rate difference; Tau U (A + B - trend A) = Parker's Tau-U; Tau U (A + B - trend A + trend B) = Parker's Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference; Hedges g = Corrected SMD.</td>
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span> <sup></sup> PND = Percentage Non-Overlapping Data; PEM = Percentage Exceeding the Median; PET = Percentage Exceeding the Trend; NAP = Nonoverlap of all pairs; NAP-R = NAP rescaled; PAND = Percentage all nonoverlapping data; IRD = Improvement rate difference; Tau U (A + B - trend A) = Parker's Tau-U; Tau U (A + B - trend A + trend B) = Parker's Tau-U; Base Tau = Baseline corrected Tau; Delta M = Mean difference between phases; Delta Trend = Trend difference between phases; SMD = Standardized Mean Difference; Hedges g = Corrected SMD.</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
@@ -1271,7 +1237,7 @@ The tauu export function call
 <p>export(object, caption = NA, footnote = NA, filename = NA, select = “auto”, kable_styling_options = list(), kable_options = list(), meta = TRUE, …)</p>
 </div>
 </div>
-<p>Set the argument <code>case = "meta"</code> (the default) to get the results of the meta analysis or set <code>case = "all"</code> to get a table with each case.</p>
+<p>Set the argument <code>meta = TRUE</code> (the default) to get the results of the meta analysis or set <code>meta = FALSE</code> to get a table with each case.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB_decreasing) <span class="sc">|&gt;</span> <span class="fu">export</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1327,16 +1293,7 @@ The tauu export function call
 </tr>
 </tbody><tfoot>
 <tr class="odd">
-<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> Method is ' complete '. Analyses based on Kendall's Tau b . 95 % CIs for tau are reported.</td>
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span> <sup></sup> Method is ' complete '. Analyses based on Kendall's Tau b . 95 % CIs for tau are reported.</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
@@ -1352,71 +1309,215 @@ The tauu export function call
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB_decreasing) <span class="sc">|&gt;</span> <span class="fu">export</span>(<span class="at">case =</span> <span class="st">"all"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB_decreasing) <span class="sc">|&gt;</span> <span class="fu">export</span>(<span class="at">meta =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Overall Tau-U</caption>
+<caption>Tau-U analyses</caption>
 <thead>
 <tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Case</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Model</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">Tau U</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">se</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Tau</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">CI lower</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">CI upper</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">z</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Z</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">p</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">A vs. B</td>
-<td style="text-align: center;">-0.98</td>
-<td style="text-align: center;">0.14</td>
-<td style="text-align: center;">-0.99</td>
-<td style="text-align: center;">-0.96</td>
-<td style="text-align: center;">-16.04</td>
-<td style="text-align: center;">&lt;.001</td>
+<td style="text-align: left;">Peter</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">A vs. B - Trend A</td>
-<td style="text-align: center;">-0.59</td>
-<td style="text-align: center;">0.14</td>
-<td style="text-align: center;">-0.74</td>
-<td style="text-align: center;">-0.38</td>
-<td style="text-align: center;">-4.82</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">A vs. B</td>
+<td style="text-align: center;">-0.98</td>
+<td style="text-align: center;">-0.99</td>
+<td style="text-align: center;">-0.94</td>
+<td style="text-align: center;">-3.53</td>
 <td style="text-align: center;">&lt;.001</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Trend A</td>
+<td style="text-align: center;">-0.29</td>
+<td style="text-align: center;">-0.86</td>
+<td style="text-align: center;">0.59</td>
+<td style="text-align: center;">-0.90</td>
+<td style="text-align: center;">.36</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Trend B</td>
+<td style="text-align: center;">-0.10</td>
+<td style="text-align: center;">-0.62</td>
+<td style="text-align: center;">0.47</td>
+<td style="text-align: center;">-0.49</td>
+<td style="text-align: center;">.62</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">A vs. B - Trend A</td>
+<td style="text-align: center;">-0.57</td>
+<td style="text-align: center;">-0.81</td>
+<td style="text-align: center;">-0.18</td>
+<td style="text-align: center;">-3.18</td>
+<td style="text-align: center;">&lt;.01</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
 <td style="text-align: left;">A vs. B + Trend B</td>
-<td style="text-align: center;">-0.58</td>
-<td style="text-align: center;">0.14</td>
-<td style="text-align: center;">-0.73</td>
-<td style="text-align: center;">-0.37</td>
-<td style="text-align: center;">-4.72</td>
+<td style="text-align: center;">-0.55</td>
+<td style="text-align: center;">-0.80</td>
+<td style="text-align: center;">-0.14</td>
+<td style="text-align: center;">-3.23</td>
+<td style="text-align: center;">&lt;.01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">A vs. B + Trend B - Trend A</td>
+<td style="text-align: center;">-0.48</td>
+<td style="text-align: center;">-0.76</td>
+<td style="text-align: center;">-0.05</td>
+<td style="text-align: center;">-2.96</td>
+<td style="text-align: center;">&lt;.01</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tony</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">A vs. B</td>
+<td style="text-align: center;">-0.98</td>
+<td style="text-align: center;">-0.99</td>
+<td style="text-align: center;">-0.95</td>
+<td style="text-align: center;">-3.63</td>
 <td style="text-align: center;">&lt;.001</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Trend A</td>
+<td style="text-align: center;">-0.18</td>
+<td style="text-align: center;">-0.79</td>
+<td style="text-align: center;">0.60</td>
+<td style="text-align: center;">-0.62</td>
+<td style="text-align: center;">.53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Trend B</td>
+<td style="text-align: center;">-0.09</td>
+<td style="text-align: center;">-0.63</td>
+<td style="text-align: center;">0.51</td>
+<td style="text-align: center;">-0.41</td>
+<td style="text-align: center;">.68</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">A vs. B - Trend A</td>
+<td style="text-align: center;">-0.58</td>
+<td style="text-align: center;">-0.82</td>
+<td style="text-align: center;">-0.19</td>
+<td style="text-align: center;">-3.28</td>
+<td style="text-align: center;">&lt;.01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">A vs. B + Trend B</td>
+<td style="text-align: center;">-0.57</td>
+<td style="text-align: center;">-0.81</td>
+<td style="text-align: center;">-0.18</td>
+<td style="text-align: center;">-3.37</td>
+<td style="text-align: center;">&lt;.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
 <td style="text-align: left;">A vs. B + Trend B - Trend A</td>
-<td style="text-align: center;">-0.53</td>
-<td style="text-align: center;">0.14</td>
-<td style="text-align: center;">-0.70</td>
-<td style="text-align: center;">-0.31</td>
-<td style="text-align: center;">-4.21</td>
+<td style="text-align: center;">-0.50</td>
+<td style="text-align: center;">-0.77</td>
+<td style="text-align: center;">-0.08</td>
+<td style="text-align: center;">-3.09</td>
+<td style="text-align: center;">&lt;.01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bruce</td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">A vs. B</td>
+<td style="text-align: center;">-0.98</td>
+<td style="text-align: center;">-0.99</td>
+<td style="text-align: center;">-0.94</td>
+<td style="text-align: center;">-3.38</td>
+<td style="text-align: center;">&lt;.001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Trend A</td>
+<td style="text-align: center;">0.07</td>
+<td style="text-align: center;">-0.79</td>
+<td style="text-align: center;">0.83</td>
+<td style="text-align: center;">0.19</td>
+<td style="text-align: center;">.85</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Trend B</td>
+<td style="text-align: center;">-0.33</td>
+<td style="text-align: center;">-0.73</td>
+<td style="text-align: center;">0.24</td>
+<td style="text-align: center;">-1.64</td>
+<td style="text-align: center;">.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">A vs. B - Trend A</td>
+<td style="text-align: center;">-0.61</td>
+<td style="text-align: center;">-0.83</td>
+<td style="text-align: center;">-0.22</td>
+<td style="text-align: center;">-3.34</td>
+<td style="text-align: center;">&lt;.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">A vs. B + Trend B</td>
+<td style="text-align: center;">-0.62</td>
+<td style="text-align: center;">-0.83</td>
+<td style="text-align: center;">-0.24</td>
+<td style="text-align: center;">-3.69</td>
+<td style="text-align: center;">&lt;.001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">A vs. B + Trend B - Trend A</td>
+<td style="text-align: center;">-0.60</td>
+<td style="text-align: center;">-0.82</td>
+<td style="text-align: center;">-0.21</td>
+<td style="text-align: center;">-3.67</td>
 <td style="text-align: center;">&lt;.001</td>
 </tr>
 </tbody><tfoot>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
 <tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> Method is ' complete '. Analyses based on Kendall's Tau b . 95 % CIs for tau are reported.</td>
-<td style="text-align: center;"></td>
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span> <sup></sup> Method is ' complete '. Analyses based on Kendall's Tau b . 95 % CIs for tau are reported.</td>
+<td style="text-align: left;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
@@ -1443,7 +1544,7 @@ The plm export function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>export(object, caption = NA, footnote = NA, filename = NA, kable_styling_options = list(), kable_options = list(), round = 2, nice = TRUE, …)</p>
+<p>export(object, caption = NA, footnote = NA, filename = NA, kable_styling_options = list(), kable_options = list(), nice = TRUE, …)</p>
 </div>
 </div>
 <div class="cell">
@@ -1478,7 +1579,7 @@ CI(95%)
 <th style="text-align: center;" data-quarto-table-cell-role="th">SE</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">t</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">p</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">Delta R²</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">delta R²</th>
 </tr>
 </thead>
 <tbody>
@@ -1489,18 +1590,18 @@ CI(95%)
 <td style="text-align: center;">19.20</td>
 <td style="text-align: center;">3.32</td>
 <td style="text-align: center;">3.82</td>
-<td style="text-align: center;">&lt;.001</td>
+<td style="text-align: center;">&lt;.01</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Trend mt</td>
 <td style="text-align: center;">0.22</td>
-<td style="text-align: center;">-0.99</td>
+<td style="text-align: center;">-1.00</td>
 <td style="text-align: center;">1.44</td>
 <td style="text-align: center;">0.62</td>
 <td style="text-align: center;">0.36</td>
 <td style="text-align: center;">.72</td>
-<td style="text-align: center;">.00</td>
+<td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Level phase B1</td>
@@ -1510,7 +1611,7 @@ CI(95%)
 <td style="text-align: center;">5.09</td>
 <td style="text-align: center;">3.20</td>
 <td style="text-align: center;">&lt;.01</td>
-<td style="text-align: center;">.12</td>
+<td style="text-align: center;">0.118</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Level phase A2</td>
@@ -1520,17 +1621,17 @@ CI(95%)
 <td style="text-align: center;">10.35</td>
 <td style="text-align: center;">0.14</td>
 <td style="text-align: center;">.88</td>
-<td style="text-align: center;">.00</td>
+<td style="text-align: center;">0.000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Level phase B2</td>
-<td style="text-align: center;">11.45</td>
+<td style="text-align: center;">11.46</td>
 <td style="text-align: center;">-20.49</td>
 <td style="text-align: center;">43.40</td>
 <td style="text-align: center;">16.30</td>
 <td style="text-align: center;">0.70</td>
 <td style="text-align: center;">.48</td>
-<td style="text-align: center;">.01</td>
+<td style="text-align: center;">0.006</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Slope phase B1</td>
@@ -1539,8 +1640,8 @@ CI(95%)
 <td style="text-align: center;">0.32</td>
 <td style="text-align: center;">0.88</td>
 <td style="text-align: center;">-1.60</td>
-<td style="text-align: center;">.11</td>
-<td style="text-align: center;">.03</td>
+<td style="text-align: center;">.12</td>
+<td style="text-align: center;">0.029</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Slope phase A2</td>
@@ -1550,7 +1651,7 @@ CI(95%)
 <td style="text-align: center;">0.88</td>
 <td style="text-align: center;">-1.25</td>
 <td style="text-align: center;">.21</td>
-<td style="text-align: center;">.02</td>
+<td style="text-align: center;">0.018</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Slope phase B2</td>
@@ -1560,21 +1661,11 @@ CI(95%)
 <td style="text-align: center;">0.88</td>
 <td style="text-align: center;">-1.23</td>
 <td style="text-align: center;">.22</td>
-<td style="text-align: center;">.02</td>
+<td style="text-align: center;">0.017</td>
 </tr>
 </tbody><tfoot>
 <tr class="even">
-<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> F(7, 32) = 7.86; p &lt;.001; R² = 0.632; Adjusted R² = 0.552</td>
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span> <sup></sup> F(7, 32) = 7.86; p &lt;.001; R² = 0.632; Adjusted R² = 0.552</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
@@ -1747,15 +1838,7 @@ Model</strong></td>
 </tr>
 </tbody><tfoot>
 <tr class="even">
-<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> Estimation method ML; Slope estimation method: W; first; 50 cases.</td>
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span> <sup></sup> Estimation method ML; Slope estimation method: W; first; 50 cases.</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>

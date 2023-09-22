@@ -445,13 +445,13 @@ The select_phases function call
 </div>
 <p>The <code>select_phases()</code> function is needed if you like to compare specific phases or even like to combine several phases. <code>select_phases()</code> is designed to work within a pipe structure. So the first argument is an <em>scdf</em> and it returns an <em>scdf</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scdf <span class="sc">%&gt;%</span> <span class="fu">select_phases</span>(<span class="at">A =</span> <span class="dv">1</span>, <span class="at">B =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scdf <span class="sc">|&gt;</span> <span class="fu">select_phases</span>(<span class="at">A =</span> <span class="dv">1</span>, <span class="at">B =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>select_phases()</code> has the arguments <code>A</code> and <code>B</code>. Each argument takes a vector with the names or the numbers of the phases to be selected. If you want to compare the first to the third phase you can set <code>select_phases(scdf, 1,3)</code>. If the phases of your case are named ‘A’, ‘B’, and ‘C’ you could alternatively set <code>select_phases(scdf, "A","C")</code>. It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the <code>c</code> command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases <code>select_phases(scdf, c(1,3), c(2,4) )</code> will do the trick.</p>
 <p>(As an alternative approach you can set the <code>phases</code> argument within the <code>overlap()</code> function. This argument takes a list with two elements where the first element defines the phases for the A-phase and the second argument the phases for the B-phase.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>exampleA1B1A2B2 <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_phases</span>(<span class="fu">c</span>(<span class="st">"A1"</span>,<span class="st">"A2"</span>), <span class="fu">c</span>(<span class="st">"B1"</span>,<span class="st">"B2"</span>)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>exampleA1B1A2B2 <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_phases</span>(<span class="fu">c</span>(<span class="st">"A1"</span>,<span class="st">"A2"</span>), <span class="fu">c</span>(<span class="st">"B1"</span>,<span class="st">"B2"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">overlap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Overlap Indices
@@ -588,10 +588,10 @@ The pem function call
 <div class="cell-output cell-output-stdout">
 <pre><code>Percent Exceeding the Median
 
-         PEM positives total binom.p
-Johanna  100        15    15       0
-Karolina 100        15    15       0
-Anja     100        15    15       0
+     Case PEM positives total  binom.p
+  Johanna 100        15    15 3.05e-05
+ Karolina 100        15    15 3.05e-05
+     Anja 100        15    15 3.05e-05
 
 Alternative hypothesis: true probability &gt; 50%</code></pre>
 </div>
@@ -618,12 +618,10 @@ The pet function call
 <div class="cell-output cell-output-stdout">
 <pre><code>Percent Exceeding the Trend
 
-N cases =  3 
-
-             PET binom.p  PET CI
-Johanna  100.000       0  86.667
-Karolina  93.333       0   0.000
-Anja     100.000       0 100.000
+     Case   PET PET CI  binom.p
+  Johanna 100.0   86.7 3.05e-05
+ Karolina  93.3    0.0 4.88e-04
+     Anja 100.0  100.0 3.05e-05
 
 Binom.test: alternative hypothesis: true probability &gt; 50%
 PET CI: Percent of values greater than upper 95% confidence threshold (greater 1.645*se above predicted value)</code></pre>
@@ -688,7 +686,7 @@ total 13 15    28
 
 
 Chi-Squared test:
-X-Squared = 14.227, df = 1, p = 0.000 
+X² = 14.227, df = 1, p = 0.000 
 
 Fisher exact test:
 Odds ratio = 29.007, p = 0.000 </code></pre>
@@ -723,16 +721,16 @@ The nap function call
 <p>nap(data, dvar, pvar, decreasing = FALSE, phases = c(1, 2))</p>
 </div>
 </div>
-<p>The <code>nap</code> function calculates the nonoverlap of all pairs <span class="citation" data-cites="parker_improved_2009">(<a href="references.html#ref-parker_improved_2009" role="doc-biblioref">Richard I. Parker &amp; Vannest, 2009</a>)</span>. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP can only take values between 50 and 100 percent, a rescaled and therefore more intuitive NAP (0-100%) is also displayed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case.</p>
+<p>The <code>nap</code> function calculates the nonoverlap of all pairs <span class="citation" data-cites="parker_improved_2009">(<a href="references.html#ref-parker_improved_2009" role="doc-biblioref">Richard I. Parker &amp; Vannest, 2009</a>)</span>. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP has values between 0 and 100% where 50% is no effect, a rescaled NAP (ranging between -100 and 100% where 0% is no effect) has been proposed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case. Additionally, effect sizes d and R squared are reported following Parker and colleagues.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nap</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Nonoverlap of All Pairs
 
-         NAP Rescaled Pairs Positives Ties   w     p
-Johanna  100      100    75        75    0   0 &lt;.001
-Karolina  97       93    75        72    1 2.5  &lt;.01
-Anja      98       96    75        73    1 1.5 &lt;.001</code></pre>
+     Case NAP NAP Rescaled   w     p   d   R²
+  Johanna 100          100 0.0 &lt;.001 3.5 0.75
+ Karolina  97           93 2.5  &lt;.01 2.6 0.62
+     Anja  98           96 1.5 &lt;.001 2.8 0.66</code></pre>
 </div>
 </div>
 </section>
@@ -811,7 +809,7 @@ A vs. B + Trend B - Trend A 0.76     0.48     0.90 30.82 4.70 &lt;.001</code></p
 </div>
 <p>The standard return of the <code>tau_u</code> function does not display all calculations. If you like to have more details, apply the <code>print</code> function with the additional argument <code>complete = TRUE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="at">complete =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">complete =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: complete 
