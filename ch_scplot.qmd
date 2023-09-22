@@ -8,27 +8,27 @@ Plotting the data is a first important approach to analysis. After you create a 
 
 `splot` is available from the CRAN repository. Execute `install.packages("scplot")` to install it.
 
-If you are more adventures you can install the developmental version of *scplot* from github.The project is hosted at https://github.com/jazznbass/scplot. You can install it with `devtools::install_github("jazznbass/scplot")` from your R console. Make sure you have the package `devtools` installed before. The package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at https://cran.r-project.org/bin/windows/Rtools/.
+If you are more adventures you can install the developmental version of *scplot* from github.The project is hosted at <https://github.com/jazznbass/scplot>. You can install it with `devtools::install_github("jazznbass/scplot")` from your R console. Make sure you have the package `devtools` installed before. The *scplot* package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at <https://cran.r-project.org/bin/windows/Rtools/>.
 
 The following chapter has been written with *scplot* version `r packageVersion("scplot")`. If you have problems replicating the examples, please update to this version.
 
 ## Basic principal
 
-You start by providing an scdf object (see @sec-scdf) to the `scplot()` function (e.g. `scplot(exampleAB)`). This already creates a default plot. 
+You start by providing an *scdf* object (see @sec-scdf) to the `scplot()` function (e.g. `scplot(exampleAB)`). This already creates a default plot.
 
 ```{r}
 #| label: scplot-basic-1
 scplot(exampleAB)
 ```
 
-Now you use a series of pipe-operators (`%>%` or `|>`) to add elements and change characteristics of the resulting plot. For example:
+Now you use a series of pipe-operators (`%>%` or `|>`) to apply functions that add elements and change characteristics of the resulting plot. For example:
 
 ```{r}
 #| label: scplot-basic-2
 #| eval: false
 
-scplot(exampleABC) %>%
-  add_title("My plot") %>%
+scplot(exampleABC) |>
+  add_title("My plot") |>
   set_xlabel("Days", color = "red", size = 1.3)
 ```
 
@@ -42,9 +42,10 @@ Here is an overview of possible functions:
 out <- tribble(
   ~"Function", ~"What it does ...",
   #
-  "set_dataline", "Change the default dataline / add an additional dataline",
+  "set_dataline", "Change the default dataline/ add an additional dataline",
   "add_statline", "Add a line or curve representing statistical parameters",
   "add_arrow", "Add an arrow to a specific case at a specific position",
+  "add_line", "Add a line to a specific case",
   "add_grid", "Add a grid to the plot pannel",
   "add_labels", "Add value labels to each data-point",
   "add_legend", "Add a plot legend",
@@ -70,10 +71,9 @@ print_table(out)
 
 ```
 
-All text, line, dot, and area elements have a set of arguments to change visual characteristics. 
+All text, line, dot, and area elements have a set of arguments to change visual characteristics.
 
-Text arguments can be applied to the following functions:
-`add_caption()`, `add_labels()`, `add_legend()`, `add_text()`, `add_title()`, `set_xlabel()`, `set_ylabel()`, `set_phasenames()`, `set_casenames()`.
+Text arguments can be applied to the following functions: `add_caption()`, `add_labels()`, `add_legend()`, `add_text()`, `add_title()`, `set_xlabel()`, `set_ylabel()`, `set_phasenames()`, `set_casenames()`.
 
 Possible arguments are:
 
@@ -97,6 +97,59 @@ print_table(out)
 
 ```
 
+Line arguments can be applied to the following functions: `set_dataline()`, `add_statline()`, `add_line()`, `add_arrow()`, `add_ridge()`, `add_ridge()`, `set_xaxis()`, `set_yaxis()`, `set_separator()`.
+
+```{r}
+#| echo: false
+#| label: tbl-arguments-line
+#| tbl-cap: Arguments for line elements
+
+out <- tribble(
+  ~"Argument", ~"What it does ...",
+  #
+  "color", "Either a color name or a color code (e.g. 'red' or '#110044').",
+  "linewidth", "Relativ width of the line.",
+  "linetype", "Linetype ('solid', 'dashed', 'dotted')"
+)
+
+print_table(out)
+
+```
+
+Point arguments can be applied to the following functions: `set_dataline()`, `add_statline()`, `add_marks()`, `add_arrow()`.
+
+```{r}
+#| echo: false
+#| label: tbl-arguments-point
+#| tbl-cap: Arguments for point elements
+
+out <- tribble(
+  ~"Argument", ~"What it does ...",
+  #
+  "color", "Either a color name or a color code (e.g. 'red' or '#110044').",
+  "size", "Relative size.",
+  "shpae", "Point shape."
+)
+
+print_table(out)
+
+```
+
+```{r}
+#| echo: false
+#| label: fig-pch
+#| fig-cap: Some possible shapes 
+
+grid <- expand.grid(1:5, 4:1)
+plot(grid, pch = 0:19, cex = 2.5,
+     yaxt = "n", xaxt = "n",
+     ann = FALSE, xlim = c(0.5, 5.25),
+     ylim = c(0.5, 4.5))
+
+grid2 <- expand.grid(seq(0.6, 4.6, 1), 4:1)
+text(grid2$Var1[1:20], grid2$Var2[1:20], 0:19)
+```
+
 ## Set and add datalines
 
 ```{r results='asis', echo=FALSE}
@@ -106,15 +159,15 @@ function_structure("set_dataline")
 By default, the single-case plot will depict the main dependent variable as defined in the scdf object. For changing this default behaviour or adding a second data line, use the `set_dataline()` function. The function takes the argument `variable` (with the main dependent variable as a default) which must correspond to a variable name within the applied scdf.
 
 ```{r}
-#| label: scplot-basic-3
-scplot(exampleAB_add) %>%
+#| label: scplot-dataline
+scplot(exampleAB_add) |>
   set_dataline("depression")
 ```
 
 Styling parameters like line and point colour will be set automatically based on the applied graphic theme. We will learn later about how to change and modify these themes. If you want to directly change the styling parameters, you can use the `line` and `point` arguments which take lists with styling parameters. For `line`, the parameters are `colour`, `linewidth`, `linetype`, `lineend`, and `arrow`. For `point` the parameters are `colour`, `size`, and `shape`.
 
 ```{r}
-scplot(exampleAB_add) %>%
+scplot(exampleAB_add) |>
   set_dataline(
     line = list(colour = "darkred", linewidth = 2), 
     point = list(colour = "black", size = 3, shape = 15)
@@ -129,14 +182,15 @@ function_structure("add_statline")
 
 ### Lines indicating a constant for each phase
 
-Possible functions: `mean`, `min`, `max`, `quantile`
+Possible functions: `mean`, `min`, `max`, `median`, `sd`, `quantile`
 
 ```{r}
-#| label: scplot-statline-1
-scplot(exampleABC) %>%
-  add_statline("mean") %>%
-  add_statline("max") %>%
-  add_statline("min")
+#| label: scplot-statline-descriptives
+scplot(exampleABC) |>
+  add_statline("mean") |>
+  add_statline("max") |>
+  add_statline("min") |> 
+  add_statline("median")
 ```
 
 ### Lines indicating a constant for a specific phase
@@ -145,12 +199,14 @@ Set the `phase` argument with one or multiple phase-names or phase-numbers
 
 Possible functions: `mean`, `min`, `max`, `quantile`
 
+The following example sets a line with the mean of phase A, the maximum of phases B and C and the minimum of phases 2 and 3:
+
 ```{r}
-#| label: scplot-statline-2
-scplot(exampleABC) %>%
-  add_statline("mean", phase = "A") %>%
-  add_statline("max", phase = c("B", "C")) %>%
-  add_statline("min", phase = c(2, 3))
+#| label: scplot-statline-descriptives-phases
+scplot(exampleABC) |>
+  add_statline("mean", phase = "A") |>
+  add_statline("max", phase = c("B", "C")) |>
+  add_statline("min", phase = c(2, 3)) |> add_legend()
 ```
 
 ### Trend-lines
@@ -158,11 +214,27 @@ scplot(exampleABC) %>%
 `trend` (separate trend-line for each phase), `trendA` (extrapolated trend-line of first phase):
 
 ```{r}
-#| label: scplot-statline-3
-scplot(exampleABC) %>%
-  add_statline("trend") %>%
+#| label: scplot-statline-trend
+scplot(exampleABC) |>
+  add_statline("trend") |>
   add_statline("trendA")
 ```
+
+You scan specify various methods with the `method` argument for the `trendA` statistic:
+
+```{r}
+#| label: scplot-statline-trendA-methods
+
+scplot(exampleABC) |> 
+  add_statline("trendA") |> 
+  add_statline("trendA", method = "theil-sen") |> 
+  add_statline("trendA", method = "bisplit") |> 
+  add_statline("trendA", method = "trisplit") |> 
+  add_legend()
+
+```
+
+For the `trend` statistic you can set `method = "theil-sen"` for median based Theil-Sen slope lines.
 
 ### Smoothed curves
 
@@ -170,23 +242,27 @@ Possible functions: `moving mean`, `moving median`, `loess`, `lowess`:
 
 ```{r}
 #| label: scplot-statline-4
-scplot(exampleABC) %>%
-  add_statline("loess") %>%
+scplot(exampleABC) |>
+  add_statline("loess") |>
   add_statline("moving mean")
 ```
 
-### Refine with addidtional arguments
+### Refine with additional arguments
 
-`mean` : `trim`\
-`quantile`: `probs`\
-`moving mean`, `moving median`: `lag`\
-`loess`: `span`\
-`lowess`: `f`
+Some of the statistics allow additional arguments to specify parameters:
+
+| Statistic                  | Argument | What it does ...                                                                                                                                |
+|------------|------------|-------------------------------------------------|
+| mean                       | trim     | Trims the mean. `trim = 0.10` calculates a 10\$ trimmed mean.                                                                                   |
+| quantile                   | probs    | Probability. `probs = 0.25` calculates the 25% quantile.                                                                                        |
+| moving mean, moving median | lag      | Lag surrounding the estimated value. `lag = 2` will calculate mean or median based on the two values before and after the to be replaced value. |
+| loess                      | span     | Proportion of the surrounding point to estimate a value.                                                                                        |
+| lowess                     | f        | Proportion of the surrounding point to estimate a value.                                                                                        |
 
 ```{r}
 #| label: scplot-statline-5
-scplot(exampleABC) %>%
-  add_statline("moving mean", lag = 1) %>%
+scplot(exampleABC) |>
+  add_statline("moving mean", lag = 1) |>
   add_statline("quantile", probs = 0.75)
 ```
 
@@ -196,9 +272,9 @@ If you do not specify the `variable` argument, the default first data-line is ad
 
 ```{r}
 #| label: scplot-dataline-1
-scplot(exampleAB_add) %>%
-  set_dataline("cigarrets") %>%
-  add_statline("mean", variable = "cigarrets") %>%
+scplot(exampleAB_add) |>
+  set_dataline("cigarrets") |>
+  add_statline("mean", variable = "cigarrets") |>
   add_statline("trend")
 ```
 
@@ -210,8 +286,8 @@ The positions argument can take a numeric vector:
 
 ```{r}
 #| label: scplot-marks-1
-scplot(exampleABC) %>%
-  add_marks(case = 1, positions = c(7, 12)) %>%
+scplot(exampleABC) |>
+  add_marks(case = 1, positions = c(7, 12)) |>
   add_marks(case = 3, positions = c(3, 17), color = "blue", size = 7)
 ```
 
@@ -219,11 +295,11 @@ The positions argument can also be a string containing a logical expression. Thi
 
 ```{r}
 #| label: scplot-marks-2
-scplot(exampleABC) %>%
-  add_marks(case = 1, positions = "mt > 15") %>%
-  add_marks(case = 2, positions = 'phase == "B"', color = "green", size = 5) %>%
-  add_marks(case = 3, positions = "values > quantile(values, probs = 0.80)", color = "blue", size = 7) %>%
-  add_marks(case = "all", positions = "values < quantile(values, probs = 0.20)", color = "yellow", size = 7) %>%
+scplot(exampleABC) |>
+  add_marks(case = 1, positions = "mt > 15") |>
+  add_marks(case = 2, positions = 'phase == "B"', color = "green", size = 5) |>
+  add_marks(case = 3, positions = "values > quantile(values, probs = 0.80)", color = "blue", size = 7) |>
+  add_marks(case = "all", positions = "values < quantile(values, probs = 0.20)", color = "yellow", size = 7) |>
   add_caption("Note.
 red: mt > 15 in case 1; 
 green: phase 'B' in case 2; 
@@ -235,22 +311,38 @@ And the positions argument can take the results from a scan outlier analyses and
 
 ```{r}
 #| label: scplot-marks-3
-scplot(exampleABC_outlier) %>% 
+scplot(exampleABC_outlier) |> 
   add_marks(positions = outlier(exampleABC_outlier), size = 3)
 ```
 
 ### Add text
 
 ```{r text1}
-scplot(exampleABC) %>%
+scplot(exampleABC) |>
   add_text("Here!", case = 2, x = 10, y = 80, color = "red")
 ```
 
-### Add arrow
+### Add line
 
-```{r arrow1}
-scplot(exampleABC) %>%
-  add_arrow(case = 1, x0 = 6, y0 = 90, x1 = 3, y1 = 63) %>%
+Draw lines either by providing starting (x0 and y0) an end coordinates (x1 and y1) or a horizontal (hline) or vertical (vline) position:
+
+```{r}
+#| label: scplot-label
+
+scplot(exampleABC) |>
+  add_line(case = 1, x0 = 6, y0 = 90, x1 = 3, y1 = 63, color = "red") |> 
+  add_line(case = 2, hline = 80, color = "blue") |> 
+  add_line(case = 3, vline = 15, color = "green")
+  
+```
+
+Draw an arrow:
+
+```{r}
+#| label: scplot-arrow
+
+scplot(exampleABC) |>
+  add_arrow(case = 1, x0 = 6, y0 = 90, x1 = 3, y1 = 63) |>
   add_text("Problem", case = 1, x = 6, y = 94, color = "red", size = 1, hjust = 0 ) 
 ```
 
@@ -259,12 +351,12 @@ scplot(exampleABC) %>%
 ### Data line
 
 ```{r line1}
-scplot(exampleABC) %>%
-  set_dataline(colour = "blue", linewidth = 1, linetype = "dotted", 
+scplot(exampleABC) |>
+  set_dataline(color = "blue", linewidth = 1, linetype = "dotted", 
                point = list(colour = "red", size = 1, shape = 2) )
 
 # Equivalent_
-# scplot(exampleABC) %>%
+# scplot(exampleABC) |>
 #   set_dataline(line = list(colour = "blue", size = 1, linetype = "dotted"), 
 #                point = list(colour = "red", size = 1, shape = 2)) 
 
@@ -273,14 +365,14 @@ scplot(exampleABC) %>%
 ### Background
 
 ```{r background1}
-scplot(exampleABC) %>%
+scplot(exampleABC) |>
   set_background(fill = "grey90", color = "black", size = 2)
 ```
 
 ### Panel
 
 ```{r pannel1}
-scplot(exampleABC) %>%
+scplot(exampleABC) |>
   set_panel(fill = "tan1", color = "palevioletred", size = 2)
 ```
 
@@ -289,7 +381,7 @@ scplot(exampleABC) %>%
 Note: The colors are 50% transparent. So they might appear different.
 
 ```{r pannel2}
-scplot(exampleABC) %>%
+scplot(exampleABC) |>
   set_panel(fill = c("grey80", "white", "blue4"))
 ```
 
@@ -309,7 +401,7 @@ cat(paste0(themes, collapse = ", "))
 ### An overview
 
 ```{r}
-#| lable: scplot-themes
+#| label: scplot-themes
 #| echo: false
 #| fig-cap: Various scplot themes.
 #| fig-height: 10
@@ -317,94 +409,71 @@ cat(paste0(themes, collapse = ", "))
 ts <- 10
 data <- exampleABC$Marie
 
-p1 <- scplot(data) %>% set_theme("default") %>% set_base_text(size = ts) %>% as_ggplot()
-p2 <- scplot(data) %>% set_theme("basic") %>% set_base_text(size = ts) %>% as_ggplot()
-p3 <- scplot(data) %>% set_theme("minimal") %>% set_base_text(size = ts) %>% as_ggplot()
-p4 <- scplot(data) %>% set_theme("dark") %>% set_base_text(size = ts) %>% as_ggplot()
-p5 <- scplot(data) %>% set_theme("sienna") %>% set_base_text(size = ts) %>% as_ggplot()
-p6 <- scplot(data) %>% set_theme("dark") %>% set_base_text(size = ts) %>% as_ggplot()
+p1 <- scplot(data) |> set_theme("default") |> set_base_text(size = ts) |> set_casenames("default") |> as_ggplot()
+p2 <- scplot(data) |> set_theme("basic") |> set_base_text(size = ts) |>  set_casenames("basic") |> as_ggplot()
+p3 <- scplot(data) |> set_theme("minimal") |> set_base_text(size = ts) |>  set_casenames("minimal") |> as_ggplot()
+p4 <- scplot(data) |> set_theme("dark") |> set_base_text(size = ts) |>  set_casenames("dark") |> as_ggplot()
+p5 <- scplot(data) |> set_theme("sienna") |> set_base_text(size = ts) |>  set_casenames("sienna")|> as_ggplot()
+p6 <- scplot(data) |> set_theme("illustration") |> set_base_text(size = ts) |> set_casenames("illustration") |> as_ggplot()
 
 library(patchwork)
-p1 + p2 + p3 + p4 + p5 + 
+p1 + p2 + p3 + p4 + p5 + p6 +
   plot_annotation(tag_levels = "a", tag_suffix =  ")") + 
    plot_layout(ncol = 2)
-
-```
-
-### The 'default' theme
-
-```{r theme2}
-scplot(exampleABC)
-```
-
-### Theme 'basic'
-
-```{r theme3}
-scplot(exampleABC) %>%
-  set_theme("basic")
-```
-
-### Theme 'minimal'
-
-```{r theme4}
-scplot(exampleABC) %>%
-  set_theme("minimal")
-```
-
-### Theme 'dark'
-
-```{r theme5}
-scplot(exampleABC) %>%
-  set_theme("dark")
-```
-
-### Theme 'sienna'
-
-```{r theme6}
-scplot(exampleABC) %>%
-  set_theme("sienna")
 ```
 
 ### Combine themes
 
 When providing multiple themes the order is important as the latter overwrites styles of the former.
 
-```{r theme7}
-scplot(exampleABC) %>%
-  set_theme("sienna", "minimal", "small")
+```{r}
+#| label: scplot-combine-themes
+
+scplot(exampleABC) |>
+  set_theme("sienna", "minimal", "small", "phase_color")
 ```
 
 ### Set base text
 
 The base text size is the absolute size. All other text sizes are relative to this base text size.
 
-```{r base1}
-scplot(exampleAB_decreasing$Peter) %>%
+```{r}
+#| label: scplot-base-text
+
+scplot(exampleAB_decreasing$Peter) |>
   set_base_text(colour = "blue", family = "serif", face = "italic", size = 14)
 ```
 
 ## Add title and caption
 
-```{r title1}
-scplot(exampleAB_decreasing) %>%
-  add_title("A new plot", color = "darkblue", size = 1.3) %>%
-  add_caption("Note. What a nice plot!", face = "italic", colour = "darkred")
+```{r}
+#| label: scplot-title
+
+scplot(exampleAB_decreasing) |>
+  add_title("A new plot", color = "darkblue", size = 1.3) |>
+  add_caption("Note. What a nice plot!", face = "italic", color = "darkred")
 ```
 
 ## Add a legend
 
-```{r legend1}
-scplot(exampleABC) %>%
-  add_statline("mean", color = "darkred") %>%
-  add_statline("min", phase = "B", linewidth = 0.2, color = "darkblue") %>%
+```{r}
+#| label: scplot-legend
+
+
+scplot(exampleABC) |>
+  add_statline("mean", color = "darkred") |>
+  add_statline("min", phase = "B", linewidth = 0.2, color = "darkblue") |>
   add_legend()
 ```
 
 and set specific elements
 
-```{r legend2}
-scplot(exampleABC) %>%
-  add_statline("mean", color = "darkred") %>%
+```{r}
+#| label: scplot-legend2
+
+
+scplot(exampleABC) |>
+  add_statline("mean", color = "darkred") |>
   add_legend(
     position = "left", 
     title = list(size = 12, face = "italic"),
@@ -416,32 +485,40 @@ scplot(exampleABC) %>%
 
 When axis ticks are to close together set the increment argument to leave additional space (e.g. `increment = 2` will annotate every other value). When you set `increment_from = 0` an additional tick will be set at 1 although counting of the increments will start at 0.
 
-```{r axis1}
-scplot(exampleA1B1A2B2) %>% 
+```{r}
+#| label: scplot-axis
+
+
+scplot(exampleA1B1A2B2) |> 
   set_xaxis(increment_from = 0, increment = 5, 
-            color = "darkred", size = 0.7, angle = -90) %>%
+            color = "darkred", size = 0.7, angle = -90) |>
   set_yaxis(limits = c(0, 50), size = 0.7, color = "darkred") 
 ```
 
 ## Customize axis labels
 
 ```{r axis2}
-scplot(exampleA1B1A2B2) %>% 
-  set_ylabel("Score", color = "darkred", angle = 0) %>%
+#| label: scplot-axis-labels
+
+
+
+
+scplot(exampleA1B1A2B2) |> 
+  set_ylabel("Score", color = "darkred", angle = 0) |>
   set_xlabel("Session", color = "darkred")
 ```
 
 ## Change Casenames
 
 ```{r casenames1}
-scplot(exampleA1B1A2B2) %>%
+scplot(exampleA1B1A2B2) |>
   set_casenames(c("A", "B", "C"), color = "darkblue", size = 1)
 ```
 
 Casenames as strips:
 
 ```{r casenames2}
-scplot(exampleA1B1A2B2) %>%
+scplot(exampleA1B1A2B2) |>
   set_casenames(position = "strip", 
                 background = list(fill = "lightblue"))
 ```
@@ -449,7 +526,7 @@ scplot(exampleA1B1A2B2) %>%
 ## Add value labels
 
 ```{r valuelabels1}
-scplot(exampleABC) %>% 
+scplot(exampleABC) |> 
   add_labels(text = list(color = "black", size = 0.7), 
              background = list(fill = "grey98"), nudge_y = 7)
  
@@ -458,7 +535,7 @@ scplot(exampleABC) %>%
 If you set the `nudge_y` argument to 0, the label will be set on-top the datapoints:
 
 ```{r valuelabels2}
-scplot(exampleABC) %>% 
+scplot(exampleABC) |> 
   add_labels(text = list(color = "black", size = 0.7), 
              background = list(fill = "grey98"), nudge_y = 0)
  
@@ -467,7 +544,7 @@ scplot(exampleABC) %>%
 ## Add a ridge
 
 ```{r ridge1}
-scplot(exampleAB_mpd) %>% 
+scplot(exampleAB_mpd) |> 
   add_ridge("grey50")
 ```
 
@@ -477,17 +554,17 @@ scplot(exampleAB_mpd) %>%
 
 ```{r extend1}
 
-p1 <- scplot(byHeart2011$`Lisa (Turkish)`) %>% 
-        set_theme("minimal") %>%
+p1 <- scplot(byHeart2011$`Lisa (Turkish)`) |> 
+        set_theme("minimal") |>
         as_ggplot()
-p2 <- scplot(byHeart2011$`Patrick (Spanish)`) %>% 
-        set_theme("minimal") %>% 
+p2 <- scplot(byHeart2011$`Patrick (Spanish)`) |> 
+        set_theme("minimal") |> 
         as_ggplot()
-p3 <- scplot(byHeart2011$`Anna (Twi)`) %>% 
-        set_theme("minimal") %>% 
+p3 <- scplot(byHeart2011$`Anna (Twi)`) |> 
+        set_theme("minimal") |> 
         as_ggplot()
-p4 <- scplot(byHeart2011$`Melanie (Swedish)`) %>% 
-        set_theme("minimal") %>% 
+p4 <- scplot(byHeart2011$`Melanie (Swedish)`) |> 
+        set_theme("minimal") |> 
         as_ggplot()
 
 library(patchwork)
@@ -500,41 +577,41 @@ p1 + p2 + p3 + p4 + plot_annotation(tag_levels = "a", tag_suffix =  ")")
 Here are some more complex examples
 
 ```{r complex1}
-scplot(example_A24) %>% 
-  add_statline("lowess", linewidth = 1.5) %>%
-  add_statline("loess", linewidth = 1.5) %>%
-  add_statline("moving mean", lag = 3, linewidth = 1.5) %>%
-  set_xaxis(size = 0.8, angle = 35) %>%
-  set_dataline(point = "none") %>%
-  add_legend(position = c(0.8, 0.75), background = list(color = "grey50")) %>%
+scplot(example_A24) |> 
+  add_statline("lowess", linewidth = 1.5) |>
+  add_statline("loess", linewidth = 1.5) |>
+  add_statline("moving mean", lag = 3, linewidth = 1.5) |>
+  set_xaxis(size = 0.8, angle = 35) |>
+  set_dataline(point = "none") |>
+  add_legend(position = c(0.8, 0.75), background = list(color = "grey50")) |>
   set_phasenames(c("no speedlimit", "with speedlimit"), 
-                 position = "left", hjust = 0, vjust = 1) %>%
-  set_casenames(position = "none") %>%
-  add_title("Effect of a speedlimit on the A24") %>%
-  add_caption("Note: Moving mean calculated with lag three", face = 3, size = 1) %>%
+                 position = "left", hjust = 0, vjust = 1) |>
+  set_casenames(position = "none") |>
+  add_title("Effect of a speedlimit on the A24") |>
+  add_caption("Note: Moving mean calculated with lag three", face = 3, size = 1) |>
   add_ridge(color = "lightblue")
   
 ```
 
 ```{r complex2}
-scplot(exampleAB_add) %>%
-  set_dataline("cigarrets", point = list(size = 1)) %>%
-  add_statline("trend", linetype = "dashed") %>%
-  add_statline("mean", variable = "cigarrets", color = "darkred") %>%
-  add_marks(positions = c(14,20), size = 3, variable = "cigarrets")%>%
-  add_marks(positions = "cigarrets > quantile(cigarrets, 0.75)", size = 3) %>%
-  set_xaxis(increment = 5) %>%
-  set_phasenames(color = NA) %>%
-  set_casenames(position = "strip") %>%
+scplot(exampleAB_add) |>
+  set_dataline("cigarrets", point = list(size = 1)) |>
+  add_statline("trend", linetype = "dashed") |>
+  add_statline("mean", variable = "cigarrets", color = "darkred") |>
+  add_marks(positions = c(14,20), size = 3, variable = "cigarrets")|>
+  add_marks(positions = "cigarrets > quantile(cigarrets, 0.75)", size = 3) |>
+  set_xaxis(increment = 5) |>
+  set_phasenames(color = NA) |>
+  set_casenames(position = "strip") |>
   add_legend(
     section_labels = c("", ""),
     labels = c(NA, NA, "Trend of wellbeing", "Mean of cigarrets"),
     text = list(face = 3)
-  ) %>%
-  set_panel(fill = c("lightblue", "grey80")) %>%
-  add_ridge(color = "snow", variable = "cigarrets") %>%
+  ) |>
+  set_panel(fill = c("lightblue", "grey80")) |>
+  add_ridge(color = "snow", variable = "cigarrets") |>
   add_labels(variable = "cigarrets", nudge_y = 2, 
-             text = list(color = "blue", size = 0.5)) %>%
+             text = list(color = "blue", size = 0.5)) |>
   add_labels(nudge_y = 2, text = list(color = "black", size = 0.5),
              background = list(fill = "white"))
 
@@ -542,36 +619,36 @@ scplot(exampleAB_add) %>%
 ```
 
 ```{r complex3}
-scplot(exampleA1B1A2B2) %>% 
-  set_xaxis(increment = 4, size = 0.7) %>%
-  set_yaxis(color = "sienna3") %>%
-  set_ylabel("Points", color = "sienna3", angle = 0) %>%
-  set_xlabel("Weeks", size = 1, color = "brown") %>%
-  add_title("Points by week", color = "sienna4", face = 3) %>%
+scplot(exampleA1B1A2B2) |> 
+  set_xaxis(increment = 4, size = 0.7) |>
+  set_yaxis(color = "sienna3") |>
+  set_ylabel("Points", color = "sienna3", angle = 0) |>
+  set_xlabel("Weeks", size = 1, color = "brown") |>
+  add_title("Points by week", color = "sienna4", face = 3) |>
   add_caption("Note: An extensive Example.",
-              color = "black", size = 1, face = 3) %>%
+              color = "black", size = 1, face = 3) |>
   set_phasenames(c("Baseline", "Intervention", "Fall-Back", "Intervention_2"), 
-                 size = 0) %>%
-  add_ridge(scales::alpha("lightblue", 0.5)) %>%
-  set_casenames(labels = sample_names(3), color = "steelblue4", size = 0.7) %>%
-  set_panel(fill = c("grey80", "grey95"), color = "sienna4") %>%
-  add_grid(color = "grey85", linewidth = 0.1) %>%
+                 size = 0) |>
+  add_ridge(scales::alpha("lightblue", 0.5)) |>
+  set_casenames(labels = sample_names(3), color = "steelblue4", size = 0.7) |>
+  set_panel(fill = c("grey80", "grey95"), color = "sienna4") |>
+  add_grid(color = "grey85", linewidth = 0.1) |>
   set_dataline(size = 0.5, linetype = "solid", 
-               point = list(colour = "sienna4", size = 0.5, shape = 18)) %>%
-  add_labels(text = list(color = "sienna", size = 0.7), nudge_y = 4) %>%
-  set_separator(size = 0.5, linetype = "solid", color = "sienna") %>%
-  add_statline(stat = "trendA", color = "tomato2") %>%
-  add_statline(stat = "max", phase = c(1, 3), linetype = "dashed") %>%
-  add_marks(case = 1:2, positions = 14, color = "red3", size = 2, shape = 4) %>%
+               point = list(colour = "sienna4", size = 0.5, shape = 18)) |>
+  add_labels(text = list(color = "sienna", size = 0.7), nudge_y = 4) |>
+  set_separator(size = 0.5, linetype = "solid", color = "sienna") |>
+  add_statline(stat = "trendA", color = "tomato2") |>
+  add_statline(stat = "max", phase = c(1, 3), linetype = "dashed") |>
+  add_marks(case = 1:2, positions = 14, color = "red3", size = 2, shape = 4) |>
   add_marks(case = "all", positions = "values < quantile(values, 0.1)", 
-            color = "blue3", size = 1.5) %>%
-  add_marks(positions = outlier(exampleABAB), color = "brown", size = 2) %>%
+            color = "blue3", size = 1.5) |>
+  add_marks(positions = outlier(exampleABAB), color = "brown", size = 2) |>
   add_text(case = 1, x = 5, y = 35, label = "Interesting", 
-           color = "darkgreen", angle = 20, size = 0.7) %>%
-  add_arrow(case = 1, 5, 30, 5, 22, color = "steelblue") %>%
-  set_background(fill = "white") %>%
-  add_legend() %>%
-  set_theme("basic") %>%
+           color = "darkgreen", angle = 20, size = 0.7) |>
+  add_arrow(case = 1, 5, 30, 5, 22, color = "steelblue") |>
+  set_background(fill = "white") |>
+  add_legend() |>
+  set_theme("basic") |>
   set_theme_element(panel.spacing.y = unit(0, "points"))
 
 ```
@@ -583,10 +660,10 @@ Adding bars is a bit more complicated:
 -   Set the left margin of the x-axis to `0` with the `expand` argument.
 
 ```{r complex4}
-scplot(exampleAB_add) %>%
-  set_xaxis(expand = c(0, 0), limits = c(0, 41)) %>%
-  set_dataline("cigarrets", type = "bar", linewidth = 0.6, point = "none") %>%
-  add_statline("mean", variable = "cigarrets", color = "darkred") %>%
-  add_statline("trend", linetype = "dashed") %>%
+scplot(exampleAB_add) |>
+  set_xaxis(expand = c(0, 0), limits = c(0, 41)) |>
+  set_dataline("cigarrets", type = "bar", linewidth = 0.6, point = "none") |>
+  add_statline("mean", variable = "cigarrets", color = "darkred") |>
+  add_statline("trend", linetype = "dashed") |>
   set_casenames(position = "strip")
 ```
