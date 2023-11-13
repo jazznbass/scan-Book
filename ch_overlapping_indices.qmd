@@ -45,11 +45,13 @@ exampleA1B1A2B2 |>
 function_structure("smd")
 ```
 
-Standardized mean differences can be calculated in various ways. They refer to the difference in the means of two phases. The `smd` function provides an overview of the most common parameters for each single-case:
+Standardized mean differences can be calculated in various ways. They refer to the difference in the means of two phases divided by a standard deviation. The `smd` function provides an overview of the most common parameters for each single-case:
 
 ```{r}
 smd(exampleAB_score)
 ```
+
+The first four rows give the mean and the standard deviation of the two respective phases. `sd cohen` is the (unweighted) average of the standard deviation of phase A and B: $\sqrt{\frac{{\text{sdA}^2 + \text{sdB}^2}}{2}}$. `sd Hedges` is the weighted average of the standard deviation with a correction for degrees of freedom: $\sqrt{\frac{ (nA - 1) \cdot \text{sdA}^2 + (nB - 1) \cdot \text{sdB}^2 }{ nA + nB - 2 }}$. `Hedges' g` is the mean difference divided by `sd Hedges`. `Hedges' g correction` ($Hedges' g * (1 - \frac{3}{4n - 9})$) and `Hedges' g durlak correction` ($Hedges' g * (\frac{{n - 3}}{{n - 2.25}} \cdot \sqrt{\frac{{n - 2}}{{n}}})$) are two approaches of correcting Hedges' g for small sample sizes. `Glass' delta` is the mean difference divided by the standard deviation of the A-phase. `Cohen's d` is the mean difference divided by `sd cohen`.
 
 ## Percentage non-overlapping data (PND)
 
@@ -107,7 +109,7 @@ pem(exampleAB)
 function_structure("pet")
 ```
 
-The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent confidence interval of the predicted progress is computed.
+The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent (default) confidence interval of the predicted progress is computed.
 
 ```{r}
 pet(exampleAB)
@@ -131,23 +133,17 @@ random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 
 function_structure("pand")
 ```
 
-The `pand` function calculates the percentage of all non-overlapping data [@parker_percentage_2007], an index to quantify a level increase (or decrease) in performance after the onset of an intervention. 
-The authors emphasize that PAND is designed for application in a multiple case design with
-a substantial number of measurements, technically at least 20 to 25, but preferably 60 or more. PAND is defined as 100% minus the percentage of data points that need to be removed from either phase in order to ensure nonoverlap between the phases. 
+The `pand` function calculates the percentage of all non-overlapping data [@parker_percentage_2007], an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The authors emphasize that PAND is designed for application in a multiple case design with a substantial number of measurements, technically at least 20 to 25, but preferably 60 or more. PAND is defined as 100% minus the percentage of data points that need to be removed from either phase in order to ensure nonoverlap between the phases.
 
-Several approaches have been suggested to calculate PAND, leading to potentially different outcomes. In their 2007 paper, Parker and colleagues present an algorithm for computing PAND. The algorithm involves sorting the scores of a time series, including the associated phases, and comparing the resulting phase order with the original phase order using a contingency table. To account for ties, the algorithm includes a randomization
-process where ties are randomly assigned to one of the two phases. Consequently, executing the algorithm multiple times could yield different results. It is important to note that this algorithm does not produce the same results as the PAND definition provided earlier in the same paper. However, it offers the advantage of allowing the calculation of an effect size measure `phi`, and the application of statistical tests for frequency distributions. `phi` equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance. 
+Several approaches have been suggested to calculate PAND, leading to potentially different outcomes. In their 2007 paper, Parker and colleagues present an algorithm for computing PAND. The algorithm involves sorting the scores of a time series, including the associated phases, and comparing the resulting phase order with the original phase order using a contingency table. To account for ties, the algorithm includes a randomization process where ties are randomly assigned to one of the two phases. Consequently, executing the algorithm multiple times could yield different results. It is important to note that this algorithm does not produce the same results as the PAND definition provided earlier in the same paper. However, it offers the advantage of allowing the calculation of an effect size measure `phi`, and the application of statistical tests for frequency distributions. `phi` equals Pearsons r for dichotomous data. Thus, phi-Square is the amount of explained variance.
 
-Pustejovsky (2019) presented a mathematical formulation of Parker's original definition for comparing two phases of a single case: 
+@pustejovsky2019 presented a mathematical formulation of Parker's original definition for comparing two phases of a single case:
 
 $$PAND = \frac{1}{m+n}max\{(i+j)I(y^A_{i}<y^B_{n+1-j}\}$$
 
-This formulation provides accurate results for PAND, but the original definition has the drawback of an
-unknown distribution under the null hypothesis, making a statistical test
-difficult. 
+This formulation provides accurate results for PAND, but the original definition has the drawback of an unknown distribution under the null hypothesis, making a statistical test difficult.
 
 The `pand()` function enables the calculation of PAND using both methods. The first approach (`method = "sort"`) follows the algorithm described above, with the exclusion of randomization before sorting to avoid ambiguity. It calculates a phi measure and provides the results of a chi-squared test and a Fisher exact test. The second approach (`method = "minimum"`) applies the aforementioned formula. For a multiple case design, overlaps are calculated for each case, summed, and then divided by the total number of measurements. No statistical test is conducted for this method.
-
 
 ```{r pand-1}
 pand(Parker2007)
@@ -157,7 +153,6 @@ pand(Parker2007)
 pand(Parker2007, method = "minimum")
 ```
 
-
 The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power [@parker_effect_2011].
 
 ## Nonoverlap of all pairs (NAP)
@@ -166,10 +161,22 @@ The original procedure for computing PAND does not account for ambivalent datapo
 function_structure("nap")
 ```
 
-The `nap` function calculates the nonoverlap of all pairs [@parker_improved_2009]. NAP summarizes the overlap between all pairs of phase A and phase B data points. If an increase of phase B scores is expected, a non-overlapping pair has a higher phase B data point. The NAP equals number of pairs showing no overlap / number of pairs. Because NAP has values between 0 and 100% where 50% is no effect, a rescaled NAP (ranging between -100  and 100% where 0% is no effect) has been proposed. NAP is equivalent to the the U-test and Wilcox rank sum test. Thus, a Wilcox test is conducted and reported for each case. Additionally, effect sizes d and R squared are reported following Parker and colleagues.
+The `nap` function calculates the nonoverlap of all pairs [@parker_improved_2009]. NAP summarizes the overlap between all pairs of phase A and phase B data points. Therefore, every single measurement of phase A is compared to all measurements in phase B, resuting in $n_{Phase A} \times n_{Phase B}$ pairs. If an increase in phase B values is expected, a non-overlapping pair will have a higher phase B data point. The NAP is equal to the number of pairs showing no overlap / number of pairs. Since NAP has values between 0 and 100% where 50% is no effect, a rescaled NAP (ranging between -100 and 100%, where 0% is no effect) has been proposed. NAP is equivalent to the U-test and the Wilcoxon rank sum test. Therefore, a Wilcoxon signed rank sum test is conducted and reported for each case. Additionally, effect sizes d and R-squared are reported according to Parker and colleagues.
 
 ```{r}
 nap(exampleAB)
+```
+
+## Improvement rate difference (IRD)
+
+```{r results='asis', echo=FALSE}
+function_structure("ird")
+```
+
+The adaptation of the improvement rate difference for single-case phase comparisons was developed by @parker2009. A variation called robust improvement rate difference was proposed by @parker_effect_2011. The `ird()` function calculates the robust improvement rate difference. It follows the formula suggested by @pustejovsky2019. For a multiple case design, IRD is based on the overall improvement rate of all cases which is the average of the IRDs for each case.
+
+```{r}
+ird(exampleAB)
 ```
 
 ## Tau-U
@@ -290,7 +297,6 @@ case <- scdf(
 
 corrected_tau(case)
 ```
-
 
 ## Reliable change index
 

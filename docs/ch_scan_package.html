@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.4.388">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -48,6 +48,12 @@ ul.task-list li input[type="checkbox"] {
   "panel-placement": "start",
   "type": "textbox",
   "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -57,10 +63,10 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
@@ -76,10 +82,10 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_scan_package.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_scan_package.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -305,7 +311,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation"><span class="header-section-number">2.4.5</span> Simulation</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
@@ -317,7 +323,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -325,7 +331,9 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
+
 
 <section id="installing-the-scan-package" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="installing-the-scan-package"><span class="header-section-number">2.1</span> Installing the <em>scan</em> package</h2>
@@ -336,8 +344,8 @@ ul.task-list li input[type="checkbox"] {
 <p>To activate a package, you need the <code>library</code> function. In this case, <code>library(scan)</code>. You should get something like</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[34mscan 0.60.0.9999 (2023-09-22)
-[31mFor information on citing scan, type citation("scan").</code></pre>
+<pre><code>scan 0.60.0.9999 (2023-11-04)
+For information on citing scan, type citation("scan").</code></pre>
 </div>
 </div>
 <p>indicating that everything went smoothly and <em>scan</em> is ready for work.</p>
@@ -365,10 +373,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="management" class="level3" data-number="2.4.1">
 <h3 data-number="2.4.1" class="anchored" data-anchor-id="management"><span class="header-section-number">2.4.1</span> Management</h3>
 <div class="cell">
+<div id="tbl-functions-management" class="cell anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-functions-management-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.1: Functions for data management
+</figcaption>
+<div aria-describedby="tbl-functions-management-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-functions-management" class="anchored">
 <table class="table table-sm table-striped small">
-<caption>Table&nbsp;2.1: Functions for data management</caption>
 <colgroup>
 <col style="width: 25%">
 <col style="width: 48%">
@@ -388,43 +400,43 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">scdf</td>
 <td style="text-align: left;">Creates a single-case data-frame</td>
 <td style="text-align: left;">Stable</td>
-<td style="text-align: left;"><a href="ch_create_display_and_store_scdfs.html#sec-scdf"><span>Section&nbsp;3.2</span></a></td>
+<td style="text-align: left;"><a href="ch_create_display_and_store_scdfs.html#sec-scdf" class="quarto-xref"><span>Section&nbsp;3.2</span></a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">select_cases</td>
 <td style="text-align: left;">Selects specific cases of an scdf</td>
 <td style="text-align: left;">Stable</td>
-<td style="text-align: left;"><a href="ch_working_with_scdfs.html#sec-select-cases"><span>Section&nbsp;4.1</span></a></td>
+<td style="text-align: left;"><a href="ch_working_with_scdfs.html#sec-select-cases" class="quarto-xref"><span>Section&nbsp;4.1</span></a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">select_phases</td>
 <td style="text-align: left;">Selects and/or recombines phases</td>
 <td style="text-align: left;">Stable</td>
-<td style="text-align: left;"><a href="ch_overlapping_indices.html#sec-select-phases"><span>Section&nbsp;8.1.1</span></a></td>
+<td style="text-align: left;"><a href="ch_overlapping_indices.html#sec-select-phases" class="quarto-xref"><span>Section&nbsp;8.1.1</span></a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">subset</td>
 <td style="text-align: left;">Selects specific measurements or variables of an scdf</td>
 <td style="text-align: left;">stable</td>
-<td style="text-align: left;"><a href="ch_working_with_scdfs.html#sec-subset"><span>Section&nbsp;4.2</span></a></td>
+<td style="text-align: left;"><a href="ch_working_with_scdfs.html#sec-subset" class="quarto-xref"><span>Section&nbsp;4.2</span></a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">read_scdf</td>
 <td style="text-align: left;">Loads external data into an scdf</td>
 <td style="text-align: left;">Stable</td>
-<td style="text-align: left;"><a href="ch_create_display_and_store_scdfs.html#sec-read-scdf"><span>Section&nbsp;3.4.1</span></a></td>
+<td style="text-align: left;"><a href="ch_create_display_and_store_scdfs.html#sec-read-scdf" class="quarto-xref"><span>Section&nbsp;3.4.1</span></a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">write_scdf</td>
 <td style="text-align: left;">Writes scdf into an external file</td>
 <td style="text-align: left;">Stable</td>
-<td style="text-align: left;"><a href="ch_create_display_and_store_scdfs.html#sec-write-scdf"><span>Section&nbsp;3.4.3</span></a></td>
+<td style="text-align: left;"><a href="ch_create_display_and_store_scdfs.html#sec-write-scdf" class="quarto-xref"><span>Section&nbsp;3.4.3</span></a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">convert</td>
 <td style="text-align: left;">Converts an scdf object into R syntax</td>
 <td style="text-align: left;">Stable</td>
-<td style="text-align: left;"><a href="ch_create_display_and_store_scdfs.html#sec-convert"><span>Section&nbsp;3.5</span></a></td>
+<td style="text-align: left;"><a href="ch_create_display_and_store_scdfs.html#sec-convert" class="quarto-xref"><span>Section&nbsp;3.5</span></a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">set_var</td>
@@ -436,7 +448,7 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: left;">add_l2</td>
 <td style="text-align: left;">Adds level-two data to an scdf</td>
 <td style="text-align: left;">Stable</td>
-<td style="text-align: left;"><a href="ch_multilevel_plm.html#sec-add-l2"><span>Section&nbsp;10.0.1</span></a></td>
+<td style="text-align: left;"><a href="ch_multilevel_plm.html#sec-add-l2" class="quarto-xref"><span>Section&nbsp;10.0.1</span></a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">as_scdf</td>
@@ -454,15 +466,21 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 </div>
+</figure>
+</div>
 </div>
 </section>
 <section id="depiction" class="level3" data-number="2.4.2">
 <h3 data-number="2.4.2" class="anchored" data-anchor-id="depiction"><span class="header-section-number">2.4.2</span> Depiction</h3>
 <div class="cell">
+<div id="tbl-functions-depiction" class="cell anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-functions-depiction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.2: Functions for data depiction/visualisation
+</figcaption>
+<div aria-describedby="tbl-functions-depiction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-functions-depiction" class="anchored">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;2.2: Functions for data depiction/visualisation</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -508,19 +526,25 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+
+
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
 </section>
 <section id="analysis" class="level3" data-number="2.4.3">
 <h3 data-number="2.4.3" class="anchored" data-anchor-id="analysis"><span class="header-section-number">2.4.3</span> Analysis</h3>
 <div class="cell">
+<div id="tbl-functions-analysis" class="cell anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-functions-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.3: Functions for data analysis
+</figcaption>
+<div aria-describedby="tbl-functions-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-functions-analysis" class="anchored">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;2.3: Functions for data analysis</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -626,19 +650,25 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+
+
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
 </section>
 <section id="manipulation" class="level3" data-number="2.4.4">
 <h3 data-number="2.4.4" class="anchored" data-anchor-id="manipulation"><span class="header-section-number">2.4.4</span> Manipulation</h3>
 <div class="cell">
+<div id="tbl-functions-manipulation" class="cell anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-functions-manipulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.4: Functions for data manipulation
+</figcaption>
+<div aria-describedby="tbl-functions-manipulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-functions-manipulation" class="anchored">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;2.4: Functions for data manipulation</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -709,19 +739,25 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+
+
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
 </section>
 <section id="simulation" class="level3" data-number="2.4.5">
 <h3 data-number="2.4.5" class="anchored" data-anchor-id="simulation"><span class="header-section-number">2.4.5</span> Simulation</h3>
 <div class="cell">
+<div id="tbl-functions-simulation" class="cell anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-functions-simulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2.5: Functions for data simulation
+</figcaption>
+<div aria-describedby="tbl-functions-simulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-functions-simulation" class="anchored">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;2.5: Functions for data simulation</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -757,9 +793,11 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+
+
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
 
@@ -847,10 +885,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -860,8 +897,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -874,6 +920,128 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -917,6 +1085,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -942,6 +1111,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1014,6 +1209,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 
