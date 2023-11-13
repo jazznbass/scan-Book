@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.340">
+<meta name="generator" content="quarto-1.4.388">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -58,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -101,6 +102,12 @@ div.csl-indent {
   "panel-placement": "start",
   "type": "textbox",
   "limit": 20,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -110,10 +117,10 @@ div.csl-indent {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
-
 <script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
@@ -131,10 +138,10 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_piecewise_regression.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_piecewise_regression.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -362,19 +369,19 @@ div.csl-indent {
   <li><a href="#phase-c-estimates" id="toc-phase-c-estimates" class="nav-link" data-scroll-target="#phase-c-estimates"><span class="header-section-number">9.6.2</span> Phase C estimates</a></li>
   </ul></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_piecewise_regression.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-plm" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></h1>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-body">
 
     
   
@@ -382,10 +389,12 @@ div.csl-indent {
   </div>
   
 
+
 </header>
 
+
 <p>In a piecewise-regression analysis (sometimes called segmented regression) a dataset is split at a particular break point and the regression parameters (intercept and slopes) are calculated separately for the data before and after the break point. This is done because we assume that there is a qualitative change at the break point that affects the intercept and slope. This approach is well suited to the analysis of single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been proposed by Huitema and McKean <span class="citation" data-cites="huitema_design_2000">Huitema &amp; Mckean (<a href="references.html#ref-huitema_design_2000" role="doc-biblioref">2000</a>)</span>. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements starting at the beginning of the intervention and continuing throughout intervention (B-phase).</p>
-<p>In this model, four parameters predict the outcome at a specific measurement point <a href="#fig-plm">see&nbsp;<span>9.1</span></a></p>
+<p>In this model, four parameters predict the outcome at a specific measurement point <a href="#fig-plm" class="quarto-xref">see&nbsp;<span>9.1</span></a></p>
 <ol type="1">
 <li><p>The performance at the beginning of the study (<strong>intercept</strong>),</p></li>
 <li><p>a developmental effect leading to a continuous increase throughout all measurements (<strong>trend effect</strong>),</p></li>
@@ -394,10 +403,14 @@ div.csl-indent {
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-plm" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="ch_piecewise_regression_files/figure-html/fig-plm-1.png" class="img-fluid figure-img" width="576"></p>
-<figcaption class="figure-caption">Figure&nbsp;9.1: Illustration of the piecewise-linear model</figcaption>
+<div id="fig-plm" class="quarto-figure quarto-figure-center anchored" width="576">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ch_piecewise_regression_files/figure-html/fig-plm-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-plm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.1: Illustration of the piecewise-linear model
+</figcaption>
 </figure>
 </div>
 </div>
@@ -432,8 +445,8 @@ y_i = \beta_0 + \beta_1 (time_i-time_1) + \beta_2 phase_i + \beta_3 (time_i-time
 <li>additional (control) variables</li>
 <li>autoregression modelling</li>
 <li>logistic, binomial, and poisson distributed dependent variables and error terms</li>
-<li>multivariate analyses for analysing the effect of an intervention on more than one outcome variable (see <a href="ch_multivariate_plm.html"><span>Chapter&nbsp;11</span></a>).</li>
-<li>multilevel analyses for multiple cases (see <a href="ch_multilevel_plm.html"><span>Chapter&nbsp;10</span></a>).</li>
+<li>multivariate analyses for analysing the effect of an intervention on more than one outcome variable (see <a href="ch_multivariate_plm.html" class="quarto-xref"><span>Chapter&nbsp;11</span></a>).</li>
+<li>multilevel analyses for multiple cases (see <a href="ch_multilevel_plm.html" class="quarto-xref"><span>Chapter&nbsp;10</span></a>).</li>
 </ul>
 <section id="the-basic-plm-function" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="the-basic-plm-function"><span class="header-section-number">9.1</span> The basic plm function</h2>
@@ -478,15 +491,19 @@ Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 </div>
 </div>
 <p>The output shows the specific contrast settings for the phase and slope calculation (see below for a detailed explanation). Next, the overall model fit is provided. In this specific example the model fit is quite high explaining more than 80% of the variance of the dependent variable. The following regression table shows the unstandardised estimates (B), the lower and upper boundaries of a 95% confidence interval, the standard-error, the t-test statistic, the p-value, and the delta R squared for each predictor.</p>
-<p>In this example, the intercept is the score estimation at the beginning of the study (here: at the first session, see <a href="#fig-plm-ex-1">Figure&nbsp;<span>9.2</span></a>). The trend effect (variable <em>mt</em>) is 0.100. This means that for every one point increase in measurement-time, the score increased by 0.100. As this example has a total of 20 sessions, the overall increase due to the trend is <span class="math inline">\(19 * 0.100 = 1.9\)</span> points. The level effect (variable <em>phase</em> with level B) is 7.858. This means that all scores of phase B are increased by 7.858 points. The slope effect (for phase B) is 1.525. This means that for every one point increase in measurement time after the first phase B session, the score increases by 1.525. As there are 15 Phase B sessions in this example, the total increase due to the slope effect is <span class="math inline">\(14 * 1.525 = 21.35\)</span> points.</p>
+<p>In this example, the intercept is the score estimation at the beginning of the study (here: at the first session, see <a href="#fig-plm-ex-1" class="quarto-xref">Figure&nbsp;<span>9.2</span></a>). The trend effect (variable <em>mt</em>) is 0.100. This means that for every one point increase in measurement-time, the score increased by 0.100. As this example has a total of 20 sessions, the overall increase due to the trend is <span class="math inline">\(19 * 0.100 = 1.9\)</span> points. The level effect (variable <em>phase</em> with level B) is 7.858. This means that all scores of phase B are increased by 7.858 points. The slope effect (for phase B) is 1.525. This means that for every one point increase in measurement time after the first phase B session, the score increases by 1.525. As there are 15 Phase B sessions in this example, the total increase due to the slope effect is <span class="math inline">\(14 * 1.525 = 21.35\)</span> points.</p>
 <p>From these values each data point can be estimated. For example, the last session (<span class="math inline">\(i=20\)</span>) is estimated to be <span class="math inline">\(54.400 + 19 * 0.100 + 7.858 + 14 * 1.525 = 85.508\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">|&gt;</span> <span class="fu">add_statline</span>(<span class="st">"trend"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-plm-ex-1" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="ch_piecewise_regression_files/figure-html/fig-plm-ex-1-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;9.2: Example dataset</figcaption>
+<div id="fig-plm-ex-1" class="quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plm-ex-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ch_piecewise_regression_files/figure-html/fig-plm-ex-1-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-plm-ex-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.2: Example dataset
+</figcaption>
 </figure>
 </div>
 </div>
@@ -914,7 +931,7 @@ slope
 <h2 data-number="9.5" class="anchored" data-anchor-id="designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.5</span> Designs with more than two phases: Setting the right contrasts</h2>
 <p>For single case studies with more than two phases, things get a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the values from phase A. Another common use is to compare the effects of a phase with the previous phase.</p>
 <p>As of scan version <code>0.54.4</code>, plm allows to set a contrast argument. <code>contrast = "first"</code> (the default) will compare all slope and level-effects to the values in the first phase. <code>contrast = "preceding"</code> will compare the slope and level-effects to the preceding phase.</p>
-<p>For the <em>preceding contrast</em>, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see <a href="#sec-dummy-model"><span>Section&nbsp;9.4</span></a>) for the first measurement of the target phase and increases until the last measurement of the case.</p>
+<p>For the <em>preceding contrast</em>, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see <a href="#sec-dummy-model" class="quarto-xref"><span>Section&nbsp;9.4</span></a>) for the first measurement of the target phase and increases until the last measurement of the case.</p>
 <p>You can set the contrast differently for the level and slope effects with the arguments <code>constrast_level</code> and <code>contrast_slope</code>. Both can be either <code>"first"</code> or <code>"preceding"</code>.</p>
 <p>(Note: Prior to scan version <code>0.54.4</code>, the option <code>model = "JW"</code> was identical to <code>model = "B&amp;L-B", contrast = "preceding"</code>).</p>
 <div class="cell">
@@ -1170,20 +1187,28 @@ slope
 <p>The example scdf is the case ‘Marie’ from the <em>exampleABC</em> scdf (<code>exampleABC$Marie</code>)</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-marie" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="ch_piecewise_regression_files/figure-html/fig-marie-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;9.3: Example dataset</figcaption>
+<div id="fig-marie" class="quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-marie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ch_piecewise_regression_files/figure-html/fig-marie-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-marie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.3: Example dataset
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>The dark-red lines indicate the intercept and slopes when calculated separately for each phase. They are:</p>
 <div class="cell">
+<div id="tbl-contrasts-ex-2" class="cell anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-contrasts-ex-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.1: Intercept, slope, and number of measurements calculated separately for each phase
+</figcaption>
+<div aria-describedby="tbl-contrasts-ex-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-contrasts-ex-2" class="anchored">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;9.1: Intercept, slope, and number of measurements calculated separately for each phase</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th"></th>
@@ -1213,17 +1238,23 @@ slope
 </tr>
 </tbody>
 </table>
-</div>
 
 
 </div>
 </div>
-<p>Now we estimate a plm model with four contrast settings (see <a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a>):</p>
+</figure>
+</div>
+</div>
+<p>Now we estimate a plm model with four contrast settings (see <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a>):</p>
 <div class="cell">
+<div id="tbl-contrast-first-preceding" class="cell anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-contrast-first-preceding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.2: Estimates of a piecewise-linear regression with contrast models “first” and “preceding”.
+</figcaption>
+<div aria-describedby="tbl-contrast-first-preceding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-contrast-first-preceding" class="anchored">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Table&nbsp;9.2: Estimates of a piecewise-linear regression with contrast models “first” and “preceding”.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: center;" data-quarto-table-cell-role="th">Contrast level</th>
@@ -1279,14 +1310,16 @@ slope
 </tr>
 </tbody>
 </table>
+
+
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
 <section id="phase-b-estimates" class="level3" data-number="9.6.1">
 <h3 data-number="9.6.1" class="anchored" data-anchor-id="phase-b-estimates"><span class="header-section-number">9.6.1</span> Phase B estimates</h3>
-<p>All regression models in <a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a> have the same estimates for <code>intercept</code> and <code>trend</code>. These are not affected by the contrasts and are identical to those for phase A in <a href="#tbl-contrasts-ex-2">Table&nbsp;<span>9.1</span></a>. In addition, in <a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a>, the estimates for <code>levelB</code> and <code>slopeC</code> are identical since all models contrast the same phase (the first and the preceding phase are both phase A). The values here can be calculated from <a href="#tbl-contrasts-ex-2">Table&nbsp;<span>9.1</span></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<p>All regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> have the same estimates for <code>intercept</code> and <code>trend</code>. These are not affected by the contrasts and are identical to those for phase A in <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>9.1</span></a>. In addition, in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a>, the estimates for <code>levelB</code> and <code>slopeC</code> are identical since all models contrast the same phase (the first and the preceding phase are both phase A). The values here can be calculated from <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>9.1</span></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <p><span id="eq-contrast-level-2"><span class="math display">\[
 levelB = intercept_{phaseB} - (intercept_{phaseA} + n_{PhaseA} * slope_{phaseA})
 \tag{9.1}\]</span></span></p>
@@ -1302,10 +1335,14 @@ slopeB = slope_{phaseB} - slope_{phaseA}
 </section>
 <section id="phase-c-estimates" class="level3" data-number="9.6.2">
 <h3 data-number="9.6.2" class="anchored" data-anchor-id="phase-c-estimates"><span class="header-section-number">9.6.2</span> Phase C estimates</h3>
-<p>The <code>levelC</code> and <code>slopeC</code> estimates of the regression models in <a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a> are different for the various contrast models. Depending on the contrast setting, the estimates “answer” a different question. <a href="#tbl-interpretation-contrasts">Table&nbsp;<span>9.3</span></a> provides interpretation help.</p>
+<p>The <code>levelC</code> and <code>slopeC</code> estimates of the regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> are different for the various contrast models. Depending on the contrast setting, the estimates “answer” a different question. <a href="#tbl-interpretation-contrasts" class="quarto-xref">Table&nbsp;<span>9.3</span></a> provides interpretation help.</p>
 <div id="tbl-interpretation-contrasts" class="anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-interpretation-contrasts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.3: Interpretations of the effect estimates in various contrast conditions
+</figcaption>
+<div aria-describedby="tbl-interpretation-contrasts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table">
-<caption>Table&nbsp;9.3: Interpretations of the effect estimates in various contrast conditions</caption>
 <colgroup>
 <col style="width: 25%">
 <col style="width: 25%">
@@ -1348,9 +1385,11 @@ slopeB = slope_{phaseB} - slope_{phaseA}
 </tbody>
 </table>
 </div>
-<p>All four models are mathematically equivalent, i.e.&nbsp;they produce the same estimates of the dependent variable. Bellow I will show how the estimates from the piecewise regression models relate to the simple regression estimates from <a href="#tbl-contrasts-ex-2">Table&nbsp;<span>9.1</span></a>. These are <span class="math inline">\(intercept_{phaseC} = 68.873\)</span> and <span class="math inline">\(slope_{phaseC} = -0.194\)</span>.</p>
+</figure>
+</div>
+<p>All four models are mathematically equivalent, i.e.&nbsp;they produce the same estimates of the dependent variable. Bellow I will show how the estimates from the piecewise regression models relate to the simple regression estimates from <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>9.1</span></a>. These are <span class="math inline">\(intercept_{phaseC} = 68.873\)</span> and <span class="math inline">\(slope_{phaseC} = -0.194\)</span>.</p>
 <p><strong><em>Level first and slope first contrasts</em></strong></p>
-<p><a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 46.558 compared to phase A (the intercept) and a <code>slopeC</code> increase of 1.721.</p>
+<p><a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 46.558 compared to phase A (the intercept) and a <code>slopeC</code> increase of 1.721.</p>
 <p><span id="eq-contrast-ff-1"><span class="math display">\[
 levelC = intercept_{phaseC} - (Intercept_{phaseA} + n_{phaseA+B} * slope_{phaseA})
 \tag{9.3}\]</span></span></p>
@@ -1360,7 +1399,7 @@ slopeC = slope_{phaseC} - slope_{phaseA}
 \tag{9.4}\]</span></span></p>
 <p><span class="math display">\[1.721 \approx -0.194 - (-1.915)\]</span></p>
 <p><strong><em>Level preceding and slope preceding contrasts</em></strong></p>
-<p><a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 0.139 compared to phase B and a <code>slopeC</code> increase of 0.418.</p>
+<p><a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 0.139 compared to phase B and a <code>slopeC</code> increase of 0.418.</p>
 <p><span id="eq-contrast-pp-1"><span class="math display">\[
 levelC = intercept_{phaseC} - (intercept_{phaseB} + n_{phaseB} * slope_{phaseB})
 \tag{9.5}\]</span></span></p>
@@ -1370,7 +1409,7 @@ slopeC = slope_{phaseC} - slope_{phaseB}
 \tag{9.6}\]</span></span></p>
 <p><span class="math display">\[0.418 \approx -0.194 - (-0.612)\]</span></p>
 <p><strong><em>Level first and slope preceding contrasts</em></strong></p>
-<p><a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 33.388 compared to phase A and a <code>slopeC</code> increase of 0.418.</p>
+<p><a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 33.388 compared to phase A and a <code>slopeC</code> increase of 0.418.</p>
 <p><span id="eq-contrast-fp-1"><span class="math display">\[
 levelC = intercept_{phaseC} - (intercept_{phaseA}  + n_{phaseA} * slope_{phaseA} + n_{phaseB} * slope_{phaseB})
 \tag{9.7}\]</span></span></p>
@@ -1382,7 +1421,7 @@ slopeC = slope_{phaseC} - slope_{phaseB}
 \tag{9.8}\]</span></span></p>
 <p><span class="math display">\[0.418 \approx -0.194 - (-0.612)\]</span></p>
 <p><strong><em>Level preceding and slope first contrasts</em></strong></p>
-<p><a href="#tbl-contrast-first-preceding">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 13.170 compared to phase B and a <code>slopeC</code> increase of 1.721.</p>
+<p><a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 13.170 compared to phase B and a <code>slopeC</code> increase of 1.721.</p>
 <p><span id="eq-contrast-pf-1"><span class="math display">\[
 levelC = intercept_{phaseC} - (intercept_{phaseB} + n_{phaseB} * slope_{phaseA})
 \tag{9.9}\]</span></span></p>
@@ -1398,7 +1437,7 @@ slopeC = slope_{phaseC} - slope_{phaseA}
 <!--# same analyses for models without level estimators and models without slope estimators -->
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
 <div id="ref-huitema_design_2000" class="csl-entry" role="listitem">
 Huitema, B. E., &amp; Mckean, J. W. (2000). Design specification issues in time-series intervention models. <em>Educational and Psychological Measurement</em>, <em>60</em>(1), 38–58. Retrieved from <a href="http://epm.sagepub.com/content/60/1/38.short">http://epm.sagepub.com/content/60/1/38.short</a>
 </div>
@@ -1408,14 +1447,14 @@ Wilbert, J., Lüke, T., &amp; Börnert-Ringleb, M. (2022). Statistical power of 
 </div>
 </section>
 </section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn1"><p>The session is the ordinal number (1st, 2nd, 3rd, …) of the measurements. While the measurement-time (the value of the measurement-time variable at a specific session/ measurement) is often identical to the session number, this is not necessarily the case. The measurement-time sometimes represents days since the start of the study or other intervals. Therefore, I refer to <em>session</em> or <em>measurement</em> for the ordinal position of the measurement and <em>measurement-time</em> for the value of the time variable at that session number.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Differences here and in the following calculations are due to rounding errors.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>The slope of phase A is the trend effect.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section>
+</aside>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1497,10 +1536,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1510,8 +1548,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1524,6 +1571,128 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        for (let i = 0; i < 2; i++) {
+          container.appendChild(note.children[i].cloneNode(true));
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1567,6 +1736,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1592,6 +1762,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1664,6 +1860,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 
