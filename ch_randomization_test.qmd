@@ -41,7 +41,7 @@ p
 The `statistics` argument defines the statistics on which the phase comparison is based. The following comparisons can be made:
 
 |              |                                                                                                                                               |
-|-------------|-----------------------------------------------------------|
+|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
 | Mean A-B     | Uses the difference between the mean of Phase A and the mean of Phase B. This is appropriate if a decrease in scores is expected for Phase B. |
 | Mean B-A     | Uses the difference between the mean of Phase B and the mean of Phase A. This is appropriate if a increase in scores is expected for Phase B. |
 | Mean \|A-B\| | Uses the absolute value of the difference between the means of Phases A and B.                                                                |
@@ -51,7 +51,7 @@ The `statistics` argument defines the statistics on which the phase comparison i
 Further argument are
 
 | Argument        | What it does ...                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-|-----------|-------------------------------------------------------------|
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | *number*        | Sample size of the randomization distribution. The exactness of the p-value can not exceed 1/number (i.e., number = 100 results in p-values with an exactness of one percent). Default is number = 500. For faster processing use number = 100. For more precise p-values set number = 1000.                                                                                                                                                         |
 | *complete*      | If TRUE, the distribution is based on a complete permutation of all possible starting combinations. This setting overwrites the number Argument. The default setting is FALSE.                                                                                                                                                                                                                                                                       |
 | *limit*         | Minimal number of data points per phase in the sample. The first number refers to the A-phase and the second to the B-phase (e.g., limit = c(5, 3)). If only one number is given, this number is applied to both phases. Default is limit = 5.                                                                                                                                                                                                       |
