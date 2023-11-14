@@ -16,8 +16,8 @@ To activate a package, you need the `library` function. In this case, `library(s
 #| echo: false
 #| results: markup
 
-str <- gsub("\033\\[.{3}", "", scan:::.opt$startup_message, perl = TRUE)
-cat(str)
+cat(scan:::opt("startup_message"))
+#cat(scan:::opt("tip")[[2]])
 ```
 
 indicating that everything went smoothly and *scan* is ready for work.
