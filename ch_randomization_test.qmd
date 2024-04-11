@@ -16,46 +16,78 @@ Therefore, a number of new cases are generated with a random start for each phas
 #| fig-cap: Illustration of a randomization test
 
 df <- scdf(c(44, 51, 55, 38, 52, 63, 57, 57, 57, 56, 58, 55, 56, 60, 65), phase_design = list(A = 5, B = 10), name = "Original case")
-df2 <- scdf(c(44, 51, 55, 38, 52, 63, 57, 57, 57, 56, 58, 55, 56, 60, 65), phase_design = list(A = 4, B = 11), name = "Random variation 1")
-df3 <- scdf(c(44, 51, 55, 38, 52, 63, 57, 57, 57, 56, 58, 55, 56, 60, 65), phase_design = list(A = 6, B = 9), name = "Random variation 2")
-df4 <- scdf(c(44, 51, 55, 38, 52, 63, 57, 57, 57, 56, 58, 55, 56, 60, 65), phase_design = list(A = 7, B = 8), name = "Random variation 3")
-df5 <- scdf(c(44, 51, 55, 38, 52, 63, 57, 57, 57, 56, 58, 55, 56, 60, 65), phase_design = list(A = 8, B = 7), name = "Random variation 4")
+df2 <- scdf(c(44, 51, 55, 38, 52, 63, 57, 57, 57, 56, 58, 55, 56, 60, 65), phase_design = list(A = 4, B = 11), name = "Random starting point")
+df3 <- scdf(c(44, 51, 55, 38, 52, 63, 57, 57, 57, 56, 58, 55, 56, 60, 65), phase_design = list(A = 6, B = 9), name = "Random starting point ")
+df4 <- scdf(c(44, 51, 55, 38, 52, 63, 57, 57, 57, 56, 58, 55, 56, 60, 65), phase_design = list(A = 7, B = 8), name = "Random starting point  ")
+df5 <- scdf(c(44, 51, 55, 38, 52, 63, 57, 57, 57, 56, 58, 55, 56, 60, 65), phase_design = list(A = 8, B = 7), name = "Random starting point   ")
 
 study <- c(df, df2, df3, df4, df5)
 
 d <- describe(study)$descriptives
 diff_m <- paste0("Difference B - A: ", round(d$m.B - d$m.A, 1))
 
-p <- scplot(study) %>% add_theme("basic")
+p <- scplot(study)  |>  set_theme("basic") |> 
+  set_casenames(size = 0.8, colour = "darkblue")
 
 for(i in 1:length(study)) 
-  p <- p %>% 
+  p <- p  |>  
     add_text(diff_m[i], case = i, x = 9, y = 45, hjust = 0, color = "darkred")
 
 p
 
 ```
 
+::: callout-note
+## The p-value in a randomization test
+
+The p-value in a randomization test means something different than the p-value in a frequentistic hypothesis test:
+
+In a randomization test the p-value is the probability that a higher (or equal) effect-size would have occured given a random distribution of the *sample* data across conditions (here: a random starting point of phase B).
+
+In a frequentist hypothesis testing, the p-value is the probability that the statistical indicators of two (or more) groups are derived from the same *population* distribution (e.g., the means of phase A and phase B are from the same distribution of sample means).
+:::
+
+<!--# The randomization test compares a statistical testparamter against a distribution of possible parameters (given the data), whereas a frequentist test compares the parameter against a random distribution of parameters assuming there would have been no effect. -->
+
+## Number of permutations
+
+The number of possible permutations depends on the number of measurement, the number of cases, and whether we define a length restriction for each phase.
+
+For example, the case shown in @fig-ex-rand-test has 15 measurement-times. If we set the restriction that a phase should at least have three measurements, then phase B could potentially start between the fourth and the 13th measurement-time. That is, ten permutations (or starting points of phase B) are possible (@fig-ex-rand-test shows four random variations). Ten permutations is not a lot: the resulting percentile values of the randomization test could only take values in 0.1 (10%) increments (0.00, 0.10, 0.20, ..., 1.00).
+
+Let us assume, instead of one case, the study entailed three cases, each with ten possible permutations. This would result in a total of $10^3=1000$ permutations with p values in 0.001 increments (0.000, 0.001, 0.002, ..., 1.000).
+
+<!--# xxx continue -->
+
 ## Arguments of the `rand_test()` function
 
 The `statistics` argument defines the statistics on which the phase comparison is based. The following comparisons can be made:
 
-|              |                                                                                                                                               |
-|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Mean A-B     | Uses the difference between the mean of Phase A and the mean of Phase B. This is appropriate if a decrease in scores is expected for Phase B. |
-| Mean B-A     | Uses the difference between the mean of Phase B and the mean of Phase A. This is appropriate if a increase in scores is expected for Phase B. |
-| Mean \|A-B\| | Uses the absolute value of the difference between the means of Phases A and B.                                                                |
-| Median A-B   | The same as *Mean A-B*, but based on the median.                                                                                              |
-| Median B-A   | The same as *Mean B-A*, but based on the median.                                                                                              |
+|                |                                                                                                                                               |
+|-----------------|-------------------------------------------------------|
+| Mean A-B       | Uses the difference between the mean of Phase A and the mean of Phase B. This is appropriate if a decrease in scores is expected for Phase B. |
+| Mean B-A       | Uses the difference between the mean of Phase B and the mean of Phase A. This is appropriate if a increase in scores is expected for Phase B. |
+| Mean \|A-B\|   | Uses the absolute value of the difference between the means of Phases A and B.                                                                |
+| Median A-B     | The same as *Mean A-B*, but based on the median.                                                                                              |
+| Median B-A     | The same as *Mean B-A*, but based on the median.                                                                                              |
+| Median \|A-B\| | The same as *Mean B-A*, but based on the median.                                                                                              |
+| SMD hedges     | (Experimental) Hedges' g with Durlak correction as a standardized mean difference between B and A.                                            |
+| SMD glass      | (Experimental) Glass' delta as a standardized mean difference between B and A.                                                                |
+| NAP            | (Experimental) Non-overlap of all pairs in percentage.                                                                                        |
+| NAP decreasing | (Experimental) The same as *NAP but assuming decreasing values in phase B.*                                                                   |
+| W-test         | (Experimental) The W statistic of a Wilcoxon-test.                                                                                            |
+| T-test         | (Experimental) The t statistic of a Student T-test.                                                                                           |
+| Slope B-A      | (Experimental) Difference between linear slope of phase B and A                                                                               |
+| Slope A-B      | (Experimental) Difference between linear slope of phase A and B                                                                               |
 
 Further argument are
 
 | Argument        | What it does ...                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|---------------|---------------------------------------------------------|
 | *number*        | Sample size of the randomization distribution. The exactness of the p-value can not exceed 1/number (i.e., number = 100 results in p-values with an exactness of one percent). Default is number = 500. For faster processing use number = 100. For more precise p-values set number = 1000.                                                                                                                                                         |
 | *complete*      | If TRUE, the distribution is based on a complete permutation of all possible starting combinations. This setting overwrites the number Argument. The default setting is FALSE.                                                                                                                                                                                                                                                                       |
 | *limit*         | Minimal number of data points per phase in the sample. The first number refers to the A-phase and the second to the B-phase (e.g., limit = c(5, 3)). If only one number is given, this number is applied to both phases. Default is limit = 5.                                                                                                                                                                                                       |
-| *startpoints*   | Alternative to the limit-parameter, startpoints exactly defines the possible start points of phase B (e.g., startpoints = 4:9 restricts the phase B start points to measurements 4 to 9. startpoints overwrite the limit-parameter.                                                                                                                                                                                                                  |
+| *startpoints*   | Alternative to the limit-parameter, startpoints exactly defines the possible start points of phase B (e.g., startpoints = 4:9 restricts the phase B start points to measurements 4 to 9. startpoints overwrites the limit-parameter.                                                                                                                                                                                                                 |
 | *exclude.equal* | If set to FALSE, which is the default, random distribution values equal to the observed distribution are counted as null-hypothesis conform. That is, they decrease the probability of rejecting the null-hypothesis (increase the p-value). exclude.equal should be set to TRUE if you analyse one single-case design (not a multiple baseline data set) to reach a sufficient power. But be aware, that it increases the chance of an alpha-error. |
 
 : Arguments of the randomization test function.
