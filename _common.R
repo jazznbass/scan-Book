@@ -16,9 +16,12 @@ knitr::opts_chunk$set(comment = '')
 options("scan.deprecated.warning" = FALSE)
 options("scan.print.bar" = "\uFF5C")
 
+options("scan.export.engine" = "gt")
+
+
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'scan'
+  .packages(), 'knitr', 'rmarkdown', 'scan'
 ), 'packages.bib')
 
 # helper functions --------

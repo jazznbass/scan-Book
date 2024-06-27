@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.388">
+<meta name="generator" content="quarto-1.5.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Analyzing Single-Case Data with R and Scan - 5&nbsp; Creating a single-case data plot</title>
+<title>Analyzing Single-Case Data with R and Scan – 5&nbsp; Creating a single-case data plot</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -81,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
   "keyboard-shortcut": [
     "f",
     "/",
@@ -96,6 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -113,11 +114,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html">The single-case data frame</a></li><li class="breadcrumb-item"><a href="./ch_scplot.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -128,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
       <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -142,13 +143,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
-              <i class="bi bi-bi-twitter pe-1"></i>
+              <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
-              <i class="bi bi-bi-facebook pe-1"></i>
+              <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
@@ -326,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -399,24 +400,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Plotting the data is a first important approach to analysis. After you create a scdf, the <code>scplot()</code> command helps you visualize the data. If the <code>scdf</code> contains more than one case, a multiple baseline plot is provided.</p>
-<p><code>scplot</code> is an <em>add-on package</em> to <code>scan</code> for visualizing single-case data. It replaces the <code>plot.scdf()</code> (or: <code>plotSC()</code>) function already included in <code>scan</code> (see <a href="app_supseded_functions.html#sec-plotsc" class="quarto-xref"><span>Section&nbsp;D.1</span></a>). For the time being, the “old” <code>plot.scdf</code> will be kept in future versions of <code>scan</code>.</p>
+<p><code>scplot</code> is an <em>add-on package</em> to <code>scan</code> for visualizing single-case data. It replaces the <code>plot.scdf()</code> (or: <code>plotSC()</code>) function already included in <code>scan</code> (see <a href="app_supseded_functions.html#sec-plotsc" class="quarto-xref"><span>Section D.1</span></a>). For the time being, the “old” <code>plot.scdf</code> will be kept in future versions of <code>scan</code>.</p>
 <section id="install-scplot" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="install-scplot"><span class="header-section-number">5.1</span> Install <code>scplot</code></h2>
 <p><code>splot</code> is available from the CRAN repository. Execute <code>install.packages("scplot")</code> to install it.</p>
 <p>If you are more adventures you can install the developmental version of <em>scplot</em> from github.The project is hosted at <a href="https://github.com/jazznbass/scplot" class="uri">https://github.com/jazznbass/scplot</a>. You can install it with <code>devtools::install_github("jazznbass/scplot")</code> from your R console. Make sure you have the package <code>devtools</code> installed before. The <em>scplot</em> package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a>.</p>
-<p>The following chapter has been written with <em>scplot</em> version 0.3.9. If you have problems replicating the examples, please update to this version.</p>
+<p>The following chapter has been written with <em>scplot</em> version 0.4.0. If you have problems replicating the examples, please update to this version.</p>
 </section>
 <section id="basic-principal" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="basic-principal"><span class="header-section-number">5.2</span> Basic principal</h2>
-<p>You start by providing an <em>scdf</em> object (see <a href="ch_create_display_and_store_scdfs.html#sec-scdf" class="quarto-xref"><span>Section&nbsp;3.2</span></a>) to the <code>scplot()</code> function (e.g.&nbsp;<code>scplot(exampleAB)</code>). This already creates a default plot.</p>
+<p>You start by providing an <em>scdf</em> object (see <a href="ch_create_display_and_store_scdfs.html#sec-scdf" class="quarto-xref"><span>Section 3.2</span></a>) to the <code>scplot()</code> function (e.g.&nbsp;<code>scplot(exampleAB)</code>). This already creates a default plot.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-basic-1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-1" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-basic-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -429,14 +428,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Here is an overview of possible functions:</p>
 <div class="cell">
-<div id="tbl-functions-scplot" class="cell anchored">
+<div id="tbl-functions-scplot" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-functions-scplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-functions-scplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;5.1: scplot functions
 </figcaption>
 <div aria-describedby="tbl-functions-scplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<div>
+<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -542,6 +542,7 @@ Table&nbsp;5.1: scplot functions
 
 </div>
 </div>
+</div>
 </figure>
 </div>
 </div>
@@ -549,14 +550,15 @@ Table&nbsp;5.1: scplot functions
 <p>Text arguments can be applied to the following functions: <code>add_caption()</code>, <code>add_labels()</code>, <code>add_legend()</code>, <code>add_text()</code>, <code>add_title()</code>, <code>set_xlabel()</code>, <code>set_ylabel()</code>, <code>set_phasenames()</code>, <code>set_casenames()</code>.</p>
 <p>Possible arguments are:</p>
 <div class="cell">
-<div id="tbl-arguments-text" class="cell anchored">
+<div id="tbl-arguments-text" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-arguments-text-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-arguments-text-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;5.2: Arguments for text elements
 </figcaption>
 <div aria-describedby="tbl-arguments-text-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<div>
+<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
@@ -594,19 +596,21 @@ Table&nbsp;5.2: Arguments for text elements
 
 </div>
 </div>
+</div>
 </figure>
 </div>
 </div>
 <p>Line arguments can be applied to the following functions: <code>set_dataline()</code>, <code>add_statline()</code>, <code>add_line()</code>, <code>add_arrow()</code>, <code>add_ridge()</code>, <code>add_ridge()</code>, <code>set_xaxis()</code>, <code>set_yaxis()</code>, <code>set_separator()</code>.</p>
 <div class="cell">
-<div id="tbl-arguments-line" class="cell anchored">
+<div id="tbl-arguments-line" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-arguments-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-arguments-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;5.3: Arguments for line elements
 </figcaption>
 <div aria-describedby="tbl-arguments-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<div>
+<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
@@ -632,19 +636,21 @@ Table&nbsp;5.3: Arguments for line elements
 
 </div>
 </div>
+</div>
 </figure>
 </div>
 </div>
 <p>Point arguments can be applied to the following functions: <code>set_dataline()</code>, <code>add_statline()</code>, <code>add_marks()</code>, <code>add_arrow()</code>.</p>
 <div class="cell">
-<div id="tbl-arguments-point" class="cell anchored">
+<div id="tbl-arguments-point" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-arguments-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-arguments-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;5.4: Arguments for point elements
 </figcaption>
 <div aria-describedby="tbl-arguments-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<div>
+<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
@@ -670,17 +676,18 @@ Table&nbsp;5.4: Arguments for point elements
 
 </div>
 </div>
+</div>
 </figure>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-pch" class="quarto-figure quarto-figure-center anchored" width="672">
+<div id="fig-pch" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="ch_scplot_files/figure-html/fig-pch-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-pch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5.1: Some possible shapes
 </figcaption>
 </figure>
@@ -708,11 +715,9 @@ The set_dataline function call
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"depression"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-2" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-dataline-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-2" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-dataline-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -725,11 +730,9 @@ The set_dataline function call
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">point =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">15</span>)</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-3" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/unnamed-chunk-10-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-3" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -760,11 +763,9 @@ The add_statline function call
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"median"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-4" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-statline-descriptives-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-4" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-statline-descriptives-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -781,11 +782,9 @@ The add_statline function call
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"max"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="st">"B"</span>, <span class="st">"C"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">|&gt;</span> <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-5" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-statline-descriptives-phases-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-5" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-statline-descriptives-phases-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -799,11 +798,9 @@ The add_statline function call
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trendA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-6" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-statline-trend-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-6" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-statline-trend-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -817,11 +814,9 @@ The add_statline function call
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trendA"</span>, <span class="at">method =</span> <span class="st">"trisplit"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-7" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-statline-trendA-methods-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-7" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-statline-trendA-methods-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -836,11 +831,9 @@ The add_statline function call
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"loess"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"moving mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-8" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-statline-4-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-8" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-statline-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -895,11 +888,9 @@ The add_statline function call
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"moving mean"</span>, <span class="at">lag =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"quantile"</span>, <span class="at">probs =</span> <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-9" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-statline-5-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-9" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-statline-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -914,11 +905,9 @@ The add_statline function call
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-10" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-dataline-1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-10" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-dataline-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -935,11 +924,9 @@ The add_statline function call
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">12</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">17</span>), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-11" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-marks-1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-11" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-marks-1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -957,11 +944,9 @@ The add_statline function call
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">blue: values &gt; 80% quantile of case 3; </span></span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="st">yellow: values &lt; 20% quantile of all cases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-12" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-marks-2-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-12" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-marks-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -971,11 +956,9 @@ The add_statline function call
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC_outlier) <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">outlier</span>(exampleABC_outlier), <span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-13" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-marks-3-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-13" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-marks-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -987,11 +970,9 @@ The add_statline function call
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="st">"Here!"</span>, <span class="at">case =</span> <span class="dv">2</span>, <span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> <span class="dv">80</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-14" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/text1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-14" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/text1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1006,11 +987,9 @@ The add_statline function call
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_line</span>(<span class="at">case =</span> <span class="dv">2</span>, <span class="at">hline =</span> <span class="dv">80</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_line</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">vline =</span> <span class="dv">15</span>, <span class="at">color =</span> <span class="st">"green"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-15" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-label-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-15" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-label-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1021,11 +1000,9 @@ The add_statline function call
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_arrow</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">x0 =</span> <span class="dv">6</span>, <span class="at">y0 =</span> <span class="dv">90</span>, <span class="at">x1 =</span> <span class="dv">3</span>, <span class="at">y1 =</span> <span class="dv">63</span>) <span class="sc">|&gt;</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="st">"Problem"</span>, <span class="at">case =</span> <span class="dv">1</span>, <span class="at">x =</span> <span class="dv">6</span>, <span class="at">y =</span> <span class="dv">94</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">0</span> ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-16" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-arrow-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-16" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-arrow-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1041,11 +1018,9 @@ The add_statline function call
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>, </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">point =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">shape =</span> <span class="dv">2</span>) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-17" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/line1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-17" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/line1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1061,11 +1036,9 @@ The add_statline function call
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_background</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-18" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/background1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-18" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/background1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1077,11 +1050,9 @@ The add_statline function call
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="st">"tan1"</span>, <span class="at">color =</span> <span class="st">"palevioletred"</span>, <span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-19" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/pannel1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-19" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/pannel1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1094,11 +1065,9 @@ The add_statline function call
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"grey80"</span>, <span class="st">"white"</span>, <span class="st">"blue4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-20" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/pannel2-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-20" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/pannel2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1131,11 +1100,9 @@ The add_statline function call
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"sienna"</span>, <span class="st">"minimal"</span>, <span class="st">"small"</span>, <span class="st">"phase_color"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-21" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-combine-themes-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-21" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-combine-themes-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1148,11 +1115,9 @@ The add_statline function call
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_decreasing<span class="sc">$</span>Peter) <span class="sc">|&gt;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_base_text</span>(<span class="at">colour =</span> <span class="st">"blue"</span>, <span class="at">family =</span> <span class="st">"serif"</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">size =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-22" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-base-text-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-22" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-base-text-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1166,11 +1131,9 @@ The add_statline function call
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"A new plot"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="fl">1.3</span>) <span class="sc">|&gt;</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note. What a nice plot!"</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-23" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-title-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-23" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-title-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1184,11 +1147,9 @@ The add_statline function call
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="st">"B"</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-24" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-legend-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-24" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-legend-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1203,11 +1164,9 @@ The add_statline function call
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey95"</span>, <span class="at">colour =</span> <span class="st">"black"</span>)</span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-25" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-legend2-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-25" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-legend2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1222,11 +1181,9 @@ The add_statline function call
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">size =</span> <span class="fl">0.7</span>, <span class="at">angle =</span> <span class="sc">-</span><span class="dv">90</span>) <span class="sc">|&gt;</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_yaxis</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>), <span class="at">size =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-26" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-axis-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-26" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-axis-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1239,11 +1196,9 @@ The add_statline function call
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_ylabel</span>(<span class="st">"Score"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">angle =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Session"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-27" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/scplot-axis-labels-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-27" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/scplot-axis-labels-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1255,11 +1210,9 @@ The add_statline function call
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-28" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/casenames1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-28" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/casenames1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1270,11 +1223,9 @@ The add_statline function call
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>, </span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-29" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/casenames2-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-29" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/casenames2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1287,14 +1238,13 @@ The add_statline function call
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), </span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey98"</span>), <span class="at">nudge_y =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 rows containing missing values (`geom_label()`).</code></pre>
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_label()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-30" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/valuelabels1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-30" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/valuelabels1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1305,11 +1255,9 @@ The add_statline function call
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), </span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey98"</span>), <span class="at">nudge_y =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-31" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/valuelabels2-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-31" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/valuelabels2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1321,11 +1269,9 @@ The add_statline function call
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_mpd) <span class="sc">|&gt;</span> </span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="st">"grey50"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-32" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/ridge1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-32" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/ridge1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1351,11 +1297,9 @@ The add_statline function call
 <span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"a"</span>, <span class="at">tag_suffix =</span>  <span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-33" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/extend1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-33" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/extend1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1379,11 +1323,9 @@ The add_statline function call
 <span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note: Moving mean calculated with lag three"</span>, <span class="at">face =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
 <span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="at">color =</span> <span class="st">"lightblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-34" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/complex1-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-34" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/complex1-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1410,14 +1352,13 @@ The add_statline function call
 <span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">nudge_y =</span> <span class="dv">2</span>, <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>),</span>
 <span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"white"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 rows containing missing values (`geom_label()`).</code></pre>
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_label()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-35" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/complex2-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-35" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/complex2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1455,14 +1396,13 @@ The add_statline function call
 <span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"basic"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme_element</span>(<span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">"points"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 6 rows containing missing values (`geom_text()`).</code></pre>
+<pre><code>Warning: Removed 6 rows containing missing values or values outside the scale range
+(`geom_text()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-36" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/complex3-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-36" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/complex3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1483,11 +1423,9 @@ The add_statline function call
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-539a35d47e664c97a50115a146a7f1bd-37" class="quarto-figure quarto-figure-center anchored" width="672">
-<figure class="quarto-float quarto-float-fig figure">
 <div>
-<img src="ch_scplot_files/figure-html/complex4-1.png" id="fig-539a35d47e664c97a50115a146a7f1bd-37" class="img-fluid figure-img" width="672">
-</div>
+<figure class="figure">
+<p><img src="ch_scplot_files/figure-html/complex4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1532,18 +1470,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1575,7 +1502,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1610,7 +1577,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1625,38 +1596,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
     stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
     if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
         }
-        typesetMath(container);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
         return container.innerHTML
       } else {
-        typesetMath(note);
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
@@ -1665,8 +1626,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (anchorLink) {
         anchorLink.remove();
       }
-      typesetMath(note);
-      return note.innerHTML;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1889,12 +1857,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./ch_working_with_scdfs.html" class="pagination-link">
+      <a href="./ch_working_with_scdfs.html" class="pagination-link" aria-label="Working with *single-case data frames*">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ch_missing_values_outliers.html" class="pagination-link">
+      <a href="./ch_missing_values_outliers.html" class="pagination-link" aria-label="Missing values and outliers">
         <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1904,4 +1872,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
