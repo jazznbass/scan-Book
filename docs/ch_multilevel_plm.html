@@ -362,6 +362,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#sec-add-l2" id="toc-sec-add-l2" class="nav-link active" data-scroll-target="#sec-add-l2"><span class="header-section-number">10.0.1</span> Adding additional L2-variables</a></li>
+  <li><a href="#estimations-for-each-case" id="toc-estimations-for-each-case" class="nav-link" data-scroll-target="#estimations-for-each-case"><span class="header-section-number">10.0.2</span> Estimations for each case</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -642,6 +643,72 @@ Residual       4.989</code></pre>
 </div>
 </div>
 <p>Now the interaction <code>phase:sexm</code> is significant and the main effect is no longer relevant. It looks like the intervention effect is <span class="math inline">\(7.7\)</span> points lower for male subjects. While the level-effect is <span class="math inline">\(17.7\)</span> points for female subjects it is <span class="math inline">\(17.7\)</span> - <span class="math inline">\(7.7\)</span> = <span class="math inline">\(10\)</span> for males.</p>
+</section>
+<section id="estimations-for-each-case" class="level3" data-number="10.0.2">
+<h3 data-number="10.0.2" class="anchored" data-anchor-id="estimations-for-each-case"><span class="header-section-number">10.0.2</span> Estimations for each case</h3>
+<p>For a multilevel model, you can estimate the values for each parameter for each case based on the random intercept and slope values.</p>
+<p>Use the <code>casewise</code> argument to access these estimations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">hplm</span>(exampleAB_50[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>],<span class="at">random.slopes =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve the case estimations for further calculations</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>cs <span class="ot">&lt;-</span> <span class="fu">coef</span>(res, <span class="at">casewise =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># or print them</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res, <span class="at">casewise =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hierarchical Piecewise Linear Regression
+
+Estimation method ML 
+Contrast model: W / level: first, slope: first
+10 Cases
+
+ICC = 0.327; L = 84.3; p = 0.000
+
+Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                   B    SE  df      t     p
+Intercept     43.775 2.687 272 16.291 0.000
+Trend mt       0.994 0.299 272  3.330 0.001
+Level phase B  8.675 1.745 272  4.971 0.000
+Slope phase B  0.527 0.296 272  1.779 0.076
+
+Random effects (~1 + mt + phaseB + interB | case)
+
+              EstimateSD
+Intercept          7.867
+Trend mt           0.488
+Level phase B      3.309
+Slope phase B      0.440
+Residual           4.930
+
+Casewise estimation of effects
+
+    Case Intercept  Trend mt Level phase B Slope phase B
+   Roman  43.00890 0.8466415     10.112584    0.61645798
+ Brennen  47.43929 1.1041398      9.194791    0.35512804
+  Ismael  53.40011 1.7200027      3.193577   -0.01337929
+  Donald  56.00259 1.6045808      6.361722   -0.08687259
+ Ricardo  43.13287 0.9900639      8.374106    0.54179250
+  Izayah  41.47913 0.9871108      8.000153    0.56548392
+ Ignacio  47.69657 1.1943237      7.839439    0.32568935
+  Xavier  40.65876 0.8529937      9.300790    0.65995523
+   Arian  26.77803 0.1614967     11.741147    1.36296006
+    Paul  38.15377 0.4785176     12.631558    0.94227406</code></pre>
+</div>
+</div>
+<p>If you have the <code>scplot</code> package installed (version 0.4.0 or higher), you can create a forestplot for each parameter of the model with the <code>plot()</code> function. Set the argument “effect” to choose the effect by number or a string (“intercept”, “trend”, “slope”, “level”). The <code>ci</code> argument sets the size of the confidence interval (default is <code>0.95</code>) and the <code>mark</code> argument sets the value for a reference line (default is the mean effect).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scplot)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res, <span class="at">effect =</span> <span class="st">"level"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ch_multilevel_plm_files/figure-html/hplm-forestplot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>

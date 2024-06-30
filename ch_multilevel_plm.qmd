@@ -88,3 +88,31 @@ res <- res$hplm$coefficients$fixed
 ```
 
 Now the interaction `phase:sexm` is significant and the main effect is no longer relevant. It looks like the intervention effect is $`r abs(round(res["phaseB:sexm"], 1))`$ points lower for male subjects. While the level-effect is $`r round(res["phaseB"], 1)`$ points for female subjects it is $`r round(res["phaseB"], 1)`$ - $`r abs(round(res["phaseB:sexm"], 1))`$ = $`r round(res["phaseB"], 1) - abs(round(res["phaseB:sexm"], 1))`$ for males.
+
+### Estimations for each case
+
+For a multilevel model, you can estimate the values for each parameter for each case based on the random intercept and slope values.
+
+Use the `casewise` argument to access these estimations.
+
+```{r}
+#| label: hplm-casewise
+
+res <- hplm(exampleAB_50[1:10],random.slopes = TRUE)
+
+# retrieve the case estimations for further calculations
+cs <- coef(res, casewise = TRUE)
+
+# or print them
+print(res, casewise = TRUE)
+
+```
+
+If you have the `scplot` package installed (version 0.4.0 or higher), you can create a forestplot for each parameter of the model with the `plot()` function. Set the argument "effect" to choose the effect by number or a string ("intercept", "trend", "slope", "level"). The `ci` argument sets the size of the confidence interval (default is `0.95`) and the `mark` argument sets the value for a reference line (default is the mean effect).
+
+```{r}
+#| label: hplm-forestplot
+library(scplot)
+plot(res, effect = "level")
+```
+
