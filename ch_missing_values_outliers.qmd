@@ -34,7 +34,7 @@ overlap(ex)
 function_structure("outlier")
 ```
 
-*scan* provides several methods for analyzing outliers. All of them are implemented in the `outliers` function. Available methods are the **standard deviation**, **mean average deviation**, **confidence intervals**, and **Cook's distance**. The criteria argument takes a vector with two information, the first defines the analyzing method ("SD", "MAD", CI", "Cook") and the second the criteria. For "SD" the criteria is the number of standard deviations (**sd**) from the mean of each phase for which a value is not considered to be an outlier. For example, `criteria = c("SD",2)` would identify every value exceeding two **sd** above or below the mean as an outlier whereas **sd** and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin @iglewicz_how_1993 recommend the use the much more robust median average deviation (**MAD**) instead. The **MAD** is is constructed similar to the **sd** but uses the median instead of the mean. Multiplying the **MAD** by 1.4826 approximates the **sd** in a normal distributed sample. This corrected MAD is applied in the `outlier` function. A deviation of 3.5 times the corrected **MAD** from the median is suggested to be an outlier. To use this criterion set `criteria = c("MAD", 3.5)`. `criteria = c("CI", 0.95)` takes exceeding the 95% confidence interval as the criteria for outliers. The Cook's distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook's distance analyses are based on a piecewise-regression model. Most commonly, Cook's distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c("Cook","4/n")`.
+*scan* provides several methods for analyzing outliers. All of them are implemented in the `outliers` function. Available methods are the **standard deviation**, **mean average deviation**, **confidence intervals**, and **Cook's distance**. The criteria argument takes a vector with two information, the first defines the analyzing method ("SD", "MAD", CI", "Cook") and the second the criteria. For "SD" the criteria is the number of standard deviations (**sd**) from the mean of each phase for which a value is not considered to be an outlier. For example, `criteria = c("SD", 2)` would identify every value exceeding two **sd** above or below the mean as an outlier whereas **sd** and mean refer to phase of a value. As this might be misleading particularly for small samples Iglewicz and Hoaglin @iglewicz_how_1993 recommend the use the much more robust median average deviation (**MAD**) instead. The **MAD** is is constructed similar to the **sd** but uses the median instead of the mean. Multiplying the **MAD** by 1.4826 approximates the **sd** in a normal distributed sample. This corrected MAD is applied in the `outlier` function. A deviation of 3.5 times the corrected **MAD** from the median is suggested to be an outlier. To use this criterion set `criteria = c("MAD", 3.5)`. `criteria = c("CI", 0.95)` takes exceeding the 95% confidence interval as the criteria for outliers. The Cook's distance method for calculation outliers can be applied with a strict AB-phase design. in that case, the Cook's distance analyses are based on a piecewise-regression model. Most commonly, Cook's distance exceeding 4/n is used as a criteria. This could be implemented setting `criteria = c("Cook", "4/n")`.
 
 ```{r outlier}
 outlier(exampleABC_outlier, criteria = c("MAD", 3.5))
@@ -42,11 +42,11 @@ outlier(exampleABC_outlier, criteria = c("MAD", 3.5))
 # Visualizing outliers with the plot function
 res <- outlier(exampleABC_outlier, criteria = c("MAD", 3.5))
 
-scplot(exampleABC_outlier) %>%
-  add_labels(nudge_y = 15, text = list(size = 0.7)) %>%
-  add_marks(positions = res) %>%
-  add_theme("basic") %>%
-  set_casenames(position = "strip") %>%
+scplot(exampleABC_outlier) |>
+  add_labels(nudge_y = 15, text = list(size = 0.7)) |>
+  add_marks(positions = res) |>
+  set_theme("basic") |>
+  set_casenames(position = "strip") |>
   set_yaxis(limits = c(20, 120))
 ```
 
