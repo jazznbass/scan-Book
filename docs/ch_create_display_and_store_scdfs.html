@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Analyzing Single-Case Data with R and Scan – 3&nbsp; Create, display, and store single-case data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./ch_working_with_scdfs.html" rel="next">
+<link href="./ch_scan_package.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html">The single-case data frame</a></li><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analyzing Single-Case Data with R and Scan</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">The single-case data frame</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_create_display_and_store_scdfs.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_working_with_scdfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Data analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_some_things.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_supseded_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">About the author</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#a-single-case-data-frame" id="toc-a-single-case-data-frame" class="nav-link active" data-scroll-target="#a-single-case-data-frame"><span class="header-section-number">3.1</span> A <strong><em>single-case data frame</em></strong></a></li>
+  <li><a href="#sec-scdf" id="toc-sec-scdf" class="nav-link" data-scroll-target="#sec-scdf"><span class="header-section-number">3.2</span> Create <em>single-case data frames</em></a></li>
+  <li><a href="#save-and-read-single-case-data-frames" id="toc-save-and-read-single-case-data-frames" class="nav-link" data-scroll-target="#save-and-read-single-case-data-frames"><span class="header-section-number">3.3</span> Save and read <em>single-case data frames</em></a></li>
+  <li><a href="#import-and-export-single-case-data-frames" id="toc-import-and-export-single-case-data-frames" class="nav-link" data-scroll-target="#import-and-export-single-case-data-frames"><span class="header-section-number">3.4</span> Import and export <em>single-case data frames</em></a>
+  <ul class="collapse">
+  <li><a href="#sec-read-scdf" id="toc-sec-read-scdf" class="nav-link" data-scroll-target="#sec-read-scdf"><span class="header-section-number">3.4.1</span> Import data</a></li>
+  <li><a href="#other-data-formats" id="toc-other-data-formats" class="nav-link" data-scroll-target="#other-data-formats"><span class="header-section-number">3.4.2</span> Other data formats</a></li>
+  <li><a href="#sec-write-scdf" id="toc-sec-write-scdf" class="nav-link" data-scroll-target="#sec-write-scdf"><span class="header-section-number">3.4.3</span> Export data</a></li>
+  <li><a href="#other-data-formats-1" id="toc-other-data-formats-1" class="nav-link" data-scroll-target="#other-data-formats-1"><span class="header-section-number">3.4.4</span> Other data formats</a></li>
+  </ul></li>
+  <li><a href="#sec-convert" id="toc-sec-convert" class="nav-link" data-scroll-target="#sec-convert"><span class="header-section-number">3.5</span> Convert an <em>scdf</em> object back to scan syntax</a></li>
+  <li><a href="#display-single-case-data-frames" id="toc-display-single-case-data-frames" class="nav-link" data-scroll-target="#display-single-case-data-frames"><span class="header-section-number">3.6</span> Display <em>single-case data frames</em></a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html">The single-case data frame</a></li><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="a-single-case-data-frame" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="a-single-case-data-frame"><span class="header-section-number">3.1</span> A <strong><em>single-case data frame</em></strong></h2>
+<p>Scan provides its own data-class for encoding single-case data: the <em>single-case data frame</em> (short <em>scdf</em>). An <em>scdf</em> is an object that contains one or multiple single-case data sets and is optimized for managing and displaying these data. Think of an <em>scdf</em> as a file including a separate datasheet for each single case. Each datasheet is made up of at least three variables: The measured <strong>values</strong>, the <strong>phase</strong> identifier for each measured value, and the measurement time (<strong>mt</strong>) of each measure. Optionally, <em>scdfs</em> could include further variables for each single-case (e.g., control variables), and also a name for each case.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Technically, an <em>scdf</em> object is a list containing data frames. It is of the class <code>c("scdf","list")</code>. Additionally, an <em>scdf</em> entails an attribute <code>scdf</code> with a list with further attributes. <code>var.values</code>, <code>var.phase</code>, and <code>var.mt</code> contain the names of the <code>values</code>, <code>phase</code>, and the <code>measurement time</code> variable. By default, these names are set to <code>values</code>, <code>phase</code>, and <code>mt</code>.</p>
+</div>
+</div>
+<p>Several functions are available for creating, transforming, merging, and importing/exporting <em>scdfs</em>.</p>
+</section>
+<section id="sec-scdf" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-scdf"><span class="header-section-number">3.2</span> Create <em>single-case data frames</em></h2>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The scdf function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>scdf(values, B_start, mt, phase, phase_design = NULL, phase_starts = NULL, name = NULL, dvar = “values”, pvar = “phase”, mvar = “mt”, …)</p>
+</div>
+</div>
+<p>The <code>scdf()</code> function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement <em>values</em> and the <em>phase</em> structure and an <em>scdf</em> object is build. There are three different ways of defining the phase structure. First, defining the beginning of each phase with the <code>phase_starts</code> argument, second, defining a design with the <code>phase_design</code> argument and third, setting parameters in a named vector of the dependent variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Three ways to code the same scdf</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>), <span class="at">phase_starts =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">1</span>, <span class="at">B =</span> <span class="dv">5</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>), <span class="at">phase_design =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">4</span>, <span class="at">B =</span> <span class="dv">6</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>, <span class="at">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>phase_starts</code> argument is a named vector with the starts of each phase. The number assigned to <code>phase_starts</code> indicate the measurement-time as defined in the <code>mt</code> argument. That is, assume a vector for the measurement times <code>mt = c(1,3,7,10,15,17,18,20)</code> and <code>phase_starts = c(A = 1, B = 15)</code> then the first measurement of the B-phase will start with the fifth measurement at which <em>mt</em> = 15.</p>
+<p>The <code>phase_design</code> argument is a named vector with the name and length of each phase. Here, the values indicate the numbers of measurements (including explicit missing values, the <code>mt</code> argument is not taken into account).</p>
+<p>When the vector of the dependent variable includes named values, a phase_design structure is created automatically. Each named value sets the beginning of a new phase. For example <code>c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)</code> will create an ABC-phase design with 3, 3, and 4 values per phase.</p>
+<p>The phase names can be set arbitrary, although I recommend to use capital letters (A, B, C, …) for each phase followed by, when indicated, a number if the phases repeat (A1, B1, A2, B2, …). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with <em>scan</em>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A deprecated arguent is <code>B_start</code> which is only applicable when the single-case consists of a single A-phase followed by a B-phase. It is a remnant from the time when <code>scan</code> could only handle one-case designs with two phases. The number assigned to <code>B_start</code> indicates the measurement-time as defined in the <code>mt</code> argument.</p>
+</div>
+</div>
+<p>If no measurement times are specified, they are automatically created as a series 1, 2, 3, …, <em>N</em>, where <em>N</em> is the number of measurements. in some circumstances it might be useful to define individual measurement times for each measurement. For example, if you want to include the days since the beginning of the study as time intervals between measurements are widely varying you might get more valid results this way when analyzing the data in a regression approach.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example of a more complex design </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>, <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span>, <span class="dv">12</span>,<span class="dv">11</span>,<span class="dv">13</span>), </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">mt =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">6</span>, <span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">16</span>,<span class="dv">18</span>, <span class="dv">27</span>,<span class="dv">28</span>,<span class="dv">29</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">phase_design =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">4</span>, <span class="at">B =</span> <span class="dv">6</span>, <span class="at">C =</span> <span class="dv">3</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#A single-case data frame with one case
+
+ Case1: values mt phase
+             2  1     A
+             2  2     A
+             4  3     A
+             5  6     A
+             8  8     B
+             7  9     B
+             6 11     B
+             9 12     B
+             8 16     B
+             7 18     B
+            12 27     C
+            11 28     C
+            13 29     C</code></pre>
+</div>
+</div>
+<p>Missing values could be coded using <code>NA</code> (not available).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="dv">5</span>, <span class="at">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="cn">NA</span>,<span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>More variables are implemented by adding new variable names with a vector containing the values. Please be aware that a new variable must never have the same name as one of the arguments of the function (i.e.&nbsp;phase_starts, phase_design, name, dvar, pvar, mvar).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scdf</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>, <span class="at">B =</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">9</span>,<span class="dv">7</span>,<span class="dv">7</span>), </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">teacher =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">hour =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#A single-case data frame with one case
+
+ Case1: values teacher hour mt phase
+             2       0    2  1     A
+             2       0    3  2     A
+             3       1    4  3     A
+             5       1    3  4     A
+             8       0    3  5     B
+             7       1    1  6     B
+             6       1    6  7     B
+             9       1    5  8     B
+             7       0    2  9     B
+             7       1    2 10     B</code></pre>
+</div>
+</div>
+<p><a href="#tbl-scdf" class="quarto-xref">Table&nbsp;<span>3.1</span></a> shows a complete list of arguments that could be passed to the function.</p>
+<div class="cell">
+<div id="tbl-scdf" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-scdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.1: Arguments of the scdf function
+</figcaption>
+<div aria-describedby="tbl-scdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">What it does ...</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">values</td>
+<td style="text-align: left; width: 30em;">The default vector with values for the dependent variable. It can be changed with the dvar argument.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">phase</td>
+<td style="text-align: left; width: 30em;">Usually, this variable is not defined manually and will be created by the function. It is the default vector with values for the phase variable. It can be changed with the pvar argument.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">mt</td>
+<td style="text-align: left; width: 30em;">The default vector with values for the measurement-time variable. It can be changed with the mvar argument.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">phase_design</td>
+<td style="text-align: left; width: 30em;">A named vector defining the length and label of each phase.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">phase_starts</td>
+<td style="text-align: left; width: 30em;">A named vector defining the startpoint of each phase with respect to the measurement-time.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">(deprecated) B_start</td>
+<td style="text-align: left; width: 30em;">The first measurement of phase B (simple coding if design is strictly AB).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">name</td>
+<td style="text-align: left; width: 30em;">A name for the case.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">dvar</td>
+<td style="text-align: left; width: 30em;">The name of the dependent variable. By default this is 'values'.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">pvar</td>
+<td style="text-align: left; width: 30em;">The name of the variable containing the phase information. By default this is 'phase'.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">mvar</td>
+<td style="text-align: left; width: 30em;">The name of the variable with the measurement-time. The default is 'mt'.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold; width: 15em;">...</td>
+<td style="text-align: left; width: 30em;">Any number of variables with a vector asigned to them.</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>If you want to create a dataset comprising several single cases, the easiest way is to first create an scdf for each case and then merge them into a new scdf using the <code>c</code> command:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="at">B =</span> <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">19</span>), </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Charlotte"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>case2 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="at">B =</span> <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>), </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Theresa"</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>case3 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="at">B =</span> <span class="dv">6</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">16</span>), </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Antonia"</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>mbd <span class="ot">&lt;-</span> <span class="fu">c</span>(case1, case2, case3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you want to use other than the default variable names (“values”, “phase” and “mt”), you can define them with the arguments <code>dvar</code> (for the dependent variable), <code>pvar</code> (the variable specifying the phase) and <code>mvar</code> (the measurement time variable).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Using a different name for the dependent variable</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="at">B =</span> <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">18</span>, <span class="dv">15</span>, <span class="dv">14</span>, <span class="dv">19</span>), </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dvar =</span> <span class="st">"score"</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Using new names for the dependent and the phase variables</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="at">B =</span> <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>), </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dvar =</span> <span class="st">"score"</span>, <span class="at">pvar =</span> <span class="st">"section"</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Using new names for dependent, phase, and measurement-time variables</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">score =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="at">B =</span> <span class="dv">6</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">16</span>), </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="st">"Antonia"</span>, <span class="at">dvar =</span> <span class="st">"score"</span>, <span class="at">pvar =</span> <span class="st">"section"</span>, <span class="at">mvar =</span> <span class="st">"day"</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#A single-case data frame with one case
+
+         Measurements Design
+ Antonia           11    A-B
+
+Variable names:
+score &lt;dependent variable&gt;
+section &lt;phase variable&gt;
+day &lt;measurement-time variable&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="save-and-read-single-case-data-frames" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="save-and-read-single-case-data-frames"><span class="header-section-number">3.3</span> Save and read <em>single-case data frames</em></h2>
+<p>Normally, it is not necessary to save an <em>scdf</em> in a separate file on your computer. In most cases, you can keep the coding of the <em>scdf</em> as described above and run it again each time you work with your data. However, for large files, it is sometimes more convenient to save the data separately in a file for later use.<br>
+The easiest way is to use the <em>R</em> base functions <code>saveRDS</code> and <code>readRDS</code> for this purpose. <code>saveRDS</code> takes at least two arguments: The first is the object you want to save, and the second is a filename for the resulting file. If you have an <em>scdf</em> named <code>study1</code>, you can use <code>saveRDS(study1, "study1.rds")</code> to save the <em>scdf</em> to your drive. You can read this file with <code>study1 &lt;- readRDS("study1.rds")</code>. With <code>getwd()</code> you get the path to the current active folder you are saving and reading data from.</p>
+</section>
+<section id="import-and-export-single-case-data-frames" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="import-and-export-single-case-data-frames"><span class="header-section-number">3.4</span> Import and export <em>single-case data frames</em></h2>
+<section id="sec-read-scdf" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="sec-read-scdf"><span class="header-section-number">3.4.1</span> Import data</h3>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The read_scdf function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>read_scdf(file, cvar = “case”, pvar = “phase”, dvar = “values”, mvar = “mt”, sort_cases = FALSE, phase_names = NULL, type = NA, na = c(““,”NA”), sort.labels = NULL, phase.names = NULL, …)</p>
+</div>
+</div>
+<p>When you are working with other programs besides <strong>R</strong> you need to export and import the <em>scdf</em> into a common file format. <code>read_scdf</code> imports a comma-separated-variable (<em>csv</em>) file and converts it into an <em>scdf</em> object. By default, the csv-file has to contain the columns <em>case</em>, <em>phase</em>, and <em>values</em>. Optionally, a further column named <em>mt</em> could be provided. The csv file should be build up like this:</p>
+<div id="fig-spreadsheet" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-spreadsheet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/readSC.jpg" class="img-fluid figure-img" width="300">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spreadsheet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: How to format a single-case file in a spreadsheet program for importing into scan
+</figcaption>
+</figure>
+</div>
+<p>In case your variables names differ from the standard (i.e.&nbsp;“case”, “values”, “phase”, and “mt” ), you could set additional arguments to fit your file. <code>read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")</code> for example will set the variables attributes of the resulting <em>scdf</em>. Cases will be split by the variable <code>"name"</code>, <code>"wellbeing"</code> is set as the dependent variable (default is <em>values</em>), phase information are in the variable <code>"intervention"</code>, and measurement times in the variable <code>"time"</code>. You could also reassign the phase names within the phase variable by setting the argument <code>phase_names</code>. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to “A” and “B” with <code>read_scdf("example.csv", phase_names = c("A", "B"))</code>.</p>
+<p>For some reasons, computer systems with a German (and some other) language setups export csv-files by default with a comma as a decimal point and a semicolon as a separator between values. In these cases you have to set two extra arguments to import the data:</p>
+<p><code>read_scdf("example.csv", dec = ",", sep = ";")</code></p>
+</section>
+<section id="other-data-formats" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="other-data-formats"><span class="header-section-number">3.4.2</span> Other data formats</h3>
+<p><code>read_scdf</code> also allows for directly importing <em>Microsoft Excel</em> <code>.xlsx</code> or <code>.xls</code> files. You need to have the library <code>readxl</code> installed in your R setup for this to work. Excel files will be automatically detected by the filename extension <code>xls</code>or <code>xlsx</code> or by explicitly setting the <code>type</code> argument (e.g.&nbsp;<code>type = "xlsx"</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_scdf</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"example2.xlsx"</span>, <span class="at">cvar =</span> <span class="st">"name"</span>, <span class="at">pvar =</span> <span class="st">"intervention"</span>, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">dvar =</span> <span class="st">"wellbeing"</span>, <span class="at">mvar =</span> <span class="st">"time"</span>, <span class="at">phase_names =</span> <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"B"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Imported 20 cases</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#A single-case data frame with 20 cases
+
+          Measurements Design
+ Charles            20    A-B
+ Kolten             20    A-B
+ Annika             20    A-B
+ Kaysen             20    A-B
+ Urijah             20    A-B
+ Leila              20    A-B
+ Leia               20    A-B
+ Aleigha            20    A-B
+ Greta              20    A-B
+ Alijah             20    A-B
+... [skipped 10 cases]
+
+Variable names:
+wellbeing &lt;dependent variable&gt;
+intervention &lt;phase variable&gt;
+time &lt;measurement-time variable&gt;
+age
+gender
+gym</code></pre>
+</div>
+</div>
+<p>Basically, you can import data from any file format with the help of additional R packages and the <code>as_scdf()</code> function. Here are two examples:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open document example. You need to have the readODS package installed.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> readODS<span class="sc">::</span><span class="fu">read_ods</span>(<span class="st">"filename.ods"</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>scdf <span class="ot">&lt;-</span> <span class="fu">as_scdf</span>(df)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># SPSS example. You need to have the haven package installed.</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">"filename.sav"</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>scdf <span class="ot">&lt;-</span> <span class="fu">as_scdf</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="sec-write-scdf" class="level3" data-number="3.4.3">
+<h3 data-number="3.4.3" class="anchored" data-anchor-id="sec-write-scdf"><span class="header-section-number">3.4.3</span> Export data</h3>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The write_scdf function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>write_scdf(data, filename = NULL, sep = “,”, dec = “.”, …)</p>
+</div>
+</div>
+<p><code>write_scdf()</code> exports an <em>scdf</em> object as a comma-separated-variables file (<em>csv</em>) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The <em>scdf</em> object is converted into a single data frame with a <em>case</em> variable identifying the rows for each subject. The first argument of the command identifies the <em>scdf</em> to be exported and the second argument (<code>file</code>) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, <code>write_scdf</code> exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the <code>dec</code> and the <code>sep</code> arguments. For example, <code>write_scdf(example, file = "example.csv", dec = ",", sep = ";")</code> exports a csv variation usually used for example in Germany.</p>
+</section>
+<section id="other-data-formats-1" class="level3" data-number="3.4.4">
+<h3 data-number="3.4.4" class="anchored" data-anchor-id="other-data-formats-1"><span class="header-section-number">3.4.4</span> Other data formats</h3>
+<p>The <strong><em>R</em></strong> system has many add on packages that allow to write data to almost any file format available. If you like to export an <em>scdf</em> in those formats, you firstly need to convert the <em>scdf</em> into a standard R data-frame with the <code>as.data.frame()</code> function. Now you can export the resulting data-frame applying the respective function from another package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(exampleABC)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Open document example. You need to have the readODS package installed.</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>readODS<span class="sc">::</span><span class="fu">write_ods</span>(df, <span class="st">"filename.ods"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Excel example. You need to have the openxlsx package installed.</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>openxlsx<span class="sc">::</span><span class="fu">write.xlsx</span>(df, <span class="st">"filename.xlsx"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># SPSS example. You need to have the haven package installed.</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>haven<span class="sc">::</span><span class="fu">write_sav</span>(df, <span class="st">"filename.sav"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="sec-convert" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sec-convert"><span class="header-section-number">3.5</span> Convert an <em>scdf</em> object back to scan syntax</h2>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The convert function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>convert(scdf, file = ““, study_name =”study”, case_name = “case”, inline = FALSE, indent = 2, silent = FALSE)</p>
+</div>
+</div>
+<p>You can also reconvert an <em>scdf</em> object back to “raw” scan syntax. This is a convenient way when you imported data from an Excel or csv file and want to keep everything clean and transparent within your R syntax files.</p>
+<p>Here is an example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">convert</span>(exampleABC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>case1 &lt;- scdf(
+  values = c(
+    58, 56, 60, 63, 51, 45, 44, 59, 45, 39, 83, 65, 70, 83, 70, 85, 47, 66,
+    77, 75, 51, 87, 80, 68, 70, 56, 52, 70, 83, 63
+  ),
+  phase_design = c(A = 10, B = 10, C = 10),
+  name = "Marie"
+)
+
+case2 &lt;- scdf(
+  values = c(
+    47, 41, 47, 52, 54, 65, 55, 37, 51, 60, 60, 65, 55, 46, 49, 54, 77, 73,
+    97, 64, 84, 71, 66, 74, 78, 68, 52, 76, 63, 54
+  ),
+  phase_design = c(A = 15, B = 8, C = 7),
+  name = "Rosalind"
+)
+
+case3 &lt;- scdf(
+  values = c(
+    50, 45, 63, 53, 66, 57, 35, 45, 74, 63, 47, 45, 47, 36, 51, 55, 35, 66,
+    59, 55, 73, 60, 85, 62, 79, 69, 87, 76, 90, 48
+  ),
+  phase_design = c(A = 20, B = 7, C = 3),
+  name = "Lise"
+)
+
+study &lt;- c(
+  case1, case2, case3
+) </code></pre>
+</div>
+</div>
+<p>Set <code>inline = TRUE</code> if you prefer the phase definition in a named vector:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">convert</span>(exampleABC<span class="sc">$</span>Marie, <span class="at">inline =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>study1 &lt;- scdf(
+  values = c(
+    A = 58, 56, 60, 63, 51, 45, 44, 59, 45, 39,
+    B = 83, 65, 70, 83, 70, 85, 47, 66, 77, 75,
+    C = 51, 87, 80, 68, 70, 56, 52, 70, 83, 63
+  ),
+  name = "Marie"
+)
+
+ </code></pre>
+</div>
+</div>
+<p>Now you can copy and past the output into your R file or you set the <code>file</code> argument to save the output into an R file <code>convert(exampleABC, file = "scdf.R")</code>.</p>
+</section>
+<section id="display-single-case-data-frames" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="display-single-case-data-frames"><span class="header-section-number">3.6</span> Display <em>single-case data frames</em></h2>
+<p><em>scdf</em> are displayed by just typing the name of the object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Beretvas2008 is an example scdf included in scan</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>Beretvas2008</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#A single-case data frame with one case
+
+ Case1: values mt phase
+           0.7  1     A
+           1.6  2     A
+           1.4  3     A
+           1.6  4     A
+           1.9  5     A
+           1.2  6     A
+           1.3  7     A
+           1.6  8     A
+            10  9     B
+          10.8 10     B
+          11.9 11     B
+            11 12     B
+            13 13     B
+          12.7 14     B
+            14 15     B</code></pre>
+</div>
+</div>
+<p>The <code>print</code> command allows you to specify the output. Some possible arguments are <code>cases</code> (the number of cases to display; three by default), <code>rows</code> (the maximum number of rows to display; fifteen by default), and <code>digits</code> (the number of digits). <code>cases = 'all'</code> and <code>rows = 'all'</code> prints all cases and rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Huber2014 is an example scdf included in scan</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Huber2014, <span class="at">cases =</span> <span class="dv">2</span>, <span class="at">rows =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#A single-case data frame with four cases
+
+ Adam: mt compliance phase ｜ Berta: mt compliance phase ｜
+        1         25     A ｜         1         25     A ｜
+        2       20.8     A ｜         2       20.8     A ｜
+        3       39.6     A ｜         3       39.6     A ｜
+        4         75     A ｜         4         75     A ｜
+        5         45     A ｜         5         45     A ｜
+        6       39.6     A ｜         6       14.6     A ｜
+        7       54.2     A ｜         7       45.8     A ｜
+        8         50     A ｜         8       33.3     A ｜
+        9       28.1     A ｜         9       31.3     A ｜
+       10         40     A ｜        10       32.5     A ｜
+# ... up to 66 more rows
+#  two more cases</code></pre>
+</div>
+</div>
+<p>The argument <code>long = TRUE</code> prints each case one after the other instead of side by side (e.g., <code>print(exampleAB, long = TRUE)</code>).</p>
+<p>A short description of the <em>scdf</em> is provided by the <code>summary</code> command. The results are pretty much self explaining:</p>
+<p><code>summary()</code> gives a very concise overview of an <em>scdf</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Huber2014)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>#A single-case data frame with four cases
+
+           Measurements Design
+ Adam                37    A-B
+ Berta               29    A-B
+ Christian           76    A-B
+ David               76    A-B
+
+Variable names:
+compliance &lt;dependent variable&gt;
+phase &lt;phase variable&gt;
+mt &lt;measurement-time variable&gt;
+
+Note: Behavioral data (compliance in percent). 
+
+Author of data: Christian Huber </code></pre>
+</div>
+</div>
+<!--# export function -->
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="./ch_scan_package.html" class="pagination-link" aria-label="The scan package">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./ch_working_with_scdfs.html" class="pagination-link" aria-label="Working with *single-case data frames*">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

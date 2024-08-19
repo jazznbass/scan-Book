@@ -16,19 +16,27 @@ Several functions are available for creating, transforming, merging, and importi
 function_structure("scdf")
 ```
 
-The `scdf()` function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement *values* and the *phase* structure and an *scdf* object is build. There are three different ways of defining the phase structure. First, defining the beginning of the B-phase with the `B_start` argument, second, defining a design with the `phase_design` argument and third, setting parameters in a named vector of the dependent variable.
+The `scdf()` function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement *values* and the *phase* structure and an *scdf* object is build. There are three different ways of defining the phase structure. First, defining the beginning of each phase with the `phase_starts` argument, second, defining a design with the `phase_design` argument and third, setting parameters in a named vector of the dependent variable.
 
 ```{r scdf, results = 'hide'}
 ### Three ways to code the same scdf
-scdf(values = c(A = 2,2,4,5, B = 8,7,6,9,8,7))
-scdf(values = c(2,2,4,5,8,7,6,9,8,7), B_start = 5)
+scdf(values = c(2,2,4,5,8,7,6,9,8,7), phase_starts = c(A = 1, B = 5))
 scdf(values = c(2,2,4,5,8,7,6,9,8,7), phase_design = c(A = 4, B = 6))
+scdf(values = c(A = 2,2,4,5, B = 8,7,6,9,8,7))
 ```
 
-The `B_start` argument is only applicable when the single-case consists of a single A-phase followed by a B-phase. It is a remnant from the time when `scan` could only handle sign-case designs with two phases. The number assigned to `B_start` indicates the measurement-time as defined in the `mt` argument. That is, assume a vector for the measurement times `mt = c(1,3,7,10,15,17,18,20)` and `B_start = 15` then the first measurement of the B-phase will start with the fifth measurement at which *mt* = 15.\
-The `phase_design` argument is a named vector with the name and length of each phase. The phase names can be set arbitrary, although I recommend to use capital letters (A, B, C, ...) for each phase followed by, when indicated, a number if the phases repeat (A1, B1, A2, B2, ...). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with *scan*.\
-When the vector of the dependent variable includes named values, a phase_design structure is created automatically. Each named value sets the beginning of a new phase. For example `c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)` will create an ABC-phase design with 3, 3, and 4 values per phase.\
-Use only one of the three methods at a time and I recommend to use the `phase_design` argument or the named vector method as they are the most versatile.\
+The `phase_starts` argument is a named vector with the starts of each phase. The number assigned to `phase_starts` indicate the measurement-time as defined in the `mt` argument. That is, assume a vector for the measurement times `mt = c(1,3,7,10,15,17,18,20)` and `phase_starts = c(A = 1, B = 15)` then the first measurement of the B-phase will start with the fifth measurement at which *mt* = 15.
+
+The `phase_design` argument is a named vector with the name and length of each phase. Here, the values indicate the numbers of measurements (including explicit missing values, the `mt` argument is not taken into account).
+
+When the vector of the dependent variable includes named values, a phase_design structure is created automatically. Each named value sets the beginning of a new phase. For example `c(A = 3,2,4, B = 5,4,3, C = 6,7,6,5)` will create an ABC-phase design with 3, 3, and 4 values per phase.
+
+The phase names can be set arbitrary, although I recommend to use capital letters (A, B, C, ...) for each phase followed by, when indicated, a number if the phases repeat (A1, B1, A2, B2, ...). Although it is possible to give the same name to more than one phase (A, B, A, B) this might lead to some confusion and errors when coding analyzes with *scan*.
+
+::: callout-note
+A deprecated arguent is `B_start` which is only applicable when the single-case consists of a single A-phase followed by a B-phase. It is a remnant from the time when `scan` could only handle one-case designs with two phases. The number assigned to `B_start` indicates the measurement-time as defined in the `mt` argument.
+:::
+
 If no measurement times are specified, they are automatically created as a series 1, 2, 3, ..., *N*, where *N* is the number of measurements. in some circumstances it might be useful to define individual measurement times for each measurement. For example, if you want to include the days since the beginning of the study as time intervals between measurements are widely varying you might get more valid results this way when analyzing the data in a regression approach.
 
 ```{r scdf2}
@@ -46,7 +54,7 @@ Missing values could be coded using `NA` (not available).
 scdf(values = c(A = 2,2,NA,5, B = 8,7,6,9,NA,7))
 ```
 
-More variables are implemented by adding new variable names with a vector containing the values. Please be aware that a new variable must never have the same name as one of the arguments of the function (i.e. B_start, phase_design, name, dvar, pvar, mvar).
+More variables are implemented by adding new variable names with a vector containing the values. Please be aware that a new variable must never have the same name as one of the arguments of the function (i.e. phase_starts, phase_design, name, dvar, pvar, mvar).
 
 ```{r scdf4}
 scdf(
@@ -68,8 +76,9 @@ out <- tribble(
   "values", "The default vector with values for the dependent variable. It can be changed with the dvar argument.",
   "phase", "Usually, this variable is not defined manually and will be created by the function. It is the default vector with values for the phase variable. It can be changed with the pvar argument.",
   "mt", "The default vector with values for the measurement-time variable. It can be changed with the mvar argument.",
-  "phase_design", "A vector defining the length and label of each phase.",
-  "B_start", "The first measurement of phase B (simple coding if design is strictly AB).",
+  "phase_design", "A named vector defining the length and label of each phase.",
+  "phase_starts", "A named vector defining the startpoint of each phase with respect to the measurement-time.",
+  "(deprecated) B_start", "The first measurement of phase B (simple coding if design is strictly AB).",
   "name", "A name for the case.",
   "dvar", "The name of the dependent variable. By default this is 'values'.",
   "pvar", "The name of the variable containing the phase information. By default this is 'phase'.",
@@ -80,7 +89,7 @@ out <- tribble(
 print_table(out)
 ```
 
-If you want to create a dataset comprising several singlecases, the easiest way is to first create an scdf for each case and then merge them into a new scdf using the `c` command:
+If you want to create a dataset comprising several single cases, the easiest way is to first create an scdf for each case and then merge them into a new scdf using the `c` command:
 
 ```{r combine_multi_cases, results = 'hide'}
 case1 <- scdf(
@@ -139,7 +148,7 @@ When you are working with other programs besides **R** you need to export and im
 
 ![How to format a single-case file in a spreadsheet program for importing into scan](images/readSC.jpg){#fig-spreadsheet width="300px"}
 
-In case your variables names differ from the standard (i.e. "case", "values", "phase", and "mt" ), you could set additional arguments to fit your file. `read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")` for example will set the variables attributes of the resulting *scdf*. Cases will be split by the variable `"name"`, `"wellbeing"` is set as the dependent variable (default is *values*), phase information are in the variable `"intervention"`, and measurement times in the variable `"time"`. You could also reassign the phase names within the phase variable by setting the argument `phase.names`. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to "A" and "B" with `read_scdf("example.csv", phase.names = c("A", "B"))`.
+In case your variables names differ from the standard (i.e. "case", "values", "phase", and "mt" ), you could set additional arguments to fit your file. `read_scdf("example.csv", cvar = "name", dvar = "wellbeing", pvar = "intervention", mvar = "time")` for example will set the variables attributes of the resulting *scdf*. Cases will be split by the variable `"name"`, `"wellbeing"` is set as the dependent variable (default is *values*), phase information are in the variable `"intervention"`, and measurement times in the variable `"time"`. You could also reassign the phase names within the phase variable by setting the argument `phase_names`. Assume for example your file contains the values 0 and 1 to identify the two phases I recommend to set them to "A" and "B" with `read_scdf("example.csv", phase_names = c("A", "B"))`.
 
 For some reasons, computer systems with a German (and some other) language setups export csv-files by default with a comma as a decimal point and a semicolon as a separator between values. In these cases you have to set two extra arguments to import the data:
 
@@ -152,12 +161,12 @@ For some reasons, computer systems with a German (and some other) language setup
 ```{r read-scdf-excel-example}
 dat <- read_scdf(
   "example2.xlsx", cvar = "name", pvar = "intervention", 
-  dvar = "wellbeing", mvar = "time", phase.names = c("A","B")
+  dvar = "wellbeing", mvar = "time", phase_names = c("A","B")
 )
 summary(dat)
 ```
 
-Basically, you can import data from any file format with the help of additional R packages. Here are two examples:
+Basically, you can import data from any file format with the help of additional R packages and the `as_scdf()` function. Here are two examples:
 
 ```{r}
 #| eval: false
@@ -178,7 +187,7 @@ scdf <- as_scdf(df)
 function_structure("write_scdf")
 ```
 
-`write_scdf()` exports an *scdf* object as a comma-separated-variables file (*csv*) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The *scdf* object is converted into a single data frame with a *case* variable identifying the rows for each subject. The first argument of the command identifies the *scdf* to be exported and the second argument (`file`) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, writeSC exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the `dec` and the `sep` arguments. For example, `write_scdf(example, file = "example.csv", dec = ",", sep = ";")` exports a csv variation usually used for example in Germany.
+`write_scdf()` exports an *scdf* object as a comma-separated-variables file (*csv*) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The *scdf* object is converted into a single data frame with a *case* variable identifying the rows for each subject. The first argument of the command identifies the *scdf* to be exported and the second argument (`file`) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, `write_scdf` exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the `dec` and the `sep` arguments. For example, `write_scdf(example, file = "example.csv", dec = ",", sep = ";")` exports a csv variation usually used for example in Germany.
 
 ### Other data formats
 
@@ -212,6 +221,12 @@ Here is an example:
 
 ```{r}
 convert(exampleABC)
+```
+
+Set `inline = TRUE` if you prefer the phase definition in a named vector:
+
+```{r}
+convert(exampleABC$Marie, inline = TRUE)
 ```
 
 Now you can copy and past the output into your R file or you set the `file` argument to save the output into an R file `convert(exampleABC, file = "scdf.R")`.

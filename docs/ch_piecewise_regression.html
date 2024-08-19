@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.30">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Analyzing Single-Case Data with R and Scan – 9&nbsp; Piecewise linear regressions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./ch_multilevel_plm.html" rel="next">
+<link href="./ch_overlapping_indices.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_piecewise_regression.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analyzing Single-Case Data with R and Scan</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_scan_package.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">The single-case data frame</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_create_display_and_store_scdfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Create, display, and store single-case data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_working_with_scdfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with <em>single-case data frames</em></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_scplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Data analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_describe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_some_things.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Some things about R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_changes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_supseded_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./app_author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">About the author</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-basic-plm-function" id="toc-the-basic-plm-function" class="nav-link active" data-scroll-target="#the-basic-plm-function"><span class="header-section-number">9.1</span> The basic plm function</a></li>
+  <li><a href="#adjusting-the-model" id="toc-adjusting-the-model" class="nav-link" data-scroll-target="#adjusting-the-model"><span class="header-section-number">9.2</span> Adjusting the model</a>
+  <ul class="collapse">
+  <li><a href="#the-slope-level-and-trend-arguments" id="toc-the-slope-level-and-trend-arguments" class="nav-link" data-scroll-target="#the-slope-level-and-trend-arguments"><span class="header-section-number">9.2.1</span> The <code>slope</code>, <code>level</code>, and <code>trend</code> arguments</a></li>
+  </ul></li>
+  <li><a href="#adding-additional-predictors" id="toc-adding-additional-predictors" class="nav-link" data-scroll-target="#adding-additional-predictors"><span class="header-section-number">9.3</span> Adding additional predictors</a></li>
+  <li><a href="#sec-dummy-model" id="toc-sec-dummy-model" class="nav-link" data-scroll-target="#sec-dummy-model"><span class="header-section-number">9.4</span> Dummy models</a></li>
+  <li><a href="#designs-with-more-than-two-phases-setting-the-right-contrasts" id="toc-designs-with-more-than-two-phases-setting-the-right-contrasts" class="nav-link" data-scroll-target="#designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.5</span> Designs with more than two phases: Setting the right contrasts</a></li>
+  <li><a href="#understanding-and-interpreting-contrasts" id="toc-understanding-and-interpreting-contrasts" class="nav-link" data-scroll-target="#understanding-and-interpreting-contrasts"><span class="header-section-number">9.6</span> Understanding and interpreting contrasts</a>
+  <ul class="collapse">
+  <li><a href="#phase-b-estimates" id="toc-phase-b-estimates" class="nav-link" data-scroll-target="#phase-b-estimates"><span class="header-section-number">9.6.1</span> Phase B estimates</a></li>
+  <li><a href="#phase-c-estimates" id="toc-phase-c-estimates" class="nav-link" data-scroll-target="#phase-c-estimates"><span class="header-section-number">9.6.2</span> Phase C estimates</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_piecewise_regression.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-plm" class="quarto-section-identifier"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-body">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In a piecewise-regression analysis (sometimes called segmented regression) a dataset is split at a particular break point and the regression parameters (intercept and slopes) are calculated separately for the data before and after the break point. This is done because we assume that there is a qualitative change at the break point that affects the intercept and slope. This approach is well suited to the analysis of single-case data which are from a statistical point of view time-series data segmented into phases. A general model for single-case data based on the piecewise regression approach has been proposed by Huitema and McKean <span class="citation" data-cites="huitema_design_2000">Huitema &amp; Mckean (<a href="references.html#ref-huitema_design_2000" role="doc-biblioref">2000</a>)</span>. They refer to two-phase single-case designs with a pre-intervention phase containing some measurements before the start of the intervention (A-phase) and an intervention phase containing measurements starting at the beginning of the intervention and continuing throughout intervention (B-phase).</p>
+<p>In this model, four parameters predict the outcome at a specific measurement point <a href="#fig-plm" class="quarto-xref">see&nbsp;<span>9.1</span></a></p>
+<ol type="1">
+<li><p>The performance at the beginning of the study (<strong>intercept</strong>),</p></li>
+<li><p>a developmental effect leading to a continuous increase throughout all measurements (<strong>trend effect</strong>),</p></li>
+<li><p>an intervention effect leading to an immediate and constant increase in performance (<strong>level effect</strong>), and</p></li>
+<li><p>a second intervention effect that evolves continuously with the beginning of the intervention (<strong>slope effect</strong>).</p></li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-plm" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ch_piecewise_regression_files/figure-html/fig-plm-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.1: Illustration of the piecewise-linear model
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The regression model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The default model applied in the plm function has the formula</p>
+<p><span class="math display">\[
+y_i = \beta_0 + \beta_1 (time_i-time_1) + \beta_2 phase_i + \beta_3 (time_i-time_{n_A+1})*phase_i
+\]</span></p>
+<p>Where:</p>
+<p><span class="math inline">\(i\)</span> := the session<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> number.</p>
+<p><span class="math inline">\(\beta_0\)</span> := the intercept.</p>
+<p><span class="math inline">\(\beta_1 time\)</span> := the continuous effect of the measurement time (the trend effect).</p>
+<p><span class="math inline">\(\beta_2 phase\)</span> := the discrete effect of the phase switch (the level effect).</p>
+<p><span class="math inline">\(\beta_3 (time-n_{A+1})*phase\)</span> := the continuous effect of the phase switch (the slope effect).</p>
+<p><span class="math inline">\(n_{A+1}\)</span> := the first session of phase B.</p>
+<p>For <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_3\)</span>, the time variables are shifted to start with a 0 at the first session of the respective phase.</p>
+</div>
+</div>
+<p><em>scan</em> provides an implementation based on this piecewise-regression approach. Though the original model is extended by several factors:</p>
+<ul>
+<li>multiple phase designs</li>
+<li>additional (control) variables</li>
+<li>autoregression modelling</li>
+<li>logistic, binomial, and poisson distributed dependent variables and error terms</li>
+<li>multivariate analyses for analysing the effect of an intervention on more than one outcome variable (see <a href="ch_multivariate_plm.html" class="quarto-xref"><span>Chapter 11</span></a>).</li>
+<li>multilevel analyses for multiple cases (see <a href="ch_multilevel_plm.html" class="quarto-xref"><span>Chapter 10</span></a>).</li>
+</ul>
+<section id="the-basic-plm-function" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="the-basic-plm-function"><span class="header-section-number">9.1</span> The basic plm function</h2>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The plm function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>plm(data, dvar, pvar, mvar, AR = 0, model = c(“W”, “H-M”, “B&amp;L-B”, “JW”), family = “gaussian”, trend = TRUE, level = TRUE, slope = TRUE, contrast = c(“first”, “preceding”), contrast_level = c(NA, “first”, “preceding”), contrast_slope = c(NA, “first”, “preceding”), formula = NULL, update = NULL, na.action = na.omit, r_squared = TRUE, var_trials = NULL, dvar_percentage = FALSE, …)</p>
+</div>
+</div>
+<p>The basic function for applying a regression analyses to a single-case dataset is <code>plm</code>. This function analyses one single-case. In its simplest way, <code>plm</code> takes one argument with an <em>scdf</em> object and it returns a full piecewise-regression analyses.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB<span class="sc">$</span>Johanna)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Piecewise Regression Analysis
+
+Contrast model: W / level = first, slope = first
+
+Fitted a gaussian distribution.
+F(3, 16) = 28.69; p = 0.000; R² = 0.843; Adjusted R² = 0.814
+
+                   B   2.5%  97.5%    SE      t     p delta R²
+Intercept     54.400 46.776 62.024 3.890 13.986 0.000         
+Trend mt       0.100 -3.012  3.212 1.588  0.063 0.951    0.000
+Level phase B  7.858 -3.542 19.258 5.816  1.351 0.195    0.018
+Slope phase B  1.525 -1.642  4.692 1.616  0.944 0.359    0.009
+
+Autocorrelations of the residuals
+ lag    cr
+   1 -0.32
+   2 -0.13
+   3 -0.01
+Ljung-Box test: X²(3) = 2.84; p = 0.417 
+
+Formula: values ~ 1 + mt + phaseB + interB</code></pre>
+</div>
+</div>
+<p>The output shows the specific contrast settings for the phase and slope calculation (see below for a detailed explanation). Next, the overall model fit is provided. In this specific example the model fit is quite high explaining more than 80% of the variance of the dependent variable. The following regression table shows the unstandardised estimates (B), the lower and upper boundaries of a 95% confidence interval, the standard-error, the t-test statistic, the p-value, and the delta R squared for each predictor.</p>
+<p>In this example, the intercept is the score estimation at the beginning of the study (here: at the first session, see <a href="#fig-plm-ex-1" class="quarto-xref">Figure&nbsp;<span>9.2</span></a>). The trend effect (variable <em>mt</em>) is 0.100. This means that for every one point increase in measurement-time, the score increased by 0.100. As this example has a total of 20 sessions, the overall increase due to the trend is <span class="math inline">\(19 * 0.100 = 1.9\)</span> points. The level effect (variable <em>phase</em> with level B) is 7.858. This means that all scores of phase B are increased by 7.858 points. The slope effect (for phase B) is 1.525. This means that for every one point increase in measurement time after the first phase B session, the score increases by 1.525. As there are 15 Phase B sessions in this example, the total increase due to the slope effect is <span class="math inline">\(14 * 1.525 = 21.35\)</span> points.</p>
+<p>From these values each data point can be estimated. For example, the last session (<span class="math inline">\(i=20\)</span>) is estimated to be <span class="math inline">\(54.400 + 19 * 0.100 + 7.858 + 14 * 1.525 = 85.508\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">|&gt;</span> <span class="fu">add_statline</span>(<span class="st">"trend"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-plm-ex-1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plm-ex-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ch_piecewise_regression_files/figure-html/fig-plm-ex-1-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plm-ex-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.2: Example dataset
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="adjusting-the-model" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="adjusting-the-model"><span class="header-section-number">9.2</span> Adjusting the model</h2>
+<p>The plm model is a complex model specifically suited for single-case studies. It entails a series of important parameters. Nevertheless, often we have specific theoretical assumption that do no include some of these parameters. We might, for example, only expect an immediate but not a continuous change from a medical intervention. Therefore, it would not be useful to include the slope-effect into our modelling. Vice versa, we could investigate an intervention that will just develop across time without an immediate change with the intervention start. Here we should drop the level-effect from out model. Even the assumption of a trend-effect can be dropped in cases where we do not expect a serial dependency of the data and we do not assume intervention independent changes within the time-frame of the study.</p>
+<p>It is important to keep in mind, that an overly complex model might have negative effects on the test power of an analyses (that is, the probability of detecting an actually existing effect is diminished) <span class="citation" data-cites="wilbert2022">(see <a href="references.html#ref-wilbert2022" role="doc-biblioref">Wilbert, Lüke, &amp; Börnert-Ringleb, 2022</a>)</span></p>
+<section id="the-slope-level-and-trend-arguments" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="the-slope-level-and-trend-arguments"><span class="header-section-number">9.2.1</span> The <code>slope</code>, <code>level</code>, and <code>trend</code> arguments</h3>
+<!--# treat each argument separately and add more examples -->
+<p>The plm function comes with three arguments (<code>slope</code>, <code>level</code>, and <code>trend</code>) to include or drop the respective predictors from the plm model. Buy default, all arguments are set <code>TRUE</code> and a full plm model is applied to the data.</p>
+<p>Consider the following data example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">55</span>, <span class="dv">58</span>, <span class="dv">53</span>, <span class="dv">50</span>, <span class="dv">52</span>, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">B =</span> <span class="dv">55</span>, <span class="dv">68</span>, <span class="dv">68</span>, <span class="dv">81</span>, <span class="dv">67</span>, <span class="dv">78</span>, <span class="dv">73</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">81</span>, <span class="dv">78</span>, <span class="dv">71</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">76</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Piecewise Regression Analysis
+
+Contrast model: W / level = first, slope = first
+
+Fitted a gaussian distribution.
+F(3, 16) = 21.36; p = 0.000; R² = 0.800; Adjusted R² = 0.763
+
+                   B   2.5%  97.5%    SE      t     p delta R²
+Intercept     56.400 48.070 64.730 4.250 13.270 0.000         
+Trend mt      -1.400 -4.801  2.001 1.735 -0.807 0.432    0.008
+Level phase B 16.967  4.510 29.424 6.356  2.670 0.017    0.089
+Slope phase B  2.500 -0.961  5.961 1.766  1.416 0.176    0.025
+
+Autocorrelations of the residuals
+ lag    cr
+   1 -0.28
+   2  0.05
+   3 -0.11
+Ljung-Box test: X²(3) = 2.14; p = 0.543 
+
+Formula: values ~ 1 + mt + phaseB + interB</code></pre>
+</div>
+</div>
+<p>The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. The easiest way to do this is to set the <code>slope</code> argument to <code>FALSE</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Piecewise Regression Analysis
+
+Contrast model: W / level = first, slope = first
+
+Fitted a gaussian distribution.
+F(2, 17) = 29.30; p = 0.000; R² = 0.775; Adjusted R² = 0.749
+
+                   B   2.5%  97.5%    SE      t     p delta R²
+Intercept     51.572 46.455 56.690 2.611 19.752 0.000         
+Trend mt       1.014  0.364  1.664 0.332  3.057 0.007    0.124
+Level phase B 10.329  1.674 18.983 4.416  2.339 0.032    0.072
+
+Autocorrelations of the residuals
+ lag    cr
+   1 -0.07
+   2  0.06
+   3 -0.17
+Ljung-Box test: X²(3) = 0.99; p = 0.804 
+
+Formula: values ~ 1 + mt + phaseB</code></pre>
+</div>
+</div>
+<p>In the resulting estimations the trend and level effects are now significant. The model estimated a trend effect of 1.01 points for every one point increase in measurement-time and a level effect of 10.33 points. That is, with the beginning of the intervention (the B-phase) the score increases by <span class="math inline">\(5 x 1.01 + 10.33 = 15.38\)</span> points (the measurement-time is increases by five, from one to six, at the first session of phase B).</p>
+</section>
+</section>
+<section id="adding-additional-predictors" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="adding-additional-predictors"><span class="header-section-number">9.3</span> Adding additional predictors</h2>
+<p>In more complex analyses, additional predictors can be included in the piecewise regression model.</p>
+<p>To do this, we have to change the regression formula ‘manually’ by applying the <code>update</code> argument. The <code>update</code> argument allows to change the underlying regression formula. To add a new variable named for example <code>newVar</code>, set <code>update = .~. + newVar</code>. The <code>.~.</code> part takes the internally build model formula (based on the number of phases in your model and the setting of the <code>slope</code>, <code>level</code>, and <code>trend</code> arguments) and <code>+ newVar</code> adds a variable called <code>newVar</code> to the equation.</p>
+<p>Here is an example adding the control variable <code>cigarrets</code> to the model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_add, <span class="at">update =</span> .<span class="sc">~</span>. <span class="sc">+</span> cigarrets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Piecewise Regression Analysis
+
+Contrast model: W / level = first, slope = first
+
+Fitted a gaussian distribution.
+F(4, 35) = 5.87; p = 0.001; R² = 0.402; Adjusted R² = 0.333
+
+                            B   2.5%  97.5%    SE      t     p delta R²
+Intercept              48.971 43.387 54.555 2.849 17.189 0.000         
+Trend day               0.392 -0.221  1.005 0.313  1.253 0.218    0.027
+Level phase Medication  3.459 -3.382 10.301 3.490  0.991 0.328    0.017
+Slope phase Medication -0.294 -0.972  0.384 0.346 -0.850 0.401    0.012
+cigarrets              -0.221 -1.197  0.755 0.498 -0.443 0.660    0.003
+
+Autocorrelations of the residuals
+ lag    cr
+   1  0.20
+   2 -0.19
+   3 -0.16
+Ljung-Box test: X²(3) = 4.33; p = 0.228 
+
+Formula: wellbeing ~ day + phaseMedication + interMedication + cigarrets</code></pre>
+</div>
+</div>
+<p>The output of the plm-function shows the resulting formula for the regression model that includes the cigarettes variable:<br>
+<code>Formula: wellbeing ~ day + phaseMedication + interMedication + cigarrets</code></p>
+<!--#  
+
+completely changing the regression formula:
+
+The formula has two parts divided by a tilde. Left of the tilde is the variable to be predicted and right of it the predictors. A 1 indicates the intercept, the variable mt estimates the trend effect, phaseB the level effect of the B-phase and the variable interB the slope effect of the B-phase (the interaction of measurement-time and phase). If formula is not explicitly defined, it is set to formula = values ~ 1 + mt + phaseB + interB (assuming an AB-design) to estimate the full piecewise regression model.
+
+-->
+</section>
+<section id="sec-dummy-model" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="sec-dummy-model"><span class="header-section-number">9.4</span> Dummy models</h2>
+<p>The <code>model</code> argument is used to code the <em>dummy variables</em>. These <em>dummy variables</em> are used to compute the slope and level effects of the <em>phase</em> variable.<br>
+The <em>phase</em> variable is categorical, identifying the phase of each measurement. Typically, categorical variables are implemented by means of dummy variables. In a piecewise regression model two phase effects have to be estimated: a level effect and a slope effect. The level effect is implemented quite straight forward: for each phase beginning with the second phase a new dummy variable is created with values of zero for all measurements except the measurements of the phase in focus where values of one are set.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">values</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">phase</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">mt</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">level B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>For estimating the <em>slope effect</em> of each phase, another kind of dummy variables have to be created. Like the dummy variables for level effects the values are set to zero for all measurements except the ones of the phase in focus. Here, values start to increase with every measurement until the end of the phase.<br>
+Various suggestions have been made regarding the way in which these values increase <span class="citation" data-cites="huitema_design_2000">(see <a href="references.html#ref-huitema_design_2000" role="doc-biblioref">Huitema &amp; Mckean, 2000</a>)</span>. The <em>B&amp;L-B</em> model starts with a one at the first session of the phase and increases with every session while the <em>H-M</em> model starts with a zero.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; empty-cells: hide;"></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+slope B
+</div></th>
+</tr>
+<tr class="odd">
+<th style="text-align: center;" data-quarto-table-cell-role="th">values</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">phase</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">mt</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">level B</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">model B&amp;L-M</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">model H-M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<p>Applying the <em>H-M</em> model will give you a “pure” level-effect while the <em>B&amp;L-B</em> model will provide an estimation of the level-effect that is actually the level-effect plus on times the slope-effect (as the model assumes that the slope variable is <em>1</em> at the first measurement of the B-phase). For most studies, the <em>H-M</em> model is more appropriate.</p>
+<p>However, there is another aspect to be aware of. Usually, in single case designs, the measurement times are coded as starting with <em>1</em> and increasing in integers (1, 2, 3, …). At the same time, the estimation of the trend effect is based on the measurement time variable. In this case, the estimate of the model intercept (usually interpreted as the value at the beginning of the study) actually represents the estimate of the starting value plus one times the trend effect. Therefore, I have implemented the <em>W</em> model (since scan version <code>0.54.4</code>). Here the trend effect is estimated for a time variable shifted to start at <em>0</em>. As a result, the intercept represents the estimated value at the first measurement of the study. The <em>W</em> model treats slope estimation in the same way as the <em>H-M</em> model. That is, the measurement-time for calculating the slope effect is set to <em>0</em> for the first session of each phase. Since scan version <code>0.54.4</code> the <em>W</em> model is the default.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; empty-cells: hide;"></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+mt
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+slope
+</div></th>
+</tr>
+<tr class="odd">
+<th style="text-align: center;" data-quarto-table-cell-role="th">values</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">phase</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">level</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">B&amp;L-M and H-M</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">W</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">B&amp;L-M</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">H-M and W</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+<section id="designs-with-more-than-two-phases-setting-the-right-contrasts" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.5</span> Designs with more than two phases: Setting the right contrasts</h2>
+<p>For single case studies with more than two phases, things get a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the values from phase A. Another common use is to compare the effects of a phase with the previous phase.</p>
+<p>As of scan version <code>0.54.4</code>, plm allows to set a contrast argument. <code>contrast = "first"</code> (the default) will compare all slope and level-effects to the values in the first phase. <code>contrast = "preceding"</code> will compare the slope and level-effects to the preceding phase.</p>
+<p>For the <em>preceding contrast</em>, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see <a href="#sec-dummy-model" class="quarto-xref"><span>Section 9.4</span></a>) for the first measurement of the target phase and increases until the last measurement of the case.</p>
+<p>You can set the contrast differently for the level and slope effects with the arguments <code>constrast_level</code> and <code>contrast_slope</code>. Both can be either <code>"first"</code> or <code>"preceding"</code>.</p>
+<p>(Note: Prior to scan version <code>0.54.4</code>, the option <code>model = "JW"</code> was identical to <code>model = "B&amp;L-B", contrast = "preceding"</code>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; empty-cells: hide;"></th>
+<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+contrast<br>
+first
+</div></th>
+<th colspan="4" data-quarto-table-cell-role="th" style="text-align: center; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+contrast<br>
+preceeding
+</div></th>
+</tr>
+<tr class="odd">
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; empty-cells: hide;"></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+level
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+slope
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+level
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+slope
+</div></th>
+</tr>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">values</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">phase</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">mt</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">B</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">C</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">B</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">C</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">B</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">C</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">B</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">A</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">C</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</section>
+<section id="understanding-and-interpreting-contrasts" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="understanding-and-interpreting-contrasts"><span class="header-section-number">9.6</span> Understanding and interpreting contrasts</h2>
+<p>In this section, we will calculate four plm models with different contrast settings for the same single-case data.</p>
+<p>The example scdf is the case ‘Marie’ from the <em>exampleABC</em> scdf (<code>exampleABC$Marie</code>)</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-marie" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-marie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ch_piecewise_regression_files/figure-html/fig-marie-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-marie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9.3: Example dataset
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The dark-red lines indicate the intercept and slopes when calculated separately for each phase. They are:</p>
+<div class="cell">
+<div id="tbl-contrasts-ex-2" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-contrasts-ex-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.1: Intercept, slope, and number of measurements calculated separately for each phase
+</figcaption>
+<div aria-describedby="tbl-contrasts-ex-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">intercept</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">slope</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">phase A</td>
+<td style="text-align: center;">60.618</td>
+<td style="text-align: center;">-1.915</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">phase B</td>
+<td style="text-align: center;">74.855</td>
+<td style="text-align: center;">-0.612</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">phase C</td>
+<td style="text-align: center;">68.873</td>
+<td style="text-align: center;">-0.194</td>
+<td style="text-align: center;">10</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Now we estimate a plm model with four contrast settings (see <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a>):</p>
+<div class="cell">
+<div id="tbl-contrast-first-preceding" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-contrast-first-preceding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.2: Estimates of a piecewise-linear regression with contrast models “first” and “preceding”.
+</figcaption>
+<div aria-describedby="tbl-contrast-first-preceding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th">Contrast level</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Contrast slope</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">intercept</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">trend</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">level B</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">level C</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">slope B</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">slope C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">first</td>
+<td style="text-align: center;">first</td>
+<td style="text-align: center;">60.618</td>
+<td style="text-align: center;">-1.915</td>
+<td style="text-align: center;">33.388</td>
+<td style="text-align: center;">46.558</td>
+<td style="text-align: center;">1.303</td>
+<td style="text-align: center;">1.721</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">preceding</td>
+<td style="text-align: center;">preceding</td>
+<td style="text-align: center;">60.618</td>
+<td style="text-align: center;">-1.915</td>
+<td style="text-align: center;">33.388</td>
+<td style="text-align: center;">0.139</td>
+<td style="text-align: center;">1.303</td>
+<td style="text-align: center;">0.418</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">first</td>
+<td style="text-align: center;">preceding</td>
+<td style="text-align: center;">60.618</td>
+<td style="text-align: center;">-1.915</td>
+<td style="text-align: center;">33.388</td>
+<td style="text-align: center;">33.527</td>
+<td style="text-align: center;">1.303</td>
+<td style="text-align: center;">0.418</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">preceding</td>
+<td style="text-align: center;">first</td>
+<td style="text-align: center;">60.618</td>
+<td style="text-align: center;">-1.915</td>
+<td style="text-align: center;">33.388</td>
+<td style="text-align: center;">13.170</td>
+<td style="text-align: center;">1.303</td>
+<td style="text-align: center;">1.721</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<section id="phase-b-estimates" class="level3" data-number="9.6.1">
+<h3 data-number="9.6.1" class="anchored" data-anchor-id="phase-b-estimates"><span class="header-section-number">9.6.1</span> Phase B estimates</h3>
+<p>All regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> have the same estimates for <code>intercept</code> and <code>trend</code>. These are not affected by the contrasts and are identical to those for phase A in <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>9.1</span></a>. In addition, in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a>, the estimates for <code>levelB</code> and <code>slopeC</code> are identical since all models contrast the same phase (the first and the preceding phase are both phase A). The values here can be calculated from <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>9.1</span></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<p><span id="eq-contrast-level-2"><span class="math display">\[
+levelB = intercept_{phaseB} - (intercept_{phaseA} + n_{PhaseA} * slope_{phaseA})
+\tag{9.1}\]</span></span></p>
+<p><span class="math display">\[
+33.388 \approx  74.855 - (60.618 + 10*-1.915)
+\]</span></p>
+<p><span id="eq-contrast-slope-2"><span class="math display">\[
+slopeB = slope_{phaseB} - slope_{phaseA}
+\tag{9.2}\]</span></span></p>
+<p><span class="math display">\[
+1.303 \approx -1.915 - (-0.612)
+\]</span></p>
+</section>
+<section id="phase-c-estimates" class="level3" data-number="9.6.2">
+<h3 data-number="9.6.2" class="anchored" data-anchor-id="phase-c-estimates"><span class="header-section-number">9.6.2</span> Phase C estimates</h3>
+<p>The <code>levelC</code> and <code>slopeC</code> estimates of the regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> are different for the various contrast models. Depending on the contrast setting, the estimates “answer” a different question. <a href="#tbl-interpretation-contrasts" class="quarto-xref">Table&nbsp;<span>9.3</span></a> provides interpretation help.</p>
+<div id="tbl-interpretation-contrasts" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-interpretation-contrasts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;9.3: Interpretations of the effect estimates in various contrast conditions
+</figcaption>
+<div aria-describedby="tbl-interpretation-contrasts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Contrast level</th>
+<th>Contrast slope</th>
+<th>Interpretation of level C effect</th>
+<th>Interpretation slope C effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>first</td>
+<td>first</td>
+<td>What would be the value if phase A had continued until to the start of phase C and what is the difference to the actual value at the first measurement of phase C?</td>
+<td>What is the difference between the slopes of phase C and A<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>?</td>
+</tr>
+<tr class="even">
+<td>preceding</td>
+<td>preceding</td>
+<td>What would be the value if phase B had continued to the start of phase C and what is the difference to the actual value at the first measurement of phase C?</td>
+<td>What is the difference between the slopes of phase C and B?</td>
+</tr>
+<tr class="odd">
+<td>first</td>
+<td>preceding</td>
+<td>What would be the value if phase A had continued until the start of phase C (assuming a slope effect but no level effect in phase B)? And what is the difference to the actual value at the first measurement of phase C?</td>
+<td>What is the difference between the slopes of phase C and B?</td>
+</tr>
+<tr class="even">
+<td>preceding</td>
+<td>first</td>
+<td>What would be the value if phase B had continued until the start of phase C (assuming a level but no slope effect in phase B)? And what is the difference to the actual value at the first measurement of phase C?</td>
+<td>What is the difference between the slopes of phase C and A?</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>All four models are mathematically equivalent, i.e.&nbsp;they produce the same estimates of the dependent variable. Bellow I will show how the estimates from the piecewise regression models relate to the simple regression estimates from <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>9.1</span></a>. These are <span class="math inline">\(intercept_{phaseC} = 68.873\)</span> and <span class="math inline">\(slope_{phaseC} = -0.194\)</span>.</p>
+<p><strong><em>Level first and slope first contrasts</em></strong></p>
+<p><a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 46.558 compared to phase A (the intercept) and a <code>slopeC</code> increase of 1.721.</p>
+<p><span id="eq-contrast-ff-1"><span class="math display">\[
+levelC = intercept_{phaseC} - (Intercept_{phaseA} + n_{phaseA+B} * slope_{phaseA})
+\tag{9.3}\]</span></span></p>
+<p><span class="math display">\[46.558 \approx 68.873 - (60.618 + 20*-1.915) \]</span></p>
+<p><span id="eq-contrast-ff-2"><span class="math display">\[
+slopeC = slope_{phaseC} - slope_{phaseA}
+\tag{9.4}\]</span></span></p>
+<p><span class="math display">\[1.721 \approx -0.194 - (-1.915)\]</span></p>
+<p><strong><em>Level preceding and slope preceding contrasts</em></strong></p>
+<p><a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 0.139 compared to phase B and a <code>slopeC</code> increase of 0.418.</p>
+<p><span id="eq-contrast-pp-1"><span class="math display">\[
+levelC = intercept_{phaseC} - (intercept_{phaseB} + n_{phaseB} * slope_{phaseB})
+\tag{9.5}\]</span></span></p>
+<p><span class="math display">\[0.139 \approx 68.873 - (74.855 + 10*-0.612)\]</span></p>
+<p><span id="eq-contrast-pp-2"><span class="math display">\[
+slopeC = slope_{phaseC} - slope_{phaseB}
+\tag{9.6}\]</span></span></p>
+<p><span class="math display">\[0.418 \approx -0.194 - (-0.612)\]</span></p>
+<p><strong><em>Level first and slope preceding contrasts</em></strong></p>
+<p><a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 33.388 compared to phase A and a <code>slopeC</code> increase of 0.418.</p>
+<p><span id="eq-contrast-fp-1"><span class="math display">\[
+levelC = intercept_{phaseC} - (intercept_{phaseA}  + n_{phaseA} * slope_{phaseA} + n_{phaseB} * slope_{phaseB})
+\tag{9.7}\]</span></span></p>
+<p><span class="math display">\[
+33.527 \approx 68.873 - (60.618 + 10 * -1.915 + 10 * -0.612)
+\]</span></p>
+<p><span id="eq-contrast-fp-2"><span class="math display">\[
+slopeC = slope_{phaseC} - slope_{phaseB}
+\tag{9.8}\]</span></span></p>
+<p><span class="math display">\[0.418 \approx -0.194 - (-0.612)\]</span></p>
+<p><strong><em>Level preceding and slope first contrasts</em></strong></p>
+<p><a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> estimates a <code>levelC</code> increase of 13.170 compared to phase B and a <code>slopeC</code> increase of 1.721.</p>
+<p><span id="eq-contrast-pf-1"><span class="math display">\[
+levelC = intercept_{phaseC} - (intercept_{phaseB} + n_{phaseB} * slope_{phaseA})
+\tag{9.9}\]</span></span></p>
+<p><span class="math display">\[
+13.170\approx 68.873 - (74.855 + 10*-1.915)
+\]</span></p>
+<p><span id="eq-contrast-pf-2"><span class="math display">\[
+slopeC = slope_{phaseC} - slope_{phaseA}
+\tag{9.10}\]</span></span></p>
+<p><span class="math display">\[
+1.721 \approx -0.194 - (-1.915)
+\]</span></p>
+<!--# same analyses for models without level estimators and models without slope estimators -->
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-huitema_design_2000" class="csl-entry" role="listitem">
+Huitema, B. E., &amp; Mckean, J. W. (2000). Design specification issues in time-series intervention models. <em>Educational and Psychological Measurement</em>, <em>60</em>(1), 38–58. Retrieved from <a href="http://epm.sagepub.com/content/60/1/38.short">http://epm.sagepub.com/content/60/1/38.short</a>
+</div>
+<div id="ref-wilbert2022" class="csl-entry" role="listitem">
+Wilbert, J., Lüke, T., &amp; Börnert-Ringleb, M. (2022). Statistical power of piecewise regression analyses of single-case experimental studies addressing behavior problems. <em>Frontiers in Education Educational Psychology</em>, <em>7</em>. <a href="https://doi.org/10.3389/feduc.2022.917944">https://doi.org/10.3389/feduc.2022.917944</a>
+</div>
+</div>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>The session is the ordinal number (1st, 2nd, 3rd, …) of the measurements. While the measurement-time (the value of the measurement-time variable at a specific session/ measurement) is often identical to the session number, this is not necessarily the case. The measurement-time sometimes represents days since the start of the study or other intervals. Therefore, I refer to <em>session</em> or <em>measurement</em> for the ordinal position of the measurement and <em>measurement-time</em> for the value of the time variable at that session number.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Differences here and in the following calculations are due to rounding errors.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The slope of phase A is the trend effect.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation column-body">
+  <div class="nav-page nav-page-previous">
+      <a href="./ch_overlapping_indices.html" class="pagination-link" aria-label="Overlapping indices">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./ch_multilevel_plm.html" class="pagination-link" aria-label="Multilevel plm analyses">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

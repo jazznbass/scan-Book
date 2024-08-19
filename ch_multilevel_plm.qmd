@@ -108,11 +108,11 @@ print(res, casewise = TRUE)
 
 ```
 
-If you have the `scplot` package installed (version 0.4.0 or higher), you can create a forestplot for each parameter of the model with the `plot()` function. Set the argument "effect" to choose the effect by number or a string ("intercept", "trend", "slope", "level"). The `ci` argument sets the size of the confidence interval (default is `0.95`) and the `mark` argument sets the value for a reference line (default is the mean effect).
+If you have the `scplot` package installed (version 0.4.1 or higher), you can create a forestplot for each parameter of the model with the `scplot()` function. Set the argument "effect" to choose the effect by number or a string ("intercept", "trend", "slope", "level"). The `ci` argument sets the size of the confidence interval (default is `0.95`) and the `mark` argument sets the value for a reference line (default is the mean effect).
 
 ```{r}
 #| label: hplm-forestplot
 library(scplot)
-plot(res, effect = "level")
+scplot(res, effect = "level")
 ```
 

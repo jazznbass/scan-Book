@@ -77,7 +77,6 @@ out <- tribble(
 
 print_table_simple(out)
 
-#print_table(out)
 
 ```
 
@@ -91,13 +90,13 @@ print_table_simple(out)
 out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage",
   #
-  "plot/plot.scdf", "Creates plots of single cases", "Stable",
-  "scplot", "Add-on package `scplot`. Create advanced ggplot2 plots.", "Stable",
-  "style_plot", "Defines single-case plot graphical styles", "Superseded",
-  "export", "Creates html or latex tables from the output of various can functions", "Experimental",
+  "scplot", "Add-on package `scplot`. Creates advanced ggplot2 plots", "Stable",
   "print/print.scdf", "Prints an scdf", "Stable",
   "summary/summary.scdf", "Summaizes an scdf", "Stable",
-  "plot_rand", "Create a distribution plot from a randomization test obejct", "Experimental"
+  "export", "Creates html or latex tables from the output of various can functions", "Stable",
+  "plot/plot.scdf", "Creates plots of single cases", "Superseded",
+  "style_plot", "Defines single-case plot graphical styles", "Superseded",  
+  "plot_rand", "Create a distribution plot from a randomization test obejct", "Superseded"
 )
 
 print_table(out)
@@ -119,7 +118,7 @@ out <- tribble(
   "describe", "Descriptive statistics for each phase of each case", "Stable",
   "overlap", "An overview of overlap indeces for each case", "Stable",
   "smd", "Various standardized mean differences between phase A and B", "Stable",
-  "rci", "Reliable change index", "Experimental",
+  "rci", "Reliable change index", "Stable",
   "rand_test", "Randomization test", "Stable",
   "tau_u", "Tau-U for each case and all cases", "Stable",
   "trend", "Trend analyses for each case", "Stable",
@@ -131,6 +130,7 @@ out <- tribble(
   "pand", "Percentage of all non overlapping data for all cases",  "Stable",
   "pem", "Percantage exceeding the mean for each case",  "Stable",
   "pet", "Percentage exceeding the trend for each case",  "Stable",
+  "ird", "Improvement rate difference", "Stable",
   "cdc", "Conservative dual-criterion test",  "Stable",
   "outlier", "Detect outliers for all cases", "Stable"
 )
@@ -179,8 +179,8 @@ out <- tribble(
   #
   "design", "Defines a design of one or multiple single-cases", "Stable",
   "power_test", "Calculates power and alpha error of a specific analyzes for a specific single-case design", "Stable",
-  "estimate_design", "Extraxt a deisgn template from an existing scdf", "Experimental",
   "random_scdf", "Creats random single-case studies from a single-case design", "Stable",
+  "estimate_design", "Extraxt a deisgn template from an existing scdf", "Experimental",
   "mcscan", "Add-on package `mcscan`. Create Monte-Carlo designs and analyses with `scan`", "(Upcoming not yet functioning)"
 )
 

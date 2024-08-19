@@ -1,6 +1,9 @@
 # Randomization tests
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
+ 
 function_structure("rand_test")
 ```
 
@@ -40,18 +43,28 @@ p
 
 The `statistics` argument defines the statistics on which the phase comparison is based. The following comparisons can be made:
 
-|              |                                                                                                                                               |
-|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| Mean A-B     | Uses the difference between the mean of Phase A and the mean of Phase B. This is appropriate if a decrease in scores is expected for Phase B. |
-| Mean B-A     | Uses the difference between the mean of Phase B and the mean of Phase A. This is appropriate if a increase in scores is expected for Phase B. |
-| Mean \|A-B\| | Uses the absolute value of the difference between the means of Phases A and B.                                                                |
-| Median A-B   | The same as *Mean A-B*, but based on the median.                                                                                              |
-| Median B-A   | The same as *Mean B-A*, but based on the median.                                                                                              |
+|                |                                                                                                                                          |
+|----------------|-----------------------------------------------------------|
+| Mean A-B       | The difference between the mean of Phase A and the mean of Phase B. This is appropriate if a decrease in scores is expected for Phase B. |
+| Mean B-A       | The difference between the mean of Phase B and the mean of Phase A. This is appropriate if a increase in scores is expected for Phase B. |
+| Mean \|A-B\|   | The absolute value of the difference between the means of Phases A and B.                                                                |
+| Median A-B     | The same as *Mean A-B*, but based on the median.                                                                                         |
+| Median B-A     | The same as *Mean B-A*, but based on the median.                                                                                         |
+| Median \|A-B\| | The same as *Mean \|A-B\|*, but based on the median.                                                                                     |
+|                | **Some further experimental statistics are also available:**                                                                             |
+| SMD hedges     | The standardized difference between phases as Hedge's g.                                                                                 |
+| SMD glass      | The standardized difference between phases as Glass's delta.                                                                             |
+| NAP            | The Nonoverlap of all pairs.                                                                                                             |
+| NAP decreasing | The Nonoverlap of all pairs assuming decreasing values in phase B.                                                                       |
+| Slope B-A      | The difference of a linear slope line of the phases.                                                                                     |
+| Slope A-B      | The difference of a linear slope line of the phases expecting a decreasing effect in phase B.                                            |
+| W-test         | Calculates a Wilcoxon test and takes the W statistic.                                                                                    |
+| T-test         | Calculates a T-test test and takes the t statistic.                                                                                      |
 
 Further argument are
 
 | Argument        | What it does ...                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-----------|-------------------------------------------------------------|
 | *number*        | Sample size of the randomization distribution. The exactness of the p-value can not exceed 1/number (i.e., number = 100 results in p-values with an exactness of one percent). Default is number = 500. For faster processing use number = 100. For more precise p-values set number = 1000.                                                                                                                                                         |
 | *complete*      | If TRUE, the distribution is based on a complete permutation of all possible starting combinations. This setting overwrites the number Argument. The default setting is FALSE.                                                                                                                                                                                                                                                                       |
 | *limit*         | Minimal number of data points per phase in the sample. The first number refers to the A-phase and the second to the B-phase (e.g., limit = c(5, 3)). If only one number is given, this number is applied to both phases. Default is limit = 5.                                                                                                                                                                                                       |
@@ -67,12 +80,55 @@ res <- rand_test(exampleAB)
 res
 ```
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("plot_rand")
 ```
+
+## Visuaization
 
 The `plot_rand()` function plots a distribution of the random sample against the observed statistic:
 
 ```{r}
+#| label: plot_rand()
 plot_rand(res)
 ```
+
+A more sophisticated histogram is available from the `scplot` package since version 0.4.1.
+
+```{r}
+scplot(res)
+```
+
+Another visualization is available since scplot version 0.4.1 for a randomization test with one case.
+It gives you an overview of the respective statistic for each available startpoint of phase B.
+
+```{r}
+rand_test(
+  byHeart2011$`Lisa (Turkish)`, 
+  statistic = "Median B-A", 
+  limit = 1, 
+  complete = TRUE) |> 
+  scplot(type = "xy")
+```
+
+## Providing a custom function
+
+If you want to experiment around with new statistics for the randomization test, you can add your own analyses functions.
+
+Use the `statistic_function argument` to provide your own function in a list. This list must have an element named `statistic` with a function that takes two arguments `a` and `b` and returns a single numeric value. For example, `list(statistic = function(a, b) mean(a) - mean(b))`. The second element of the list is named `aggregate` which takes a function with one numeric argument that returns a numeric argument. This function is used to aggregate the values of a multiple case design. If you do not provide this element, the default `function(x) sum(x) / length(x)`.  is used. The third optional argument is `name` which provides a name for your custom function.
+
+Here is an example that implements the PND statistic and uses the median to aggregate the PNDs in a multiple case study.
+
+```{r}
+new_statistic <- list(
+  statistic = function(a, b) sum(b > max(a), na.rm = TRUE) / sum(!is.na(b)),
+  aggregate = function(x) median(x),
+  name = "PND"
+)
+
+rand_test(Huber2014, statistic_function = new_statistic)
+```
+
+

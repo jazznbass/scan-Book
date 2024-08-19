@@ -189,12 +189,17 @@ The *Tau-U* statistic has been proposed by @parker_combining_2011 and is one of 
 
 ### Variations of Tau-U
 
-Several arguments an be set to define how Tau-U should be calculated. By setting the argument `method = "parker"`, Tau-U is calculated as described in @parker_combining_2011. This procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. `method = "complete`, which is the default, applies a correction that keeps the values within the -1 to 1 range and should be more appropriate. In the original method proposed by @parker_combining_2011 data, calculations are based on Kendall's Tau A which does not correct for ties. Alternatively, Kendall's Tau B has a correction for Tau in the presence of ties. The `tau_method` can be set to decide on the tau method to use `"a"` for Kendall's Tau A and `"b"`\` for Kendall's Tau B.
+Several arguments can be set to define how Tau-U should be calculated. When setting the argument `method = "parker"`, Tau-U is according to @parker_combining_2011. However, this procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. Additionally, this method uses Kendall's Tau A is applied, which does not correct for ties, and no continuity correct is calculated. The default setting `method = "complete` applies a correction that keeps the values within the -1 to 1 range. `method = "tarlow"` applies a variation that has been implemented by @tarlow2017 . This method is similar to `"complete"` but is based on Tau A rather than Tau B and includes a continuity correction.
 
+Note that the arguments `tau_method` (`"a"` or `"b"`) and `continuity_correction` (`TRUE` or `FALSE`) only function with `method = "complete"`.
+
+My recommendation is to use `method = "complete"` in combination with the defaults `tau_method = "b"` and `continuity_correction = TRUE` for the most appropriate results.
+
+\
 Here is an example with setting that reconstruct the values from the original example in @parker2011 :
 
 ```{r}
-tau_u(Parker2011, method = "parker", tau_method = "a", continuity_correction = FALSE)
+tau_u(Parker2011, method = "parker")
 ```
 
 A different implementation of the method (provided at [http://www.singlecaseresearch.org/calculators/tau-u)](http://www.singlecaseresearch.org/calculators/tau-u)) uses Kendall's Tau B:
@@ -206,7 +211,7 @@ tau_u(exampleAB$Johanna, method = "parker", tau_method = "b", continuity_correct
 Another online calculator created by Rumen Manolov is available at <https://manolov.shinyapps.io/Overlap/>. It uses an R code developed by Kevin Tarlow to calculate Tau-U. This setting will replicate the results of this approach:
 
 ```{r}
-tau_u(exampleAB$Johanna, method = "complete", tau_method = "a", continuity_correction = FALSE)
+tau_u(exampleAB$Johanna, method = "tarlow")
 ```
 
 The standard return of the `tau_u` function does not display all calculations. If you like to have more details, apply the `print` function with the additional argument `complete = TRUE`.
@@ -306,8 +311,8 @@ function_structure("rci")
 
 Basically, the reliable change index (rci) shows whether a post-test is above a pre-test value. Based on the reliability of the measurements and the standard deviation, the standard error is calculated. The mean difference between phase A and phase B is divided by the standard error. Several authors have proposed refined methods for calculating the rci.
 
-The `rci` function calculates three indices of reliable change [@wise_methods_2004] and corresponding descriptive statistics.
+The `rci` function calculates two indices of reliable change [@wise_methods_2004] and corresponding descriptive statistics.
 
 ```{r}
-rci(exampleAB$Johanna, rel = 0.8, graph = TRUE)
+rci(exampleAB$Johanna, rel = 0.8)
 ```
