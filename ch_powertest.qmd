@@ -1,6 +1,8 @@
 # Power analyses
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("power_test")
 ```
 
@@ -67,7 +69,8 @@ Then you have to choose the statistical method. The `power_test` function applie
 
 Let us start with the defaults and conduct a power analysis for our previously set design: *(This might take some time. Even in the default setting with 100 simulations you might wait a few seconds. For more precise estimations I recommend 1000 simulations - or even higher.)*
 
-```{r power-test-ex-1}
+```{r}
+#| label: power-test-ex-1
 res <- power_test(design)
 res
 ```
@@ -108,13 +111,15 @@ print_table(out, width_cols = c("10em", "7em", "50em"))
 
 With only 100 simulations you will have quite large confidence intervals for the power, alpha error probability, and correct estimations. You can calculate these intervals by setting the `ci` argument. For 95% CI's set `ci = 0.95` for 99% `ci = 0.99`.
 
-```{r power-test-ex-ci}
+```{r}
+#| label: power-test-ex-ci
 power_test(design, ci = 0.95)
 ```
 
 You can also test the power, alpha error, and correct estimates against predefined values. In order to do that, set `binom_test = TRUE`. The power will be tested against being greater or equal to 80%, the alpha error against being less or equal 5%, and the correct proportion against being greater equal 87.5%.
 
-```{r power-test-ex-bi}
+```{r}
+#| label: power-test-ex-bi
 power_test(design, binom_test = TRUE)
 ```
 
@@ -128,7 +133,8 @@ Instead of one of the predefined character strings you can also create you own f
 
 Here is an example that implements a method for the significance of a NAP (nonoverlap of all pairs) test. This is statistically identical to a U-Test comparing phase A and B.
 
-```{r power-test-ex-create-method-1}
+```{r}
+#| label: power-test-ex-create-method-1
 set.seed(1) # only needed to make this example replicable
 
 mcmethod_nap <- function(scdf) {
@@ -140,7 +146,8 @@ power_test(design, method = list(nap = mcmethod_nap, "rand", "plm_level"))
 
 Here is another example for a fast plm function for poisson distributed data based on the `fastglm` package:
 
-```{r power-test-ex-create-method-2}
+```{r}
+#| label: power-test-ex-create-method-2
 plm_fast <- function(data) {
   data <- unlist(data, recursive = FALSE)
   y  <- data$values
