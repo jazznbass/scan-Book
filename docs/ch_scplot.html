@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.30">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Analyzing Single-Case Data with R and Scan – 5&nbsp; Creating a single-case data plot</title>
+<title>5&nbsp; Creating a single-case data plot – Analyzing Single-Case Data with R and Scan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-44e20b959ebc547957a0d81c1ee235a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -114,13 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html">The single-case data frame</a></li><li class="breadcrumb-item"><a href="./ch_scplot.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -139,7 +139,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div class="sidebar-tools-main">
     <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
@@ -185,9 +185,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">The single-case data frame</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -220,9 +220,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Data analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -285,9 +285,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -405,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.1" class="anchored" data-anchor-id="install-scplot"><span class="header-section-number">5.1</span> Install <code>scplot</code></h2>
 <p><code>splot</code> is available from the CRAN repository. Execute <code>install.packages("scplot")</code> to install it.</p>
 <p>If you are more adventures you can install the developmental version of <em>scplot</em> from github.The project is hosted at <a href="https://github.com/jazznbass/scplot" class="uri">https://github.com/jazznbass/scplot</a>. You can install it with <code>devtools::install_github("jazznbass/scplot")</code> from your R console. Make sure you have the package <code>devtools</code> installed before. The <em>scplot</em> package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a>.</p>
-<p>The following chapter has been written with <em>scplot</em> version 0.4.0.999. If you have problems replicating the examples, please update to this version.</p>
+<p>The following chapter has been written with <em>scplot</em> version 0.5.1. If you have problems replicating the examples, please update to this version.</p>
 </section>
 <section id="basic-principal" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="basic-principal"><span class="header-section-number">5.2</span> Basic principal</h2>
@@ -428,15 +428,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Here is an overview of possible functions:</p>
 <div class="cell">
-<div id="tbl-functions-scplot" class="cell quarto-float anchored">
+<div id="tbl-functions-scplot" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-functions-scplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;5.1: scplot functions
 </figcaption>
 <div aria-describedby="tbl-functions-scplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -542,7 +541,6 @@ Table&nbsp;5.1: scplot functions
 
 </div>
 </div>
-</div>
 </figure>
 </div>
 </div>
@@ -550,15 +548,14 @@ Table&nbsp;5.1: scplot functions
 <p>Text arguments can be applied to the following functions: <code>add_caption()</code>, <code>add_labels()</code>, <code>add_legend()</code>, <code>add_text()</code>, <code>add_title()</code>, <code>set_xlabel()</code>, <code>set_ylabel()</code>, <code>set_phasenames()</code>, <code>set_casenames()</code>.</p>
 <p>Possible arguments are:</p>
 <div class="cell">
-<div id="tbl-arguments-text" class="cell quarto-float anchored">
+<div id="tbl-arguments-text" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-arguments-text-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;5.2: Arguments for text elements
 </figcaption>
 <div aria-describedby="tbl-arguments-text-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
@@ -596,21 +593,19 @@ Table&nbsp;5.2: Arguments for text elements
 
 </div>
 </div>
-</div>
 </figure>
 </div>
 </div>
 <p>Line arguments can be applied to the following functions: <code>set_dataline()</code>, <code>add_statline()</code>, <code>add_line()</code>, <code>add_arrow()</code>, <code>add_ridge()</code>, <code>add_ridge()</code>, <code>set_xaxis()</code>, <code>set_yaxis()</code>, <code>set_separator()</code>.</p>
 <div class="cell">
-<div id="tbl-arguments-line" class="cell quarto-float anchored">
+<div id="tbl-arguments-line" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-arguments-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;5.3: Arguments for line elements
 </figcaption>
 <div aria-describedby="tbl-arguments-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
@@ -636,21 +631,19 @@ Table&nbsp;5.3: Arguments for line elements
 
 </div>
 </div>
-</div>
 </figure>
 </div>
 </div>
 <p>Point arguments can be applied to the following functions: <code>set_dataline()</code>, <code>add_statline()</code>, <code>add_marks()</code>, <code>add_arrow()</code>.</p>
 <div class="cell">
-<div id="tbl-arguments-point" class="cell quarto-float anchored">
+<div id="tbl-arguments-point" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-arguments-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;5.4: Arguments for point elements
 </figcaption>
 <div aria-describedby="tbl-arguments-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
@@ -676,13 +669,12 @@ Table&nbsp;5.4: Arguments for point elements
 
 </div>
 </div>
-</div>
 </figure>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-pch" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-pch" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-pch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="ch_scplot_files/figure-html/fig-pch-1.png" class="img-fluid figure-img" width="672">
@@ -707,7 +699,7 @@ The set_dataline function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>set_dataline(object, variable = NULL, line, point, type = “continuous”, …)</p>
+<p>set_dataline(object, variable = NULL, line, point, type = “continuous”, label = NULL, …)</p>
 </div>
 </div>
 <p>By default, the single-case plot will depict the main dependent variable as defined in the scdf object. For changing this default behaviour or adding a second data line, use the <code>set_dataline()</code> function. The function takes the argument <code>variable</code> (with the main dependent variable as a default) which must correspond to a variable name within the applied scdf.</p>
@@ -750,7 +742,7 @@ The add_statline function call
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>add_statline(object, stat = c(“mean”, “median”, “min”, “max”, “quantile”, “sd”, “mad”, “trend”, “trendA”, “trendA theil-sen”, “moving mean”, “moving median”, “loreg”, “lowess”, “loess”), phase = NULL, color = NULL, linewidth = NULL, linetype = NULL, variable = NULL, …)</p>
+<p>add_statline(object, stat = c(“mean”, “median”, “min”, “max”, “quantile”, “sd”, “mad”, “trend”, “trendA”, “trendA theil-sen”, “moving mean”, “moving median”, “loreg”, “lowess”, “loess”), phase = NULL, color = NULL, linewidth = NULL, linetype = NULL, variable = NULL, label = NULL, …)</p>
 </div>
 </div>
 <section id="lines-indicating-a-constant-for-each-phase" class="level3" data-number="5.4.1">
@@ -780,7 +772,8 @@ The add_statline function call
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">phase =</span> <span class="st">"A"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"max"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="st">"B"</span>, <span class="st">"C"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">|&gt;</span> <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -842,7 +835,7 @@ The add_statline function call
 <section id="refine-with-additional-arguments" class="level3" data-number="5.4.5">
 <h3 data-number="5.4.5" class="anchored" data-anchor-id="refine-with-additional-arguments"><span class="header-section-number">5.4.5</span> Refine with additional arguments</h3>
 <p>Some of the statistics allow additional arguments to specify parameters:</p>
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 16%">
 <col style="width: 16%">
@@ -1141,6 +1134,8 @@ The add_statline function call
 </section>
 <section id="add-a-legend" class="level2" data-number="5.9">
 <h2 data-number="5.9" class="anchored" data-anchor-id="add-a-legend"><span class="header-section-number">5.9</span> Add a legend</h2>
+<p>The <code>add_legend()</code> function adds a predefined legend that includes all datalines and statlines you have added. The labels for these lines are set automatically if you did not set the <code>label</code> argument in the corresponding <code>add_dataline()</code> and <code>add_statline()</code> functions.</p>
+<p>Here is a simple example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">|&gt;</span></span>
@@ -1154,15 +1149,22 @@ The add_statline function call
 </div>
 </div>
 </div>
-<p>and set specific elements</p>
+<p>And here is a more advanced example that uses several arguments to defines the style of the legend:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"left"</span>, </span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"italic"</span>),</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey95"</span>, <span class="at">colour =</span> <span class="st">"black"</span>)</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">label =</span> <span class="st">"Pychological Wellbeing"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"depression"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">label =</span> <span class="st">"Depression"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">label =</span> <span class="st">"Wellbeing mean"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"depression"</span>, <span class="at">label =</span> <span class="st">"Depression mean"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"grey80"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"left"</span>,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">section_labels =</span> <span class="fu">c</span>(<span class="st">"Variables"</span>, <span class="st">"Section"</span>),</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"brown"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="dv">2</span>),</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="dv">2</span>),</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">background =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"lightgrey"</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1333,8 +1335,8 @@ The add_statline function call
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"cigarrets"</span>, <span class="at">point =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">label =</span> <span class="st">"Trend of wellbeing"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">label =</span> <span class="st">"Mean of cigarrets"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">14</span>,<span class="dv">20</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>)<span class="sc">|&gt;</span></span>
 <span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="st">"cigarrets &gt; quantile(cigarrets, 0.75)"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
@@ -1342,15 +1344,14 @@ The add_statline function call
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(</span>
 <span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">section_labels =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">""</span>),</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="st">"Trend of wellbeing"</span>, <span class="st">"Mean of cigarrets"</span>),</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">list</span>(<span class="at">face =</span> <span class="dv">3</span>)</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"grey80"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="at">color =</span> <span class="st">"snow"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">nudge_y =</span> <span class="dv">2</span>, </span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="fl">0.5</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">nudge_y =</span> <span class="dv">2</span>, <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>),</span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"white"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">list</span>(<span class="at">face =</span> <span class="dv">3</span>)</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"grey80"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="at">color =</span> <span class="st">"snow"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">nudge_y =</span> <span class="dv">2</span>, </span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="fl">0.5</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">nudge_y =</span> <span class="dv">2</span>, <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>),</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"white"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
 (`geom_label()`).</code></pre>
@@ -1517,8 +1518,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1629,7 +1628,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

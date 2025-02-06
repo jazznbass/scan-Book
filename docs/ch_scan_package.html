@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.30">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Analyzing Single-Case Data with R and Scan – 2&nbsp; The scan package</title>
+<title>2&nbsp; The scan package – Analyzing Single-Case Data with R and Scan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -37,10 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-44e20b959ebc547957a0d81c1ee235a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -80,13 +80,13 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_scan_package.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The scan package</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -105,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
         <div class="sidebar-tools-main">
     <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
@@ -151,9 +151,9 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">The single-case data frame</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -186,9 +186,9 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Data analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -251,9 +251,9 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -340,12 +340,12 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="2.1" class="anchored" data-anchor-id="installing-the-scan-package"><span class="header-section-number">2.1</span> Installing the <em>scan</em> package</h2>
 <p>You can use the <code>install.packages</code> function to install <em>scan</em>.</p>
 <p><code>install.packages("scan")</code> will install the stable version.</p>
-<p>The current stable release is version <code>0.61.0</code>. Please refer to the <em>Software Reference</em> section to see which version of <em>scan</em> was used to create this book, and make sure you have this or a newer version installed.</p>
+<p>The current stable release is version <code>0.62.0</code>. Please refer to the <em>Software Reference</em> section to see which version of <em>scan</em> was used to create this book, and make sure you have this or a newer version installed.</p>
 <p>R contains many packages, and it would slow things down considerably if all packages were loaded into memory at the beginning of each R session. Therefore, after installing <em>scan</em>, you need to enable it at the beginning of each session in which you use R. Normally, a session starts when you start the R program and ends when you quit it.</p>
 <p>To activate a package, you need the <code>library</code> function. In this case, <code>library(scan)</code>. You should get something like</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>scan 0.61.9999 (2024-08-30)</code></pre>
+<pre><code>scan 0.62.0 (2025-02-05)</code></pre>
 </div>
 </div>
 <p>indicating that everything went smoothly and <em>scan</em> is ready for work.</p>
@@ -372,13 +372,13 @@ ul.task-list li input[type="checkbox"] {
 <p>The following tables give an overview of the central functions. Furthermore, you can see the current life cycle stage of a function. The life cycle stage categorization is based on the tidyverse package and described in detail here <a href="https://lifecycle.r-lib.org/articles/stages.html" class="uri">https://lifecycle.r-lib.org/articles/stages.html</a>.</p>
 <section id="management" class="level3" data-number="2.4.1">
 <h3 data-number="2.4.1" class="anchored" data-anchor-id="management"><span class="header-section-number">2.4.1</span> Management</h3>
-<div id="tbl-functions-management" class="cell quarto-float anchored">
+<div id="tbl-functions-management" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-functions-management-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2.1: Functions for data management
 </figcaption>
 <div aria-describedby="tbl-functions-management-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="cell table table-sm table-striped small">
+<table class="cell caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 48%">
@@ -469,15 +469,14 @@ Table&nbsp;2.1: Functions for data management
 <section id="depiction" class="level3" data-number="2.4.2">
 <h3 data-number="2.4.2" class="anchored" data-anchor-id="depiction"><span class="header-section-number">2.4.2</span> Depiction</h3>
 <div class="cell">
-<div id="tbl-functions-depiction" class="cell quarto-float anchored">
+<div id="tbl-functions-depiction" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-functions-depiction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2.2: Functions for data depiction/visualisation
 </figcaption>
 <div aria-describedby="tbl-functions-depiction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -503,7 +502,7 @@ Table&nbsp;2.2: Functions for data depiction/visualisation
 </tr>
 <tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">export</td>
-<td style="text-align: left; width: 30em;">Creates html or latex tables from the output of various can functions</td>
+<td style="text-align: left; width: 30em;">Creates html or latex tables from the output of various scan functions</td>
 <td style="text-align: left;">Stable</td>
 </tr>
 <tr class="odd">
@@ -527,7 +526,6 @@ Table&nbsp;2.2: Functions for data depiction/visualisation
 
 </div>
 </div>
-</div>
 </figure>
 </div>
 </div>
@@ -535,15 +533,14 @@ Table&nbsp;2.2: Functions for data depiction/visualisation
 <section id="analysis" class="level3" data-number="2.4.3">
 <h3 data-number="2.4.3" class="anchored" data-anchor-id="analysis"><span class="header-section-number">2.4.3</span> Analysis</h3>
 <div class="cell">
-<div id="tbl-functions-analysis" class="cell quarto-float anchored">
+<div id="tbl-functions-analysis" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-functions-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2.3: Functions for data analysis
 </figcaption>
 <div aria-describedby="tbl-functions-analysis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -558,96 +555,101 @@ Table&nbsp;2.3: Functions for data analysis
 <td style="text-align: left;">Stable</td>
 </tr>
 <tr class="even">
+<td style="text-align: left; font-weight: bold; width: 15em;">between_smd</td>
+<td style="text-align: left; width: 30em;">Between case standrdized mean difference</td>
+<td style="text-align: left;">Stable</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">corrected_tau</td>
 <td style="text-align: left; width: 30em;">Baseline corrected tau</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">describe</td>
 <td style="text-align: left; width: 30em;">Descriptive statistics for each phase of each case</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">overlap</td>
 <td style="text-align: left; width: 30em;">An overview of overlap indeces for each case</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">smd</td>
 <td style="text-align: left; width: 30em;">Various standardized mean differences between phase A and B</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">rci</td>
 <td style="text-align: left; width: 30em;">Reliable change index</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">rand_test</td>
 <td style="text-align: left; width: 30em;">Randomization test</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">tau_u</td>
 <td style="text-align: left; width: 30em;">Tau-U for each case and all cases</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">trend</td>
 <td style="text-align: left; width: 30em;">Trend analyses for each case</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">plm</td>
 <td style="text-align: left; width: 30em;">Piecewise linear regression model</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">mplm</td>
 <td style="text-align: left; width: 30em;">Multivariate piecewise linear regression model</td>
 <td style="text-align: left;">Experimental</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">hplm</td>
 <td style="text-align: left; width: 30em;">Hierarchical piecewise linear regression model</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">nap</td>
 <td style="text-align: left; width: 30em;">Non-overlap of all pairs for each case</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">pnd</td>
 <td style="text-align: left; width: 30em;">Percentage of non overlapping data for each case</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">pand</td>
 <td style="text-align: left; width: 30em;">Percentage of all non overlapping data for all cases</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">pem</td>
 <td style="text-align: left; width: 30em;">Percantage exceeding the mean for each case</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">pet</td>
 <td style="text-align: left; width: 30em;">Percentage exceeding the trend for each case</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">ird</td>
 <td style="text-align: left; width: 30em;">Improvement rate difference</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">cdc</td>
 <td style="text-align: left; width: 30em;">Conservative dual-criterion test</td>
 <td style="text-align: left;">Stable</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">outlier</td>
 <td style="text-align: left; width: 30em;">Detect outliers for all cases</td>
 <td style="text-align: left;">Stable</td>
@@ -658,7 +660,6 @@ Table&nbsp;2.3: Functions for data analysis
 
 </div>
 </div>
-</div>
 </figure>
 </div>
 </div>
@@ -666,15 +667,14 @@ Table&nbsp;2.3: Functions for data analysis
 <section id="manipulation" class="level3" data-number="2.4.4">
 <h3 data-number="2.4.4" class="anchored" data-anchor-id="manipulation"><span class="header-section-number">2.4.4</span> Manipulation</h3>
 <div class="cell">
-<div id="tbl-functions-manipulation" class="cell quarto-float anchored">
+<div id="tbl-functions-manipulation" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-functions-manipulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2.4: Functions for data manipulation
 </figcaption>
 <div aria-describedby="tbl-functions-manipulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -719,13 +719,13 @@ Table&nbsp;2.4: Functions for data manipulation
 <td style="text-align: left;">Stable</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; width: 15em;">ranks</td>
-<td style="text-align: left; width: 30em;">Covert data into ranked data across all cases</td>
-<td style="text-align: left;">Superseded</td>
+<td style="text-align: left; font-weight: bold; width: 15em;">rescale</td>
+<td style="text-align: left; width: 30em;">Standardizes variables across cases</td>
+<td style="text-align: left;">Stable</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 15em;">transform</td>
-<td style="text-align: left; width: 30em;">Change and create new variabes</td>
+<td style="text-align: left; font-weight: bold; width: 15em;">ranks</td>
+<td style="text-align: left; width: 30em;">Covert data into ranked data across all cases</td>
 <td style="text-align: left;">Superseded</td>
 </tr>
 <tr class="even">
@@ -749,7 +749,6 @@ Table&nbsp;2.4: Functions for data manipulation
 
 </div>
 </div>
-</div>
 </figure>
 </div>
 </div>
@@ -757,15 +756,14 @@ Table&nbsp;2.4: Functions for data manipulation
 <section id="simulation" class="level3" data-number="2.4.5">
 <h3 data-number="2.4.5" class="anchored" data-anchor-id="simulation"><span class="header-section-number">2.4.5</span> Simulation</h3>
 <div class="cell">
-<div id="tbl-functions-simulation" class="cell quarto-float anchored">
+<div id="tbl-functions-simulation" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-functions-simulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2.5: Functions for data simulation
 </figcaption>
 <div aria-describedby="tbl-functions-simulation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -803,7 +801,6 @@ Table&nbsp;2.5: Functions for data simulation
 </table>
 
 
-</div>
 </div>
 </div>
 </figure>
@@ -897,8 +894,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1009,7 +1004,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

@@ -6,7 +6,7 @@ You can use the `install.packages` function to install *scan*.
 
 `install.packages("scan")` will install the stable version.
 
-The current stable release is version `0.61.0`. Please refer to the *Software Reference* section to see which version of *scan* was used to create this book, and make sure you have this or a newer version installed.
+The current stable release is version `0.62.0`. Please refer to the *Software Reference* section to see which version of *scan* was used to create this book, and make sure you have this or a newer version installed.
 
 R contains many packages, and it would slow things down considerably if all packages were loaded into memory at the beginning of each R session. Therefore, after installing *scan*, you need to enable it at the beginning of each session in which you use R. Normally, a session starts when you start the R program and ends when you quit it.
 
@@ -93,7 +93,7 @@ out <- tribble(
   "scplot", "Add-on package `scplot`. Creates advanced ggplot2 plots", "Stable",
   "print/print.scdf", "Prints an scdf", "Stable",
   "summary/summary.scdf", "Summaizes an scdf", "Stable",
-  "export", "Creates html or latex tables from the output of various can functions", "Stable",
+  "export", "Creates html or latex tables from the output of various scan functions", "Stable",
   "plot/plot.scdf", "Creates plots of single cases", "Superseded",
   "style_plot", "Defines single-case plot graphical styles", "Superseded",  
   "plot_rand", "Create a distribution plot from a randomization test obejct", "Superseded"
@@ -114,6 +114,7 @@ out <- tribble(
   ~"Function", ~"What it does ...", ~"Lifecycle stage",
   #
   "autocorr", "Autocorrelations for each phase of each case", "Stable",
+  "between_smd", "Between case standrdized mean difference", "Stable",
   "corrected_tau", "Baseline corrected tau", "Stable",
   "describe", "Descriptive statistics for each phase of each case", "Stable",
   "overlap", "An overview of overlap indeces for each case", "Stable",
@@ -156,8 +157,8 @@ out <- tribble(
   "moving_media", "Helper function for transform to smooth with moving medians", "Stable",
   "local_regression", "Helper function for transform to smooth with local regressions", "Stable",
   "fill_missing", "Interpolate missign values or missing measurement times", "Stable",
+  "rescale", "Standardizes variables across cases", "Stable",
   "ranks", "Covert data into ranked data across all cases", "Superseded",
-  "transform", "Change and create new variabes", "Superseded",
   "smooth_cases", "Smoothes time series data", "Superseded",
   "truncate_phase", "Deletes measurements of phases", "Superseded",
   "standardize", "Standardizes or centers variables across cases", "Superseded"

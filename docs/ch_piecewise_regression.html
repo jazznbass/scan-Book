@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.30">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Analyzing Single-Case Data with R and Scan – 9&nbsp; Piecewise linear regressions</title>
+<title>9&nbsp; Piecewise linear regressions – Analyzing Single-Case Data with R and Scan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,10 +91,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-44e20b959ebc547957a0d81c1ee235a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -163,13 +163,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_piecewise_regression.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -188,7 +188,7 @@ window.Quarto = {
         <div class="sidebar-tools-main">
     <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
-      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
           <li>
             <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
@@ -234,9 +234,9 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">The single-case data frame</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -269,9 +269,9 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Data analysis</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -334,9 +334,9 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -431,7 +431,7 @@ window.Quarto = {
 </ol>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-plm" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-plm" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-plm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="ch_piecewise_regression_files/figure-html/fig-plm-1.png" class="img-fluid figure-img" width="576">
@@ -524,7 +524,7 @@ Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">|&gt;</span> <span class="fu">add_statline</span>(<span class="st">"trend"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-plm-ex-1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-plm-ex-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-plm-ex-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="ch_piecewise_regression_files/figure-html/fig-plm-ex-1-1.png" class="img-fluid figure-img" width="672">
@@ -654,8 +654,7 @@ The formula has two parts divided by a tilde. Left of the tilde is the variable 
 The <em>phase</em> variable is categorical, identifying the phase of each measurement. Typically, categorical variables are implemented by means of dummy variables. In a piecewise regression model two phase effects have to be estimated: a level effect and a slope effect. The level effect is implemented quite straight forward: for each phase beginning with the second phase a new dummy variable is created with values of zero for all measurements except the measurements of the phase in focus where values of one are set.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: center;" data-quarto-table-cell-role="th">values</th>
@@ -725,13 +724,11 @@ The <em>phase</em> variable is categorical, identifying the phase of each measur
 
 </div>
 </div>
-</div>
 <p>For estimating the <em>slope effect</em> of each phase, another kind of dummy variables have to be created. Like the dummy variables for level effects the values are set to zero for all measurements except the ones of the phase in focus. Here, values start to increase with every measurement until the end of the phase.<br>
 Various suggestions have been made regarding the way in which these values increase <span class="citation" data-cites="huitema_design_2000">(see <a href="references.html#ref-huitema_design_2000" role="doc-biblioref">Huitema &amp; Mckean, 2000</a>)</span>. The <em>B&amp;L-B</em> model starts with a one at the first session of the phase and increases with every session while the <em>H-M</em> model starts with a zero.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 16%">
 <col style="width: 16%">
@@ -747,7 +744,7 @@ Various suggestions have been made regarding the way in which these values incre
 slope B
 </div></th>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th style="text-align: center;" data-quarto-table-cell-role="th">values</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">phase</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">mt</th>
@@ -835,13 +832,11 @@ slope B
 
 </div>
 </div>
-</div>
 <p>Applying the <em>H-M</em> model will give you a “pure” level-effect while the <em>B&amp;L-B</em> model will provide an estimation of the level-effect that is actually the level-effect plus on times the slope-effect (as the model assumes that the slope variable is <em>1</em> at the first measurement of the B-phase). For most studies, the <em>H-M</em> model is more appropriate.</p>
 <p>However, there is another aspect to be aware of. Usually, in single case designs, the measurement times are coded as starting with <em>1</em> and increasing in integers (1, 2, 3, …). At the same time, the estimation of the trend effect is based on the measurement time variable. In this case, the estimate of the model intercept (usually interpreted as the value at the beginning of the study) actually represents the estimate of the starting value plus one times the trend effect. Therefore, I have implemented the <em>W</em> model (since scan version <code>0.54.4</code>). Here the trend effect is estimated for a time variable shifted to start at <em>0</em>. As a result, the intercept represents the estimated value at the first measurement of the study. The <em>W</em> model treats slope estimation in the same way as the <em>H-M</em> model. That is, the measurement-time for calculating the slope effect is set to <em>0</em> for the first session of each phase. Since scan version <code>0.54.4</code> the <em>W</em> model is the default.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 14%">
 <col style="width: 14%">
@@ -861,7 +856,7 @@ mt
 slope
 </div></th>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th style="text-align: center;" data-quarto-table-cell-role="th">values</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">phase</th>
 <th style="text-align: center;" data-quarto-table-cell-role="th">level</th>
@@ -959,7 +954,6 @@ slope
 
 </div>
 </div>
-</div>
 </section>
 <section id="designs-with-more-than-two-phases-setting-the-right-contrasts" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.5</span> Designs with more than two phases: Setting the right contrasts</h2>
@@ -970,8 +964,7 @@ slope
 <p>(Note: Prior to scan version <code>0.54.4</code>, the option <code>model = "JW"</code> was identical to <code>model = "B&amp;L-B", contrast = "preceding"</code>).</p>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 9%">
 <col style="width: 9%">
@@ -997,7 +990,7 @@ contrast<br>
 preceeding
 </div></th>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; empty-cells: hide;"></th>
 <th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
 level
@@ -1215,7 +1208,6 @@ slope
 
 </div>
 </div>
-</div>
 </section>
 <section id="understanding-and-interpreting-contrasts" class="level2" data-number="9.6">
 <h2 data-number="9.6" class="anchored" data-anchor-id="understanding-and-interpreting-contrasts"><span class="header-section-number">9.6</span> Understanding and interpreting contrasts</h2>
@@ -1223,7 +1215,7 @@ slope
 <p>The example scdf is the case ‘Marie’ from the <em>exampleABC</em> scdf (<code>exampleABC$Marie</code>)</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-marie" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-marie" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-marie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="ch_piecewise_regression_files/figure-html/fig-marie-1.png" class="img-fluid figure-img" width="672">
@@ -1237,15 +1229,14 @@ Figure&nbsp;9.3: Example dataset
 </div>
 <p>The dark-red lines indicate the intercept and slopes when calculated separately for each phase. They are:</p>
 <div class="cell">
-<div id="tbl-contrasts-ex-2" class="cell quarto-float anchored">
+<div id="tbl-contrasts-ex-2" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-contrasts-ex-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;9.1: Intercept, slope, and number of measurements calculated separately for each phase
 </figcaption>
 <div aria-describedby="tbl-contrasts-ex-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th"></th>
@@ -1279,21 +1270,19 @@ Table&nbsp;9.1: Intercept, slope, and number of measurements calculated separate
 
 </div>
 </div>
-</div>
 </figure>
 </div>
 </div>
 <p>Now we estimate a plm model with four contrast settings (see <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a>):</p>
 <div class="cell">
-<div id="tbl-contrast-first-preceding" class="cell quarto-float anchored">
+<div id="tbl-contrast-first-preceding" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-contrast-first-preceding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;9.2: Estimates of a piecewise-linear regression with contrast models “first” and “preceding”.
 </figcaption>
 <div aria-describedby="tbl-contrast-first-preceding-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="lightable-classic do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: center;" data-quarto-table-cell-role="th">Contrast level</th>
@@ -1353,7 +1342,6 @@ Table&nbsp;9.2: Estimates of a piecewise-linear regression with contrast models 
 
 </div>
 </div>
-</div>
 </figure>
 </div>
 </div>
@@ -1376,13 +1364,13 @@ slopeB = slope_{phaseB} - slope_{phaseA}
 <section id="phase-c-estimates" class="level3" data-number="9.6.2">
 <h3 data-number="9.6.2" class="anchored" data-anchor-id="phase-c-estimates"><span class="header-section-number">9.6.2</span> Phase C estimates</h3>
 <p>The <code>levelC</code> and <code>slopeC</code> estimates of the regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> are different for the various contrast models. Depending on the contrast setting, the estimates “answer” a different question. <a href="#tbl-interpretation-contrasts" class="quarto-xref">Table&nbsp;<span>9.3</span></a> provides interpretation help.</p>
-<div id="tbl-interpretation-contrasts" class="quarto-float anchored">
+<div id="tbl-interpretation-contrasts" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-interpretation-contrasts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;9.3: Interpretations of the effect estimates in various contrast conditions
 </figcaption>
 <div aria-describedby="tbl-interpretation-contrasts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="table">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
 <col style="width: 25%">
@@ -1579,8 +1567,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1691,7 +1677,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

@@ -206,7 +206,8 @@ The following example sets a line with the mean of phase A, the maximum of phase
 scplot(exampleABC) |>
   add_statline("mean", phase = "A") |>
   add_statline("max", phase = c("B", "C")) |>
-  add_statline("min", phase = c(2, 3)) |> add_legend()
+  add_statline("min", phase = c(2, 3)) |> 
+  add_legend()
 ```
 
 ### Trend-lines
@@ -456,9 +457,12 @@ scplot(exampleAB_decreasing) |>
 
 ## Add a legend
 
+The `add_legend()` function adds a predefined legend that includes all datalines and statlines you have added. The labels for these lines are set automatically if you did not set the `label` argument in the corresponding `add_dataline()` and `add_statline()` functions.
+
+Here is a simple example:
+
 ```{r}
 #| label: scplot-legend
-
 
 scplot(exampleABC) |>
   add_statline("mean", color = "darkred") |>
@@ -466,18 +470,24 @@ scplot(exampleABC) |>
   add_legend()
 ```
 
-and set specific elements
+And here is a more advanced example that uses several arguments to defines the style of the legend:
 
 ```{r}
 #| label: scplot-legend2
 
-
-scplot(exampleABC) |>
-  add_statline("mean", color = "darkred") |>
+scplot(exampleAB_add) |>
+  set_dataline(label = "Pychological Wellbeing") |>
+  set_dataline("depression", color = "darkblue", label = "Depression") |>
+  add_statline("mean", label = "Wellbeing mean") |>
+  add_statline("mean", variable = "depression", label = "Depression mean") |>
+  set_phasenames(color = NA) |>
+  set_panel(fill = c("lightblue", "grey80")) |>
   add_legend(
-    position = "left", 
-    title = list(size = 12, face = "italic"),
-    background = list(fill = "grey95", colour = "black")
+    position = "left",
+    section_labels = c("Variables", "Section"),
+    title = list(color = "brown", size = 10, face = 2),
+    text = list(color = "darkgreen", size = 10, face = 2),
+    background = list(color = "lightgrey")
   )
 ```
 
@@ -534,7 +544,8 @@ scplot(exampleABC) |>
 
 If you set the `nudge_y` argument to 0, the label will be set on-top the datapoints:
 
-```{r valuelabels2}
+```{r}
+#| label: valuelabels2
 scplot(exampleABC) |> 
   add_labels(text = list(color = "black", size = 0.7), 
              background = list(fill = "grey98"), nudge_y = 0)
@@ -576,7 +587,9 @@ p1 + p2 + p3 + p4 + plot_annotation(tag_levels = "a", tag_suffix =  ")")
 
 Here are some more complex examples
 
-```{r complex1}
+```{r}
+#| label: complex1
+
 scplot(example_A24) |> 
   add_statline("lowess", linewidth = 1.5) |>
   add_statline("loess", linewidth = 1.5) |>
@@ -596,8 +609,8 @@ scplot(example_A24) |>
 ```{r complex2}
 scplot(exampleAB_add) |>
   set_dataline("cigarrets", point = list(size = 1)) |>
-  add_statline("trend", linetype = "dashed") |>
-  add_statline("mean", variable = "cigarrets", color = "darkred") |>
+  add_statline("trend", linetype = "dashed", label = "Trend of wellbeing") |>
+  add_statline("mean", variable = "cigarrets", color = "darkred", label = "Mean of cigarrets") |>
   add_marks(positions = c(14,20), size = 3, variable = "cigarrets")|>
   add_marks(positions = "cigarrets > quantile(cigarrets, 0.75)", size = 3) |>
   set_xaxis(increment = 5) |>
@@ -605,7 +618,6 @@ scplot(exampleAB_add) |>
   set_casenames(position = "strip") |>
   add_legend(
     section_labels = c("", ""),
-    labels = c(NA, NA, "Trend of wellbeing", "Mean of cigarrets"),
     text = list(face = 3)
   ) |>
   set_panel(fill = c("lightblue", "grey80")) |>

@@ -189,7 +189,7 @@ The *Tau-U* statistic has been proposed by @parker_combining_2011 and is one of 
 
 ### Variations of Tau-U
 
-Several arguments can be set to define how Tau-U should be calculated. When setting the argument `method = "parker"`, Tau-U is according to @parker_combining_2011. However, this procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. Additionally, this method uses Kendall's Tau A is applied, which does not correct for ties, and no continuity correct is calculated. The default setting `method = "complete` applies a correction that keeps the values within the -1 to 1 range. `method = "tarlow"` applies a variation that has been implemented by @tarlow2017 . This method is similar to `"complete"` but is based on Tau A rather than Tau B and includes a continuity correction.
+Several arguments can be set to define how Tau-U should be calculated. When setting the argument `method = "parker"`, Tau-U is according to @parker_combining_2011. However, this procedure could lead to Tau-U values above 1 and below -1 which are difficult to interpret. Additionally, this method uses Kendall's Tau A, which does not correct for ties, and no continuity correct is calculated. The default setting `method = "complete"` applies a correction that keeps the values within the -1 to 1 range. `method = "tarlow"` applies a variation that has been implemented by @tarlow2017 . This method is similar to `"complete"` but is based on Tau A rather than Tau B and includes a continuity correction.
 
 Note that the arguments `tau_method` (`"a"` or `"b"`) and `continuity_correction` (`TRUE` or `FALSE`) only function with `method = "complete"`.
 
