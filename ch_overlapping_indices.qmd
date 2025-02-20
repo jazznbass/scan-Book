@@ -2,13 +2,16 @@
 
 ## Overlap overview
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("overlap")
 ```
 
 `overlap` provides a table with some of the most important overlap indices for each case of an *scdf*. For calculating overlap indicators it is important to know if a decrease or an increase of values is expected between phases. By default `overlap` assumes an increase in values. If the argument `decreasing = TRUE` is set, calculation will be based on the assumption of decreasing values.
 
-```{r warning = FALSE}
+```{r} 
+#| warning: false
 overlap(exampleAB)
 ```
 
@@ -16,7 +19,9 @@ Overlap measures refer to a comparison of two phases within a single-case data-s
 
 ### Select and recombine phases {#sec-select-phases}
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("select_phases")
 ```
 
@@ -30,7 +35,8 @@ scdf |> select_phases(A = 1, B = 3) |> ...
 
 (As an alternative approach you can set the `phases` argument within the `overlap()` function. This argument takes a list with two elements where the first element defines the phases for the A-phase and the second argument the phases for the B-phase.)
 
-```{r warning = FALSE}
+```{r} 
+#| warning: false
 exampleA1B1A2B2 |>
   select_phases(c("A1","A2"), c("B1","B2")) |>
   overlap()
@@ -41,7 +47,9 @@ exampleA1B1A2B2 |>
 
 ## Standardized mean differences
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("smd")
 ```
 
@@ -55,7 +63,9 @@ The first four rows give the mean and the standard deviation of the two respecti
 
 ## Percentage non-overlapping data (PND)
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("pnd")
 ```
 
@@ -81,7 +91,9 @@ pnd(exampleAB)
 
 ## Percentage exceeding the median (PEM)
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("pem")
 ```
 
@@ -105,7 +117,9 @@ pem(exampleAB)
 
 ## Percentage exceeding the regression trend (PET)
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("pet")
 ```
 
@@ -129,7 +143,9 @@ random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 
 
 ## Percentage of all non-overlapping data (PAND)
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("pand")
 ```
 
@@ -157,7 +173,9 @@ The original procedure for computing PAND does not account for ambivalent datapo
 
 ## Nonoverlap of all pairs (NAP)
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("nap")
 ```
 
@@ -169,7 +187,9 @@ nap(exampleAB)
 
 ## Improvement rate difference (IRD)
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("ird")
 ```
 
@@ -181,7 +201,9 @@ ird(exampleAB)
 
 ## Tau-U
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("tau_u")
 ```
 
@@ -267,7 +289,9 @@ tau_u(exampleAB, ci = 0.90, ci_method = "tau")
 
 ## Baseline corrected tau
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("corrected_tau")
 ```
 
@@ -305,7 +329,9 @@ corrected_tau(case)
 
 ## Reliable change index
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("rci")
 ```
 

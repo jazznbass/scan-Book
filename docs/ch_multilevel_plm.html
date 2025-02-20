@@ -361,8 +361,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-add-l2" id="toc-sec-add-l2" class="nav-link active" data-scroll-target="#sec-add-l2"><span class="header-section-number">10.0.1</span> Adding additional L2-variables</a></li>
-  <li><a href="#estimations-for-each-case" id="toc-estimations-for-each-case" class="nav-link" data-scroll-target="#estimations-for-each-case"><span class="header-section-number">10.0.2</span> Estimations for each case</a></li>
+  <li><a href="#explained-variance-by-the-variability-between-cases" id="toc-explained-variance-by-the-variability-between-cases" class="nav-link active" data-scroll-target="#explained-variance-by-the-variability-between-cases"><span class="header-section-number">10.0.1</span> Explained variance by the variability between cases</a></li>
+  <li><a href="#variation-of-single-predictors-between-cases" id="toc-variation-of-single-predictors-between-cases" class="nav-link" data-scroll-target="#variation-of-single-predictors-between-cases"><span class="header-section-number">10.0.2</span> Variation of single predictors between cases</a></li>
+  <li><a href="#testing-the-random-slope-variance" id="toc-testing-the-random-slope-variance" class="nav-link" data-scroll-target="#testing-the-random-slope-variance"><span class="header-section-number">10.0.3</span> Testing the random slope variance</a></li>
+  <li><a href="#sec-add-l2" id="toc-sec-add-l2" class="nav-link" data-scroll-target="#sec-add-l2"><span class="header-section-number">10.0.4</span> Adding additional L2-variables</a></li>
+  <li><a href="#estimations-for-each-case" id="toc-estimations-for-each-case" class="nav-link" data-scroll-target="#estimations-for-each-case"><span class="header-section-number">10.0.5</span> Estimations for each case</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -435,22 +438,38 @@ ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ 1 + mt + phaseB + interB)
 
-                   B    SE   df      t p
-Intercept     48.398 1.484 1328 32.611 0
-Trend mt       0.579 0.116 1328  5.006 0
-Level phase B 14.038 0.655 1328 21.436 0
-Slope phase B  0.902 0.119 1328  7.588 0
+                            B    SE   df      t p
+Intercept              48.398 1.484 1328 32.611 0
+Trend (mt)              0.579 0.116 1328  5.006 0
+Level phase B (phaseB) 14.038 0.655 1328 21.436 0
+Slope phase B (interB)  0.902 0.119 1328  7.588 0
 
 Random effects (~1 | case)
 
-          EstimateSD
-Intercept      9.970
-Residual       5.285</code></pre>
+             SD
+Intercept 9.970
+Residual  5.285</code></pre>
 </div>
 </div>
-<p>Here is an example inlcuding random slopes:</p>
+<p>The fixed effects describe the overall effect of the respective predictors on the dependent variable, while the random effects describe the variability of the respective predictor between cases. Here, the fixed effect of the intercept is 48.398 which estimates the mean value across all cases at the first measurement. The standard deviation of this average between cases is 9.97.<br>
+In this analysis, we have a basic random intercept model. That is, only the intercept is assumed to vary between cases, whereas the other predictors (<code>Trend</code>, <code>Level</code>, and <code>Slope</code>) are assumed to be identical for all cases.</p>
+<section id="explained-variance-by-the-variability-between-cases" class="level3" data-number="10.0.1">
+<h3 data-number="10.0.1" class="anchored" data-anchor-id="explained-variance-by-the-variability-between-cases"><span class="header-section-number">10.0.1</span> Explained variance by the variability between cases</h3>
+<p>The intraclass correlation (ICC) represents the proportion of total variance in the model that is explained by differences between cases.</p>
+<p>It is calculated by comparing the model fit (likelihood) of two models using a likelihood ratio test. The first model includes both a fixed and a random intercept as predictors of the measurement, while the second model includes only a fixed intercept without a random intercept.</p>
+<p>The model above reports <code>ICC = 0.287; L = 339.0; p = 0.000</code>. This means that approximately 29% of the total variance in the dependent variable is explained by differences between cases, and this variance is statistically significantly greater than 0%.</p>
+</section>
+<section id="variation-of-single-predictors-between-cases" class="level3" data-number="10.0.2">
+<h3 data-number="10.0.2" class="anchored" data-anchor-id="variation-of-single-predictors-between-cases"><span class="header-section-number">10.0.2</span> Variation of single predictors between cases</h3>
+<p>A multilevel model that includes the variation of specific predictors between cases (e.g., the trend effect) is called a random slope model.</p>
+<p>Here is an example inlcuding random slopes by setting the respective function argument for the trend, slope, and level effects to <code>TRUE</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50, <span class="at">random.slopes =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  exampleAB_50, </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">random_trend =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">random_level =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">random_slope =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -462,24 +481,93 @@ ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ 1 + mt + phaseB + interB)
 
-                   B    SE   df      t p
-Intercept     48.211 1.398 1328 34.497 0
-Trend mt       0.621 0.113 1328  5.516 0
-Level phase B 13.872 0.894 1328 15.513 0
-Slope phase B  0.864 0.116 1328  7.433 0
+                            B    SE   df      t p
+Intercept              48.211 1.398 1328 34.497 0
+Trend (mt)              0.621 0.113 1328  5.516 0
+Level phase B (phaseB) 13.872 0.894 1328 15.513 0
+Slope phase B (interB)  0.864 0.116 1328  7.433 0
 
 Random effects (~1 + mt + phaseB + interB | case)
 
-              EstimateSD
-Intercept          9.352
-Trend mt           0.096
-Level phase B      4.537
-Slope phase B      0.126
-Residual           4.974</code></pre>
+                          SD
+Intercept              9.352
+Trend (mt)             0.096
+Level phase B (phaseB) 4.537
+Slope phase B (interB) 0.126
+Residual               4.974
+
+Correlation:
+                       Intercept Trend (mt) Level phase B (phaseB)
+Trend (mt)                  0.23                                  
+Level phase B (phaseB)      0.06      -0.58                       
+Slope phase B (interB)     -0.23      -0.64                  -0.03</code></pre>
 </div>
 </div>
-<section id="sec-add-l2" class="level3" data-number="10.0.1">
-<h3 data-number="10.0.1" class="anchored" data-anchor-id="sec-add-l2"><span class="header-section-number">10.0.1</span> Adding additional L2-variables</h3>
+<p>The random part of this output now provides estimations of the between case variance of all predictors.</p>
+<p>Additionally, we get a correlation matrix of the random slope variables. This depicts the intercation effect of the respective variables at the between case level on the dependent variable. For example, the model above shows a correlation of intercept and trend of <em>r</em> = 0.23. That is, the higher the intercept of a case (the starting value), the stronger the trend effect (here a medium effect size).</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not be confused by the terminology: In multilevel regression models, a random slope model refers to the variability of a predictor in a regression model. These predictors contribute to the <em>slope</em> of a linear regression line.</p>
+<p>This terminology is used in general within multilevel models, regardless of whether they are applied to single-case studies or not.</p>
+<p>In single-case piecewise regressions, the <em>slope</em> effect refers to the difference in the slopes of the regression lines between two phases.</p>
+<p>That is, unfortunately, we have a random slope effect of the slope effect!</p>
+</div>
+</div>
+</section>
+<section id="testing-the-random-slope-variance" class="level3" data-number="10.0.3">
+<h3 data-number="10.0.3" class="anchored" data-anchor-id="testing-the-random-slope-variance"><span class="header-section-number">10.0.3</span> Testing the random slope variance</h3>
+<p>It is possible to test the statistical significance of the random slope variances by comparing the overall fit of the model (likelihood) with the fit of the same model without the respective random slope parameter using a likelihood ratio test. To do this, set the argument <code>lr.test = TRUE</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  exampleAB_50, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">random_trend =</span> <span class="cn">TRUE</span>, <span class="at">random_level =</span> <span class="cn">TRUE</span>, <span class="at">random_slope =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">lr.test =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hierarchical Piecewise Linear Regression
+
+Estimation method ML 
+Contrast model: W / level: first, slope: first
+50 Cases
+
+ICC = 0.287; L = 339.0; p = 0.000
+
+Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                            B    SE   df      t p
+Intercept              48.211 1.398 1328 34.497 0
+Trend (mt)              0.621 0.113 1328  5.516 0
+Level phase B (phaseB) 13.872 0.894 1328 15.513 0
+Slope phase B (interB)  0.864 0.116 1328  7.433 0
+
+Random effects (~1 + mt + phaseB + interB | case)
+
+                          SD       L df     p
+Intercept              9.352 348.849  4 0.000
+Trend (mt)             0.096   0.826  4 0.935
+Level phase B (phaseB) 4.537  42.822  4 0.000
+Slope phase B (interB) 0.126   0.761  4 0.944
+Residual               4.974                 
+
+Correlation:
+                       Intercept Trend (mt) Level phase B (phaseB)
+Trend (mt)                  0.23                                  
+Level phase B (phaseB)      0.06      -0.58                       
+Slope phase B (interB)     -0.23      -0.64                  -0.03</code></pre>
+</div>
+</div>
+<p>Here, we can see that the random intercept and the random slope effect for <em>Level phase B</em> are significant. This means that cases have significantly different starting values at the first measurement, and the level intervention effect is also not the same for all cases.</p>
+</section>
+<section id="sec-add-l2" class="level3" data-number="10.0.4">
+<h3 data-number="10.0.4" class="anchored" data-anchor-id="sec-add-l2"><span class="header-section-number">10.0.4</span> Adding additional L2-variables</h3>
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -495,12 +583,12 @@ The add_l2 function call
 </div>
 <p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze. This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects. To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>L2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">case =</span> <span class="fu">c</span>(<span class="st">"Antonia"</span>,<span class="st">"Theresa"</span>, <span class="st">"Charlotte"</span>, <span class="st">"Luis"</span>, <span class="st">"Bennett"</span>, <span class="st">"Marie"</span>), </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">14</span>), </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="st">"f"</span>,<span class="st">"f"</span>,<span class="st">"f"</span>,<span class="st">"m"</span>,<span class="st">"m"</span>,<span class="st">"f"</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>L2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>L2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">case =</span> <span class="fu">c</span>(<span class="st">"Antonia"</span>,<span class="st">"Theresa"</span>, <span class="st">"Charlotte"</span>, <span class="st">"Luis"</span>, <span class="st">"Bennett"</span>, <span class="st">"Marie"</span>), </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">14</span>), </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="st">"f"</span>,<span class="st">"f"</span>,<span class="st">"f"</span>,<span class="st">"m"</span>,<span class="st">"m"</span>,<span class="st">"f"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>L2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       case age sex
 1   Antonia  16   f
@@ -580,9 +668,9 @@ The add_l2 function call
 </div>
 <p>Analyzing the data with <code>hplm</code> could look like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>exampleAB_50 <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_l2</span>(exampleAB_50.l2) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hplm</span>(<span class="at">update.fixed =</span> .<span class="sc">~</span>. <span class="sc">+</span> sex <span class="sc">+</span> age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>exampleAB_50 <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_l2</span>(exampleAB_50.l2) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hplm</span>(<span class="at">update.fixed =</span> .<span class="sc">~</span>. <span class="sc">+</span> sex <span class="sc">+</span> age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -594,28 +682,28 @@ ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ mt + phaseB + interB + sex + age)
 
-                   B     SE   df      t     p
-Intercept     44.878 11.926 1328  3.763 0.000
-Trend mt       0.581  0.116 1328  5.026 0.000
-Level phase B 14.023  0.655 1328 21.405 0.000
-Slope phase B  0.900  0.119 1328  7.569 0.000
-sexm          -6.440  2.727   47 -2.362 0.022
-age            0.603  1.073   47  0.562 0.577
+                            B     SE   df      t     p
+Intercept              44.878 11.926 1328  3.763 0.000
+Trend (mt)              0.581  0.116 1328  5.026 0.000
+Level phase B (phaseB) 14.023  0.655 1328 21.405 0.000
+Slope phase B (interB)  0.900  0.119 1328  7.569 0.000
+sexm                   -6.440  2.727   47 -2.362 0.022
+age                     0.603  1.073   47  0.562 0.577
 
 Random effects (~1 | case)
 
-          EstimateSD
-Intercept      9.446
-Residual       5.284</code></pre>
+             SD
+Intercept 9.446
+Residual  5.284</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively:</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># hplm(exampleAB_50, data.l2 = exampleAB_50.l2, update.fixed = .~. + sex + age)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># hplm(exampleAB_50, data.l2 = exampleAB_50.l2, update.fixed = .~. + sex + age)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>sex</code> is a factor with the levels <code>f</code> and <code>m</code>. So <code>sexm</code> is the effect of being male on the overall performance. <code>age</code> does not seem to have any effect. So we drop <code>age</code> out of the equation and add an interaction of sex and phase to see whether the <code>sex</code> effect is due to a weaker impact of the intervention on males.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>exampleAB_50 <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_l2</span>(exampleAB_50.l2) <span class="sc">%&gt;%</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hplm</span>(<span class="at">update.fixed =</span> .<span class="sc">~</span>. <span class="sc">+</span> sex <span class="sc">+</span> sex<span class="sc">:</span>phaseB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>exampleAB_50 <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_l2</span>(exampleAB_50.l2) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hplm</span>(<span class="at">update.fixed =</span> .<span class="sc">~</span>. <span class="sc">+</span> sex <span class="sc">+</span> sex<span class="sc">:</span>phaseB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -627,35 +715,35 @@ ICC = 0.287; L = 339.0; p = 0.000
 
 Fixed effects (values ~ mt + phaseB + interB + sex + phaseB:sex)
 
-                        B    SE   df       t    p
-Intercept          48.573 1.968 1327  24.676 0.00
-Trend mt            0.609 0.109 1327   5.573 0.00
-Level phase B      17.726 0.684 1327  25.922 0.00
-Slope phase B       0.884 0.112 1327   7.868 0.00
-sexm               -0.593 2.741   48  -0.216 0.83
-Level phase B:sexm -7.732 0.609 1327 -12.699 0.00
+                                 B    SE   df       t    p
+Intercept                   48.573 1.968 1327  24.676 0.00
+Trend (mt)                   0.609 0.109 1327   5.573 0.00
+Level phase B (phaseB)      17.726 0.684 1327  25.922 0.00
+Slope phase B (interB)       0.884 0.112 1327   7.868 0.00
+sexm                        -0.593 2.741   48  -0.216 0.83
+Level phase B (phaseB):sexm -7.732 0.609 1327 -12.699 0.00
 
 Random effects (~1 | case)
 
-          EstimateSD
-Intercept      9.494
-Residual       4.989</code></pre>
+             SD
+Intercept 9.494
+Residual  4.989</code></pre>
 </div>
 </div>
 <p>Now the interaction <code>phase:sexm</code> is significant and the main effect is no longer relevant. It looks like the intervention effect is <span class="math inline">\(7.7\)</span> points lower for male subjects. While the level-effect is <span class="math inline">\(17.7\)</span> points for female subjects it is <span class="math inline">\(17.7\)</span> - <span class="math inline">\(7.7\)</span> = <span class="math inline">\(10\)</span> for males.</p>
 </section>
-<section id="estimations-for-each-case" class="level3" data-number="10.0.2">
-<h3 data-number="10.0.2" class="anchored" data-anchor-id="estimations-for-each-case"><span class="header-section-number">10.0.2</span> Estimations for each case</h3>
+<section id="estimations-for-each-case" class="level3" data-number="10.0.5">
+<h3 data-number="10.0.5" class="anchored" data-anchor-id="estimations-for-each-case"><span class="header-section-number">10.0.5</span> Estimations for each case</h3>
 <p>For a multilevel model, you can estimate the values for each parameter for each case based on the random intercept and slope values.</p>
 <p>Use the <code>casewise</code> argument to access these estimations.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">hplm</span>(exampleAB_50[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>],<span class="at">random.slopes =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve the case estimations for further calculations</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>cs <span class="ot">&lt;-</span> <span class="fu">coef</span>(res, <span class="at">casewise =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># or print them</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res, <span class="at">casewise =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">hplm</span>(exampleAB_50[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>],<span class="at">random.slopes =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve the case estimations for further calculations</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>cs <span class="ot">&lt;-</span> <span class="fu">coef</span>(res, <span class="at">casewise =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># or print them</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res, <span class="at">casewise =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hierarchical Piecewise Linear Regression
 
@@ -667,46 +755,52 @@ ICC = 0.327; L = 84.3; p = 0.000
 
 Fixed effects (values ~ 1 + mt + phaseB + interB)
 
-                   B    SE  df      t     p
-Intercept     43.775 2.687 272 16.291 0.000
-Trend mt       0.994 0.299 272  3.330 0.001
-Level phase B  8.675 1.745 272  4.971 0.000
-Slope phase B  0.527 0.296 272  1.779 0.076
+                            B    SE  df      t     p
+Intercept              43.775 2.687 272 16.291 0.000
+Trend (mt)              0.994 0.299 272  3.330 0.001
+Level phase B (phaseB)  8.675 1.745 272  4.971 0.000
+Slope phase B (interB)  0.527 0.296 272  1.779 0.076
 
 Random effects (~1 + mt + phaseB + interB | case)
 
-              EstimateSD
-Intercept          7.867
-Trend mt           0.488
-Level phase B      3.309
-Slope phase B      0.440
-Residual           4.930
+                          SD
+Intercept              7.867
+Trend (mt)             0.488
+Level phase B (phaseB) 3.309
+Slope phase B (interB) 0.440
+Residual               4.930
+
+Correlation:
+                       Intercept Trend (mt) Level phase B (phaseB)
+Trend (mt)                  0.86                                  
+Level phase B (phaseB)      -0.6      -0.88                       
+Slope phase B (interB)      -0.9      -0.97                   0.75
 
 Casewise estimation of effects
 
-    Case Intercept  Trend mt Level phase B Slope phase B
-   Roman  43.00890 0.8466415     10.112584    0.61645798
- Brennen  47.43929 1.1041398      9.194791    0.35512804
-  Ismael  53.40011 1.7200027      3.193577   -0.01337929
-  Donald  56.00259 1.6045808      6.361722   -0.08687259
- Ricardo  43.13287 0.9900639      8.374106    0.54179250
-  Izayah  41.47913 0.9871108      8.000153    0.56548392
- Ignacio  47.69657 1.1943237      7.839439    0.32568935
-  Xavier  40.65876 0.8529937      9.300790    0.65995523
-   Arian  26.77803 0.1614967     11.741147    1.36296006
-    Paul  38.15377 0.4785176     12.631558    0.94227406</code></pre>
+    Case Intercept Trend (mt) Level phase B (phaseB) Slope phase B (interB)
+   Roman  43.00890  0.8466415              10.112584             0.61645798
+ Brennen  47.43929  1.1041398               9.194791             0.35512804
+  Ismael  53.40011  1.7200027               3.193577            -0.01337929
+  Donald  56.00259  1.6045808               6.361722            -0.08687259
+ Ricardo  43.13287  0.9900639               8.374106             0.54179250
+  Izayah  41.47913  0.9871108               8.000153             0.56548392
+ Ignacio  47.69657  1.1943237               7.839439             0.32568935
+  Xavier  40.65876  0.8529937               9.300790             0.65995523
+   Arian  26.77803  0.1614967              11.741147             1.36296006
+    Paul  38.15377  0.4785176              12.631558             0.94227406</code></pre>
 </div>
 </div>
 <p>If you have the <code>scplot</code> package installed (version 0.4.1 or higher), you can create a forestplot for each parameter of the model with the <code>scplot()</code> function. Set the argument “effect” to choose the effect by number or a string (“intercept”, “trend”, “slope”, “level”). The <code>ci</code> argument sets the size of the confidence interval (default is <code>0.95</code>) and the <code>mark</code> argument sets the value for a reference line (default is the mean effect).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scplot)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(res, <span class="at">effect =</span> <span class="st">"level"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scplot)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(res, <span class="at">effect =</span> <span class="st">"level"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Possible effects are: 
 2: 'Intercept'
-3: 'Trend mt'
-4: 'Level phase B'
-5: 'Slope phase B'</code></pre>
+3: 'Trend (mt)'
+4: 'Level phase B (phaseB)'
+5: 'Slope phase B (interB)'</code></pre>
 </div>
 <div class="cell-output-display">
 <div>

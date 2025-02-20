@@ -80,7 +80,9 @@ For $\beta_1$ and $\beta_3$, the time variables are shifted to start with a 0 at
 
 ## The basic plm function
 
-```{r results='asis', echo=FALSE}
+```{r}
+#| results: asis
+#| echo: false
 function_structure("plm")
 ```
 
@@ -102,6 +104,42 @@ From these values each data point can be estimated. For example, the last sessio
 #| fig-cap: Example dataset
 scplot(exampleAB$Johanna) |> add_statline("trend")
 ```
+
+::: callout-note
+As a convenience, the predictors are renamed according to the respective effect within the single-case terminology that they represent.
+
+If you prefer to use the original variable names, set the following option: `options(scan.rename.predictors = "no")`.
+
+If you want more concise renamed predictors, set: `options(scan.rename.predictors = "concise")`.
+
+You can restore the default renaming by setting: `options(scan.rename.predictors = "full")`.
+:::
+
+## Autocorrelation of the residuals
+
+The output also reports the **autocorrelations of the residuals**, which indicate whether the measurements are serially independent.
+
+There are many reasons why your data might exhibit serial dependence. For example, in a learning study, performance may temporarily decline after a learning session (performance dip). Similarly, in a medication study, a drug might initially cause a brief worsening of symptoms before exerting its intended therapeutic effect (early symptom exacerbation effect).
+
+The *lag* refers to the number of measurement points between observations that show autocorrelation.
+
+The **Ljung-Box** test is an omnibus test that evaluates whether the residuals exhibit significant autocorrelation at multiple lags. It assesses whether the joint distribution of autocorrelations differs significantly from what would be expected under the assumption of independence.
+
+High and significant autocorrelations pose a threat to the validity of standard regression model assumptions, as they violate the assumption of independent residuals. To account for this, you can set the `AR` argument with the appropriate maximum lag (e.g., `AR = 3`). This implements an *ARMA* (autoregressive moving average) model, which adjusts for the serial correlation in the residuals.
+
+## Standardizing predictors
+
+If you want standardized predictors, meaning that predictors are scaled to standard deviations, the best approach is to standardize all variables before computing the regression model. Use the `rescale()` function to do this.
+
+```{r}
+#| label: plm-ex-standardize
+
+exampleAB$Johanna |> 
+  rescale() |> 
+  plm()
+```
+
+The regression coefficients *B* are now standardized Beta (ß) coefficients, indicating the expected change (in standard deviations) of the dependent variable for a one-standard-deviation increase in the predictor.  
 
 ## Adjusting the model
 
@@ -143,7 +181,20 @@ To do this, we have to change the regression formula 'manually' by applying the 
 Here is an example adding the control variable `cigarrets` to the model:
 
 ```{r}
+#| include: false
+options(scan.rename.predictors = "concise")
+```
+
+
+```{r}
+#| label: plm-ex-update
+
 plm(exampleAB_add, update = .~. + cigarrets)
+```
+
+```{r}
+#| include: false
+options(scan.rename.predictors = "full")
 ```
 
 The output of the plm-function shows the resulting formula for the regression model that includes the cigarettes variable:\

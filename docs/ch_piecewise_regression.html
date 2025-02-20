@@ -384,17 +384,19 @@ window.Quarto = {
    
   <ul>
   <li><a href="#the-basic-plm-function" id="toc-the-basic-plm-function" class="nav-link active" data-scroll-target="#the-basic-plm-function"><span class="header-section-number">9.1</span> The basic plm function</a></li>
-  <li><a href="#adjusting-the-model" id="toc-adjusting-the-model" class="nav-link" data-scroll-target="#adjusting-the-model"><span class="header-section-number">9.2</span> Adjusting the model</a>
+  <li><a href="#autocorrelation-of-the-residuals" id="toc-autocorrelation-of-the-residuals" class="nav-link" data-scroll-target="#autocorrelation-of-the-residuals"><span class="header-section-number">9.2</span> Autocorrelation of the residuals</a></li>
+  <li><a href="#standardizing-predictors" id="toc-standardizing-predictors" class="nav-link" data-scroll-target="#standardizing-predictors"><span class="header-section-number">9.3</span> Standardizing predictors</a></li>
+  <li><a href="#adjusting-the-model" id="toc-adjusting-the-model" class="nav-link" data-scroll-target="#adjusting-the-model"><span class="header-section-number">9.4</span> Adjusting the model</a>
   <ul class="collapse">
-  <li><a href="#the-slope-level-and-trend-arguments" id="toc-the-slope-level-and-trend-arguments" class="nav-link" data-scroll-target="#the-slope-level-and-trend-arguments"><span class="header-section-number">9.2.1</span> The <code>slope</code>, <code>level</code>, and <code>trend</code> arguments</a></li>
+  <li><a href="#the-slope-level-and-trend-arguments" id="toc-the-slope-level-and-trend-arguments" class="nav-link" data-scroll-target="#the-slope-level-and-trend-arguments"><span class="header-section-number">9.4.1</span> The <code>slope</code>, <code>level</code>, and <code>trend</code> arguments</a></li>
   </ul></li>
-  <li><a href="#adding-additional-predictors" id="toc-adding-additional-predictors" class="nav-link" data-scroll-target="#adding-additional-predictors"><span class="header-section-number">9.3</span> Adding additional predictors</a></li>
-  <li><a href="#sec-dummy-model" id="toc-sec-dummy-model" class="nav-link" data-scroll-target="#sec-dummy-model"><span class="header-section-number">9.4</span> Dummy models</a></li>
-  <li><a href="#designs-with-more-than-two-phases-setting-the-right-contrasts" id="toc-designs-with-more-than-two-phases-setting-the-right-contrasts" class="nav-link" data-scroll-target="#designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.5</span> Designs with more than two phases: Setting the right contrasts</a></li>
-  <li><a href="#understanding-and-interpreting-contrasts" id="toc-understanding-and-interpreting-contrasts" class="nav-link" data-scroll-target="#understanding-and-interpreting-contrasts"><span class="header-section-number">9.6</span> Understanding and interpreting contrasts</a>
+  <li><a href="#adding-additional-predictors" id="toc-adding-additional-predictors" class="nav-link" data-scroll-target="#adding-additional-predictors"><span class="header-section-number">9.5</span> Adding additional predictors</a></li>
+  <li><a href="#sec-dummy-model" id="toc-sec-dummy-model" class="nav-link" data-scroll-target="#sec-dummy-model"><span class="header-section-number">9.6</span> Dummy models</a></li>
+  <li><a href="#designs-with-more-than-two-phases-setting-the-right-contrasts" id="toc-designs-with-more-than-two-phases-setting-the-right-contrasts" class="nav-link" data-scroll-target="#designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.7</span> Designs with more than two phases: Setting the right contrasts</a></li>
+  <li><a href="#understanding-and-interpreting-contrasts" id="toc-understanding-and-interpreting-contrasts" class="nav-link" data-scroll-target="#understanding-and-interpreting-contrasts"><span class="header-section-number">9.8</span> Understanding and interpreting contrasts</a>
   <ul class="collapse">
-  <li><a href="#phase-b-estimates" id="toc-phase-b-estimates" class="nav-link" data-scroll-target="#phase-b-estimates"><span class="header-section-number">9.6.1</span> Phase B estimates</a></li>
-  <li><a href="#phase-c-estimates" id="toc-phase-c-estimates" class="nav-link" data-scroll-target="#phase-c-estimates"><span class="header-section-number">9.6.2</span> Phase C estimates</a></li>
+  <li><a href="#phase-b-estimates" id="toc-phase-b-estimates" class="nav-link" data-scroll-target="#phase-b-estimates"><span class="header-section-number">9.8.1</span> Phase B estimates</a></li>
+  <li><a href="#phase-c-estimates" id="toc-phase-c-estimates" class="nav-link" data-scroll-target="#phase-c-estimates"><span class="header-section-number">9.8.2</span> Phase C estimates</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -502,11 +504,11 @@ Contrast model: W / level = first, slope = first
 Fitted a gaussian distribution.
 F(3, 16) = 28.69; p = 0.000; R² = 0.843; Adjusted R² = 0.814
 
-                   B   2.5%  97.5%    SE      t     p delta R²
-Intercept     54.400 46.776 62.024 3.890 13.986 0.000         
-Trend mt       0.100 -3.012  3.212 1.588  0.063 0.951    0.000
-Level phase B  7.858 -3.542 19.258 5.816  1.351 0.195    0.018
-Slope phase B  1.525 -1.642  4.692 1.616  0.944 0.359    0.009
+                            B   2.5%  97.5%    SE      t     p delta R²
+Intercept              54.400 46.776 62.024 3.890 13.986 0.000         
+Trend (mt)              0.100 -3.012  3.212 1.588  0.063 0.951    0.000
+Level phase B (phaseB)  7.858 -3.542 19.258 5.816  1.351 0.195    0.018
+Slope phase B (interB)  1.525 -1.642  4.692 1.616  0.944 0.359    0.009
 
 Autocorrelations of the residuals
  lag    cr
@@ -536,23 +538,83 @@ Figure&nbsp;9.2: Example dataset
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As a convenience, the predictors are renamed according to the respective effect within the single-case terminology that they represent.</p>
+<p>If you prefer to use the original variable names, set the following option: <code>options(scan.rename.predictors = "no")</code>.</p>
+<p>If you want more concise renamed predictors, set: <code>options(scan.rename.predictors = "concise")</code>.</p>
+<p>You can restore the default renaming by setting: <code>options(scan.rename.predictors = "full")</code>.</p>
+</div>
+</div>
 </section>
-<section id="adjusting-the-model" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="adjusting-the-model"><span class="header-section-number">9.2</span> Adjusting the model</h2>
+<section id="autocorrelation-of-the-residuals" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="autocorrelation-of-the-residuals"><span class="header-section-number">9.2</span> Autocorrelation of the residuals</h2>
+<p>The output also reports the <strong>autocorrelations of the residuals</strong>, which indicate whether the measurements are serially independent.</p>
+<p>There are many reasons why your data might exhibit serial dependence. For example, in a learning study, performance may temporarily decline after a learning session (performance dip). Similarly, in a medication study, a drug might initially cause a brief worsening of symptoms before exerting its intended therapeutic effect (early symptom exacerbation effect).</p>
+<p>The <em>lag</em> refers to the number of measurement points between observations that show autocorrelation.</p>
+<p>The <strong>Ljung-Box</strong> test is an omnibus test that evaluates whether the residuals exhibit significant autocorrelation at multiple lags. It assesses whether the joint distribution of autocorrelations differs significantly from what would be expected under the assumption of independence.</p>
+<p>High and significant autocorrelations pose a threat to the validity of standard regression model assumptions, as they violate the assumption of independent residuals. To account for this, you can set the <code>AR</code> argument with the appropriate maximum lag (e.g., <code>AR = 3</code>). This implements an <em>ARMA</em> (autoregressive moving average) model, which adjusts for the serial correlation in the residuals.</p>
+</section>
+<section id="standardizing-predictors" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="standardizing-predictors"><span class="header-section-number">9.3</span> Standardizing predictors</h2>
+<p>If you want standardized predictors, meaning that predictors are scaled to standard deviations, the best approach is to standardize all variables before computing the regression model. Use the <code>rescale()</code> function to do this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>exampleAB<span class="sc">$</span>Johanna <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rescale</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plm</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rescaled values, mt</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Piecewise Regression Analysis
+
+Contrast model: W / level = first, slope = first
+
+Fitted a gaussian distribution.
+F(3, 16) = 28.69; p = 0.000; R² = 0.843; Adjusted R² = 0.814
+
+                            B   2.5%  97.5%    SE      t     p delta R²
+Intercept              -1.276 -1.931 -0.621 0.334 -3.818 0.002         
+Trend (mt)              0.051 -1.531  1.633 0.807  0.063 0.951    0.000
+Level phase B (phaseB)  0.675 -0.304  1.655 0.500  1.351 0.195    0.018
+Slope phase B (interB)  0.775 -0.835  2.385 0.821  0.944 0.359    0.009
+
+Autocorrelations of the residuals
+ lag    cr
+   1 -0.32
+   2 -0.13
+   3 -0.01
+Ljung-Box test: X²(3) = 2.84; p = 0.417 
+
+Formula: values ~ 1 + mt + phaseB + interB</code></pre>
+</div>
+</div>
+<p>The regression coefficients <em>B</em> are now standardized Beta (ß) coefficients, indicating the expected change (in standard deviations) of the dependent variable for a one-standard-deviation increase in the predictor.</p>
+</section>
+<section id="adjusting-the-model" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="adjusting-the-model"><span class="header-section-number">9.4</span> Adjusting the model</h2>
 <p>The plm model is a complex model specifically suited for single-case studies. It entails a series of important parameters. Nevertheless, often we have specific theoretical assumption that do no include some of these parameters. We might, for example, only expect an immediate but not a continuous change from a medical intervention. Therefore, it would not be useful to include the slope-effect into our modelling. Vice versa, we could investigate an intervention that will just develop across time without an immediate change with the intervention start. Here we should drop the level-effect from out model. Even the assumption of a trend-effect can be dropped in cases where we do not expect a serial dependency of the data and we do not assume intervention independent changes within the time-frame of the study.</p>
 <p>It is important to keep in mind, that an overly complex model might have negative effects on the test power of an analyses (that is, the probability of detecting an actually existing effect is diminished) <span class="citation" data-cites="wilbert2022">(see <a href="references.html#ref-wilbert2022" role="doc-biblioref">Wilbert, Lüke, &amp; Börnert-Ringleb, 2022</a>)</span></p>
-<section id="the-slope-level-and-trend-arguments" class="level3" data-number="9.2.1">
-<h3 data-number="9.2.1" class="anchored" data-anchor-id="the-slope-level-and-trend-arguments"><span class="header-section-number">9.2.1</span> The <code>slope</code>, <code>level</code>, and <code>trend</code> arguments</h3>
+<section id="the-slope-level-and-trend-arguments" class="level3" data-number="9.4.1">
+<h3 data-number="9.4.1" class="anchored" data-anchor-id="the-slope-level-and-trend-arguments"><span class="header-section-number">9.4.1</span> The <code>slope</code>, <code>level</code>, and <code>trend</code> arguments</h3>
 <!--# treat each argument separately and add more examples -->
 <p>The plm function comes with three arguments (<code>slope</code>, <code>level</code>, and <code>trend</code>) to include or drop the respective predictors from the plm model. Buy default, all arguments are set <code>TRUE</code> and a full plm model is applied to the data.</p>
 <p>Consider the following data example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">55</span>, <span class="dv">58</span>, <span class="dv">53</span>, <span class="dv">50</span>, <span class="dv">52</span>, </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">B =</span> <span class="dv">55</span>, <span class="dv">68</span>, <span class="dv">68</span>, <span class="dv">81</span>, <span class="dv">67</span>, <span class="dv">78</span>, <span class="dv">73</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">81</span>, <span class="dv">78</span>, <span class="dv">71</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">76</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">55</span>, <span class="dv">58</span>, <span class="dv">53</span>, <span class="dv">50</span>, <span class="dv">52</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">B =</span> <span class="dv">55</span>, <span class="dv">68</span>, <span class="dv">68</span>, <span class="dv">81</span>, <span class="dv">67</span>, <span class="dv">78</span>, <span class="dv">73</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">81</span>, <span class="dv">78</span>, <span class="dv">71</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">76</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -561,11 +623,11 @@ Contrast model: W / level = first, slope = first
 Fitted a gaussian distribution.
 F(3, 16) = 21.36; p = 0.000; R² = 0.800; Adjusted R² = 0.763
 
-                   B   2.5%  97.5%    SE      t     p delta R²
-Intercept     56.400 48.070 64.730 4.250 13.270 0.000         
-Trend mt      -1.400 -4.801  2.001 1.735 -0.807 0.432    0.008
-Level phase B 16.967  4.510 29.424 6.356  2.670 0.017    0.089
-Slope phase B  2.500 -0.961  5.961 1.766  1.416 0.176    0.025
+                            B   2.5%  97.5%    SE      t     p delta R²
+Intercept              56.400 48.070 64.730 4.250 13.270 0.000         
+Trend (mt)             -1.400 -4.801  2.001 1.735 -0.807 0.432    0.008
+Level phase B (phaseB) 16.967  4.510 29.424 6.356  2.670 0.017    0.089
+Slope phase B (interB)  2.500 -0.961  5.961 1.766  1.416 0.176    0.025
 
 Autocorrelations of the residuals
  lag    cr
@@ -579,7 +641,7 @@ Formula: values ~ 1 + mt + phaseB + interB</code></pre>
 </div>
 <p>The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. The easiest way to do this is to set the <code>slope</code> argument to <code>FALSE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -588,10 +650,10 @@ Contrast model: W / level = first, slope = first
 Fitted a gaussian distribution.
 F(2, 17) = 29.30; p = 0.000; R² = 0.775; Adjusted R² = 0.749
 
-                   B   2.5%  97.5%    SE      t     p delta R²
-Intercept     51.572 46.455 56.690 2.611 19.752 0.000         
-Trend mt       1.014  0.364  1.664 0.332  3.057 0.007    0.124
-Level phase B 10.329  1.674 18.983 4.416  2.339 0.032    0.072
+                            B   2.5%  97.5%    SE      t     p delta R²
+Intercept              51.572 46.455 56.690 2.611 19.752 0.000         
+Trend (mt)              1.014  0.364  1.664 0.332  3.057 0.007    0.124
+Level phase B (phaseB) 10.329  1.674 18.983 4.416  2.339 0.032    0.072
 
 Autocorrelations of the residuals
  lag    cr
@@ -606,13 +668,13 @@ Formula: values ~ 1 + mt + phaseB</code></pre>
 <p>In the resulting estimations the trend and level effects are now significant. The model estimated a trend effect of 1.01 points for every one point increase in measurement-time and a level effect of 10.33 points. That is, with the beginning of the intervention (the B-phase) the score increases by <span class="math inline">\(5 x 1.01 + 10.33 = 15.38\)</span> points (the measurement-time is increases by five, from one to six, at the first session of phase B).</p>
 </section>
 </section>
-<section id="adding-additional-predictors" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="adding-additional-predictors"><span class="header-section-number">9.3</span> Adding additional predictors</h2>
+<section id="adding-additional-predictors" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="adding-additional-predictors"><span class="header-section-number">9.5</span> Adding additional predictors</h2>
 <p>In more complex analyses, additional predictors can be included in the piecewise regression model.</p>
 <p>To do this, we have to change the regression formula ‘manually’ by applying the <code>update</code> argument. The <code>update</code> argument allows to change the underlying regression formula. To add a new variable named for example <code>newVar</code>, set <code>update = .~. + newVar</code>. The <code>.~.</code> part takes the internally build model formula (based on the number of phases in your model and the setting of the <code>slope</code>, <code>level</code>, and <code>trend</code> arguments) and <code>+ newVar</code> adds a variable called <code>newVar</code> to the equation.</p>
 <p>Here is an example adding the control variable <code>cigarrets</code> to the model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_add, <span class="at">update =</span> .<span class="sc">~</span>. <span class="sc">+</span> cigarrets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_add, <span class="at">update =</span> .<span class="sc">~</span>. <span class="sc">+</span> cigarrets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -621,12 +683,12 @@ Contrast model: W / level = first, slope = first
 Fitted a gaussian distribution.
 F(4, 35) = 5.87; p = 0.001; R² = 0.402; Adjusted R² = 0.333
 
-                            B   2.5%  97.5%    SE      t     p delta R²
-Intercept              48.971 43.387 54.555 2.849 17.189 0.000         
-Trend day               0.392 -0.221  1.005 0.313  1.253 0.218    0.027
-Level phase Medication  3.459 -3.382 10.301 3.490  0.991 0.328    0.017
-Slope phase Medication -0.294 -0.972  0.384 0.346 -0.850 0.401    0.012
-cigarrets              -0.221 -1.197  0.755 0.498 -0.443 0.660    0.003
+                      B   2.5%  97.5%    SE      t     p delta R²
+Intercept        48.971 43.387 54.555 2.849 17.189 0.000         
+Trend             0.392 -0.221  1.005 0.313  1.253 0.218    0.027
+Level Medication  3.459 -3.382 10.301 3.490  0.991 0.328    0.017
+Slope Medication -0.294 -0.972  0.384 0.346 -0.850 0.401    0.012
+cigarrets        -0.221 -1.197  0.755 0.498 -0.443 0.660    0.003
 
 Autocorrelations of the residuals
  lag    cr
@@ -648,8 +710,8 @@ The formula has two parts divided by a tilde. Left of the tilde is the variable 
 
 -->
 </section>
-<section id="sec-dummy-model" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="sec-dummy-model"><span class="header-section-number">9.4</span> Dummy models</h2>
+<section id="sec-dummy-model" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="sec-dummy-model"><span class="header-section-number">9.6</span> Dummy models</h2>
 <p>The <code>model</code> argument is used to code the <em>dummy variables</em>. These <em>dummy variables</em> are used to compute the slope and level effects of the <em>phase</em> variable.<br>
 The <em>phase</em> variable is categorical, identifying the phase of each measurement. Typically, categorical variables are implemented by means of dummy variables. In a piecewise regression model two phase effects have to be estimated: a level effect and a slope effect. The level effect is implemented quite straight forward: for each phase beginning with the second phase a new dummy variable is created with values of zero for all measurements except the measurements of the phase in focus where values of one are set.</p>
 <div class="cell">
@@ -955,11 +1017,11 @@ slope
 </div>
 </div>
 </section>
-<section id="designs-with-more-than-two-phases-setting-the-right-contrasts" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.5</span> Designs with more than two phases: Setting the right contrasts</h2>
+<section id="designs-with-more-than-two-phases-setting-the-right-contrasts" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.7</span> Designs with more than two phases: Setting the right contrasts</h2>
 <p>For single case studies with more than two phases, things get a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the values from phase A. Another common use is to compare the effects of a phase with the previous phase.</p>
 <p>As of scan version <code>0.54.4</code>, plm allows to set a contrast argument. <code>contrast = "first"</code> (the default) will compare all slope and level-effects to the values in the first phase. <code>contrast = "preceding"</code> will compare the slope and level-effects to the preceding phase.</p>
-<p>For the <em>preceding contrast</em>, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see <a href="#sec-dummy-model" class="quarto-xref"><span>Section 9.4</span></a>) for the first measurement of the target phase and increases until the last measurement of the case.</p>
+<p>For the <em>preceding contrast</em>, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see <a href="#sec-dummy-model" class="quarto-xref"><span>Section 9.6</span></a>) for the first measurement of the target phase and increases until the last measurement of the case.</p>
 <p>You can set the contrast differently for the level and slope effects with the arguments <code>constrast_level</code> and <code>contrast_slope</code>. Both can be either <code>"first"</code> or <code>"preceding"</code>.</p>
 <p>(Note: Prior to scan version <code>0.54.4</code>, the option <code>model = "JW"</code> was identical to <code>model = "B&amp;L-B", contrast = "preceding"</code>).</p>
 <div class="cell">
@@ -1209,8 +1271,8 @@ slope
 </div>
 </div>
 </section>
-<section id="understanding-and-interpreting-contrasts" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="understanding-and-interpreting-contrasts"><span class="header-section-number">9.6</span> Understanding and interpreting contrasts</h2>
+<section id="understanding-and-interpreting-contrasts" class="level2" data-number="9.8">
+<h2 data-number="9.8" class="anchored" data-anchor-id="understanding-and-interpreting-contrasts"><span class="header-section-number">9.8</span> Understanding and interpreting contrasts</h2>
 <p>In this section, we will calculate four plm models with different contrast settings for the same single-case data.</p>
 <p>The example scdf is the case ‘Marie’ from the <em>exampleABC</em> scdf (<code>exampleABC$Marie</code>)</p>
 <div class="cell">
@@ -1345,8 +1407,8 @@ Table&nbsp;9.2: Estimates of a piecewise-linear regression with contrast models 
 </figure>
 </div>
 </div>
-<section id="phase-b-estimates" class="level3" data-number="9.6.1">
-<h3 data-number="9.6.1" class="anchored" data-anchor-id="phase-b-estimates"><span class="header-section-number">9.6.1</span> Phase B estimates</h3>
+<section id="phase-b-estimates" class="level3" data-number="9.8.1">
+<h3 data-number="9.8.1" class="anchored" data-anchor-id="phase-b-estimates"><span class="header-section-number">9.8.1</span> Phase B estimates</h3>
 <p>All regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> have the same estimates for <code>intercept</code> and <code>trend</code>. These are not affected by the contrasts and are identical to those for phase A in <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>9.1</span></a>. In addition, in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a>, the estimates for <code>levelB</code> and <code>slopeC</code> are identical since all models contrast the same phase (the first and the preceding phase are both phase A). The values here can be calculated from <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>9.1</span></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <p><span id="eq-contrast-level-2"><span class="math display">\[
 levelB = intercept_{phaseB} - (intercept_{phaseA} + n_{PhaseA} * slope_{phaseA})
@@ -1361,8 +1423,8 @@ slopeB = slope_{phaseB} - slope_{phaseA}
 1.303 \approx -1.915 - (-0.612)
 \]</span></p>
 </section>
-<section id="phase-c-estimates" class="level3" data-number="9.6.2">
-<h3 data-number="9.6.2" class="anchored" data-anchor-id="phase-c-estimates"><span class="header-section-number">9.6.2</span> Phase C estimates</h3>
+<section id="phase-c-estimates" class="level3" data-number="9.8.2">
+<h3 data-number="9.8.2" class="anchored" data-anchor-id="phase-c-estimates"><span class="header-section-number">9.8.2</span> Phase C estimates</h3>
 <p>The <code>levelC</code> and <code>slopeC</code> estimates of the regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> are different for the various contrast models. Depending on the contrast setting, the estimates “answer” a different question. <a href="#tbl-interpretation-contrasts" class="quarto-xref">Table&nbsp;<span>9.3</span></a> provides interpretation help.</p>
 <div id="tbl-interpretation-contrasts" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
