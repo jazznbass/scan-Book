@@ -423,7 +423,7 @@ The hplm function call
 <li>describing variability between subjects regarding these effects, and</li>
 <li>introducing variables and factors for explaining the differences.</li>
 </ul>
-<p>The basic function for applying a multilevel piecewise regression analysis is <code>hplm</code>. The <code>hplm</code> function is similar to the <code>plm</code> function, so I recommend that you get familar with <code>plm</code> before applying an <code>hplm</code>.</p>
+<p>The basic function for applying a multilevel piecewise regression analysis is <code>hplm</code> (<em>hierarchical piecewise linear model</em>). The <code>hplm</code> function is similar to the <code>plm</code> function, so I recommend that you get familar with <code>plm</code> before applying an <code>hplm</code>.</p>
 <p>Here is a simple example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(exampleAB_50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -461,7 +461,7 @@ In this analysis, we have a basic random intercept model. That is, only the inte
 </section>
 <section id="variation-of-single-predictors-between-cases" class="level3" data-number="10.0.2">
 <h3 data-number="10.0.2" class="anchored" data-anchor-id="variation-of-single-predictors-between-cases"><span class="header-section-number">10.0.2</span> Variation of single predictors between cases</h3>
-<p>A multilevel model that includes the variation of specific predictors between cases (e.g., the trend effect) is called a random slope model.</p>
+<p>A multilevel model that includes the variation of specific predictors between cases (e.g., the trend effect) is - in the multilevel regression “world” - called a random slope model.</p>
 <p>Here is an example inlcuding random slopes by setting the respective function argument for the trend, slope, and level effects to <code>TRUE</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(</span>

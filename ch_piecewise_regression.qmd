@@ -139,7 +139,7 @@ exampleAB$Johanna |>
   plm()
 ```
 
-The regression coefficients *B* are now standardized Beta (ß) coefficients, indicating the expected change (in standard deviations) of the dependent variable for a one-standard-deviation increase in the predictor.  
+The regression coefficients *B* are now standardized Beta (ß) coefficients, indicating the expected change (in standard deviations) of the dependent variable for a one-standard-deviation increase in the predictor.
 
 ## Adjusting the model
 
@@ -185,7 +185,6 @@ Here is an example adding the control variable `cigarrets` to the model:
 options(scan.rename.predictors = "concise")
 ```
 
-
 ```{r}
 #| label: plm-ex-update
 
@@ -209,6 +208,154 @@ The formula has two parts divided by a tilde. Left of the tilde is the variable 
 
 -->
 ```
+
+## Frequencies and proportions
+
+When the dependent variable is a frequency, the assumption of a normal distribution is not appropriate. This section will demonstrate how to handle such cases using the `plm` function.
+
+We can distinguish between a frequency without a clearly defined limit, such as the number of lightning strikes per year in a given area or the number of seizures a patient experiences in a week, and a frequency that represents a proportion, such as the number of correctly solved tasks in a test. In these cases, the dependent variable is discrete (only cardinal numbers are possible) and cannot be lower than zero. Both of these properties violate the assumptions of a Gaussian (normal) distribution.
+
+### Bounded frequencies
+
+Frequencies that have a clear reference, such as “10 out of 20,” follow a binomial distribution. In these cases, set the `family` argument of the `plm` function to `family = "binomial"`.
+
+Additionally, you must specify the maximum value (the “out of” part). You can either use a distinct variable in your *scdf* that defines the maximum separately for each measurement point or specify a constant value for all measurements. In both cases, you need to set the `var_trials` argument either to the name of the variable containing the maximum values or to a numeric value representing a fixed maximum.
+
+```{r}
+#| include: false
+
+model <- plm(exampleAB_score$Christiano , family = "binomial", var_trials = "trials")
+```
+
+```{r}
+#| label: plm-ex-plm-binomal-1
+
+plm(exampleAB_score$Christiano , family = "binomial", var_trials = "trials")
+
+# Or equivalent as all values in trial are 20:
+# plm(exampleAB_score$Christiano , family = "binomial", var_trials = 20)
+```
+
+The output shows the estimators *B*, which are on a logit scale, and odds or odds ratios (*OR*), which are the exponentiated logits, along with their respective confidence intervals. Logits are linear, meaning that the *B* coefficients can be added to obtain the combined effect of multiple predictors. For the example above, the logit of the intercept is -1.964, corresponding to a probability of approximately 12% (for details on the calculation, see note below). The level effect is $B = 2.376$. This means that at the start of Phase B, the logit increases to $B = -1.964 + 2.376 = 0.412$, which corresponds to a probability of approximately 60%.
+
+Odds ratios are not linear and must be multiplied to obtain a combined effect. In this example, the odds of the intercept is 0.14, calculated as $e^{-1.964}=0.14$. For the level effect, the *odds ratio* ("*ratio*" because it indicates the change of the odds) is 10.762. The combined effect (intecept and level) gives the odds 0.14 * 10.762 = 1.50668. Converting back to the logit scale, this is $\log(1.50668)\approx 0.41$. This result, aside from minor rounding differences, matches the value obtained by summing the respective *B* coefficients.
+
+Keep in mind that, as in Gaussian regression models, the p-value for the intercept tests the null hypothesis that the true intercept is zero. In other words, it represents the probability of obtaining an intercept estimate as extreme as the one observed if the true intercept were indeed zero (i.e., the probability of a Type I error under this null hypothesis). However, in logistic regression, an intercept (or logit) of zero does not correspond to a probability of 0%; it corresponds to a probability of 50%, because $e^{0}= Odds{1\over1}=50\%$.
+
+::: callout-note
+#### What are Logits and Odds Ratios? {#sec-note-logits-odds}
+
+Logits are the logarithm of the odds: $log(Odds)$. Odds represent the probability of an event occurring relative to it not occurring. If the odds are 4 to 1 ($4\over1$), this means that out of 5 total events, 4 result in one category of outcome, and 1 results in the opposite outcome.
+
+For example, if a horse runs five races and we expect it to win four and lose one, the odds of winning are 4 to 1 ($4\over1$).
+
+If the odds are less than 1, the probability of the event occurring is below 50%. For instance, if the odds are 0.25 ($1\over4$), we expect the horse to win one out of five races.
+
+*Difference Between Probabilities and Odds*
+
+Probabilities and odds are related but not identical. A probability of $1\over4$ (0.25) means that the specific outcome occurs in 1 out of 4 events. Odds of $1\over4$ means that the probability of two possible outcomes is 1 against 4, meaning the event occurs 1 time for every 4 non-occurrences. In this case, odds of $1\over4$ correspond to a probability of $1\over5$ = 0.20.
+
+*Formula*
+
+The odds are calculated as:
+
+$$Odds(y_i)=\frac{P(y_i=1)}{1-P(y_i=0)}$$
+
+For example, if we have a probability of 25%, the odds are:
+
+$$Odds=\frac{0.25}{0.75}={1\over3}$$
+
+The formula for calculating logits is:
+
+$$logit(y_i)=log(\frac{P(y_i=1)}{1-P(y_i=0)})=log(odds)$$
+
+For example, if we have a 25% probability that is:
+
+$$logit(P=0.25)=log(\frac{0.25}{0.75})=log({1\over3})=-1.098612$$
+
+For calculating probabilities from logits we use:
+
+$$P = \frac{e^{\text{logit}(B)}}{1 + e^{\text{logit}(B)}}$$
+
+For example, a logit of *B* = -1.964 is approxomately a 12% probability:
+
+$$P = \frac{e^{-1.964}}{1 + e^{-1.964}}\approx\frac{0.14}{1.14}\approx{0.12}$$
+:::
+
+### Proportions
+
+Proportions are actually just a mathematical identical presentation of bounded frequencies (e.g. 10 out of 20 is identical to 0.5 from 20). When your dependent variable represents proportions, set `family` to a binomial distribution `family = "binomial"`. Again, you have to provide a variable or a constant with the total number of trials with the `var_trials` argument. Finally, you have to set the `dvar_percentage` argument to `TRUE` to indicate that your dependent variable contains proportions.
+
+Here is the previous example where the the frequencies are transformed to proportions. The results are identical to the calculation with frequencies.
+
+```{r}
+#| label: plm-ex-plm-binomal-2
+scdf <- exampleAB_score$Christiano |>
+  transform(proportions = values/trials) |>
+  set_dvar("proportions")
+
+plm(scdf, family = "binomial", var_trials = "trials", dvar_percentage = TRUE)
+
+```
+
+::: callout-tip
+#### Percentages
+
+When you have percentages instead of proportions as the dependent variable, divide these by 100 with the `transform` function to get proportions.\
+\
+`scdf <- transform(scdf, values = values / 100)`
+:::
+
+### Dichotomous outcomes
+
+When the dependent variable is dichotomous (e.g., 0 or 1; yes or no), we can estimate a logistic regression. Logistic regression is essentially a special case of binomial regression, applied under the "extreme" condition that there is only one trial per measurement—so that each observation results in either 0% (failure) or 100% (success).
+
+Here is an example dataset with a respective analysis:
+
+```{r}
+#| echo = FALSE
+set.seed(123)
+des <- design(
+  phase_design = list(A = 50, B = 100), 
+  start_value = 0.30, 
+  level = list(0, 0.2), 
+  distribution = "binomial",
+  n_trials = 1)
+
+example_dichotomous <- random_scdf(des)
+
+scplot(example_dichotomous) |> set_theme("minimal") |> set_casenames("")
+
+```
+
+```{r}
+#| label: ex-plm-dichotomous
+plm(example_dichotomous, family = "binomial", var_trials = 1)
+```
+
+### Bounded frequencies
+
+In many cases, frequency data are collected without a predetermined upper limit. For example, in a study measuring the frequency of inappropriate classroom behavior, researchers may observe lessons and count the number of disturbances. Although there may be a practical upper limit on the number of possible disturbances, the theoretical limit is infinite.
+
+Another example is a study counting the number of lorries driving on a specific street. Here too, the highest possible number is undefined.
+
+For this type of data, a Poisson distribution is more appropriate. To specify a Poisson model, set the `family` argument in the `plm()` function to `"poisson"`.
+
+The following example shows a dataset of injured people due to an accident on an autobahn before and after implementing a speed limit:
+
+```{r}
+#| echo: false
+#| label: plm-ex-poisson-data
+example_A24 |> export()
+```
+
+Here, a Possion regression is applied:
+
+```{r}
+#| label: plm-ex-poisson
+plm(example_A24, family = "poisson")
+```
+
 ## Dummy models {#sec-dummy-model}
 
 The `model` argument is used to code the *dummy variables*. These *dummy variables* are used to compute the slope and level effects of the *phase* variable.\
@@ -385,12 +532,12 @@ $$
 
 The `levelC` and `slopeC` estimates of the regression models in @tbl-contrast-first-preceding are different for the various contrast models. Depending on the contrast setting, the estimates "answer" a different question. @tbl-interpretation-contrasts provides interpretation help.
 
-| Contrast level | Contrast slope | Interpretation of level C effect                                                                                                                                                                                          | Interpretation slope C effect                                                           |
+| Contrast level | Contrast slope | Interpretation of level C effect | Interpretation slope C effect |
 |------------------|------------------|------------------|------------------|
-| first          | first          | What would be the value if phase A had continued until to the start of phase C and what is the difference to the actual value at the first measurement of phase C?                                                        | What is the difference between the slopes of phase C and A[^ch_piecewise_regression-3]? |
-| preceding      | preceding      | What would be the value if phase B had continued to the start of phase C and what is the difference to the actual value at the first measurement of phase C?                                                              | What is the difference between the slopes of phase C and B?                             |
-| first          | preceding      | What would be the value if phase A had continued until the start of phase C (assuming a slope effect but no level effect in phase B)? And what is the difference to the actual value at the first measurement of phase C? | What is the difference between the slopes of phase C and B?                             |
-| preceding      | first          | What would be the value if phase B had continued until the start of phase C (assuming a level but no slope effect in phase B)? And what is the difference to the actual value at the first measurement of phase C?        | What is the difference between the slopes of phase C and A?                             |
+| first | first | What would be the value if phase A had continued until to the start of phase C and what is the difference to the actual value at the first measurement of phase C? | What is the difference between the slopes of phase C and A[^ch_piecewise_regression-3]? |
+| preceding | preceding | What would be the value if phase B had continued to the start of phase C and what is the difference to the actual value at the first measurement of phase C? | What is the difference between the slopes of phase C and B? |
+| first | preceding | What would be the value if phase A had continued until the start of phase C (assuming a slope effect but no level effect in phase B)? And what is the difference to the actual value at the first measurement of phase C? | What is the difference between the slopes of phase C and B? |
+| preceding | first | What would be the value if phase B had continued until the start of phase C (assuming a level but no slope effect in phase B)? And what is the difference to the actual value at the first measurement of phase C? | What is the difference between the slopes of phase C and A? |
 
 : Interpretations of the effect estimates in various contrast conditions {#tbl-interpretation-contrasts}
 
@@ -466,6 +613,6 @@ $$ {#eq-contrast-pf-2}
 
 $$
 1.721 \approx -0.194 - (-1.915)
-$$ 
+$$
 
 <!--# same analyses for models without level estimators and models without slope estimators -->

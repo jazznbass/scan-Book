@@ -391,12 +391,19 @@ window.Quarto = {
   <li><a href="#the-slope-level-and-trend-arguments" id="toc-the-slope-level-and-trend-arguments" class="nav-link" data-scroll-target="#the-slope-level-and-trend-arguments"><span class="header-section-number">9.4.1</span> The <code>slope</code>, <code>level</code>, and <code>trend</code> arguments</a></li>
   </ul></li>
   <li><a href="#adding-additional-predictors" id="toc-adding-additional-predictors" class="nav-link" data-scroll-target="#adding-additional-predictors"><span class="header-section-number">9.5</span> Adding additional predictors</a></li>
-  <li><a href="#sec-dummy-model" id="toc-sec-dummy-model" class="nav-link" data-scroll-target="#sec-dummy-model"><span class="header-section-number">9.6</span> Dummy models</a></li>
-  <li><a href="#designs-with-more-than-two-phases-setting-the-right-contrasts" id="toc-designs-with-more-than-two-phases-setting-the-right-contrasts" class="nav-link" data-scroll-target="#designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.7</span> Designs with more than two phases: Setting the right contrasts</a></li>
-  <li><a href="#understanding-and-interpreting-contrasts" id="toc-understanding-and-interpreting-contrasts" class="nav-link" data-scroll-target="#understanding-and-interpreting-contrasts"><span class="header-section-number">9.8</span> Understanding and interpreting contrasts</a>
+  <li><a href="#frequencies-and-proportions" id="toc-frequencies-and-proportions" class="nav-link" data-scroll-target="#frequencies-and-proportions"><span class="header-section-number">9.6</span> Frequencies and proportions</a>
   <ul class="collapse">
-  <li><a href="#phase-b-estimates" id="toc-phase-b-estimates" class="nav-link" data-scroll-target="#phase-b-estimates"><span class="header-section-number">9.8.1</span> Phase B estimates</a></li>
-  <li><a href="#phase-c-estimates" id="toc-phase-c-estimates" class="nav-link" data-scroll-target="#phase-c-estimates"><span class="header-section-number">9.8.2</span> Phase C estimates</a></li>
+  <li><a href="#bounded-frequencies" id="toc-bounded-frequencies" class="nav-link" data-scroll-target="#bounded-frequencies"><span class="header-section-number">9.6.1</span> Bounded frequencies</a></li>
+  <li><a href="#proportions" id="toc-proportions" class="nav-link" data-scroll-target="#proportions"><span class="header-section-number">9.6.2</span> Proportions</a></li>
+  <li><a href="#dichotomous-outcomes" id="toc-dichotomous-outcomes" class="nav-link" data-scroll-target="#dichotomous-outcomes"><span class="header-section-number">9.6.3</span> Dichotomous outcomes</a></li>
+  <li><a href="#bounded-frequencies-1" id="toc-bounded-frequencies-1" class="nav-link" data-scroll-target="#bounded-frequencies-1"><span class="header-section-number">9.6.4</span> Bounded frequencies</a></li>
+  </ul></li>
+  <li><a href="#sec-dummy-model" id="toc-sec-dummy-model" class="nav-link" data-scroll-target="#sec-dummy-model"><span class="header-section-number">9.7</span> Dummy models</a></li>
+  <li><a href="#designs-with-more-than-two-phases-setting-the-right-contrasts" id="toc-designs-with-more-than-two-phases-setting-the-right-contrasts" class="nav-link" data-scroll-target="#designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.8</span> Designs with more than two phases: Setting the right contrasts</a></li>
+  <li><a href="#understanding-and-interpreting-contrasts" id="toc-understanding-and-interpreting-contrasts" class="nav-link" data-scroll-target="#understanding-and-interpreting-contrasts"><span class="header-section-number">9.9</span> Understanding and interpreting contrasts</a>
+  <ul class="collapse">
+  <li><a href="#phase-b-estimates" id="toc-phase-b-estimates" class="nav-link" data-scroll-target="#phase-b-estimates"><span class="header-section-number">9.9.1</span> Phase B estimates</a></li>
+  <li><a href="#phase-c-estimates" id="toc-phase-c-estimates" class="nav-link" data-scroll-target="#phase-c-estimates"><span class="header-section-number">9.9.2</span> Phase C estimates</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -710,8 +717,798 @@ The formula has two parts divided by a tilde. Left of the tilde is the variable 
 
 -->
 </section>
-<section id="sec-dummy-model" class="level2" data-number="9.6">
-<h2 data-number="9.6" class="anchored" data-anchor-id="sec-dummy-model"><span class="header-section-number">9.6</span> Dummy models</h2>
+<section id="frequencies-and-proportions" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="frequencies-and-proportions"><span class="header-section-number">9.6</span> Frequencies and proportions</h2>
+<p>When the dependent variable is a frequency, the assumption of a normal distribution is not appropriate. This section will demonstrate how to handle such cases using the <code>plm</code> function.</p>
+<p>We can distinguish between a frequency without a clearly defined limit, such as the number of lightning strikes per year in a given area or the number of seizures a patient experiences in a week, and a frequency that represents a proportion, such as the number of correctly solved tasks in a test. In these cases, the dependent variable is discrete (only cardinal numbers are possible) and cannot be lower than zero. Both of these properties violate the assumptions of a Gaussian (normal) distribution.</p>
+<section id="bounded-frequencies" class="level3" data-number="9.6.1">
+<h3 data-number="9.6.1" class="anchored" data-anchor-id="bounded-frequencies"><span class="header-section-number">9.6.1</span> Bounded frequencies</h3>
+<p>Frequencies that have a clear reference, such as “10 out of 20,” follow a binomial distribution. In these cases, set the <code>family</code> argument of the <code>plm</code> function to <code>family = "binomial"</code>.</p>
+<p>Additionally, you must specify the maximum value (the “out of” part). You can either use a distinct variable in your <em>scdf</em> that defines the maximum separately for each measurement point or specify a constant value for all measurements. In both cases, you need to set the <code>var_trials</code> argument either to the name of the variable containing the maximum values or to a numeric value representing a fixed maximum.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_score<span class="sc">$</span>Christiano , <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">var_trials =</span> <span class="st">"trials"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Piecewise Regression Analysis
+
+Contrast model: W / level = first, slope = first
+
+Fitted a binomial distribution.
+X²(3) = 240.66; p = 0.000; AIC = 120
+
+                            B   2.5%  97.5%    SE      t     p     OR  2.5%
+Intercept              -1.964 -2.793 -1.239 0.394 -4.991 0.000  0.140 0.061
+Trend (mt)              0.023 -0.118  0.166 0.072  0.324 0.746  1.023 0.889
+Level phase B (phaseB)  2.376  1.454  3.378 0.488  4.866 0.000 10.762 4.280
+Slope phase B (interB)  0.038 -0.111  0.186 0.075  0.504 0.614  1.039 0.895
+                        97.5%
+Intercept               0.290
+Trend (mt)              1.181
+Level phase B (phaseB) 29.312
+Slope phase B (interB)  1.204
+
+Formula: values/trials ~ 1 + mt + phaseB + interB
+weights = trials</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or equivalent as all values in trial are 20:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plm(exampleAB_score$Christiano , family = "binomial", var_trials = 20)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The output shows the estimators <em>B</em>, which are on a logit scale, and odds or odds ratios (<em>OR</em>), which are the exponentiated logits, along with their respective confidence intervals. Logits are linear, meaning that the <em>B</em> coefficients can be added to obtain the combined effect of multiple predictors. For the example above, the logit of the intercept is -1.964, corresponding to a probability of approximately 12% (for details on the calculation, see note below). The level effect is <span class="math inline">\(B = 2.376\)</span>. This means that at the start of Phase B, the logit increases to <span class="math inline">\(B = -1.964 + 2.376 = 0.412\)</span>, which corresponds to a probability of approximately 60%.</p>
+<p>Odds ratios are not linear and must be multiplied to obtain a combined effect. In this example, the odds of the intercept is 0.14, calculated as <span class="math inline">\(e^{-1.964}=0.14\)</span>. For the level effect, the <em>odds ratio</em> (“<em>ratio</em>” because it indicates the change of the odds) is 10.762. The combined effect (intecept and level) gives the odds 0.14 * 10.762 = 1.50668. Converting back to the logit scale, this is <span class="math inline">\(\log(1.50668)\approx 0.41\)</span>. This result, aside from minor rounding differences, matches the value obtained by summing the respective <em>B</em> coefficients.</p>
+<p>Keep in mind that, as in Gaussian regression models, the p-value for the intercept tests the null hypothesis that the true intercept is zero. In other words, it represents the probability of obtaining an intercept estimate as extreme as the one observed if the true intercept were indeed zero (i.e., the probability of a Type I error under this null hypothesis). However, in logistic regression, an intercept (or logit) of zero does not correspond to a probability of 0%; it corresponds to a probability of 50%, because <span class="math inline">\(e^{0}= Odds{1\over1}=50\%\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What are Logits and Odds Ratios?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Logits are the logarithm of the odds: <span class="math inline">\(log(Odds)\)</span>. Odds represent the probability of an event occurring relative to it not occurring. If the odds are 4 to 1 (<span class="math inline">\(4\over1\)</span>), this means that out of 5 total events, 4 result in one category of outcome, and 1 results in the opposite outcome.</p>
+<p>For example, if a horse runs five races and we expect it to win four and lose one, the odds of winning are 4 to 1 (<span class="math inline">\(4\over1\)</span>).</p>
+<p>If the odds are less than 1, the probability of the event occurring is below 50%. For instance, if the odds are 0.25 (<span class="math inline">\(1\over4\)</span>), we expect the horse to win one out of five races.</p>
+<p><em>Difference Between Probabilities and Odds</em></p>
+<p>Probabilities and odds are related but not identical. A probability of <span class="math inline">\(1\over4\)</span> (0.25) means that the specific outcome occurs in 1 out of 4 events. Odds of <span class="math inline">\(1\over4\)</span> means that the probability of two possible outcomes is 1 against 4, meaning the event occurs 1 time for every 4 non-occurrences. In this case, odds of <span class="math inline">\(1\over4\)</span> correspond to a probability of <span class="math inline">\(1\over5\)</span> = 0.20.</p>
+<p><em>Formula</em></p>
+<p>The odds are calculated as:</p>
+<p><span class="math display">\[Odds(y_i)=\frac{P(y_i=1)}{1-P(y_i=0)}\]</span></p>
+<p>For example, if we have a probability of 25%, the odds are:</p>
+<p><span class="math display">\[Odds=\frac{0.25}{0.75}={1\over3}\]</span></p>
+<p>The formula for calculating logits is:</p>
+<p><span class="math display">\[logit(y_i)=log(\frac{P(y_i=1)}{1-P(y_i=0)})=log(odds)\]</span></p>
+<p>For example, if we have a 25% probability that is:</p>
+<p><span class="math display">\[logit(P=0.25)=log(\frac{0.25}{0.75})=log({1\over3})=-1.098612\]</span></p>
+<p>For calculating probabilities from logits we use:</p>
+<p><span class="math display">\[P = \frac{e^{\text{logit}(B)}}{1 + e^{\text{logit}(B)}}\]</span></p>
+<p>For example, a logit of <em>B</em> = -1.964 is approxomately a 12% probability:</p>
+<p><span class="math display">\[P = \frac{e^{-1.964}}{1 + e^{-1.964}}\approx\frac{0.14}{1.14}\approx{0.12}\]</span></p>
+</div>
+</div>
+</section>
+<section id="proportions" class="level3" data-number="9.6.2">
+<h3 data-number="9.6.2" class="anchored" data-anchor-id="proportions"><span class="header-section-number">9.6.2</span> Proportions</h3>
+<p>Proportions are actually just a mathematical identical presentation of bounded frequencies (e.g.&nbsp;10 out of 20 is identical to 0.5 from 20). When your dependent variable represents proportions, set <code>family</code> to a binomial distribution <code>family = "binomial"</code>. Again, you have to provide a variable or a constant with the total number of trials with the <code>var_trials</code> argument. Finally, you have to set the <code>dvar_percentage</code> argument to <code>TRUE</code> to indicate that your dependent variable contains proportions.</p>
+<p>Here is the previous example where the the frequencies are transformed to proportions. The results are identical to the calculation with frequencies.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>scdf <span class="ot">&lt;-</span> exampleAB_score<span class="sc">$</span>Christiano <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">proportions =</span> values<span class="sc">/</span>trials) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dvar</span>(<span class="st">"proportions"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(scdf, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">var_trials =</span> <span class="st">"trials"</span>, <span class="at">dvar_percentage =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Piecewise Regression Analysis
+
+Contrast model: W / level = first, slope = first
+
+Fitted a binomial distribution.
+X²(3) = 240.66; p = 0.000; AIC = 120
+
+                            B   2.5%  97.5%    SE      t     p     OR  2.5%
+Intercept              -1.964 -2.793 -1.239 0.394 -4.991 0.000  0.140 0.061
+Trend (mt)              0.023 -0.118  0.166 0.072  0.324 0.746  1.023 0.889
+Level phase B (phaseB)  2.376  1.454  3.378 0.488  4.866 0.000 10.762 4.280
+Slope phase B (interB)  0.038 -0.111  0.186 0.075  0.504 0.614  1.039 0.895
+                        97.5%
+Intercept               0.290
+Trend (mt)              1.181
+Level phase B (phaseB) 29.312
+Slope phase B (interB)  1.204
+
+Formula: proportions ~ 1 + mt + phaseB + interB
+weights = trials</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Percentages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When you have percentages instead of proportions as the dependent variable, divide these by 100 with the <code>transform</code> function to get proportions.<br>
+<br>
+<code>scdf &lt;- transform(scdf, values = values / 100)</code></p>
+</div>
+</div>
+</section>
+<section id="dichotomous-outcomes" class="level3" data-number="9.6.3">
+<h3 data-number="9.6.3" class="anchored" data-anchor-id="dichotomous-outcomes"><span class="header-section-number">9.6.3</span> Dichotomous outcomes</h3>
+<p>When the dependent variable is dichotomous (e.g., 0 or 1; yes or no), we can estimate a logistic regression. Logistic regression is essentially a special case of binomial regression, applied under the “extreme” condition that there is only one trial per measurement—so that each observation results in either 0% (failure) or 100% (success).</p>
+<p>Here is an example dataset with a respective analysis:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ch_piecewise_regression_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example_dichotomous, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">var_trials =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Piecewise Regression Analysis
+
+Contrast model: W / level = first, slope = first
+
+Fitted a binomial distribution.
+X²(3) = 5.91; p = 0.116; AIC = 206
+
+                            B   2.5% 97.5%    SE      t     p    OR  2.5%
+Intercept              -0.174 -1.356 0.972 0.584 -0.298 0.766 0.840 0.258
+Trend (mt)             -0.029 -0.075 0.014 0.022 -1.298 0.194 0.971 0.928
+Level phase B (phaseB)  1.390 -0.114 3.067 0.801  1.734 0.083 4.015 0.892
+Slope phase B (interB)  0.031 -0.014 0.079 0.023  1.333 0.183 1.031 0.986
+                        97.5%
+Intercept               2.643
+Trend (mt)              1.014
+Level phase B (phaseB) 21.477
+Slope phase B (interB)  1.082
+
+Formula: values/1 ~ 1 + mt + phaseB + interB
+weights = 1</code></pre>
+</div>
+</div>
+</section>
+<section id="bounded-frequencies-1" class="level3" data-number="9.6.4">
+<h3 data-number="9.6.4" class="anchored" data-anchor-id="bounded-frequencies-1"><span class="header-section-number">9.6.4</span> Bounded frequencies</h3>
+<p>In many cases, frequency data are collected without a predetermined upper limit. For example, in a study measuring the frequency of inappropriate classroom behavior, researchers may observe lessons and count the number of disturbances. Although there may be a practical upper limit on the number of possible disturbances, the theoretical limit is infinite.</p>
+<p>Another example is a study counting the number of lorries driving on a specific street. Here too, the highest possible number is undefined.</p>
+<p>For this type of data, a Poisson distribution is more appropriate. To specify a Poisson model, set the <code>family</code> argument in the <code>plm()</code> function to <code>"poisson"</code>.</p>
+<p>The following example shows a dataset of injured people due to an accident on an autobahn before and after implementing a speed limit:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="soxqwkgowz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#soxqwkgowz table {
+  font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#soxqwkgowz thead, #soxqwkgowz tbody, #soxqwkgowz tfoot, #soxqwkgowz tr, #soxqwkgowz td, #soxqwkgowz th {
+  border-style: none;
+}
+
+#soxqwkgowz p {
+  margin: 0;
+  padding: 0;
+}
+
+#soxqwkgowz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #FFFFFF;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#soxqwkgowz .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#soxqwkgowz .gt_title {
+  color: #333333;
+  font-size: 100%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#soxqwkgowz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#soxqwkgowz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#soxqwkgowz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #000000;
+}
+
+#soxqwkgowz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#soxqwkgowz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#soxqwkgowz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#soxqwkgowz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#soxqwkgowz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#soxqwkgowz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#soxqwkgowz .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#soxqwkgowz .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#soxqwkgowz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #FFFFFF;
+  vertical-align: middle;
+}
+
+#soxqwkgowz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#soxqwkgowz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#soxqwkgowz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 0px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#soxqwkgowz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#soxqwkgowz .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#soxqwkgowz .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#soxqwkgowz .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#soxqwkgowz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#soxqwkgowz .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#soxqwkgowz .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#soxqwkgowz .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#soxqwkgowz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#soxqwkgowz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#soxqwkgowz .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#soxqwkgowz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#soxqwkgowz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #000000;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #000000;
+}
+
+#soxqwkgowz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#soxqwkgowz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#soxqwkgowz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#soxqwkgowz .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#soxqwkgowz .gt_left {
+  text-align: left;
+}
+
+#soxqwkgowz .gt_center {
+  text-align: center;
+}
+
+#soxqwkgowz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#soxqwkgowz .gt_font_normal {
+  font-weight: normal;
+}
+
+#soxqwkgowz .gt_font_bold {
+  font-weight: bold;
+}
+
+#soxqwkgowz .gt_font_italic {
+  font-style: italic;
+}
+
+#soxqwkgowz .gt_super {
+  font-size: 65%;
+}
+
+#soxqwkgowz .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#soxqwkgowz .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#soxqwkgowz .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#soxqwkgowz .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#soxqwkgowz .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#soxqwkgowz .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#soxqwkgowz .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#soxqwkgowz .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#soxqwkgowz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="gt_heading header">
+<th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border"><em>Single case data frame with one cases</em></th>
+</tr>
+<tr class="gt_col_headings gt_spanner_row even">
+<th colspan="3" id="A24" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+A24
+</div></th>
+</tr>
+<tr class="gt_col_headings header">
+<th id="injuries" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">injuries</th>
+<th id="year" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">year</th>
+<th id="phase" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">phase</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">239</td>
+<td class="gt_row gt_center" headers="year">1996</td>
+<td class="gt_row gt_center" headers="phase">A</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">263</td>
+<td class="gt_row gt_center" headers="year">1997</td>
+<td class="gt_row gt_center" headers="phase">A</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">264</td>
+<td class="gt_row gt_center" headers="year">1998</td>
+<td class="gt_row gt_center" headers="phase">A</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">277</td>
+<td class="gt_row gt_center" headers="year">1999</td>
+<td class="gt_row gt_center" headers="phase">A</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">283</td>
+<td class="gt_row gt_center" headers="year">2000</td>
+<td class="gt_row gt_center" headers="phase">A</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">296</td>
+<td class="gt_row gt_center" headers="year">2001</td>
+<td class="gt_row gt_center" headers="phase">A</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">228</td>
+<td class="gt_row gt_center" headers="year">2002</td>
+<td class="gt_row gt_center" headers="phase">A</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">136</td>
+<td class="gt_row gt_center" headers="year">2003</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">133</td>
+<td class="gt_row gt_center" headers="year">2004</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">106</td>
+<td class="gt_row gt_center" headers="year">2005</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">123</td>
+<td class="gt_row gt_center" headers="year">2006</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">96</td>
+<td class="gt_row gt_center" headers="year">2007</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">97</td>
+<td class="gt_row gt_center" headers="year">2008</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">103</td>
+<td class="gt_row gt_center" headers="year">2009</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">138</td>
+<td class="gt_row gt_center" headers="year">2010</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">129</td>
+<td class="gt_row gt_center" headers="year">2011</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">136</td>
+<td class="gt_row gt_center" headers="year">2012</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">142</td>
+<td class="gt_row gt_center" headers="year">2013</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">113</td>
+<td class="gt_row gt_center" headers="year">2014</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">177</td>
+<td class="gt_row gt_center" headers="year">2015</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">151</td>
+<td class="gt_row gt_center" headers="year">2016</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="injuries">106</td>
+<td class="gt_row gt_center" headers="year">2017</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="injuries">71</td>
+<td class="gt_row gt_center" headers="year">2018</td>
+<td class="gt_row gt_center" headers="phase">B</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="3" class="gt_footnote"><em>Note.</em> Number of injuries on a German autobahn before and after implementation of a speedlimit (130km/h). Author: Ministerium fuer Infrastruktur und Landesplanung. Land Brandenburg..</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<p>Here, a Possion regression is applied:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example_A24, <span class="at">family =</span> <span class="st">"poisson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Piecewise Regression Analysis
+
+Contrast model: W / level = first, slope = first
+
+Fitted a poisson distribution.
+X²(3) = 547.67; p = 0.000; AIC = 261
+
+                            B   2.5%  97.5%    SE       t     p      OR    2.5%
+Intercept               5.556  5.472  5.638 0.042 131.693 0.000 258.786 237.936
+Trend (year)            0.007 -0.016  0.030 0.012   0.604 0.546   1.007   0.984
+Level phase B (phaseB) -0.806 -0.938 -0.674 0.067 -11.964 0.000   0.447   0.391
+Slope phase B (interB) -0.006 -0.031  0.019 0.013  -0.472 0.637   0.994   0.969
+                         97.5%
+Intercept              280.900
+Trend (year)             1.030
+Level phase B (phaseB)   0.510
+Slope phase B (interB)   1.019
+
+Formula: injuries ~ 1 + year + phaseB + interB</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-dummy-model" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="sec-dummy-model"><span class="header-section-number">9.7</span> Dummy models</h2>
 <p>The <code>model</code> argument is used to code the <em>dummy variables</em>. These <em>dummy variables</em> are used to compute the slope and level effects of the <em>phase</em> variable.<br>
 The <em>phase</em> variable is categorical, identifying the phase of each measurement. Typically, categorical variables are implemented by means of dummy variables. In a piecewise regression model two phase effects have to be estimated: a level effect and a slope effect. The level effect is implemented quite straight forward: for each phase beginning with the second phase a new dummy variable is created with values of zero for all measurements except the measurements of the phase in focus where values of one are set.</p>
 <div class="cell">
@@ -1017,11 +1814,11 @@ slope
 </div>
 </div>
 </section>
-<section id="designs-with-more-than-two-phases-setting-the-right-contrasts" class="level2" data-number="9.7">
-<h2 data-number="9.7" class="anchored" data-anchor-id="designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.7</span> Designs with more than two phases: Setting the right contrasts</h2>
+<section id="designs-with-more-than-two-phases-setting-the-right-contrasts" class="level2" data-number="9.8">
+<h2 data-number="9.8" class="anchored" data-anchor-id="designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">9.8</span> Designs with more than two phases: Setting the right contrasts</h2>
 <p>For single case studies with more than two phases, things get a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the values from phase A. Another common use is to compare the effects of a phase with the previous phase.</p>
 <p>As of scan version <code>0.54.4</code>, plm allows to set a contrast argument. <code>contrast = "first"</code> (the default) will compare all slope and level-effects to the values in the first phase. <code>contrast = "preceding"</code> will compare the slope and level-effects to the preceding phase.</p>
-<p>For the <em>preceding contrast</em>, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see <a href="#sec-dummy-model" class="quarto-xref"><span>Section 9.6</span></a>) for the first measurement of the target phase and increases until the last measurement of the case.</p>
+<p>For the <em>preceding contrast</em>, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see <a href="#sec-dummy-model" class="quarto-xref"><span>Section 9.7</span></a>) for the first measurement of the target phase and increases until the last measurement of the case.</p>
 <p>You can set the contrast differently for the level and slope effects with the arguments <code>constrast_level</code> and <code>contrast_slope</code>. Both can be either <code>"first"</code> or <code>"preceding"</code>.</p>
 <p>(Note: Prior to scan version <code>0.54.4</code>, the option <code>model = "JW"</code> was identical to <code>model = "B&amp;L-B", contrast = "preceding"</code>).</p>
 <div class="cell">
@@ -1271,8 +2068,8 @@ slope
 </div>
 </div>
 </section>
-<section id="understanding-and-interpreting-contrasts" class="level2" data-number="9.8">
-<h2 data-number="9.8" class="anchored" data-anchor-id="understanding-and-interpreting-contrasts"><span class="header-section-number">9.8</span> Understanding and interpreting contrasts</h2>
+<section id="understanding-and-interpreting-contrasts" class="level2" data-number="9.9">
+<h2 data-number="9.9" class="anchored" data-anchor-id="understanding-and-interpreting-contrasts"><span class="header-section-number">9.9</span> Understanding and interpreting contrasts</h2>
 <p>In this section, we will calculate four plm models with different contrast settings for the same single-case data.</p>
 <p>The example scdf is the case ‘Marie’ from the <em>exampleABC</em> scdf (<code>exampleABC$Marie</code>)</p>
 <div class="cell">
@@ -1407,8 +2204,8 @@ Table&nbsp;9.2: Estimates of a piecewise-linear regression with contrast models 
 </figure>
 </div>
 </div>
-<section id="phase-b-estimates" class="level3" data-number="9.8.1">
-<h3 data-number="9.8.1" class="anchored" data-anchor-id="phase-b-estimates"><span class="header-section-number">9.8.1</span> Phase B estimates</h3>
+<section id="phase-b-estimates" class="level3" data-number="9.9.1">
+<h3 data-number="9.9.1" class="anchored" data-anchor-id="phase-b-estimates"><span class="header-section-number">9.9.1</span> Phase B estimates</h3>
 <p>All regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> have the same estimates for <code>intercept</code> and <code>trend</code>. These are not affected by the contrasts and are identical to those for phase A in <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>9.1</span></a>. In addition, in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a>, the estimates for <code>levelB</code> and <code>slopeC</code> are identical since all models contrast the same phase (the first and the preceding phase are both phase A). The values here can be calculated from <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>9.1</span></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <p><span id="eq-contrast-level-2"><span class="math display">\[
 levelB = intercept_{phaseB} - (intercept_{phaseA} + n_{PhaseA} * slope_{phaseA})
@@ -1423,8 +2220,8 @@ slopeB = slope_{phaseB} - slope_{phaseA}
 1.303 \approx -1.915 - (-0.612)
 \]</span></p>
 </section>
-<section id="phase-c-estimates" class="level3" data-number="9.8.2">
-<h3 data-number="9.8.2" class="anchored" data-anchor-id="phase-c-estimates"><span class="header-section-number">9.8.2</span> Phase C estimates</h3>
+<section id="phase-c-estimates" class="level3" data-number="9.9.2">
+<h3 data-number="9.9.2" class="anchored" data-anchor-id="phase-c-estimates"><span class="header-section-number">9.9.2</span> Phase C estimates</h3>
 <p>The <code>levelC</code> and <code>slopeC</code> estimates of the regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>9.2</span></a> are different for the various contrast models. Depending on the contrast setting, the estimates “answer” a different question. <a href="#tbl-interpretation-contrasts" class="quarto-xref">Table&nbsp;<span>9.3</span></a> provides interpretation help.</p>
 <div id="tbl-interpretation-contrasts" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
