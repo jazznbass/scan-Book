@@ -1,6 +1,6 @@
 # Describe single-case data frames
 
-## Descriptive statistics
+## Descriptive statistics {#sec-describe}
 
 ```{r}
 #| results: asis
@@ -58,22 +58,7 @@ There are two solutions to this problem:
 2.  include the package name into the function call with the prefix `scan::`: `scan::describe()`.
 :::
 
-## Standardized mean differences
-
-```{r}
-#| results: asis
-#| echo: false
-function_structure("smd")
-```
-
-Standardized mean differences are measures of effect sizes. The `smd` functions calculated various variations.
-
-```{r}
-#| label: smd-example
-smd(exampleAB)
-```
-
-## Auto-regression
+## Auto-regression {#sec-autocorr}
 
 ```{r}
 #| results: asis
@@ -88,7 +73,7 @@ The `autocorr` function calculates autocorrelations within each phase and across
 autocorr(exampleABC, lag_max = 4)
 ```
 
-## Trend analysis
+## Trend analysis {#sec-trend}
 
 ```{r}
 #| results: asis

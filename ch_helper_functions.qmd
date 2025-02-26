@@ -1,9 +1,6 @@
-# Helper functions
+# Setting variables for analysis {#sec-setvars}
 
-## Defining variables for analysis
-
-In an scdf it is defined which of the variables are the measurement time, phase and study variable. If you have multiple measurement time, phases or dependent variables, then you can switch between them with some helper functions:
-`set_dvar` changes the dependent variable, `set_mvar` the measurement-time variable, and `set_pvar` the phase variable. `set_vars` is a redundant function so set several variables at once.
+In an *scdf*, it is specified which variables represent the measurement time, phase, and dependent variable. If multiple measurement times, phases, or dependent variables are present, they can be switched using helper functions. The function `set_dvar` changes the dependent variable, `set_mvar` modifies the measurement-time variable, and `set_pvar` adjusts the phase variable. The function `set_vars` serves as a redundant option to set multiple variables at once.
 
 ```{r}
 #| results: asis
@@ -32,15 +29,15 @@ function_structure("set_vars")
 Assume we have a single-case study and smooth the dependent variable:
 
 ```{r}
-scdf <- Huber2014$Berta %>%
+scdf <- Huber2014$Berta |> 
   transform(compliance_smooth = local_regression(compliance))
 ```
 
 Now we change the dependent variable to `compliance_smooth` for an analysis:
 
 ```{r}
-scdf %>% 
-  set_dvar("compliance_smooth") %>%
+scdf |> 
+  set_dvar("compliance_smooth") |> 
   smd()
 ```
 

@@ -69,7 +69,7 @@ out <- tribble(
   "read_scdf", "Loads external data into an scdf", "Stable", "@sec-read-scdf",
   "write_scdf", "Writes scdf into an external file", "Stable", "@sec-write-scdf",
   "convert", "Converts an scdf object into R syntax", "Stable", "@sec-convert",
-  "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Stable", "-",
+  "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Stable", "@sec-setvars",
   "add_l2", "Adds level-two data to an scdf", "Stable", "@sec-add-l2",
   "as_scdf", "Transforms a data.frame into an scdf", "Stable", "-",
   "as.data.frame/as.data.frame.scdf", "Transforms an scdf into a data frame", "Stable", "-"
@@ -88,18 +88,18 @@ print_table_simple(out)
 #| tbl-cap: Functions for data depiction/visualisation
 
 out <- tribble(
-  ~"Function", ~"What it does ...", ~"Lifecycle stage",
+  ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
   #
-  "scplot", "Add-on package `scplot`. Creates advanced ggplot2 plots", "Stable",
-  "print/print.scdf", "Prints an scdf", "Stable",
-  "summary/summary.scdf", "Summaizes an scdf", "Stable",
-  "export", "Creates html or latex tables from the output of various scan functions", "Stable",
-  "plot/plot.scdf", "Creates plots of single cases", "Superseded",
-  "style_plot", "Defines single-case plot graphical styles", "Superseded",  
-  "plot_rand", "Create a distribution plot from a randomization test obejct", "Superseded"
+  "scplot", "Add-on package `scplot`. Creates advanced ggplot2 plots", "Stable", "@sec-scplot",
+  "print/print.scdf", "Prints an scdf", "Stable", "-",
+  "summary/summary.scdf", "Summaizes an scdf", "Stable", "-",
+  "export", "Creates html or latex tables from the output of various scan functions", "Stable", "@sec-export",
+  "plot/plot.scdf", "Creates plots of single cases", "Superseded", "-",
+  "style_plot", "Defines single-case plot graphical styles", "Superseded", "-",
+  "plot_rand", "Create a distribution plot from a randomization test obejct", "Superseded", "-",
 )
 
-print_table(out)
+print_table_simple(out)
 
 ```
 
@@ -111,32 +111,34 @@ print_table(out)
 #| tbl-cap: Functions for data analysis
 
 out <- tribble(
-  ~"Function", ~"What it does ...", ~"Lifecycle stage",
+  ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
   #
-  "autocorr", "Autocorrelations for each phase of each case", "Stable",
-  "between_smd", "Between case standrdized mean difference", "Stable",
-  "corrected_tau", "Baseline corrected tau", "Stable",
-  "describe", "Descriptive statistics for each phase of each case", "Stable",
-  "overlap", "An overview of overlap indeces for each case", "Stable",
-  "smd", "Various standardized mean differences between phase A and B", "Stable",
-  "rci", "Reliable change index", "Stable",
-  "rand_test", "Randomization test", "Stable",
-  "tau_u", "Tau-U for each case and all cases", "Stable",
-  "trend", "Trend analyses for each case", "Stable",
-  "plm", "Piecewise linear regression model", "Stable",
-  "mplm", "Multivariate piecewise linear regression model",  "Experimental",
-  "hplm", "Hierarchical piecewise linear regression model",  "Stable",
-  "nap", "Non-overlap of all pairs for each case", "Stable",
-  "pnd", "Percentage of non overlapping data for each case",  "Stable",
-  "pand", "Percentage of all non overlapping data for all cases",  "Stable",
-  "pem", "Percantage exceeding the mean for each case",  "Stable",
-  "pet", "Percentage exceeding the trend for each case",  "Stable",
-  "ird", "Improvement rate difference", "Stable",
-  "cdc", "Conservative dual-criterion test",  "Stable",
-  "outlier", "Detect outliers for all cases", "Stable"
+  "autocorr", "Autocorrelations for each phase of each case", "Stable", "@sec-autocorr",
+  "describe", "Descriptive statistics for each phase of each case", "Stable", "@sec-describe",
+  "ird", "Improvement rate difference", "Stable", "@sec-ird",
+  "overlap", "An overview of overlap indeces for each case", "Stable", "@sec-overlap",
+  "smd", "Various standardized mean differences between phase A and B", "Stable", "@sec-smd",
+  "rci", "Reliable change index", "Stable", "@sec-rci",
+  "rand_test", "Randomization test", "Stable", "@sec-rand",
+  "trend", "Trend analyses for each case", "Stable", "@sec-trend",
+  "plm", "Piecewise linear regression model", "Stable", "@sec-plm",
+  "mplm", "Multivariate piecewise linear regression model",  "Experimental", "@sec-mplm",
+  "hplm", "Hierarchical piecewise linear regression model",  "Stable", "@sec-hplm",
+  "bplm", "Bayesian (multilevel) piecewise linear regression model",  "Experimental", "@sec-bplm",
+  "between_smd", "Between case standardized mean difference", "Stable", "@sec-bcsmd",
+  "anova", "Modelcomparison via likelihood ratio test for plm and hplm", "Stable", "@sec-anova",
+  "tau_u", "Tau-U for each case and all cases", "Stable", "@sec-tauu",
+  "corrected_tau", "Baseline corrected tau", "Stable", "@sec-bctau",
+  "nap", "Non-overlap of all pairs for each case", "Stable", "@sec-nap",
+  "pnd", "Percentage of non overlapping data for each case",  "Stable", "@sec-pnd",
+  "pand", "Percentage of all non overlapping data for all cases",  "Stable", "@sec-pand",
+  "pem", "Percantage exceeding the mean for each case",  "Stable", "@sec-pem",
+  "pet", "Percentage exceeding the trend for each case",  "Stable", "@sec-pet",
+  "cdc", "Conservative dual-criterion test",  "Stable", "@sec-cdc",
+  "outlier", "Detect outliers for all cases", "Stable", "@sec-outlier"
 )
 
-print_table(out)
+print_table_simple(out)
 
 ```
 
@@ -164,7 +166,7 @@ out <- tribble(
   "standardize", "Standardizes or centers variables across cases", "Superseded"
 )
 
-print_table(out)
+print_table_simple(out)
 
 ```
 
@@ -185,6 +187,6 @@ out <- tribble(
   "mcscan", "Add-on package `mcscan`. Create Monte-Carlo designs and analyses with `scan`", "(Upcoming not yet functioning)"
 )
 
-print_table(out)
+print_table_simple(out)
 
 ```

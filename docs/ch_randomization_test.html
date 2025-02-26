@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>12&nbsp; Randomization tests – Analyzing Single-Case Data with R and Scan</title>
+<title>14&nbsp; Randomization tests – Analyzing Single-Case Data with R and Scan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,7 +85,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./ch_powertest.html" rel="next">
-<link href="./ch_multivariate_plm.html" rel="prev">
+<link href="./ch_bayesian_plm.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -135,7 +135,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_randomization_test.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_randomization_test.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Randomization tests</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -230,8 +230,14 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ch_helper_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Setting variables for analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span></a>
   </div>
 </li>
       </ul>
@@ -248,49 +254,55 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_describe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Overlapping indices</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_bayesian_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bayesian regression analyses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Randomization tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_export.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span></a>
   </div>
 </li>
       </ul>
@@ -352,19 +364,19 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#arguments-of-the-rand_test-function" id="toc-arguments-of-the-rand_test-function" class="nav-link active" data-scroll-target="#arguments-of-the-rand_test-function"><span class="header-section-number">12.1</span> Arguments of the <code>rand_test()</code> function</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">12.2</span> Example</a></li>
-  <li><a href="#visuaization" id="toc-visuaization" class="nav-link" data-scroll-target="#visuaization"><span class="header-section-number">12.3</span> Visuaization</a></li>
-  <li><a href="#providing-a-custom-function" id="toc-providing-a-custom-function" class="nav-link" data-scroll-target="#providing-a-custom-function"><span class="header-section-number">12.4</span> Providing a custom function</a></li>
+  <li><a href="#arguments-of-the-rand_test-function" id="toc-arguments-of-the-rand_test-function" class="nav-link active" data-scroll-target="#arguments-of-the-rand_test-function"><span class="header-section-number">14.1</span> Arguments of the <code>rand_test()</code> function</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">14.2</span> Example</a></li>
+  <li><a href="#visuaization" id="toc-visuaization" class="nav-link" data-scroll-target="#visuaization"><span class="header-section-number">14.3</span> Visuaization</a></li>
+  <li><a href="#providing-a-custom-function" id="toc-providing-a-custom-function" class="nav-link" data-scroll-target="#providing-a-custom-function"><span class="header-section-number">14.4</span> Providing a custom function</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_randomization_test.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_randomization_test.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Randomization tests</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></h1>
+<h1 class="title"><span id="sec-rand" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Randomization tests</span></span></h1>
 </div>
 
 
@@ -405,14 +417,14 @@ The rand_test function call
 <img src="ch_randomization_test_files/figure-html/fig-ex-rand-test-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ex-rand-test-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12.1: Illustration of a randomization test
+Figure&nbsp;14.1: Illustration of a randomization test
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<section id="arguments-of-the-rand_test-function" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="arguments-of-the-rand_test-function"><span class="header-section-number">12.1</span> Arguments of the <code>rand_test()</code> function</h2>
+<section id="arguments-of-the-rand_test-function" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="arguments-of-the-rand_test-function"><span class="header-section-number">14.1</span> Arguments of the <code>rand_test()</code> function</h2>
 <p>The <code>statistics</code> argument defines the statistics on which the phase comparison is based. The following comparisons can be made:</p>
 <table class="caption-top table">
 <colgroup>
@@ -519,8 +531,8 @@ Figure&nbsp;12.1: Illustration of a randomization test
 </tbody>
 </table>
 </section>
-<section id="example" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="example"><span class="header-section-number">12.2</span> Example</h2>
+<section id="example" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="example"><span class="header-section-number">14.2</span> Example</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">rand_test</span>(exampleAB)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -537,18 +549,18 @@ Observed statistic =  20.55556
 
 Distribution based on a random sample of all 1331 possible combinations.
 n   =  500 
-M   =  18.64246 
-SD  =  1.140163 
-Min =  16.05185 
-Max =  21.02897 
+M   =  18.55051 
+SD  =  1.119736 
+Min =  16.06667 
+Max =  21.34493 
 
 Probability of an equal or higher value than the observed statistic:
-p   =  0.036 
+p   =  0.026 
 
 Shapiro-Wilk Normality Test: W = 0.982; p = 0.000  (Hypothesis of normality rejected)
 
 Probabilty of observed statistic based on the assumption of normality:
-z = 1.6779, p = 0.0467 (single sided)</code></pre>
+z = 1.7906, p = 0.0367 (single sided)</code></pre>
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip callout-titled">
@@ -565,8 +577,8 @@ The plot_rand function call
 </div>
 </div>
 </section>
-<section id="visuaization" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="visuaization"><span class="header-section-number">12.3</span> Visuaization</h2>
+<section id="visuaization" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="visuaization"><span class="header-section-number">14.3</span> Visuaization</h2>
 <p>The <code>plot_rand()</code> function plots a distribution of the random sample against the observed statistic:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_rand</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -606,8 +618,8 @@ The plot_rand function call
 </div>
 </div>
 </section>
-<section id="providing-a-custom-function" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="providing-a-custom-function"><span class="header-section-number">12.4</span> Providing a custom function</h2>
+<section id="providing-a-custom-function" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="providing-a-custom-function"><span class="header-section-number">14.4</span> Providing a custom function</h2>
 <p>If you want to experiment around with new statistics for the randomization test, you can add your own analyses functions.</p>
 <p>Use the <code>statistic_function argument</code> to provide your own function in a list. This list must have an element named <code>statistic</code> with a function that takes two arguments <code>a</code> and <code>b</code> and returns a single numeric value. For example, <code>list(statistic = function(a, b) mean(a) - mean(b))</code>. The second element of the list is named <code>aggregate</code> which takes a function with one numeric argument that returns a numeric argument. This function is used to aggregate the values of a multiple case design. If you do not provide this element, the default <code>function(x) sum(x) / length(x)</code>. is used. The third optional argument is <code>name</code> which provides a name for your custom function.</p>
 <p>Here is an example that implements the PND statistic and uses the median to aggregate the PNDs in a multiple case study.</p>
@@ -632,18 +644,18 @@ Observed statistic =  0.07575758
 
 Distribution based on a random sample of all 2513840 possible combinations.
 n   =  500 
-M   =  0.01213464 
-SD  =  0.0320824 
+M   =  0.0158011 
+SD  =  0.04024723 
 Min =  0 
-Max =  0.2586207 
+Max =  0.3802817 
 
 Probability of an equal or higher value than the observed statistic:
-p   =  0.074 
+p   =  0.092 
 
-Shapiro-Wilk Normality Test: W = 0.422; p = 0.000  (Hypothesis of normality rejected)
+Shapiro-Wilk Normality Test: W = 0.425; p = 0.000  (Hypothesis of normality rejected)
 
 Probabilty of observed statistic based on the assumption of normality:
-z = 1.9831, p = 0.0237 (single sided)</code></pre>
+z = 1.4897, p = 0.0682 (single sided)</code></pre>
 </div>
 </div>
 
@@ -1078,13 +1090,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./ch_multivariate_plm.html" class="pagination-link" aria-label="Multivariate piecewise regression">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span>
+      <a href="./ch_bayesian_plm.html" class="pagination-link" aria-label="Bayesian regression analyses">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bayesian regression analyses</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./ch_powertest.html" class="pagination-link" aria-label="Power analyses">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power analyses</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

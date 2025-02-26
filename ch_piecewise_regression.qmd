@@ -211,6 +211,11 @@ The formula has two parts divided by a tilde. Left of the tilde is the variable 
 
 ## Frequencies and proportions
 
+```{r}
+#| include: false
+options(scan.rename.predictors = "concise")
+```
+
 When the dependent variable is a frequency, the assumption of a normal distribution is not appropriate. This section will demonstrate how to handle such cases using the `plm` function.
 
 We can distinguish between a frequency without a clearly defined limit, such as the number of lightning strikes per year in a given area or the number of seizures a patient experiences in a week, and a frequency that represents a proportion, such as the number of correctly solved tasks in a test. In these cases, the dependent variable is discrete (only cardinal numbers are possible) and cannot be lower than zero. Both of these properties violate the assumptions of a Gaussian (normal) distribution.
@@ -354,6 +359,12 @@ Here, a Possion regression is applied:
 ```{r}
 #| label: plm-ex-poisson
 plm(example_A24, family = "poisson")
+```
+
+
+```{r}
+#| include: false
+options(scan.rename.predictors = "full")
 ```
 
 ## Dummy models {#sec-dummy-model}

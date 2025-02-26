@@ -1,4 +1,4 @@
-# Overlapping indices
+# Overlapping indices {#sec-overlap}
 
 ## Overlap overview
 
@@ -45,7 +45,7 @@ exampleA1B1A2B2 |>
 # overlap(exampleA1B1A2B2, phases = list( c("A1","A2"), c("B1","B2")))
 ```
 
-## Standardized mean differences
+## Standardized mean differences {#sec-smd}
 
 ```{r}
 #| results: asis
@@ -61,7 +61,7 @@ smd(exampleAB_score)
 
 The first four rows give the mean and the standard deviation of the two respective phases. `sd cohen` is the (unweighted) average of the standard deviation of phase A and B: $\sqrt{\frac{{\text{sdA}^2 + \text{sdB}^2}}{2}}$. `sd Hedges` is the weighted average of the standard deviation with a correction for degrees of freedom: $\sqrt{\frac{ (nA - 1) \cdot \text{sdA}^2 + (nB - 1) \cdot \text{sdB}^2 }{ nA + nB - 2 }}$. `Hedges' g` is the mean difference divided by `sd Hedges`. `Hedges' g correction` ($Hedges' g * (1 - \frac{3}{4n - 9})$) and `Hedges' g durlak correction` ($Hedges' g * (\frac{{n - 3}}{{n - 2.25}} \cdot \sqrt{\frac{{n - 2}}{{n}}})$) are two approaches of correcting Hedges' g for small sample sizes. `Glass' delta` is the mean difference divided by the standard deviation of the A-phase. `Cohen's d` is the mean difference divided by `sd cohen`.
 
-## Percentage non-overlapping data (PND)
+## Percentage non-overlapping data (PND) {#sec-pnd}
 
 ```{r}
 #| results: asis
@@ -89,7 +89,7 @@ The function `pnd` provides the PND for each case as well as the mean of all PND
 pnd(exampleAB)
 ```
 
-## Percentage exceeding the median (PEM)
+## Percentage exceeding the median (PEM) {#sec-pem}
 
 ```{r}
 #| results: asis
@@ -115,7 +115,7 @@ random_scdf(design(1, level = 1.0),round = 0, seed = 1212) |>
 pem(exampleAB)
 ```
 
-## Percentage exceeding the regression trend (PET)
+## Percentage exceeding the regression trend (PET) {#sec-pet}
 
 ```{r}
 #| results: asis
@@ -141,7 +141,7 @@ random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 
   add_marks(positions = c(12, 14:19, 21, 22,25), size = 2, shape = 16)
 ```
 
-## Percentage of all non-overlapping data (PAND)
+## Percentage of all non-overlapping data (PAND) {#sec-pand}
 
 ```{r}
 #| results: asis
@@ -171,7 +171,7 @@ pand(Parker2007, method = "minimum")
 
 The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power [@parker_effect_2011].
 
-## Nonoverlap of all pairs (NAP)
+## Nonoverlap of all pairs (NAP) {#sec-nap}
 
 ```{r}
 #| results: asis
@@ -185,7 +185,7 @@ The `nap` function calculates the nonoverlap of all pairs [@parker_improved_2009
 nap(exampleAB)
 ```
 
-## Improvement rate difference (IRD)
+## Improvement rate difference (IRD) {#sec-ird}
 
 ```{r}
 #| results: asis
@@ -199,7 +199,7 @@ The adaptation of the improvement rate difference for single-case phase comparis
 ird(exampleAB)
 ```
 
-## Tau-U
+## Tau-U {#sec-pnd} {#sec-tauu}
 
 ```{r}
 #| results: asis
@@ -287,7 +287,7 @@ By default, 95% confidence intervals are calculated for each tau value. You can 
 tau_u(exampleAB, ci = 0.90, ci_method = "tau")
 ```
 
-## Baseline corrected tau
+## Baseline corrected tau {#sec-bctau}
 
 ```{r}
 #| results: asis
@@ -327,7 +327,7 @@ case <- scdf(
 corrected_tau(case)
 ```
 
-## Reliable change index
+## Reliable change index {#sec-rci}
 
 ```{r}
 #| results: asis

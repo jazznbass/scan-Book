@@ -1,0 +1,98 @@
+# Bayesian regression analyses {#sec-bplm}
+
+Starting with version 0.63.0 scan included Bayesian regression analyses through the `bplm()` function (**B**ayesian **P**iecewise **L**inear **M**odel).
+
+In inferential statistics, a distinction is made between frequentist and Bayesian approaches. Frequentist statistics assess the probability of observing the data under the assumption that a null hypothesis (there is no effect or association) is true. 
+
+Bayesian statistics, on the other hand, begins with prior distributions that represent initial beliefs (priors) about the parameters of interest. These priors are then updated using observed data through Bayes’ theorem, which means that the initial beliefs about the parameters are adjusted in proportion to how well they explain the data, producing a posterior distribution that reflects both prior knowledge and new evidence. The Bayesian approach evaluates how well the data fit different parameter values by computing the likelihood of the data given these parameter estimates, rather than testing against a fixed null hypothesis.
+
+The Bayesian approach is computationally intensive and often produces results that are practically similar to those of a frequentist analysis. However, it offers several advantages. In particular, when working with small samples, incorporating prior knowledge can improve parameter estimation. Additionally, Bayesian statistics does not require uniform distributional assumptions for all variables but allows each variable to have its own empirically derived distribution. Another advantage is its greater robustness against overspecified models, especially when too many predictors are included and exhibit high collinearity (intercorrelations) while the number of data points is limited.
+
+These advantages make it worthwhile to use a Bayesian approach for single-case data.
+
+```{r}
+#| echo: false
+#| results: asis
+function_structure("bplm")
+```
+
+The `bplm()` function comuputes a piecewise regression analysis. The syntax is quite similar to the `plm()` and `hplm()` functions. There you can find details about the general piecewise regression model, the interpretation of regression estimations, and the setting of contrast in models with more that two phases.
+
+The `bplm()` works for datasets with one case or multiple cases.
+
+Her is an example of a one-case dataset:
+
+```{r}
+#| label: bplm-ex-one-case
+bplm(exampleAB$Johanna)
+```
+
+
+Here is an example of a multi-case dataset:
+
+```{r}
+#| label: bplm-ex-mulitple-cases
+bplm(exampleAB_50)
+```
+
+## Settimg priors
+
+The following example show the influence of priors on paramameter estimation. Firstly, we create a random case from previously defined parameters:  
+The starting value (intercept) is 50 (the standard deviation is 10). The level effect for Phase B is one standard deviation (that is, 10 points) and there is neither a slope nor a trend effect. Random noise is introduced with 20% measurment error (reliability is 0.8).
+
+```{r}
+set.seed(123) #set random seed for replicability of the example
+des <- design(
+  start_value = 50, 
+  s = 10,
+  level = list(A = 0, B = 1), 
+  trend = list(0),
+  slope = list(0),
+  rtt = 0.8
+)
+scdf <- random_scdf(des)
+scplot(scdf)
+```
+
+Here are the estimations from a Bayesian model without informative priors:
+
+```{r}
+bplm(scdf)
+```
+
+Now we introduce our prior knowledge: an Intercept of 50, trend and slope effect are 0, and a level effect of 10. Moreover, we assume that our previous knowledge is quite uncertain (i.e., a weakly informative prior). `mu` sets the prior values for the four paramters in the order as they apper in the regression model. `V` is a diagonalmatrix of the variances for these estimations. The V matrix sets the strength of the prior. Here, we set values of 100 which is a standard deviation (SD^2 = 10^2 = 100):
+
+
+```{r}
+prior <- list(
+  B = list(mu = c(50, 0, 10, 0), V = diag(c(100, 100, 100, 100)))
+)
+bplm(scdf, prior = prior)
+```
+
+Now we assume, that we are somewhat certain (i.e., a prior of middle strength) by setting the variances to 10 (SD ~ 3.2):
+
+```{r}
+prior <- list(
+  B = list(mu = c(50, 0, 10, 0), V = diag(c(10, 10, 10, 10)))  # Prior for regression effects
+)
+bplm(scdf, prior = prior)
+```
+
+Now we make somewhat wrong and uncertain assumptions:
+
+```{r}
+prior <- list(
+  B = list(mu = c(40, 2, 5, 2), V = diag(c(100, 100, 100, 100)))
+)
+bplm(scdf, prior = prior)
+```
+
+And finally, we make the wrong assumptions with middle strong certainty:
+
+```{r}
+prior <- list(
+  B = list(mu = c(40, 2, 5, 2), V = diag(c(10, 10, 10, 10)))
+)
+bplm(scdf, prior = prior)
+```

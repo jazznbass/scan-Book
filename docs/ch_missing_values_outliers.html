@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Missing values and outliers – Analyzing Single-Case Data with R and Scan</title>
+<title>7&nbsp; Missing values and outliers – Analyzing Single-Case Data with R and Scan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,7 +85,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./ch_describe.html" rel="next">
-<link href="./ch_scplot.html" rel="prev">
+<link href="./ch_helper_functions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -135,7 +135,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html">The single-case data frame</a></li><li class="breadcrumb-item"><a href="./ch_missing_values_outliers.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html">The single-case data frame</a></li><li class="breadcrumb-item"><a href="./ch_missing_values_outliers.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -230,8 +230,14 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./ch_helper_functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Setting variables for analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./ch_missing_values_outliers.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></span></a>
   </div>
 </li>
       </ul>
@@ -248,49 +254,55 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_describe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_overlapping_indices.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Overlapping indices</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Overlapping indices</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_piecewise_regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Piecewise linear regressions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_multilevel_plm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multilevel plm analyses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_multivariate_plm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_bayesian_plm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bayesian regression analyses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_randomization_test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Randomization tests</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Randomization tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_powertest.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_export.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span></a>
   </div>
 </li>
       </ul>
@@ -352,17 +364,17 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#missing-values" id="toc-missing-values" class="nav-link active" data-scroll-target="#missing-values"><span class="header-section-number">6.1</span> Missing values</a></li>
-  <li><a href="#outlieranalysis" id="toc-outlieranalysis" class="nav-link" data-scroll-target="#outlieranalysis"><span class="header-section-number">6.2</span> Outlieranalysis</a></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link active" data-scroll-target="#missing-values"><span class="header-section-number">7.1</span> Missing values</a></li>
+  <li><a href="#sec-outlier" id="toc-sec-outlier" class="nav-link" data-scroll-target="#sec-outlier"><span class="header-section-number">7.2</span> Outlieranalysis</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html">The single-case data frame</a></li><li class="breadcrumb-item"><a href="./ch_missing_values_outliers.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_create_display_and_store_scdfs.html">The single-case data frame</a></li><li class="breadcrumb-item"><a href="./ch_missing_values_outliers.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Missing values and outliers</span></h1>
 </div>
 
 
@@ -379,8 +391,8 @@ div.csl-indent {
 </header>
 
 
-<section id="missing-values" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="missing-values"><span class="header-section-number">6.1</span> Missing values</h2>
+<section id="missing-values" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="missing-values"><span class="header-section-number">7.1</span> Missing values</h2>
 <p>There are two kinds of missing values in single-case data series. First, missings that were explicitly recorded as <code>NA</code> and assigned to a phase and measurement-time as in the following example:</p>
 <pre><code>scdf(c(5, 3, 4, 6, 8, 7, 9, 7, NA, 6), phase_design = c(A = 4, B = 6))</code></pre>
 <p>The second type of missing occurs when there are gaps between measurement-times that are not explicitly coded as in the following example:</p>
@@ -432,8 +444,8 @@ Hedges_g      1.71 1.90             1.96</code></pre>
 </div>
 </div>
 </section>
-<section id="outlieranalysis" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="outlieranalysis"><span class="header-section-number">6.2</span> Outlieranalysis</h2>
+<section id="sec-outlier" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-outlier"><span class="header-section-number">7.2</span> Outlieranalysis</h2>
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -907,13 +919,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./ch_scplot.html" class="pagination-link" aria-label="Creating a single-case data plot">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Creating a single-case data plot</span></span>
+      <a href="./ch_helper_functions.html" class="pagination-link" aria-label="Setting variables for analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Setting variables for analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./ch_describe.html" class="pagination-link" aria-label="Describe single-case data frames">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Describe single-case data frames</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

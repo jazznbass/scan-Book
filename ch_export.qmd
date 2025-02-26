@@ -1,4 +1,4 @@
-# Exporting *scan* results
+# Exporting *scan* results {#sec-export}
 
 ```{r}
 #| results: asis
@@ -88,8 +88,8 @@ function_structure(scan:::export.sc_trend, label="trend export", fname="export")
 
 ```{r}
 #| warning: false
-exampleABC$Marie %>%
-  trend() %>%
+exampleABC$Marie  |> 
+  trend()  |> 
   export()
 ```
 
@@ -105,9 +105,9 @@ The `flip` argument will rotate the table by 90 degrees.
 
 ```{r}
 #| warning: false
-exampleA1B1A2B2_zvt %>%
-  select_phases(A = c(1,3), B = c(2,4)) %>%
-  overlap() %>%
+exampleA1B1A2B2_zvt |> 
+  select_phases(A = c(1,3), B = c(2,4)) |> 
+  overlap() |> 
   export(flip = TRUE)
 ```
 
@@ -206,9 +206,23 @@ function_structure(scan:::export.sc_hplm, label="hplm export", fname="export")
 ```
 
 ```{r warning=FALSE}
-exampleAB_50 %>%
-  add_l2(exampleAB_50.l2) %>%
-  hplm(lr.test = TRUE, random.slopes = TRUE) %>%
+exampleAB_50  |> 
+  add_l2(exampleAB_50.l2)  |> 
+  hplm(lr.test = TRUE, random.slopes = TRUE)  |> 
+  export()
+```
+
+## Bayesian regression analysis
+
+```{r}
+#| results: asis
+#| echo: false
+function_structure(scan:::export.sc_bplm, label="bplm export", fname="export")
+```
+
+```{r warning=FALSE}
+exampleAB_50  |> 
+  bplm(random_level = TRUE)  |> 
   export()
 ```
 

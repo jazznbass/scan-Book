@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Appendix C — Default settings – Analyzing Single-Case Data with R and Scan</title>
+<title>13&nbsp; Bayesian regression analyses – Analyzing Single-Case Data with R and Scan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./app_supseded_functions.html" rel="next">
-<link href="./app_changes.html" rel="prev">
+<link href="./ch_randomization_test.html" rel="next">
+<link href="./ch_multivariate_plm.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -102,8 +102,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 </head>
@@ -117,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./app_some_things.html">Appendices</a></li><li class="breadcrumb-item"><a href="./app_default_settings.html"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_bayesian_plm.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bayesian regression analyses</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -265,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch_bayesian_plm.html" class="sidebar-item-text sidebar-link">
+  <a href="./ch_bayesian_plm.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bayesian regression analyses</span></span></a>
   </div>
 </li>
@@ -318,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link active">
+  <a href="./app_default_settings.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></span></a>
   </div>
 </li>
@@ -346,16 +344,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#example-datasets" id="toc-example-datasets" class="nav-link active" data-scroll-target="#example-datasets"><span class="header-section-number">D</span> Example datasets</a></li>
+  <li><a href="#settimg-priors" id="toc-settimg-priors" class="nav-link active" data-scroll-target="#settimg-priors"><span class="header-section-number">13.1</span> Settimg priors</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content column-body" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./app_some_things.html">Appendices</a></li><li class="breadcrumb-item"><a href="./app_default_settings.html"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Default settings</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ch_describe.html">Data analysis</a></li><li class="breadcrumb-item"><a href="./ch_bayesian_plm.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bayesian regression analyses</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Appendix C — Default settings</h1>
+<h1 class="title"><span id="sec-bplm" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bayesian regression analyses</span></span></h1>
 </div>
 
 
@@ -372,359 +370,228 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Some of the default settings of scan can be changed with the <code>options()</code> argument. <a href="#tbl-options" class="quarto-xref">Table&nbsp;<span>C.1</span></a> shows a complete list of options and their default values.</p>
+<p>Starting with version 0.63.0 scan included Bayesian regression analyses through the <code>bplm()</code> function (<strong>B</strong>ayesian <strong>P</strong>iecewise <strong>L</strong>inear <strong>M</strong>odel).</p>
+<p>In inferential statistics, a distinction is made between frequentist and Bayesian approaches. Frequentist statistics assess the probability of observing the data under the assumption that a null hypothesis (there is no effect or association) is true.</p>
+<p>Bayesian statistics, on the other hand, begins with prior distributions that represent initial beliefs (priors) about the parameters of interest. These priors are then updated using observed data through Bayes’ theorem, which means that the initial beliefs about the parameters are adjusted in proportion to how well they explain the data, producing a posterior distribution that reflects both prior knowledge and new evidence. The Bayesian approach evaluates how well the data fit different parameter values by computing the likelihood of the data given these parameter estimates, rather than testing against a fixed null hypothesis.</p>
+<p>The Bayesian approach is computationally intensive and often produces results that are practically similar to those of a frequentist analysis. However, it offers several advantages. In particular, when working with small samples, incorporating prior knowledge can improve parameter estimation. Additionally, Bayesian statistics does not require uniform distributional assumptions for all variables but allows each variable to have its own empirically derived distribution. Another advantage is its greater robustness against overspecified models, especially when too many predictors are included and exhibit high collinearity (intercorrelations) while the number of data points is limited.</p>
+<p>These advantages make it worthwhile to use a Bayesian approach for single-case data.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The bplm function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>bplm(data, dvar, pvar, mvar, model = c(“W”, “H-M”, “B&amp;L-B”), contrast_level = c(“first”, “preceding”), contrast_slope = c(“first”, “preceding”), trend = TRUE, level = TRUE, slope = TRUE, random_trend = FALSE, random_level = FALSE, random_slope = FALSE, fixed = NULL, random = NULL, update_fixed = NULL, …)</p>
+</div>
+</div>
+<p>The <code>bplm()</code> function comuputes a piecewise regression analysis. The syntax is quite similar to the <code>plm()</code> and <code>hplm()</code> functions. There you can find details about the general piecewise regression model, the interpretation of regression estimations, and the setting of contrast in models with more that two phases.</p>
+<p>The <code>bplm()</code> works for datasets with one case or multiple cases.</p>
+<p>Her is an example of a one-case dataset:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the current value of an option</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getOption</span>(<span class="st">"scan.print.rows"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(exampleAB<span class="sc">$</span>Johanna)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 15</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set option to a different value</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scan.print.rows =</span> <span class="dv">5</span>, <span class="at">scan.print.scdf.name =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with three cases
+<pre><code>Bayesian Piecewise Linear Regression
 
- values mt phase ｜ values mt phase ｜ values mt phase ｜
-     54  1     A ｜     41  1     A ｜     55  1     A ｜
-     53  2     A ｜     59  2     A ｜     58  2     A ｜
-     56  3     A ｜     56  3     A ｜     53  3     A ｜
-     58  4     A ｜     51  4     A ｜     50  4     A ｜
-     52  5     A ｜     52  5     A ｜     52  5     A ｜
-# ... up to 15 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scan.print.rows =</span> <span class="dv">15</span>, <span class="at">scan.print.scdf.name =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#A single-case data frame with three cases
+Contrast model: W (level: first, slope: first)
+Deviance Information Criterion: 127.1491 
 
- Johanna: values mt phase ｜ Karolina: values mt phase ｜ Anja: values mt phase
-              54  1     A ｜               41  1     A ｜           55  1     A
-              53  2     A ｜               59  2     A ｜           58  2     A
-              56  3     A ｜               56  3     A ｜           53  3     A
-              58  4     A ｜               51  4     A ｜           50  4     A
-              52  5     A ｜               52  5     A ｜           52  5     A
-              61  6     B ｜               57  6     B ｜           55  6     B
-              62  7     B ｜               56  7     B ｜           68  7     B
-              71  8     B ｜               67  8     B ｜           68  8     B
-              66  9     B ｜               75  9     B ｜           81  9     B
-              64 10     B ｜               66 10     B ｜           67 10     B
-              78 11     B ｜               69 11     B ｜           78 11     B
-              70 12     B ｜               68 12     B ｜           73 12     B
-              74 13     B ｜               73 13     B ｜           72 13     B
-              82 14     B ｜               77 14     B ｜           78 14     B
-              77 15     B ｜               79 15     B ｜           81 15     B
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
- ｜
-# ... up to five more rows</code></pre>
+B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                            B lower 95% CI upper 95% CI sample size     p
+Intercept              54.436       46.603       63.059    1000.000 0.001
+Trend (mt)              0.079       -3.535        3.328    1161.415 0.950
+Level phase B (phaseB)  7.931       -4.178       20.193    1000.000 0.200
+Slope phase B (interB)  1.549       -1.606        5.429    1193.227 0.376
+
+R-Structure - Residuals
+
+          SD lower 95% CI upper 95% CI 
+       5.356        3.351        7.270 </code></pre>
 </div>
 </div>
+<p>Here is an example of a multi-case dataset:</p>
 <div class="cell">
-<div id="tbl-options" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-options-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;C.1: Scan Options
-</figcaption>
-<div aria-describedby="tbl-options-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(exampleAB_50)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bayesian Piecewise Linear Regression
+
+Contrast model: W (level: first, slope: first)
+50 Cases
+
+Deviance Information Criterion: 8574.592 
+
+B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                            B lower 95% CI upper 95% CI sample size     p
+Intercept              48.379       45.397       51.327    1000.000 0.001
+Trend (mt)              0.584        0.348        0.795    1000.000 0.001
+Level phase B (phaseB) 14.013       12.753       15.292     689.671 0.001
+Slope phase B (interB)  0.897        0.687        1.144    1000.000 0.001
+
+G-Structure - Random effects (~case)
+
+ Parameter     SD lower 95% CI upper 95% CI
+ Intercept 10.304        8.133       12.348
+
+R-Structure - Residuals
+
+          SD lower 95% CI upper 95% CI 
+       5.297        5.109        5.509 </code></pre>
+</div>
+</div>
+<section id="settimg-priors" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="settimg-priors"><span class="header-section-number">13.1</span> Settimg priors</h2>
+<p>The following example show the influence of priors on paramameter estimation. Firstly, we create a random case from previously defined parameters:<br>
+The starting value (intercept) is 50 (the standard deviation is 10). The level effect for Phase B is one standard deviation (that is, 10 points) and there is neither a slope nor a trend effect. Random noise is introduced with 20% measurment error (reliability is 0.8).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co">#set random seed for replicability of the example</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>des <span class="ot">&lt;-</span> <span class="fu">design</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">start_value =</span> <span class="dv">50</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">s =</span> <span class="dv">10</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">level =</span> <span class="fu">list</span>(<span class="at">A =</span> <span class="dv">0</span>, <span class="at">B =</span> <span class="dv">1</span>), </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">trend =</span> <span class="fu">list</span>(<span class="dv">0</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">slope =</span> <span class="fu">list</span>(<span class="dv">0</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">rtt =</span> <span class="fl">0.8</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>scdf <span class="ot">&lt;-</span> <span class="fu">random_scdf</span>(des)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(scdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Option</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Default</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">What it does ...</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.print.cases</td>
-<td style="text-align: left; width: 15em;">"fit"</td>
-<td style="text-align: left;">Max number of cases printed for scdf objects</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.print.rows</td>
-<td style="text-align: left; width: 15em;">15</td>
-<td style="text-align: left;">Max number of rows printed for scdf objects</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.print.cols</td>
-<td style="text-align: left; width: 15em;">"all"</td>
-<td style="text-align: left;">Max number of columns printed for scdf objects</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.print.digits</td>
-<td style="text-align: left; width: 15em;">2</td>
-<td style="text-align: left;">Max number of digits printed for scdf objects</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.print.long</td>
-<td style="text-align: left; width: 15em;">FALSE</td>
-<td style="text-align: left;">If TRUE, prints scdf objects in long format</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.print.scdf.name</td>
-<td style="text-align: left; width: 15em;">TRUE</td>
-<td style="text-align: left;">If TRUE, prints case names of scdf</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.deprecated.warning</td>
-<td style="text-align: left; width: 15em;">FALSE</td>
-<td style="text-align: left;">When TRUE returns information on deprecated functions</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.export.kable</td>
-<td style="text-align: left; width: 15em;">list(digits = 2, linesep = "", booktab = TRUE)</td>
-<td style="text-align: left;">List with default arguments for the kable argument of the export function</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.export.kable_styling</td>
-<td style="text-align: left; width: 15em;">list(bootstrap_options = c("bordered", "condensed"), full_width = FALSE, position = "left", latex_options = "hold_position", htmltable_class = "lightable-classic")</td>
-<td style="text-align: left;">List with default arguments for the kable_styling argument of the export function</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.export.engine</td>
-<td style="text-align: left; width: 15em;">"gt"</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.export.footnote.collapse</td>
-<td style="text-align: left; width: 15em;">"; "</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.plot.style</td>
-<td style="text-align: left; width: 15em;">"grid"</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.print.bar</td>
-<td style="text-align: left; width: 15em;">"｜" |</td>
-<td style="text-align: left;">A |</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 15em;">scan.rename.predictors</td>
-<td style="text-align: left; width: 15em;">"full"</td>
-<td style="text-align: left;">NA</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
+<div>
+<figure class="figure">
+<p><img src="ch_bayesian_plm_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<section id="example-datasets" class="level1" data-number="D">
-<h1 data-number="D"><span class="header-section-number">D</span> Example datasets</h1>
+</div>
+<p>Here are the estimations from a Bayesian model without informative priors:</p>
 <div class="cell">
-<div id="tbl-example-scdf" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-example-scdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;D.1: Example scdfs
-</figcaption>
-<div aria-describedby="tbl-example-scdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">Name</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Info</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">Author</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">Beretvas2008</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;">Beretvas, S., &amp; Chung, H. (2008). An evaluation of modified R2-change effect size indices for single-subject experimental designs. Evidence-Based Communication Assessment and Intervention, 2, 120-128.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">Borckardt2014</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;">Borckardt, J. J., &amp; Nash, M. R. (2014). Simulation modelling analysis for small sets of single-subject data collected over time. Neuropsychological Rehabilitation, 24(3-4), 492-506.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">Grosche2011</td>
-<td style="text-align: left; width: 20em;">Direct instruction intervention on reading accuracy.</td>
-<td style="text-align: left;">Grosche, M. (2011). Effekte einer direkt-instruktiven Förderung der Lesegenauigkeit. Empirische Sonderpädagogik, 3(2), 147-161.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">Grosche2014</td>
-<td style="text-align: left; width: 20em;">Data from a multiple material multi person intervention study on reading.</td>
-<td style="text-align: left;">Michael Grosche, Timo Lueke, and Juergen Wilbert</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">GruenkeWilbert2014</td>
-<td style="text-align: left; width: 20em;">Data from an intervention study on text comprehension.</td>
-<td style="text-align: left;">Gruenke, M., Wilbert, J., &amp; Stegemann-Calder, K. (2013). Analyzing the effects of story mapping on the reading comprehension of children with low intellectual abilities. Learning Disabilities: A Contemporary Journal, 11(2), 51-64.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">Huber2014</td>
-<td style="text-align: left; width: 20em;">Behavioral data (compliance in percent).</td>
-<td style="text-align: left;">Christian Huber</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">Huitema2000</td>
-<td style="text-align: left; width: 20em;">Example from Huitema, B. E., &amp; Mckean, J. W. (2000). Design specification issues in time-series intervention models. Educational and Psychological Measurement, 60(1), 38-58.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">Leidig2018</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;">Leidig, T., Casale, G., Wilbert, J., Hennemann, T., Volpe, R. J., Briesch, A., &amp; Grosche, M. (2022). Individual, generalized, and moderated effects of the good behavior game on at-risk primary school students: A multilevel multiple baseline study using behavioral progress monitoring. Frontiers in Education, 7. https://www.frontiersin.org/articles/10.3389/feduc.2022.917138</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">Leidig2018_l2</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">Lenz2013</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;">Lenz, A. S. (2013). Calculating Effect Size in Single-Case Research: A Comparison of Nonoverlap Methods. Measurement and Evaluation in Counseling and Development, 46(1), 64-73.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">Parker2007</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;">Parker, R. I., Hagan-Burke, S., &amp; Vannest, K. (2007). Percentage of All Non-Overlapping Data (PAND) An Alternative to PND. The Journal of Special Education, 40(4), 194-204.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">Parker2009</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;">Parker, R. I., Vannest, K. J., &amp; Brown, L. (2009). The improvement rate difference for single-case research. Exceptional Children, 75(2), 135-150.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">Parker2009b</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;">Parker, R. I., &amp; Vannest, K. (2009). An improved effect size for single-case research: Nonoverlap of all pairs. Behavior Therapy, 40(4), 357-367.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">Parker2011</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;">Parker, R. I., Vannest, K. J., Davis, J. L., &amp; Sauber, S. B. (2011). Combining Nonoverlap and Trend for Single-Case Research: Tau-U. Behavior Therapy, 42(2), 284-299.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">Parker2011b</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;">Parker, R. I., Vannest, K. J., &amp; Davis, J. L. (2011). Effect Size in Single-Case Research: A Review of Nine Nonoverlap Techniques. Behavior Modification, 35(4), 303-322. https://doi.org/10.1177/0145445511399147</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">SSDforR2017</td>
-<td style="text-align: left; width: 20em;">Example from the SSDforR package.</td>
-<td style="text-align: left;">Charles Auerbach, PhD &amp; Wendy Zeitlin, PhD; Yeshiva University, Wurzweiler school of social work.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">Tarlow2017</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;">Tarlow, K. R. (2017). An Improved Rank Correlation Effect Size Statistic for Single-Case Designs: Baseline Corrected Tau. Behavior Modification, 41(4), 427-467. https://doi.org/10.1177/0145445516676750</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">Waddell2011</td>
-<td style="text-align: left; width: 20em;">Example from Waddell, D. E., Nassar, S. L., &amp; Gustafson, S. A. (2011). Single-Case Design in Psychophysiological Research: Part II: Statistical Analytic Approaches. Journal of Neurotherapy, 15(2), 160 - 169.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">byHeart2011</td>
-<td style="text-align: left; width: 20em;">Data from university students learning vocabulary by heart and checking their progress with 20 flashcards each session.</td>
-<td style="text-align: left;">Juergen Wilbert, 2011</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleA1B1A2B2</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleA1B1A2B2_zvt</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleAB</td>
-<td style="text-align: left; width: 20em;">Randomly created data with normal distributed dependent variable.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleABAB</td>
-<td style="text-align: left; width: 20em;">Randomly created data with uniform distribution.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleABC</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleABC_150</td>
-<td style="text-align: left; width: 20em;">Random data-set for testing out hplm. Level and slope effects vary.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleABC_outlier</td>
-<td style="text-align: left; width: 20em;">Random data-set based on exampleABC but with outliers.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleAB_50</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleAB_50.l2</td>
-<td style="text-align: left; width: 20em;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleAB_add</td>
-<td style="text-align: left; width: 20em;">Random data-set for testing out plm with additional variables.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleAB_decreasing</td>
-<td style="text-align: left; width: 20em;">Random data-set from a poisson distribution. Level effect is negative.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleAB_mpd</td>
-<td style="text-align: left; width: 20em;">A multiple phase design study.</td>
-<td style="text-align: left;">Juergen Wilbert</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleAB_score</td>
-<td style="text-align: left; width: 20em;">Random data-set for binomial data.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 7em;">exampleAB_simple</td>
-<td style="text-align: left; width: 20em;">A simple multiple baseline AB Design.</td>
-<td style="text-align: left;">Juergen Wilbert</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; font-weight: bold; width: 7em;">example_A24</td>
-<td style="text-align: left; width: 20em;">Number of injuries on a German autobahn before and after implementation of a speedlimit (130km/h).</td>
-<td style="text-align: left;">Ministerium fuer Infrastruktur und Landesplanung. Land Brandenburg.</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(scdf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bayesian Piecewise Linear Regression
 
+Contrast model: W (level: first, slope: first)
+Deviance Information Criterion: 128.5297 
 
+B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                            B lower 95% CI upper 95% CI sample size     p
+Intercept              49.323       40.969       57.548     905.804 0.001
+Trend (mt)              0.826       -2.195        4.368    1146.096 0.618
+Level phase B (phaseB)  8.238       -4.645       19.994    1684.465 0.186
+Slope phase B (interB) -0.984       -4.650        2.130    1109.566 0.532
+
+R-Structure - Residuals
+
+          SD lower 95% CI upper 95% CI 
+       5.599        3.457        7.517 </code></pre>
 </div>
 </div>
-</figure>
+<p>Now we introduce our prior knowledge: an Intercept of 50, trend and slope effect are 0, and a level effect of 10. Moreover, we assume that our previous knowledge is quite uncertain (i.e., a weakly informative prior). <code>mu</code> sets the prior values for the four paramters in the order as they apper in the regression model. <code>V</code> is a diagonalmatrix of the variances for these estimations. The V matrix sets the strength of the prior. Here, we set values of 100 which is a standard deviation (SD^2 = 10^2 = 100):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">list</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>), <span class="at">V =</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>)))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(scdf, <span class="at">prior =</span> prior)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bayesian Piecewise Linear Regression
+
+Contrast model: W (level: first, slope: first)
+Deviance Information Criterion: 127.6719 
+
+B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                            B lower 95% CI upper 95% CI sample size     p
+Intercept              49.375       42.277       56.028        1000 0.001
+Trend (mt)              0.680       -2.038        3.266        1000 0.596
+Level phase B (phaseB)  9.053       -0.393       18.603        1000 0.062
+Slope phase B (interB) -0.859       -3.535        1.954        1000 0.546
+
+R-Structure - Residuals
+
+          SD lower 95% CI upper 95% CI 
+       5.432        3.478        7.197 </code></pre>
+</div>
+</div>
+<p>Now we assume, that we are somewhat certain (i.e., a prior of middle strength) by setting the variances to 10 (SD ~ 3.2):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">list</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>), <span class="at">V =</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)))  <span class="co"># Prior for regression effects</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(scdf, <span class="at">prior =</span> prior)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bayesian Piecewise Linear Regression
+
+Contrast model: W (level: first, slope: first)
+Deviance Information Criterion: 125.5162 
+
+B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                            B lower 95% CI upper 95% CI sample size     p
+Intercept              50.084       45.768       55.009    1000.000 0.001
+Trend (mt)              0.409       -1.097        1.999    1000.000 0.620
+Level phase B (phaseB)  9.746        4.723       15.148     895.603 0.001
+Slope phase B (interB) -0.589       -2.465        1.105    1000.000 0.540
+
+R-Structure - Residuals
+
+          SD lower 95% CI upper 95% CI 
+       5.293        3.480        6.953 </code></pre>
+</div>
+</div>
+<p>Now we make somewhat wrong and uncertain assumptions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">list</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>), <span class="at">V =</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>)))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(scdf, <span class="at">prior =</span> prior)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bayesian Piecewise Linear Regression
+
+Contrast model: W (level: first, slope: first)
+Deviance Information Criterion: 127.7585 
+
+B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                            B lower 95% CI upper 95% CI sample size     p
+Intercept              47.789       39.874       54.501    1000.000 0.001
+Trend (mt)              1.396       -1.397        4.187    1000.000 0.322
+Level phase B (phaseB)  6.931       -3.901       15.898    1136.959 0.186
+Slope phase B (interB) -1.552       -4.740        1.227    1000.000 0.302
+
+R-Structure - Residuals
+
+          SD lower 95% CI upper 95% CI 
+       5.542        3.536        7.484 </code></pre>
+</div>
+</div>
+<p>And finally, we make the wrong assumptions with middle strong certainty:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">list</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>), <span class="at">V =</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(scdf, <span class="at">prior =</span> prior)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bayesian Piecewise Linear Regression
+
+Contrast model: W (level: first, slope: first)
+Deviance Information Criterion: 127.267 
+
+B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
+
+                            B lower 95% CI upper 95% CI sample size     p
+Intercept              44.321       39.423       48.356        1000 0.001
+Trend (mt)              2.287        0.832        3.828        1000 0.004
+Level phase B (phaseB)  5.500        0.509       11.276        1000 0.060
+Slope phase B (interB) -2.385       -4.307       -0.758        1000 0.014
+
+R-Structure - Residuals
+
+          SD lower 95% CI upper 95% CI 
+       5.598        3.618        7.465 </code></pre>
 </div>
 </div>
 
@@ -1151,13 +1018,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
-      <a href="./app_changes.html" class="pagination-link" aria-label="Changes">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Changes</span></span>
+      <a href="./ch_multivariate_plm.html" class="pagination-link" aria-label="Multivariate piecewise regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Multivariate piecewise regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./app_supseded_functions.html" class="pagination-link" aria-label="Supseded functions">
-        <span class="nav-page-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Supseded functions</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ch_randomization_test.html" class="pagination-link" aria-label="Randomization tests">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Randomization tests</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

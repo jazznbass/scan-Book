@@ -1,6 +1,8 @@
 # Multilevel plm analyses {#sec-hplm}
 
 ::: callout-note
+This chapter describes the multilevel data analyses with a frequentist approach. *scan* also provides functions for Bayesian analyses that are described in chapter @sec-bplm
+
 Read @sec-plm before you start with this chapter.
 :::
 
@@ -26,13 +28,12 @@ Here is a simple example:
 model <- hplm(exampleAB_50)
 ```
 
-
 ```{r}
 #| label: hplm-ex-1
 hplm(exampleAB_50)
 ```
 
-The fixed effects describe the overall effect of the respective predictors on the dependent variable, while the random effects describe the variability of the respective predictor between cases. Here, the fixed effect of the intercept is `r round(coef(model) [1, 1], 3)` which estimates the mean value across all cases at the first measurement. The standard deviation of this average between cases is `r nlme::VarCorr(model$hplm)[1,1] |> as.numeric() |> sqrt() |> round(3)`.  
+The fixed effects describe the overall effect of the respective predictors on the dependent variable, while the random effects describe the variability of the respective predictor between cases. Here, the fixed effect of the intercept is `r round(coef(model) [1, 1], 3)` which estimates the mean value across all cases at the first measurement. The standard deviation of this average between cases is `r nlme::VarCorr(model$hplm)[1,1] |> as.numeric() |> sqrt() |> round(3)`.\
 In this analysis, we have a basic random intercept model. That is, only the intercept is assumed to vary between cases, whereas the other predictors (`Trend`, `Level`, and `Slope`) are assumed to be identical for all cases.
 
 ### Explained variance by the variability between cases
@@ -49,7 +50,6 @@ A multilevel model that includes the variation of specific predictors between ca
 
 Here is an example inlcuding random slopes by setting the respective function argument for the trend, slope, and level effects to `TRUE`:
 
-
 ```{r}
 #| label: hplm-ex-random
 hplm(
@@ -60,9 +60,9 @@ hplm(
 )
 ```
 
-The random part of this output now provides estimations of the between case variance of all predictors. 
+The random part of this output now provides estimations of the between case variance of all predictors.
 
-Additionally, we get a correlation matrix of the random slope variables. This depicts the intercation effect of the respective variables at the between case level on the dependent variable. For example, the model above shows a correlation of intercept and trend of *r* = 0.23. That is, the higher the intercept of a case (the starting value), the stronger the trend effect (here a medium effect size).
+Additionally, we get a correlation matrix of the random slope variables. This depicts the interaction effect of the respective variables at the between case level on the dependent variable. For example, the model above shows a correlation of intercept and trend of *r* = 0.23. That is, the higher the intercept of a case (the starting value), the stronger the trend effect (here a medium effect size).
 
 ::: callout-caution
 Do not be confused by the terminology: In multilevel regression models, a random slope model refers to the variability of a predictor in a regression model. These predictors contribute to the *slope* of a linear regression line.
@@ -89,8 +89,7 @@ hplm(
 
 ```
 
-Here, we can see that the random intercept and the random slope effect for *Level phase B* are significant. This means that cases have significantly different starting values at the first measurement, and the level intervention effect is also not the same for all cases. 
-
+Here, we can see that the random intercept and the random slope effect for *Level phase B* are significant. This means that cases have significantly different starting values at the first measurement, and the level intervention effect is also not the same for all cases.
 
 ### Adding additional L2-variables {#sec-add-l2}
 
@@ -175,4 +174,3 @@ If you have the `scplot` package installed (version 0.4.1 or higher), you can cr
 library(scplot)
 scplot(res, effect = "level")
 ```
-
