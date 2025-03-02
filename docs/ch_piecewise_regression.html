@@ -397,7 +397,7 @@ window.Quarto = {
   <ul>
   <li><a href="#the-basic-plm-function" id="toc-the-basic-plm-function" class="nav-link active" data-scroll-target="#the-basic-plm-function"><span class="header-section-number">10.1</span> The basic plm function</a></li>
   <li><a href="#autocorrelation-of-the-residuals" id="toc-autocorrelation-of-the-residuals" class="nav-link" data-scroll-target="#autocorrelation-of-the-residuals"><span class="header-section-number">10.2</span> Autocorrelation of the residuals</a></li>
-  <li><a href="#standardizing-predictors" id="toc-standardizing-predictors" class="nav-link" data-scroll-target="#standardizing-predictors"><span class="header-section-number">10.3</span> Standardizing predictors</a></li>
+  <li><a href="#sec-rescale" id="toc-sec-rescale" class="nav-link" data-scroll-target="#sec-rescale"><span class="header-section-number">10.3</span> Standardizing predictors</a></li>
   <li><a href="#adjusting-the-model" id="toc-adjusting-the-model" class="nav-link" data-scroll-target="#adjusting-the-model"><span class="header-section-number">10.4</span> Adjusting the model</a>
   <ul class="collapse">
   <li><a href="#the-slope-level-and-trend-arguments" id="toc-the-slope-level-and-trend-arguments" class="nav-link" data-scroll-target="#the-slope-level-and-trend-arguments"><span class="header-section-number">10.4.1</span> The <code>slope</code>, <code>level</code>, and <code>trend</code> arguments</a></li>
@@ -576,14 +576,14 @@ Note
 </section>
 <section id="autocorrelation-of-the-residuals" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="autocorrelation-of-the-residuals"><span class="header-section-number">10.2</span> Autocorrelation of the residuals</h2>
-<p>The output also reports the <strong>autocorrelations of the residuals</strong>, which indicate whether the measurements are serially independent.</p>
-<p>There are many reasons why your data might exhibit serial dependence. For example, in a learning study, performance may temporarily decline after a learning session (performance dip). Similarly, in a medication study, a drug might initially cause a brief worsening of symptoms before exerting its intended therapeutic effect (early symptom exacerbation effect).</p>
+<p>The output also reports the <strong>autocorrelations of the residuals</strong>, which indicate whether the models residuals are serially independent.</p>
+<p>There are many reasons why this might happen. For example, in a learning study, performance may temporarily decline after a learning session (performance dip). Similarly, in a medication study, a drug might initially cause a brief worsening of symptoms before exerting its intended therapeutic effect (early symptom exacerbation effect).</p>
 <p>The <em>lag</em> refers to the number of measurement points between observations that show autocorrelation.</p>
 <p>The <strong>Ljung-Box</strong> test is an omnibus test that evaluates whether the residuals exhibit significant autocorrelation at multiple lags. It assesses whether the joint distribution of autocorrelations differs significantly from what would be expected under the assumption of independence.</p>
-<p>High and significant autocorrelations pose a threat to the validity of standard regression model assumptions, as they violate the assumption of independent residuals. To account for this, you can set the <code>AR</code> argument with the appropriate maximum lag (e.g., <code>AR = 3</code>). This implements an <em>ARMA</em> (autoregressive moving average) model, which adjusts for the serial correlation in the residuals.</p>
+<p>High and significant autocorrelations pose a threat to the validity of standard regression models, as they violate the assumption of independent residuals. To account for this, you can set the <code>AR</code> argument with the appropriate maximum lag (e.g., <code>AR = 3</code>). This implements an <em>ARMA</em> (autoregressive moving average) model, which takes the serial correlation in the residuals into account.</p>
 </section>
-<section id="standardizing-predictors" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="standardizing-predictors"><span class="header-section-number">10.3</span> Standardizing predictors</h2>
+<section id="sec-rescale" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="sec-rescale"><span class="header-section-number">10.3</span> Standardizing predictors</h2>
 <p>If you want standardized predictors, meaning that predictors are scaled to standard deviations, the best approach is to standardize all variables before computing the regression model. Use the <code>rescale()</code> function to do this.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>exampleAB<span class="sc">$</span>Johanna <span class="sc">|&gt;</span> </span>

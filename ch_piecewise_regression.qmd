@@ -117,17 +117,17 @@ You can restore the default renaming by setting: `options(scan.rename.predictors
 
 ## Autocorrelation of the residuals
 
-The output also reports the **autocorrelations of the residuals**, which indicate whether the measurements are serially independent.
+The output also reports the **autocorrelations of the residuals**, which indicate whether the models residuals are serially independent.
 
-There are many reasons why your data might exhibit serial dependence. For example, in a learning study, performance may temporarily decline after a learning session (performance dip). Similarly, in a medication study, a drug might initially cause a brief worsening of symptoms before exerting its intended therapeutic effect (early symptom exacerbation effect).
+There are many reasons why this might happen. For example, in a learning study, performance may temporarily decline after a learning session (performance dip). Similarly, in a medication study, a drug might initially cause a brief worsening of symptoms before exerting its intended therapeutic effect (early symptom exacerbation effect).
 
 The *lag* refers to the number of measurement points between observations that show autocorrelation.
 
 The **Ljung-Box** test is an omnibus test that evaluates whether the residuals exhibit significant autocorrelation at multiple lags. It assesses whether the joint distribution of autocorrelations differs significantly from what would be expected under the assumption of independence.
 
-High and significant autocorrelations pose a threat to the validity of standard regression model assumptions, as they violate the assumption of independent residuals. To account for this, you can set the `AR` argument with the appropriate maximum lag (e.g., `AR = 3`). This implements an *ARMA* (autoregressive moving average) model, which adjusts for the serial correlation in the residuals.
+High and significant autocorrelations pose a threat to the validity of standard regression models, as they violate the assumption of independent residuals. To account for this, you can set the `AR` argument with the appropriate maximum lag (e.g., `AR = 3`). This implements an *ARMA* (autoregressive moving average) model, which takes the serial correlation in the residuals into account.
 
-## Standardizing predictors
+## Standardizing predictors {#sec-rescale}
 
 If you want standardized predictors, meaning that predictors are scaled to standard deviations, the best approach is to standardize all variables before computing the regression model. Use the `rescale()` function to do this.
 

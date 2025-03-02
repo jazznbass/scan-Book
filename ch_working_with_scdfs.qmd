@@ -95,7 +95,7 @@ exampleAB %>%
   summary()
 ```
 
-## Change and create variables
+## Change and create variables {#sec-transform}
 
 ```{r}
 #| results: asis
@@ -136,7 +136,7 @@ exampleAB_score %>%
   )
 ```
 
-### all_cases
+### all_cases {#sec-all-cases}
 
 The `all_cases` helper function returns the values of a variable across all cases. This allows for calculations where you need values within a case and values across cases, for example when you want to standardize a variable based on all cases:
 
@@ -157,7 +157,7 @@ exampleAB %>%
 
 ```
 
-### Smoothing
+### Smoothing {#sec-smooth}
 
 For smoothing the data dependent variable, transform has a number of helper functions: 
 
@@ -174,7 +174,7 @@ transform(Huber2014,
 )
 ```
 
-### Transform values at the begining of a phase
+### Transform values at the begining of a phase {#sec-first-of}
 
 The `first_of` helper function is specifically designed to replace values at or around the beginning of a phase. The first argument is a logical vector defining a selection criterion. The `positions` argument is a vector of positions to be addressed. Negative numbers refer to positions before and positive numbers to positions after the selection criteria. This is useful, for example, if you want to discard the first two measurements of a phase.
 

@@ -346,11 +346,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#sec-select-cases" id="toc-sec-select-cases" class="nav-link active" data-scroll-target="#sec-select-cases"><span class="header-section-number">4.1</span> Select cases</a></li>
   <li><a href="#sec-subset" id="toc-sec-subset" class="nav-link" data-scroll-target="#sec-subset"><span class="header-section-number">4.2</span> Select measurements</a></li>
-  <li><a href="#change-and-create-variables" id="toc-change-and-create-variables" class="nav-link" data-scroll-target="#change-and-create-variables"><span class="header-section-number">4.3</span> Change and create variables</a>
+  <li><a href="#sec-transform" id="toc-sec-transform" class="nav-link" data-scroll-target="#sec-transform"><span class="header-section-number">4.3</span> Change and create variables</a>
   <ul class="collapse">
-  <li><a href="#all_cases" id="toc-all_cases" class="nav-link" data-scroll-target="#all_cases"><span class="header-section-number">4.3.1</span> all_cases</a></li>
-  <li><a href="#smoothing" id="toc-smoothing" class="nav-link" data-scroll-target="#smoothing"><span class="header-section-number">4.3.2</span> Smoothing</a></li>
-  <li><a href="#transform-values-at-the-begining-of-a-phase" id="toc-transform-values-at-the-begining-of-a-phase" class="nav-link" data-scroll-target="#transform-values-at-the-begining-of-a-phase"><span class="header-section-number">4.3.3</span> Transform values at the begining of a phase</a></li>
+  <li><a href="#sec-all-cases" id="toc-sec-all-cases" class="nav-link" data-scroll-target="#sec-all-cases"><span class="header-section-number">4.3.1</span> all_cases</a></li>
+  <li><a href="#sec-smooth" id="toc-sec-smooth" class="nav-link" data-scroll-target="#sec-smooth"><span class="header-section-number">4.3.2</span> Smoothing</a></li>
+  <li><a href="#sec-first-of" id="toc-sec-first-of" class="nav-link" data-scroll-target="#sec-first-of"><span class="header-section-number">4.3.3</span> Transform values at the begining of a phase</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -568,8 +568,8 @@ Note: Randomly created data with normal distributed dependent variable. </code><
 </div>
 </div>
 </section>
-<section id="change-and-create-variables" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="change-and-create-variables"><span class="header-section-number">4.3</span> Change and create variables</h2>
+<section id="sec-transform" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="sec-transform"><span class="header-section-number">4.3</span> Change and create variables</h2>
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -642,8 +642,8 @@ Note
 #  two more cases</code></pre>
 </div>
 </div>
-<section id="all_cases" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="all_cases"><span class="header-section-number">4.3.1</span> all_cases</h3>
+<section id="sec-all-cases" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="sec-all-cases"><span class="header-section-number">4.3.1</span> all_cases</h3>
 <p>The <code>all_cases</code> helper function returns the values of a variable across all cases. This allows for calculations where you need values within a case and values across cases, for example when you want to standardize a variable based on all cases:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>exampleAB <span class="sc">%&gt;%</span></span>
@@ -676,8 +676,8 @@ Cohen's d                       2.983      2.572  3.545    2.98     2.57  3.54</
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. analyse the data by calculating measures of standardized mean differences.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="smoothing" class="level3" data-number="4.3.2">
-<h3 data-number="4.3.2" class="anchored" data-anchor-id="smoothing"><span class="header-section-number">4.3.2</span> Smoothing</h3>
+<section id="sec-smooth" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="sec-smooth"><span class="header-section-number">4.3.2</span> Smoothing</h3>
 <p>For smoothing the data dependent variable, transform has a number of helper functions:</p>
 <ul>
 <li><code>moving_mean</code> calculates the moving median of a series of values. The <code>lag</code> argument specifies the number of values from which to calculate the mean (the default is 1, where the mean is calculated from a value and a measurement before and after that value),</li>
@@ -730,8 +730,8 @@ Cohen's d                       2.983      2.572  3.545    2.98     2.57  3.54</
 </div>
 </div>
 </section>
-<section id="transform-values-at-the-begining-of-a-phase" class="level3" data-number="4.3.3">
-<h3 data-number="4.3.3" class="anchored" data-anchor-id="transform-values-at-the-begining-of-a-phase"><span class="header-section-number">4.3.3</span> Transform values at the begining of a phase</h3>
+<section id="sec-first-of" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="sec-first-of"><span class="header-section-number">4.3.3</span> Transform values at the begining of a phase</h3>
 <p>The <code>first_of</code> helper function is specifically designed to replace values at or around the beginning of a phase. The first argument is a logical vector defining a selection criterion. The <code>positions</code> argument is a vector of positions to be addressed. Negative numbers refer to positions before and positive numbers to positions after the selection criteria. This is useful, for example, if you want to discard the first two measurements of a phase.</p>
 <p>Here is an example that replaces the values at the beginning of phase A and the value after that to missing (NA), and also replaces the values at the beginning of phase B and the value before that to NA:</p>
 <div class="cell">
