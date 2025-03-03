@@ -239,7 +239,13 @@ convert(exampleABC$Marie, inline = TRUE)
 
 Now you can copy and past the output into your R file or you set the `file` argument to save the output into an R file `convert(exampleABC, file = "scdf.R")`.
 
-## Display *single-case data frames*
+## Display *single-case data frames* {#sec-print}
+
+```{r}
+#| results: asis
+#| echo: false
+function_structure(scan:::print.scdf, label="print scdf", fname="print")
+```
 
 *scdf* are displayed by just typing the name of the object.
 
@@ -256,6 +262,14 @@ print(Huber2014, cases = 2, rows = 10)
 ```
 
 The argument `long = TRUE` prints each case one after the other instead of side by side (e.g., `print(exampleAB, long = TRUE)`).
+
+### Summary {#sec-summary}
+
+```{r}
+#| results: asis
+#| echo: false
+function_structure(scan:::summary.scdf, label="summary scdf", fname="summary")
+```
 
 A short description of the *scdf* is provided by the `summary` command. The results are pretty much self explaining:
 

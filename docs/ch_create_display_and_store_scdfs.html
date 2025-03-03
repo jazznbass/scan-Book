@@ -357,7 +357,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#other-data-formats-1" id="toc-other-data-formats-1" class="nav-link" data-scroll-target="#other-data-formats-1"><span class="header-section-number">3.4.4</span> Other data formats</a></li>
   </ul></li>
   <li><a href="#sec-convert" id="toc-sec-convert" class="nav-link" data-scroll-target="#sec-convert"><span class="header-section-number">3.5</span> Convert an <em>scdf</em> object back to scan syntax</a></li>
-  <li><a href="#display-single-case-data-frames" id="toc-display-single-case-data-frames" class="nav-link" data-scroll-target="#display-single-case-data-frames"><span class="header-section-number">3.6</span> Display <em>single-case data frames</em></a></li>
+  <li><a href="#sec-print" id="toc-sec-print" class="nav-link" data-scroll-target="#sec-print"><span class="header-section-number">3.6</span> Display <em>single-case data frames</em></a>
+  <ul class="collapse">
+  <li><a href="#sec-summary" id="toc-sec-summary" class="nav-link" data-scroll-target="#sec-summary"><span class="header-section-number">3.6.1</span> Summary</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -803,8 +806,21 @@ study &lt;- c(
 </div>
 <p>Now you can copy and past the output into your R file or you set the <code>file</code> argument to save the output into an R file <code>convert(exampleABC, file = "scdf.R")</code>.</p>
 </section>
-<section id="display-single-case-data-frames" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="display-single-case-data-frames"><span class="header-section-number">3.6</span> Display <em>single-case data frames</em></h2>
+<section id="sec-print" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="sec-print"><span class="header-section-number">3.6</span> Display <em>single-case data frames</em></h2>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The print scdf function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>print(x, cases = getOption(“scan.print.cases”), rows = getOption(“scan.print.rows”), cols = getOption(“scan.print.cols”), long = getOption(“scan.print.long”), digits = getOption(“scan.print.digits”), …)</p>
+</div>
+</div>
 <p><em>scdf</em> are displayed by just typing the name of the object.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Beretvas2008 is an example scdf included in scan</span></span>
@@ -853,6 +869,21 @@ study &lt;- c(
 </div>
 </div>
 <p>The argument <code>long = TRUE</code> prints each case one after the other instead of side by side (e.g., <code>print(exampleAB, long = TRUE)</code>).</p>
+<section id="sec-summary" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="sec-summary"><span class="header-section-number">3.6.1</span> Summary</h3>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The summary scdf function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>summary(object, all_cases = FALSE, …)</p>
+</div>
+</div>
 <p>A short description of the <em>scdf</em> is provided by the <code>summary</code> command. The results are pretty much self explaining:</p>
 <p><code>summary()</code> gives a very concise overview of an <em>scdf</em></p>
 <div class="cell">
@@ -879,6 +910,7 @@ Author of data: Christian Huber </code></pre>
 <!--# export function -->
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
