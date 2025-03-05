@@ -410,12 +410,13 @@ window.Quarto = {
   <li><a href="#dichotomous-outcomes" id="toc-dichotomous-outcomes" class="nav-link" data-scroll-target="#dichotomous-outcomes"><span class="header-section-number">10.6.3</span> Dichotomous outcomes</a></li>
   <li><a href="#bounded-frequencies-1" id="toc-bounded-frequencies-1" class="nav-link" data-scroll-target="#bounded-frequencies-1"><span class="header-section-number">10.6.4</span> Bounded frequencies</a></li>
   </ul></li>
-  <li><a href="#sec-dummy-model" id="toc-sec-dummy-model" class="nav-link" data-scroll-target="#sec-dummy-model"><span class="header-section-number">10.7</span> Dummy models</a></li>
-  <li><a href="#designs-with-more-than-two-phases-setting-the-right-contrasts" id="toc-designs-with-more-than-two-phases-setting-the-right-contrasts" class="nav-link" data-scroll-target="#designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">10.8</span> Designs with more than two phases: Setting the right contrasts</a></li>
-  <li><a href="#understanding-and-interpreting-contrasts" id="toc-understanding-and-interpreting-contrasts" class="nav-link" data-scroll-target="#understanding-and-interpreting-contrasts"><span class="header-section-number">10.9</span> Understanding and interpreting contrasts</a>
+  <li><a href="#sec-anova" id="toc-sec-anova" class="nav-link" data-scroll-target="#sec-anova"><span class="header-section-number">10.7</span> Model comparison</a></li>
+  <li><a href="#sec-dummy-model" id="toc-sec-dummy-model" class="nav-link" data-scroll-target="#sec-dummy-model"><span class="header-section-number">10.8</span> Dummy models</a></li>
+  <li><a href="#designs-with-more-than-two-phases-setting-the-right-contrasts" id="toc-designs-with-more-than-two-phases-setting-the-right-contrasts" class="nav-link" data-scroll-target="#designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">10.9</span> Designs with more than two phases: Setting the right contrasts</a></li>
+  <li><a href="#understanding-and-interpreting-contrasts" id="toc-understanding-and-interpreting-contrasts" class="nav-link" data-scroll-target="#understanding-and-interpreting-contrasts"><span class="header-section-number">10.10</span> Understanding and interpreting contrasts</a>
   <ul class="collapse">
-  <li><a href="#phase-b-estimates" id="toc-phase-b-estimates" class="nav-link" data-scroll-target="#phase-b-estimates"><span class="header-section-number">10.9.1</span> Phase B estimates</a></li>
-  <li><a href="#phase-c-estimates" id="toc-phase-c-estimates" class="nav-link" data-scroll-target="#phase-c-estimates"><span class="header-section-number">10.9.2</span> Phase C estimates</a></li>
+  <li><a href="#phase-b-estimates" id="toc-phase-b-estimates" class="nav-link" data-scroll-target="#phase-b-estimates"><span class="header-section-number">10.10.1</span> Phase B estimates</a></li>
+  <li><a href="#phase-c-estimates" id="toc-phase-c-estimates" class="nav-link" data-scroll-target="#phase-c-estimates"><span class="header-section-number">10.10.2</span> Phase C estimates</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -1504,8 +1505,102 @@ Formula: injuries ~ 1 + year + phaseB + interB </code></pre>
 </div>
 </section>
 </section>
-<section id="sec-dummy-model" class="level2" data-number="10.7">
-<h2 data-number="10.7" class="anchored" data-anchor-id="sec-dummy-model"><span class="header-section-number">10.7</span> Dummy models</h2>
+<section id="sec-anova" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="sec-anova"><span class="header-section-number">10.7</span> Model comparison</h2>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The anova function call
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>anova(object, …)</p>
+</div>
+</div>
+<p>You can compare the fit of piecewise linear regression (plm) models using the <code>anova()</code> function. This allows for stepwise regression analyses and targeted comparisons (e.g., assessing the combined effect of slope and level changes).</p>
+<p>Let’s consider an example where we begin with a null model that includes only an intercept but no additional predictors. We then sequentially add a level effect, followed by a trend effect, and finally a slope effect.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">FALSE</span>, <span class="at">level =</span> <span class="cn">FALSE</span>, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">FALSE</span>, <span class="at">level =</span> <span class="cn">TRUE</span>, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">TRUE</span>, <span class="at">level =</span> <span class="cn">TRUE</span>, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">TRUE</span>, <span class="at">level =</span> <span class="cn">TRUE</span>, <span class="at">slope =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We start by comparing the null model to the first model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: values ~ 1
+Model 2: values ~ 1 + phaseB
+  Resid. Df Resid. Dev Df Deviance      F    Pr(&gt;F)    
+1        19    2410.95                                 
+2        18     840.13  1   1570.8 33.655 1.697e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>The output provides the degrees of freedom and the deviance of the residuals. Deviance is a measure of a model’s goodness of fit and is calculated as <span class="math inline">\(-2 \times \text{Likelihood}\)</span> . The test compares the difference in degrees of freedom (<span class="math inline">\(\Delta Df = 1\)</span>) and deviance (<span class="math inline">\(\Delta \text{Deviance} = 1570.8\)</span>) between the two models.</p>
+<p>Since both models assume Gaussian-distributed data, an F-test is performed. The F-value is computed as:</p>
+<p><span class="math display">\[
+F = \frac{\Delta \text{Deviance}}{\text{Dispersion}} = \frac{1570.8}{\frac{840.13}{18}} = \frac{1570.8}{46.67389} = 33.655
+\]</span></p>
+<p>For <span class="math inline">\(F(1, 18) = 33.655\)</span>, the p-value can be obtained with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pf</span>(<span class="fl">33.655</span>,<span class="dv">1</span>,<span class="dv">18</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.697306e-05</code></pre>
+</div>
+</div>
+<p>Alternatively, we can conduct a <em>likelihood-ratio test</em> by setting the argument <code>test = "LRT"</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1, <span class="at">test =</span> <span class="st">"LRT"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: values ~ 1
+Model 2: values ~ 1 + phaseB
+  Resid. Df Resid. Dev Df Deviance  Pr(&gt;Chi)    
+1        19    2410.95                          
+2        18     840.13  1   1570.8 6.581e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>This computes a <span class="math inline">\(\chi^2\)</span> test for <span class="math inline">\(\Delta \text{Deviance} = 33.655\)</span> with <span class="math inline">\(\Delta Df = 1\)</span>, where the p-value is given by:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">33.655</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.580551e-09</code></pre>
+</div>
+</div>
+<p>We can also compare all four models as incremental nested models in a single step:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1, mod2, mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table
+
+Model 1: values ~ 1
+Model 2: values ~ 1 + phaseB
+Model 3: values ~ 1 + mt + phaseB
+Model 4: values ~ 1 + mt + phaseB + interB
+  Resid. Df Resid. Dev Df Deviance       F    Pr(&gt;F)    
+1        19    2410.95                                  
+2        18     840.13  1  1570.82 52.1722 2.033e-06 ***
+3        17     542.08  1   298.06  9.8994  0.006243 ** 
+4        16     481.73  1    60.34  2.0043  0.176029    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Each model is compared to its predecessor. Since all models are nested and derived from the same data, the dispersion parameter for all comparisons is taken from the most complex model, mod3 (dispersion = 30.11).</p>
+<p>In this analysis, we observe that the phase predictor introduces the strongest improvement in model fit, whereas the slope predictor does not significantly enhance the model.</p>
+</section>
+<section id="sec-dummy-model" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="sec-dummy-model"><span class="header-section-number">10.8</span> Dummy models</h2>
 <p>The <code>model</code> argument is used to code the <em>dummy variables</em>. These <em>dummy variables</em> are used to compute the slope and level effects of the <em>phase</em> variable.<br>
 The <em>phase</em> variable is categorical, identifying the phase of each measurement. Typically, categorical variables are implemented by means of dummy variables. In a piecewise regression model two phase effects have to be estimated: a level effect and a slope effect. The level effect is implemented quite straight forward: for each phase beginning with the second phase a new dummy variable is created with values of zero for all measurements except the measurements of the phase in focus where values of one are set.</p>
 <div class="cell">
@@ -1811,11 +1906,11 @@ slope
 </div>
 </div>
 </section>
-<section id="designs-with-more-than-two-phases-setting-the-right-contrasts" class="level2" data-number="10.8">
-<h2 data-number="10.8" class="anchored" data-anchor-id="designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">10.8</span> Designs with more than two phases: Setting the right contrasts</h2>
+<section id="designs-with-more-than-two-phases-setting-the-right-contrasts" class="level2" data-number="10.9">
+<h2 data-number="10.9" class="anchored" data-anchor-id="designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">10.9</span> Designs with more than two phases: Setting the right contrasts</h2>
 <p>For single case studies with more than two phases, things get a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the values from phase A. Another common use is to compare the effects of a phase with the previous phase.</p>
 <p>As of scan version <code>0.54.4</code>, plm allows to set a contrast argument. <code>contrast = "first"</code> (the default) will compare all slope and level-effects to the values in the first phase. <code>contrast = "preceding"</code> will compare the slope and level-effects to the preceding phase.</p>
-<p>For the <em>preceding contrast</em>, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see <a href="#sec-dummy-model" class="quarto-xref"><span>Section 10.7</span></a>) for the first measurement of the target phase and increases until the last measurement of the case.</p>
+<p>For the <em>preceding contrast</em>, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see <a href="#sec-dummy-model" class="quarto-xref"><span>Section 10.8</span></a>) for the first measurement of the target phase and increases until the last measurement of the case.</p>
 <p>You can set the contrast differently for the level and slope effects with the arguments <code>constrast_level</code> and <code>contrast_slope</code>. Both can be either <code>"first"</code> or <code>"preceding"</code>.</p>
 <p>(Note: Prior to scan version <code>0.54.4</code>, the option <code>model = "JW"</code> was identical to <code>model = "B&amp;L-B", contrast = "preceding"</code>).</p>
 <div class="cell">
@@ -2065,8 +2160,8 @@ slope
 </div>
 </div>
 </section>
-<section id="understanding-and-interpreting-contrasts" class="level2" data-number="10.9">
-<h2 data-number="10.9" class="anchored" data-anchor-id="understanding-and-interpreting-contrasts"><span class="header-section-number">10.9</span> Understanding and interpreting contrasts</h2>
+<section id="understanding-and-interpreting-contrasts" class="level2" data-number="10.10">
+<h2 data-number="10.10" class="anchored" data-anchor-id="understanding-and-interpreting-contrasts"><span class="header-section-number">10.10</span> Understanding and interpreting contrasts</h2>
 <p>In this section, we will calculate four plm models with different contrast settings for the same single-case data.</p>
 <p>The example scdf is the case ‘Marie’ from the <em>exampleABC</em> scdf (<code>exampleABC$Marie</code>)</p>
 <div class="cell">
@@ -2201,8 +2296,8 @@ Table&nbsp;10.2: Estimates of a piecewise-linear regression with contrast models
 </figure>
 </div>
 </div>
-<section id="phase-b-estimates" class="level3" data-number="10.9.1">
-<h3 data-number="10.9.1" class="anchored" data-anchor-id="phase-b-estimates"><span class="header-section-number">10.9.1</span> Phase B estimates</h3>
+<section id="phase-b-estimates" class="level3" data-number="10.10.1">
+<h3 data-number="10.10.1" class="anchored" data-anchor-id="phase-b-estimates"><span class="header-section-number">10.10.1</span> Phase B estimates</h3>
 <p>All regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>10.2</span></a> have the same estimates for <code>intercept</code> and <code>trend</code>. These are not affected by the contrasts and are identical to those for phase A in <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>10.1</span></a>. In addition, in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>10.2</span></a>, the estimates for <code>levelB</code> and <code>slopeC</code> are identical since all models contrast the same phase (the first and the preceding phase are both phase A). The values here can be calculated from <a href="#tbl-contrasts-ex-2" class="quarto-xref">Table&nbsp;<span>10.1</span></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
 <p><span id="eq-contrast-level-2"><span class="math display">\[
 levelB = intercept_{phaseB} - (intercept_{phaseA} + n_{PhaseA} * slope_{phaseA})
@@ -2217,8 +2312,8 @@ slopeB = slope_{phaseB} - slope_{phaseA}
 1.303 \approx -1.915 - (-0.612)
 \]</span></p>
 </section>
-<section id="phase-c-estimates" class="level3" data-number="10.9.2">
-<h3 data-number="10.9.2" class="anchored" data-anchor-id="phase-c-estimates"><span class="header-section-number">10.9.2</span> Phase C estimates</h3>
+<section id="phase-c-estimates" class="level3" data-number="10.10.2">
+<h3 data-number="10.10.2" class="anchored" data-anchor-id="phase-c-estimates"><span class="header-section-number">10.10.2</span> Phase C estimates</h3>
 <p>The <code>levelC</code> and <code>slopeC</code> estimates of the regression models in <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>10.2</span></a> are different for the various contrast models. Depending on the contrast setting, the estimates “answer” a different question. <a href="#tbl-interpretation-contrasts" class="quarto-xref">Table&nbsp;<span>10.3</span></a> provides interpretation help.</p>
 <div id="tbl-interpretation-contrasts" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
