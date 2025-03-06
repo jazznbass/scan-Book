@@ -247,7 +247,7 @@ plm(exampleAB_score$Christiano , family = "binomial", var_trials = "trials")
 
 The output shows the estimators *B*, which are on a logit scale, and odds or odds ratios (*OR*), which are the exponentiated logits, along with their respective confidence intervals. Logits are linear, meaning that the *B* coefficients can be added to obtain the combined effect of multiple predictors. For the example above, the logit of the intercept is -1.964, corresponding to a probability of approximately 12% (for details on the calculation, see note below). The level effect is $B = 2.376$. This means that at the start of Phase B, the logit increases to $B = -1.964 + 2.376 = 0.412$, which corresponds to a probability of approximately 60%.
 
-Odds ratios are not linear and must be multiplied to obtain a combined effect. In this example, the odds of the intercept is 0.14, calculated as $e^{-1.964}=0.14$. For the level effect, the *odds ratio* ("*ratio*" because it indicates the change of the odds) is 10.762. The combined effect (intecept and level) gives the odds 0.14 * 10.762 = 1.50668. Converting back to the logit scale, this is $\log(1.50668)\approx 0.41$. This result, aside from minor rounding differences, matches the value obtained by summing the respective *B* coefficients.
+Odds ratios are not linear and must be multiplied to obtain a combined effect. In this example, the odds of the intercept is 0.14, calculated as $e^{-1.964}=0.14$. For the level effect, the *odds ratio* ("*ratio*" because it indicates the change of the odds) is 10.762. The combined effect (intecept and level) gives the odds 0.14 \* 10.762 = 1.50668. Converting back to the logit scale, this is $\log(1.50668)\approx 0.41$. This result, aside from minor rounding differences, matches the value obtained by summing the respective *B* coefficients.
 
 Keep in mind that, as in Gaussian regression models, the p-value for the intercept tests the null hypothesis that the true intercept is zero. In other words, it represents the probability of obtaining an intercept estimate as extreme as the one observed if the true intercept were indeed zero (i.e., the probability of a Type I error under this null hypothesis). However, in logistic regression, an intercept (or logit) of zero does not correspond to a probability of 0%; it corresponds to a probability of 50%, because $e^{0}= Odds{1\over1}=50\%$.
 
@@ -365,13 +365,12 @@ Here, a Possion regression is applied:
 plm(example_A24, family = "poisson")
 ```
 
-
 ```{r}
 #| include: false
 options(scan.rename.predictors = "full")
 ```
 
-## Model comparison {#sec-anova}
+## Model comparison (since version 0.64.0) {#sec-anova}
 
 ```{r}
 #| label: call-anova-plm
@@ -399,16 +398,15 @@ We start by comparing the null model to the first model:
 anova(mod0, mod1)
 ```
 
-The output provides the degrees of freedom and the deviance of the residuals.
-Deviance is a measure of a model’s goodness of fit and is calculated as  $-2 \times \text{Likelihood}$ . The test compares the difference in degrees of freedom ($\Delta Df = 1$) and deviance ($\Delta \text{Deviance} = 1570.8$) between the two models.
+The output provides the *residuals degrees of freedom* (Df), the *deviance of the residuals*, and $\Delta Df$ and $\Delta \text{Deviance}$, which are the difference of the degrees of freedom and the residual deviance of the respective model and the preceding model (here: $\Delta \text{Df}=19 - 18 = 1$ and $\Delta \text{Deviance}=2410.95 - 840.13 = 1570.8$). Deviance is a measure of a model’s goodness of fit and is calculated as $-2 \times \text{Likelihood}$ . The test compares the difference in degrees of freedom ($\Delta Df = 1$) and deviance ($\Delta \text{Deviance} = 1570.8$) between the two models.
 
 Since both models assume Gaussian-distributed data, an F-test is performed. The F-value is computed as:
 
 $$
-F = \frac{\Delta \text{Deviance}}{\text{Dispersion}} = \frac{1570.8}{\frac{840.13}{18}} = \frac{1570.8}{46.67389} = 33.655
+F = \frac{\text{Explained variance}}{\text{Residual variance}} = \frac{\Delta \text{Deviance}}{\text{Residual deviance} / Df} = \frac{1570.8}{\frac{840.13}{18}} = \frac{1570.8}{46.67389} = 33.655
 $$
 
-For  $F(1, 18) = 33.655$, the p-value can be obtained with:
+For $F(1, 18) = 33.655$, the p-value can be obtained with:
 
 ```{r}
 pf(33.655,1,18, lower.tail = FALSE)
@@ -420,19 +418,19 @@ Alternatively, we can conduct a *likelihood-ratio test* by setting the argument 
 anova(mod0, mod1, test = "LRT")
 ```
 
-This computes a $\chi^2$ test for $\Delta \text{Deviance} = 33.655$ with $\Delta Df = 1$, where the p-value is given by:
+This computes a $\chi^2$ test for $\frac{\Delta \text{Deviance}}{\text{Dispersion}} = 33.655$ with $\Delta Df = 1$, where the p-value is given by:
 
 ```{r}
 pchisq(33.655, 1, lower.tail = FALSE)
 ```
 
-We can also compare all four models as incremental nested models in a single step:
+We can also compare all four models as incrementally nested models in a single step:
 
 ```{r}
 anova(mod0, mod1, mod2, mod3)
 ```
 
-Each model is compared to its predecessor. Since all models are nested and derived from the same data, the dispersion parameter for all comparisons is taken from the most complex model, mod3 (dispersion = 30.11).
+Each model is compared to its predecessor. Since all models are nested and derived from the same data, the dispersion parameter for all comparisons is taken from the most complex model, here *mod3* (dispersion = 30.11).
 
 In this analysis, we observe that the phase predictor introduces the strongest improvement in model fit, whereas the slope predictor does not significantly enhance the model.
 

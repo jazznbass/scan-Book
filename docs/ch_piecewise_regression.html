@@ -410,7 +410,7 @@ window.Quarto = {
   <li><a href="#dichotomous-outcomes" id="toc-dichotomous-outcomes" class="nav-link" data-scroll-target="#dichotomous-outcomes"><span class="header-section-number">10.6.3</span> Dichotomous outcomes</a></li>
   <li><a href="#bounded-frequencies-1" id="toc-bounded-frequencies-1" class="nav-link" data-scroll-target="#bounded-frequencies-1"><span class="header-section-number">10.6.4</span> Bounded frequencies</a></li>
   </ul></li>
-  <li><a href="#sec-anova" id="toc-sec-anova" class="nav-link" data-scroll-target="#sec-anova"><span class="header-section-number">10.7</span> Model comparison</a></li>
+  <li><a href="#sec-anova" id="toc-sec-anova" class="nav-link" data-scroll-target="#sec-anova"><span class="header-section-number">10.7</span> Model comparison (since version 0.64.0)</a></li>
   <li><a href="#sec-dummy-model" id="toc-sec-dummy-model" class="nav-link" data-scroll-target="#sec-dummy-model"><span class="header-section-number">10.8</span> Dummy models</a></li>
   <li><a href="#designs-with-more-than-two-phases-setting-the-right-contrasts" id="toc-designs-with-more-than-two-phases-setting-the-right-contrasts" class="nav-link" data-scroll-target="#designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">10.9</span> Designs with more than two phases: Setting the right contrasts</a></li>
   <li><a href="#understanding-and-interpreting-contrasts" id="toc-understanding-and-interpreting-contrasts" class="nav-link" data-scroll-target="#understanding-and-interpreting-contrasts"><span class="header-section-number">10.10</span> Understanding and interpreting contrasts</a>
@@ -1506,7 +1506,7 @@ Formula: injuries ~ 1 + year + phaseB + interB </code></pre>
 </section>
 </section>
 <section id="sec-anova" class="level2" data-number="10.7">
-<h2 data-number="10.7" class="anchored" data-anchor-id="sec-anova"><span class="header-section-number">10.7</span> Model comparison</h2>
+<h2 data-number="10.7" class="anchored" data-anchor-id="sec-anova"><span class="header-section-number">10.7</span> Model comparison (since version 0.64.0)</h2>
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1543,10 +1543,10 @@ Model 2: values ~ 1 + phaseB
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>The output provides the degrees of freedom and the deviance of the residuals. Deviance is a measure of a model’s goodness of fit and is calculated as <span class="math inline">\(-2 \times \text{Likelihood}\)</span> . The test compares the difference in degrees of freedom (<span class="math inline">\(\Delta Df = 1\)</span>) and deviance (<span class="math inline">\(\Delta \text{Deviance} = 1570.8\)</span>) between the two models.</p>
+<p>The output provides the <em>residuals degrees of freedom</em> (Df), the <em>deviance of the residuals</em>, and <span class="math inline">\(\Delta Df\)</span> and <span class="math inline">\(\Delta \text{Deviance}\)</span>, which are the difference of the degrees of freedom and the residual deviance of the respective model and the preceding model (here: <span class="math inline">\(\Delta \text{Df}=19 - 18 = 1\)</span> and <span class="math inline">\(\Delta \text{Deviance}=2410.95 - 840.13 = 1570.8\)</span>). Deviance is a measure of a model’s goodness of fit and is calculated as <span class="math inline">\(-2 \times \text{Likelihood}\)</span> . The test compares the difference in degrees of freedom (<span class="math inline">\(\Delta Df = 1\)</span>) and deviance (<span class="math inline">\(\Delta \text{Deviance} = 1570.8\)</span>) between the two models.</p>
 <p>Since both models assume Gaussian-distributed data, an F-test is performed. The F-value is computed as:</p>
 <p><span class="math display">\[
-F = \frac{\Delta \text{Deviance}}{\text{Dispersion}} = \frac{1570.8}{\frac{840.13}{18}} = \frac{1570.8}{46.67389} = 33.655
+F = \frac{\text{Explained variance}}{\text{Residual variance}} = \frac{\Delta \text{Deviance}}{\text{Residual deviance} / Df} = \frac{1570.8}{\frac{840.13}{18}} = \frac{1570.8}{46.67389} = 33.655
 \]</span></p>
 <p>For <span class="math inline">\(F(1, 18) = 33.655\)</span>, the p-value can be obtained with:</p>
 <div class="cell">
@@ -1570,14 +1570,14 @@ Model 2: values ~ 1 + phaseB
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>This computes a <span class="math inline">\(\chi^2\)</span> test for <span class="math inline">\(\Delta \text{Deviance} = 33.655\)</span> with <span class="math inline">\(\Delta Df = 1\)</span>, where the p-value is given by:</p>
+<p>This computes a <span class="math inline">\(\chi^2\)</span> test for <span class="math inline">\(\frac{\Delta \text{Deviance}}{\text{Dispersion}} = 33.655\)</span> with <span class="math inline">\(\Delta Df = 1\)</span>, where the p-value is given by:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">33.655</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.580551e-09</code></pre>
 </div>
 </div>
-<p>We can also compare all four models as incremental nested models in a single step:</p>
+<p>We can also compare all four models as incrementally nested models in a single step:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1, mod2, mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1596,7 +1596,7 @@ Model 4: values ~ 1 + mt + phaseB + interB
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>Each model is compared to its predecessor. Since all models are nested and derived from the same data, the dispersion parameter for all comparisons is taken from the most complex model, mod3 (dispersion = 30.11).</p>
+<p>Each model is compared to its predecessor. Since all models are nested and derived from the same data, the dispersion parameter for all comparisons is taken from the most complex model, here <em>mod3</em> (dispersion = 30.11).</p>
 <p>In this analysis, we observe that the phase predictor introduces the strongest improvement in model fit, whereas the slope predictor does not significantly enhance the model.</p>
 </section>
 <section id="sec-dummy-model" class="level2" data-number="10.8">
