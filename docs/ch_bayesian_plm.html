@@ -103,6 +103,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -344,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#settimg-priors" id="toc-settimg-priors" class="nav-link active" data-scroll-target="#settimg-priors"><span class="header-section-number">13.1</span> Settimg priors</a></li>
+  <li><a href="#setting-priors" id="toc-setting-priors" class="nav-link active" data-scroll-target="#setting-priors"><span class="header-section-number">13.1</span> Setting priors</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -370,6 +399,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Experimental
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This feature is still in an experimental state. This means that the syntax structure, arguments, and defaults may change in future scan versions and may not be backward compatible.</p>
+</div>
+</div>
 <p>Starting with version 0.63.0 scan included Bayesian regression analyses through the <code>bplm()</code> function (<strong>B</strong>ayesian <strong>P</strong>iecewise <strong>L</strong>inear <strong>M</strong>odel).</p>
 <p>In inferential statistics, a distinction is made between frequentist and Bayesian approaches. Frequentist statistics assess the probability of observing the data under the assumption that a null hypothesis (there is no effect or association) is true.</p>
 <p>Bayesian statistics, on the other hand, begins with prior distributions that represent initial beliefs (priors) about the parameters of interest. These priors are then updated using observed data through Bayes’ theorem, which means that the initial beliefs about the parameters are adjusted in proportion to how well they explain the data, producing a posterior distribution that reflects both prior knowledge and new evidence. The Bayesian approach evaluates how well the data fit different parameter values by computing the likelihood of the data given these parameter estimates, rather than testing against a fixed null hypothesis.</p>
@@ -397,20 +439,20 @@ The bplm function call
 <pre><code>Bayesian Piecewise Linear Regression
 
 Contrast model: W (level: first, slope: first)
-Deviance Information Criterion: 127.2101 
+Deviance Information Criterion: 127.0804 
 
 B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                             B lower 95% CI upper 95% CI sample size     p
-Intercept              54.248       46.055       62.797        1000 0.001
-Trend (mt)              0.179       -3.272        3.846        1000 0.924
-Level phase B (phaseB)  7.429       -4.144       21.406        1000 0.220
-Slope phase B (interB)  1.460       -2.038        5.180        1000 0.408
+Intercept              54.226       45.648       62.242    1132.795 0.001
+Trend (mt)              0.153       -3.239        3.346    1173.267 0.942
+Level phase B (phaseB)  7.944       -5.084       19.554    1110.884 0.208
+Slope phase B (interB)  1.451       -1.874        4.941    1145.789 0.390
 
 R-Structure - Residuals
 
           SD lower 95% CI upper 95% CI 
-       5.353        3.573        7.151 </code></pre>
+       5.355        3.558        7.228 </code></pre>
 </div>
 </div>
 <p>Here is an example of a multi-case dataset:</p>
@@ -422,29 +464,29 @@ R-Structure - Residuals
 Contrast model: W (level: first, slope: first)
 50 Cases
 
-Deviance Information Criterion: 8574.87 
+Deviance Information Criterion: 8575.004 
 
 B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                             B lower 95% CI upper 95% CI sample size     p
-Intercept              48.302       45.267       51.135        1000 0.001
-Trend (mt)              0.586        0.353        0.813        1000 0.001
-Level phase B (phaseB) 13.989       12.760       15.239        1000 0.001
-Slope phase B (interB)  0.897        0.650        1.133        1000 0.001
+Intercept              48.477       45.317       51.223    1000.000 0.001
+Trend (mt)              0.576        0.340        0.799    1218.837 0.001
+Level phase B (phaseB) 14.042       12.707       15.275    1130.196 0.001
+Slope phase B (interB)  0.906        0.679        1.140    1216.458 0.001
 
 G-Structure - Random effects (~case)
 
  Parameter     SD lower 95% CI upper 95% CI
- Intercept 10.256        8.019       12.164
+ Intercept 10.245        8.027        11.99
 
 R-Structure - Residuals
 
           SD lower 95% CI upper 95% CI 
-       5.295        5.079        5.468 </code></pre>
+       5.295        5.098        5.495 </code></pre>
 </div>
 </div>
-<section id="settimg-priors" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="settimg-priors"><span class="header-section-number">13.1</span> Settimg priors</h2>
+<section id="setting-priors" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="setting-priors"><span class="header-section-number">13.1</span> Setting priors</h2>
 <p>The following example show the influence of priors on paramameter estimation. Firstly, we create a random case from previously defined parameters:<br>
 The starting value (intercept) is 50 (the standard deviation is 10). The level effect for Phase B is one standard deviation (that is, 10 points) and there is neither a slope nor a trend effect. Random noise is introduced with 20% measurment error (reliability is 0.8).</p>
 <div class="cell">
@@ -490,7 +532,7 @@ R-Structure - Residuals
        5.599        3.457        7.517 </code></pre>
 </div>
 </div>
-<p>Now we introduce our prior knowledge: an Intercept of 50, trend and slope effect are 0, and a level effect of 10. Moreover, we assume that our previous knowledge is quite uncertain (i.e., a weakly informative prior). <code>mu</code> sets the prior values for the four paramters in the order as they apper in the regression model. <code>V</code> is a diagonalmatrix of the variances for these estimations. The V matrix sets the strength of the prior. Here, we set values of 100 which is a standard deviation (SD^2 = 10^2 = 100):</p>
+<p>Now we introduce our prior knowledge: an intercept of 50, a trend and slope effect of 0, and a level effect of 10. We also assume that our prior is quite uncertain (i.e., a weakly informative prior). <code>mu</code> sets the prior values for the four parameters in the order they appear in the regression model. <code>V</code> is a diagonal matrix of the variances of these estimates. The V matrix sets the strength of the prior. Here we set values of 100, which is one standard deviation (<span class="math inline">\(SD^2 = 10^2 = 100\)</span>):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">list</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>), <span class="at">V =</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>)))</span>
@@ -516,7 +558,7 @@ R-Structure - Residuals
        5.432        3.478        7.197 </code></pre>
 </div>
 </div>
-<p>Now we assume, that we are somewhat certain (i.e., a prior of middle strength) by setting the variances to 10 (SD ~ 3.2):</p>
+<p>Now we assume that we have some certainty (i.e.&nbsp;a prior of medium strength) by setting the variances to 10 (SD ~ 3.2):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">list</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>), <span class="at">V =</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)))  <span class="co"># Prior for regression effects</span></span>
@@ -542,7 +584,7 @@ R-Structure - Residuals
        5.293        3.480        6.953 </code></pre>
 </div>
 </div>
-<p>Now we make somewhat wrong and uncertain assumptions:</p>
+<p>Now we are making somewhat incorrect and uncertain assumptions:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">list</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>), <span class="at">V =</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>)))</span>
@@ -568,7 +610,7 @@ R-Structure - Residuals
        5.542        3.536        7.484 </code></pre>
 </div>
 </div>
-<p>And finally, we make the wrong assumptions with middle strong certainty:</p>
+<p>Finally, we make the wrong assumptions with medium certainty:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">list</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>), <span class="at">V =</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>)))</span>

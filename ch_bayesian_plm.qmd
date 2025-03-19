@@ -1,5 +1,11 @@
 # Bayesian regression analyses {#sec-bplm}
 
+::: callout-caution
+## Experimental
+
+This feature is still in an experimental state. This means that the syntax structure, arguments, and defaults may change in future scan versions and may not be backward compatible.
+:::
+
 Starting with version 0.63.0 scan included Bayesian regression analyses through the `bplm()` function (**B**ayesian **P**iecewise **L**inear **M**odel).
 
 In inferential statistics, a distinction is made between frequentist and Bayesian approaches. Frequentist statistics assess the probability of observing the data under the assumption that a null hypothesis (there is no effect or association) is true. 
@@ -35,7 +41,7 @@ Here is an example of a multi-case dataset:
 bplm(exampleAB_50)
 ```
 
-## Settimg priors
+## Setting priors
 
 The following example show the influence of priors on paramameter estimation. Firstly, we create a random case from previously defined parameters:  
 The starting value (intercept) is 50 (the standard deviation is 10). The level effect for Phase B is one standard deviation (that is, 10 points) and there is neither a slope nor a trend effect. Random noise is introduced with 20% measurment error (reliability is 0.8).
@@ -60,7 +66,7 @@ Here are the estimations from a Bayesian model without informative priors:
 bplm(scdf)
 ```
 
-Now we introduce our prior knowledge: an Intercept of 50, trend and slope effect are 0, and a level effect of 10. Moreover, we assume that our previous knowledge is quite uncertain (i.e., a weakly informative prior). `mu` sets the prior values for the four paramters in the order as they apper in the regression model. `V` is a diagonalmatrix of the variances for these estimations. The V matrix sets the strength of the prior. Here, we set values of 100 which is a standard deviation (SD^2 = 10^2 = 100):
+Now we introduce our prior knowledge: an intercept of 50, a trend and slope effect of 0, and a level effect of 10. We also assume that our prior is quite uncertain (i.e., a weakly informative prior). `mu` sets the prior values for the four parameters in the order they appear in the regression model. `V` is a diagonal matrix of the variances of these estimates. The V matrix sets the strength of the prior. Here we set values of 100, which is one standard deviation ($SD^2 = 10^2 = 100$):
 
 
 ```{r}
@@ -70,7 +76,7 @@ prior <- list(
 bplm(scdf, prior = prior)
 ```
 
-Now we assume, that we are somewhat certain (i.e., a prior of middle strength) by setting the variances to 10 (SD ~ 3.2):
+Now we assume that we have some certainty (i.e. a prior of medium strength) by setting the variances to 10 (SD ~ 3.2):
 
 ```{r}
 prior <- list(
@@ -79,7 +85,7 @@ prior <- list(
 bplm(scdf, prior = prior)
 ```
 
-Now we make somewhat wrong and uncertain assumptions:
+Now we are making somewhat incorrect and uncertain assumptions:
 
 ```{r}
 prior <- list(
@@ -88,7 +94,7 @@ prior <- list(
 bplm(scdf, prior = prior)
 ```
 
-And finally, we make the wrong assumptions with middle strong certainty:
+Finally, we make the wrong assumptions with medium certainty:
 
 ```{r}
 prior <- list(
