@@ -14,6 +14,20 @@ function_structure("mplm")
 ```
 
 ```{r}
+#| label: fig-mplm-ex-plot
+#| fig-cap: Example dataset
+#| fig-height: 5
+#| fig-width: 10
+#| echo: false
+
+scplot(exampleAB_add) |> 
+  set_dataline("depression") |> 
+  add_statline("trend") |> 
+  add_statline("trend",variable = "depression") |> 
+  add_legend()
+```
+
+```{r}
 fit <- mplm(exampleAB_add, dvar = c("wellbeing", "depression"))
 fit
 ```

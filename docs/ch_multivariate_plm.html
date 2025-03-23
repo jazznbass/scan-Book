@@ -285,6 +285,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Exporting <em>scan</em> results</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch_shinyscan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Graphical user interface - Shinyscan</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -392,12 +398,27 @@ The mplm function call
 </div>
 </div>
 <div class="cell">
+<div class="cell-output-display">
+<div id="fig-mplm-ex-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mplm-ex-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="ch_multivariate_plm_files/figure-html/fig-mplm-ex-plot-1.png" class="img-fluid figure-img" width="960">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mplm-ex-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12.1: Example dataset
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">mplm</span>(exampleAB_add, <span class="at">dvar =</span> <span class="fu">c</span>(<span class="st">"wellbeing"</span>, <span class="st">"depression"</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Multivariate piecewise linear model
 
 Dummy model: W level = first, slope = first
+Type III MANOVA Tests: Pillai test statistic
 
 Coefficients: 
                                          wellbeing depression
@@ -407,20 +428,16 @@ Level phase Medication (phaseMedication)     3.588     -0.945
 Slope phase Medication (interMedication)    -0.275     -0.165
 
 Formula: y ~ 1 + day + phaseMedication + interMedication
-
-Type III MANOVA Tests: Pillai test statistic
-                                         Df test stat approx F num Df den Df
-Intercept                                 1     0.915    188.9      2     35
-Trend (day)                               1     0.055      1.0      2     35
-Level phase Medication (phaseMedication)  1     0.033      0.6      2     35
-Slope phase Medication (interMedication)  1     0.039      0.7      2     35
-                                         Pr(&gt;F)    
-Intercept                                &lt;2e-16 ***
-Trend (day)                                0.38    
-Level phase Medication (phaseMedication)   0.56    
-Slope phase Medication (interMedication)   0.50    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+                                         df   stat       F num Df den Df
+Intercept                                 1 0.9152 188.949      2     35
+Trend (day)                               1 0.0545   1.009      2     35
+Level phase Medication (phaseMedication)  1 0.0325   0.588      2     35
+Slope phase Medication (interMedication)  1 0.0391   0.712      2     35
+                                                p
+Intercept                                1.75e-19
+Trend (day)                              3.75e-01
+Level phase Medication (phaseMedication) 5.61e-01
+Slope phase Medication (interMedication) 4.98e-01
 
 The following variables were used in this analysis:
 'wellbeing/ depression' as dependent variable, 'phase' as phase variable, and 'day' as measurement-time variable.</code></pre>
@@ -432,6 +449,7 @@ The following variables were used in this analysis:
 <pre><code>Multivariate piecewise linear model
 
 Dummy model: W level = first, slope = first
+Type III MANOVA Tests: Pillai test statistic
 
 Coefficients: 
                                          wellbeing depression
@@ -448,20 +466,16 @@ Level phase Medication (phaseMedication)     0.276     -0.153
 Slope phase Medication (interMedication)    -0.356     -0.449
 
 Formula: y ~ 1 + day + phaseMedication + interMedication
-
-Type III MANOVA Tests: Pillai test statistic
-                                         Df test stat approx F num Df den Df
-Intercept                                 1     0.915    188.9      2     35
-Trend (day)                               1     0.055      1.0      2     35
-Level phase Medication (phaseMedication)  1     0.033      0.6      2     35
-Slope phase Medication (interMedication)  1     0.039      0.7      2     35
-                                         Pr(&gt;F)    
-Intercept                                &lt;2e-16 ***
-Trend (day)                                0.38    
-Level phase Medication (phaseMedication)   0.56    
-Slope phase Medication (interMedication)   0.50    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+                                         df   stat       F num Df den Df
+Intercept                                 1 0.9152 188.949      2     35
+Trend (day)                               1 0.0545   1.009      2     35
+Level phase Medication (phaseMedication)  1 0.0325   0.588      2     35
+Slope phase Medication (interMedication)  1 0.0391   0.712      2     35
+                                                p
+Intercept                                1.75e-19
+Trend (day)                              3.75e-01
+Level phase Medication (phaseMedication) 5.61e-01
+Slope phase Medication (interMedication) 4.98e-01
 
 The following variables were used in this analysis:
 'wellbeing/ depression' as dependent variable, 'phase' as phase variable, and 'day' as measurement-time variable.</code></pre>
