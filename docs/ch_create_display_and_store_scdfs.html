@@ -281,6 +281,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">More</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_export.html" class="sidebar-item-text sidebar-link">
@@ -303,13 +314,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./app_some_things.html" class="sidebar-item-text sidebar-link">
@@ -354,7 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#a-single-case-data-frame" id="toc-a-single-case-data-frame" class="nav-link active" data-scroll-target="#a-single-case-data-frame"><span class="header-section-number">3.1</span> A <strong><em>single-case data frame</em></strong></a></li>
   <li><a href="#sec-scdf" id="toc-sec-scdf" class="nav-link" data-scroll-target="#sec-scdf"><span class="header-section-number">3.2</span> Create <em>single-case data frames</em></a></li>
-  <li><a href="#save-and-read-single-case-data-frames" id="toc-save-and-read-single-case-data-frames" class="nav-link" data-scroll-target="#save-and-read-single-case-data-frames"><span class="header-section-number">3.3</span> Save and read <em>single-case data frames</em></a></li>
+  <li><a href="#sec-save-scdf" id="toc-sec-save-scdf" class="nav-link" data-scroll-target="#sec-save-scdf"><span class="header-section-number">3.3</span> Save and read <em>single-case data frames</em></a></li>
   <li><a href="#import-and-export-single-case-data-frames" id="toc-import-and-export-single-case-data-frames" class="nav-link" data-scroll-target="#import-and-export-single-case-data-frames"><span class="header-section-number">3.4</span> Import and export <em>single-case data frames</em></a>
   <ul class="collapse">
   <li><a href="#sec-read-scdf" id="toc-sec-read-scdf" class="nav-link" data-scroll-target="#sec-read-scdf"><span class="header-section-number">3.4.1</span> Import data</a></li>
@@ -623,8 +634,8 @@ day &lt;measurement-time variable&gt;</code></pre>
 </div>
 </div>
 </section>
-<section id="save-and-read-single-case-data-frames" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="save-and-read-single-case-data-frames"><span class="header-section-number">3.3</span> Save and read <em>single-case data frames</em></h2>
+<section id="sec-save-scdf" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-save-scdf"><span class="header-section-number">3.3</span> Save and read <em>single-case data frames</em></h2>
 <p>Normally, it is not necessary to save an <em>scdf</em> in a separate file on your computer. In most cases, you can keep the coding of the <em>scdf</em> as described above and run it again each time you work with your data. However, for large files, it is sometimes more convenient to save the data separately in a file for later use.<br>
 The easiest way is to use the <em>R</em> base functions <code>saveRDS</code> and <code>readRDS</code> for this purpose. <code>saveRDS</code> takes at least two arguments: The first is the object you want to save, and the second is a filename for the resulting file. If you have an <em>scdf</em> named <code>study1</code>, you can use <code>saveRDS(study1, "study1.rds")</code> to save the <em>scdf</em> to your drive. You can read this file with <code>study1 &lt;- readRDS("study1.rds")</code>. With <code>getwd()</code> you get the path to the current active folder you are saving and reading data from.</p>
 </section>

@@ -63,7 +63,7 @@ Here you can optionally provide measurement times. If no measurement times are p
 
 Add additional variables in the style: `[varname] = value, value, value, value, ...`.
 
-If you like to add multiple variables use linebreaks:
+If you like to add multiple variables, use linebreaks:
 
 ``` r
 engagement = 1,5,4,3,6,5
@@ -108,17 +108,22 @@ If you like to open an *scdf* file, click on **Open file** and choose the file f
 
 Three file-types are accepted:
 
-An `.rds` file containing the *scdf* (e.g., created with **save scdf**).
+1.  An `.rds` file containing the *scdf* (e.g., created with **save scdf**). See @sec-save-scdf.
 
-An `.R` file that contains a syntax for creating scdfs (`scdf()`, `c()` functions).
+2.  An `.R` file that contains a syntax for creating an *scdf*. That textfile must create an object called **study** that contains an *scdf*. Here is an example:
 
-A `.csv` file (see @sec-read-scdf for more information on the structure of these files).
+``` r
+case1 <- scdf(c(A = 58, 56, 60, 63, B = 51, 45, 44, 59, 45, 39, 83))
+case2 <- scdf(c(A = 47, 41, 47, 52, 54, 65, B = 55, 37, 51, 60, 60, 65, 55, 46))
 
-![](images/Screenshot%202025-03-21%20at%2014.32.47.png){width="404"}
+study <- c(case1, case2) 
+```
+
+3.  A `.csv` file (see @sec-read-scdf for more information on the structure of these files).
 
 If your datafile contains a valid *scdf* object, the output pane will give you specific information on the datafile:
 
-![](images/Screenshot 2025-03-23 at 09.23.37.png){width="561"}
+![](images/Screenshot%202025-03-23%20at%2009.23.37.png){width="561"}
 
 ### Load an example data file
 
@@ -148,7 +153,7 @@ Select cases either by the number of the case or the casename. Use commas to sel
 
 **Combine phases**
 
-This option is specifically designed for later analyses that compare exactly two phases (like overlapping indices. If your *scdf* has more than two phases, you can define which phases are Phase A and Phase B. You can also join several phases into one phase by choosing more comma separated phases. Choose phases by the number (1 for 1st, 2 for 2nd etc.).
+This option is specifically designed for later analyses that compare exactly two phases (like overlapping indices. If your *scdf* has more than two phases, you can define which phases are Phase A and Phase B. You can also join several phases into one phase by choosing more comma separated phases. Choose phases by the number (1 for 1st, 2 for 2nd etc.) See @sec-select-phases for more details.
 
 **Filter measurements**
 
@@ -174,7 +179,7 @@ The **Statistic** field is the gateway to several procedures. By default, you ge
 
 **Output format** allows to switch to html output which possible for some, but not all functions (see @sec-export for details):
 
-![](images/Screenshot%202025-03-21%20at%2014.33.55.png){width="697"}
+![](images/Screenshot%202025-03-21%20at%2014.33.55.png){width="881"}
 
 For some outputs it is possible to flip rows and columns for a better overview:
 
@@ -182,7 +187,7 @@ For some outputs it is possible to flip rows and columns for a better overview:
 
 For some procedures, specific **output arguments** can be set (either for their respective `print()` - text output - or `export()` - html output - functions). For example most html outputs allow to specify the number of decimals (e.g. `decimals = 3`).
 
-**Save output** saves the output content. The save format is based on the setting defined in the **Settings** tab.
+**Save output** saves the output content. The save format (text, html, or docx) is based on the setting defined in the **Settings** tab.
 
 ### Function arguments
 
@@ -190,10 +195,71 @@ If you choose a statistical procedure which takes additional arguments, a list o
 
 ![](images/Screenshot%202025-03-22%20at%2013.20.59.png)
 
-## Plot menue
+## Plots
+
+Within the plot tab you can create graphs based on the scplot function (see @sec-scplot for details).
+
+If you have a valid loaded/ created a valid scdf, a standard scplot will e shown here.
+
+The **Arguments** section is textfield that allows to specify the plot. It takes one line for each scplot function.
+
+``` r
+  add_statline("mean")
+  add_legend()
+```
+
+*scplot* has an extensive range of options. The three dropdown menus provide a selection of syntax examples. By clicking an example, it is added to the **Arguments** text field and can be specified for your specific needs. Clicking an argument does not replace previous arguments. If you want to remove a plot element, you have to remove the line from the **Arguments** text field.
+
+**Stats templates** provides syntax for adding statistical lines and curves to the graph.
+
+**Design template**s adds syntax for changing various design elements like a title, footnotes, a legend etc. It also has examples to specify colours and themes.
+
+**Annotate templates** gives examples to add text, marks etc. to the plot.
 
 ![](images/Screenshot%202025-03-21%20at%2014.35.10.png)
 
-## Settings menue
+By clicking **Save plot**, a png file of the plot will be exported. In the Settings tab, filename and size of the plot can be specified.
+
+## Settings
+
+The **Settings** tab allows users to customize various aspects of *shinyscan*’s behavior. The available options are grouped by functional area:
+
+### Data
+
+**Show output as** defines whether the output in the **Data** tab is shown as R syntax (`print(scdf)`) or as a summary (`summary(scdf)`).
+
+**Syntax phase structure** specifies the coding of the phase structure when **Show output as** is set to *Syntax.*
+
+**Prefix save filename** defines a prefix used for automatically generated filename when exporting the *scdf*.
+
+**Save format** sets the export format of the *scdf* file.
+
+### Transform
+
+**Show output as** defines whether the scdf is displayed in hml or text format.
+
+**Prefix save filename** defines a prefix used for automatically generated filename when exporting the transformed *scdf*.
+
+**Save format** sets the export format of the *scdf* file.
+
+### Stats
+
+**Syntax with defaults** If set to *Yes*, the generated R syntax includes all function arguments, including those set to their default values. This can be useful for teaching and documentation.
+
+**Rename predictors** allows choosing among three naming conventions for predictors in the regression output.
+
+**Prefix save filename** defines a prefix filenames generated when exporting statistical results.
+
+**Save format** sets the export format.
+
+### Plot
+
+**Prefix save filename** defines a prefix for filenames when exporting plots.
+
+**Export width / height / dpi** set the dimensions and resolution of the exported `.png` file.
+
+### General
+
+**Html_engine** specifies the internal engine used to generate HTML tables, either via the **gt** or **kableExtra** package (for *scdf* and statistical results). Only **gt** currently supports exporting tables in .docx format. The **kableExtra** engine is retained for compatibility purposes but may be deprecated in future versions of the package.
 
 ![](images/Screenshot%202025-03-21%20at%2014.35.23.png)

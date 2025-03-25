@@ -133,7 +133,7 @@ case <- scdf(
 summary(case)
 ```
 
-## Save and read *single-case data frames*
+## Save and read *single-case data frames* {#sec-save-scdf}
 
 Normally, it is not necessary to save an *scdf* in a separate file on your computer. In most cases, you can keep the coding of the *scdf* as described above and run it again each time you work with your data. However, for large files, it is sometimes more convenient to save the data separately in a file for later use.\
 The easiest way is to use the *R* base functions `saveRDS` and `readRDS` for this purpose. `saveRDS` takes at least two arguments: The first is the object you want to save, and the second is a filename for the resulting file. If you have an *scdf* named `study1`, you can use `saveRDS(study1, "study1.rds")` to save the *scdf* to your drive. You can read this file with `study1 <- readRDS("study1.rds")`. With `getwd()` you get the path to the current active folder you are saving and reading data from.

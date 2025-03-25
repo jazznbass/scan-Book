@@ -308,6 +308,17 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Power analyses</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">More</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch_export.html" class="sidebar-item-text sidebar-link">
@@ -330,13 +341,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./app_some_things.html" class="sidebar-item-text sidebar-link">
@@ -445,20 +456,20 @@ The bplm function call
 <pre><code>Bayesian Piecewise Linear Regression
 
 Contrast model: W (level: first, slope: first)
-Deviance Information Criterion: 127.1766 
+Deviance Information Criterion: 127.1255 
 
 B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                             B lower 95% CI upper 95% CI sample size     p
-Intercept              54.534       47.245       62.949    1000.000 0.001
-Trend (mt)              0.071       -2.941        3.075     912.301 0.940
-Level phase B (phaseB)  7.825       -3.231       19.221     884.756 0.182
-Slope phase B (interB)  1.557       -1.445        4.687    1000.000 0.336
+Intercept              54.310       46.547       63.115    1341.697 0.001
+Trend (mt)              0.162       -3.036        3.561    1094.891 0.920
+Level phase B (phaseB)  7.664       -4.286       19.859    1000.000 0.208
+Slope phase B (interB)  1.452       -1.873        4.907    1101.663 0.370
 
 R-Structure - Residuals
 
           SD lower 95% CI upper 95% CI 
-       5.363        3.472        7.335 </code></pre>
+       5.294        3.396        7.083 </code></pre>
 </div>
 </div>
 <p>Here is an example of a multi-case dataset:</p>
@@ -470,25 +481,25 @@ R-Structure - Residuals
 Contrast model: W (level: first, slope: first)
 50 Cases
 
-Deviance Information Criterion: 8574.809 
+Deviance Information Criterion: 8574.832 
 
 B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                             B lower 95% CI upper 95% CI sample size     p
-Intercept              48.424       45.933       51.799     909.668 0.001
-Trend (mt)              0.580        0.365        0.796    1000.000 0.001
-Level phase B (phaseB) 14.039       12.715       15.233    1710.989 0.001
-Slope phase B (interB)  0.902        0.701        1.133    1000.000 0.001
+Intercept              48.340       45.633       51.352    1042.275 0.001
+Trend (mt)              0.581        0.359        0.808    1000.000 0.001
+Level phase B (phaseB) 14.040       12.754       15.350    1000.000 0.001
+Slope phase B (interB)  0.899        0.659        1.123    1000.000 0.001
 
 G-Structure - Random effects (~case)
 
  Parameter     SD lower 95% CI upper 95% CI
- Intercept 10.268        8.004       12.013
+ Intercept 10.291        8.143       12.239
 
 R-Structure - Residuals
 
           SD lower 95% CI upper 95% CI 
-       5.295        5.094        5.476 </code></pre>
+       5.294        5.080        5.485 </code></pre>
 </div>
 </div>
 <section id="setting-priors" class="level2" data-number="13.1">
