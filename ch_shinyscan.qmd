@@ -47,7 +47,7 @@ The **Data** tab in *shinyscan* allows you to manually create single-case datase
 
 **Values**
 
-Provide the central dependent variable and phase structure of the *scdfs* with the values of a named vector. E.g., `A = 1,2,3,4, B = 8,7,8,9,8,7, C = 8,7,6,7,6,5`. You can use linebreaks to structure your data input (you can drop the comma at the end of each line if you like to):
+Provide the central dependent variable and phase structure of the *scdfs* with the values of a named vector. For example, `A = 1,2,3,4, B = 8,7,8,9,8,7, C = 8,7,6,7,6,5`. You can use line breaks to structure your data entry (you can remove the comma at the end of each line if you wish):
 
 ``` r
 A = 1,2,3,4
@@ -57,13 +57,13 @@ C = 8,7,6,7,6,5
 
 **Measurement times**
 
-Here you can optionally provide measurement times. If no measurement times are provided, they will be set automatically to `1, 2, 3, ..., n`.
+Here you can optionally enter measurement times. If no measurement times are specified, they are automatically set to `1, 2, 3, ..., n`.
 
 **Additional variables**
 
 Add additional variables in the style: `[varname] = value, value, value, value, ...`.
 
-If you like to add multiple variables, use linebreaks:
+If you want to add several variables, use line breaks:
 
 ``` r
 engagement = 1,5,4,3,6,5
@@ -72,29 +72,29 @@ support = 3,4,2,5,6,4
 
 **Case name**
 
-An optional casename.
+An optional case name.
 
-The button **Add case** will add the new case to the existing *scdf*.
+The **Add case** button adds the new case to the existing scdf.
 
-The button **remove case** will delete a case.
+The button **Remove case** deletes a case.
 
-The button **Clear all cases** will delete the entire *scdf*.
+The **Clear all cases** button deletes the entire *scdf*.
 
-The section **Position** is useful if you want to delete (or add) a case at a specific position.
+The **Position** section is useful if you want to delete (or add) a case at a specific position.
 
-After clicking the **Add case** button, you will get a summary of the current *scdf* in the right output pane:
+After clicking on the **Add case** button, you will get a summary of the current *scdf* in the right output area:
 
 ![](images/Screenshot%202025-03-22%20at%2012.47.59.png)
 
-You can go on and add several more cases.
+You can continue to add several more cases.
 
-Use the **Save scdf** button to save the *scdf* to your local hard drive. By default the output file has the following name: *scdf* followed by the *number* of cases, followed by the *phasenames*, the *date* and *time*: (e.g., `scdf-01-ABC-250322-130744.rds`). By default, files are saved in *Rs* standard file format `rds`. File format and filenaming can be changed in the **Settings** tab
+Use the **Save scdf** button to save the *scdf* to your local hard drive. By default the output file has the following name: *scdf* followed by the *number* of cases, followed by the *phase names*, the *date* and *time*: (e.g., `scdf-01-ABC-250322-130744.rds`). By default, files are saved in *Rs* standard file format `rds`. The file format and filename can be changed in the **Settings** tab.
 
-If you like to see the R syntax, switch to the **Settings** tab and change ***show output as*** to ***syntax:***
+If you want to see the R syntax, go to the **Settings** tab and change ***show output as*** according to ***syntax:***
 
 ![](images/Screenshot%202025-03-22%20at%2012.48.16.png){width="204"}
 
-Switching back to **Data –\> New**, the output pane will show the R syntax:
+Switch back to **Data –\> New** and the output will show R syntax:
 
 ![](images/Screenshot%202025-03-22%20at%2012.48.43.png)
 
@@ -104,13 +104,13 @@ Switch to **Data -\> Load**:
 
 ![](images/Screenshot%202025-03-21%20at%2015.25.53.png){width="228"}
 
-If you like to open an *scdf* file, click on **Open file** and choose the file from your hard-drive.
+To open an *scdf* file, click **Open file** and choose the file from your hard disk.
 
-Three file-types are accepted:
+Three file types are accepted:
 
 1.  An `.rds` file containing the *scdf* (e.g., created with **save scdf**). See @sec-save-scdf.
 
-2.  An `.R` file that contains a syntax for creating an *scdf*. That textfile must create an object called **study** that contains an *scdf*. Here is an example:
+2.  An `.R` file containing a syntax for creating an *scdf*. This text file must create an object called **study** which contains an *scdf*. Here is an example:
 
 ``` r
 case1 <- scdf(c(A = 58, 56, 60, 63, B = 51, 45, 44, 59, 45, 39, 83))
@@ -121,59 +121,59 @@ study <- c(case1, case2)
 
 3.  A `.csv` file (see @sec-read-scdf for more information on the structure of these files).
 
-If your datafile contains a valid *scdf* object, the output pane will give you specific information on the datafile:
+If your data file contains a valid *scdf* object, the output pane will give you specific information about the data file:
 
 ![](images/Screenshot%202025-03-23%20at%2009.23.37.png){width="561"}
 
 ### Load an example data file
 
-Choose an example from the drop-down list:
+Select an example from the drop down list:
 
 ![](images/Screenshot%202025-03-21%20at%2015.26.53.png){width="444"}
 
-A summary of the chosen *scdf* will be shown in the output pane:
+A summary of the selected *scdf* is displayed in the output pane:
 
 ![](images/Screenshot%202025-03-21%20at%2014.33.08.png){width="554"}
 
-You can now proceed with the loaded or example *scdf* or switch to **Data -\> New** to change the dataset.
+You can now continue with the loaded or example *scdf* or go to **Data -\> New** to modify the dataset.
 
 ## Transform
 
-The Transform tab allows to change, create, recalculate etc. new variables from your *scdf*.
+The Transform tab allows you to modify, create, recalculate etc. new variables from your *scdf*.
 
-If you make any changes here, all operations in further tabs (*stats*, *plot* etc.) will be based on the transformed *scdf*.
+If you make any changes here, all operations in other tabs (*stats*, *plot* etc.) will be based on the transformed *scdf*.
 
-Additionally, this tab shows the raw-data contained in the *scdf*.
+This tab also displays the raw-data contained in the *scdf*.
 
 ![](images/Screenshot%202025-03-21%20at%2014.33.27.png)
 
 **Select cases**
 
-Select cases either by the number of the case or the casename. Use commas to select multiple cases and a colon to select areas of cases (e.g. `1, 7:9, 10`).
+Select cases either by case number or by case name. Use commas to select multiple cases and a colon to select ranges of cases (e.g. `1, 7:9, 10`).
 
 **Combine phases**
 
-This option is specifically designed for later analyses that compare exactly two phases (like overlapping indices. If your *scdf* has more than two phases, you can define which phases are Phase A and Phase B. You can also join several phases into one phase by choosing more comma separated phases. Choose phases by the number (1 for 1st, 2 for 2nd etc.) See @sec-select-phases for more details.
+This option is specifically designed for later analyses that compare exactly two phases (such as overlapping indices). If your *scdf* has more than two phases, you can define which phases are Phase A and Phase B. You can combine multiple phases into one phase by selecting multiple phases separated by commas. Select phases by number (1 for 1st, 2 for 2nd etc.) See @sec-select-phases for more details.
 
 **Filter measurements**
 
-This takes a logical expression that defines a selection of measurements. You can use variable names within your *scdf* and R functions. For example, if you like to select all measurements above 6 you code `values > 6`. If you want to select all measurements which values are above the median of Phase B, code `values > median(values[phase == "B"])`. See @sec-subset.
+This takes a logical expression defining a selection of measurements. You can use variable names within your *scdf* and R functions. For example, if you want to select all measurements above 6 you code `values > 6`. If you want to select all measurements whose values are above the median of Phase B, you code `values > median(values[phase == "B"])`. See @sec-subset.
 
 **Transform variables**
 
-This section allows to create and change variables in a complex way. For example, for createing a new variable with standardized values code `values_std = scaled(values)`. See @sec-transform for a detailed description of the syntax.
+This section allows you to create and modify variables in a complex way. For example, for create a new variable with standardised values code `values_std = scaled(values)`. See @sec-transform for a detailed description of the syntax.
 
 **Set dependent variable**
 
-If your *scdf* has several dependent variables, you can switch them for the further analyses and depictions in this field (see @sec-setvars).
+If your *scdf* has multiple dependent variables, you can switch them for the further analysis and display in this field (see @sec-setvars).
 
-Clicking **Save transformed scdf** will save the transformed *scdf* to your hard-drive.
+Clicking on **Save transformed scdf** will save the transformed *scdf* to your hard drive.
 
 ## Stats
 
-Within this tab you can choose and refine analyses procedures. This section will explain the functionality of the GUI. For in depth descriptions and explanations of the statistical procedures, refer to the respective sections of this book.
+The purpose of this tab is to select and refine analyses procedures. The following section will provide an explanation of the functionality of the GUI. For more detailed descriptions and explanations of the statistical procedures, refer to the respective sections of this book.
 
-The **Statistic** field is the gateway to several procedures. By default, you get descriptives of your *scdf*.
+The **Statistic** field serves as the gateway to a range of procedures. By default, teh descriptives of the *scdf* are presented.
 
 ![](images/Screenshot%202025-03-21%20at%2014.33.46.png)
 
@@ -260,6 +260,6 @@ The **Settings** tab allows users to customize various aspects of *shinyscan*’
 
 ### General
 
-**Html_engine** specifies the internal engine used to generate HTML tables, either via the **gt** or **kableExtra** package (for *scdf* and statistical results). Only **gt** currently supports exporting tables in .docx format. The **kableExtra** engine is retained for compatibility purposes but may be deprecated in future versions of the package.
+**Html_engine** specifies the internal engine used to generate HTML tables, either via the [**gt**](https://gt.rstudio.com/) or [**kableExtra**](https://cran.r-project.org/package=kableExtra) package (for *scdf* and statistical results). Only **gt** currently supports exporting tables in .docx format. The **kableExtra** engine is retained for compatibility purposes but may be deprecated in future versions of the package.
 
 ![](images/Screenshot%202025-03-21%20at%2014.35.23.png)

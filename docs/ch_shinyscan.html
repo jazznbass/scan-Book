@@ -437,41 +437,41 @@ The app is organized into seven main menus (tabs), each serving a specific funct
 <h3 data-number="17.2.1" class="anchored" data-anchor-id="input-cases"><span class="header-section-number">17.2.1</span> Input cases</h3>
 <p>The <strong>Data</strong> tab in <em>shinyscan</em> allows you to manually create single-case datasets (scdf, see <a href="ch_create_display_and_store_scdfs.html#sec-scdf" class="quarto-xref"><span>Section 3.2</span></a>). This is particularly useful for small datasets without having to write R code. The interface is divided into several input fields:</p>
 <p><strong>Values</strong></p>
-<p>Provide the central dependent variable and phase structure of the <em>scdfs</em> with the values of a named vector. E.g., <code>A = 1,2,3,4, B = 8,7,8,9,8,7, C = 8,7,6,7,6,5</code>. You can use linebreaks to structure your data input (you can drop the comma at the end of each line if you like to):</p>
+<p>Provide the central dependent variable and phase structure of the <em>scdfs</em> with the values of a named vector. For example, <code>A = 1,2,3,4, B = 8,7,8,9,8,7, C = 8,7,6,7,6,5</code>. You can use line breaks to structure your data entry (you can remove the comma at the end of each line if you wish):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">=</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>C <span class="ot">=</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Measurement times</strong></p>
-<p>Here you can optionally provide measurement times. If no measurement times are provided, they will be set automatically to <code>1, 2, 3, ..., n</code>.</p>
+<p>Here you can optionally enter measurement times. If no measurement times are specified, they are automatically set to <code>1, 2, 3, ..., n</code>.</p>
 <p><strong>Additional variables</strong></p>
 <p>Add additional variables in the style: <code>[varname] = value, value, value, value, ...</code>.</p>
-<p>If you like to add multiple variables, use linebreaks:</p>
+<p>If you want to add several variables, use line breaks:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>engagement <span class="ot">=</span> <span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">5</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>support <span class="ot">=</span> <span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Case name</strong></p>
-<p>An optional casename.</p>
-<p>The button <strong>Add case</strong> will add the new case to the existing <em>scdf</em>.</p>
-<p>The button <strong>remove case</strong> will delete a case.</p>
-<p>The button <strong>Clear all cases</strong> will delete the entire <em>scdf</em>.</p>
-<p>The section <strong>Position</strong> is useful if you want to delete (or add) a case at a specific position.</p>
-<p>After clicking the <strong>Add case</strong> button, you will get a summary of the current <em>scdf</em> in the right output pane:</p>
+<p>An optional case name.</p>
+<p>The <strong>Add case</strong> button adds the new case to the existing scdf.</p>
+<p>The button <strong>Remove case</strong> deletes a case.</p>
+<p>The <strong>Clear all cases</strong> button deletes the entire <em>scdf</em>.</p>
+<p>The <strong>Position</strong> section is useful if you want to delete (or add) a case at a specific position.</p>
+<p>After clicking on the <strong>Add case</strong> button, you will get a summary of the current <em>scdf</em> in the right output area:</p>
 <p><img src="images/Screenshot 2025-03-22 at 12.47.59.png" class="img-fluid"></p>
-<p>You can go on and add several more cases.</p>
-<p>Use the <strong>Save scdf</strong> button to save the <em>scdf</em> to your local hard drive. By default the output file has the following name: <em>scdf</em> followed by the <em>number</em> of cases, followed by the <em>phasenames</em>, the <em>date</em> and <em>time</em>: (e.g., <code>scdf-01-ABC-250322-130744.rds</code>). By default, files are saved in <em>Rs</em> standard file format <code>rds</code>. File format and filenaming can be changed in the <strong>Settings</strong> tab</p>
-<p>If you like to see the R syntax, switch to the <strong>Settings</strong> tab and change <strong><em>show output as</em></strong> to <strong><em>syntax:</em></strong></p>
+<p>You can continue to add several more cases.</p>
+<p>Use the <strong>Save scdf</strong> button to save the <em>scdf</em> to your local hard drive. By default the output file has the following name: <em>scdf</em> followed by the <em>number</em> of cases, followed by the <em>phase names</em>, the <em>date</em> and <em>time</em>: (e.g., <code>scdf-01-ABC-250322-130744.rds</code>). By default, files are saved in <em>Rs</em> standard file format <code>rds</code>. The file format and filename can be changed in the <strong>Settings</strong> tab.</p>
+<p>If you want to see the R syntax, go to the <strong>Settings</strong> tab and change <strong><em>show output as</em></strong> according to <strong><em>syntax:</em></strong></p>
 <p><img src="images/Screenshot 2025-03-22 at 12.48.16.png" class="img-fluid" width="204"></p>
-<p>Switching back to <strong>Data –&gt; New</strong>, the output pane will show the R syntax:</p>
+<p>Switch back to <strong>Data –&gt; New</strong> and the output will show R syntax:</p>
 <p><img src="images/Screenshot 2025-03-22 at 12.48.43.png" class="img-fluid"></p>
 </section>
 <section id="load-existing-data-files" class="level3" data-number="17.2.2">
 <h3 data-number="17.2.2" class="anchored" data-anchor-id="load-existing-data-files"><span class="header-section-number">17.2.2</span> Load existing data files</h3>
 <p>Switch to <strong>Data -&gt; Load</strong>:</p>
 <p><img src="images/Screenshot 2025-03-21 at 15.25.53.png" class="img-fluid" width="228"></p>
-<p>If you like to open an <em>scdf</em> file, click on <strong>Open file</strong> and choose the file from your hard-drive.</p>
-<p>Three file-types are accepted:</p>
+<p>To open an <em>scdf</em> file, click <strong>Open file</strong> and choose the file from your hard disk.</p>
+<p>Three file types are accepted:</p>
 <ol type="1">
 <li><p>An <code>.rds</code> file containing the <em>scdf</em> (e.g., created with <strong>save scdf</strong>). See <a href="ch_create_display_and_store_scdfs.html#sec-save-scdf" class="quarto-xref"><span>Section 3.3</span></a>.</p></li>
-<li><p>An <code>.R</code> file that contains a syntax for creating an <em>scdf</em>. That textfile must create an object called <strong>study</strong> that contains an <em>scdf</em>. Here is an example:</p></li>
+<li><p>An <code>.R</code> file containing a syntax for creating an <em>scdf</em>. This text file must create an object called <strong>study</strong> which contains an <em>scdf</em>. Here is an example:</p></li>
 </ol>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="at">A =</span> <span class="dv">58</span>, <span class="dv">56</span>, <span class="dv">60</span>, <span class="dv">63</span>, <span class="at">B =</span> <span class="dv">51</span>, <span class="dv">45</span>, <span class="dv">44</span>, <span class="dv">59</span>, <span class="dv">45</span>, <span class="dv">39</span>, <span class="dv">83</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>case2 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="at">A =</span> <span class="dv">47</span>, <span class="dv">41</span>, <span class="dv">47</span>, <span class="dv">52</span>, <span class="dv">54</span>, <span class="dv">65</span>, <span class="at">B =</span> <span class="dv">55</span>, <span class="dv">37</span>, <span class="dv">51</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">55</span>, <span class="dv">46</span>))</span>
@@ -480,40 +480,40 @@ The app is organized into seven main menus (tabs), each serving a specific funct
 <ol start="3" type="1">
 <li>A <code>.csv</code> file (see <a href="ch_create_display_and_store_scdfs.html#sec-read-scdf" class="quarto-xref"><span>Section 3.4.1</span></a> for more information on the structure of these files).</li>
 </ol>
-<p>If your datafile contains a valid <em>scdf</em> object, the output pane will give you specific information on the datafile:</p>
+<p>If your data file contains a valid <em>scdf</em> object, the output pane will give you specific information about the data file:</p>
 <p><img src="images/Screenshot 2025-03-23 at 09.23.37.png" class="img-fluid" width="561"></p>
 </section>
 <section id="load-an-example-data-file" class="level3" data-number="17.2.3">
 <h3 data-number="17.2.3" class="anchored" data-anchor-id="load-an-example-data-file"><span class="header-section-number">17.2.3</span> Load an example data file</h3>
-<p>Choose an example from the drop-down list:</p>
+<p>Select an example from the drop down list:</p>
 <p><img src="images/Screenshot 2025-03-21 at 15.26.53.png" class="img-fluid" width="444"></p>
-<p>A summary of the chosen <em>scdf</em> will be shown in the output pane:</p>
+<p>A summary of the selected <em>scdf</em> is displayed in the output pane:</p>
 <p><img src="images/Screenshot 2025-03-21 at 14.33.08.png" class="img-fluid" width="554"></p>
-<p>You can now proceed with the loaded or example <em>scdf</em> or switch to <strong>Data -&gt; New</strong> to change the dataset.</p>
+<p>You can now continue with the loaded or example <em>scdf</em> or go to <strong>Data -&gt; New</strong> to modify the dataset.</p>
 </section>
 </section>
 <section id="transform" class="level2" data-number="17.3">
 <h2 data-number="17.3" class="anchored" data-anchor-id="transform"><span class="header-section-number">17.3</span> Transform</h2>
-<p>The Transform tab allows to change, create, recalculate etc. new variables from your <em>scdf</em>.</p>
-<p>If you make any changes here, all operations in further tabs (<em>stats</em>, <em>plot</em> etc.) will be based on the transformed <em>scdf</em>.</p>
-<p>Additionally, this tab shows the raw-data contained in the <em>scdf</em>.</p>
+<p>The Transform tab allows you to modify, create, recalculate etc. new variables from your <em>scdf</em>.</p>
+<p>If you make any changes here, all operations in other tabs (<em>stats</em>, <em>plot</em> etc.) will be based on the transformed <em>scdf</em>.</p>
+<p>This tab also displays the raw-data contained in the <em>scdf</em>.</p>
 <p><img src="images/Screenshot 2025-03-21 at 14.33.27.png" class="img-fluid"></p>
 <p><strong>Select cases</strong></p>
-<p>Select cases either by the number of the case or the casename. Use commas to select multiple cases and a colon to select areas of cases (e.g.&nbsp;<code>1, 7:9, 10</code>).</p>
+<p>Select cases either by case number or by case name. Use commas to select multiple cases and a colon to select ranges of cases (e.g.&nbsp;<code>1, 7:9, 10</code>).</p>
 <p><strong>Combine phases</strong></p>
-<p>This option is specifically designed for later analyses that compare exactly two phases (like overlapping indices. If your <em>scdf</em> has more than two phases, you can define which phases are Phase A and Phase B. You can also join several phases into one phase by choosing more comma separated phases. Choose phases by the number (1 for 1st, 2 for 2nd etc.) See <a href="ch_overlapping_indices.html#sec-select-phases" class="quarto-xref"><span>Section 9.1.1</span></a> for more details.</p>
+<p>This option is specifically designed for later analyses that compare exactly two phases (such as overlapping indices). If your <em>scdf</em> has more than two phases, you can define which phases are Phase A and Phase B. You can combine multiple phases into one phase by selecting multiple phases separated by commas. Select phases by number (1 for 1st, 2 for 2nd etc.) See <a href="ch_overlapping_indices.html#sec-select-phases" class="quarto-xref"><span>Section 9.1.1</span></a> for more details.</p>
 <p><strong>Filter measurements</strong></p>
-<p>This takes a logical expression that defines a selection of measurements. You can use variable names within your <em>scdf</em> and R functions. For example, if you like to select all measurements above 6 you code <code>values &gt; 6</code>. If you want to select all measurements which values are above the median of Phase B, code <code>values &gt; median(values[phase == "B"])</code>. See <a href="ch_working_with_scdfs.html#sec-subset" class="quarto-xref"><span>Section 4.2</span></a>.</p>
+<p>This takes a logical expression defining a selection of measurements. You can use variable names within your <em>scdf</em> and R functions. For example, if you want to select all measurements above 6 you code <code>values &gt; 6</code>. If you want to select all measurements whose values are above the median of Phase B, you code <code>values &gt; median(values[phase == "B"])</code>. See <a href="ch_working_with_scdfs.html#sec-subset" class="quarto-xref"><span>Section 4.2</span></a>.</p>
 <p><strong>Transform variables</strong></p>
-<p>This section allows to create and change variables in a complex way. For example, for createing a new variable with standardized values code <code>values_std = scaled(values)</code>. See <a href="ch_working_with_scdfs.html#sec-transform" class="quarto-xref"><span>Section 4.3</span></a> for a detailed description of the syntax.</p>
+<p>This section allows you to create and modify variables in a complex way. For example, for create a new variable with standardised values code <code>values_std = scaled(values)</code>. See <a href="ch_working_with_scdfs.html#sec-transform" class="quarto-xref"><span>Section 4.3</span></a> for a detailed description of the syntax.</p>
 <p><strong>Set dependent variable</strong></p>
-<p>If your <em>scdf</em> has several dependent variables, you can switch them for the further analyses and depictions in this field (see <a href="ch_helper_functions.html" class="quarto-xref"><span>Chapter 6</span></a>).</p>
-<p>Clicking <strong>Save transformed scdf</strong> will save the transformed <em>scdf</em> to your hard-drive.</p>
+<p>If your <em>scdf</em> has multiple dependent variables, you can switch them for the further analysis and display in this field (see <a href="ch_helper_functions.html" class="quarto-xref"><span>Chapter 6</span></a>).</p>
+<p>Clicking on <strong>Save transformed scdf</strong> will save the transformed <em>scdf</em> to your hard drive.</p>
 </section>
 <section id="stats" class="level2" data-number="17.4">
 <h2 data-number="17.4" class="anchored" data-anchor-id="stats"><span class="header-section-number">17.4</span> Stats</h2>
-<p>Within this tab you can choose and refine analyses procedures. This section will explain the functionality of the GUI. For in depth descriptions and explanations of the statistical procedures, refer to the respective sections of this book.</p>
-<p>The <strong>Statistic</strong> field is the gateway to several procedures. By default, you get descriptives of your <em>scdf</em>.</p>
+<p>The purpose of this tab is to select and refine analyses procedures. The following section will provide an explanation of the functionality of the GUI. For more detailed descriptions and explanations of the statistical procedures, refer to the respective sections of this book.</p>
+<p>The <strong>Statistic</strong> field serves as the gateway to a range of procedures. By default, teh descriptives of the <em>scdf</em> are presented.</p>
 <p><img src="images/Screenshot 2025-03-21 at 14.33.46.png" class="img-fluid"></p>
 <p><strong>Output format</strong> allows to switch to html output which possible for some, but not all functions (see <a href="ch_export.html" class="quarto-xref"><span>Chapter 16</span></a> for details):</p>
 <p><img src="images/Screenshot 2025-03-21 at 14.33.55.png" class="img-fluid" width="881"></p>
@@ -571,7 +571,7 @@ The app is organized into seven main menus (tabs), each serving a specific funct
 </section>
 <section id="general" class="level3" data-number="17.6.5">
 <h3 data-number="17.6.5" class="anchored" data-anchor-id="general"><span class="header-section-number">17.6.5</span> General</h3>
-<p><strong>Html_engine</strong> specifies the internal engine used to generate HTML tables, either via the <strong>gt</strong> or <strong>kableExtra</strong> package (for <em>scdf</em> and statistical results). Only <strong>gt</strong> currently supports exporting tables in .docx format. The <strong>kableExtra</strong> engine is retained for compatibility purposes but may be deprecated in future versions of the package.</p>
+<p><strong>Html_engine</strong> specifies the internal engine used to generate HTML tables, either via the <a href="https://gt.rstudio.com/"><strong>gt</strong></a> or <a href="https://cran.r-project.org/package=kableExtra"><strong>kableExtra</strong></a> package (for <em>scdf</em> and statistical results). Only <strong>gt</strong> currently supports exporting tables in .docx format. The <strong>kableExtra</strong> engine is retained for compatibility purposes but may be deprecated in future versions of the package.</p>
 <p><img src="images/Screenshot 2025-03-21 at 14.35.23.png" class="img-fluid"></p>
 
 
