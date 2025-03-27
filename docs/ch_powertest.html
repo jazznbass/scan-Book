@@ -401,11 +401,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The power_test function call
+The power_test function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>power_test(design, method = c(“plm_level”, “rand”, “tauU”), effect = “level”, n_sim = 100, design_is_one_study = TRUE, alpha_test = TRUE, power_test = TRUE, binom_test = FALSE, binom_test_alpha = FALSE, binom_test_power = FALSE, binom_test_correct = FALSE, ci = FALSE, alpha_level = 0.05)</p>
+<p><strong>power_test</strong>(<br>
+&nbsp;&nbsp;<em>design</em>,<br>
+&nbsp;&nbsp;<em>method</em> = c(“plm_level”, “rand”, “tauU”),<br>
+&nbsp;&nbsp;<em>effect</em> = “level”,<br>
+&nbsp;&nbsp;<em>n_sim</em> = 100,<br>
+&nbsp;&nbsp;<em>design_is_one_study</em> = TRUE,<br>
+&nbsp;&nbsp;<em>alpha_test</em> = TRUE,<br>
+&nbsp;&nbsp;<em>power_test</em> = TRUE,<br>
+&nbsp;&nbsp;<em>binom_test</em> = FALSE,<br>
+&nbsp;&nbsp;<em>binom_test_alpha</em> = FALSE,<br>
+&nbsp;&nbsp;<em>binom_test_power</em> = FALSE,<br>
+&nbsp;&nbsp;<em>binom_test_correct</em> = FALSE,<br>
+&nbsp;&nbsp;<em>ci</em> = FALSE,<br>
+&nbsp;&nbsp;<em>alpha_level</em> = 0.05<br>
+)</p>
 </div>
 </div>
 <section id="the-idea-of-a-power-test" class="level2" data-number="15.1">
@@ -426,11 +440,30 @@ The power_test function call
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The design function call
+The design function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>design(n = 1, phase_design = list(A = 5, B = 15), trend = 0, level = list(0), slope = list(0), start_value = 50, s = 10, rtt = 0.8, extreme_prop = list(0), extreme_range = c(-4, -3), missing_prop = 0, distribution = c(“normal”, “gaussian”, “poisson”, “binomial”), random_start_value = FALSE, n_trials = NULL, mt = NULL, B_start = NULL, m, MT)</p>
+<p><strong>design</strong>(<br>
+&nbsp;&nbsp;<em>n</em> = 1,<br>
+&nbsp;&nbsp;<em>phase_design</em> = list(A = 5, B = 15),<br>
+&nbsp;&nbsp;<em>trend</em> = 0,<br>
+&nbsp;&nbsp;<em>level</em> = list(0),<br>
+&nbsp;&nbsp;<em>slope</em> = list(0),<br>
+&nbsp;&nbsp;<em>start_value</em> = 50,<br>
+&nbsp;&nbsp;<em>s</em> = 10,<br>
+&nbsp;&nbsp;<em>rtt</em> = 0.8,<br>
+&nbsp;&nbsp;<em>extreme_prop</em> = list(0),<br>
+&nbsp;&nbsp;<em>extreme_range</em> = c(-4, -3),<br>
+&nbsp;&nbsp;<em>missing_prop</em> = 0,<br>
+&nbsp;&nbsp;<em>distribution</em> = c(“normal”, “gaussian”, “poisson”, “binomial”),<br>
+&nbsp;&nbsp;<em>random_start_value</em> = FALSE,<br>
+&nbsp;&nbsp;<em>n_trials</em> = NULL,<br>
+&nbsp;&nbsp;<em>mt</em> = NULL,<br>
+&nbsp;&nbsp;<em>B_start</em> = NULL,<br>
+&nbsp;&nbsp;<em>m</em>,<br>
+&nbsp;&nbsp;<em>MT</em><br>
+)</p>
 </div>
 </div>
 <p>The <code>design</code> function sets up a single-case design. You can define various parameters of that design:</p>
@@ -533,9 +566,9 @@ Table&nbsp;15.1: Core arguments of the design function
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
- plm_level    74           8      1:3.2      83
-      rand    68           7      1:4.6      80
-      tauU   100          22      1:0.0      89</code></pre>
+ plm_level    68           3     1:10.7      82
+      rand    69           7      1:4.4      81
+      tauU   100          29      1:0.0      86</code></pre>
 </div>
 </div>
 <p>The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to outliers of the random samples. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tau U test has an unacceptably high alpha-error which is due to the trend we put into the design. <em>Alpha:Beta</em> depicts the relation of the Alpha and Beta error (power = 1 - Beta). <em>Correct</em> is the overall proportion of correct categorizations and <em>p</em> is the results of a binomial-test of <em>Correct</em> against 50%.</p>
@@ -639,13 +672,13 @@ Table&nbsp;15.2: Statistical methods
 <pre><code>Test-Power in percent:
 
     Method Power 2.5% 97.5% Alpha Error 2.5% 97.5% Alpha:Beta Correct 2.5%
- plm_level    73   63    81           7    3    14      1:3.9      83   77
-      rand    69   59    78           4    1    10      1:7.8      82   77
-      tauU   100   96   100          23   15    32      1:0.0      88   83
+ plm_level    76   66    84           9    4    16      1:2.7      84   78
+      rand    67   57    76          11    6    19      1:3.0      78   72
+      tauU   100   96   100          32   23    42      1:0.0      84   78
  97.5%
     88
-    87
-    93</code></pre>
+    84
+    89</code></pre>
 </div>
 </div>
 <p>You can also test the power, alpha error, and correct estimates against predefined values. In order to do that, set <code>binom_test = TRUE</code>. The power will be tested against being greater or equal to 80%, the alpha error against being less or equal 5%, and the correct proportion against being greater equal 87.5%.</p>
@@ -655,13 +688,13 @@ Table&nbsp;15.2: Statistical methods
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct p Power&gt;=80 p Alpha Error&lt;=5
- plm_level    77           5      1:4.6      86           1                1
-      rand    74           4      1:6.5      85           1                0
-      tauU   100          19      1:0.0      90           0                1
+ plm_level    74           3      1:8.7      86           1                0
+      rand    65           2     1:17.5      82           1                0
+      tauU   100          18      1:0.0      91           0                1
  p Correct&gt;=87.5
-             0.8
-             0.9
-             0.1</code></pre>
+            0.83
+            0.99
+            0.08</code></pre>
 </div>
 </div>
 <p>If you want to define individual values for the three tests, set the <code>binom_test_power</code>. <code>binom_test_alpha</code>, and/or, the <code>binom_test_correct</code> arguments.</p>
@@ -720,9 +753,9 @@ Table&nbsp;15.2: Statistical methods
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
- plm_level    74           8      1:3.2      83
-      rand    68           7      1:4.6      80
-      tauU   100          22      1:0.0      89
+ plm_level    68           3     1:10.7      82
+      rand    69           7      1:4.4      81
+      tauU   100          29      1:0.0      86
 
 Computation duration is 0.6 seconds.</code></pre>
 </div>
@@ -739,10 +772,10 @@ Computation duration is 0.6 seconds.</code></pre>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.062</span></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.193</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.197</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res3, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.268</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.276</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>… and what about our new fast-glm function?</p>
 <div class="cell">
@@ -761,12 +794,12 @@ Computation duration is 0.6 seconds.</code></pre>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res1, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>elapsed 
-   0.07 </code></pre>
+  0.073 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>elapsed 
-  0.103 </code></pre>
+  0.113 </code></pre>
 </div>
 </div>
 

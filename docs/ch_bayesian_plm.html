@@ -440,11 +440,29 @@ Experimental
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The bplm function call
+The bplm function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>bplm(data, dvar, pvar, mvar, model = c(“W”, “H-M”, “B&amp;L-B”), contrast_level = c(“first”, “preceding”), contrast_slope = c(“first”, “preceding”), trend = TRUE, level = TRUE, slope = TRUE, random_trend = FALSE, random_level = FALSE, random_slope = FALSE, fixed = NULL, random = NULL, update_fixed = NULL, …)</p>
+<p><strong>bplm</strong>(<br>
+&nbsp;&nbsp;<em>data</em>,<br>
+&nbsp;&nbsp;<em>dvar</em>,<br>
+&nbsp;&nbsp;<em>pvar</em>,<br>
+&nbsp;&nbsp;<em>mvar</em>,<br>
+&nbsp;&nbsp;<em>model</em> = c(“W”, “H-M”, “B&amp;L-B”),<br>
+&nbsp;&nbsp;<em>contrast_level</em> = c(“first”, “preceding”),<br>
+&nbsp;&nbsp;<em>contrast_slope</em> = c(“first”, “preceding”),<br>
+&nbsp;&nbsp;<em>trend</em> = TRUE,<br>
+&nbsp;&nbsp;<em>level</em> = TRUE,<br>
+&nbsp;&nbsp;<em>slope</em> = TRUE,<br>
+&nbsp;&nbsp;<em>random_trend</em> = FALSE,<br>
+&nbsp;&nbsp;<em>random_level</em> = FALSE,<br>
+&nbsp;&nbsp;<em>random_slope</em> = FALSE,<br>
+&nbsp;&nbsp;<em>fixed</em> = NULL,<br>
+&nbsp;&nbsp;<em>random</em> = NULL,<br>
+&nbsp;&nbsp;<em>update_fixed</em> = NULL,<br>
+&nbsp;&nbsp;<em>…</em><br>
+)</p>
 </div>
 </div>
 <p>The <code>bplm()</code> function comuputes a piecewise regression analysis. The syntax is quite similar to the <code>plm()</code> and <code>hplm()</code> functions. There you can find details about the general piecewise regression model, the interpretation of regression estimations, and the setting of contrast in models with more that two phases.</p>
@@ -456,20 +474,20 @@ The bplm function call
 <pre><code>Bayesian Piecewise Linear Regression
 
 Contrast model: W (level: first, slope: first)
-Deviance Information Criterion: 127.0762 
+Deviance Information Criterion: 127.2709 
 
 B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                             B lower 95% CI upper 95% CI sample size     p
-Intercept              54.427       46.485       62.927        1000 0.001
-Trend (mt)              0.129       -3.110        3.650        1000 0.934
-Level phase B (phaseB)  7.608       -4.904       19.895        1000 0.232
-Slope phase B (interB)  1.502       -2.082        4.702        1000 0.386
+Intercept              54.252       46.290       62.186        1000 0.001
+Trend (mt)              0.132       -3.209        3.341        1000 0.894
+Level phase B (phaseB)  7.898       -4.647       19.398        1000 0.196
+Slope phase B (interB)  1.487       -2.159        4.415        1000 0.348
 
 R-Structure - Residuals
 
           SD lower 95% CI upper 95% CI 
-       5.381        3.439        7.212 </code></pre>
+       5.353        3.420        7.207 </code></pre>
 </div>
 </div>
 <p>Here is an example of a multi-case dataset:</p>
@@ -481,25 +499,25 @@ R-Structure - Residuals
 Contrast model: W (level: first, slope: first)
 50 Cases
 
-Deviance Information Criterion: 8574.78 
+Deviance Information Criterion: 8574.559 
 
 B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                             B lower 95% CI upper 95% CI sample size     p
-Intercept              48.332       45.332       51.184    1000.000 0.001
-Trend (mt)              0.576        0.327        0.792    1000.000 0.001
-Level phase B (phaseB) 14.052       12.847       15.543    1000.000 0.001
-Slope phase B (interB)  0.905        0.680        1.161    1297.136 0.001
+Intercept              48.488       45.554       51.312    1000.000 0.001
+Trend (mt)              0.574        0.369        0.797     809.183 0.001
+Level phase B (phaseB) 14.059       12.777       15.330    1000.000 0.001
+Slope phase B (interB)  0.907        0.684        1.121    1000.000 0.001
 
 G-Structure - Random effects (~case)
 
- Parameter     SD lower 95% CI upper 95% CI
- Intercept 10.283        8.137       12.179
+ Parameter    SD lower 95% CI upper 95% CI
+ Intercept 10.26        8.263        12.13
 
 R-Structure - Residuals
 
           SD lower 95% CI upper 95% CI 
-       5.296        5.090        5.492 </code></pre>
+       5.294        5.092        5.495 </code></pre>
 </div>
 </div>
 <section id="setting-priors" class="level2" data-number="13.1">

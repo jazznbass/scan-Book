@@ -402,11 +402,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The plotSC function call
+The plotSC function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>plotSC(data, dvar, pvar, mvar, ylim = NULL, xlim = NULL, xinc = 1, lines = NULL, marks = NULL, phase.names = NULL, xlab = NULL, ylab = NULL, main = ““, case.names = NULL, style = getOption(”scan.plot.style”), …)</p>
+<p><strong>plotSC</strong>(<br>
+&nbsp;&nbsp;<em>data</em>,<br>
+&nbsp;&nbsp;<em>dvar</em>,<br>
+&nbsp;&nbsp;<em>pvar</em>,<br>
+&nbsp;&nbsp;<em>mvar</em>,<br>
+&nbsp;&nbsp;<em>ylim</em> = NULL,<br>
+&nbsp;&nbsp;<em>xlim</em> = NULL,<br>
+&nbsp;&nbsp;<em>xinc</em> = 1,<br>
+&nbsp;&nbsp;<em>lines</em> = NULL,<br>
+&nbsp;&nbsp;<em>marks</em> = NULL,<br>
+&nbsp;&nbsp;<em>phase.names</em> = NULL,<br>
+&nbsp;&nbsp;<em>xlab</em> = NULL,<br>
+&nbsp;&nbsp;<em>ylab</em> = NULL,<br>
+&nbsp;&nbsp;<em>main</em> = ““,<br>
+&nbsp;&nbsp;<em>case.names</em> = NULL,<br>
+&nbsp;&nbsp;<em>style</em> = getOption(”scan.plot.style”),<br>
+&nbsp;&nbsp;<em>…</em><br>
+)</p>
 </div>
 </div>
 <p>After you build an <em>scdf</em> the <code>plot</code> command helps to visualize the data. When the <code>scdf</code> includes more than one case a multiple baseline figure is provided. Various arguments can be set to customize the appearance of the plot. <a href="#tbl-plot-arguments" class="quarto-xref">Table&nbsp;<span>D.1</span></a> gives an overview of all available arguments.</p>
@@ -651,11 +668,11 @@ Table&nbsp;D.2: Values of the lines argument
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The style_plot function call
+The style_plot function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>style_plot(style = “default”, …)</p>
+<p><strong>style_plot</strong>(<em>style</em> = “default”, <em>…</em>)</p>
 </div>
 </div>
 <p>The <code>style</code> argument of the plot function allows to specify a specific design of a plot. By default, the <code>grid</code> style is applied. <code>scan</code> includes some further predefined styles. <code>default, yaxis, tiny, small, big, chart, ridge, annotate, grid, grid2, dark, nodot, and sienna</code>. The name of a style is provided as a character string (e.g., <code>style = "grid"</code>).<br>
@@ -788,11 +805,11 @@ Table&nbsp;D.3: Arguments of the style plot function
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The smooth_cases function call
+The smooth_cases function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>smooth_cases(data, dvar, mvar, method = “mean”, intensity = NULL, FUN = NULL)</p>
+<p><strong>smooth_cases</strong>(<em>data</em>, <em>dvar</em>, <em>mvar</em>, <em>method</em> = “mean”, <em>intensity</em> = NULL, <em>FUN</em> = NULL)</p>
 </div>
 </div>
 <p>The <code>smooth_cases</code> function provides procedures to smooth single-case data and eliminate noise. A moving average function (mean- or median-based) replaces each data point by the average of the surrounding data points step-by-step. A <em>lag</em> defines the number of measurements before and after the calculation is based on. So a lag-1 will take the average of the proceeding and following value and lag-2 the average of the two proceeding and two following measurements. With a local regression function, each data point is regressed by its surrounding data points. Here, the proportion of measurements surrounding a value is usually defined. So an intensity of 0.2 will take the surrounding 20% of data as the basis for a regression.<br>

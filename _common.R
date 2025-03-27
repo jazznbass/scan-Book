@@ -52,7 +52,8 @@ function_structure <- function(name,
                                  "extreme.p", "extreme.d", "missing.p"
                                ),
                                label = NULL,
-                               fname = NULL){
+                               fname = NULL,
+                               linebreaks = "auto"){
   
   if (is.null(label)) label <- name
   if (is.null(fname)) fname <- name
@@ -66,19 +67,36 @@ function_structure <- function(name,
     values <- values[filter]
   }
  
+  if (identical(linebreaks, "auto")) {
+    linebreaks <- if (length(args) > 7) TRUE else FALSE
+  }
+  
   for(i in seq_along(values)) {
     if (inherits(values[[i]], "character")) 
       values[[i]] <- paste0("\"", values[[i]], "\"")
   }
   
   values <- as.character(values)
-  
-  out <- paste0(fname, "(", paste0(args, " = ", values, collapse = ", "), ")")   
+  fname <- paste0("**", fname, "**")
+  if (!linebreaks)
+    out <- paste0(
+      fname, "(", 
+      paste0("*", args, "* = ", values, collapse = ", "), 
+      ")"
+    )   
+  if (linebreaks)
+    out <- paste0(
+      fname, "(  \n&nbsp;&nbsp;", 
+      paste0("*", args, "* = ", values, collapse = ",  \n&nbsp;&nbsp;"), 
+      "  \n)"
+    )   
+
   out <- gsub(" = ,", ",", out)
   out <- gsub(" = )", ")", out)
+  out <- gsub("=   \n", "  \n", out)
   
   cat('::: {.callout-tip appearance="simple"}\n')
-  cat("# The", label, "function call\n\n")
+  cat("# The", label, "function call:\n\n")
   cat(
     #"``` {.r}", "\n",  
     out, "\n", 

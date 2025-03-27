@@ -523,11 +523,32 @@ y_i = \beta_0 + \beta_1 (time_i-time_1) + \beta_2 phase_i + \beta_3 (time_i-time
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The plm function call
+The plm function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>plm(data, dvar, pvar, mvar, AR = 0, model = c(“W”, “H-M”, “B&amp;L-B”, “JW”), family = “gaussian”, trend = TRUE, level = TRUE, slope = TRUE, contrast = c(“first”, “preceding”), contrast_level = c(NA, “first”, “preceding”), contrast_slope = c(NA, “first”, “preceding”), formula = NULL, update = NULL, na.action = na.omit, r_squared = TRUE, var_trials = NULL, dvar_percentage = FALSE, …)</p>
+<p><strong>plm</strong>(<br>
+&nbsp;&nbsp;<em>data</em>,<br>
+&nbsp;&nbsp;<em>dvar</em>,<br>
+&nbsp;&nbsp;<em>pvar</em>,<br>
+&nbsp;&nbsp;<em>mvar</em>,<br>
+&nbsp;&nbsp;<em>AR</em> = 0,<br>
+&nbsp;&nbsp;<em>model</em> = c(“W”, “H-M”, “B&amp;L-B”, “JW”),<br>
+&nbsp;&nbsp;<em>family</em> = “gaussian”,<br>
+&nbsp;&nbsp;<em>trend</em> = TRUE,<br>
+&nbsp;&nbsp;<em>level</em> = TRUE,<br>
+&nbsp;&nbsp;<em>slope</em> = TRUE,<br>
+&nbsp;&nbsp;<em>contrast</em> = c(“first”, “preceding”),<br>
+&nbsp;&nbsp;<em>contrast_level</em> = c(NA, “first”, “preceding”),<br>
+&nbsp;&nbsp;<em>contrast_slope</em> = c(NA, “first”, “preceding”),<br>
+&nbsp;&nbsp;<em>formula</em> = NULL,<br>
+&nbsp;&nbsp;<em>update</em> = NULL,<br>
+&nbsp;&nbsp;<em>na.action</em> = na.omit,<br>
+&nbsp;&nbsp;<em>r_squared</em> = TRUE,<br>
+&nbsp;&nbsp;<em>var_trials</em> = NULL,<br>
+&nbsp;&nbsp;<em>dvar_percentage</em> = FALSE,<br>
+&nbsp;&nbsp;<em>…</em><br>
+)</p>
 </div>
 </div>
 <p>The basic function for applying a regression analyses to a single-case dataset is <code>plm</code>. This function analyses one single-case. In its simplest way, <code>plm</code> takes one argument with an <em>scdf</em> object and it returns a full piecewise-regression analyses.</p>
@@ -1543,11 +1564,11 @@ Experimental
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The anova function call
+The anova function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>anova(object, …)</p>
+<p><strong>anova</strong>(<em>object</em>, <em>…</em>)</p>
 </div>
 </div>
 <p>You can compare the fit of piecewise linear regression (plm) models using the <code>anova()</code> function. This allows for stepwise regression analyses and targeted comparisons (e.g., assessing the combined effect of slope and level changes).</p>

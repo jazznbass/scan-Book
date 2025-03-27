@@ -429,11 +429,23 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The scdf function call
+The scdf function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>scdf(values, B_start, mt, phase, phase_design = NULL, phase_starts = NULL, name = NULL, dvar = “values”, pvar = “phase”, mvar = “mt”, …)</p>
+<p><strong>scdf</strong>(<br>
+&nbsp;&nbsp;<em>values</em>,<br>
+&nbsp;&nbsp;<em>B_start</em>,<br>
+&nbsp;&nbsp;<em>mt</em>,<br>
+&nbsp;&nbsp;<em>phase</em>,<br>
+&nbsp;&nbsp;<em>phase_design</em> = NULL,<br>
+&nbsp;&nbsp;<em>phase_starts</em> = NULL,<br>
+&nbsp;&nbsp;<em>name</em> = NULL,<br>
+&nbsp;&nbsp;<em>dvar</em> = “values”,<br>
+&nbsp;&nbsp;<em>pvar</em> = “phase”,<br>
+&nbsp;&nbsp;<em>mvar</em> = “mt”,<br>
+&nbsp;&nbsp;<em>…</em><br>
+)</p>
 </div>
 </div>
 <p>The <code>scdf()</code> function is the basic tool for creating a single-case data frame. Basically, you have to provide the measurement <em>values</em> and the <em>phase</em> structure and an <em>scdf</em> object is build. There are three different ways of defining the phase structure. First, defining the beginning of each phase with the <code>phase_starts</code> argument, second, defining a design with the <code>phase_design</code> argument and third, setting parameters in a named vector of the dependent variable.</p>
@@ -649,11 +661,24 @@ The easiest way is to use the <em>R</em> base functions <code>saveRDS</code> and
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The read_scdf function call
+The read_scdf function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>read_scdf(file, cvar = “case”, pvar = “phase”, dvar = “values”, mvar = “mt”, sort_cases = FALSE, phase_names = NULL, type = NA, na = c(““,”NA”), sort.labels = NULL, phase.names = NULL, …)</p>
+<p><strong>read_scdf</strong>(<br>
+&nbsp;&nbsp;<em>file</em>,<br>
+&nbsp;&nbsp;<em>cvar</em> = “case”,<br>
+&nbsp;&nbsp;<em>pvar</em> = “phase”,<br>
+&nbsp;&nbsp;<em>dvar</em> = “values”,<br>
+&nbsp;&nbsp;<em>mvar</em> = “mt”,<br>
+&nbsp;&nbsp;<em>sort_cases</em> = FALSE,<br>
+&nbsp;&nbsp;<em>phase_names</em> = NULL,<br>
+&nbsp;&nbsp;<em>type</em> = NA,<br>
+&nbsp;&nbsp;<em>na</em> = c(““,”NA”),<br>
+&nbsp;&nbsp;<em>sort.labels</em> = NULL,<br>
+&nbsp;&nbsp;<em>phase.names</em> = NULL,<br>
+&nbsp;&nbsp;<em>…</em><br>
+)</p>
 </div>
 </div>
 <p>When you are working with other programs besides <strong>R</strong> you need to export and import the <em>scdf</em> into a common file format. <code>read_scdf</code> imports a comma-separated-variable (<em>csv</em>) file and converts it into an <em>scdf</em> object. By default, the csv-file has to contain the columns <em>case</em>, <em>phase</em>, and <em>values</em>. Optionally, a further column named <em>mt</em> could be provided. The csv file should be build up like this:</p>
@@ -727,11 +752,11 @@ gym</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The write_scdf function call
+The write_scdf function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>write_scdf(data, filename = NULL, sep = “,”, dec = “.”, …)</p>
+<p><strong>write_scdf</strong>(<em>data</em>, <em>filename</em> = NULL, <em>sep</em> = “,”, <em>dec</em> = “.”, <em>…</em>)</p>
 </div>
 </div>
 <p><code>write_scdf()</code> exports an <em>scdf</em> object as a comma-separated-variables file (<em>csv</em>) which can be imported into any other software for data analyses (MS OFFICE, Libre Office etc.). The <em>scdf</em> object is converted into a single data frame with a <em>case</em> variable identifying the rows for each subject. The first argument of the command identifies the <em>scdf</em> to be exported and the second argument (<code>file</code>) the name of the resulting csv-file. If no file argument is provided, a dialog box is opened to choose a file interactively. By default, <code>write_scdf</code> exports into a standard csv-format with a dot as the decimal point and a comma for separating variables. If your system expects a comma instead of a point for decimal numbers you may use the <code>dec</code> and the <code>sep</code> arguments. For example, <code>write_scdf(example, file = "example.csv", dec = ",", sep = ";")</code> exports a csv variation usually used for example in Germany.</p>
@@ -761,11 +786,11 @@ The write_scdf function call
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The convert function call
+The convert function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>convert(scdf, file = ““, study_name =”study”, case_name = “case”, inline = FALSE, indent = 2, silent = FALSE)</p>
+<p><strong>convert</strong>(<em>scdf</em>, <em>file</em> = ““, <em>study_name</em> =”study”, <em>case_name</em> = “case”, <em>inline</em> = FALSE, <em>indent</em> = 2, <em>silent</em> = FALSE)</p>
 </div>
 </div>
 <p>You can also reconvert an <em>scdf</em> object back to “raw” scan syntax. This is a convenient way when you imported data from an Excel or csv file and want to keep everything clean and transparent within your R syntax files.</p>
@@ -831,11 +856,11 @@ study &lt;- c(
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The print scdf function call
+The print scdf function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>print(x, cases = getOption(“scan.print.cases”), rows = getOption(“scan.print.rows”), cols = getOption(“scan.print.cols”), long = getOption(“scan.print.long”), digits = getOption(“scan.print.digits”), …)</p>
+<p><strong>print</strong>(<em>x</em>, <em>cases</em> = getOption(“scan.print.cases”), <em>rows</em> = getOption(“scan.print.rows”), <em>cols</em> = getOption(“scan.print.cols”), <em>long</em> = getOption(“scan.print.long”), <em>digits</em> = getOption(“scan.print.digits”), <em>…</em>)</p>
 </div>
 </div>
 <p><em>scdf</em> are displayed by just typing the name of the object.</p>
@@ -894,11 +919,11 @@ The print scdf function call
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The summary scdf function call
+The summary scdf function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>summary(object, all_cases = FALSE, …)</p>
+<p><strong>summary</strong>(<em>object</em>, <em>all_cases</em> = FALSE, <em>…</em>)</p>
 </div>
 </div>
 <p>A short description of the <em>scdf</em> is provided by the <code>summary</code> command. The results are pretty much self explaining:</p>

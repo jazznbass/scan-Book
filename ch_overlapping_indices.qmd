@@ -78,9 +78,11 @@ The percentage of non-overlapping data (PND) effect size measure was described b
 #| fig-cap: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A
 
 random_scdf(design(1, level = 1.0),round = 0, seed = 1212) |>
-  scplot() |> add_statline("max", phase = "A", color = "red") |>
-  add_text("Maximum of A", x = 1, y = 60, hjust = 0, color = "red", size = 1) |>
-  add_marks(positions = "values > max(values[phase == 'A'])", size = 2, shape = 16)
+  scplot() |> 
+  add_statline("max", phase = "A", color = "red") |>
+  add_text("Maximum of A", x = 1, y = 63, hjust = 0, color = "darkblue", size = 1) |>
+  add_marks(positions = "values > max(values[phase == 'A'])", size = 2, shape = 16) |> 
+  set_theme("basic")
 ```
 
 The function `pnd` provides the PND for each case as well as the mean of all PNDs of that *scdf*. When you expect decreasing values set `decreasing = TRUE`. When there are more than two phases or phases are not named A and B, use the `phases` argument as described at the beginning of this chapter.
@@ -107,8 +109,9 @@ The pem function returns the percentage of phase B data exceeding the phase A me
 
 random_scdf(design(1, level = 1.0),round = 0, seed = 1212) |>
   scplot() |> add_statline("median", phase = "A", color = "red") |>
-  add_text("Median of A", x = 1, y = 53, hjust = 0, color = "red", size = 1) |>
-  add_marks(positions = "values > median(values[phase == 'A']) & phase == 'B'", size = 2, shape = 16)
+  add_text("Median of A", x = 1, y = 54, hjust = 0, color = "darkblue", size = 1) |>
+  add_marks(positions = "values > median(values[phase == 'A']) & phase == 'B'", size = 2, shape = 16)|> 
+  set_theme("basic")
 ```
 
 ```{r}
@@ -137,8 +140,9 @@ pet(exampleAB)
 
 random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 0, seed = 9871) |> 
   scplot() |> add_statline("trendA", color = "red") |>
-  add_text("Trend of A", x = 1, y = 52, hjust = 0, color = "red", size = 1) |>
-  add_marks(positions = c(12, 14:19, 21, 22,25), size = 2, shape = 16)
+  add_text("Trend of A", x = 1, y = 53, hjust = 0, color = "darkblue", size = 1, angle = 6) |>
+  add_marks(positions = c(12, 14:19, 21, 22,25), size = 2, shape = 16)|> 
+  set_theme("basic")
 ```
 
 ## Percentage of all non-overlapping data (PAND) {#sec-pand}
@@ -199,7 +203,7 @@ The adaptation of the improvement rate difference for single-case phase comparis
 ird(exampleAB)
 ```
 
-## Tau-U {#sec-pnd} {#sec-tauu}
+## Tau-U {#sec-tauu}
 
 ```{r}
 #| results: asis

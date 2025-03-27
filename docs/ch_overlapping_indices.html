@@ -421,7 +421,7 @@ window.Quarto = {
   <li><a href="#sec-pand" id="toc-sec-pand" class="nav-link" data-scroll-target="#sec-pand"><span class="header-section-number">9.6</span> Percentage of all non-overlapping data (PAND)</a></li>
   <li><a href="#sec-nap" id="toc-sec-nap" class="nav-link" data-scroll-target="#sec-nap"><span class="header-section-number">9.7</span> Nonoverlap of all pairs (NAP)</a></li>
   <li><a href="#sec-ird" id="toc-sec-ird" class="nav-link" data-scroll-target="#sec-ird"><span class="header-section-number">9.8</span> Improvement rate difference (IRD)</a></li>
-  <li><a href="#sec-tauu" id="toc-sec-tauu" class="nav-link" data-scroll-target="#sec-tauu"><span class="header-section-number">9.9</span> Tau-U {#sec-pnd}</a>
+  <li><a href="#sec-tauu" id="toc-sec-tauu" class="nav-link" data-scroll-target="#sec-tauu"><span class="header-section-number">9.9</span> Tau-U</a>
   <ul class="collapse">
   <li><a href="#variations-of-tau-u" id="toc-variations-of-tau-u" class="nav-link" data-scroll-target="#variations-of-tau-u"><span class="header-section-number">9.9.1</span> Variations of Tau-U</a></li>
   <li><a href="#meta-analyses" id="toc-meta-analyses" class="nav-link" data-scroll-target="#meta-analyses"><span class="header-section-number">9.9.2</span> Meta analyses</a></li>
@@ -462,11 +462,11 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The overlap function call
+The overlap function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>overlap(data, dvar, pvar, mvar, decreasing = FALSE, phases = c(1, 2))</p>
+<p><strong>overlap</strong>(<em>data</em>, <em>dvar</em>, <em>pvar</em>, <em>mvar</em>, <em>decreasing</em> = FALSE, <em>phases</em> = c(1, 2))</p>
 </div>
 </div>
 <p><code>overlap</code> provides a table with some of the most important overlap indices for each case of an <em>scdf</em>. For calculating overlap indicators it is important to know if a decrease or an increase of values is expected between phases. By default <code>overlap</code> assumes an increase in values. If the argument <code>decreasing = TRUE</code> is set, calculation will be based on the assumption of decreasing values.</p>
@@ -504,11 +504,11 @@ Hedges_g        2.35     2.26  2.87</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The select_phases function call
+The select_phases function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>select_phases(data, A, B, phase_names = “auto”)</p>
+<p><strong>select_phases</strong>(<em>data</em>, <em>A</em>, <em>B</em>, <em>phase_names</em> = “auto”)</p>
 </div>
 </div>
 <p>The <code>select_phases()</code> function is needed if you like to compare specific phases or even like to combine several phases. <code>select_phases()</code> is designed to work within a pipe structure. So the first argument is an <em>scdf</em> and it returns an <em>scdf</em>.</p>
@@ -556,11 +556,11 @@ Hedges_g          2.07      2.72      2.98</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The smd function call
+The smd function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>smd(data, dvar, pvar, mvar, phases = c(1, 2))</p>
+<p><strong>smd</strong>(<em>data</em>, <em>dvar</em>, <em>pvar</em>, <em>mvar</em>, <em>phases</em> = c(1, 2))</p>
 </div>
 </div>
 <p>Standardized mean differences can be calculated in various ways. They refer to the difference in the means of two phases divided by a standard deviation. The <code>smd</code> function provides an overview of the most common parameters for each single-case:</p>
@@ -593,11 +593,11 @@ Cohen's d                         6.98   7.67   7.10</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The pnd function call
+The pnd function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>pnd(data, dvar, pvar, decreasing = FALSE, phases = c(1, 2))</p>
+<p><strong>pnd</strong>(<em>data</em>, <em>dvar</em>, <em>pvar</em>, <em>decreasing</em> = FALSE, <em>phases</em> = c(1, 2))</p>
 </div>
 </div>
 <p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation" data-cites="scruggs_quantitative_1987">Scruggs, Mastropieri, &amp; Casto (<a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
@@ -634,11 +634,21 @@ Mean  : 93.33 %</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The pem function call
+The pem function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>pem(data, dvar, pvar, decreasing = FALSE, binom.test = TRUE, chi.test = FALSE, FUN = median, phases = c(1, 2), …)</p>
+<p><strong>pem</strong>(<br>
+&nbsp;&nbsp;<em>data</em>,<br>
+&nbsp;&nbsp;<em>dvar</em>,<br>
+&nbsp;&nbsp;<em>pvar</em>,<br>
+&nbsp;&nbsp;<em>decreasing</em> = FALSE,<br>
+&nbsp;&nbsp;<em>binom.test</em> = TRUE,<br>
+&nbsp;&nbsp;<em>chi.test</em> = FALSE,<br>
+&nbsp;&nbsp;<em>FUN</em> = median,<br>
+&nbsp;&nbsp;<em>phases</em> = c(1, 2),<br>
+&nbsp;&nbsp;<em>…</em><br>
+)</p>
 </div>
 </div>
 <p>The pem function returns the percentage of phase B data exceeding the phase A median. Additionally, a binomial test against a 50/50 distribution is computed. Different measures of central tendency can be addressed for alternative analyses.</p>
@@ -674,11 +684,11 @@ Alternative hypothesis: true probability &gt; 50%</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The pet function call
+The pet function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>pet(data, dvar, pvar, mvar, ci = 0.95, decreasing = FALSE, phases = c(1, 2))</p>
+<p><strong>pet</strong>(<em>data</em>, <em>dvar</em>, <em>pvar</em>, <em>mvar</em>, <em>ci</em> = 0.95, <em>decreasing</em> = FALSE, <em>phases</em> = c(1, 2))</p>
 </div>
 </div>
 <p>The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent (default) confidence interval of the predicted progress is computed.</p>
@@ -715,11 +725,11 @@ PET CI: Percent of values greater than upper 95% confidence threshold (single si
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The pand function call
+The pand function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>pand(data, dvar, pvar, decreasing = FALSE, phases = c(1, 2), method = c(“sort”, “minimum”))</p>
+<p><strong>pand</strong>(<em>data</em>, <em>dvar</em>, <em>pvar</em>, <em>decreasing</em> = FALSE, <em>phases</em> = c(1, 2), <em>method</em> = c(“sort”, “minimum”))</p>
 </div>
 </div>
 <p>The <code>pand</code> function calculates the percentage of all non-overlapping data <span class="citation" data-cites="parker_percentage_2007">(<a href="references.html#ref-parker_percentage_2007" role="doc-biblioref">Richard I. Parker, Hagan-Burke, &amp; Vannest, 2007</a>)</span>, an index to quantify a level increase (or decrease) in performance after the onset of an intervention. The authors emphasize that PAND is designed for application in a multiple case design with a substantial number of measurements, technically at least 20 to 25, but preferably 60 or more. PAND is defined as 100% minus the percentage of data points that need to be removed from either phase in order to ensure nonoverlap between the phases.</p>
@@ -783,11 +793,11 @@ Overlapping data: n = 4 ; percentage = 14.3 </code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The nap function call
+The nap function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>nap(data, dvar, pvar, decreasing = FALSE, phases = c(1, 2))</p>
+<p><strong>nap</strong>(<em>data</em>, <em>dvar</em>, <em>pvar</em>, <em>decreasing</em> = FALSE, <em>phases</em> = c(1, 2))</p>
 </div>
 </div>
 <p>The <code>nap</code> function calculates the nonoverlap of all pairs <span class="citation" data-cites="parker_improved_2009">(<a href="references.html#ref-parker_improved_2009" role="doc-biblioref">Richard I. Parker &amp; Vannest, 2009</a>)</span>. NAP summarizes the overlap between all pairs of phase A and phase B data points. Therefore, every single measurement of phase A is compared to all measurements in phase B, resuting in <span class="math inline">\(n_{Phase A} \times n_{Phase B}\)</span> pairs. If an increase in phase B values is expected, a non-overlapping pair will have a higher phase B data point. The NAP is equal to the number of pairs showing no overlap / number of pairs. Since NAP has values between 0 and 100% where 50% is no effect, a rescaled NAP (ranging between -100 and 100%, where 0% is no effect) has been proposed. NAP is equivalent to the U-test and the Wilcoxon rank sum test. Therefore, a Wilcoxon signed rank sum test is conducted and reported for each case. Additionally, effect sizes d and R-squared are reported according to Parker and colleagues.</p>
@@ -811,11 +821,11 @@ The nap function call
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The ird function call
+The ird function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>ird(data, dvar, pvar, decreasing = FALSE, phases = c(1, 2))</p>
+<p><strong>ird</strong>(<em>data</em>, <em>dvar</em>, <em>pvar</em>, <em>decreasing</em> = FALSE, <em>phases</em> = c(1, 2))</p>
 </div>
 </div>
 <p>The adaptation of the improvement rate difference for single-case phase comparisons was developed by <span class="citation" data-cites="parker2009">Richard I. Parker, Vannest, &amp; Brown (<a href="references.html#ref-parker2009" role="doc-biblioref">2009</a>)</span>. A variation called robust improvement rate difference was proposed by <span class="citation" data-cites="parker_effect_2011">Richard I. Parker et al. (<a href="references.html#ref-parker_effect_2011" role="doc-biblioref">2011a</a>)</span>. The <code>ird()</code> function calculates the robust improvement rate difference. It follows the formula suggested by <span class="citation" data-cites="pustejovsky2019">Pustejovsky (<a href="references.html#ref-pustejovsky2019" role="doc-biblioref">2019</a>)</span>. For a multiple case design, IRD is based on the overall improvement rate of all cases which is the average of the IRDs for each case.</p>
@@ -827,18 +837,30 @@ The ird function call
 </div>
 </section>
 <section id="sec-tauu" class="level2" data-number="9.9">
-<h2 data-number="9.9" class="anchored" data-anchor-id="sec-tauu"><span class="header-section-number">9.9</span> Tau-U {#sec-pnd}</h2>
+<h2 data-number="9.9" class="anchored" data-anchor-id="sec-tauu"><span class="header-section-number">9.9</span> Tau-U</h2>
 <div class="callout callout-style-simple callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The tau_u function call
+The tau_u function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>tau_u(data, dvar, pvar, method = c(“complete”, “parker”, “tarlow”), phases = c(1, 2), meta_analyses = TRUE, ci = 0.95, ci_method = c(“z”, “tau”, “s”), meta_weight_method = c(“z”, “tau”), tau_method = c(“b”, “a”), continuity_correction = FALSE)</p>
+<p><strong>tau_u</strong>(<br>
+&nbsp;&nbsp;<em>data</em>,<br>
+&nbsp;&nbsp;<em>dvar</em>,<br>
+&nbsp;&nbsp;<em>pvar</em>,<br>
+&nbsp;&nbsp;<em>method</em> = c(“complete”, “parker”, “tarlow”),<br>
+&nbsp;&nbsp;<em>phases</em> = c(1, 2),<br>
+&nbsp;&nbsp;<em>meta_analyses</em> = TRUE,<br>
+&nbsp;&nbsp;<em>ci</em> = 0.95,<br>
+&nbsp;&nbsp;<em>ci_method</em> = c(“z”, “tau”, “s”),<br>
+&nbsp;&nbsp;<em>meta_weight_method</em> = c(“z”, “tau”),<br>
+&nbsp;&nbsp;<em>tau_method</em> = c(“b”, “a”),<br>
+&nbsp;&nbsp;<em>continuity_correction</em> = FALSE<br>
+)</p>
 </div>
 </div>
 <p>The <em>Tau-U</em> statistic has been proposed by <span class="citation" data-cites="parker_combining_2011">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="references.html#ref-parker_combining_2011" role="doc-biblioref">2011b</a>)</span> and is one of the more broadly used approach for reporting effect sizes of single case data. Unfortunately, various and ambiguous implementations of Tau-U exist <span class="citation" data-cites="pustejovsky2016 brossart2018a">(<a href="references.html#ref-brossart2018a" role="doc-biblioref">Brossart, Laird, &amp; Armstrong, 2018</a>; <a href="references.html#ref-pustejovsky2016" role="doc-biblioref">Pustejovsky, 2016</a>)</span>. The <code>tau_u</code> function tries to cover several of these implementation. It takes an <em>scdf</em> and returns Tau-U calculations for each single-case within that file. Additionally, an overall Tau-U value is calculated for all cases based on a meta-analysis.</p>
@@ -1038,11 +1060,21 @@ A vs. B + Trend B - Trend A 0.64     0.45     0.78 30.71 3.91 &lt;.001</code></p
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The corrected_tau function call
+The corrected_tau function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>corrected_tau(data, dvar, pvar, mvar, phases = c(1, 2), alpha = 0.05, continuity = FALSE, repeated = FALSE, tau_method = c(“b”, “a”))</p>
+<p><strong>corrected_tau</strong>(<br>
+&nbsp;&nbsp;<em>data</em>,<br>
+&nbsp;&nbsp;<em>dvar</em>,<br>
+&nbsp;&nbsp;<em>pvar</em>,<br>
+&nbsp;&nbsp;<em>mvar</em>,<br>
+&nbsp;&nbsp;<em>phases</em> = c(1, 2),<br>
+&nbsp;&nbsp;<em>alpha</em> = 0.05,<br>
+&nbsp;&nbsp;<em>continuity</em> = FALSE,<br>
+&nbsp;&nbsp;<em>repeated</em> = FALSE,<br>
+&nbsp;&nbsp;<em>tau_method</em> = c(“b”, “a”)<br>
+)</p>
 </div>
 </div>
 <p>This method has been proposed by <span class="citation" data-cites="tarlowImprovedRankCorrelation2016a">Tarlow (<a href="references.html#ref-tarlowImprovedRankCorrelation2016a" role="doc-biblioref">2016</a>)</span>. The baseline data are checked for a significant autocorrelation (based on Kendalls Tau). If so, a non-parameteric Theil-Sen regression is applied for the baseline data where the dependent values are regressed on the measurement time. The resulting slope information is then used to predict data of the B-phase. The dependent variable is now corrected for this baseline trend and the residuals of the Theil-Sen regression are taken for further calculations. Finally, Kendalls tau is calculated for the dependent variable and the dichotomous phase variable. The function here provides two extensions to this procedure: The alternative Siegel repeated median regression is applied when <code>repeated = TRUE</code> <span class="citation" data-cites="siegelRobustRegressionUsing1982">(<a href="references.html#ref-siegelRobustRegressionUsing1982" role="doc-biblioref">Siegel, 1982</a>)</span> and a continuity correction is applied when <code>continuity = TRUE</code> (both not the defaults).</p>
@@ -1088,11 +1120,11 @@ Baseline correction should be applied.</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The rci function call
+The rci function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>rci(data, dvar, pvar, rel, ci = 0.95, graph = FALSE, phases = c(1, 2))</p>
+<p><strong>rci</strong>(<em>data</em>, <em>dvar</em>, <em>pvar</em>, <em>rel</em>, <em>ci</em> = 0.95, <em>graph</em> = FALSE, <em>phases</em> = c(1, 2))</p>
 </div>
 </div>
 <p>Basically, the reliable change index (rci) shows whether a post-test is above a pre-test value. Based on the reliability of the measurements and the standard deviation, the standard error is calculated. The mean difference between phase A and phase B is divided by the standard error. Several authors have proposed refined methods for calculating the rci.</p>

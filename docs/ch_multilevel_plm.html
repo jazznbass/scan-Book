@@ -440,11 +440,36 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The hplm function call
+The hplm function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>hplm(data, dvar, pvar, mvar, model = c(“W”, “H-M”, “B&amp;L-B”, “JW”), contrast = c(“first”, “preceding”), contrast_level = NA, contrast_slope = NA, method = c(“ML”, “REML”), control = list(opt = “optim”), random.slopes = FALSE, lr.test = FALSE, ICC = TRUE, trend = TRUE, level = TRUE, slope = TRUE, random_trend = FALSE, random_level = FALSE, random_slope = FALSE, fixed = NULL, random = NULL, update.fixed = NULL, data.l2 = NULL, …)</p>
+<p><strong>hplm</strong>(<br>
+&nbsp;&nbsp;<em>data</em>,<br>
+&nbsp;&nbsp;<em>dvar</em>,<br>
+&nbsp;&nbsp;<em>pvar</em>,<br>
+&nbsp;&nbsp;<em>mvar</em>,<br>
+&nbsp;&nbsp;<em>model</em> = c(“W”, “H-M”, “B&amp;L-B”, “JW”),<br>
+&nbsp;&nbsp;<em>contrast</em> = c(“first”, “preceding”),<br>
+&nbsp;&nbsp;<em>contrast_level</em> = NA,<br>
+&nbsp;&nbsp;<em>contrast_slope</em> = NA,<br>
+&nbsp;&nbsp;<em>method</em> = c(“ML”, “REML”),<br>
+&nbsp;&nbsp;<em>control</em> = list(opt = “optim”),<br>
+&nbsp;&nbsp;<em>random.slopes</em> = FALSE,<br>
+&nbsp;&nbsp;<em>lr.test</em> = FALSE,<br>
+&nbsp;&nbsp;<em>ICC</em> = TRUE,<br>
+&nbsp;&nbsp;<em>trend</em> = TRUE,<br>
+&nbsp;&nbsp;<em>level</em> = TRUE,<br>
+&nbsp;&nbsp;<em>slope</em> = TRUE,<br>
+&nbsp;&nbsp;<em>random_trend</em> = FALSE,<br>
+&nbsp;&nbsp;<em>random_level</em> = FALSE,<br>
+&nbsp;&nbsp;<em>random_slope</em> = FALSE,<br>
+&nbsp;&nbsp;<em>fixed</em> = NULL,<br>
+&nbsp;&nbsp;<em>random</em> = NULL,<br>
+&nbsp;&nbsp;<em>update.fixed</em> = NULL,<br>
+&nbsp;&nbsp;<em>data.l2</em> = NULL,<br>
+&nbsp;&nbsp;<em>…</em><br>
+)</p>
 </div>
 </div>
 <p>Multilevel analyses can take the piecewise-regression approach even further. It allows for</p>
@@ -607,11 +632,11 @@ Slope phase B (interB)     -0.23      -0.64                  -0.03</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The add_l2 function call
+The add_l2 function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>add_l2(scdf, data_l2, cvar = “case”)</p>
+<p><strong>add_l2</strong>(<em>scdf</em>, <em>data_l2</em>, <em>cvar</em> = “case”)</p>
 </div>
 </div>
 <p>In some analyses researchers want to investigate whether attributes of the individuals contribute to the effectiveness of an intervention. For example might an intervention on mathematical abilities be less effective for student with a migration background due to too much language related material within the training. Such analyses can also be conducted with <em>scan</em>. Therefore, we need to define a new <em>data frame</em> including the relevant information of the subjects of the single-case studies we want to analyze. This <em>data frame</em> consists of a variable labeled <code>case</code> which has to correspond to the case names of the <em>scfd</em> and further variables with attributes of the subjects. To build a <em>data frame</em> we can use the R function <code>data.frame</code>.</p>
