@@ -49,7 +49,8 @@ print_table_simple <- function(data) {
 function_structure <- function(name, 
                                skip = c(
                                  "B.start", "phase.design", "lag.max",
-                                 "extreme.p", "extreme.d", "missing.p"
+                                 "extreme.p", "extreme.d", "missing.p",
+                                 "sort.labels", "phase.names"
                                ),
                                label = NULL,
                                fname = NULL,

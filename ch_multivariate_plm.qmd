@@ -1,7 +1,5 @@
 # Multivariate piecewise regression {#sec-mplm}
 
-<!--# to be written -->
-
 ::: callout-note
 Read @sec-plm before you start with this chapter.
 :::
@@ -26,6 +24,13 @@ scplot(exampleAB_add) |>
   add_statline("trend",variable = "depression") |> 
   add_legend()
 ```
+```{r}
+#| echo: false
+
+options(scan.rename.predictors = "concise")
+
+```
+
 
 ```{r}
 fit <- mplm(exampleAB_add, dvar = c("wellbeing", "depression"))
@@ -34,4 +39,9 @@ fit
 
 ```{r}
 print(fit, std = TRUE)
+```
+
+```{r}
+#| echo: false
+options(scan.rename.predictors = "full")
 ```
