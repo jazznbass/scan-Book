@@ -344,7 +344,16 @@ The previous section described the calculation of standardized mean differences 
 
 @hedges2012 proposed an approach to calculate the between case standardized mean difference, that is conceptually equivalent to Cohen's *d.* This approach is applicable when we have a study with multiple single-cases (here: not just two or three but, depending on the actual data structure, maybe fifteen, or more). The basic idea is, to calculate a multi-level regression model (measurements nested in subjects) with a random intercept (here: between case standard deviation of the intercept) and the *phase* variable as a dummy coded fixed predictor (see @sec-hplm for details on the calculation of multilevel single case regression models).
 
-The estimated regression weight of the phase predictor (here: the mean differences between the phases) is divided by the size of the random intercept (and the residuals) to give the *bcsmd* (between case standardised mean difference).
+The estimated regression weight of the phase predictor (here: the mean differences between the phases) is divided by the variance the random intercept and the residuals to give the *BC-SMD* (between case standardised mean difference):
+
+$$
+\text{BC-SMD} = \frac{\hat{\beta}_1}{\sqrt{\hat{\sigma}^2_\varepsilon + \hat{\sigma}^2_u}}
+$$
+where:
+
+- $\hat{\beta}_1$ is the estimated fixed effect of the phase (i.e., mean differecne between phase A and B),
+- $\hat{\sigma}^2_\varepsilon$ is the within-case residual variance (level-1),
+- $\hat{\sigma}^2_u$ is the between-case variance in intercepts (level-2).
 
 This basic procedure and some extensions to it are provided with the `between_smd()` function:
 
@@ -353,9 +362,9 @@ This basic procedure and some extensions to it are provided with the `between_sm
 between_smd(Leidig2018)
 ```
 
-The *Base* model provides the *bcsmd* as originally proposed. The *Full plm* model adds trend and slope effects to the regression model for a more precise estimation.
+The *Base* model provides the *BC-SMD* as originally proposed. The *Full plm* model adds trend and slope effects to the regression model for a more precise estimation.
 
-By setting the argument `include_residuals = FALSE`, the residuals are not counted towards the between case standard deviation. This leads two are more precise estimation of the standard deviations but at the cost that the *bcsmd* is conceptually less accurately reflecting Cohen's *d.*:
+By setting the argument `include_residuals = FALSE`, the residuals are not counted towards the between case standard deviation. This leads two are more precise estimation of the standard deviations but at the cost that the *BC-SMD* is conceptually less accurately reflecting Cohen's *d.*:
 
 ```{r}
 between_smd(Leidig2018, include_residuals = FALSE)
@@ -363,7 +372,7 @@ between_smd(Leidig2018, include_residuals = FALSE)
 
 The argument `model` allows to define whether the analyses is based on a frequentist or bayesianian regression model.
 
-It is also possible to first calculate a *hierarchichal piecewise regression model* (hplm, see @sec-hplm) and then base the *bcsmd* calculation on that model:
+It is also possible to first calculate a *hierarchichal piecewise regression model* (hplm, see @sec-hplm) and then base the *BC-SMD* calculation on that model:
 
 ```{r}
 hplm(Leidig2018, slope = FALSE) |> between_smd()

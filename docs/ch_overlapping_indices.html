@@ -1131,7 +1131,15 @@ The between_smd function call:
 </div>
 <p>The previous section described the calculation of standardized mean differences <em>within</em> a subject (here: between two phases of one single case). An inherent problem with this calculations is, that the idea and measures of standardized mean differences (e.g.&nbsp;Cohen’s <em>d</em>) have been developed to characterize the differences between groups. That is, a difference is standardized by the variation <em>between</em> subjects in a group. These are two fundamentally different things. Variations <em>within</em> a subject might be due to measurement errors or individual fluctuations in the strength of an attribute across time. Whereas the variations <em>between</em> subjects indicate a social frame of reference for what is large or small. Accordingly, it is not sensible to apply the well known standards to classify standardizes mean differences (e.g., Cohen’s cut-off values for the interpretation of <em>d</em>) to within case standardized mean differences. Within case standardized mean differences are usually much larger compared to these cut-offs as variations within a subject across time are (mostly) much smaller that differences between subjects.</p>
 <p><span class="citation" data-cites="hedges2012">Hedges, Pustejovsky, &amp; Shadish (<a href="references.html#ref-hedges2012" role="doc-biblioref">2012</a>)</span> proposed an approach to calculate the between case standardized mean difference, that is conceptually equivalent to Cohen’s <em>d.</em> This approach is applicable when we have a study with multiple single-cases (here: not just two or three but, depending on the actual data structure, maybe fifteen, or more). The basic idea is, to calculate a multi-level regression model (measurements nested in subjects) with a random intercept (here: between case standard deviation of the intercept) and the <em>phase</em> variable as a dummy coded fixed predictor (see <a href="ch_multilevel_plm.html" class="quarto-xref"><span>Chapter 11</span></a> for details on the calculation of multilevel single case regression models).</p>
-<p>The estimated regression weight of the phase predictor (here: the mean differences between the phases) is divided by the size of the random intercept (and the residuals) to give the <em>bcsmd</em> (between case standardised mean difference).</p>
+<p>The estimated regression weight of the phase predictor (here: the mean differences between the phases) is divided by the variance the random intercept and the residuals to give the <em>BC-SMD</em> (between case standardised mean difference):</p>
+<p><span class="math display">\[
+\text{BC-SMD} = \frac{\hat{\beta}_1}{\sqrt{\hat{\sigma}^2_\varepsilon + \hat{\sigma}^2_u}}
+\]</span> where:</p>
+<ul>
+<li><span class="math inline">\(\hat{\beta}_1\)</span> is the estimated fixed effect of the phase (i.e., mean differecne between phase A and B),</li>
+<li><span class="math inline">\(\hat{\sigma}^2_\varepsilon\)</span> is the within-case residual variance (level-1),</li>
+<li><span class="math inline">\(\hat{\sigma}^2_u\)</span> is the between-case variance in intercepts (level-2).</li>
+</ul>
 <p>This basic procedure and some extensions to it are provided with the <code>between_smd()</code> function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">between_smd</span>(Leidig2018)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1145,8 +1153,8 @@ Model: frequentist
  Full plm   0.71</code></pre>
 </div>
 </div>
-<p>The <em>Base</em> model provides the <em>bcsmd</em> as originally proposed. The <em>Full plm</em> model adds trend and slope effects to the regression model for a more precise estimation.</p>
-<p>By setting the argument <code>include_residuals = FALSE</code>, the residuals are not counted towards the between case standard deviation. This leads two are more precise estimation of the standard deviations but at the cost that the <em>bcsmd</em> is conceptually less accurately reflecting Cohen’s <em>d.</em>:</p>
+<p>The <em>Base</em> model provides the <em>BC-SMD</em> as originally proposed. The <em>Full plm</em> model adds trend and slope effects to the regression model for a more precise estimation.</p>
+<p>By setting the argument <code>include_residuals = FALSE</code>, the residuals are not counted towards the between case standard deviation. This leads two are more precise estimation of the standard deviations but at the cost that the <em>BC-SMD</em> is conceptually less accurately reflecting Cohen’s <em>d.</em>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">between_smd</span>(Leidig2018, <span class="at">include_residuals =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1160,7 +1168,7 @@ Model: frequentist
 </div>
 </div>
 <p>The argument <code>model</code> allows to define whether the analyses is based on a frequentist or bayesianian regression model.</p>
-<p>It is also possible to first calculate a <em>hierarchichal piecewise regression model</em> (hplm, see <a href="ch_multilevel_plm.html" class="quarto-xref"><span>Chapter 11</span></a>) and then base the <em>bcsmd</em> calculation on that model:</p>
+<p>It is also possible to first calculate a <em>hierarchichal piecewise regression model</em> (hplm, see <a href="ch_multilevel_plm.html" class="quarto-xref"><span>Chapter 11</span></a>) and then base the <em>BC-SMD</em> calculation on that model:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(Leidig2018, <span class="at">slope =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> <span class="fu">between_smd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
