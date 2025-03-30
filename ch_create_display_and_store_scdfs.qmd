@@ -162,7 +162,9 @@ For some reasons, computer systems with a German (and some other) language setup
 
 `read_scdf` also allows for directly importing *Microsoft Excel* `.xlsx` or `.xls` files. You need to have the library `readxl` installed in your R setup for this to work. Excel files will be automatically detected by the filename extension `xls`or `xlsx` or by explicitly setting the `type` argument (e.g. `type = "xlsx"`).
 
-```{r read-scdf-excel-example}
+```{r}
+#| label: read-scdf-excel-example
+
 dat <- read_scdf(
   "example2.xlsx", cvar = "name", pvar = "intervention", 
   dvar = "wellbeing", mvar = "time", phase_names = c("A","B")

@@ -10,7 +10,7 @@ function_structure("overlap")
 
 `overlap` provides a table with some of the most important overlap indices for each case of an *scdf*. For calculating overlap indicators it is important to know if a decrease or an increase of values is expected between phases. By default `overlap` assumes an increase in values. If the argument `decreasing = TRUE` is set, calculation will be based on the assumption of decreasing values.
 
-```{r} 
+```{r}
 #| warning: false
 overlap(exampleAB)
 ```
@@ -35,7 +35,7 @@ scdf |> select_phases(A = 1, B = 3) |> ...
 
 (As an alternative approach you can set the `phases` argument within the `overlap()` function. This argument takes a list with two elements where the first element defines the phases for the A-phase and the second argument the phases for the B-phase.)
 
-```{r} 
+```{r}
 #| warning: false
 exampleA1B1A2B2 |>
   select_phases(c("A1","A2"), c("B1","B2")) |>
@@ -45,21 +45,6 @@ exampleA1B1A2B2 |>
 # overlap(exampleA1B1A2B2, phases = list( c("A1","A2"), c("B1","B2")))
 ```
 
-## Standardized mean differences {#sec-smd}
-
-```{r}
-#| results: asis
-#| echo: false
-function_structure("smd")
-```
-
-Standardized mean differences can be calculated in various ways. They refer to the difference in the means of two phases divided by a standard deviation. The `smd` function provides an overview of the most common parameters for each single-case:
-
-```{r}
-smd(exampleAB_score)
-```
-
-The first four rows give the mean and the standard deviation of the two respective phases. `sd cohen` is the (unweighted) average of the standard deviation of phase A and B: $\sqrt{\frac{{\text{sdA}^2 + \text{sdB}^2}}{2}}$. `sd Hedges` is the weighted average of the standard deviation with a correction for degrees of freedom: $\sqrt{\frac{ (nA - 1) \cdot \text{sdA}^2 + (nB - 1) \cdot \text{sdB}^2 }{ nA + nB - 2 }}$. `Hedges' g` is the mean difference divided by `sd Hedges`. `Hedges' g correction` ($Hedges' g * (1 - \frac{3}{4n - 9})$) and `Hedges' g durlak correction` ($Hedges' g * (\frac{{n - 3}}{{n - 2.25}} \cdot \sqrt{\frac{{n - 2}}{{n}}})$) are two approaches of correcting Hedges' g for small sample sizes. `Glass' delta` is the mean difference divided by the standard deviation of the A-phase. `Cohen's d` is the mean difference divided by `sd cohen`.
 
 ## Percentage non-overlapping data (PND) {#sec-pnd}
 
@@ -331,6 +316,60 @@ case <- scdf(
 corrected_tau(case)
 ```
 
+## Within case standardized mean differences {#sec-smd}
+
+```{r}
+#| results: asis
+#| echo: false
+function_structure("smd")
+```
+
+Standardized mean differences between two phases within a single-case can be calculated in various ways. They refer to the difference in the means of two phases divided by a (within case) standard deviation. The `smd` function provides an overview of the most common parameters for each single-case:
+
+```{r}
+smd(exampleAB_score)
+```
+
+The first four rows give the mean and the standard deviation of the two respective phases. `sd cohen` is the (unweighted) average of the standard deviation of phase A and B: $\sqrt{\frac{{\text{sdA}^2 + \text{sdB}^2}}{2}}$. `sd Hedges` is the weighted average of the standard deviation with a correction for degrees of freedom: $\sqrt{\frac{ (nA - 1) \cdot \text{sdA}^2 + (nB - 1) \cdot \text{sdB}^2 }{ nA + nB - 2 }}$. `Hedges' g` is the mean difference divided by `sd Hedges`. `Hedges' g correction` ($Hedges' g * (1 - \frac{3}{4n - 9})$) and `Hedges' g durlak correction` ($Hedges' g * (\frac{{n - 3}}{{n - 2.25}} \cdot \sqrt{\frac{{n - 2}}{{n}}})$) are two approaches of correcting Hedges' g for small sample sizes. `Glass' delta` is the mean difference divided by the standard deviation of the A-phase. `Cohen's d` is the mean difference divided by `sd cohen`.
+
+## Between case standardized mean differences {#sec-bcsmd}
+
+```{r}
+#| results: asis
+#| echo: false
+function_structure("between_smd")
+```
+
+The previous section described the calculation of standardized mean differences *within* a subject (here: between two phases of one single case). An inherent problem with this calculations is, that the idea and measures of standardized mean differences (e.g. Cohen's *d*) have been developed to characterize the differences between groups. That is, a difference is standardized by the variation *between* subjects in a group. These are two fundamentally different things. Variations *within* a subject might be due to measurement errors or individual fluctuations in the strength of an attribute across time. Whereas the variations *between* subjects indicate a social frame of reference for what is large or small. Accordingly, it is not sensible to apply the well known standards to classify standardizes mean differences (e.g., Cohen's cut-off values for the interpretation of *d*) to within case standardized mean differences. Within case standardized mean differences are usually much larger compared to these cut-offs as variations within a subject across time are (mostly) much smaller that differences between subjects.
+
+@hedges2012 proposed an approach to calculate the between case standardized mean difference, that is conceptually equivalent to Cohen's *d.* This approach is applicable when we have a study with multiple single-cases (here: not just two or three but, depending on the actual data structure, maybe fifteen, or more). The basic idea is, to calculate a multi-level regression model (measurements nested in subjects) with a random intercept (here: between case standard deviation of the intercept) and the *phase* variable as a dummy coded fixed predictor (see @sec-hplm for details on the calculation of multilevel single case regression models).
+
+The estimated regression weight of the phase predictor (here: the mean differences between the phases) is divided by the size of the random intercept (and the residuals) to give the *bcsmd* (between case standardised mean difference).
+
+This basic procedure and some extensions to it are provided with the `between_smd()` function:
+
+```{r}
+#| label: bcsmd
+between_smd(Leidig2018)
+```
+
+The *Base* model provides the *bcsmd* as originally proposed. The *Full plm* model adds trend and slope effects to the regression model for a more precise estimation.
+
+By setting the argument `include_residuals = FALSE`, the residuals are not counted towards the between case standard deviation. This leads two are more precise estimation of the standard deviations but at the cost that the *bcsmd* is conceptually less accurately reflecting Cohen's *d.*:
+
+```{r}
+between_smd(Leidig2018, include_residuals = FALSE)
+```
+
+The argument `model` allows to define whether the analyses is based on a frequentist or bayesianian regression model.
+
+It is also possible to first calculate a *hierarchichal piecewise regression model* (hplm, see @sec-hplm) and then base the *bcsmd* calculation on that model:
+
+```{r}
+hplm(Leidig2018, slope = FALSE) |> between_smd()
+```
+
+
 ## Reliable change index {#sec-rci}
 
 ```{r}
@@ -346,3 +385,4 @@ The `rci` function calculates two indices of reliable change [@wise_methods_2004
 ```{r}
 rci(exampleAB$Johanna, rel = 0.8)
 ```
+
