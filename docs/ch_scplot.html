@@ -1190,7 +1190,7 @@ The add_statline function call:
 </section>
 <section id="add-a-legend" class="level2" data-number="5.10">
 <h2 data-number="5.10" class="anchored" data-anchor-id="add-a-legend"><span class="header-section-number">5.10</span> Add a legend</h2>
-<p>The <code>add_legend()</code> function adds a predefined legend that includes all datalines and statlines you have added. The labels for these lines are set automatically if you did not set the <code>label</code> argument in the corresponding <code>add_dataline()</code> and <code>add_statline()</code> functions.</p>
+<p>The <code>add_legend()</code> function adds a predefined legend that includes all datalines and statlines you have added. The labels for these lines are set automatically if you did not set the <code>label</code> argument in the corresponding <code>set_dataline()</code> and <code>add_statline()</code> functions.</p>
 <p>Here is a simple example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
@@ -1209,10 +1209,10 @@ The add_statline function call:
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">label =</span> <span class="st">"Pychological Wellbeing"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"depression"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">label =</span> <span class="st">"Depression"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">label =</span> <span class="st">"Wellbeing mean"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"depression"</span>, <span class="at">label =</span> <span class="st">"Depression mean"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">variable =</span> <span class="st">"depression"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">label =</span> <span class="st">"Depression"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="at">stat =</span> <span class="st">"mean"</span>, <span class="at">label =</span> <span class="st">"Wellbeing mean"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="at">stat =</span> <span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"depression"</span>, <span class="at">label =</span> <span class="st">"Depression mean"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="at">position =</span> <span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"grey80"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(</span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"left"</span>,</span>

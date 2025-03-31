@@ -471,7 +471,7 @@ scplot(exampleAB_decreasing) |>
 
 ## Add a legend
 
-The `add_legend()` function adds a predefined legend that includes all datalines and statlines you have added. The labels for these lines are set automatically if you did not set the `label` argument in the corresponding `add_dataline()` and `add_statline()` functions.
+The `add_legend()` function adds a predefined legend that includes all datalines and statlines you have added. The labels for these lines are set automatically if you did not set the `label` argument in the corresponding `set_dataline()` and `add_statline()` functions.
 
 Here is a simple example:
 
@@ -491,10 +491,10 @@ And here is a more advanced example that uses several arguments to defines the s
 
 scplot(exampleAB_add) |>
   set_dataline(label = "Pychological Wellbeing") |>
-  set_dataline("depression", color = "darkblue", label = "Depression") |>
-  add_statline("mean", label = "Wellbeing mean") |>
-  add_statline("mean", variable = "depression", label = "Depression mean") |>
-  set_phasenames(color = NA) |>
+  set_dataline(variable = "depression", color = "darkblue", label = "Depression") |>
+  add_statline(stat = "mean", label = "Wellbeing mean") |>
+  add_statline(stat = "mean", variable = "depression", label = "Depression mean") |>
+  set_phasenames(position = "none") |>
   set_panel(fill = c("lightblue", "grey80")) |>
   add_legend(
     position = "left",
@@ -523,9 +523,6 @@ scplot(exampleA1B1A2B2) |>
 
 ```{r axis2}
 #| label: scplot-axis-labels
-
-
-
 
 scplot(exampleA1B1A2B2) |> 
   set_ylabel("Score", color = "darkred", angle = 0) |>
