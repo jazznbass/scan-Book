@@ -97,7 +97,7 @@ print_table(out)
 
 ```
 
-Line arguments can be applied to the following functions: `set_dataline()`, `add_statline()`, `add_line()`, `add_arrow()`, `add_ridge()`, `add_ridge()`, `set_xaxis()`, `set_yaxis()`, `set_separator()`.
+Line arguments can be applied to the following functions: `set_dataline()`, `add_statline()`, `add_line()`, `add_arrow()`, `add_ridge()`, `set_xaxis()`, `set_yaxis()`, `set_separator()`.
 
 ```{r}
 #| echo: false
@@ -182,7 +182,7 @@ function_structure("add_statline")
 
 ### Lines indicating a constant for each phase
 
-Possible functions: `mean`, `min`, `max`, `median`, `sd`, `quantile`
+Possible values for the `stat` argument are `mean`, `min`, `max`, `median`, `sd`, `quantile`
 
 ```{r}
 #| label: scplot-statline-descriptives
@@ -195,10 +195,7 @@ scplot(exampleABC) |>
 
 ### Lines indicating a constant for a specific phase
 
-Set the `phase` argument with one or multiple phase-names or phase-numbers
-
-Possible functions: `mean`, `min`, `max`, `quantile`
-
+Set the `phase` argument with one or multiple phase-names or phase-numbers to specifiy which phase the statistic is based on. 
 The following example sets a line with the mean of phase A, the maximum of phases B and C and the minimum of phases 2 and 3:
 
 ```{r}
@@ -212,7 +209,7 @@ scplot(exampleABC) |>
 
 ### Trend-lines
 
-`trend` (separate trend-line for each phase), `trendA` (extrapolated trend-line of first phase):
+The `trend` statistic adds separate trend-line for each phase and `trendA` adds an extrapolated trend-line of the first phase:
 
 ```{r}
 #| label: scplot-statline-trend
@@ -239,7 +236,7 @@ For the `trend` statistic you can set `method = "theil-sen"` for median based Th
 
 ### Smoothed curves
 
-Possible functions: `moving mean`, `moving median`, `loess`, `lowess`:
+Possible values for the `stat` argument are `moving mean`, `moving median`, `loess`, `lowess`:
 
 ```{r}
 #| label: scplot-statline-4
@@ -254,7 +251,7 @@ Some of the statistics allow additional arguments to specify parameters:
 
 | Statistic                  | Argument | What it does ...                                                                                                                                |
 |------------|------------|-------------------------------------------------|
-| mean                       | trim     | Trims the mean. `trim = 0.10` calculates a 10\$ trimmed mean.                                                                                   |
+| mean                       | trim     | Trims the mean. `trim = 0.10` calculates a 10% trimmed mean.                                                                                   |
 | quantile                   | probs    | Probability. `probs = 0.25` calculates the 25% quantile.                                                                                        |
 | moving mean, moving median | lag      | Lag surrounding the estimated value. `lag = 2` will calculate mean or median based on the two values before and after the to be replaced value. |
 | loess                      | span     | Proportion of the surrounding point to estimate a value.                                                                                        |
@@ -301,8 +298,7 @@ scplot(exampleABC) |>
   add_marks(case = 2, positions = 'phase == "B"', color = "green", size = 5) |>
   add_marks(case = 3, positions = "values > quantile(values, probs = 0.80)", color = "blue", size = 7) |>
   add_marks(case = "all", positions = "values < quantile(values, probs = 0.20)", color = "yellow", size = 7) |>
-  add_caption("Note.
-red: mt > 15 in case 1; 
+  add_caption("red: mt > 15 in case 1; 
 green: phase 'B' in case 2; 
 blue: values > 80% quantile of case 3; 
 yellow: values < 20% quantile of all cases")
@@ -333,7 +329,7 @@ Draw lines either by providing starting (x0 and y0) an end coordinates (x1 and y
 scplot(exampleABC) |>
   add_line(case = 1, x0 = 6, y0 = 90, x1 = 3, y1 = 63, color = "red") |> 
   add_line(case = 2, hline = 80, color = "blue") |> 
-  add_line(case = 3, vline = 15, color = "green")
+  add_line(case = 3, vline = 15, color = "darkgreen")
   
 ```
 
@@ -365,6 +361,8 @@ scplot(exampleABC) |>
 
 ### Background
 
+The *background* ist the complete area of the plot including a frame.
+
 ```{r background1}
 scplot(exampleABC) |>
   set_background(fill = "grey90", color = "black", size = 2)
@@ -372,19 +370,21 @@ scplot(exampleABC) |>
 
 ### Panel
 
+The *panel* refers to the coordinate system.
+
 ```{r pannel1}
 scplot(exampleABC) |>
   set_panel(fill = "tan1", color = "palevioletred", size = 2)
 ```
 
-### A different panel color for each phase
-
-Note: The colors are 50% transparent. So they might appear different.
+You can specify a different panel color for each phase by providing a vector to the `fill` argument:
 
 ```{r pannel2}
 scplot(exampleABC) |>
   set_panel(fill = c("grey80", "white", "blue4"))
 ```
+
+Note: The colors are 50% transparent. So they might appear different.
 
 ## Themes
 
@@ -434,7 +434,21 @@ scplot(exampleABC) |>
   set_theme("sienna", "minimal", "small", "phase_color")
 ```
 
-### Set base text
+### Create custom themes
+
+For creating a custom theme, start with the `new_theme()` function and add all styling parameters like described above. The resulting new object can now be applied to the `set_theme()` function:
+
+```{r}
+my_theme <- new_theme() |>
+  set_panel(color = "red")  |>
+  set_base_text(size = 12, color = "blue")  |>
+  set_dataline(color = "darkred", linewidth = 2)
+
+scplot(exampleABC)  |> set_theme(my_theme)
+```
+
+
+## Set base text
 
 The base text size is the absolute size. All other text sizes are relative to this base text size.
 
