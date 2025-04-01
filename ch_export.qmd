@@ -183,6 +183,11 @@ tau_u(exampleAB_decreasing) |> export()
 tau_u(exampleAB_decreasing) |> export(meta = TRUE)
 ```
 
+```{r}
+#| echo: false
+options(scan.rename.predictors = "concise")
+```
+
 ## Piecewise linear models
 
 ```{r}
@@ -212,6 +217,21 @@ exampleAB_50  |>
   export()
 ```
 
+## Multivariate piecewise regressions
+
+```{r}
+#| results: asis
+#| echo: false
+function_structure(scan:::export.sc_mplm, label="mplm export", fname="export")
+```
+
+```{r warning=FALSE}
+Leidig2018 |> 
+  select_cases("1a1") |> 
+  mplm(dvar = c("academic_engagement", "disruptive_behavior")) |> 
+  export(std = TRUE)
+```
+
 ## Bayesian regression analysis
 
 ```{r}
@@ -224,6 +244,11 @@ function_structure(scan:::export.sc_bplm, label="bplm export", fname="export")
 exampleAB_50  |> 
   bplm(random_level = TRUE)  |> 
   export()
+```
+
+```{r}
+#| echo: false
+options(scan.rename.predictors = "full")
 ```
 
 ## Power analyses {#sec-power}
