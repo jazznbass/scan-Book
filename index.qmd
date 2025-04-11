@@ -2,9 +2,9 @@
 build <- yaml::read_yaml("_build.yml")
 build$build <- as.integer(build$build + 1)
 build$date <- as.character(Sys.time())
-build$scan_version <- packageVersion("scan")
-build$scplot_version <- packageVersion("scplot")
-build$r_version <- version
+build$scan_version <- packageVersion("scan") |> as.character()
+build$scplot_version <- packageVersion("scplot") |> as.character()
+build$r_version <- gsub("R version ", "", R.version.string)
 yaml::write_yaml(build, "_build.yml")
 ```
 
@@ -13,7 +13,7 @@ yaml::write_yaml(build, "_build.yml")
 ::: callout-note
 Please support open-access publishing by citing this work:
 
-Wilbert, J. (2025). *Analyzing single-case data with R and scan*. doi: 10.5281/zenodo.13950860. <https://jazznbass.github.io/scan-Book/>
+Wilbert, J. (2025). *Analyzing single-case data with R and scan*. doi: 10.5281/zenodo.14950444. <https://jazznbass.github.io/scan-Book/>
 :::
 
 # Preface {.unnumbered}
