@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.7.31">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -66,15 +67,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <link href="./ch_shinyscan.html" rel="next">
 <link href="./ch_powertest.html" rel="prev">
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-44e20b959ebc547957a0d81c1ee235a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-66a9e47bf13faa10686a838cfc5a4f89.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -107,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -426,7 +428,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>export</code> has two “engines” implemented to create the output formats. The “kable” engine is build on top of the <code>knitr</code> and <code>kableextra</code> packages. The list provided in the <code>kable_options</code> argument is implemented in the <code>kable</code> function of <code>knitr</code> and the list provided to the <code>kable_styling_options</code> is implemented in the <code>kable_styling</code> command of the <code>kableExtra</code> package. <code>export</code> sets some defaults for these functions but you can play around and overwrite them.</p>
+<p><code>export</code> has two “engines” implemented to create the output formats. The “kable” engine is build on top of the <code>knitr</code> and <code>kableextra</code> packages. The list provided in the <code>scan.export.kable</code> option is implemented in the <code>kable</code> function of <code>knitr</code> and the list provided in the <code>scan.export.kable_styling</code> option is implemented in the <code>kable_styling</code> command of the <code>kableExtra</code> package. You can play around and overwrite them with <code>options(scan.export.kable = list())</code> and <code>options(scan.export.kable_styling = list())</code>.</p>
 <p>The “gt” engine is a more recent development and build ontop of the <code>gt</code> package. “gt” allows to export to html, rtf, latex, docx, pdf, and png.</p>
 <p>You can change the use of the engine by setting <code>options("scan.export.engine" = "gt")</code> or <code>options("scan.export.engine" = "kable")</code>.</p>
 </div>
@@ -459,8 +461,6 @@ The scdf export function call:
 &nbsp;&nbsp;<em>caption</em> = NA,<br>
 &nbsp;&nbsp;<em>footnote</em> = NA,<br>
 &nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
 &nbsp;&nbsp;<em>cols</em>,<br>
 &nbsp;&nbsp;<em>round</em> = 2,<br>
 &nbsp;&nbsp;<em>…</em><br>
@@ -470,23 +470,23 @@ The scdf export function call:
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(exampleA1B1A2B2_zvt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="pmobdmbhug" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pmobdmbhug table {
+<div id="edbeyfiwwa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#edbeyfiwwa table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pmobdmbhug thead, #pmobdmbhug tbody, #pmobdmbhug tfoot, #pmobdmbhug tr, #pmobdmbhug td, #pmobdmbhug th {
+#edbeyfiwwa thead, #edbeyfiwwa tbody, #edbeyfiwwa tfoot, #edbeyfiwwa tr, #edbeyfiwwa td, #edbeyfiwwa th {
   border-style: none;
 }
 
-#pmobdmbhug p {
+#edbeyfiwwa p {
   margin: 0;
   padding: 0;
 }
 
-#pmobdmbhug .gt_table {
+#edbeyfiwwa .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -512,12 +512,12 @@ The scdf export function call:
   border-left-color: #D3D3D3;
 }
 
-#pmobdmbhug .gt_caption {
+#edbeyfiwwa .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pmobdmbhug .gt_title {
+#edbeyfiwwa .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -529,7 +529,7 @@ The scdf export function call:
   border-bottom-width: 0;
 }
 
-#pmobdmbhug .gt_subtitle {
+#edbeyfiwwa .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -541,7 +541,7 @@ The scdf export function call:
   border-top-width: 0;
 }
 
-#pmobdmbhug .gt_heading {
+#edbeyfiwwa .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -553,13 +553,13 @@ The scdf export function call:
   border-right-color: #D3D3D3;
 }
 
-#pmobdmbhug .gt_bottom_border {
+#edbeyfiwwa .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#pmobdmbhug .gt_col_headings {
+#edbeyfiwwa .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -574,7 +574,7 @@ The scdf export function call:
   border-right-color: #D3D3D3;
 }
 
-#pmobdmbhug .gt_col_heading {
+#edbeyfiwwa .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -594,7 +594,7 @@ The scdf export function call:
   overflow-x: hidden;
 }
 
-#pmobdmbhug .gt_column_spanner_outer {
+#edbeyfiwwa .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -606,15 +606,15 @@ The scdf export function call:
   padding-right: 4px;
 }
 
-#pmobdmbhug .gt_column_spanner_outer:first-child {
+#edbeyfiwwa .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pmobdmbhug .gt_column_spanner_outer:last-child {
+#edbeyfiwwa .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pmobdmbhug .gt_column_spanner {
+#edbeyfiwwa .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -626,11 +626,11 @@ The scdf export function call:
   width: 100%;
 }
 
-#pmobdmbhug .gt_spanner_row {
+#edbeyfiwwa .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pmobdmbhug .gt_group_heading {
+#edbeyfiwwa .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -656,7 +656,7 @@ The scdf export function call:
   text-align: left;
 }
 
-#pmobdmbhug .gt_empty_group_heading {
+#edbeyfiwwa .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -671,15 +671,15 @@ The scdf export function call:
   vertical-align: middle;
 }
 
-#pmobdmbhug .gt_from_md > :first-child {
+#edbeyfiwwa .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pmobdmbhug .gt_from_md > :last-child {
+#edbeyfiwwa .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pmobdmbhug .gt_row {
+#edbeyfiwwa .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -698,7 +698,7 @@ The scdf export function call:
   overflow-x: hidden;
 }
 
-#pmobdmbhug .gt_stub {
+#edbeyfiwwa .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -711,7 +711,7 @@ The scdf export function call:
   padding-right: 5px;
 }
 
-#pmobdmbhug .gt_stub_row_group {
+#edbeyfiwwa .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -725,15 +725,15 @@ The scdf export function call:
   vertical-align: top;
 }
 
-#pmobdmbhug .gt_row_group_first td {
+#edbeyfiwwa .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pmobdmbhug .gt_row_group_first th {
+#edbeyfiwwa .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pmobdmbhug .gt_summary_row {
+#edbeyfiwwa .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -743,16 +743,16 @@ The scdf export function call:
   padding-right: 5px;
 }
 
-#pmobdmbhug .gt_first_summary_row {
+#edbeyfiwwa .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pmobdmbhug .gt_first_summary_row.thick {
+#edbeyfiwwa .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pmobdmbhug .gt_last_summary_row {
+#edbeyfiwwa .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -762,7 +762,7 @@ The scdf export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#pmobdmbhug .gt_grand_summary_row {
+#edbeyfiwwa .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -772,7 +772,7 @@ The scdf export function call:
   padding-right: 5px;
 }
 
-#pmobdmbhug .gt_first_grand_summary_row {
+#edbeyfiwwa .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -782,7 +782,7 @@ The scdf export function call:
   border-top-color: #D3D3D3;
 }
 
-#pmobdmbhug .gt_last_grand_summary_row_top {
+#edbeyfiwwa .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -792,11 +792,11 @@ The scdf export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#pmobdmbhug .gt_striped {
+#edbeyfiwwa .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pmobdmbhug .gt_table_body {
+#edbeyfiwwa .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -805,7 +805,7 @@ The scdf export function call:
   border-bottom-color: #000000;
 }
 
-#pmobdmbhug .gt_footnotes {
+#edbeyfiwwa .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -819,7 +819,7 @@ The scdf export function call:
   border-right-color: #D3D3D3;
 }
 
-#pmobdmbhug .gt_footnote {
+#edbeyfiwwa .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -828,7 +828,7 @@ The scdf export function call:
   padding-right: 5px;
 }
 
-#pmobdmbhug .gt_sourcenotes {
+#edbeyfiwwa .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -842,7 +842,7 @@ The scdf export function call:
   border-right-color: #D3D3D3;
 }
 
-#pmobdmbhug .gt_sourcenote {
+#edbeyfiwwa .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -850,72 +850,72 @@ The scdf export function call:
   padding-right: 5px;
 }
 
-#pmobdmbhug .gt_left {
+#edbeyfiwwa .gt_left {
   text-align: left;
 }
 
-#pmobdmbhug .gt_center {
+#edbeyfiwwa .gt_center {
   text-align: center;
 }
 
-#pmobdmbhug .gt_right {
+#edbeyfiwwa .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pmobdmbhug .gt_font_normal {
+#edbeyfiwwa .gt_font_normal {
   font-weight: normal;
 }
 
-#pmobdmbhug .gt_font_bold {
+#edbeyfiwwa .gt_font_bold {
   font-weight: bold;
 }
 
-#pmobdmbhug .gt_font_italic {
+#edbeyfiwwa .gt_font_italic {
   font-style: italic;
 }
 
-#pmobdmbhug .gt_super {
+#edbeyfiwwa .gt_super {
   font-size: 65%;
 }
 
-#pmobdmbhug .gt_footnote_marks {
+#edbeyfiwwa .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pmobdmbhug .gt_asterisk {
+#edbeyfiwwa .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pmobdmbhug .gt_indent_1 {
+#edbeyfiwwa .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pmobdmbhug .gt_indent_2 {
+#edbeyfiwwa .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pmobdmbhug .gt_indent_3 {
+#edbeyfiwwa .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pmobdmbhug .gt_indent_4 {
+#edbeyfiwwa .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pmobdmbhug .gt_indent_5 {
+#edbeyfiwwa .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pmobdmbhug .katex-display {
+#edbeyfiwwa .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pmobdmbhug div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#edbeyfiwwa div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1153,17 +1153,7 @@ The describe export function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>export</strong>(<br>
-&nbsp;&nbsp;<em>object</em>,<br>
-&nbsp;&nbsp;<em>caption</em> = NA,<br>
-&nbsp;&nbsp;<em>footnote</em> = NA,<br>
-&nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
-&nbsp;&nbsp;<em>flip</em> = FALSE,<br>
-&nbsp;&nbsp;<em>round</em> = 2,<br>
-&nbsp;&nbsp;<em>…</em><br>
-)</p>
+<p><strong>export</strong>(<em>object</em>, <em>caption</em> = NA, <em>footnote</em> = NA, <em>filename</em> = NA, <em>flip</em> = FALSE, <em>round</em> = 2, <em>…</em>)</p>
 </div>
 </div>
 <p>The <code>flip</code> argument will rotate the table by 90 degrees.</p>
@@ -1171,23 +1161,23 @@ The describe export function call:
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">describe</span>(GruenkeWilbert2014)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="eqyewyevgv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#eqyewyevgv table {
+<div id="hsxygvkapv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hsxygvkapv table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#eqyewyevgv thead, #eqyewyevgv tbody, #eqyewyevgv tfoot, #eqyewyevgv tr, #eqyewyevgv td, #eqyewyevgv th {
+#hsxygvkapv thead, #hsxygvkapv tbody, #hsxygvkapv tfoot, #hsxygvkapv tr, #hsxygvkapv td, #hsxygvkapv th {
   border-style: none;
 }
 
-#eqyewyevgv p {
+#hsxygvkapv p {
   margin: 0;
   padding: 0;
 }
 
-#eqyewyevgv .gt_table {
+#hsxygvkapv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1213,12 +1203,12 @@ The describe export function call:
   border-left-color: #D3D3D3;
 }
 
-#eqyewyevgv .gt_caption {
+#hsxygvkapv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#eqyewyevgv .gt_title {
+#hsxygvkapv .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -1230,7 +1220,7 @@ The describe export function call:
   border-bottom-width: 0;
 }
 
-#eqyewyevgv .gt_subtitle {
+#hsxygvkapv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1242,7 +1232,7 @@ The describe export function call:
   border-top-width: 0;
 }
 
-#eqyewyevgv .gt_heading {
+#hsxygvkapv .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -1254,13 +1244,13 @@ The describe export function call:
   border-right-color: #D3D3D3;
 }
 
-#eqyewyevgv .gt_bottom_border {
+#hsxygvkapv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#eqyewyevgv .gt_col_headings {
+#hsxygvkapv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -1275,7 +1265,7 @@ The describe export function call:
   border-right-color: #D3D3D3;
 }
 
-#eqyewyevgv .gt_col_heading {
+#hsxygvkapv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1295,7 +1285,7 @@ The describe export function call:
   overflow-x: hidden;
 }
 
-#eqyewyevgv .gt_column_spanner_outer {
+#hsxygvkapv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1307,15 +1297,15 @@ The describe export function call:
   padding-right: 4px;
 }
 
-#eqyewyevgv .gt_column_spanner_outer:first-child {
+#hsxygvkapv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#eqyewyevgv .gt_column_spanner_outer:last-child {
+#hsxygvkapv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#eqyewyevgv .gt_column_spanner {
+#hsxygvkapv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -1327,11 +1317,11 @@ The describe export function call:
   width: 100%;
 }
 
-#eqyewyevgv .gt_spanner_row {
+#hsxygvkapv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#eqyewyevgv .gt_group_heading {
+#hsxygvkapv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1357,7 +1347,7 @@ The describe export function call:
   text-align: left;
 }
 
-#eqyewyevgv .gt_empty_group_heading {
+#hsxygvkapv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1372,15 +1362,15 @@ The describe export function call:
   vertical-align: middle;
 }
 
-#eqyewyevgv .gt_from_md > :first-child {
+#hsxygvkapv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#eqyewyevgv .gt_from_md > :last-child {
+#hsxygvkapv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#eqyewyevgv .gt_row {
+#hsxygvkapv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1399,7 +1389,7 @@ The describe export function call:
   overflow-x: hidden;
 }
 
-#eqyewyevgv .gt_stub {
+#hsxygvkapv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1412,7 +1402,7 @@ The describe export function call:
   padding-right: 5px;
 }
 
-#eqyewyevgv .gt_stub_row_group {
+#hsxygvkapv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1426,15 +1416,15 @@ The describe export function call:
   vertical-align: top;
 }
 
-#eqyewyevgv .gt_row_group_first td {
+#hsxygvkapv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#eqyewyevgv .gt_row_group_first th {
+#hsxygvkapv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#eqyewyevgv .gt_summary_row {
+#hsxygvkapv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1444,16 +1434,16 @@ The describe export function call:
   padding-right: 5px;
 }
 
-#eqyewyevgv .gt_first_summary_row {
+#hsxygvkapv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#eqyewyevgv .gt_first_summary_row.thick {
+#hsxygvkapv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#eqyewyevgv .gt_last_summary_row {
+#hsxygvkapv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1463,7 +1453,7 @@ The describe export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#eqyewyevgv .gt_grand_summary_row {
+#hsxygvkapv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1473,7 +1463,7 @@ The describe export function call:
   padding-right: 5px;
 }
 
-#eqyewyevgv .gt_first_grand_summary_row {
+#hsxygvkapv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1483,7 +1473,7 @@ The describe export function call:
   border-top-color: #D3D3D3;
 }
 
-#eqyewyevgv .gt_last_grand_summary_row_top {
+#hsxygvkapv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1493,11 +1483,11 @@ The describe export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#eqyewyevgv .gt_striped {
+#hsxygvkapv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#eqyewyevgv .gt_table_body {
+#hsxygvkapv .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -1506,7 +1496,7 @@ The describe export function call:
   border-bottom-color: #000000;
 }
 
-#eqyewyevgv .gt_footnotes {
+#hsxygvkapv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1520,7 +1510,7 @@ The describe export function call:
   border-right-color: #D3D3D3;
 }
 
-#eqyewyevgv .gt_footnote {
+#hsxygvkapv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1529,7 +1519,7 @@ The describe export function call:
   padding-right: 5px;
 }
 
-#eqyewyevgv .gt_sourcenotes {
+#hsxygvkapv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1543,7 +1533,7 @@ The describe export function call:
   border-right-color: #D3D3D3;
 }
 
-#eqyewyevgv .gt_sourcenote {
+#hsxygvkapv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1551,72 +1541,72 @@ The describe export function call:
   padding-right: 5px;
 }
 
-#eqyewyevgv .gt_left {
+#hsxygvkapv .gt_left {
   text-align: left;
 }
 
-#eqyewyevgv .gt_center {
+#hsxygvkapv .gt_center {
   text-align: center;
 }
 
-#eqyewyevgv .gt_right {
+#hsxygvkapv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#eqyewyevgv .gt_font_normal {
+#hsxygvkapv .gt_font_normal {
   font-weight: normal;
 }
 
-#eqyewyevgv .gt_font_bold {
+#hsxygvkapv .gt_font_bold {
   font-weight: bold;
 }
 
-#eqyewyevgv .gt_font_italic {
+#hsxygvkapv .gt_font_italic {
   font-style: italic;
 }
 
-#eqyewyevgv .gt_super {
+#hsxygvkapv .gt_super {
   font-size: 65%;
 }
 
-#eqyewyevgv .gt_footnote_marks {
+#hsxygvkapv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#eqyewyevgv .gt_asterisk {
+#hsxygvkapv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#eqyewyevgv .gt_indent_1 {
+#hsxygvkapv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#eqyewyevgv .gt_indent_2 {
+#hsxygvkapv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#eqyewyevgv .gt_indent_3 {
+#hsxygvkapv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#eqyewyevgv .gt_indent_4 {
+#hsxygvkapv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#eqyewyevgv .gt_indent_5 {
+#hsxygvkapv .gt_indent_5 {
   text-indent: 25px;
 }
 
-#eqyewyevgv .katex-display {
+#hsxygvkapv .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#eqyewyevgv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#hsxygvkapv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1863,8 +1853,6 @@ The smd export function call:
 &nbsp;&nbsp;<em>footnote</em> = NA,<br>
 &nbsp;&nbsp;<em>filename</em> = NA,<br>
 &nbsp;&nbsp;<em>select</em> = c(“Case”, <code>Mean A</code> = “mA”, <code>Mean B</code> = “mB”, <code>SD A</code> = “sdA”, <code>SD B</code> = “sdB”, <code>SD Cohen</code> = “sd cohen”, <code>SD Hedges</code> = “sd hedges”, “Glass’ delta”, “Hedges’ g”, “Hedges’ g correction”, “Hedges’ g durlak correction”, “Cohen’s d”),<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
 &nbsp;&nbsp;<em>round</em> = 2,<br>
 &nbsp;&nbsp;<em>decimals</em> = 2,<br>
 &nbsp;&nbsp;<em>flip</em> = FALSE,<br>
@@ -1876,23 +1864,23 @@ The smd export function call:
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">smd</span>(exampleAB) <span class="sc">|&gt;</span> <span class="fu">export</span>(<span class="at">flip =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="hgqfncttdd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hgqfncttdd table {
+<div id="etmofrffkj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#etmofrffkj table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hgqfncttdd thead, #hgqfncttdd tbody, #hgqfncttdd tfoot, #hgqfncttdd tr, #hgqfncttdd td, #hgqfncttdd th {
+#etmofrffkj thead, #etmofrffkj tbody, #etmofrffkj tfoot, #etmofrffkj tr, #etmofrffkj td, #etmofrffkj th {
   border-style: none;
 }
 
-#hgqfncttdd p {
+#etmofrffkj p {
   margin: 0;
   padding: 0;
 }
 
-#hgqfncttdd .gt_table {
+#etmofrffkj .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1918,12 +1906,12 @@ The smd export function call:
   border-left-color: #D3D3D3;
 }
 
-#hgqfncttdd .gt_caption {
+#etmofrffkj .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hgqfncttdd .gt_title {
+#etmofrffkj .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -1935,7 +1923,7 @@ The smd export function call:
   border-bottom-width: 0;
 }
 
-#hgqfncttdd .gt_subtitle {
+#etmofrffkj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1947,7 +1935,7 @@ The smd export function call:
   border-top-width: 0;
 }
 
-#hgqfncttdd .gt_heading {
+#etmofrffkj .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -1959,13 +1947,13 @@ The smd export function call:
   border-right-color: #D3D3D3;
 }
 
-#hgqfncttdd .gt_bottom_border {
+#etmofrffkj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#hgqfncttdd .gt_col_headings {
+#etmofrffkj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -1980,7 +1968,7 @@ The smd export function call:
   border-right-color: #D3D3D3;
 }
 
-#hgqfncttdd .gt_col_heading {
+#etmofrffkj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2000,7 +1988,7 @@ The smd export function call:
   overflow-x: hidden;
 }
 
-#hgqfncttdd .gt_column_spanner_outer {
+#etmofrffkj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2012,15 +2000,15 @@ The smd export function call:
   padding-right: 4px;
 }
 
-#hgqfncttdd .gt_column_spanner_outer:first-child {
+#etmofrffkj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hgqfncttdd .gt_column_spanner_outer:last-child {
+#etmofrffkj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hgqfncttdd .gt_column_spanner {
+#etmofrffkj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -2032,11 +2020,11 @@ The smd export function call:
   width: 100%;
 }
 
-#hgqfncttdd .gt_spanner_row {
+#etmofrffkj .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hgqfncttdd .gt_group_heading {
+#etmofrffkj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2062,7 +2050,7 @@ The smd export function call:
   text-align: left;
 }
 
-#hgqfncttdd .gt_empty_group_heading {
+#etmofrffkj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2077,15 +2065,15 @@ The smd export function call:
   vertical-align: middle;
 }
 
-#hgqfncttdd .gt_from_md > :first-child {
+#etmofrffkj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hgqfncttdd .gt_from_md > :last-child {
+#etmofrffkj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hgqfncttdd .gt_row {
+#etmofrffkj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2104,7 +2092,7 @@ The smd export function call:
   overflow-x: hidden;
 }
 
-#hgqfncttdd .gt_stub {
+#etmofrffkj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2117,7 +2105,7 @@ The smd export function call:
   padding-right: 5px;
 }
 
-#hgqfncttdd .gt_stub_row_group {
+#etmofrffkj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2131,15 +2119,15 @@ The smd export function call:
   vertical-align: top;
 }
 
-#hgqfncttdd .gt_row_group_first td {
+#etmofrffkj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hgqfncttdd .gt_row_group_first th {
+#etmofrffkj .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hgqfncttdd .gt_summary_row {
+#etmofrffkj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2149,16 +2137,16 @@ The smd export function call:
   padding-right: 5px;
 }
 
-#hgqfncttdd .gt_first_summary_row {
+#etmofrffkj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hgqfncttdd .gt_first_summary_row.thick {
+#etmofrffkj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hgqfncttdd .gt_last_summary_row {
+#etmofrffkj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2168,7 +2156,7 @@ The smd export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#hgqfncttdd .gt_grand_summary_row {
+#etmofrffkj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2178,7 +2166,7 @@ The smd export function call:
   padding-right: 5px;
 }
 
-#hgqfncttdd .gt_first_grand_summary_row {
+#etmofrffkj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2188,7 +2176,7 @@ The smd export function call:
   border-top-color: #D3D3D3;
 }
 
-#hgqfncttdd .gt_last_grand_summary_row_top {
+#etmofrffkj .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2198,11 +2186,11 @@ The smd export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#hgqfncttdd .gt_striped {
+#etmofrffkj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hgqfncttdd .gt_table_body {
+#etmofrffkj .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -2211,7 +2199,7 @@ The smd export function call:
   border-bottom-color: #000000;
 }
 
-#hgqfncttdd .gt_footnotes {
+#etmofrffkj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2225,7 +2213,7 @@ The smd export function call:
   border-right-color: #D3D3D3;
 }
 
-#hgqfncttdd .gt_footnote {
+#etmofrffkj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2234,7 +2222,7 @@ The smd export function call:
   padding-right: 5px;
 }
 
-#hgqfncttdd .gt_sourcenotes {
+#etmofrffkj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2248,7 +2236,7 @@ The smd export function call:
   border-right-color: #D3D3D3;
 }
 
-#hgqfncttdd .gt_sourcenote {
+#etmofrffkj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2256,72 +2244,72 @@ The smd export function call:
   padding-right: 5px;
 }
 
-#hgqfncttdd .gt_left {
+#etmofrffkj .gt_left {
   text-align: left;
 }
 
-#hgqfncttdd .gt_center {
+#etmofrffkj .gt_center {
   text-align: center;
 }
 
-#hgqfncttdd .gt_right {
+#etmofrffkj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hgqfncttdd .gt_font_normal {
+#etmofrffkj .gt_font_normal {
   font-weight: normal;
 }
 
-#hgqfncttdd .gt_font_bold {
+#etmofrffkj .gt_font_bold {
   font-weight: bold;
 }
 
-#hgqfncttdd .gt_font_italic {
+#etmofrffkj .gt_font_italic {
   font-style: italic;
 }
 
-#hgqfncttdd .gt_super {
+#etmofrffkj .gt_super {
   font-size: 65%;
 }
 
-#hgqfncttdd .gt_footnote_marks {
+#etmofrffkj .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hgqfncttdd .gt_asterisk {
+#etmofrffkj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hgqfncttdd .gt_indent_1 {
+#etmofrffkj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hgqfncttdd .gt_indent_2 {
+#etmofrffkj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hgqfncttdd .gt_indent_3 {
+#etmofrffkj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hgqfncttdd .gt_indent_4 {
+#etmofrffkj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hgqfncttdd .gt_indent_5 {
+#etmofrffkj .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hgqfncttdd .katex-display {
+#etmofrffkj .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hgqfncttdd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#etmofrffkj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2429,17 +2417,7 @@ The trend export function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>export</strong>(<br>
-&nbsp;&nbsp;<em>object</em>,<br>
-&nbsp;&nbsp;<em>caption</em> = NA,<br>
-&nbsp;&nbsp;<em>footnote</em> = NA,<br>
-&nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
-&nbsp;&nbsp;<em>round</em> = 2,<br>
-&nbsp;&nbsp;<em>decimals</em> = 2,<br>
-&nbsp;&nbsp;<em>…</em><br>
-)</p>
+<p><strong>export</strong>(<em>object</em>, <em>caption</em> = NA, <em>footnote</em> = NA, <em>filename</em> = NA, <em>round</em> = 2, <em>decimals</em> = 2, <em>…</em>)</p>
 </div>
 </div>
 <div class="cell">
@@ -2447,23 +2425,23 @@ The trend export function call:
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">trend</span>()  <span class="sc">|&gt;</span> </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">export</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="xvvyzbxajv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xvvyzbxajv table {
+<div id="bgndifbirl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bgndifbirl table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xvvyzbxajv thead, #xvvyzbxajv tbody, #xvvyzbxajv tfoot, #xvvyzbxajv tr, #xvvyzbxajv td, #xvvyzbxajv th {
+#bgndifbirl thead, #bgndifbirl tbody, #bgndifbirl tfoot, #bgndifbirl tr, #bgndifbirl td, #bgndifbirl th {
   border-style: none;
 }
 
-#xvvyzbxajv p {
+#bgndifbirl p {
   margin: 0;
   padding: 0;
 }
 
-#xvvyzbxajv .gt_table {
+#bgndifbirl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2489,12 +2467,12 @@ The trend export function call:
   border-left-color: #D3D3D3;
 }
 
-#xvvyzbxajv .gt_caption {
+#bgndifbirl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xvvyzbxajv .gt_title {
+#bgndifbirl .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -2506,7 +2484,7 @@ The trend export function call:
   border-bottom-width: 0;
 }
 
-#xvvyzbxajv .gt_subtitle {
+#bgndifbirl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2518,7 +2496,7 @@ The trend export function call:
   border-top-width: 0;
 }
 
-#xvvyzbxajv .gt_heading {
+#bgndifbirl .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -2530,13 +2508,13 @@ The trend export function call:
   border-right-color: #D3D3D3;
 }
 
-#xvvyzbxajv .gt_bottom_border {
+#bgndifbirl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#xvvyzbxajv .gt_col_headings {
+#bgndifbirl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -2551,7 +2529,7 @@ The trend export function call:
   border-right-color: #D3D3D3;
 }
 
-#xvvyzbxajv .gt_col_heading {
+#bgndifbirl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2571,7 +2549,7 @@ The trend export function call:
   overflow-x: hidden;
 }
 
-#xvvyzbxajv .gt_column_spanner_outer {
+#bgndifbirl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2583,15 +2561,15 @@ The trend export function call:
   padding-right: 4px;
 }
 
-#xvvyzbxajv .gt_column_spanner_outer:first-child {
+#bgndifbirl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xvvyzbxajv .gt_column_spanner_outer:last-child {
+#bgndifbirl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xvvyzbxajv .gt_column_spanner {
+#bgndifbirl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -2603,11 +2581,11 @@ The trend export function call:
   width: 100%;
 }
 
-#xvvyzbxajv .gt_spanner_row {
+#bgndifbirl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xvvyzbxajv .gt_group_heading {
+#bgndifbirl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2633,7 +2611,7 @@ The trend export function call:
   text-align: left;
 }
 
-#xvvyzbxajv .gt_empty_group_heading {
+#bgndifbirl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2648,15 +2626,15 @@ The trend export function call:
   vertical-align: middle;
 }
 
-#xvvyzbxajv .gt_from_md > :first-child {
+#bgndifbirl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xvvyzbxajv .gt_from_md > :last-child {
+#bgndifbirl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xvvyzbxajv .gt_row {
+#bgndifbirl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2675,7 +2653,7 @@ The trend export function call:
   overflow-x: hidden;
 }
 
-#xvvyzbxajv .gt_stub {
+#bgndifbirl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2688,7 +2666,7 @@ The trend export function call:
   padding-right: 5px;
 }
 
-#xvvyzbxajv .gt_stub_row_group {
+#bgndifbirl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2702,15 +2680,15 @@ The trend export function call:
   vertical-align: top;
 }
 
-#xvvyzbxajv .gt_row_group_first td {
+#bgndifbirl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xvvyzbxajv .gt_row_group_first th {
+#bgndifbirl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xvvyzbxajv .gt_summary_row {
+#bgndifbirl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2720,16 +2698,16 @@ The trend export function call:
   padding-right: 5px;
 }
 
-#xvvyzbxajv .gt_first_summary_row {
+#bgndifbirl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xvvyzbxajv .gt_first_summary_row.thick {
+#bgndifbirl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xvvyzbxajv .gt_last_summary_row {
+#bgndifbirl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2739,7 +2717,7 @@ The trend export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#xvvyzbxajv .gt_grand_summary_row {
+#bgndifbirl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2749,7 +2727,7 @@ The trend export function call:
   padding-right: 5px;
 }
 
-#xvvyzbxajv .gt_first_grand_summary_row {
+#bgndifbirl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2759,7 +2737,7 @@ The trend export function call:
   border-top-color: #D3D3D3;
 }
 
-#xvvyzbxajv .gt_last_grand_summary_row_top {
+#bgndifbirl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2769,11 +2747,11 @@ The trend export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#xvvyzbxajv .gt_striped {
+#bgndifbirl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xvvyzbxajv .gt_table_body {
+#bgndifbirl .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -2782,7 +2760,7 @@ The trend export function call:
   border-bottom-color: #000000;
 }
 
-#xvvyzbxajv .gt_footnotes {
+#bgndifbirl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2796,7 +2774,7 @@ The trend export function call:
   border-right-color: #D3D3D3;
 }
 
-#xvvyzbxajv .gt_footnote {
+#bgndifbirl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2805,7 +2783,7 @@ The trend export function call:
   padding-right: 5px;
 }
 
-#xvvyzbxajv .gt_sourcenotes {
+#bgndifbirl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2819,7 +2797,7 @@ The trend export function call:
   border-right-color: #D3D3D3;
 }
 
-#xvvyzbxajv .gt_sourcenote {
+#bgndifbirl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2827,72 +2805,72 @@ The trend export function call:
   padding-right: 5px;
 }
 
-#xvvyzbxajv .gt_left {
+#bgndifbirl .gt_left {
   text-align: left;
 }
 
-#xvvyzbxajv .gt_center {
+#bgndifbirl .gt_center {
   text-align: center;
 }
 
-#xvvyzbxajv .gt_right {
+#bgndifbirl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xvvyzbxajv .gt_font_normal {
+#bgndifbirl .gt_font_normal {
   font-weight: normal;
 }
 
-#xvvyzbxajv .gt_font_bold {
+#bgndifbirl .gt_font_bold {
   font-weight: bold;
 }
 
-#xvvyzbxajv .gt_font_italic {
+#bgndifbirl .gt_font_italic {
   font-style: italic;
 }
 
-#xvvyzbxajv .gt_super {
+#bgndifbirl .gt_super {
   font-size: 65%;
 }
 
-#xvvyzbxajv .gt_footnote_marks {
+#bgndifbirl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xvvyzbxajv .gt_asterisk {
+#bgndifbirl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xvvyzbxajv .gt_indent_1 {
+#bgndifbirl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xvvyzbxajv .gt_indent_2 {
+#bgndifbirl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xvvyzbxajv .gt_indent_3 {
+#bgndifbirl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xvvyzbxajv .gt_indent_4 {
+#bgndifbirl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xvvyzbxajv .gt_indent_5 {
+#bgndifbirl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#xvvyzbxajv .katex-display {
+#bgndifbirl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#xvvyzbxajv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bgndifbirl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2993,8 +2971,6 @@ The overlap export function call:
 &nbsp;&nbsp;<em>caption</em> = NA,<br>
 &nbsp;&nbsp;<em>footnote</em> = NULL,<br>
 &nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
 &nbsp;&nbsp;<em>round</em> = 2,<br>
 &nbsp;&nbsp;<em>decimals</em> = 2,<br>
 &nbsp;&nbsp;<em>flip</em> = FALSE,<br>
@@ -3009,23 +2985,23 @@ The overlap export function call:
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">overlap</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">export</span>(<span class="at">flip =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="joqzlncyxu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#joqzlncyxu table {
+<div id="bdfhiidskh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bdfhiidskh table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#joqzlncyxu thead, #joqzlncyxu tbody, #joqzlncyxu tfoot, #joqzlncyxu tr, #joqzlncyxu td, #joqzlncyxu th {
+#bdfhiidskh thead, #bdfhiidskh tbody, #bdfhiidskh tfoot, #bdfhiidskh tr, #bdfhiidskh td, #bdfhiidskh th {
   border-style: none;
 }
 
-#joqzlncyxu p {
+#bdfhiidskh p {
   margin: 0;
   padding: 0;
 }
 
-#joqzlncyxu .gt_table {
+#bdfhiidskh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3051,12 +3027,12 @@ The overlap export function call:
   border-left-color: #D3D3D3;
 }
 
-#joqzlncyxu .gt_caption {
+#bdfhiidskh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#joqzlncyxu .gt_title {
+#bdfhiidskh .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -3068,7 +3044,7 @@ The overlap export function call:
   border-bottom-width: 0;
 }
 
-#joqzlncyxu .gt_subtitle {
+#bdfhiidskh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3080,7 +3056,7 @@ The overlap export function call:
   border-top-width: 0;
 }
 
-#joqzlncyxu .gt_heading {
+#bdfhiidskh .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -3092,13 +3068,13 @@ The overlap export function call:
   border-right-color: #D3D3D3;
 }
 
-#joqzlncyxu .gt_bottom_border {
+#bdfhiidskh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#joqzlncyxu .gt_col_headings {
+#bdfhiidskh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -3113,7 +3089,7 @@ The overlap export function call:
   border-right-color: #D3D3D3;
 }
 
-#joqzlncyxu .gt_col_heading {
+#bdfhiidskh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3133,7 +3109,7 @@ The overlap export function call:
   overflow-x: hidden;
 }
 
-#joqzlncyxu .gt_column_spanner_outer {
+#bdfhiidskh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3145,15 +3121,15 @@ The overlap export function call:
   padding-right: 4px;
 }
 
-#joqzlncyxu .gt_column_spanner_outer:first-child {
+#bdfhiidskh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#joqzlncyxu .gt_column_spanner_outer:last-child {
+#bdfhiidskh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#joqzlncyxu .gt_column_spanner {
+#bdfhiidskh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -3165,11 +3141,11 @@ The overlap export function call:
   width: 100%;
 }
 
-#joqzlncyxu .gt_spanner_row {
+#bdfhiidskh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#joqzlncyxu .gt_group_heading {
+#bdfhiidskh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3195,7 +3171,7 @@ The overlap export function call:
   text-align: left;
 }
 
-#joqzlncyxu .gt_empty_group_heading {
+#bdfhiidskh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3210,15 +3186,15 @@ The overlap export function call:
   vertical-align: middle;
 }
 
-#joqzlncyxu .gt_from_md > :first-child {
+#bdfhiidskh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#joqzlncyxu .gt_from_md > :last-child {
+#bdfhiidskh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#joqzlncyxu .gt_row {
+#bdfhiidskh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3237,7 +3213,7 @@ The overlap export function call:
   overflow-x: hidden;
 }
 
-#joqzlncyxu .gt_stub {
+#bdfhiidskh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3250,7 +3226,7 @@ The overlap export function call:
   padding-right: 5px;
 }
 
-#joqzlncyxu .gt_stub_row_group {
+#bdfhiidskh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3264,15 +3240,15 @@ The overlap export function call:
   vertical-align: top;
 }
 
-#joqzlncyxu .gt_row_group_first td {
+#bdfhiidskh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#joqzlncyxu .gt_row_group_first th {
+#bdfhiidskh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#joqzlncyxu .gt_summary_row {
+#bdfhiidskh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3282,16 +3258,16 @@ The overlap export function call:
   padding-right: 5px;
 }
 
-#joqzlncyxu .gt_first_summary_row {
+#bdfhiidskh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#joqzlncyxu .gt_first_summary_row.thick {
+#bdfhiidskh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#joqzlncyxu .gt_last_summary_row {
+#bdfhiidskh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3301,7 +3277,7 @@ The overlap export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#joqzlncyxu .gt_grand_summary_row {
+#bdfhiidskh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3311,7 +3287,7 @@ The overlap export function call:
   padding-right: 5px;
 }
 
-#joqzlncyxu .gt_first_grand_summary_row {
+#bdfhiidskh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3321,7 +3297,7 @@ The overlap export function call:
   border-top-color: #D3D3D3;
 }
 
-#joqzlncyxu .gt_last_grand_summary_row_top {
+#bdfhiidskh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3331,11 +3307,11 @@ The overlap export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#joqzlncyxu .gt_striped {
+#bdfhiidskh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#joqzlncyxu .gt_table_body {
+#bdfhiidskh .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -3344,7 +3320,7 @@ The overlap export function call:
   border-bottom-color: #000000;
 }
 
-#joqzlncyxu .gt_footnotes {
+#bdfhiidskh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3358,7 +3334,7 @@ The overlap export function call:
   border-right-color: #D3D3D3;
 }
 
-#joqzlncyxu .gt_footnote {
+#bdfhiidskh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3367,7 +3343,7 @@ The overlap export function call:
   padding-right: 5px;
 }
 
-#joqzlncyxu .gt_sourcenotes {
+#bdfhiidskh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3381,7 +3357,7 @@ The overlap export function call:
   border-right-color: #D3D3D3;
 }
 
-#joqzlncyxu .gt_sourcenote {
+#bdfhiidskh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3389,72 +3365,72 @@ The overlap export function call:
   padding-right: 5px;
 }
 
-#joqzlncyxu .gt_left {
+#bdfhiidskh .gt_left {
   text-align: left;
 }
 
-#joqzlncyxu .gt_center {
+#bdfhiidskh .gt_center {
   text-align: center;
 }
 
-#joqzlncyxu .gt_right {
+#bdfhiidskh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#joqzlncyxu .gt_font_normal {
+#bdfhiidskh .gt_font_normal {
   font-weight: normal;
 }
 
-#joqzlncyxu .gt_font_bold {
+#bdfhiidskh .gt_font_bold {
   font-weight: bold;
 }
 
-#joqzlncyxu .gt_font_italic {
+#bdfhiidskh .gt_font_italic {
   font-style: italic;
 }
 
-#joqzlncyxu .gt_super {
+#bdfhiidskh .gt_super {
   font-size: 65%;
 }
 
-#joqzlncyxu .gt_footnote_marks {
+#bdfhiidskh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#joqzlncyxu .gt_asterisk {
+#bdfhiidskh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#joqzlncyxu .gt_indent_1 {
+#bdfhiidskh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#joqzlncyxu .gt_indent_2 {
+#bdfhiidskh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#joqzlncyxu .gt_indent_3 {
+#bdfhiidskh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#joqzlncyxu .gt_indent_4 {
+#bdfhiidskh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#joqzlncyxu .gt_indent_5 {
+#bdfhiidskh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#joqzlncyxu .katex-display {
+#bdfhiidskh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#joqzlncyxu div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#bdfhiidskh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3580,39 +3556,29 @@ The pnd export function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>export</strong>(<br>
-&nbsp;&nbsp;<em>object</em>,<br>
-&nbsp;&nbsp;<em>caption</em> = NA,<br>
-&nbsp;&nbsp;<em>footnote</em> = NA,<br>
-&nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
-&nbsp;&nbsp;<em>select</em> = c(“Case”, “PND”, “Total”, “Exceeds”),<br>
-&nbsp;&nbsp;<em>round</em> = 2,<br>
-&nbsp;&nbsp;<em>…</em><br>
-)</p>
+<p><strong>export</strong>(<em>object</em>, <em>caption</em> = NA, <em>footnote</em> = NA, <em>filename</em> = NA, <em>select</em> = c(“Case”, “PND”, “Total”, “Exceeds”), <em>round</em> = 2, <em>…</em>)</p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnd</span>(Huber2014) <span class="sc">|&gt;</span> <span class="fu">export</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="yidfrjyobv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yidfrjyobv table {
+<div id="pidngerfez" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pidngerfez table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yidfrjyobv thead, #yidfrjyobv tbody, #yidfrjyobv tfoot, #yidfrjyobv tr, #yidfrjyobv td, #yidfrjyobv th {
+#pidngerfez thead, #pidngerfez tbody, #pidngerfez tfoot, #pidngerfez tr, #pidngerfez td, #pidngerfez th {
   border-style: none;
 }
 
-#yidfrjyobv p {
+#pidngerfez p {
   margin: 0;
   padding: 0;
 }
 
-#yidfrjyobv .gt_table {
+#pidngerfez .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3638,12 +3604,12 @@ The pnd export function call:
   border-left-color: #D3D3D3;
 }
 
-#yidfrjyobv .gt_caption {
+#pidngerfez .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yidfrjyobv .gt_title {
+#pidngerfez .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -3655,7 +3621,7 @@ The pnd export function call:
   border-bottom-width: 0;
 }
 
-#yidfrjyobv .gt_subtitle {
+#pidngerfez .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3667,7 +3633,7 @@ The pnd export function call:
   border-top-width: 0;
 }
 
-#yidfrjyobv .gt_heading {
+#pidngerfez .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -3679,13 +3645,13 @@ The pnd export function call:
   border-right-color: #D3D3D3;
 }
 
-#yidfrjyobv .gt_bottom_border {
+#pidngerfez .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#yidfrjyobv .gt_col_headings {
+#pidngerfez .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -3700,7 +3666,7 @@ The pnd export function call:
   border-right-color: #D3D3D3;
 }
 
-#yidfrjyobv .gt_col_heading {
+#pidngerfez .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3720,7 +3686,7 @@ The pnd export function call:
   overflow-x: hidden;
 }
 
-#yidfrjyobv .gt_column_spanner_outer {
+#pidngerfez .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3732,15 +3698,15 @@ The pnd export function call:
   padding-right: 4px;
 }
 
-#yidfrjyobv .gt_column_spanner_outer:first-child {
+#pidngerfez .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yidfrjyobv .gt_column_spanner_outer:last-child {
+#pidngerfez .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yidfrjyobv .gt_column_spanner {
+#pidngerfez .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -3752,11 +3718,11 @@ The pnd export function call:
   width: 100%;
 }
 
-#yidfrjyobv .gt_spanner_row {
+#pidngerfez .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yidfrjyobv .gt_group_heading {
+#pidngerfez .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3782,7 +3748,7 @@ The pnd export function call:
   text-align: left;
 }
 
-#yidfrjyobv .gt_empty_group_heading {
+#pidngerfez .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3797,15 +3763,15 @@ The pnd export function call:
   vertical-align: middle;
 }
 
-#yidfrjyobv .gt_from_md > :first-child {
+#pidngerfez .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yidfrjyobv .gt_from_md > :last-child {
+#pidngerfez .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yidfrjyobv .gt_row {
+#pidngerfez .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3824,7 +3790,7 @@ The pnd export function call:
   overflow-x: hidden;
 }
 
-#yidfrjyobv .gt_stub {
+#pidngerfez .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3837,7 +3803,7 @@ The pnd export function call:
   padding-right: 5px;
 }
 
-#yidfrjyobv .gt_stub_row_group {
+#pidngerfez .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3851,15 +3817,15 @@ The pnd export function call:
   vertical-align: top;
 }
 
-#yidfrjyobv .gt_row_group_first td {
+#pidngerfez .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yidfrjyobv .gt_row_group_first th {
+#pidngerfez .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yidfrjyobv .gt_summary_row {
+#pidngerfez .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3869,16 +3835,16 @@ The pnd export function call:
   padding-right: 5px;
 }
 
-#yidfrjyobv .gt_first_summary_row {
+#pidngerfez .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yidfrjyobv .gt_first_summary_row.thick {
+#pidngerfez .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yidfrjyobv .gt_last_summary_row {
+#pidngerfez .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3888,7 +3854,7 @@ The pnd export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#yidfrjyobv .gt_grand_summary_row {
+#pidngerfez .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3898,7 +3864,7 @@ The pnd export function call:
   padding-right: 5px;
 }
 
-#yidfrjyobv .gt_first_grand_summary_row {
+#pidngerfez .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3908,7 +3874,7 @@ The pnd export function call:
   border-top-color: #D3D3D3;
 }
 
-#yidfrjyobv .gt_last_grand_summary_row_top {
+#pidngerfez .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3918,11 +3884,11 @@ The pnd export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#yidfrjyobv .gt_striped {
+#pidngerfez .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yidfrjyobv .gt_table_body {
+#pidngerfez .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -3931,7 +3897,7 @@ The pnd export function call:
   border-bottom-color: #000000;
 }
 
-#yidfrjyobv .gt_footnotes {
+#pidngerfez .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3945,7 +3911,7 @@ The pnd export function call:
   border-right-color: #D3D3D3;
 }
 
-#yidfrjyobv .gt_footnote {
+#pidngerfez .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3954,7 +3920,7 @@ The pnd export function call:
   padding-right: 5px;
 }
 
-#yidfrjyobv .gt_sourcenotes {
+#pidngerfez .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3968,7 +3934,7 @@ The pnd export function call:
   border-right-color: #D3D3D3;
 }
 
-#yidfrjyobv .gt_sourcenote {
+#pidngerfez .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3976,72 +3942,72 @@ The pnd export function call:
   padding-right: 5px;
 }
 
-#yidfrjyobv .gt_left {
+#pidngerfez .gt_left {
   text-align: left;
 }
 
-#yidfrjyobv .gt_center {
+#pidngerfez .gt_center {
   text-align: center;
 }
 
-#yidfrjyobv .gt_right {
+#pidngerfez .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yidfrjyobv .gt_font_normal {
+#pidngerfez .gt_font_normal {
   font-weight: normal;
 }
 
-#yidfrjyobv .gt_font_bold {
+#pidngerfez .gt_font_bold {
   font-weight: bold;
 }
 
-#yidfrjyobv .gt_font_italic {
+#pidngerfez .gt_font_italic {
   font-style: italic;
 }
 
-#yidfrjyobv .gt_super {
+#pidngerfez .gt_super {
   font-size: 65%;
 }
 
-#yidfrjyobv .gt_footnote_marks {
+#pidngerfez .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yidfrjyobv .gt_asterisk {
+#pidngerfez .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yidfrjyobv .gt_indent_1 {
+#pidngerfez .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yidfrjyobv .gt_indent_2 {
+#pidngerfez .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yidfrjyobv .gt_indent_3 {
+#pidngerfez .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yidfrjyobv .gt_indent_4 {
+#pidngerfez .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yidfrjyobv .gt_indent_5 {
+#pidngerfez .gt_indent_5 {
   text-indent: 25px;
 }
 
-#yidfrjyobv .katex-display {
+#pidngerfez .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#yidfrjyobv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pidngerfez div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -4102,38 +4068,29 @@ The pet export function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>export</strong>(<br>
-&nbsp;&nbsp;<em>object</em>,<br>
-&nbsp;&nbsp;<em>caption</em> = NA,<br>
-&nbsp;&nbsp;<em>footnote</em> = NA,<br>
-&nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
-&nbsp;&nbsp;<em>round</em> = 1,<br>
-&nbsp;&nbsp;<em>…</em><br>
-)</p>
+<p><strong>export</strong>(<em>object</em>, <em>caption</em> = NA, <em>footnote</em> = NA, <em>filename</em> = NA, <em>round</em> = 1, <em>…</em>)</p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pet</span>(exampleAB_decreasing) <span class="sc">|&gt;</span> <span class="fu">export</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="hwlaqadjff" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hwlaqadjff table {
+<div id="iyiehlzoux" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iyiehlzoux table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hwlaqadjff thead, #hwlaqadjff tbody, #hwlaqadjff tfoot, #hwlaqadjff tr, #hwlaqadjff td, #hwlaqadjff th {
+#iyiehlzoux thead, #iyiehlzoux tbody, #iyiehlzoux tfoot, #iyiehlzoux tr, #iyiehlzoux td, #iyiehlzoux th {
   border-style: none;
 }
 
-#hwlaqadjff p {
+#iyiehlzoux p {
   margin: 0;
   padding: 0;
 }
 
-#hwlaqadjff .gt_table {
+#iyiehlzoux .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4159,12 +4116,12 @@ The pet export function call:
   border-left-color: #D3D3D3;
 }
 
-#hwlaqadjff .gt_caption {
+#iyiehlzoux .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hwlaqadjff .gt_title {
+#iyiehlzoux .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -4176,7 +4133,7 @@ The pet export function call:
   border-bottom-width: 0;
 }
 
-#hwlaqadjff .gt_subtitle {
+#iyiehlzoux .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4188,7 +4145,7 @@ The pet export function call:
   border-top-width: 0;
 }
 
-#hwlaqadjff .gt_heading {
+#iyiehlzoux .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -4200,13 +4157,13 @@ The pet export function call:
   border-right-color: #D3D3D3;
 }
 
-#hwlaqadjff .gt_bottom_border {
+#iyiehlzoux .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#hwlaqadjff .gt_col_headings {
+#iyiehlzoux .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -4221,7 +4178,7 @@ The pet export function call:
   border-right-color: #D3D3D3;
 }
 
-#hwlaqadjff .gt_col_heading {
+#iyiehlzoux .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4241,7 +4198,7 @@ The pet export function call:
   overflow-x: hidden;
 }
 
-#hwlaqadjff .gt_column_spanner_outer {
+#iyiehlzoux .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4253,15 +4210,15 @@ The pet export function call:
   padding-right: 4px;
 }
 
-#hwlaqadjff .gt_column_spanner_outer:first-child {
+#iyiehlzoux .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hwlaqadjff .gt_column_spanner_outer:last-child {
+#iyiehlzoux .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hwlaqadjff .gt_column_spanner {
+#iyiehlzoux .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -4273,11 +4230,11 @@ The pet export function call:
   width: 100%;
 }
 
-#hwlaqadjff .gt_spanner_row {
+#iyiehlzoux .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hwlaqadjff .gt_group_heading {
+#iyiehlzoux .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4303,7 +4260,7 @@ The pet export function call:
   text-align: left;
 }
 
-#hwlaqadjff .gt_empty_group_heading {
+#iyiehlzoux .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4318,15 +4275,15 @@ The pet export function call:
   vertical-align: middle;
 }
 
-#hwlaqadjff .gt_from_md > :first-child {
+#iyiehlzoux .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hwlaqadjff .gt_from_md > :last-child {
+#iyiehlzoux .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hwlaqadjff .gt_row {
+#iyiehlzoux .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4345,7 +4302,7 @@ The pet export function call:
   overflow-x: hidden;
 }
 
-#hwlaqadjff .gt_stub {
+#iyiehlzoux .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4358,7 +4315,7 @@ The pet export function call:
   padding-right: 5px;
 }
 
-#hwlaqadjff .gt_stub_row_group {
+#iyiehlzoux .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4372,15 +4329,15 @@ The pet export function call:
   vertical-align: top;
 }
 
-#hwlaqadjff .gt_row_group_first td {
+#iyiehlzoux .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hwlaqadjff .gt_row_group_first th {
+#iyiehlzoux .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hwlaqadjff .gt_summary_row {
+#iyiehlzoux .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4390,16 +4347,16 @@ The pet export function call:
   padding-right: 5px;
 }
 
-#hwlaqadjff .gt_first_summary_row {
+#iyiehlzoux .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hwlaqadjff .gt_first_summary_row.thick {
+#iyiehlzoux .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hwlaqadjff .gt_last_summary_row {
+#iyiehlzoux .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4409,7 +4366,7 @@ The pet export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#hwlaqadjff .gt_grand_summary_row {
+#iyiehlzoux .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4419,7 +4376,7 @@ The pet export function call:
   padding-right: 5px;
 }
 
-#hwlaqadjff .gt_first_grand_summary_row {
+#iyiehlzoux .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4429,7 +4386,7 @@ The pet export function call:
   border-top-color: #D3D3D3;
 }
 
-#hwlaqadjff .gt_last_grand_summary_row_top {
+#iyiehlzoux .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4439,11 +4396,11 @@ The pet export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#hwlaqadjff .gt_striped {
+#iyiehlzoux .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hwlaqadjff .gt_table_body {
+#iyiehlzoux .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -4452,7 +4409,7 @@ The pet export function call:
   border-bottom-color: #000000;
 }
 
-#hwlaqadjff .gt_footnotes {
+#iyiehlzoux .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4466,7 +4423,7 @@ The pet export function call:
   border-right-color: #D3D3D3;
 }
 
-#hwlaqadjff .gt_footnote {
+#iyiehlzoux .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4475,7 +4432,7 @@ The pet export function call:
   padding-right: 5px;
 }
 
-#hwlaqadjff .gt_sourcenotes {
+#iyiehlzoux .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4489,7 +4446,7 @@ The pet export function call:
   border-right-color: #D3D3D3;
 }
 
-#hwlaqadjff .gt_sourcenote {
+#iyiehlzoux .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4497,72 +4454,72 @@ The pet export function call:
   padding-right: 5px;
 }
 
-#hwlaqadjff .gt_left {
+#iyiehlzoux .gt_left {
   text-align: left;
 }
 
-#hwlaqadjff .gt_center {
+#iyiehlzoux .gt_center {
   text-align: center;
 }
 
-#hwlaqadjff .gt_right {
+#iyiehlzoux .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hwlaqadjff .gt_font_normal {
+#iyiehlzoux .gt_font_normal {
   font-weight: normal;
 }
 
-#hwlaqadjff .gt_font_bold {
+#iyiehlzoux .gt_font_bold {
   font-weight: bold;
 }
 
-#hwlaqadjff .gt_font_italic {
+#iyiehlzoux .gt_font_italic {
   font-style: italic;
 }
 
-#hwlaqadjff .gt_super {
+#iyiehlzoux .gt_super {
   font-size: 65%;
 }
 
-#hwlaqadjff .gt_footnote_marks {
+#iyiehlzoux .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hwlaqadjff .gt_asterisk {
+#iyiehlzoux .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hwlaqadjff .gt_indent_1 {
+#iyiehlzoux .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hwlaqadjff .gt_indent_2 {
+#iyiehlzoux .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hwlaqadjff .gt_indent_3 {
+#iyiehlzoux .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hwlaqadjff .gt_indent_4 {
+#iyiehlzoux .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hwlaqadjff .gt_indent_5 {
+#iyiehlzoux .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hwlaqadjff .katex-display {
+#iyiehlzoux .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hwlaqadjff div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#iyiehlzoux div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -4622,38 +4579,29 @@ The pem export function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>export</strong>(<br>
-&nbsp;&nbsp;<em>object</em>,<br>
-&nbsp;&nbsp;<em>caption</em> = NA,<br>
-&nbsp;&nbsp;<em>footnote</em> = NA,<br>
-&nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
-&nbsp;&nbsp;<em>round</em> = 2,<br>
-&nbsp;&nbsp;<em>…</em><br>
-)</p>
+<p><strong>export</strong>(<em>object</em>, <em>caption</em> = NA, <em>footnote</em> = NA, <em>filename</em> = NA, <em>round</em> = 2, <em>…</em>)</p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pem</span>(Huber2014) <span class="sc">|&gt;</span> <span class="fu">export</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="pnpwdbpbvn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pnpwdbpbvn table {
+<div id="nzpiyeemxs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nzpiyeemxs table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pnpwdbpbvn thead, #pnpwdbpbvn tbody, #pnpwdbpbvn tfoot, #pnpwdbpbvn tr, #pnpwdbpbvn td, #pnpwdbpbvn th {
+#nzpiyeemxs thead, #nzpiyeemxs tbody, #nzpiyeemxs tfoot, #nzpiyeemxs tr, #nzpiyeemxs td, #nzpiyeemxs th {
   border-style: none;
 }
 
-#pnpwdbpbvn p {
+#nzpiyeemxs p {
   margin: 0;
   padding: 0;
 }
 
-#pnpwdbpbvn .gt_table {
+#nzpiyeemxs .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4679,12 +4627,12 @@ The pem export function call:
   border-left-color: #D3D3D3;
 }
 
-#pnpwdbpbvn .gt_caption {
+#nzpiyeemxs .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pnpwdbpbvn .gt_title {
+#nzpiyeemxs .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -4696,7 +4644,7 @@ The pem export function call:
   border-bottom-width: 0;
 }
 
-#pnpwdbpbvn .gt_subtitle {
+#nzpiyeemxs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4708,7 +4656,7 @@ The pem export function call:
   border-top-width: 0;
 }
 
-#pnpwdbpbvn .gt_heading {
+#nzpiyeemxs .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -4720,13 +4668,13 @@ The pem export function call:
   border-right-color: #D3D3D3;
 }
 
-#pnpwdbpbvn .gt_bottom_border {
+#nzpiyeemxs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#pnpwdbpbvn .gt_col_headings {
+#nzpiyeemxs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -4741,7 +4689,7 @@ The pem export function call:
   border-right-color: #D3D3D3;
 }
 
-#pnpwdbpbvn .gt_col_heading {
+#nzpiyeemxs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4761,7 +4709,7 @@ The pem export function call:
   overflow-x: hidden;
 }
 
-#pnpwdbpbvn .gt_column_spanner_outer {
+#nzpiyeemxs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4773,15 +4721,15 @@ The pem export function call:
   padding-right: 4px;
 }
 
-#pnpwdbpbvn .gt_column_spanner_outer:first-child {
+#nzpiyeemxs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pnpwdbpbvn .gt_column_spanner_outer:last-child {
+#nzpiyeemxs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pnpwdbpbvn .gt_column_spanner {
+#nzpiyeemxs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -4793,11 +4741,11 @@ The pem export function call:
   width: 100%;
 }
 
-#pnpwdbpbvn .gt_spanner_row {
+#nzpiyeemxs .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pnpwdbpbvn .gt_group_heading {
+#nzpiyeemxs .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4823,7 +4771,7 @@ The pem export function call:
   text-align: left;
 }
 
-#pnpwdbpbvn .gt_empty_group_heading {
+#nzpiyeemxs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4838,15 +4786,15 @@ The pem export function call:
   vertical-align: middle;
 }
 
-#pnpwdbpbvn .gt_from_md > :first-child {
+#nzpiyeemxs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pnpwdbpbvn .gt_from_md > :last-child {
+#nzpiyeemxs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pnpwdbpbvn .gt_row {
+#nzpiyeemxs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4865,7 +4813,7 @@ The pem export function call:
   overflow-x: hidden;
 }
 
-#pnpwdbpbvn .gt_stub {
+#nzpiyeemxs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4878,7 +4826,7 @@ The pem export function call:
   padding-right: 5px;
 }
 
-#pnpwdbpbvn .gt_stub_row_group {
+#nzpiyeemxs .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4892,15 +4840,15 @@ The pem export function call:
   vertical-align: top;
 }
 
-#pnpwdbpbvn .gt_row_group_first td {
+#nzpiyeemxs .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pnpwdbpbvn .gt_row_group_first th {
+#nzpiyeemxs .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pnpwdbpbvn .gt_summary_row {
+#nzpiyeemxs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4910,16 +4858,16 @@ The pem export function call:
   padding-right: 5px;
 }
 
-#pnpwdbpbvn .gt_first_summary_row {
+#nzpiyeemxs .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pnpwdbpbvn .gt_first_summary_row.thick {
+#nzpiyeemxs .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pnpwdbpbvn .gt_last_summary_row {
+#nzpiyeemxs .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4929,7 +4877,7 @@ The pem export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#pnpwdbpbvn .gt_grand_summary_row {
+#nzpiyeemxs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4939,7 +4887,7 @@ The pem export function call:
   padding-right: 5px;
 }
 
-#pnpwdbpbvn .gt_first_grand_summary_row {
+#nzpiyeemxs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4949,7 +4897,7 @@ The pem export function call:
   border-top-color: #D3D3D3;
 }
 
-#pnpwdbpbvn .gt_last_grand_summary_row_top {
+#nzpiyeemxs .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4959,11 +4907,11 @@ The pem export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#pnpwdbpbvn .gt_striped {
+#nzpiyeemxs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pnpwdbpbvn .gt_table_body {
+#nzpiyeemxs .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -4972,7 +4920,7 @@ The pem export function call:
   border-bottom-color: #000000;
 }
 
-#pnpwdbpbvn .gt_footnotes {
+#nzpiyeemxs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4986,7 +4934,7 @@ The pem export function call:
   border-right-color: #D3D3D3;
 }
 
-#pnpwdbpbvn .gt_footnote {
+#nzpiyeemxs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4995,7 +4943,7 @@ The pem export function call:
   padding-right: 5px;
 }
 
-#pnpwdbpbvn .gt_sourcenotes {
+#nzpiyeemxs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5009,7 +4957,7 @@ The pem export function call:
   border-right-color: #D3D3D3;
 }
 
-#pnpwdbpbvn .gt_sourcenote {
+#nzpiyeemxs .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -5017,72 +4965,72 @@ The pem export function call:
   padding-right: 5px;
 }
 
-#pnpwdbpbvn .gt_left {
+#nzpiyeemxs .gt_left {
   text-align: left;
 }
 
-#pnpwdbpbvn .gt_center {
+#nzpiyeemxs .gt_center {
   text-align: center;
 }
 
-#pnpwdbpbvn .gt_right {
+#nzpiyeemxs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pnpwdbpbvn .gt_font_normal {
+#nzpiyeemxs .gt_font_normal {
   font-weight: normal;
 }
 
-#pnpwdbpbvn .gt_font_bold {
+#nzpiyeemxs .gt_font_bold {
   font-weight: bold;
 }
 
-#pnpwdbpbvn .gt_font_italic {
+#nzpiyeemxs .gt_font_italic {
   font-style: italic;
 }
 
-#pnpwdbpbvn .gt_super {
+#nzpiyeemxs .gt_super {
   font-size: 65%;
 }
 
-#pnpwdbpbvn .gt_footnote_marks {
+#nzpiyeemxs .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pnpwdbpbvn .gt_asterisk {
+#nzpiyeemxs .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pnpwdbpbvn .gt_indent_1 {
+#nzpiyeemxs .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pnpwdbpbvn .gt_indent_2 {
+#nzpiyeemxs .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pnpwdbpbvn .gt_indent_3 {
+#nzpiyeemxs .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pnpwdbpbvn .gt_indent_4 {
+#nzpiyeemxs .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pnpwdbpbvn .gt_indent_5 {
+#nzpiyeemxs .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pnpwdbpbvn .katex-display {
+#nzpiyeemxs .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pnpwdbpbvn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#nzpiyeemxs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -5148,39 +5096,29 @@ The nap export function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>export</strong>(<br>
-&nbsp;&nbsp;<em>object</em>,<br>
-&nbsp;&nbsp;<em>caption</em> = NA,<br>
-&nbsp;&nbsp;<em>footnote</em> = NA,<br>
-&nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
-&nbsp;&nbsp;<em>select</em> = c(“Case”, “NAP”, “NAP Rescaled”, “w”, “p”, “d”, “R²”),<br>
-&nbsp;&nbsp;<em>round</em> = 2,<br>
-&nbsp;&nbsp;<em>…</em><br>
-)</p>
+<p><strong>export</strong>(<em>object</em>, <em>caption</em> = NA, <em>footnote</em> = NA, <em>filename</em> = NA, <em>select</em> = c(“Case”, “NAP”, “NAP Rescaled”, “w”, “p”, “d”, “R²”), <em>round</em> = 2, <em>…</em>)</p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nap</span>(Huber2014) <span class="sc">|&gt;</span> <span class="fu">export</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="ojiacbiwku" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ojiacbiwku table {
+<div id="jefipbvemx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jefipbvemx table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ojiacbiwku thead, #ojiacbiwku tbody, #ojiacbiwku tfoot, #ojiacbiwku tr, #ojiacbiwku td, #ojiacbiwku th {
+#jefipbvemx thead, #jefipbvemx tbody, #jefipbvemx tfoot, #jefipbvemx tr, #jefipbvemx td, #jefipbvemx th {
   border-style: none;
 }
 
-#ojiacbiwku p {
+#jefipbvemx p {
   margin: 0;
   padding: 0;
 }
 
-#ojiacbiwku .gt_table {
+#jefipbvemx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -5206,12 +5144,12 @@ The nap export function call:
   border-left-color: #D3D3D3;
 }
 
-#ojiacbiwku .gt_caption {
+#jefipbvemx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ojiacbiwku .gt_title {
+#jefipbvemx .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -5223,7 +5161,7 @@ The nap export function call:
   border-bottom-width: 0;
 }
 
-#ojiacbiwku .gt_subtitle {
+#jefipbvemx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -5235,7 +5173,7 @@ The nap export function call:
   border-top-width: 0;
 }
 
-#ojiacbiwku .gt_heading {
+#jefipbvemx .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -5247,13 +5185,13 @@ The nap export function call:
   border-right-color: #D3D3D3;
 }
 
-#ojiacbiwku .gt_bottom_border {
+#jefipbvemx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#ojiacbiwku .gt_col_headings {
+#jefipbvemx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -5268,7 +5206,7 @@ The nap export function call:
   border-right-color: #D3D3D3;
 }
 
-#ojiacbiwku .gt_col_heading {
+#jefipbvemx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5288,7 +5226,7 @@ The nap export function call:
   overflow-x: hidden;
 }
 
-#ojiacbiwku .gt_column_spanner_outer {
+#jefipbvemx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5300,15 +5238,15 @@ The nap export function call:
   padding-right: 4px;
 }
 
-#ojiacbiwku .gt_column_spanner_outer:first-child {
+#jefipbvemx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ojiacbiwku .gt_column_spanner_outer:last-child {
+#jefipbvemx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ojiacbiwku .gt_column_spanner {
+#jefipbvemx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -5320,11 +5258,11 @@ The nap export function call:
   width: 100%;
 }
 
-#ojiacbiwku .gt_spanner_row {
+#jefipbvemx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ojiacbiwku .gt_group_heading {
+#jefipbvemx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5350,7 +5288,7 @@ The nap export function call:
   text-align: left;
 }
 
-#ojiacbiwku .gt_empty_group_heading {
+#jefipbvemx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5365,15 +5303,15 @@ The nap export function call:
   vertical-align: middle;
 }
 
-#ojiacbiwku .gt_from_md > :first-child {
+#jefipbvemx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ojiacbiwku .gt_from_md > :last-child {
+#jefipbvemx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ojiacbiwku .gt_row {
+#jefipbvemx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5392,7 +5330,7 @@ The nap export function call:
   overflow-x: hidden;
 }
 
-#ojiacbiwku .gt_stub {
+#jefipbvemx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5405,7 +5343,7 @@ The nap export function call:
   padding-right: 5px;
 }
 
-#ojiacbiwku .gt_stub_row_group {
+#jefipbvemx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5419,15 +5357,15 @@ The nap export function call:
   vertical-align: top;
 }
 
-#ojiacbiwku .gt_row_group_first td {
+#jefipbvemx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ojiacbiwku .gt_row_group_first th {
+#jefipbvemx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ojiacbiwku .gt_summary_row {
+#jefipbvemx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5437,16 +5375,16 @@ The nap export function call:
   padding-right: 5px;
 }
 
-#ojiacbiwku .gt_first_summary_row {
+#jefipbvemx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ojiacbiwku .gt_first_summary_row.thick {
+#jefipbvemx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ojiacbiwku .gt_last_summary_row {
+#jefipbvemx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5456,7 +5394,7 @@ The nap export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#ojiacbiwku .gt_grand_summary_row {
+#jefipbvemx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5466,7 +5404,7 @@ The nap export function call:
   padding-right: 5px;
 }
 
-#ojiacbiwku .gt_first_grand_summary_row {
+#jefipbvemx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5476,7 +5414,7 @@ The nap export function call:
   border-top-color: #D3D3D3;
 }
 
-#ojiacbiwku .gt_last_grand_summary_row_top {
+#jefipbvemx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5486,11 +5424,11 @@ The nap export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#ojiacbiwku .gt_striped {
+#jefipbvemx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ojiacbiwku .gt_table_body {
+#jefipbvemx .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -5499,7 +5437,7 @@ The nap export function call:
   border-bottom-color: #000000;
 }
 
-#ojiacbiwku .gt_footnotes {
+#jefipbvemx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5513,7 +5451,7 @@ The nap export function call:
   border-right-color: #D3D3D3;
 }
 
-#ojiacbiwku .gt_footnote {
+#jefipbvemx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -5522,7 +5460,7 @@ The nap export function call:
   padding-right: 5px;
 }
 
-#ojiacbiwku .gt_sourcenotes {
+#jefipbvemx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5536,7 +5474,7 @@ The nap export function call:
   border-right-color: #D3D3D3;
 }
 
-#ojiacbiwku .gt_sourcenote {
+#jefipbvemx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -5544,72 +5482,72 @@ The nap export function call:
   padding-right: 5px;
 }
 
-#ojiacbiwku .gt_left {
+#jefipbvemx .gt_left {
   text-align: left;
 }
 
-#ojiacbiwku .gt_center {
+#jefipbvemx .gt_center {
   text-align: center;
 }
 
-#ojiacbiwku .gt_right {
+#jefipbvemx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ojiacbiwku .gt_font_normal {
+#jefipbvemx .gt_font_normal {
   font-weight: normal;
 }
 
-#ojiacbiwku .gt_font_bold {
+#jefipbvemx .gt_font_bold {
   font-weight: bold;
 }
 
-#ojiacbiwku .gt_font_italic {
+#jefipbvemx .gt_font_italic {
   font-style: italic;
 }
 
-#ojiacbiwku .gt_super {
+#jefipbvemx .gt_super {
   font-size: 65%;
 }
 
-#ojiacbiwku .gt_footnote_marks {
+#jefipbvemx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ojiacbiwku .gt_asterisk {
+#jefipbvemx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ojiacbiwku .gt_indent_1 {
+#jefipbvemx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ojiacbiwku .gt_indent_2 {
+#jefipbvemx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ojiacbiwku .gt_indent_3 {
+#jefipbvemx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ojiacbiwku .gt_indent_4 {
+#jefipbvemx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ojiacbiwku .gt_indent_5 {
+#jefipbvemx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ojiacbiwku .katex-display {
+#jefipbvemx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ojiacbiwku div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#jefipbvemx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -5691,8 +5629,6 @@ The tauu export function call:
 &nbsp;&nbsp;<em>footnote</em> = NA,<br>
 &nbsp;&nbsp;<em>filename</em> = NA,<br>
 &nbsp;&nbsp;<em>select</em> = “auto”,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
 &nbsp;&nbsp;<em>meta</em> = FALSE,<br>
 &nbsp;&nbsp;<em>round</em> = 3,<br>
 &nbsp;&nbsp;<em>decimals</em> = 3,<br>
@@ -5704,23 +5640,23 @@ The tauu export function call:
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB_decreasing) <span class="sc">|&gt;</span> <span class="fu">export</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="nidfoitedt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nidfoitedt table {
+<div id="wfzcdicrej" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wfzcdicrej table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nidfoitedt thead, #nidfoitedt tbody, #nidfoitedt tfoot, #nidfoitedt tr, #nidfoitedt td, #nidfoitedt th {
+#wfzcdicrej thead, #wfzcdicrej tbody, #wfzcdicrej tfoot, #wfzcdicrej tr, #wfzcdicrej td, #wfzcdicrej th {
   border-style: none;
 }
 
-#nidfoitedt p {
+#wfzcdicrej p {
   margin: 0;
   padding: 0;
 }
 
-#nidfoitedt .gt_table {
+#wfzcdicrej .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -5746,12 +5682,12 @@ The tauu export function call:
   border-left-color: #D3D3D3;
 }
 
-#nidfoitedt .gt_caption {
+#wfzcdicrej .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nidfoitedt .gt_title {
+#wfzcdicrej .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -5763,7 +5699,7 @@ The tauu export function call:
   border-bottom-width: 0;
 }
 
-#nidfoitedt .gt_subtitle {
+#wfzcdicrej .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -5775,7 +5711,7 @@ The tauu export function call:
   border-top-width: 0;
 }
 
-#nidfoitedt .gt_heading {
+#wfzcdicrej .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -5787,13 +5723,13 @@ The tauu export function call:
   border-right-color: #D3D3D3;
 }
 
-#nidfoitedt .gt_bottom_border {
+#wfzcdicrej .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#nidfoitedt .gt_col_headings {
+#wfzcdicrej .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -5808,7 +5744,7 @@ The tauu export function call:
   border-right-color: #D3D3D3;
 }
 
-#nidfoitedt .gt_col_heading {
+#wfzcdicrej .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5828,7 +5764,7 @@ The tauu export function call:
   overflow-x: hidden;
 }
 
-#nidfoitedt .gt_column_spanner_outer {
+#wfzcdicrej .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5840,15 +5776,15 @@ The tauu export function call:
   padding-right: 4px;
 }
 
-#nidfoitedt .gt_column_spanner_outer:first-child {
+#wfzcdicrej .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nidfoitedt .gt_column_spanner_outer:last-child {
+#wfzcdicrej .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nidfoitedt .gt_column_spanner {
+#wfzcdicrej .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -5860,11 +5796,11 @@ The tauu export function call:
   width: 100%;
 }
 
-#nidfoitedt .gt_spanner_row {
+#wfzcdicrej .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nidfoitedt .gt_group_heading {
+#wfzcdicrej .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5890,7 +5826,7 @@ The tauu export function call:
   text-align: left;
 }
 
-#nidfoitedt .gt_empty_group_heading {
+#wfzcdicrej .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -5905,15 +5841,15 @@ The tauu export function call:
   vertical-align: middle;
 }
 
-#nidfoitedt .gt_from_md > :first-child {
+#wfzcdicrej .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nidfoitedt .gt_from_md > :last-child {
+#wfzcdicrej .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nidfoitedt .gt_row {
+#wfzcdicrej .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5932,7 +5868,7 @@ The tauu export function call:
   overflow-x: hidden;
 }
 
-#nidfoitedt .gt_stub {
+#wfzcdicrej .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5945,7 +5881,7 @@ The tauu export function call:
   padding-right: 5px;
 }
 
-#nidfoitedt .gt_stub_row_group {
+#wfzcdicrej .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5959,15 +5895,15 @@ The tauu export function call:
   vertical-align: top;
 }
 
-#nidfoitedt .gt_row_group_first td {
+#wfzcdicrej .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nidfoitedt .gt_row_group_first th {
+#wfzcdicrej .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nidfoitedt .gt_summary_row {
+#wfzcdicrej .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5977,16 +5913,16 @@ The tauu export function call:
   padding-right: 5px;
 }
 
-#nidfoitedt .gt_first_summary_row {
+#wfzcdicrej .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nidfoitedt .gt_first_summary_row.thick {
+#wfzcdicrej .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nidfoitedt .gt_last_summary_row {
+#wfzcdicrej .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5996,7 +5932,7 @@ The tauu export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#nidfoitedt .gt_grand_summary_row {
+#wfzcdicrej .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6006,7 +5942,7 @@ The tauu export function call:
   padding-right: 5px;
 }
 
-#nidfoitedt .gt_first_grand_summary_row {
+#wfzcdicrej .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6016,7 +5952,7 @@ The tauu export function call:
   border-top-color: #D3D3D3;
 }
 
-#nidfoitedt .gt_last_grand_summary_row_top {
+#wfzcdicrej .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6026,11 +5962,11 @@ The tauu export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#nidfoitedt .gt_striped {
+#wfzcdicrej .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nidfoitedt .gt_table_body {
+#wfzcdicrej .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -6039,7 +5975,7 @@ The tauu export function call:
   border-bottom-color: #000000;
 }
 
-#nidfoitedt .gt_footnotes {
+#wfzcdicrej .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6053,7 +5989,7 @@ The tauu export function call:
   border-right-color: #D3D3D3;
 }
 
-#nidfoitedt .gt_footnote {
+#wfzcdicrej .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -6062,7 +5998,7 @@ The tauu export function call:
   padding-right: 5px;
 }
 
-#nidfoitedt .gt_sourcenotes {
+#wfzcdicrej .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6076,7 +6012,7 @@ The tauu export function call:
   border-right-color: #D3D3D3;
 }
 
-#nidfoitedt .gt_sourcenote {
+#wfzcdicrej .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -6084,72 +6020,72 @@ The tauu export function call:
   padding-right: 5px;
 }
 
-#nidfoitedt .gt_left {
+#wfzcdicrej .gt_left {
   text-align: left;
 }
 
-#nidfoitedt .gt_center {
+#wfzcdicrej .gt_center {
   text-align: center;
 }
 
-#nidfoitedt .gt_right {
+#wfzcdicrej .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nidfoitedt .gt_font_normal {
+#wfzcdicrej .gt_font_normal {
   font-weight: normal;
 }
 
-#nidfoitedt .gt_font_bold {
+#wfzcdicrej .gt_font_bold {
   font-weight: bold;
 }
 
-#nidfoitedt .gt_font_italic {
+#wfzcdicrej .gt_font_italic {
   font-style: italic;
 }
 
-#nidfoitedt .gt_super {
+#wfzcdicrej .gt_super {
   font-size: 65%;
 }
 
-#nidfoitedt .gt_footnote_marks {
+#wfzcdicrej .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nidfoitedt .gt_asterisk {
+#wfzcdicrej .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nidfoitedt .gt_indent_1 {
+#wfzcdicrej .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nidfoitedt .gt_indent_2 {
+#wfzcdicrej .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nidfoitedt .gt_indent_3 {
+#wfzcdicrej .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nidfoitedt .gt_indent_4 {
+#wfzcdicrej .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nidfoitedt .gt_indent_5 {
+#wfzcdicrej .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nidfoitedt .katex-display {
+#wfzcdicrej .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nidfoitedt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#wfzcdicrej div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -6336,23 +6272,23 @@ The tauu export function call:
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB_decreasing) <span class="sc">|&gt;</span> <span class="fu">export</span>(<span class="at">meta =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="cspecfekgy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cspecfekgy table {
+<div id="kvzgoxqkur" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kvzgoxqkur table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cspecfekgy thead, #cspecfekgy tbody, #cspecfekgy tfoot, #cspecfekgy tr, #cspecfekgy td, #cspecfekgy th {
+#kvzgoxqkur thead, #kvzgoxqkur tbody, #kvzgoxqkur tfoot, #kvzgoxqkur tr, #kvzgoxqkur td, #kvzgoxqkur th {
   border-style: none;
 }
 
-#cspecfekgy p {
+#kvzgoxqkur p {
   margin: 0;
   padding: 0;
 }
 
-#cspecfekgy .gt_table {
+#kvzgoxqkur .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -6378,12 +6314,12 @@ The tauu export function call:
   border-left-color: #D3D3D3;
 }
 
-#cspecfekgy .gt_caption {
+#kvzgoxqkur .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cspecfekgy .gt_title {
+#kvzgoxqkur .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -6395,7 +6331,7 @@ The tauu export function call:
   border-bottom-width: 0;
 }
 
-#cspecfekgy .gt_subtitle {
+#kvzgoxqkur .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -6407,7 +6343,7 @@ The tauu export function call:
   border-top-width: 0;
 }
 
-#cspecfekgy .gt_heading {
+#kvzgoxqkur .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -6419,13 +6355,13 @@ The tauu export function call:
   border-right-color: #D3D3D3;
 }
 
-#cspecfekgy .gt_bottom_border {
+#kvzgoxqkur .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#cspecfekgy .gt_col_headings {
+#kvzgoxqkur .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -6440,7 +6376,7 @@ The tauu export function call:
   border-right-color: #D3D3D3;
 }
 
-#cspecfekgy .gt_col_heading {
+#kvzgoxqkur .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6460,7 +6396,7 @@ The tauu export function call:
   overflow-x: hidden;
 }
 
-#cspecfekgy .gt_column_spanner_outer {
+#kvzgoxqkur .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6472,15 +6408,15 @@ The tauu export function call:
   padding-right: 4px;
 }
 
-#cspecfekgy .gt_column_spanner_outer:first-child {
+#kvzgoxqkur .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cspecfekgy .gt_column_spanner_outer:last-child {
+#kvzgoxqkur .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cspecfekgy .gt_column_spanner {
+#kvzgoxqkur .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -6492,11 +6428,11 @@ The tauu export function call:
   width: 100%;
 }
 
-#cspecfekgy .gt_spanner_row {
+#kvzgoxqkur .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cspecfekgy .gt_group_heading {
+#kvzgoxqkur .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6522,7 +6458,7 @@ The tauu export function call:
   text-align: left;
 }
 
-#cspecfekgy .gt_empty_group_heading {
+#kvzgoxqkur .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -6537,15 +6473,15 @@ The tauu export function call:
   vertical-align: middle;
 }
 
-#cspecfekgy .gt_from_md > :first-child {
+#kvzgoxqkur .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cspecfekgy .gt_from_md > :last-child {
+#kvzgoxqkur .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cspecfekgy .gt_row {
+#kvzgoxqkur .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6564,7 +6500,7 @@ The tauu export function call:
   overflow-x: hidden;
 }
 
-#cspecfekgy .gt_stub {
+#kvzgoxqkur .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6577,7 +6513,7 @@ The tauu export function call:
   padding-right: 5px;
 }
 
-#cspecfekgy .gt_stub_row_group {
+#kvzgoxqkur .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6591,15 +6527,15 @@ The tauu export function call:
   vertical-align: top;
 }
 
-#cspecfekgy .gt_row_group_first td {
+#kvzgoxqkur .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cspecfekgy .gt_row_group_first th {
+#kvzgoxqkur .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cspecfekgy .gt_summary_row {
+#kvzgoxqkur .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6609,16 +6545,16 @@ The tauu export function call:
   padding-right: 5px;
 }
 
-#cspecfekgy .gt_first_summary_row {
+#kvzgoxqkur .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cspecfekgy .gt_first_summary_row.thick {
+#kvzgoxqkur .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cspecfekgy .gt_last_summary_row {
+#kvzgoxqkur .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6628,7 +6564,7 @@ The tauu export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#cspecfekgy .gt_grand_summary_row {
+#kvzgoxqkur .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -6638,7 +6574,7 @@ The tauu export function call:
   padding-right: 5px;
 }
 
-#cspecfekgy .gt_first_grand_summary_row {
+#kvzgoxqkur .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6648,7 +6584,7 @@ The tauu export function call:
   border-top-color: #D3D3D3;
 }
 
-#cspecfekgy .gt_last_grand_summary_row_top {
+#kvzgoxqkur .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6658,11 +6594,11 @@ The tauu export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#cspecfekgy .gt_striped {
+#kvzgoxqkur .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cspecfekgy .gt_table_body {
+#kvzgoxqkur .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -6671,7 +6607,7 @@ The tauu export function call:
   border-bottom-color: #000000;
 }
 
-#cspecfekgy .gt_footnotes {
+#kvzgoxqkur .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6685,7 +6621,7 @@ The tauu export function call:
   border-right-color: #D3D3D3;
 }
 
-#cspecfekgy .gt_footnote {
+#kvzgoxqkur .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -6694,7 +6630,7 @@ The tauu export function call:
   padding-right: 5px;
 }
 
-#cspecfekgy .gt_sourcenotes {
+#kvzgoxqkur .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -6708,7 +6644,7 @@ The tauu export function call:
   border-right-color: #D3D3D3;
 }
 
-#cspecfekgy .gt_sourcenote {
+#kvzgoxqkur .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -6716,72 +6652,72 @@ The tauu export function call:
   padding-right: 5px;
 }
 
-#cspecfekgy .gt_left {
+#kvzgoxqkur .gt_left {
   text-align: left;
 }
 
-#cspecfekgy .gt_center {
+#kvzgoxqkur .gt_center {
   text-align: center;
 }
 
-#cspecfekgy .gt_right {
+#kvzgoxqkur .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cspecfekgy .gt_font_normal {
+#kvzgoxqkur .gt_font_normal {
   font-weight: normal;
 }
 
-#cspecfekgy .gt_font_bold {
+#kvzgoxqkur .gt_font_bold {
   font-weight: bold;
 }
 
-#cspecfekgy .gt_font_italic {
+#kvzgoxqkur .gt_font_italic {
   font-style: italic;
 }
 
-#cspecfekgy .gt_super {
+#kvzgoxqkur .gt_super {
   font-size: 65%;
 }
 
-#cspecfekgy .gt_footnote_marks {
+#kvzgoxqkur .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cspecfekgy .gt_asterisk {
+#kvzgoxqkur .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cspecfekgy .gt_indent_1 {
+#kvzgoxqkur .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cspecfekgy .gt_indent_2 {
+#kvzgoxqkur .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cspecfekgy .gt_indent_3 {
+#kvzgoxqkur .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cspecfekgy .gt_indent_4 {
+#kvzgoxqkur .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cspecfekgy .gt_indent_5 {
+#kvzgoxqkur .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cspecfekgy .katex-display {
+#kvzgoxqkur .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cspecfekgy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#kvzgoxqkur div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -6867,8 +6803,6 @@ The plm export function call:
 &nbsp;&nbsp;<em>caption</em> = NA,<br>
 &nbsp;&nbsp;<em>footnote</em> = NA,<br>
 &nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
 &nbsp;&nbsp;<em>nice</em> = TRUE,<br>
 &nbsp;&nbsp;<em>ci</em> = 0.95,<br>
 &nbsp;&nbsp;<em>q</em> = FALSE,<br>
@@ -6881,23 +6815,23 @@ The plm export function call:
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleA1B1A2B2<span class="sc">$</span>Pawel)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="tqdktwkern" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tqdktwkern table {
+<div id="qhwvbcuomh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qhwvbcuomh table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tqdktwkern thead, #tqdktwkern tbody, #tqdktwkern tfoot, #tqdktwkern tr, #tqdktwkern td, #tqdktwkern th {
+#qhwvbcuomh thead, #qhwvbcuomh tbody, #qhwvbcuomh tfoot, #qhwvbcuomh tr, #qhwvbcuomh td, #qhwvbcuomh th {
   border-style: none;
 }
 
-#tqdktwkern p {
+#qhwvbcuomh p {
   margin: 0;
   padding: 0;
 }
 
-#tqdktwkern .gt_table {
+#qhwvbcuomh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -6923,12 +6857,12 @@ The plm export function call:
   border-left-color: #D3D3D3;
 }
 
-#tqdktwkern .gt_caption {
+#qhwvbcuomh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tqdktwkern .gt_title {
+#qhwvbcuomh .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -6940,7 +6874,7 @@ The plm export function call:
   border-bottom-width: 0;
 }
 
-#tqdktwkern .gt_subtitle {
+#qhwvbcuomh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -6952,7 +6886,7 @@ The plm export function call:
   border-top-width: 0;
 }
 
-#tqdktwkern .gt_heading {
+#qhwvbcuomh .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -6964,13 +6898,13 @@ The plm export function call:
   border-right-color: #D3D3D3;
 }
 
-#tqdktwkern .gt_bottom_border {
+#qhwvbcuomh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#tqdktwkern .gt_col_headings {
+#qhwvbcuomh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -6985,7 +6919,7 @@ The plm export function call:
   border-right-color: #D3D3D3;
 }
 
-#tqdktwkern .gt_col_heading {
+#qhwvbcuomh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7005,7 +6939,7 @@ The plm export function call:
   overflow-x: hidden;
 }
 
-#tqdktwkern .gt_column_spanner_outer {
+#qhwvbcuomh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7017,15 +6951,15 @@ The plm export function call:
   padding-right: 4px;
 }
 
-#tqdktwkern .gt_column_spanner_outer:first-child {
+#qhwvbcuomh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tqdktwkern .gt_column_spanner_outer:last-child {
+#qhwvbcuomh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tqdktwkern .gt_column_spanner {
+#qhwvbcuomh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -7037,11 +6971,11 @@ The plm export function call:
   width: 100%;
 }
 
-#tqdktwkern .gt_spanner_row {
+#qhwvbcuomh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tqdktwkern .gt_group_heading {
+#qhwvbcuomh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7067,7 +7001,7 @@ The plm export function call:
   text-align: left;
 }
 
-#tqdktwkern .gt_empty_group_heading {
+#qhwvbcuomh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -7082,15 +7016,15 @@ The plm export function call:
   vertical-align: middle;
 }
 
-#tqdktwkern .gt_from_md > :first-child {
+#qhwvbcuomh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tqdktwkern .gt_from_md > :last-child {
+#qhwvbcuomh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tqdktwkern .gt_row {
+#qhwvbcuomh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7109,7 +7043,7 @@ The plm export function call:
   overflow-x: hidden;
 }
 
-#tqdktwkern .gt_stub {
+#qhwvbcuomh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7122,7 +7056,7 @@ The plm export function call:
   padding-right: 5px;
 }
 
-#tqdktwkern .gt_stub_row_group {
+#qhwvbcuomh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7136,15 +7070,15 @@ The plm export function call:
   vertical-align: top;
 }
 
-#tqdktwkern .gt_row_group_first td {
+#qhwvbcuomh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tqdktwkern .gt_row_group_first th {
+#qhwvbcuomh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tqdktwkern .gt_summary_row {
+#qhwvbcuomh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -7154,16 +7088,16 @@ The plm export function call:
   padding-right: 5px;
 }
 
-#tqdktwkern .gt_first_summary_row {
+#qhwvbcuomh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tqdktwkern .gt_first_summary_row.thick {
+#qhwvbcuomh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tqdktwkern .gt_last_summary_row {
+#qhwvbcuomh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7173,7 +7107,7 @@ The plm export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#tqdktwkern .gt_grand_summary_row {
+#qhwvbcuomh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -7183,7 +7117,7 @@ The plm export function call:
   padding-right: 5px;
 }
 
-#tqdktwkern .gt_first_grand_summary_row {
+#qhwvbcuomh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7193,7 +7127,7 @@ The plm export function call:
   border-top-color: #D3D3D3;
 }
 
-#tqdktwkern .gt_last_grand_summary_row_top {
+#qhwvbcuomh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7203,11 +7137,11 @@ The plm export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#tqdktwkern .gt_striped {
+#qhwvbcuomh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tqdktwkern .gt_table_body {
+#qhwvbcuomh .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -7216,7 +7150,7 @@ The plm export function call:
   border-bottom-color: #000000;
 }
 
-#tqdktwkern .gt_footnotes {
+#qhwvbcuomh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -7230,7 +7164,7 @@ The plm export function call:
   border-right-color: #D3D3D3;
 }
 
-#tqdktwkern .gt_footnote {
+#qhwvbcuomh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -7239,7 +7173,7 @@ The plm export function call:
   padding-right: 5px;
 }
 
-#tqdktwkern .gt_sourcenotes {
+#qhwvbcuomh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -7253,7 +7187,7 @@ The plm export function call:
   border-right-color: #D3D3D3;
 }
 
-#tqdktwkern .gt_sourcenote {
+#qhwvbcuomh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -7261,72 +7195,72 @@ The plm export function call:
   padding-right: 5px;
 }
 
-#tqdktwkern .gt_left {
+#qhwvbcuomh .gt_left {
   text-align: left;
 }
 
-#tqdktwkern .gt_center {
+#qhwvbcuomh .gt_center {
   text-align: center;
 }
 
-#tqdktwkern .gt_right {
+#qhwvbcuomh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tqdktwkern .gt_font_normal {
+#qhwvbcuomh .gt_font_normal {
   font-weight: normal;
 }
 
-#tqdktwkern .gt_font_bold {
+#qhwvbcuomh .gt_font_bold {
   font-weight: bold;
 }
 
-#tqdktwkern .gt_font_italic {
+#qhwvbcuomh .gt_font_italic {
   font-style: italic;
 }
 
-#tqdktwkern .gt_super {
+#qhwvbcuomh .gt_super {
   font-size: 65%;
 }
 
-#tqdktwkern .gt_footnote_marks {
+#qhwvbcuomh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tqdktwkern .gt_asterisk {
+#qhwvbcuomh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tqdktwkern .gt_indent_1 {
+#qhwvbcuomh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tqdktwkern .gt_indent_2 {
+#qhwvbcuomh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tqdktwkern .gt_indent_3 {
+#qhwvbcuomh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tqdktwkern .gt_indent_4 {
+#qhwvbcuomh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tqdktwkern .gt_indent_5 {
+#qhwvbcuomh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#tqdktwkern .katex-display {
+#qhwvbcuomh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#tqdktwkern div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qhwvbcuomh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -7472,8 +7406,6 @@ The hplm export function call:
 &nbsp;&nbsp;<em>caption</em> = NA,<br>
 &nbsp;&nbsp;<em>footnote</em> = NA,<br>
 &nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
 &nbsp;&nbsp;<em>round</em> = 2,<br>
 &nbsp;&nbsp;<em>nice</em> = TRUE,<br>
 &nbsp;&nbsp;<em>casewise</em> = FALSE,<br>
@@ -7487,23 +7419,23 @@ The hplm export function call:
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hplm</span>(<span class="at">lr.test =</span> <span class="cn">TRUE</span>, <span class="at">random.slopes =</span> <span class="cn">TRUE</span>)  <span class="sc">|&gt;</span> </span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">export</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="sbdilibmqm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sbdilibmqm table {
+<div id="ilzhrewzxx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ilzhrewzxx table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#sbdilibmqm thead, #sbdilibmqm tbody, #sbdilibmqm tfoot, #sbdilibmqm tr, #sbdilibmqm td, #sbdilibmqm th {
+#ilzhrewzxx thead, #ilzhrewzxx tbody, #ilzhrewzxx tfoot, #ilzhrewzxx tr, #ilzhrewzxx td, #ilzhrewzxx th {
   border-style: none;
 }
 
-#sbdilibmqm p {
+#ilzhrewzxx p {
   margin: 0;
   padding: 0;
 }
 
-#sbdilibmqm .gt_table {
+#ilzhrewzxx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -7529,12 +7461,12 @@ The hplm export function call:
   border-left-color: #D3D3D3;
 }
 
-#sbdilibmqm .gt_caption {
+#ilzhrewzxx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#sbdilibmqm .gt_title {
+#ilzhrewzxx .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -7546,7 +7478,7 @@ The hplm export function call:
   border-bottom-width: 0;
 }
 
-#sbdilibmqm .gt_subtitle {
+#ilzhrewzxx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -7558,7 +7490,7 @@ The hplm export function call:
   border-top-width: 0;
 }
 
-#sbdilibmqm .gt_heading {
+#ilzhrewzxx .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -7570,13 +7502,13 @@ The hplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#sbdilibmqm .gt_bottom_border {
+#ilzhrewzxx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#sbdilibmqm .gt_col_headings {
+#ilzhrewzxx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -7591,7 +7523,7 @@ The hplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#sbdilibmqm .gt_col_heading {
+#ilzhrewzxx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7611,7 +7543,7 @@ The hplm export function call:
   overflow-x: hidden;
 }
 
-#sbdilibmqm .gt_column_spanner_outer {
+#ilzhrewzxx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7623,15 +7555,15 @@ The hplm export function call:
   padding-right: 4px;
 }
 
-#sbdilibmqm .gt_column_spanner_outer:first-child {
+#ilzhrewzxx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sbdilibmqm .gt_column_spanner_outer:last-child {
+#ilzhrewzxx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sbdilibmqm .gt_column_spanner {
+#ilzhrewzxx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -7643,11 +7575,11 @@ The hplm export function call:
   width: 100%;
 }
 
-#sbdilibmqm .gt_spanner_row {
+#ilzhrewzxx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#sbdilibmqm .gt_group_heading {
+#ilzhrewzxx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7673,7 +7605,7 @@ The hplm export function call:
   text-align: left;
 }
 
-#sbdilibmqm .gt_empty_group_heading {
+#ilzhrewzxx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -7688,15 +7620,15 @@ The hplm export function call:
   vertical-align: middle;
 }
 
-#sbdilibmqm .gt_from_md > :first-child {
+#ilzhrewzxx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sbdilibmqm .gt_from_md > :last-child {
+#ilzhrewzxx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sbdilibmqm .gt_row {
+#ilzhrewzxx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7715,7 +7647,7 @@ The hplm export function call:
   overflow-x: hidden;
 }
 
-#sbdilibmqm .gt_stub {
+#ilzhrewzxx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7728,7 +7660,7 @@ The hplm export function call:
   padding-right: 5px;
 }
 
-#sbdilibmqm .gt_stub_row_group {
+#ilzhrewzxx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7742,15 +7674,15 @@ The hplm export function call:
   vertical-align: top;
 }
 
-#sbdilibmqm .gt_row_group_first td {
+#ilzhrewzxx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sbdilibmqm .gt_row_group_first th {
+#ilzhrewzxx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#sbdilibmqm .gt_summary_row {
+#ilzhrewzxx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -7760,16 +7692,16 @@ The hplm export function call:
   padding-right: 5px;
 }
 
-#sbdilibmqm .gt_first_summary_row {
+#ilzhrewzxx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sbdilibmqm .gt_first_summary_row.thick {
+#ilzhrewzxx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sbdilibmqm .gt_last_summary_row {
+#ilzhrewzxx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7779,7 +7711,7 @@ The hplm export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#sbdilibmqm .gt_grand_summary_row {
+#ilzhrewzxx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -7789,7 +7721,7 @@ The hplm export function call:
   padding-right: 5px;
 }
 
-#sbdilibmqm .gt_first_grand_summary_row {
+#ilzhrewzxx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7799,7 +7731,7 @@ The hplm export function call:
   border-top-color: #D3D3D3;
 }
 
-#sbdilibmqm .gt_last_grand_summary_row_top {
+#ilzhrewzxx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7809,11 +7741,11 @@ The hplm export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#sbdilibmqm .gt_striped {
+#ilzhrewzxx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sbdilibmqm .gt_table_body {
+#ilzhrewzxx .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -7822,7 +7754,7 @@ The hplm export function call:
   border-bottom-color: #000000;
 }
 
-#sbdilibmqm .gt_footnotes {
+#ilzhrewzxx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -7836,7 +7768,7 @@ The hplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#sbdilibmqm .gt_footnote {
+#ilzhrewzxx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -7845,7 +7777,7 @@ The hplm export function call:
   padding-right: 5px;
 }
 
-#sbdilibmqm .gt_sourcenotes {
+#ilzhrewzxx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -7859,7 +7791,7 @@ The hplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#sbdilibmqm .gt_sourcenote {
+#ilzhrewzxx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -7867,72 +7799,72 @@ The hplm export function call:
   padding-right: 5px;
 }
 
-#sbdilibmqm .gt_left {
+#ilzhrewzxx .gt_left {
   text-align: left;
 }
 
-#sbdilibmqm .gt_center {
+#ilzhrewzxx .gt_center {
   text-align: center;
 }
 
-#sbdilibmqm .gt_right {
+#ilzhrewzxx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sbdilibmqm .gt_font_normal {
+#ilzhrewzxx .gt_font_normal {
   font-weight: normal;
 }
 
-#sbdilibmqm .gt_font_bold {
+#ilzhrewzxx .gt_font_bold {
   font-weight: bold;
 }
 
-#sbdilibmqm .gt_font_italic {
+#ilzhrewzxx .gt_font_italic {
   font-style: italic;
 }
 
-#sbdilibmqm .gt_super {
+#ilzhrewzxx .gt_super {
   font-size: 65%;
 }
 
-#sbdilibmqm .gt_footnote_marks {
+#ilzhrewzxx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#sbdilibmqm .gt_asterisk {
+#ilzhrewzxx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sbdilibmqm .gt_indent_1 {
+#ilzhrewzxx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#sbdilibmqm .gt_indent_2 {
+#ilzhrewzxx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#sbdilibmqm .gt_indent_3 {
+#ilzhrewzxx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#sbdilibmqm .gt_indent_4 {
+#ilzhrewzxx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#sbdilibmqm .gt_indent_5 {
+#ilzhrewzxx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#sbdilibmqm .katex-display {
+#ilzhrewzxx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#sbdilibmqm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ilzhrewzxx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -8094,8 +8026,6 @@ The mplm export function call:
 &nbsp;&nbsp;<em>caption</em> = NA,<br>
 &nbsp;&nbsp;<em>footnote</em> = NA,<br>
 &nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
 &nbsp;&nbsp;<em>nice</em> = TRUE,<br>
 &nbsp;&nbsp;<em>std</em> = FALSE,<br>
 &nbsp;&nbsp;<em>decimals</em> = 2,<br>
@@ -8109,23 +8039,23 @@ The mplm export function call:
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mplm</span>(<span class="at">dvar =</span> <span class="fu">c</span>(<span class="st">"academic_engagement"</span>, <span class="st">"disruptive_behavior"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">export</span>(<span class="at">std =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="iyrzzxfvsp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#iyrzzxfvsp table {
+<div id="llnqilglwc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#llnqilglwc table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#iyrzzxfvsp thead, #iyrzzxfvsp tbody, #iyrzzxfvsp tfoot, #iyrzzxfvsp tr, #iyrzzxfvsp td, #iyrzzxfvsp th {
+#llnqilglwc thead, #llnqilglwc tbody, #llnqilglwc tfoot, #llnqilglwc tr, #llnqilglwc td, #llnqilglwc th {
   border-style: none;
 }
 
-#iyrzzxfvsp p {
+#llnqilglwc p {
   margin: 0;
   padding: 0;
 }
 
-#iyrzzxfvsp .gt_table {
+#llnqilglwc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -8151,12 +8081,12 @@ The mplm export function call:
   border-left-color: #D3D3D3;
 }
 
-#iyrzzxfvsp .gt_caption {
+#llnqilglwc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#iyrzzxfvsp .gt_title {
+#llnqilglwc .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -8168,7 +8098,7 @@ The mplm export function call:
   border-bottom-width: 0;
 }
 
-#iyrzzxfvsp .gt_subtitle {
+#llnqilglwc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -8180,7 +8110,7 @@ The mplm export function call:
   border-top-width: 0;
 }
 
-#iyrzzxfvsp .gt_heading {
+#llnqilglwc .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -8192,13 +8122,13 @@ The mplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#iyrzzxfvsp .gt_bottom_border {
+#llnqilglwc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#iyrzzxfvsp .gt_col_headings {
+#llnqilglwc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -8213,7 +8143,7 @@ The mplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#iyrzzxfvsp .gt_col_heading {
+#llnqilglwc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8233,7 +8163,7 @@ The mplm export function call:
   overflow-x: hidden;
 }
 
-#iyrzzxfvsp .gt_column_spanner_outer {
+#llnqilglwc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8245,15 +8175,15 @@ The mplm export function call:
   padding-right: 4px;
 }
 
-#iyrzzxfvsp .gt_column_spanner_outer:first-child {
+#llnqilglwc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iyrzzxfvsp .gt_column_spanner_outer:last-child {
+#llnqilglwc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iyrzzxfvsp .gt_column_spanner {
+#llnqilglwc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -8265,11 +8195,11 @@ The mplm export function call:
   width: 100%;
 }
 
-#iyrzzxfvsp .gt_spanner_row {
+#llnqilglwc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#iyrzzxfvsp .gt_group_heading {
+#llnqilglwc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8295,7 +8225,7 @@ The mplm export function call:
   text-align: left;
 }
 
-#iyrzzxfvsp .gt_empty_group_heading {
+#llnqilglwc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -8310,15 +8240,15 @@ The mplm export function call:
   vertical-align: middle;
 }
 
-#iyrzzxfvsp .gt_from_md > :first-child {
+#llnqilglwc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iyrzzxfvsp .gt_from_md > :last-child {
+#llnqilglwc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iyrzzxfvsp .gt_row {
+#llnqilglwc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8337,7 +8267,7 @@ The mplm export function call:
   overflow-x: hidden;
 }
 
-#iyrzzxfvsp .gt_stub {
+#llnqilglwc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8350,7 +8280,7 @@ The mplm export function call:
   padding-right: 5px;
 }
 
-#iyrzzxfvsp .gt_stub_row_group {
+#llnqilglwc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8364,15 +8294,15 @@ The mplm export function call:
   vertical-align: top;
 }
 
-#iyrzzxfvsp .gt_row_group_first td {
+#llnqilglwc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#iyrzzxfvsp .gt_row_group_first th {
+#llnqilglwc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#iyrzzxfvsp .gt_summary_row {
+#llnqilglwc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -8382,16 +8312,16 @@ The mplm export function call:
   padding-right: 5px;
 }
 
-#iyrzzxfvsp .gt_first_summary_row {
+#llnqilglwc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#iyrzzxfvsp .gt_first_summary_row.thick {
+#llnqilglwc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#iyrzzxfvsp .gt_last_summary_row {
+#llnqilglwc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8401,7 +8331,7 @@ The mplm export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#iyrzzxfvsp .gt_grand_summary_row {
+#llnqilglwc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -8411,7 +8341,7 @@ The mplm export function call:
   padding-right: 5px;
 }
 
-#iyrzzxfvsp .gt_first_grand_summary_row {
+#llnqilglwc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8421,7 +8351,7 @@ The mplm export function call:
   border-top-color: #D3D3D3;
 }
 
-#iyrzzxfvsp .gt_last_grand_summary_row_top {
+#llnqilglwc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8431,11 +8361,11 @@ The mplm export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#iyrzzxfvsp .gt_striped {
+#llnqilglwc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iyrzzxfvsp .gt_table_body {
+#llnqilglwc .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -8444,7 +8374,7 @@ The mplm export function call:
   border-bottom-color: #000000;
 }
 
-#iyrzzxfvsp .gt_footnotes {
+#llnqilglwc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -8458,7 +8388,7 @@ The mplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#iyrzzxfvsp .gt_footnote {
+#llnqilglwc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -8467,7 +8397,7 @@ The mplm export function call:
   padding-right: 5px;
 }
 
-#iyrzzxfvsp .gt_sourcenotes {
+#llnqilglwc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -8481,7 +8411,7 @@ The mplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#iyrzzxfvsp .gt_sourcenote {
+#llnqilglwc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -8489,72 +8419,72 @@ The mplm export function call:
   padding-right: 5px;
 }
 
-#iyrzzxfvsp .gt_left {
+#llnqilglwc .gt_left {
   text-align: left;
 }
 
-#iyrzzxfvsp .gt_center {
+#llnqilglwc .gt_center {
   text-align: center;
 }
 
-#iyrzzxfvsp .gt_right {
+#llnqilglwc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iyrzzxfvsp .gt_font_normal {
+#llnqilglwc .gt_font_normal {
   font-weight: normal;
 }
 
-#iyrzzxfvsp .gt_font_bold {
+#llnqilglwc .gt_font_bold {
   font-weight: bold;
 }
 
-#iyrzzxfvsp .gt_font_italic {
+#llnqilglwc .gt_font_italic {
   font-style: italic;
 }
 
-#iyrzzxfvsp .gt_super {
+#llnqilglwc .gt_super {
   font-size: 65%;
 }
 
-#iyrzzxfvsp .gt_footnote_marks {
+#llnqilglwc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#iyrzzxfvsp .gt_asterisk {
+#llnqilglwc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#iyrzzxfvsp .gt_indent_1 {
+#llnqilglwc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#iyrzzxfvsp .gt_indent_2 {
+#llnqilglwc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#iyrzzxfvsp .gt_indent_3 {
+#llnqilglwc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#iyrzzxfvsp .gt_indent_4 {
+#llnqilglwc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#iyrzzxfvsp .gt_indent_5 {
+#llnqilglwc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#iyrzzxfvsp .katex-display {
+#llnqilglwc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#iyrzzxfvsp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#llnqilglwc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -8643,17 +8573,7 @@ The bplm export function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>export</strong>(<br>
-&nbsp;&nbsp;<em>object</em>,<br>
-&nbsp;&nbsp;<em>caption</em> = NA,<br>
-&nbsp;&nbsp;<em>footnote</em> = NA,<br>
-&nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
-&nbsp;&nbsp;<em>round</em> = 2,<br>
-&nbsp;&nbsp;<em>nice</em> = TRUE,<br>
-&nbsp;&nbsp;<em>…</em><br>
-)</p>
+<p><strong>export</strong>(<em>object</em>, <em>caption</em> = NA, <em>footnote</em> = NA, <em>filename</em> = NA, <em>round</em> = 2, <em>nice</em> = TRUE, <em>…</em>)</p>
 </div>
 </div>
 <div class="cell">
@@ -8661,23 +8581,23 @@ The bplm export function call:
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bplm</span>(<span class="at">random_level =</span> <span class="cn">TRUE</span>)  <span class="sc">|&gt;</span> </span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">export</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="puxctfxawv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#puxctfxawv table {
+<div id="dllwrqixmb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dllwrqixmb table {
   font-family: times, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#puxctfxawv thead, #puxctfxawv tbody, #puxctfxawv tfoot, #puxctfxawv tr, #puxctfxawv td, #puxctfxawv th {
+#dllwrqixmb thead, #dllwrqixmb tbody, #dllwrqixmb tfoot, #dllwrqixmb tr, #dllwrqixmb td, #dllwrqixmb th {
   border-style: none;
 }
 
-#puxctfxawv p {
+#dllwrqixmb p {
   margin: 0;
   padding: 0;
 }
 
-#puxctfxawv .gt_table {
+#dllwrqixmb .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -8703,12 +8623,12 @@ The bplm export function call:
   border-left-color: #D3D3D3;
 }
 
-#puxctfxawv .gt_caption {
+#dllwrqixmb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#puxctfxawv .gt_title {
+#dllwrqixmb .gt_title {
   color: #333333;
   font-size: 100%;
   font-weight: initial;
@@ -8720,7 +8640,7 @@ The bplm export function call:
   border-bottom-width: 0;
 }
 
-#puxctfxawv .gt_subtitle {
+#dllwrqixmb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -8732,7 +8652,7 @@ The bplm export function call:
   border-top-width: 0;
 }
 
-#puxctfxawv .gt_heading {
+#dllwrqixmb .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -8744,13 +8664,13 @@ The bplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#puxctfxawv .gt_bottom_border {
+#dllwrqixmb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 3px;
   border-bottom-color: #000000;
 }
 
-#puxctfxawv .gt_col_headings {
+#dllwrqixmb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -8765,7 +8685,7 @@ The bplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#puxctfxawv .gt_col_heading {
+#dllwrqixmb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8785,7 +8705,7 @@ The bplm export function call:
   overflow-x: hidden;
 }
 
-#puxctfxawv .gt_column_spanner_outer {
+#dllwrqixmb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8797,15 +8717,15 @@ The bplm export function call:
   padding-right: 4px;
 }
 
-#puxctfxawv .gt_column_spanner_outer:first-child {
+#dllwrqixmb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#puxctfxawv .gt_column_spanner_outer:last-child {
+#dllwrqixmb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#puxctfxawv .gt_column_spanner {
+#dllwrqixmb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #000000;
@@ -8817,11 +8737,11 @@ The bplm export function call:
   width: 100%;
 }
 
-#puxctfxawv .gt_spanner_row {
+#dllwrqixmb .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#puxctfxawv .gt_group_heading {
+#dllwrqixmb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8847,7 +8767,7 @@ The bplm export function call:
   text-align: left;
 }
 
-#puxctfxawv .gt_empty_group_heading {
+#dllwrqixmb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -8862,15 +8782,15 @@ The bplm export function call:
   vertical-align: middle;
 }
 
-#puxctfxawv .gt_from_md > :first-child {
+#dllwrqixmb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#puxctfxawv .gt_from_md > :last-child {
+#dllwrqixmb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#puxctfxawv .gt_row {
+#dllwrqixmb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8889,7 +8809,7 @@ The bplm export function call:
   overflow-x: hidden;
 }
 
-#puxctfxawv .gt_stub {
+#dllwrqixmb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8902,7 +8822,7 @@ The bplm export function call:
   padding-right: 5px;
 }
 
-#puxctfxawv .gt_stub_row_group {
+#dllwrqixmb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -8916,15 +8836,15 @@ The bplm export function call:
   vertical-align: top;
 }
 
-#puxctfxawv .gt_row_group_first td {
+#dllwrqixmb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#puxctfxawv .gt_row_group_first th {
+#dllwrqixmb .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#puxctfxawv .gt_summary_row {
+#dllwrqixmb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -8934,16 +8854,16 @@ The bplm export function call:
   padding-right: 5px;
 }
 
-#puxctfxawv .gt_first_summary_row {
+#dllwrqixmb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#puxctfxawv .gt_first_summary_row.thick {
+#dllwrqixmb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#puxctfxawv .gt_last_summary_row {
+#dllwrqixmb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8953,7 +8873,7 @@ The bplm export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#puxctfxawv .gt_grand_summary_row {
+#dllwrqixmb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -8963,7 +8883,7 @@ The bplm export function call:
   padding-right: 5px;
 }
 
-#puxctfxawv .gt_first_grand_summary_row {
+#dllwrqixmb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8973,7 +8893,7 @@ The bplm export function call:
   border-top-color: #D3D3D3;
 }
 
-#puxctfxawv .gt_last_grand_summary_row_top {
+#dllwrqixmb .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8983,11 +8903,11 @@ The bplm export function call:
   border-bottom-color: #D3D3D3;
 }
 
-#puxctfxawv .gt_striped {
+#dllwrqixmb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#puxctfxawv .gt_table_body {
+#dllwrqixmb .gt_table_body {
   border-top-style: solid;
   border-top-width: 3px;
   border-top-color: #000000;
@@ -8996,7 +8916,7 @@ The bplm export function call:
   border-bottom-color: #000000;
 }
 
-#puxctfxawv .gt_footnotes {
+#dllwrqixmb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -9010,7 +8930,7 @@ The bplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#puxctfxawv .gt_footnote {
+#dllwrqixmb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -9019,7 +8939,7 @@ The bplm export function call:
   padding-right: 5px;
 }
 
-#puxctfxawv .gt_sourcenotes {
+#dllwrqixmb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -9033,7 +8953,7 @@ The bplm export function call:
   border-right-color: #D3D3D3;
 }
 
-#puxctfxawv .gt_sourcenote {
+#dllwrqixmb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -9041,72 +8961,72 @@ The bplm export function call:
   padding-right: 5px;
 }
 
-#puxctfxawv .gt_left {
+#dllwrqixmb .gt_left {
   text-align: left;
 }
 
-#puxctfxawv .gt_center {
+#dllwrqixmb .gt_center {
   text-align: center;
 }
 
-#puxctfxawv .gt_right {
+#dllwrqixmb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#puxctfxawv .gt_font_normal {
+#dllwrqixmb .gt_font_normal {
   font-weight: normal;
 }
 
-#puxctfxawv .gt_font_bold {
+#dllwrqixmb .gt_font_bold {
   font-weight: bold;
 }
 
-#puxctfxawv .gt_font_italic {
+#dllwrqixmb .gt_font_italic {
   font-style: italic;
 }
 
-#puxctfxawv .gt_super {
+#dllwrqixmb .gt_super {
   font-size: 65%;
 }
 
-#puxctfxawv .gt_footnote_marks {
+#dllwrqixmb .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#puxctfxawv .gt_asterisk {
+#dllwrqixmb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#puxctfxawv .gt_indent_1 {
+#dllwrqixmb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#puxctfxawv .gt_indent_2 {
+#dllwrqixmb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#puxctfxawv .gt_indent_3 {
+#dllwrqixmb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#puxctfxawv .gt_indent_4 {
+#dllwrqixmb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#puxctfxawv .gt_indent_5 {
+#dllwrqixmb .gt_indent_5 {
   text-indent: 25px;
 }
 
-#puxctfxawv .katex-display {
+#dllwrqixmb .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#puxctfxawv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dllwrqixmb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -9131,34 +9051,34 @@ The bplm export function call:
 </tr>
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_left" style="text-align: center;" headers="Fixed effects (B-Structure)  Predictors">Intercept</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  B">48.2</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  lower 95% CI">45.31</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  upper 95% CI">51.1</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  B">48.21</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  lower 95% CI">45.39</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  upper 95% CI">50.93</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  sample size">1000</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  p">&lt;.01</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" style="text-align: center;" headers="Fixed effects (B-Structure)  Predictors">Trend</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  B">0.62</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  lower 95% CI">0.42</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  upper 95% CI">0.84</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  sample size">1192.83</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  lower 95% CI">0.39</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  upper 95% CI">0.85</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  sample size">1132.18</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  p">&lt;.01</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" style="text-align: center;" headers="Fixed effects (B-Structure)  Predictors">Level B</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  B">13.94</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  lower 95% CI">12.35</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  upper 95% CI">15.58</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  sample size">1259.84</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  B">13.84</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  lower 95% CI">12.2</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  upper 95% CI">15.4</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  sample size">1121.09</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  p">&lt;.01</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" style="text-align: center;" headers="Fixed effects (B-Structure)  Predictors">Slope B</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  B">0.87</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  lower 95% CI">0.63</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  upper 95% CI">1.07</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  sample size">1195.24</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  B">0.86</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  lower 95% CI">0.62</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  upper 95% CI">1.09</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  sample size">1000</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Fixed effects (B-Structure)  p">&lt;.01</td>
 </tr>
 <tr class="gt_group_heading_row even">
@@ -9174,17 +9094,17 @@ The bplm export function call:
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" style="text-align: center;" headers="Random effects (G-Structure)  Predictors">Intercept</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  B">9.87</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  lower 95% CI">7.69</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  upper 95% CI">11.79</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  B">9.86</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  lower 95% CI">7.76</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  upper 95% CI">11.84</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  sample size"></td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  p"></td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" style="text-align: center;" headers="Random effects (G-Structure)  Predictors">Level B</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  B">3.93</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  lower 95% CI">2.83</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  upper 95% CI">4.86</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  B">4</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  lower 95% CI">2.98</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  upper 95% CI">5.05</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  sample size"></td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Random effects (G-Structure)  p"></td>
 </tr>
@@ -9202,8 +9122,8 @@ The bplm export function call:
 <tr class="even">
 <td class="gt_row gt_left" style="text-align: center;" headers="Residuals (R-Structure)  Predictors">Residuals</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Residuals (R-Structure)  B">5.01</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Residuals (R-Structure)  lower 95% CI">4.83</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Residuals (R-Structure)  upper 95% CI">5.21</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Residuals (R-Structure)  lower 95% CI">4.81</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Residuals (R-Structure)  upper 95% CI">5.2</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Residuals (R-Structure)  sample size"></td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Residuals (R-Structure)  p"></td>
 </tr>
@@ -9212,7 +9132,7 @@ The bplm export function call:
 </tr>
 <tr class="gt_row_group_first even">
 <td class="gt_row gt_left" style="text-align: center;" headers="Model  Predictors">DIC</td>
-<td class="gt_row gt_center" style="text-align: center;" headers="Model  B">8459.5</td>
+<td class="gt_row gt_center" style="text-align: center;" headers="Model  B">8460</td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Model  lower 95% CI"></td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Model  upper 95% CI"></td>
 <td class="gt_row gt_center" style="text-align: center;" headers="Model  sample size"></td>
@@ -9242,16 +9162,7 @@ The power_test export function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>export</strong>(<br>
-&nbsp;&nbsp;<em>object</em>,<br>
-&nbsp;&nbsp;<em>caption</em> = NA,<br>
-&nbsp;&nbsp;<em>footnote</em> = NA,<br>
-&nbsp;&nbsp;<em>filename</em> = NA,<br>
-&nbsp;&nbsp;<em>kable_styling_options</em> = list(),<br>
-&nbsp;&nbsp;<em>kable_options</em> = list(),<br>
-&nbsp;&nbsp;<em>round</em> = 3,<br>
-&nbsp;&nbsp;<em>…</em><br>
-)</p>
+<p><strong>export</strong>(<em>object</em>, <em>caption</em> = NA, <em>footnote</em> = NA, <em>filename</em> = NA, <em>round</em> = 3, <em>…</em>)</p>
 </div>
 </div>
 <div class="cell">
@@ -9759,236 +9670,242 @@ The power_test export function call:
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
       }
+      return false;
     }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
-        return container.innerHTML
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -9996,185 +9913,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation column-body">
   <div class="nav-page nav-page-previous">
       <a href="./ch_powertest.html" class="pagination-link" aria-label="Power analyses">

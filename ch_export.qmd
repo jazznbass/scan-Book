@@ -9,7 +9,7 @@ function_structure("export")
 The `export` function will make it easier to convert the results of your `scan` analyses into tables and descriptions you can add to your documents and presentations. Basically, `export` takes a `scan` object and converts it to an html-table or latex output.
 
 ::: callout-note
-`export` has two "engines" implemented to create the output formats. The "kable" engine is build on top of the `knitr` and `kableextra` packages. The list provided in the `kable_options` argument is implemented in the `kable` function of `knitr` and the list provided to the `kable_styling_options` is implemented in the `kable_styling` command of the `kableExtra` package. `export` sets some defaults for these functions but you can play around and overwrite them.
+`export` has two "engines" implemented to create the output formats. The "kable" engine is build on top of the `knitr` and `kableextra` packages. The list provided in the `scan.export.kable` option is implemented in the `kable` function of `knitr` and the list provided in the `scan.export.kable_styling` option is implemented in the `kable_styling` command of the `kableExtra` package. You can play around and overwrite them with `options(scan.export.kable = list())` and `options(scan.export.kable_styling = list())`.
 
 The "gt" engine is a more recent development and build ontop of the `gt` package. "gt" allows to export to html, rtf, latex, docx, pdf, and png.
 

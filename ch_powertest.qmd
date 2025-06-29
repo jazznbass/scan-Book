@@ -144,7 +144,7 @@ mcmethod_nap <- function(scdf) {
 power_test(design, method = list(nap = mcmethod_nap, "rand", "plm_level"))
 ```
 
-Here is another example for a fast plm function for poisson distributed data based on the `fastglm` package:
+Here is another example for a fast plm function for poisson distributed:
 
 ```{r}
 #| label: power-test-ex-create-method-2
@@ -161,7 +161,7 @@ plm_fast <- function(data) {
     nrow = n1 + n2,
     ncol = 4
   )
-  full <- fastglm::fastglm(x = x, y = y, family = "poisson", method = 2)
+  full <- lm(y ~ 1 + mt + D + inter)
   summary(full)$coef[3, 4]
 }
 ```
@@ -210,4 +210,4 @@ attr(res1, "computation_duration")[3]
 attr(res2, "computation_duration")[3]
 ```
 
-
+It is slower! glm in R is very well optimized!!
