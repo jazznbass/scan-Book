@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>13&nbsp; Bayesian regression analyses – Analyzing Single-Case Data with R and Scan</title>
+<title>13&nbsp; Bayesian regression analyses – Analyzing Single-Case Data with R and scan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -165,7 +165,7 @@ window.Quarto = {
       <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Analyzing Single-Case Data with R and Scan</a> 
+      <a href="./">Analyzing Single-Case Data with R and scan</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
@@ -477,20 +477,20 @@ The bplm function call:
 <pre><code>Bayesian Piecewise Linear Regression
 
 Contrast model: W (level: first, slope: first)
-Deviance Information Criterion: 127.1258 
+Deviance Information Criterion: 127.1113 
 
 B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                             B lower 95% CI upper 95% CI sample size     p
-Intercept              54.087       46.299       62.650        1000 0.001
-Trend (mt)              0.199       -3.195        3.585        1000 0.902
-Level phase B (phaseB)  7.663       -4.964       19.607        1000 0.210
-Slope phase B (interB)  1.432       -2.104        4.901        1000 0.368
+Intercept              54.542       46.428       61.734        1000 0.001
+Trend (mt)              0.098       -3.332        3.157        1000 0.922
+Level phase B (phaseB)  7.827       -5.237       19.135        1000 0.182
+Slope phase B (interB)  1.525       -1.448        4.946        1000 0.334
 
 R-Structure - Residuals
 
           SD lower 95% CI upper 95% CI 
-       5.306        3.367        7.035 </code></pre>
+       5.370        3.473        7.219 </code></pre>
 </div>
 </div>
 <p>Here is an example of a multi-case dataset:</p>
@@ -502,25 +502,25 @@ R-Structure - Residuals
 Contrast model: W (level: first, slope: first)
 50 Cases
 
-Deviance Information Criterion: 8574.57 
+Deviance Information Criterion: 8574.763 
 
 B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                             B lower 95% CI upper 95% CI sample size     p
-Intercept              48.391       45.775       51.542    1028.333 0.001
-Trend (mt)              0.578        0.368        0.798    1000.000 0.001
-Level phase B (phaseB) 14.059       12.804       15.247    1000.000 0.001
-Slope phase B (interB)  0.902        0.679        1.135    1000.000 0.001
+Intercept              48.503       45.348       51.439    1000.000 0.001
+Trend (mt)              0.576        0.365        0.798     817.333 0.001
+Level phase B (phaseB) 14.058       12.845       15.345    1000.000 0.001
+Slope phase B (interB)  0.907        0.699        1.133     817.433 0.001
 
 G-Structure - Random effects (~case)
 
  Parameter     SD lower 95% CI upper 95% CI
- Intercept 10.243        8.258       12.225
+ Intercept 10.345        8.138       12.387
 
 R-Structure - Residuals
 
           SD lower 95% CI upper 95% CI 
-       5.290        5.091        5.477 </code></pre>
+       5.289        5.110        5.509 </code></pre>
 </div>
 </div>
 <section id="setting-priors" class="level2" data-number="13.1">

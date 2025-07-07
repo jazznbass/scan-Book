@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>15&nbsp; Power analyses – Analyzing Single-Case Data with R and Scan</title>
+<title>15&nbsp; Power analyses – Analyzing Single-Case Data with R and scan</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -138,7 +138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Analyzing Single-Case Data with R and Scan</a> 
+      <a href="./">Analyzing Single-Case Data with R and scan</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/jazznbass/scan-Book" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <div class="dropdown">
@@ -567,9 +567,9 @@ Table&nbsp;15.1: Core arguments of the design function
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
- plm_level    68           4      1:8.0      82
-      rand    69           7      1:4.4      81
-      tauU   100          24      1:0.0      88</code></pre>
+ plm_level    70           4      1:7.5      83
+      rand    57           2     1:21.5      78
+      tauU   100          19      1:0.0      90</code></pre>
 </div>
 </div>
 <p>The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to outliers of the random samples. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tau U test has an unacceptably high alpha-error which is due to the trend we put into the design. <em>Alpha:Beta</em> depicts the relation of the Alpha and Beta error (power = 1 - Beta). <em>Correct</em> is the overall proportion of correct categorizations and <em>p</em> is the results of a binomial-test of <em>Correct</em> against 50%.</p>
@@ -671,12 +671,12 @@ Table&nbsp;15.2: Statistical methods
 <pre><code>Test-Power in percent:
 
     Method Power 2.5% 97.5% Alpha Error 2.5% 97.5% Alpha:Beta Correct 2.5%
- plm_level    77   68    85           5  1.6    11      1:4.6      86   80
-      rand    59   49    69           2  0.2     7     1:20.5      78   72
-      tauU   100   96   100          21 13.5    30      1:0.0      90   84
+ plm_level    72   62    81           5    2    11      1:5.6      84   78
+      rand    57   47    67           4    1    10     1:10.8      76   70
+      tauU   100   96   100          22   14    31      1:0.0      89   84
  97.5%
-    90
-    84
+    88
+    82
     93</code></pre>
 </div>
 </div>
@@ -687,13 +687,13 @@ Table&nbsp;15.2: Statistical methods
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct p Power&gt;=80 p Alpha Error&lt;=5
- plm_level    72           4      1:7.0      84           1                0
-      rand    65           4      1:8.8      80           1                0
-      tauU   100          32      1:0.0      84           0                1
+ plm_level    71           1     1:29.0      85           1                0
+      rand    57           3     1:14.3      77           1                0
+      tauU   100          19      1:0.0      90           0                1
  p Correct&gt;=87.5
              0.9
              1.0
-             0.9</code></pre>
+             0.1</code></pre>
 </div>
 </div>
 <p>If you want to define individual values for the three tests, set the <code>binom_test_power</code>. <code>binom_test_alpha</code>, and/or, the <code>binom_test_correct</code> arguments.</p>
@@ -752,9 +752,9 @@ Table&nbsp;15.2: Statistical methods
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
- plm_level    68           4      1:8.0      82
-      rand    69           7      1:4.4      81
-      tauU   100          24      1:0.0      88
+ plm_level    70           4      1:7.5      83
+      rand    57           2     1:21.5      78
+      tauU   100          19      1:0.0      90
 
 Computation duration is 0.6 seconds.</code></pre>
 </div>
@@ -774,7 +774,7 @@ Computation duration is 0.6 seconds.</code></pre>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.255</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res3, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.277</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.262</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>… and what about our new fast-glm function?</p>
 <div class="cell">
@@ -798,7 +798,7 @@ Computation duration is 0.6 seconds.</code></pre>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>elapsed 
-  0.104 </code></pre>
+  0.103 </code></pre>
 </div>
 </div>
 <p>It is slower! glm in R is very well optimized!!</p>
