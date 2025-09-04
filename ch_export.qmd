@@ -188,6 +188,19 @@ tau_u(exampleAB_decreasing) |> export(meta = TRUE)
 options(scan.rename.predictors = "concise")
 ```
 
+## Between case standardized mean difference
+
+```{r}
+#| results: asis
+#| echo: false
+function_structure(scan:::export.sc_bcsmd, label="bcsmd export", fname="export")
+```
+
+```{r}
+between_smd(exampleA1B1A2B2) |> export()
+```
+
+
 ## Piecewise linear models
 
 ```{r}
@@ -198,8 +211,7 @@ function_structure(scan:::export.sc_plm, label="plm export", fname="export")
 
 ```{r}
 #| warning: false
-res <- plm(exampleA1B1A2B2$Pawel)
-export(res)
+plm(exampleA1B1A2B2$Pawel) |> export()
 ```
 
 ## Hierarchical piecewise regressions

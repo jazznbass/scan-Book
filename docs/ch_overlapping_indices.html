@@ -847,7 +847,7 @@ Applied Kendall's Tau-a
 95% CIs for tau are reported.
 CI method: z
 
-Case: Case1 
+Case: [case #1] 
                              Tau CI lower CI upper SD_S    Z    p
 A vs. B                     0.80     0.29     0.96 8.16 2.00  .05
 A vs. B - Trend A           0.65    -0.02     0.92 8.48 1.53  .13
@@ -1069,7 +1069,7 @@ Method: Theil-Sen regression
 Kendall's tau b applied.
 Continuity correction not applied.
 
-Case1 :
+[case #1] :
                            tau     z     p
 Baseline autocorrelation -0.75 -2.31  &lt;.05
 Uncorrected tau          -0.58 -2.98  &lt;.01
@@ -1128,7 +1128,7 @@ The between_smd function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>between_smd</strong>(<em>data</em>, <em>include_residuals</em> = TRUE, <em>model</em> = “frequentist”, <em>…</em>)</p>
+<p><strong>between_smd</strong>(<em>data</em>, <em>method</em> = c(“REML”, “MCMCglmm”), <em>ci</em> = 0.95, <em>include_residuals</em> = TRUE, <em>…</em>)</p>
 </div>
 </div>
 <p>The previous section described the calculation of standardized mean differences <em>within</em> a subject (here: between two phases of one single case). An inherent problem with this calculations is, that the idea and measures of standardized mean differences (e.g.&nbsp;Cohen’s <em>d</em>) have been developed to characterize the differences between groups. That is, a difference is standardized by the variation <em>between</em> subjects in a group. These are two fundamentally different things. Variations <em>within</em> a subject might be due to measurement errors or individual fluctuations in the strength of an attribute across time. Whereas the variations <em>between</em> subjects indicate a social frame of reference for what is large or small. Accordingly, it is not sensible to apply the well known standards to classify standardizes mean differences (e.g., Cohen’s cut-off values for the interpretation of <em>d</em>) to within case standardized mean differences. Within case standardized mean differences are usually much larger compared to these cut-offs as variations within a subject across time are (mostly) much smaller that differences between subjects.</p>
@@ -1148,38 +1148,49 @@ The between_smd function call:
 <div class="cell-output cell-output-stdout">
 <pre><code>Between-Case Standardized Mean Difference
 
-Model: frequentist 
+Method: REML
+Base model
 
-    Model phaseB
-     Base   0.83
- Full plm   0.71</code></pre>
+ Effect BC-SMD   se LL-CI95% UL-CI95%
+ phaseB   0.83 0.04     0.75     0.91
+
+Full plm model
+
+ Effect BC-SMD   se LL-CI95% UL-CI95%
+ phaseB   0.71 0.07     0.58     0.84</code></pre>
 </div>
 </div>
 <p>The <em>Base</em> model provides the <em>BC-SMD</em> as originally proposed. The <em>Full plm</em> model adds trend and slope effects to the regression model for a more precise estimation.</p>
-<p>By setting the argument <code>include_residuals = FALSE</code>, the residuals are not counted towards the between case standard deviation. This leads two are more precise estimation of the standard deviations but at the cost that the <em>BC-SMD</em> is conceptually less accurately reflecting Cohen’s <em>d.</em>:</p>
+<p>By setting the argument <code>include_residuals = FALSE</code>, the residuals are not counted towards the between case standard deviation. This leads two are more precise estimation of the standard deviations based on the between case variance but at the cost that the <em>BC-SMD</em> is conceptually less accurately reflecting Cohen’s <em>d</em>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">between_smd</span>(Leidig2018, <span class="at">include_residuals =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Between-Case Standardized Mean Difference
 
-Model: frequentist 
+Method: REML
+Base model
 
-    Model phaseB
-     Base   1.30
- Full plm   1.09</code></pre>
+ Effect BC-SMD   se LL-CI95% UL-CI95%
+ phaseB   1.28 0.06     1.16     1.41
+
+Full plm model
+
+ Effect BC-SMD  se LL-CI95% UL-CI95%
+ phaseB   1.07 0.1     0.87     1.27</code></pre>
 </div>
 </div>
-<p>The argument <code>model</code> allows to define whether the analyses is based on a frequentist or bayesianian regression model.</p>
+<p>The <code>method</code> argument allows to define whether the analyses is based on a REML Estimation (<code>method = "REML"</code>) or a bayesian (<code>method = "MCMCglmm"</code>) regression model.</p>
 <p>It is also possible to first calculate a <em>hierarchichal piecewise regression model</em> (hplm, see <a href="ch_multilevel_plm.html" class="quarto-xref"><span>Chapter 11</span></a>) and then base the <em>BC-SMD</em> calculation on that model:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(Leidig2018, <span class="at">slope =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> <span class="fu">between_smd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Between-Case Standardized Mean Difference
 
-Model: frequentist 
+Method: REML
+Provided
 
-    Model phaseB
- Provided   0.63</code></pre>
+ Effect BC-SMD   se LL-CI95% UL-CI95%
+ phaseB   0.63 0.05     0.53     0.74</code></pre>
 </div>
 </div>
 </section>

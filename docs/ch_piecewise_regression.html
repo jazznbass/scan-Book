@@ -585,7 +585,6 @@ Formula: values ~ 1 + mt + phaseB + interB </code></pre>
 <p>In this example, the intercept is the score estimation at the beginning of the study (here: at the first session, see <a href="#fig-plm-ex-1" class="quarto-xref">Figure&nbsp;<span>10.2</span></a>). The trend effect (variable <em>mt</em>) is 0.100. This means that for every one point increase in measurement-time, the score increased by 0.100. As this example has a total of 20 sessions, the overall increase due to the trend is <span class="math inline">\(19 * 0.100 = 1.9\)</span> points. The level effect (variable <em>phase</em> with level B) is 7.858. This means that all scores of phase B are increased by 7.858 points. The slope effect (for phase B) is 1.525. This means that for every one point increase in measurement time after the first phase B session, the score increases by 1.525. As there are 15 Phase B sessions in this example, the total increase due to the slope effect is <span class="math inline">\(14 * 1.525 = 21.35\)</span> points.</p>
 <p>From these values each data point can be estimated. For example, the last session (<span class="math inline">\(i=20\)</span>) is estimated to be <span class="math inline">\(54.400 + 19 * 0.100 + 7.858 + 14 * 1.525 = 85.508\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">|&gt;</span> <span class="fu">add_statline</span>(<span class="st">"trend"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-plm-ex-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -628,9 +627,9 @@ Note
 <h2 data-number="10.3" class="anchored" data-anchor-id="sec-rescale"><span class="header-section-number">10.3</span> Standardizing predictors</h2>
 <p>If you want standardized predictors, meaning that predictors are scaled to standard deviations, the best approach is to standardize all variables before computing the regression model. Use the <code>rescale()</code> function to do this.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>exampleAB<span class="sc">$</span>Johanna <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rescale</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plm</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>exampleAB<span class="sc">$</span>Johanna <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rescale</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plm</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rescaled values, mt</code></pre>
 </div>
@@ -670,12 +669,12 @@ Formula: values ~ 1 + mt + phaseB + interB </code></pre>
 <p>The plm function comes with three arguments (<code>slope</code>, <code>level</code>, and <code>trend</code>) to include or drop the respective predictors from the plm model. Buy default, all arguments are set <code>TRUE</code> and a full plm model is applied to the data.</p>
 <p>Consider the following data example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">55</span>, <span class="dv">58</span>, <span class="dv">53</span>, <span class="dv">50</span>, <span class="dv">52</span>, </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">B =</span> <span class="dv">55</span>, <span class="dv">68</span>, <span class="dv">68</span>, <span class="dv">81</span>, <span class="dv">67</span>, <span class="dv">78</span>, <span class="dv">73</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">81</span>, <span class="dv">78</span>, <span class="dv">71</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">76</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>example <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">values =</span> <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">55</span>, <span class="dv">58</span>, <span class="dv">53</span>, <span class="dv">50</span>, <span class="dv">52</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">B =</span> <span class="dv">55</span>, <span class="dv">68</span>, <span class="dv">68</span>, <span class="dv">81</span>, <span class="dv">67</span>, <span class="dv">78</span>, <span class="dv">73</span>, <span class="dv">72</span>, <span class="dv">78</span>, <span class="dv">81</span>, <span class="dv">78</span>, <span class="dv">71</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">76</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -702,7 +701,7 @@ Formula: values ~ 1 + mt + phaseB + interB </code></pre>
 </div>
 <p>The piecewise regression reveals a significant level effect and two non significant effects for trend and slope. In a further analyses we would like to put the slope effect out of the equation. The easiest way to do this is to set the <code>slope</code> argument to <code>FALSE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -735,7 +734,7 @@ Formula: values ~ 1 + mt + phaseB </code></pre>
 <p>To do this, we have to change the regression formula ‘manually’ by applying the <code>update</code> argument. The <code>update</code> argument allows to change the underlying regression formula. To add a new variable named for example <code>newVar</code>, set <code>update = .~. + newVar</code>. The <code>.~.</code> part takes the internally build model formula (based on the number of phases in your model and the setting of the <code>slope</code>, <code>level</code>, and <code>trend</code> arguments) and <code>+ newVar</code> adds a variable called <code>newVar</code> to the equation.</p>
 <p>Here is an example adding the control variable <code>cigarrets</code> to the model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_add, <span class="at">update =</span> .<span class="sc">~</span>. <span class="sc">+</span> cigarrets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_add, <span class="at">update =</span> .<span class="sc">~</span>. <span class="sc">+</span> cigarrets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -780,7 +779,7 @@ The formula has two parts divided by a tilde. Left of the tilde is the variable 
 <p>Frequencies that have a clear reference, such as “10 out of 20,” follow a binomial distribution. In these cases, set the <code>family</code> argument of the <code>plm</code> function to <code>family = "binomial"</code>.</p>
 <p>Additionally, you must specify the maximum value (the “out of” part). You can either use a distinct variable in your <em>scdf</em> that defines the maximum separately for each measurement point or specify a constant value for all measurements. In both cases, you need to set the <code>var_trials</code> argument either to the name of the variable containing the maximum values or to a numeric value representing a fixed maximum.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_score<span class="sc">$</span>Christiano , <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">var_trials =</span> <span class="st">"trials"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_score<span class="sc">$</span>Christiano , <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">var_trials =</span> <span class="st">"trials"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -794,17 +793,17 @@ Intercept -1.964   -2.793   -1.239 0.394 -4.991 0.000  0.140     0.061
 Trend      0.023   -0.118    0.166 0.072  0.324 0.746  1.023     0.889
 Level B    2.376    1.454    3.378 0.488  4.866 0.000 10.762     4.280
 Slope B    0.038   -0.111    0.186 0.075  0.504 0.614  1.039     0.895
-           UL-CI95% delta R²
-Intercept     0.290         
-Trend         1.181       NA
-Level B      29.312       NA
-Slope B       1.204       NA
+           UL-CI95%
+Intercept     0.290
+Trend         1.181
+Level B      29.312
+Slope B       1.204
 
 Formula: values/trials ~ 1 + mt + phaseB + interB
 weights = trials </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or equivalent as all values in trial are 20:</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plm(exampleAB_score$Christiano , family = "binomial", var_trials = 20)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or equivalent as all values in trial are 20:</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plm(exampleAB_score$Christiano , family = "binomial", var_trials = 20)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The output shows the estimators <em>B</em>, which are on a logit scale, and odds or odds ratios (<em>OR</em>), which are the exponentiated logits, along with their respective confidence intervals. Logits are linear, meaning that the <em>B</em> coefficients can be added to obtain the combined effect of multiple predictors. For the example above, the logit of the intercept is -1.964, corresponding to a probability of approximately 12% (for details on the calculation, see note below). The level effect is <span class="math inline">\(B = 2.376\)</span>. This means that at the start of Phase B, the logit increases to <span class="math inline">\(B = -1.964 + 2.376 = 0.412\)</span>, which corresponds to a probability of approximately 60%.</p>
 <p>Odds ratios are not linear and must be multiplied to obtain a combined effect. In this example, the odds of the intercept is 0.14, calculated as <span class="math inline">\(e^{-1.964}=0.14\)</span>. For the level effect, the <em>odds ratio</em> (“<em>ratio</em>” because it indicates the change of the odds) is 10.762. The combined effect (intecept and level) gives the odds 0.14 * 10.762 = 1.50668. Converting back to the logit scale, this is <span class="math inline">\(\log(1.50668)\approx 0.41\)</span>. This result, aside from minor rounding differences, matches the value obtained by summing the respective <em>B</em> coefficients.</p>
@@ -845,11 +844,11 @@ What are Logits and Odds Ratios?
 <p>Proportions are actually just a mathematical identical presentation of bounded frequencies (e.g.&nbsp;10 out of 20 is identical to 0.5 from 20). When your dependent variable represents proportions, set <code>family</code> to a binomial distribution <code>family = "binomial"</code>. Again, you have to provide a variable or a constant with the total number of trials with the <code>var_trials</code> argument. Finally, you have to set the <code>dvar_percentage</code> argument to <code>TRUE</code> to indicate that your dependent variable contains proportions.</p>
 <p>Here is the previous example where the the frequencies are transformed to proportions. The results are identical to the calculation with frequencies.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>scdf <span class="ot">&lt;-</span> exampleAB_score<span class="sc">$</span>Christiano <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">proportions =</span> values<span class="sc">/</span>trials) <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dvar</span>(<span class="st">"proportions"</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(scdf, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">var_trials =</span> <span class="st">"trials"</span>, <span class="at">dvar_percentage =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>scdf <span class="ot">&lt;-</span> exampleAB_score<span class="sc">$</span>Christiano <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">proportions =</span> values<span class="sc">/</span>trials) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dvar</span>(<span class="st">"proportions"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(scdf, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">var_trials =</span> <span class="st">"trials"</span>, <span class="at">dvar_percentage =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -863,11 +862,11 @@ Intercept -1.964   -2.793   -1.239 0.394 -4.991 0.000  0.140     0.061
 Trend      0.023   -0.118    0.166 0.072  0.324 0.746  1.023     0.889
 Level B    2.376    1.454    3.378 0.488  4.866 0.000 10.762     4.280
 Slope B    0.038   -0.111    0.186 0.075  0.504 0.614  1.039     0.895
-           UL-CI95% delta R²
-Intercept     0.290         
-Trend         1.181       NA
-Level B      29.312       NA
-Slope B       1.204       NA
+           UL-CI95%
+Intercept     0.290
+Trend         1.181
+Level B      29.312
+Slope B       1.204
 
 Formula: proportions ~ 1 + mt + phaseB + interB
 weights = trials </code></pre>
@@ -903,7 +902,7 @@ Percentages
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example_dichotomous, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">var_trials =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example_dichotomous, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">var_trials =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -917,11 +916,6 @@ Intercept -0.174   -1.356    0.972 0.584 -0.298 0.766 0.840     0.258     2.643
 Trend     -0.029   -0.075    0.014 0.022 -1.298 0.194 0.971     0.928     1.014
 Level B    1.390   -0.114    3.067 0.801  1.734 0.083 4.015     0.892    21.477
 Slope B    0.031   -0.014    0.079 0.023  1.333 0.183 1.031     0.986     1.082
-          delta R²
-Intercept         
-Trend           NA
-Level B         NA
-Slope B         NA
 
 Formula: values/1 ~ 1 + mt + phaseB + interB
 weights = 1 </code></pre>
@@ -1529,7 +1523,7 @@ weights = 1 </code></pre>
 </div>
 <p>Here, a Possion regression is applied:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example_A24, <span class="at">family =</span> <span class="st">"poisson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example_A24, <span class="at">family =</span> <span class="st">"poisson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Piecewise Regression Analysis
 
@@ -1543,11 +1537,11 @@ Intercept  5.556    5.472    5.638 0.042 131.693 0.000 258.786   237.936
 Trend      0.007   -0.016    0.030 0.012   0.604 0.546   1.007     0.984
 Level B   -0.806   -0.938   -0.674 0.067 -11.964 0.000   0.447     0.391
 Slope B   -0.006   -0.031    0.019 0.013  -0.472 0.637   0.994     0.969
-           UL-CI95% delta R²
-Intercept   280.900         
-Trend         1.030       NA
-Level B       0.510       NA
-Slope B       1.019       NA
+           UL-CI95%
+Intercept   280.900
+Trend         1.030
+Level B       0.510
+Slope B       1.019
 
 Formula: injuries ~ 1 + year + phaseB + interB </code></pre>
 </div>
@@ -1585,14 +1579,14 @@ The anova function call:
 <p>You can compare the fit of piecewise linear regression (plm) models using the <code>anova()</code> function. This allows for stepwise regression analyses and targeted comparisons (e.g., assessing the combined effect of slope and level changes).</p>
 <p>Let’s consider an example where we begin with a null model that includes only an intercept but no additional predictors. We then sequentially add a level effect, followed by a trend effect, and finally a slope effect.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">FALSE</span>, <span class="at">level =</span> <span class="cn">FALSE</span>, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">FALSE</span>, <span class="at">level =</span> <span class="cn">TRUE</span>, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">TRUE</span>, <span class="at">level =</span> <span class="cn">TRUE</span>, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">TRUE</span>, <span class="at">level =</span> <span class="cn">TRUE</span>, <span class="at">slope =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">FALSE</span>, <span class="at">level =</span> <span class="cn">FALSE</span>, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">FALSE</span>, <span class="at">level =</span> <span class="cn">TRUE</span>, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">TRUE</span>, <span class="at">level =</span> <span class="cn">TRUE</span>, <span class="at">slope =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">plm</span>(exampleAB<span class="sc">$</span>Anja, <span class="at">trend =</span> <span class="cn">TRUE</span>, <span class="at">level =</span> <span class="cn">TRUE</span>, <span class="at">slope =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We start by comparing the null model to the first model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
 
@@ -1612,14 +1606,14 @@ F = \frac{\text{Explained variance}}{\text{Residual variance}} = \frac{\Delta \t
 \]</span></p>
 <p>For <span class="math inline">\(F(1, 18) = 33.655\)</span>, the p-value can be obtained with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pf</span>(<span class="fl">33.655</span>,<span class="dv">1</span>,<span class="dv">18</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pf</span>(<span class="fl">33.655</span>,<span class="dv">1</span>,<span class="dv">18</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.697306e-05</code></pre>
 </div>
 </div>
 <p>Alternatively, we can conduct a <em>likelihood-ratio test</em> by setting the argument <code>test = "LRT"</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1, <span class="at">test =</span> <span class="st">"LRT"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1, <span class="at">test =</span> <span class="st">"LRT"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
 
@@ -1634,14 +1628,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>This computes a <span class="math inline">\(\chi^2\)</span> test for <span class="math inline">\(\frac{\Delta \text{Deviance}}{\text{Dispersion}} = 33.655\)</span> with <span class="math inline">\(\Delta Df = 1\)</span>, where the p-value is given by:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">33.655</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">33.655</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.580551e-09</code></pre>
 </div>
 </div>
 <p>We can also compare all four models as incrementally nested models in a single step:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1, mod2, mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mod0, mod1, mod2, mod3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table
 

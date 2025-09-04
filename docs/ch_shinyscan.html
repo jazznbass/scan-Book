@@ -104,6 +104,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<meta name="mermaid-theme" content="neutral">
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -365,25 +369,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#start-shinyscan" id="toc-start-shinyscan" class="nav-link active" data-scroll-target="#start-shinyscan"><span class="header-section-number">17.1</span> Start shinyscan</a></li>
-  <li><a href="#data-menue" id="toc-data-menue" class="nav-link" data-scroll-target="#data-menue"><span class="header-section-number">17.2</span> Data menue</a>
+  <li><a href="#menues" id="toc-menues" class="nav-link" data-scroll-target="#menues"><span class="header-section-number">18</span> Menues</a>
   <ul class="collapse">
-  <li><a href="#input-cases" id="toc-input-cases" class="nav-link" data-scroll-target="#input-cases"><span class="header-section-number">17.2.1</span> Input cases</a></li>
-  <li><a href="#load-existing-data-files" id="toc-load-existing-data-files" class="nav-link" data-scroll-target="#load-existing-data-files"><span class="header-section-number">17.2.2</span> Load existing data files</a></li>
-  <li><a href="#load-an-example-data-file" id="toc-load-an-example-data-file" class="nav-link" data-scroll-target="#load-an-example-data-file"><span class="header-section-number">17.2.3</span> Load an example data file</a></li>
+  <li><a href="#data-menue" id="toc-data-menue" class="nav-link" data-scroll-target="#data-menue"><span class="header-section-number">18.1</span> Data menue</a>
+  <ul class="collapse">
+  <li><a href="#new-edit" id="toc-new-edit" class="nav-link" data-scroll-target="#new-edit"><span class="header-section-number">18.1.1</span> New / Edit</a></li>
+  <li><a href="#load-an-example-data-file" id="toc-load-an-example-data-file" class="nav-link" data-scroll-target="#load-an-example-data-file"><span class="header-section-number">18.1.2</span> Load an example data file</a></li>
+  <li><a href="#load-existing-data-files" id="toc-load-existing-data-files" class="nav-link" data-scroll-target="#load-existing-data-files"><span class="header-section-number">18.1.3</span> Load existing data files</a></li>
   </ul></li>
-  <li><a href="#transform" id="toc-transform" class="nav-link" data-scroll-target="#transform"><span class="header-section-number">17.3</span> Transform</a></li>
-  <li><a href="#stats" id="toc-stats" class="nav-link" data-scroll-target="#stats"><span class="header-section-number">17.4</span> Stats</a>
+  <li><a href="#transform" id="toc-transform" class="nav-link" data-scroll-target="#transform"><span class="header-section-number">18.2</span> Transform</a></li>
+  <li><a href="#stats" id="toc-stats" class="nav-link" data-scroll-target="#stats"><span class="header-section-number">18.3</span> Stats</a>
   <ul class="collapse">
-  <li><a href="#function-arguments" id="toc-function-arguments" class="nav-link" data-scroll-target="#function-arguments"><span class="header-section-number">17.4.1</span> Function arguments</a></li>
+  <li><a href="#function-arguments" id="toc-function-arguments" class="nav-link" data-scroll-target="#function-arguments"><span class="header-section-number">18.3.1</span> Function arguments</a></li>
   </ul></li>
-  <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots"><span class="header-section-number">17.5</span> Plots</a></li>
-  <li><a href="#settings" id="toc-settings" class="nav-link" data-scroll-target="#settings"><span class="header-section-number">17.6</span> Settings</a>
+  <li><a href="#plots" id="toc-plots" class="nav-link" data-scroll-target="#plots"><span class="header-section-number">18.4</span> <img src="images/clipboard-2877340907.png" class="img-fluid">Plots</a></li>
+  <li><a href="#settings" id="toc-settings" class="nav-link" data-scroll-target="#settings"><span class="header-section-number">18.5</span> Settings</a>
   <ul class="collapse">
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">17.6.1</span> Data</a></li>
-  <li><a href="#transform-1" id="toc-transform-1" class="nav-link" data-scroll-target="#transform-1"><span class="header-section-number">17.6.2</span> Transform</a></li>
-  <li><a href="#stats-1" id="toc-stats-1" class="nav-link" data-scroll-target="#stats-1"><span class="header-section-number">17.6.3</span> Stats</a></li>
-  <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot"><span class="header-section-number">17.6.4</span> Plot</a></li>
-  <li><a href="#general" id="toc-general" class="nav-link" data-scroll-target="#general"><span class="header-section-number">17.6.5</span> General</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">18.5.1</span> Data</a></li>
+  <li><a href="#transform-1" id="toc-transform-1" class="nav-link" data-scroll-target="#transform-1"><span class="header-section-number">18.5.2</span> Transform</a></li>
+  <li><a href="#stats-1" id="toc-stats-1" class="nav-link" data-scroll-target="#stats-1"><span class="header-section-number">18.5.3</span> Stats</a></li>
+  <li><a href="#plot" id="toc-plot" class="nav-link" data-scroll-target="#plot"><span class="header-section-number">18.5.4</span> Plot</a></li>
+  <li><a href="#general" id="toc-general" class="nav-link" data-scroll-target="#general"><span class="header-section-number">18.5.5</span> General</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -419,9 +426,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"shiny"</span>, <span class="st">"scplot"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can start the app by executing the function <code>shinyscan()</code> from the <em>scan</em> package. Based on your system settings, the app will immediately be opened within your standard browser or in R-Studios <em>internal viewer pane</em>:</p>
-<p><img src="images/Screenshot 2025-03-21 at 15.07.15.png" class="img-fluid" width="316"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Screenshot 2025-03-21 at 15.07.15.png" class="img-fluid figure-img" width="316"></p>
+<figcaption>Viewer pane</figcaption>
+</figure>
+</div>
 <p>In case the app starts within the internal viewer pane, I recommend that you click <em>Open in Browser</em>.<br>
-The app is organized into seven main menus (tabs), each serving a specific function:</p>
+</p>
+</section>
+<section id="menues" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Menues</h1>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+A("`🔢 **Data**
+New
+Load`") --&gt; B("`🧮 **Stats**
+Descriptives
+Overlap indices
+Regression analysis
+Randomization test
+...
+`")
+A --&gt; T("`🔄 **Transform**
+Select cases
+Combine phases
+Filter measurements
+Transform variables
+Set dependent variables`")
+T --&gt; B
+T --&gt; C
+A --&gt; C("`📈 **Plot**
+Arguments
+Stat templates
+Deisgn templates
+Anotate templates
+`")
+B --&gt; Ex("`💾 **Export**
+Html
+docx
+txt
+png
+`")
+C --&gt; Ex
+
+</pre>
+</div>
+<p></p><figcaption> Menues and options</figcaption> </figure><p></p>
+</div>
+</div>
+</div>
+<p>The app is organized into seven main menus (tabs), each serving a specific function:</p>
 <ul>
 <li><p><strong>Data</strong>: Create new datasets, load and save existing ones, and access example datasets.</p></li>
 <li><p><strong>Transform</strong>: Perform data selection, filtering, and other transformations.</p></li>
@@ -432,13 +491,22 @@ The app is organized into seven main menus (tabs), each serving a specific funct
 <li><p><strong>Help</strong>: Access additional documentation and external resources.</p></li>
 </ul>
 <p>By default, <strong>shinyscan</strong> opens with the <strong>Data</strong> tab selected.</p>
-</section>
-<section id="data-menue" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="data-menue"><span class="header-section-number">17.2</span> Data menue</h2>
-<p><img src="images/Screenshot 2025-03-21 at 14.32.37.png" class="img-fluid"></p>
-<section id="input-cases" class="level3" data-number="17.2.1">
-<h3 data-number="17.2.1" class="anchored" data-anchor-id="input-cases"><span class="header-section-number">17.2.1</span> Input cases</h3>
-<p>The <strong>Data</strong> tab in <em>shinyscan</em> allows you to manually create single-case datasets (scdf, see <a href="ch_create_display_and_store_scdfs.html#sec-scdf" class="quarto-xref"><span>Section 3.2</span></a>). This is particularly useful for small datasets without having to write R code. The interface is divided into several input fields:</p>
+<section id="data-menue" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="data-menue"><span class="header-section-number">18.1</span> Data menue</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3017176487.png" class="img-fluid figure-img"></p>
+<figcaption>Data menue</figcaption>
+</figure>
+</div>
+<section id="new-edit" class="level3" data-number="18.1.1">
+<h3 data-number="18.1.1" class="anchored" data-anchor-id="new-edit"><span class="header-section-number">18.1.1</span> New / Edit</h3>
+<p>The <strong>Data</strong> tab in <em>shinyscan</em> allows you to manually create single-case datasets (scdf, see <a href="ch_create_display_and_store_scdfs.html#sec-scdf" class="quarto-xref"><span>Section 3.2</span></a>). This is especially useful for small datasets, as it avoids the need to write R code. The interface contains several input fields:</p>
+<p><strong>Select case</strong></p>
+<ul>
+<li><p>To add a new case, choose New case.</p></li>
+<li><p>To edit an existing case, select the case from the list. The corresponding data will then be loaded into the input fields below.</p></li>
+</ul>
 <p><strong>Values</strong></p>
 <p>Provide the central dependent variable and phase structure of the <em>scdfs</em> with the values of a named vector. For example, <code>A = 1,2,3,4, B = 8,7,8,9,8,7, C = 8,7,6,7,6,5</code>. You can use line breaks to structure your data entry (you can remove the comma at the end of each line if you wish):</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span></span>
@@ -452,56 +520,68 @@ The app is organized into seven main menus (tabs), each serving a specific funct
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>engagement <span class="ot">=</span> <span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">5</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>support <span class="ot">=</span> <span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Case name</strong></p>
-<p>An optional case name.</p>
-<p>The <strong>Add case</strong> button adds the new case to the existing <em>scdf</em>.</p>
-<p>The button <strong>Remove case</strong> deletes a case.</p>
-<p>The <strong>Clear all cases</strong> button deletes the entire <em>scdf</em>.</p>
-<p>The <strong>Position</strong> section is useful if you want to delete (or add) a case at a specific position.</p>
-<p>After clicking on the <strong>Add case</strong> button, you will get a summary of the current <em>scdf</em> in the right output area:</p>
+<p>You may provide an optional name for the case. If left empty, a random name will be generated.</p>
+<p>A set of buttons is located below the input fields:</p>
+<ul>
+<li><p><strong>Save case:</strong> Adds the new case to the existing scdf when <em>-new case-</em> is selected under <strong>Select case</strong>. If an existing case is selected, it will be overwritten.</p></li>
+<li><p><strong>Remove case:</strong> Deletes the selected case.</p></li>
+<li><p><strong>Clear all cases:</strong> Deletes the entire scdf.</p></li>
+<li><p><strong>Clear input fields:</strong> Clears all entries from the input fields above.</p></li>
+</ul>
+<p>After clicking <strong>Save case</strong>, a summary of the current <em>scdf</em> appears in the output area on the right.</p>
 <p><img src="images/Screenshot 2025-03-22 at 12.47.59.png" class="img-fluid"></p>
 <p>You can continue to add several more cases.</p>
-<p>Use the <strong>Save scdf</strong> button to save the <em>scdf</em> to your local hard drive. By default the output file has the following name: <em>scdf</em> followed by the <em>number</em> of cases, followed by the <em>phase names</em>, the <em>date</em> and <em>time</em>: (e.g., <code>scdf-01-ABC-250322-130744.rds</code>). By default, files are saved in <em>Rs</em> standard file format <code>rds</code>. The file format and filename can be changed in the <strong>Settings</strong> tab.</p>
-<p>If you want to see the R syntax, go to the <strong>Settings</strong> tab and change <strong><em>show output as</em></strong> according to <strong><em>syntax:</em></strong></p>
-<p><img src="images/Screenshot 2025-03-22 at 12.48.16.png" class="img-fluid" width="204"></p>
-<p>Switch back to <strong>Data –&gt; New</strong> and the output will show R syntax:</p>
+<p>Click <strong>Save scdf</strong> to save the <em>scdf</em> to your local hard drive. By default, the output file name includes the prefix <em>scdf</em>, the number of cases, the phase names, and the current date and time (e.g., <em>scdf-01-ABC-250322-130744.rds</em>). Files are saved in R’s standard <code>.rds</code> format. Both the file format and file name can be changed in the <strong>Settings</strong> tab.</p>
+<p>If you want to see the R syntax, go to the <strong>Settings</strong> tab and switch on <strong><em>Show scdf syntax</em></strong>:</p>
+<p><img src="images/clipboard-1172324656.png" class="img-fluid" width="178"></p>
+<p>Go back to <strong>Data –&gt; New / Edit</strong> and the output will show R syntax:</p>
 <p><img src="images/Screenshot 2025-03-22 at 12.48.43.png" class="img-fluid"></p>
 </section>
-<section id="load-existing-data-files" class="level3" data-number="17.2.2">
-<h3 data-number="17.2.2" class="anchored" data-anchor-id="load-existing-data-files"><span class="header-section-number">17.2.2</span> Load existing data files</h3>
+<section id="load-an-example-data-file" class="level3" data-number="18.1.2">
+<h3 data-number="18.1.2" class="anchored" data-anchor-id="load-an-example-data-file"><span class="header-section-number">18.1.2</span> Load an example data file</h3>
+<p>Go to <strong>Data -&gt; Load</strong> and select an example from <strong>Choose example</strong>:</p>
+<p><img src="images/clipboard-542845103.png" class="img-fluid" width="244"></p>
+<p>A summary of the selected <em>scdf</em> is displayed in the output pane</p>
+<p>Now, if you want to import that file, click <strong>Import scdf</strong> below. Caution: This will also replace a previously generated or loaded <em>scdf</em> file.</p>
+<p>You can now continue with the example <em>scdf</em> or go to <strong>Data -&gt; New /Edit</strong> to modify the dataset.</p>
+</section>
+<section id="load-existing-data-files" class="level3" data-number="18.1.3">
+<h3 data-number="18.1.3" class="anchored" data-anchor-id="load-existing-data-files"><span class="header-section-number">18.1.3</span> Load existing data files</h3>
 <p>Switch to <strong>Data -&gt; Load</strong>:</p>
-<p><img src="images/Screenshot 2025-03-21 at 15.25.53.png" class="img-fluid" width="228"></p>
-<p>To open an <em>scdf</em> file, click <strong>Open file</strong> and choose the file from your hard disk.</p>
+<p><img src="images/clipboard-2673762050.png" class="img-fluid" width="162"></p>
+<p>Click <strong>Choose file</strong> and select a file from your hard disk.</p>
 <p>Four file types are accepted:</p>
 <ol type="1">
-<li><p>An <code>.rds</code> file containing the <em>scdf</em> (e.g., created with <strong>save scdf</strong>). See <a href="ch_create_display_and_store_scdfs.html#sec-save-scdf" class="quarto-xref"><span>Section 3.3</span></a>.</p></li>
+<li><p>A comma separated values <code>.csv</code> file (see <a href="ch_create_display_and_store_scdfs.html#sec-read-scdf" class="quarto-xref"><span>Section 3.4.1</span></a> for more information on the structure of these files).</p></li>
+<li><p>An Microsoft Excel <code>.xlsx</code> file (see <a href="ch_create_display_and_store_scdfs.html#sec-read-scdf" class="quarto-xref"><span>Section 3.4.1</span></a> for more information on the structure of these files).</p></li>
+<li><p>An <code>.rds</code> file containing an <em>scdf</em> (e.g., created with <strong>save scdf</strong> within the shiny app). See <a href="ch_create_display_and_store_scdfs.html#sec-save-scdf" class="quarto-xref"><span>Section 3.3</span></a>.</p></li>
 <li><p>An <code>.R</code> file containing a syntax for creating an <em>scdf</em>. This text file must create an object called <strong>study</strong> which contains an <em>scdf</em>. Here is an example:</p></li>
 </ol>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="at">A =</span> <span class="dv">58</span>, <span class="dv">56</span>, <span class="dv">60</span>, <span class="dv">63</span>, <span class="at">B =</span> <span class="dv">51</span>, <span class="dv">45</span>, <span class="dv">44</span>, <span class="dv">59</span>, <span class="dv">45</span>, <span class="dv">39</span>, <span class="dv">83</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>case2 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="at">A =</span> <span class="dv">47</span>, <span class="dv">41</span>, <span class="dv">47</span>, <span class="dv">52</span>, <span class="dv">54</span>, <span class="dv">65</span>, <span class="at">B =</span> <span class="dv">55</span>, <span class="dv">37</span>, <span class="dv">51</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">55</span>, <span class="dv">46</span>))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">c</span>(case1, case2) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="3" type="1">
-<li>A comma separated values <code>.csv</code> file (see <a href="ch_create_display_and_store_scdfs.html#sec-read-scdf" class="quarto-xref"><span>Section 3.4.1</span></a> for more information on the structure of these files).</li>
-<li>An Microsoft Excel <code>.xlsx</code> file (see <a href="ch_create_display_and_store_scdfs.html#sec-read-scdf" class="quarto-xref"><span>Section 3.4.1</span></a> for more information on the structure of these files).</li>
-</ol>
-<p>If your data file contains a valid <em>scdf</em> object, the output pane will give you specific information about the data file:</p>
-<p><img src="images/Screenshot 2025-03-23 at 09.23.37.png" class="img-fluid" width="561"></p>
+<p>If your data file already contains a valid <em>scdf</em> object (e.g.&nbsp;for rds or R files), the output pane will give you specific information about the data file. Click <strong>Import scdf</strong> if you want to import the data file.</p>
+<p>If your data file contains a data frame, it will be displayed in the output area on the right. <em>shinyscan</em> will attempt to assign the columns to the corresponding elements of an <em>scdf</em>. Review these assignments and, if necessary, correct them using the drop-down menus.</p>
+<ul>
+<li><p><strong>Missing values:</strong> Define which values in the data frame should be treated as missing during import (default: empty values and NA).</p></li>
+<li><p><strong>Separator:</strong> For .csv files, specify the character that separates values. By default, this is a comma. Adjust this setting if your file uses a different separator.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2469950403.png" class="img-fluid figure-img" width="324"></p>
+<figcaption>Assign columns to corresponding scdf elements</figcaption>
+</figure>
+</div>
+<p>Click <strong>Import scdf</strong> to create and import an <em>scdf</em> from the data. The resulting <em>scdf</em> will be displayed in the output pane on the right.</p>
 </section>
-<section id="load-an-example-data-file" class="level3" data-number="17.2.3">
-<h3 data-number="17.2.3" class="anchored" data-anchor-id="load-an-example-data-file"><span class="header-section-number">17.2.3</span> Load an example data file</h3>
-<p>Select an example from the drop down list:</p>
-<p><img src="images/Screenshot 2025-03-21 at 15.26.53.png" class="img-fluid" width="444"></p>
-<p>A summary of the selected <em>scdf</em> is displayed in the output pane:</p>
-<p><img src="images/Screenshot 2025-03-21 at 14.33.08.png" class="img-fluid" width="554"></p>
-<p>You can now continue with the loaded or example <em>scdf</em> or go to <strong>Data -&gt; New</strong> to modify the dataset.</p>
 </section>
-</section>
-<section id="transform" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="transform"><span class="header-section-number">17.3</span> Transform</h2>
+<section id="transform" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="transform"><span class="header-section-number">18.2</span> Transform</h2>
 <p>The Transform tab allows you to modify, create, recalculate etc. new variables from your <em>scdf</em>.</p>
 <p>If you make any changes here, all operations in other tabs (<em>stats</em>, <em>plot</em> etc.) will be based on the transformed <em>scdf</em>.</p>
 <p>This tab also displays the raw-data contained in the <em>scdf</em>.</p>
-<p><img src="images/Screenshot 2025-03-21 at 14.33.27.png" class="img-fluid"></p>
+<p><img src="images/clipboard-1363910042.png" class="img-fluid" width="601"></p>
 <p><strong>Select cases</strong></p>
 <p>Select cases either by case number or by case name. Use commas to select multiple cases and a colon to select ranges of cases (e.g.&nbsp;<code>1, 7:9, 10</code>).</p>
 <p><strong>Combine phases</strong></p>
@@ -514,25 +594,23 @@ The app is organized into seven main menus (tabs), each serving a specific funct
 <p>If your <em>scdf</em> has multiple dependent variables, you can switch them for the further analysis and display in this field (see <a href="ch_helper_functions.html" class="quarto-xref"><span>Chapter 6</span></a>).</p>
 <p>Clicking on <strong>Save transformed scdf</strong> will save the transformed <em>scdf</em> to your hard drive.</p>
 </section>
-<section id="stats" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="stats"><span class="header-section-number">17.4</span> Stats</h2>
-<p>The purpose of this tab is to select and refine analyses procedures. The following section will provide an explanation of the functionality of the GUI. For more detailed descriptions and explanations of the statistical procedures, refer to the respective sections of this book.</p>
-<p>The <strong>Statistic</strong> field serves as the gateway to a range of procedures. By default, teh descriptives of the <em>scdf</em> are presented.</p>
-<p><img src="images/Screenshot 2025-03-21 at 14.33.46.png" class="img-fluid"></p>
-<p><strong>Output format</strong> allows to switch to html output which possible for some, but not all functions (see <a href="ch_export.html" class="quarto-xref"><span>Chapter 16</span></a> for details):</p>
-<p><img src="images/Screenshot 2025-03-21 at 14.33.55.png" class="img-fluid" width="881"></p>
-<p>For some outputs it is possible to flip rows and columns for a better overview:</p>
-<p><img src="images/Screenshot 2025-03-21 at 14.34.06.png" class="img-fluid"></p>
-<p>For some procedures, specific <strong>output arguments</strong> can be set (either for their respective <code>print()</code> - text output - or <code>export()</code> - html output - functions). For example most html outputs allow to specify the number of decimals (e.g.&nbsp;<code>decimals = 3</code>).</p>
-<p><strong>Save output</strong> saves the output content. The save format (text, html, or docx) is based on the setting defined in the <strong>Settings</strong> tab.</p>
-<section id="function-arguments" class="level3" data-number="17.4.1">
-<h3 data-number="17.4.1" class="anchored" data-anchor-id="function-arguments"><span class="header-section-number">17.4.1</span> Function arguments</h3>
-<p>If you choose a statistical procedure which takes additional arguments, a list of the available arguments will be provided on the left pane. Here is an example for the <em>hierarchical piecewise regression</em> function. All arguments are provided with their respective default settings (please refer to the respective section in this book ot the help files for detailed explanations of the arguments):</p>
-<p><img src="images/Screenshot 2025-03-22 at 13.20.59.png" class="img-fluid"></p>
+<section id="stats" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="stats"><span class="header-section-number">18.3</span> Stats</h2>
+<p>This tab is used to select and refine analysis procedures. The following section explains the functionality of the GUI. For detailed descriptions of the statistical methods, refer to the corresponding sections of this book.</p>
+<p>The <strong>Statistic</strong> field provides access to a range of procedures. By default, the descriptives of the <em>scdf</em> are displayed.</p>
+<p><img src="images/clipboard-1595795132.png" class="img-fluid">For most of the functions, it is possible toswitch to an html output (see <a href="ch_export.html" class="quarto-xref"><span>Chapter 16</span></a> for details):</p>
+<p><img src="images/clipboard-4207138040.png" class="img-fluid"></p>
+<p>For most procedures, specific output arguments can be defined. These arguments apply to the corresponding <code>print()</code> function (text output) or <code>export()</code> function (HTML output). The default arguments for each function are shown in the <strong>Output arguments</strong> field. You can adjust these settings, and the output below will update immediately.<br>
+For example set <code>flip = TRUE</code> here to switch columns and rows:</p>
+<p><img src="images/clipboard-3651219849.png" class="img-fluid"></p>
+<p>Click <strong>Save</strong> to export the output content. The save format (text, html, or docx) is based on the settings of the HTML switch and the <strong>Settings</strong> tab.</p>
+<section id="function-arguments" class="level3" data-number="18.3.1">
+<h3 data-number="18.3.1" class="anchored" data-anchor-id="function-arguments"><span class="header-section-number">18.3.1</span> Function arguments</h3>
+<p>If you choose a statistical procedure which takes additional arguments, a list of the available arguments will be provided on the left pane. Here is an example for the <em>hierarchical piecewise regression</em> function. All arguments are provided with their respective default settings (please refer to the respective section in this book or the help files for detailed explanations of the arguments):</p>
 </section>
 </section>
-<section id="plots" class="level2" data-number="17.5">
-<h2 data-number="17.5" class="anchored" data-anchor-id="plots"><span class="header-section-number">17.5</span> Plots</h2>
+<section id="plots" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="plots"><span class="header-section-number">18.4</span> <img src="images/clipboard-2877340907.png" class="img-fluid">Plots</h2>
 <p>Within the plot tab you can create graphs based on the scplot function (see <a href="ch_scplot.html" class="quarto-xref"><span>Chapter 5</span></a> for details).</p>
 <p>If you have a valid loaded/ created a valid scdf, a standard scplot will e shown here.</p>
 <p>The <strong>Arguments</strong> section is textfield that allows to specify the plot. It takes one line for each scplot function.</p>
@@ -543,42 +621,43 @@ The app is organized into seven main menus (tabs), each serving a specific funct
 <p><strong>Design template</strong>s adds syntax for changing various design elements like a title, footnotes, a legend etc. It also has examples to specify colours and themes.</p>
 <p><strong>Annotate templates</strong> gives examples to add text, marks etc. to the plot.</p>
 <p><img src="images/Screenshot 2025-03-21 at 14.35.10.png" class="img-fluid"></p>
-<p>By clicking <strong>Save plot</strong>, a png file of the plot will be exported. In the Settings tab, filename and size of the plot can be specified.</p>
+<p>By clicking <strong>Save plot</strong>, a png file of the plot will be exported. In the <strong>Settings tab</strong>, filename and size of the plot can be specified.</p>
 </section>
-<section id="settings" class="level2" data-number="17.6">
-<h2 data-number="17.6" class="anchored" data-anchor-id="settings"><span class="header-section-number">17.6</span> Settings</h2>
+<section id="settings" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="settings"><span class="header-section-number">18.5</span> Settings</h2>
 <p>The <strong>Settings</strong> tab allows users to customize various aspects of <em>shinyscan</em>’s behavior. The available options are grouped by functional area:</p>
-<section id="data" class="level3" data-number="17.6.1">
-<h3 data-number="17.6.1" class="anchored" data-anchor-id="data"><span class="header-section-number">17.6.1</span> Data</h3>
-<p><strong>Show output as</strong> defines whether the output in the <strong>Data</strong> tab is shown as R syntax (<code>print(scdf)</code>) or as a summary (<code>summary(scdf)</code>).</p>
-<p><strong>Syntax phase structure</strong> specifies the coding of the phase structure when <strong>Show output as</strong> is set to <em>Syntax.</em></p>
+<section id="data" class="level3" data-number="18.5.1">
+<h3 data-number="18.5.1" class="anchored" data-anchor-id="data"><span class="header-section-number">18.5.1</span> Data</h3>
+<p><strong>Show scdf syntax</strong> defines whether the output in the <strong>Data</strong> tab is shown as R syntax (<code>convert(scdf)</code>) or as a summary (<code>summary(scdf)</code>).</p>
+<p><strong>Phase structure inline</strong> specifies the coding of the phase structure when <strong>Show scdf syntax</strong> is switched on<em>.</em></p>
 <p><strong>Prefix save filename</strong> defines a prefix used for automatically generated filename when exporting the <em>scdf</em>.</p>
 <p><strong>Save format</strong> sets the export format of the <em>scdf</em> file.</p>
 </section>
-<section id="transform-1" class="level3" data-number="17.6.2">
-<h3 data-number="17.6.2" class="anchored" data-anchor-id="transform-1"><span class="header-section-number">17.6.2</span> Transform</h3>
-<p><strong>Show output as</strong> defines whether the scdf is displayed in hml or text format.</p>
+<section id="transform-1" class="level3" data-number="18.5.2">
+<h3 data-number="18.5.2" class="anchored" data-anchor-id="transform-1"><span class="header-section-number">18.5.2</span> Transform</h3>
 <p><strong>Prefix save filename</strong> defines a prefix used for automatically generated filename when exporting the transformed <em>scdf</em>.</p>
 <p><strong>Save format</strong> sets the export format of the <em>scdf</em> file.</p>
 </section>
-<section id="stats-1" class="level3" data-number="17.6.3">
-<h3 data-number="17.6.3" class="anchored" data-anchor-id="stats-1"><span class="header-section-number">17.6.3</span> Stats</h3>
-<p><strong>Syntax with defaults</strong> If set to <em>Yes</em>, the generated R syntax includes all function arguments, including those set to their default values. This can be useful for teaching and documentation.</p>
+<section id="stats-1" class="level3" data-number="18.5.3">
+<h3 data-number="18.5.3" class="anchored" data-anchor-id="stats-1"><span class="header-section-number">18.5.3</span> Stats</h3>
+<p><strong>Show short description</strong> gives a short description of the selected statistical function when switched on.</p>
+<p><strong>Show defaults</strong> If switched on, the generated R syntax includes all function arguments, including those set to their default values. This can be useful for teaching and documentation.</p>
 <p><strong>Rename predictors</strong> allows choosing among three naming conventions for predictors in the regression output.</p>
 <p><strong>Prefix save filename</strong> defines a prefix filenames generated when exporting statistical results.</p>
 <p><strong>Save format</strong> sets the export format.</p>
 </section>
-<section id="plot" class="level3" data-number="17.6.4">
-<h3 data-number="17.6.4" class="anchored" data-anchor-id="plot"><span class="header-section-number">17.6.4</span> Plot</h3>
+<section id="plot" class="level3" data-number="18.5.4">
+<h3 data-number="18.5.4" class="anchored" data-anchor-id="plot"><span class="header-section-number">18.5.4</span> Plot</h3>
 <p><strong>Prefix save filename</strong> defines a prefix for filenames when exporting plots.</p>
 <p><strong>Export width / height / dpi</strong> set the dimensions and resolution of the exported <code>.png</code> file.</p>
 </section>
-<section id="general" class="level3" data-number="17.6.5">
-<h3 data-number="17.6.5" class="anchored" data-anchor-id="general"><span class="header-section-number">17.6.5</span> General</h3>
+<section id="general" class="level3" data-number="18.5.5">
+<h3 data-number="18.5.5" class="anchored" data-anchor-id="general"><span class="header-section-number">18.5.5</span> General</h3>
 <p><strong>Html_engine</strong> specifies the internal engine used to generate HTML tables, either via the <a href="https://gt.rstudio.com/"><strong>gt</strong></a> or <a href="https://cran.r-project.org/package=kableExtra"><strong>kableExtra</strong></a> package (for <em>scdf</em> and statistical results). Only <strong>gt</strong> currently supports exporting tables in .docx format. The <strong>kableExtra</strong> engine is retained for compatibility purposes but may be deprecated in future versions of the package.</p>
-<p><img src="images/Screenshot 2025-03-21 at 14.35.23.png" class="img-fluid"></p>
+<p><img src="images/clipboard-342850394.png" class="img-fluid"></p>
 
 
+</section>
 </section>
 </section>
 

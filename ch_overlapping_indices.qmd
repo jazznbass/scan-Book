@@ -67,7 +67,8 @@ random_scdf(design(1, level = 1.0),round = 0, seed = 1212) |>
   add_statline("max", phase = "A", color = "red") |>
   add_text("Maximum of A", x = 1, y = 63, hjust = 0, color = "darkblue", size = 1) |>
   add_marks(positions = "values > max(values[phase == 'A'])", size = 2, shape = 16) |> 
-  set_theme("basic")
+  set_theme("basic") |> 
+  set_casenames(position = "none")
 ```
 
 The function `pnd` provides the PND for each case as well as the mean of all PNDs of that *scdf*. When you expect decreasing values set `decreasing = TRUE`. When there are more than two phases or phases are not named A and B, use the `phases` argument as described at the beginning of this chapter.
@@ -96,7 +97,8 @@ random_scdf(design(1, level = 1.0),round = 0, seed = 1212) |>
   scplot() |> add_statline("median", phase = "A", color = "red") |>
   add_text("Median of A", x = 1, y = 54, hjust = 0, color = "darkblue", size = 1) |>
   add_marks(positions = "values > median(values[phase == 'A']) & phase == 'B'", size = 2, shape = 16)|> 
-  set_theme("basic")
+  set_theme("basic") |> 
+  set_casenames(position = "none")
 ```
 
 ```{r}
@@ -127,7 +129,8 @@ random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 
   scplot() |> add_statline("trendA", color = "red") |>
   add_text("Trend of A", x = 1, y = 53, hjust = 0, color = "darkblue", size = 1, angle = 6) |>
   add_marks(positions = c(12, 14:19, 21, 22,25), size = 2, shape = 16)|> 
-  set_theme("basic")
+  set_theme("basic") |> 
+  set_casenames(position = "none")
 ```
 
 ## Percentage of all non-overlapping data (PAND) {#sec-pand}
@@ -302,7 +305,7 @@ scplot(case) |>
   set_ylabel("BDI (Depression)")  |> 
   set_xlabel("Session")  |> 
   set_theme("basic") |> 
-  set_casenames("")
+  set_casenames(position = "none")
 ```
 
 ```{r}
@@ -364,13 +367,13 @@ between_smd(Leidig2018)
 
 The *Base* model provides the *BC-SMD* as originally proposed. The *Full plm* model adds trend and slope effects to the regression model for a more precise estimation.
 
-By setting the argument `include_residuals = FALSE`, the residuals are not counted towards the between case standard deviation. This leads two are more precise estimation of the standard deviations but at the cost that the *BC-SMD* is conceptually less accurately reflecting Cohen's *d.*:
+By setting the argument `include_residuals = FALSE`, the residuals are not counted towards the between case standard deviation. This leads two are more precise estimation of the standard deviations based on the between case variance but at the cost that the *BC-SMD* is conceptually less accurately reflecting Cohen's *d*:
 
 ```{r}
 between_smd(Leidig2018, include_residuals = FALSE)
 ```
 
-The argument `model` allows to define whether the analyses is based on a frequentist or bayesianian regression model.
+The `method` argument allows to define whether the analyses is based on a REML Estimation (`method = "REML"`) or a bayesian (`method = "MCMCglmm"`) regression model.
 
 It is also possible to first calculate a *hierarchichal piecewise regression model* (hplm, see @sec-hplm) and then base the *BC-SMD* calculation on that model:
 

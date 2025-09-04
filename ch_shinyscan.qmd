@@ -1,3 +1,10 @@
+---
+format:
+  html:
+    mermaid:
+      theme: neutral
+---
+
 # Graphical user interface - Shinyscan {#sec-shinyscan}
 
 The scan package includes a graphical user interface (GUI) that enables users to perform a wide range of operations and analyses supported by the package. This GUI is implemented as a Shiny application that runs in a standard web browser.
@@ -16,9 +23,49 @@ install.packages(c("shiny", "scplot"))
 
 You can start the app by executing the function `shinyscan()` from the *scan* package. Based on your system settings, the app will immediately be opened within your standard browser or in R-Studios *internal viewer pane*:
 
-![](images/Screenshot%202025-03-21%20at%2015.07.15.png){width="316"}
+![Viewer pane](images/Screenshot%202025-03-21%20at%2015.07.15.png){width="316"}
 
 In case the app starts within the internal viewer pane, I recommend that you click *Open in Browser*.\
+
+# Menues
+
+```{mermaid}
+%%| echo: false
+%%| fig-cap: Menues and options
+flowchart LR
+A("`🔢 **Data**
+New
+Load`") --> B("`🧮 **Stats**
+Descriptives
+Overlap indices
+Regression analysis
+Randomization test
+...
+`")
+A --> T("`🔄 **Transform**
+Select cases
+Combine phases
+Filter measurements
+Transform variables
+Set dependent variables`")
+T --> B
+T --> C
+A --> C("`📈 **Plot**
+Arguments
+Stat templates
+Deisgn templates
+Anotate templates
+`")
+B --> Ex("`💾 **Export**
+Html
+docx
+txt
+png
+`")
+C --> Ex
+
+```
+
 The app is organized into seven main menus (tabs), each serving a specific function:
 
 -   **Data**: Create new datasets, load and save existing ones, and access example datasets.
@@ -39,11 +86,17 @@ By default, **shinyscan** opens with the **Data** tab selected.
 
 ## Data menue
 
-![](images/Screenshot%202025-03-21%20at%2014.32.37.png)
+![Data menue](images/clipboard-3017176487.png)
 
-### Input cases
+### New / Edit
 
-The **Data** tab in *shinyscan* allows you to manually create single-case datasets (scdf, see @sec-scdf). This is particularly useful for small datasets without having to write R code. The interface is divided into several input fields:
+The **Data** tab in *shinyscan* allows you to manually create single-case datasets (scdf, see @sec-scdf). This is especially useful for small datasets, as it avoids the need to write R code. The interface contains several input fields:
+
+**Select case**
+
+-   To add a new case, choose New case.
+
+-   To edit an existing case, select the case from the list. The corresponding data will then be loaded into the input fields below.
 
 **Values**
 
@@ -72,45 +125,63 @@ support = 3,4,2,5,6,4
 
 **Case name**
 
-An optional case name.
+You may provide an optional name for the case. If left empty, a random name will be generated.
 
-The **Add case** button adds the new case to the existing *scdf*.
+A set of buttons is located below the input fields:
 
-The button **Remove case** deletes a case.
+-   **Save case:** Adds the new case to the existing scdf when *-new case-* is selected under **Select case**. If an existing case is selected, it will be overwritten.
 
-The **Clear all cases** button deletes the entire *scdf*.
+-   **Remove case:** Deletes the selected case.
 
-The **Position** section is useful if you want to delete (or add) a case at a specific position.
+-   **Clear all cases:** Deletes the entire scdf.
 
-After clicking on the **Add case** button, you will get a summary of the current *scdf* in the right output area:
+-   **Clear input fields:** Clears all entries from the input fields above.
+
+After clicking **Save case**, a summary of the current *scdf* appears in the output area on the right.
 
 ![](images/Screenshot%202025-03-22%20at%2012.47.59.png)
 
 You can continue to add several more cases.
 
-Use the **Save scdf** button to save the *scdf* to your local hard drive. By default the output file has the following name: *scdf* followed by the *number* of cases, followed by the *phase names*, the *date* and *time*: (e.g., `scdf-01-ABC-250322-130744.rds`). By default, files are saved in *Rs* standard file format `rds`. The file format and filename can be changed in the **Settings** tab.
+Click **Save scdf** to save the *scdf* to your local hard drive. By default, the output file name includes the prefix *scdf*, the number of cases, the phase names, and the current date and time (e.g., *scdf-01-ABC-250322-130744.rds*). Files are saved in R’s standard `.rds` format. Both the file format and file name can be changed in the **Settings** tab.
 
-If you want to see the R syntax, go to the **Settings** tab and change ***show output as*** according to ***syntax:***
+If you want to see the R syntax, go to the **Settings** tab and switch on ***Show scdf syntax***:
 
-![](images/Screenshot%202025-03-22%20at%2012.48.16.png){width="204"}
+![](images/clipboard-1172324656.png){width="178"}
 
-Switch back to **Data –\> New** and the output will show R syntax:
+Go back to **Data –\> New / Edit** and the output will show R syntax:
 
 ![](images/Screenshot%202025-03-22%20at%2012.48.43.png)
+
+### Load an example data file
+
+Go to **Data -\> Load** and select an example from **Choose example**:
+
+![](images/clipboard-542845103.png){width="244"}
+
+A summary of the selected *scdf* is displayed in the output pane
+
+Now, if you want to import that file, click **Import scdf** below. Caution: This will also replace a previously generated or loaded *scdf* file.
+
+You can now continue with the example *scdf* or go to **Data -\> New /Edit** to modify the dataset.
 
 ### Load existing data files
 
 Switch to **Data -\> Load**:
 
-![](images/Screenshot%202025-03-21%20at%2015.25.53.png){width="228"}
+![](images/clipboard-2673762050.png){width="162"}
 
-To open an *scdf* file, click **Open file** and choose the file from your hard disk.
+Click **Choose file** and select a file from your hard disk.
 
 Four file types are accepted:
 
-1.  An `.rds` file containing the *scdf* (e.g., created with **save scdf**). See @sec-save-scdf.
+1.  A comma separated values `.csv` file (see @sec-read-scdf for more information on the structure of these files).
 
-2.  An `.R` file containing a syntax for creating an *scdf*. This text file must create an object called **study** which contains an *scdf*. Here is an example:
+2.  An Microsoft Excel `.xlsx` file (see @sec-read-scdf for more information on the structure of these files).
+
+3.  An `.rds` file containing an *scdf* (e.g., created with **save scdf** within the shiny app). See @sec-save-scdf.
+
+4.  An `.R` file containing a syntax for creating an *scdf*. This text file must create an object called **study** which contains an *scdf*. Here is an example:
 
 ``` r
 case1 <- scdf(c(A = 58, 56, 60, 63, B = 51, 45, 44, 59, 45, 39, 83))
@@ -119,24 +190,17 @@ case2 <- scdf(c(A = 47, 41, 47, 52, 54, 65, B = 55, 37, 51, 60, 60, 65, 55, 46))
 study <- c(case1, case2) 
 ```
 
-3.  A comma separated values `.csv` file (see @sec-read-scdf for more information on the structure of these files).
-4.  An Microsoft Excel `.xlsx` file (see @sec-read-scdf for more information on the structure of these files).
+If your data file already contains a valid *scdf* object (e.g. for rds or R files), the output pane will give you specific information about the data file. Click **Import scdf** if you want to import the data file.
 
-If your data file contains a valid *scdf* object, the output pane will give you specific information about the data file:
+If your data file contains a data frame, it will be displayed in the output area on the right. *shinyscan* will attempt to assign the columns to the corresponding elements of an *scdf*. Review these assignments and, if necessary, correct them using the drop-down menus.
 
-![](images/Screenshot%202025-03-23%20at%2009.23.37.png){width="561"}
+-   **Missing values:** Define which values in the data frame should be treated as missing during import (default: empty values and NA).
 
-### Load an example data file
+-   **Separator:** For .csv files, specify the character that separates values. By default, this is a comma. Adjust this setting if your file uses a different separator.
 
-Select an example from the drop down list:
+![Assign columns to corresponding scdf elements](images/clipboard-2469950403.png){width="324"}
 
-![](images/Screenshot%202025-03-21%20at%2015.26.53.png){width="444"}
-
-A summary of the selected *scdf* is displayed in the output pane:
-
-![](images/Screenshot%202025-03-21%20at%2014.33.08.png){width="554"}
-
-You can now continue with the loaded or example *scdf* or go to **Data -\> New** to modify the dataset.
+Click **Import scdf** to create and import an *scdf* from the data. The resulting *scdf* will be displayed in the output pane on the right.
 
 ## Transform
 
@@ -146,7 +210,7 @@ If you make any changes here, all operations in other tabs (*stats*, *plot* etc.
 
 This tab also displays the raw-data contained in the *scdf*.
 
-![](images/Screenshot%202025-03-21%20at%2014.33.27.png)
+![](images/clipboard-1363910042.png){width="601"}
 
 **Select cases**
 
@@ -172,31 +236,26 @@ Clicking on **Save transformed scdf** will save the transformed *scdf* to your h
 
 ## Stats
 
-The purpose of this tab is to select and refine analyses procedures. The following section will provide an explanation of the functionality of the GUI. For more detailed descriptions and explanations of the statistical procedures, refer to the respective sections of this book.
+This tab is used to select and refine analysis procedures. The following section explains the functionality of the GUI. For detailed descriptions of the statistical methods, refer to the corresponding sections of this book.
 
-The **Statistic** field serves as the gateway to a range of procedures. By default, teh descriptives of the *scdf* are presented.
+The **Statistic** field provides access to a range of procedures. By default, the descriptives of the *scdf* are displayed.
 
-![](images/Screenshot%202025-03-21%20at%2014.33.46.png)
+![](images/clipboard-1595795132.png)For most of the functions, it is possible toswitch to an html output (see @sec-export for details):
 
-**Output format** allows to switch to html output which possible for some, but not all functions (see @sec-export for details):
+![](images/clipboard-4207138040.png)
 
-![](images/Screenshot%202025-03-21%20at%2014.33.55.png){width="881"}
+For most procedures, specific output arguments can be defined. These arguments apply to the corresponding `print()` function (text output) or `export()` function (HTML output). The default arguments for each function are shown in the **Output arguments** field. You can adjust these settings, and the output below will update immediately.\
+For example set `flip = TRUE` here to switch columns and rows:
 
-For some outputs it is possible to flip rows and columns for a better overview:
+![](images/clipboard-3651219849.png)
 
-![](images/Screenshot%202025-03-21%20at%2014.34.06.png)
-
-For some procedures, specific **output arguments** can be set (either for their respective `print()` - text output - or `export()` - html output - functions). For example most html outputs allow to specify the number of decimals (e.g. `decimals = 3`).
-
-**Save output** saves the output content. The save format (text, html, or docx) is based on the setting defined in the **Settings** tab.
+Click **Save** to export the output content. The save format (text, html, or docx) is based on the settings of the HTML switch and the **Settings** tab.
 
 ### Function arguments
 
-If you choose a statistical procedure which takes additional arguments, a list of the available arguments will be provided on the left pane. Here is an example for the *hierarchical piecewise regression* function. All arguments are provided with their respective default settings (please refer to the respective section in this book ot the help files for detailed explanations of the arguments):
+If you choose a statistical procedure which takes additional arguments, a list of the available arguments will be provided on the left pane. Here is an example for the *hierarchical piecewise regression* function. All arguments are provided with their respective default settings (please refer to the respective section in this book or the help files for detailed explanations of the arguments):
 
-![](images/Screenshot%202025-03-22%20at%2013.20.59.png)
-
-## Plots
+## ![](images/clipboard-2877340907.png)Plots
 
 Within the plot tab you can create graphs based on the scplot function (see @sec-scplot for details).
 
@@ -219,7 +278,7 @@ The **Arguments** section is textfield that allows to specify the plot. It takes
 
 ![](images/Screenshot%202025-03-21%20at%2014.35.10.png)
 
-By clicking **Save plot**, a png file of the plot will be exported. In the Settings tab, filename and size of the plot can be specified.
+By clicking **Save plot**, a png file of the plot will be exported. In the **Settings tab**, filename and size of the plot can be specified.
 
 ## Settings
 
@@ -227,9 +286,9 @@ The **Settings** tab allows users to customize various aspects of *shinyscan*’
 
 ### Data
 
-**Show output as** defines whether the output in the **Data** tab is shown as R syntax (`print(scdf)`) or as a summary (`summary(scdf)`).
+**Show scdf syntax** defines whether the output in the **Data** tab is shown as R syntax (`convert(scdf)`) or as a summary (`summary(scdf)`).
 
-**Syntax phase structure** specifies the coding of the phase structure when **Show output as** is set to *Syntax.*
+**Phase structure inline** specifies the coding of the phase structure when **Show scdf syntax** is switched on*.*
 
 **Prefix save filename** defines a prefix used for automatically generated filename when exporting the *scdf*.
 
@@ -237,15 +296,15 @@ The **Settings** tab allows users to customize various aspects of *shinyscan*’
 
 ### Transform
 
-**Show output as** defines whether the scdf is displayed in hml or text format.
-
 **Prefix save filename** defines a prefix used for automatically generated filename when exporting the transformed *scdf*.
 
 **Save format** sets the export format of the *scdf* file.
 
 ### Stats
 
-**Syntax with defaults** If set to *Yes*, the generated R syntax includes all function arguments, including those set to their default values. This can be useful for teaching and documentation.
+**Show short description** gives a short description of the selected statistical function when switched on.
+
+**Show defaults** If switched on, the generated R syntax includes all function arguments, including those set to their default values. This can be useful for teaching and documentation.
 
 **Rename predictors** allows choosing among three naming conventions for predictors in the regression output.
 
@@ -263,4 +322,4 @@ The **Settings** tab allows users to customize various aspects of *shinyscan*’
 
 **Html_engine** specifies the internal engine used to generate HTML tables, either via the [**gt**](https://gt.rstudio.com/) or [**kableExtra**](https://cran.r-project.org/package=kableExtra) package (for *scdf* and statistical results). Only **gt** currently supports exporting tables in .docx format. The **kableExtra** engine is retained for compatibility purposes but may be deprecated in future versions of the package.
 
-![](images/Screenshot%202025-03-21%20at%2014.35.23.png)
+![](images/clipboard-342850394.png)

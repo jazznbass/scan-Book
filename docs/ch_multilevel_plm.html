@@ -469,6 +469,8 @@ The hplm function call:
 &nbsp;&nbsp;<em>random_slope</em> = FALSE,<br>
 &nbsp;&nbsp;<em>fixed</em> = NULL,<br>
 &nbsp;&nbsp;<em>random</em> = NULL,<br>
+&nbsp;&nbsp;<em>ar</em> = 0,<br>
+&nbsp;&nbsp;<em>unequal_variances</em> = FALSE,<br>
 &nbsp;&nbsp;<em>update.fixed</em> = NULL,<br>
 &nbsp;&nbsp;<em>data.l2</em> = NULL,<br>
 &nbsp;&nbsp;<em>…</em><br>
@@ -843,16 +845,16 @@ Slope phase B (interB)      -0.9      -0.97                   0.75
 Casewise estimation of effects
 
     Case Intercept Trend (mt) Level phase B (phaseB) Slope phase B (interB)
-   Roman  43.00890  0.8466415              10.112584             0.61645798
- Brennen  47.43929  1.1041398               9.194791             0.35512804
-  Ismael  53.40011  1.7200027               3.193577            -0.01337929
-  Donald  56.00259  1.6045808               6.361722            -0.08687259
- Ricardo  43.13287  0.9900639               8.374106             0.54179250
-  Izayah  41.47913  0.9871108               8.000153             0.56548392
- Ignacio  47.69657  1.1943237               7.839439             0.32568935
-  Xavier  40.65876  0.8529937               9.300790             0.65995523
-   Arian  26.77803  0.1614967              11.741147             1.36296006
-    Paul  38.15377  0.4785176              12.631558             0.94227406</code></pre>
+   Roman  43.00890  0.8466415              10.112584             0.61645794
+ Brennen  47.43929  1.1041398               9.194791             0.35512803
+  Ismael  53.40011  1.7200026               3.193577            -0.01337913
+  Donald  56.00259  1.6045807               6.361723            -0.08687251
+ Ricardo  43.13287  0.9900639               8.374106             0.54179252
+  Izayah  41.47913  0.9871108               8.000154             0.56548396
+ Ignacio  47.69657  1.1943237               7.839439             0.32568938
+  Xavier  40.65876  0.8529937               9.300791             0.65995523
+   Arian  26.77803  0.1614967              11.741147             1.36296000
+    Paul  38.15377  0.4785177              12.631558             0.94227393</code></pre>
 </div>
 </div>
 <p>If you have the <code>scplot</code> package installed (version 0.4.1 or higher), you can create a forestplot for each parameter of the model with the <code>scplot()</code> function. Set the argument “effect” to choose the effect by number or a string (“intercept”, “trend”, “slope”, “level”). The <code>ci</code> argument sets the size of the confidence interval (default is <code>0.95</code>) and the <code>mark</code> argument sets the value for a reference line (default is the mean effect).</p>

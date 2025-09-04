@@ -19,9 +19,10 @@ In this model, four parameters predict the outcome at a specific measurement poi
 
 4.  a second intervention effect that evolves continuously with the beginning of the intervention (**slope effect**).
 
-```{r echo = FALSE, fig.height=4, fig.width=6}
+```{r fig.height=4, fig.width=6}
 #| label: fig-plm
 #| fig-cap: Illustration of the piecewise-linear model
+#| echo: false
 
 ex <- scdf(c(A = 1,3,3,4,2,3,4,5,4, 4, B = 8,7,8,9,9,7,11,10,10,13))
 scplot(ex) %>%
@@ -105,6 +106,7 @@ From these values each data point can be estimated. For example, the last sessio
 ```{r}
 #| label: fig-plm-ex-1
 #| fig-cap: Example dataset
+#| echo: false
 scplot(exampleAB$Johanna) |> add_statline("trend")
 ```
 
@@ -337,7 +339,7 @@ des <- design(
 
 example_dichotomous <- random_scdf(des)
 
-scplot(example_dichotomous) |> set_theme("minimal") |> set_casenames("")
+scplot(example_dichotomous) |> set_theme("minimal") |> set_casenames(position = "none")
 
 ```
 
