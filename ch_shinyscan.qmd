@@ -66,6 +66,8 @@ C --> Ex
 
 ```
 
+![](images/clipboard-2503352791.png)
+
 The app is organized into seven main menus (tabs), each serving a specific function:
 
 -   **Data**: Create new datasets, load and save existing ones, and access example datasets.
@@ -85,8 +87,6 @@ The app is organized into seven main menus (tabs), each serving a specific funct
 By default, **shinyscan** opens with the **Data** tab selected.
 
 ## Data menue
-
-![Data menue](images/clipboard-3017176487.png)
 
 ### New / Edit
 
@@ -240,14 +240,12 @@ This tab is used to select and refine analysis procedures. The following section
 
 The **Statistic** field provides access to a range of procedures. By default, the descriptives of the *scdf* are displayed.
 
-![](images/clipboard-1595795132.png)For most of the functions, it is possible toswitch to an html output (see @sec-export for details):
-
-![](images/clipboard-4207138040.png)
+![](images/clipboard-313604891.png)
 
 For most procedures, specific output arguments can be defined. These arguments apply to the corresponding `print()` function (text output) or `export()` function (HTML output). The default arguments for each function are shown in the **Output arguments** field. You can adjust these settings, and the output below will update immediately.\
 For example set `flip = TRUE` here to switch columns and rows:
 
-![](images/clipboard-3651219849.png)
+![](images/clipboard-3893398766.png)
 
 Click **Save** to export the output content. The save format (text, html, or docx) is based on the settings of the HTML switch and the **Settings** tab.
 
@@ -255,34 +253,37 @@ Click **Save** to export the output content. The save format (text, html, or doc
 
 If you choose a statistical procedure which takes additional arguments, a list of the available arguments will be provided on the left pane. Here is an example for the *hierarchical piecewise regression* function. All arguments are provided with their respective default settings (please refer to the respective section in this book or the help files for detailed explanations of the arguments):
 
-## ![](images/clipboard-2877340907.png)Plots
+![](images/clipboard-2036346249.png)
 
-Within the plot tab you can create graphs based on the scplot function (see @sec-scplot for details).
+## Plots
 
-If you have a valid loaded/ created a valid scdf, a standard scplot will e shown here.
+The Plot tab lets you create graphs using the scplot function (see @sec-scplot for details).
 
-The **Arguments** section is textfield that allows to specify the plot. It takes one line for each scplot function.
+If a valid scdf is loaded or created, a standard scplot appears by default.
 
-``` r
-  add_statline("mean")
-  add_legend()
-```
+![](images/clipboard-4163873391.png)
 
-*scplot* has an extensive range of options. The three dropdown menus provide a selection of syntax examples. By clicking an example, it is added to the **Arguments** text field and can be specified for your specific needs. Clicking an argument does not replace previous arguments. If you want to remove a plot element, you have to remove the line from the **Arguments** text field.
+On the left of the plot are two cards that show a few options that can be applied to the plot.
 
-**Stats templates** provides syntax for adding statistical lines and curves to the graph.
+On the left side of the plot, two option cards allow you to adjust the graph:
 
-**Design template**s adds syntax for changing various design elements like a title, footnotes, a legend etc. It also has examples to specify colours and themes.
-
-**Annotate templates** gives examples to add text, marks etc. to the plot.
-
-![](images/Screenshot%202025-03-21%20at%2014.35.10.png)
-
-By clicking **Save plot**, a png file of the plot will be exported. In the **Settings tab**, filename and size of the plot can be specified.
+- **Select case**: Plot all cases or a specific case.  
+- **Themes**: Use three drop-down menus to apply full visual themes or selected theme elements.  
+- **Add legend**: Adds a legend to the right of the plot.  
+- **Text size**: Sets the base size of all text elements.  
+- **Y Axis**: Define the minimum and maximum of the y-axis.  
+- **X Axis**: Set the increment of x-axis values. If labels overlap, choose a larger increment (e.g., 5 prints x-axis values 1, 6, 11, 16, 21…).  
+- **Export**: Specify width, height, and DPI. Click **Save plot** to export the plot as a PNG file. Filename and size can also be set in the **Settings** tab.  
+- **Baseline**: Adds baseline statistics to the graph and extrapolates them to all other phases.  
+- **Phases**: Adds statistics for each phase separately to the plot.  
+- **Curves**: Adds a smoothed curve to the data.  
+- **Add variable**: Adds a second variable from the `scdf` to the plot.
 
 ## Settings
 
 The **Settings** tab allows users to customize various aspects of *shinyscan*’s behavior. The available options are grouped by functional area:
+
+![](images/clipboard-3648603097.png)
 
 ### Data
 
@@ -316,10 +317,6 @@ The **Settings** tab allows users to customize various aspects of *shinyscan*’
 
 **Prefix save filename** defines a prefix for filenames when exporting plots.
 
-**Export width / height / dpi** set the dimensions and resolution of the exported `.png` file.
-
 ### General
 
 **Html_engine** specifies the internal engine used to generate HTML tables, either via the [**gt**](https://gt.rstudio.com/) or [**kableExtra**](https://cran.r-project.org/package=kableExtra) package (for *scdf* and statistical results). Only **gt** currently supports exporting tables in .docx format. The **kableExtra** engine is retained for compatibility purposes but may be deprecated in future versions of the package.
-
-![](images/clipboard-342850394.png)

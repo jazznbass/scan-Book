@@ -567,9 +567,9 @@ Table&nbsp;15.1: Core arguments of the design function
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
- plm_level    73           4      1:6.8      84
-      rand    66           3     1:11.3      82
-      tauU   100          21      1:0.0      90</code></pre>
+ plm_level    79           2     1:10.5      88
+      rand    69           3     1:10.3      83
+      tauU   100          26      1:0.0      87</code></pre>
 </div>
 </div>
 <p>The results show that the plm test and the randomization test have similar power and alpha-error probabilities (the differences here may be due to outliers of the random samples. A more intensive computation with 1000 simulations shows slightly better values for the plm). The tau U test has an unacceptably high alpha-error which is due to the trend we put into the design. <em>Alpha:Beta</em> depicts the relation of the Alpha and Beta error (power = 1 - Beta). <em>Correct</em> is the overall proportion of correct categorizations and <em>p</em> is the results of a binomial-test of <em>Correct</em> against 50%.</p>
@@ -671,13 +671,13 @@ Table&nbsp;15.2: Statistical methods
 <pre><code>Test-Power in percent:
 
     Method Power 2.5% 97.5% Alpha Error 2.5% 97.5% Alpha:Beta Correct 2.5%
- plm_level    74   64    82           3  0.6     9      1:8.7      86   80
-      rand    64   54    73           2  0.2     7     1:18.0      81   75
-      tauU   100   96   100          27 18.6    37      1:0.0      86   81
+ plm_level    62   52    72           5    2    11      1:7.6      78   72
+      rand    56   46    66           4    1    10     1:11.0      76   69
+      tauU   100   96   100          20   13    29      1:0.0      90   85
  97.5%
-    90
-    86
-    91</code></pre>
+    84
+    82
+    94</code></pre>
 </div>
 </div>
 <p>You can also test the power, alpha error, and correct estimates against predefined values. In order to do that, set <code>binom_test = TRUE</code>. The power will be tested against being greater or equal to 80%, the alpha error against being less or equal 5%, and the correct proportion against being greater equal 87.5%.</p>
@@ -687,13 +687,13 @@ Table&nbsp;15.2: Statistical methods
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct p Power&gt;=80 p Alpha Error&lt;=5
- plm_level    79           7      1:3.0      86           1                1
-      rand    68           8      1:4.0      80           1                1
-      tauU   100          30      1:0.0      85           0                1
+ plm_level    81           4      1:4.8      88           0                0
+      rand    63           5      1:7.4      79           1                1
+      tauU   100          19      1:0.0      90           0                1
  p Correct&gt;=87.5
-             0.8
+             0.4
              1.0
-             0.9</code></pre>
+             0.1</code></pre>
 </div>
 </div>
 <p>If you want to define individual values for the three tests, set the <code>binom_test_power</code>. <code>binom_test_alpha</code>, and/or, the <code>binom_test_correct</code> arguments.</p>
@@ -752,11 +752,11 @@ Table&nbsp;15.2: Statistical methods
 <pre><code>Test-Power in percent:
 
     Method Power Alpha Error Alpha:Beta Correct
- plm_level    73           4      1:6.8      84
-      rand    66           3     1:11.3      82
-      tauU   100          21      1:0.0      90
+ plm_level    79           2     1:10.5      88
+      rand    69           3     1:10.3      83
+      tauU   100          26      1:0.0      87
 
-Computation duration is 0.6 seconds.</code></pre>
+Computation duration is 0.5 seconds.</code></pre>
 </div>
 </div>
 <p>The duration depends heavily on the applied test methods. Regressions are faster than randomization tests and tau U tests are quiet slow:</p>
@@ -771,10 +771,10 @@ Computation duration is 0.6 seconds.</code></pre>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.062</span></span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.252</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.244</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res3, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## elapsed </span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##   0.268</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.26</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>… and what about our new fast-glm function?</p>
 <div class="cell">
@@ -793,12 +793,12 @@ Computation duration is 0.6 seconds.</code></pre>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res1, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>elapsed 
-  0.063 </code></pre>
+   0.06 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(res2, <span class="st">"computation_duration"</span>)[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>elapsed 
-  0.103 </code></pre>
+  0.097 </code></pre>
 </div>
 </div>
 <p>It is slower! glm in R is very well optimized!!</p>
