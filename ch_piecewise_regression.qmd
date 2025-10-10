@@ -181,9 +181,7 @@ In the resulting estimations the trend and level effects are now significant. Th
 
 ## Adding additional predictors
 
-In more complex analyses, additional predictors can be included in the piecewise regression model.
-
-To do this, we have to change the regression formula 'manually' by applying the `update` argument. The `update` argument allows to change the underlying regression formula. To add a new variable named for example `newVar`, set `update = .~. + newVar`. The `.~.` part takes the internally build model formula (based on the number of phases in your model and the setting of the `slope`, `level`, and `trend` arguments) and `+ newVar` adds a variable called `newVar` to the equation.
+In more complex analyses, additional predictors can be included in the piecewise regression model. To do this, you have to modify the regression formula *manually* using the `update` argument. The `update` argument allows you to adjust the underlying regression formula. For example, to add a new variable named `newVar`, set `update = .~. + newVar`. Here, `.~.` refers to the the internally build model formula which depends on the number of phases in your model and the setting of the `slope`, `level`, and `trend` arguments. The dot before the tilde (`.`) indicates that everything on the left-hand side of the formula (the outcome variable) remains unchanged, while the dot after the tilde means that the entire predictor specification on the right-hand side is retained. The `+ newVar` simply adds the `newVar` variable to the equation. You can add one or more variables this way, or remove variables using a minus sign (e.g., `-phaseA` or `-1`).
 
 Here is an example adding the control variable `cigarrets` to the model:
 
@@ -364,7 +362,7 @@ The following example shows a dataset of injured people due to an accident on an
 example_A24 |> export()
 ```
 
-Here, a Possion regression is applied:
+Here, a Poisson regression is applied:
 
 ```{r}
 #| label: plm-ex-poisson
@@ -511,7 +509,7 @@ kable(res, align = "c") %>%
 
 For single case studies with more than two phases, things get a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the values from phase A. Another common use is to compare the effects of a phase with the previous phase.
 
-As of scan version `0.54.4`, plm allows to set a contrast argument. `contrast = "first"` (the default) will compare all slope and level-effects to the values in the first phase. `contrast = "preceding"` will compare the slope and level-effects to the preceding phase.
+You can choose between these two options by setting the contrast argument. `contrast = "first"` (the default) will compare all slope and level-effects to the values in the first phase. `contrast = "preceding"` will compare the slope and level-effects to the preceding phase.
 
 For the *preceding contrast*, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see @sec-dummy-model) for the first measurement of the target phase and increases until the last measurement of the case.
 
@@ -547,7 +545,7 @@ kable(res, align = "c") |>
 
 In this section, we will calculate four plm models with different contrast settings for the same single-case data.
 
-The example scdf is the case 'Marie' from the *exampleABC* scdf (`exampleABC$Marie`)
+The example *scdf* is the case *Marie* from the *exampleABC* scdf (`exampleABC$Marie`)
 
 ```{r}
 #| echo: false
@@ -573,7 +571,7 @@ kable(res, align = "c") %>%
   kable_classic(full_width = TRUE)
 ```
 
-Now we estimate a plm model with four contrast settings (see @tbl-contrast-first-preceding):
+Now, we estimate a plm model with four contrast settings (see @tbl-contrast-first-preceding):
 
 ```{r}
 #| echo: false

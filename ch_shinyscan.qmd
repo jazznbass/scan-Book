@@ -9,9 +9,9 @@ format:
 
 The scan package includes a graphical user interface (GUI) that enables users to perform a wide range of operations and analyses supported by the package. This GUI is implemented as a Shiny application that runs in a standard web browser.
 
-**shinyscan** was originally developed as a tool for teaching purposes. To facilitate this, the application displays the corresponding R syntax for each operation executed via the interface. Beyond its pedagogical utility, **shinyscan** is also well-suited for exploratory data analysis, and the visual presentation of results with immediate feedback.
+**Shinyscan** was originally developed as a tool for teaching purposes. To facilitate this, the application displays the corresponding R syntax for each operation executed via the interface. Beyond its pedagogical utility, **shinyscan** is also well-suited for exploratory data analysis, and the visual presentation of results with immediate feedback.
 
-## Start shinyscan
+## Start Shinyscan
 
 To run the shiny app, you need to install two additional packages: *shiny* and *scplot*.
 
@@ -21,11 +21,13 @@ To run the shiny app, you need to install two additional packages: *shiny* and *
 install.packages(c("shiny", "scplot"))
 ```
 
-You can start the app by executing the function `shinyscan()` from the *scan* package. Based on your system settings, the app will immediately be opened within your standard browser or in R-Studios *internal viewer pane*:
+You can start the app by executing the function `shinyscan()` from the *scan* package. Based on your system settings, the app will immediately be opened within your standard browser or in R-Studios *internal viewer pane*. In case the app starts within the internal viewer pane, I recommend that you click *Open in Browser*.\
 
-![Viewer pane](images/Screenshot%202025-03-21%20at%2015.07.15.png){width="316"}
+::: callout-tip
+## Tutorial Video
 
-In case the app starts within the internal viewer pane, I recommend that you click *Open in Browser*.\
+{{< video https://youtu.be/Dd24kJ7vze4>}}
+:::
 
 # Menues
 
@@ -153,6 +155,13 @@ Go back to **Data –\> New / Edit** and the output will show R syntax:
 
 ![](images/Screenshot%202025-03-22%20at%2012.48.43.png)
 
+::: callout-tip
+## Tutorial Video
+
+{{< video https://youtu.be/ENldZM-PQHE>}}
+:::
+
+
 ### Load an example data file
 
 Go to **Data -\> Load** and select an example from **Choose example**:
@@ -201,6 +210,13 @@ If your data file contains a data frame, it will be displayed in the output area
 ![Assign columns to corresponding scdf elements](images/clipboard-2469950403.png){width="324"}
 
 Click **Import scdf** to create and import an *scdf* from the data. The resulting *scdf* will be displayed in the output pane on the right.
+
+::: callout-tip
+## Tutorial Video
+
+{{< video https://youtu.be/sLDuA8KXghw>}}
+:::
+
 
 ## Transform
 
@@ -267,17 +283,17 @@ On the left of the plot are two cards that show a few options that can be applie
 
 On the left side of the plot, two option cards allow you to adjust the graph:
 
-- **Select case**: Plot all cases or a specific case.  
-- **Themes**: Use three drop-down menus to apply full visual themes or selected theme elements.  
-- **Add legend**: Adds a legend to the right of the plot.  
-- **Text size**: Sets the base size of all text elements.  
-- **Y Axis**: Define the minimum and maximum of the y-axis.  
-- **X Axis**: Set the increment of x-axis values. If labels overlap, choose a larger increment (e.g., 5 prints x-axis values 1, 6, 11, 16, 21…).  
-- **Export**: Specify width, height, and DPI. Click **Save plot** to export the plot as a PNG file. Filename and size can also be set in the **Settings** tab.  
-- **Baseline**: Adds baseline statistics to the graph and extrapolates them to all other phases.  
-- **Phases**: Adds statistics for each phase separately to the plot.  
-- **Curves**: Adds a smoothed curve to the data.  
-- **Add variable**: Adds a second variable from the `scdf` to the plot.
+-   **Select case**: Plot all cases or a specific case.\
+-   **Themes**: Use three drop-down menus to apply full visual themes or selected theme elements.\
+-   **Add legend**: Adds a legend to the right of the plot.\
+-   **Text size**: Sets the base size of all text elements.\
+-   **Y Axis**: Define the minimum and maximum of the y-axis.\
+-   **X Axis**: Set the increment of x-axis values. If labels overlap, choose a larger increment (e.g., 5 prints x-axis values 1, 6, 11, 16, 21…).\
+-   **Export**: Specify width, height, and DPI. Click **Save plot** to export the plot as a PNG file. Filename and size can also be set in the **Settings** tab.\
+-   **Baseline**: Adds baseline statistics to the graph and extrapolates them to all other phases.\
+-   **Phases**: Adds statistics for each phase separately to the plot.\
+-   **Curves**: Adds a smoothed curve to the data.\
+-   **Add variable**: Adds a second variable from the `scdf` to the plot.
 
 ## Settings
 

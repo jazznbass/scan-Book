@@ -730,8 +730,7 @@ Formula: values ~ 1 + mt + phaseB </code></pre>
 </section>
 <section id="adding-additional-predictors" class="level2" data-number="10.5">
 <h2 data-number="10.5" class="anchored" data-anchor-id="adding-additional-predictors"><span class="header-section-number">10.5</span> Adding additional predictors</h2>
-<p>In more complex analyses, additional predictors can be included in the piecewise regression model.</p>
-<p>To do this, we have to change the regression formula ‘manually’ by applying the <code>update</code> argument. The <code>update</code> argument allows to change the underlying regression formula. To add a new variable named for example <code>newVar</code>, set <code>update = .~. + newVar</code>. The <code>.~.</code> part takes the internally build model formula (based on the number of phases in your model and the setting of the <code>slope</code>, <code>level</code>, and <code>trend</code> arguments) and <code>+ newVar</code> adds a variable called <code>newVar</code> to the equation.</p>
+<p>In more complex analyses, additional predictors can be included in the piecewise regression model. To do this, you have to modify the regression formula <em>manually</em> using the <code>update</code> argument. The <code>update</code> argument allows you to adjust the underlying regression formula. For example, to add a new variable named <code>newVar</code>, set <code>update = .~. + newVar</code>. Here, <code>.~.</code> refers to the the internally build model formula which depends on the number of phases in your model and the setting of the <code>slope</code>, <code>level</code>, and <code>trend</code> arguments. The dot before the tilde (<code>.</code>) indicates that everything on the left-hand side of the formula (the outcome variable) remains unchanged, while the dot after the tilde means that the entire predictor specification on the right-hand side is retained. The <code>+ newVar</code> simply adds the <code>newVar</code> variable to the equation. You can add one or more variables this way, or remove variables using a minus sign (e.g., <code>-phaseA</code> or <code>-1</code>).</p>
 <p>Here is an example adding the control variable <code>cigarrets</code> to the model:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(exampleAB_add, <span class="at">update =</span> .<span class="sc">~</span>. <span class="sc">+</span> cigarrets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1510,8 +1509,8 @@ weights = 1 </code></pre>
 <td class="gt_row gt_center" headers="year">2018</td>
 <td class="gt_row gt_center" headers="phase">B</td>
 </tr>
-</tbody><tfoot class="gt_footnotes">
-<tr class="odd">
+</tbody><tfoot>
+<tr class="gt_footnotes odd">
 <td colspan="3" class="gt_footnote"><em>Note.</em> Number of injuries on a German autobahn before and after implementation of a speedlimit (130km/h). Author: Ministerium fuer Infrastruktur und Landesplanung. Land Brandenburg..</td>
 </tr>
 </tfoot>
@@ -1521,7 +1520,7 @@ weights = 1 </code></pre>
 </div>
 </div>
 </div>
-<p>Here, a Possion regression is applied:</p>
+<p>Here, a Poisson regression is applied:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plm</span>(example_A24, <span class="at">family =</span> <span class="st">"poisson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1959,7 +1958,7 @@ slope
 <section id="designs-with-more-than-two-phases-setting-the-right-contrasts" class="level2" data-number="10.9">
 <h2 data-number="10.9" class="anchored" data-anchor-id="designs-with-more-than-two-phases-setting-the-right-contrasts"><span class="header-section-number">10.9</span> Designs with more than two phases: Setting the right contrasts</h2>
 <p>For single case studies with more than two phases, things get a bit more complicated. Applying the models described above to three phases would result in a comparison between each phase and the first phase (usually phase A). That is, the regression weights and significance tests indicate the differences between each phase and the values from phase A. Another common use is to compare the effects of a phase with the previous phase.</p>
-<p>As of scan version <code>0.54.4</code>, plm allows to set a contrast argument. <code>contrast = "first"</code> (the default) will compare all slope and level-effects to the values in the first phase. <code>contrast = "preceding"</code> will compare the slope and level-effects to the preceding phase.</p>
+<p>You can choose between these two options by setting the contrast argument. <code>contrast = "first"</code> (the default) will compare all slope and level-effects to the values in the first phase. <code>contrast = "preceding"</code> will compare the slope and level-effects to the preceding phase.</p>
 <p>For the <em>preceding contrast</em>, the dummy variable for the level-effect is set to zero for all phases preceding the phase in focus and set to one for all remaining measurements. Similarly, the dummy variable for the slope-effect is set to zero for all phases preceding the phase in focus and starts at zero (or one, depending on the model setting, see <a href="#sec-dummy-model" class="quarto-xref"><span>Section 10.8</span></a>) for the first measurement of the target phase and increases until the last measurement of the case.</p>
 <p>You can set the contrast differently for the level and slope effects with the arguments <code>constrast_level</code> and <code>contrast_slope</code>. Both can be either <code>"first"</code> or <code>"preceding"</code>.</p>
 <p>(Note: Prior to scan version <code>0.54.4</code>, the option <code>model = "JW"</code> was identical to <code>model = "B&amp;L-B", contrast = "preceding"</code>).</p>
@@ -2211,7 +2210,7 @@ slope
 <section id="understanding-and-interpreting-contrasts" class="level2" data-number="10.10">
 <h2 data-number="10.10" class="anchored" data-anchor-id="understanding-and-interpreting-contrasts"><span class="header-section-number">10.10</span> Understanding and interpreting contrasts</h2>
 <p>In this section, we will calculate four plm models with different contrast settings for the same single-case data.</p>
-<p>The example scdf is the case ‘Marie’ from the <em>exampleABC</em> scdf (<code>exampleABC$Marie</code>)</p>
+<p>The example <em>scdf</em> is the case <em>Marie</em> from the <em>exampleABC</em> scdf (<code>exampleABC$Marie</code>)</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-marie" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -2270,7 +2269,7 @@ Table&nbsp;10.1: Intercept, slope, and number of measurements calculated separat
 </figure>
 </div>
 </div>
-<p>Now we estimate a plm model with four contrast settings (see <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>10.2</span></a>):</p>
+<p>Now, we estimate a plm model with four contrast settings (see <a href="#tbl-contrast-first-preceding" class="quarto-xref">Table&nbsp;<span>10.2</span></a>):</p>
 <div class="cell">
 <div id="tbl-contrast-first-preceding" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
