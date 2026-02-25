@@ -25,20 +25,20 @@ In this model, four parameters predict the outcome at a specific measurement poi
 #| echo: false
 
 ex <- scdf(c(A = 1,3,3,4,2,3,4,5,4, 4, B = 8,7,8,9,9,7,11,10,10,13))
-scplot(ex) %>%
-  set_theme("minimal") %>%
-  add_statline("trend", color = "red") %>%
-  add_statline("trendA", color = "steelblue3") %>%
-  add_arrow(x0 = 10.5, y0 = 7, x1 = 10.5, y1 = 5, ends = "both", color = "blue3") %>%
-  add_arrow(x0 = 1, y0 = 0, x1 = 1, y1 = 1.8, color = "blue3") %>%
-  add_arrow(x0 = 14, y0 = 10, x1 = 15, y1 = 9.2, color = "blue3") %>%
-  add_arrow(x0 = 13.8, y0 = 10, x1 = 15.5, y1 = 6.2, color = "blue3") %>%
-  add_arrow(x0 = 7, y0 = 2.2, x1 = 8, y1 = 3.5, color = "blue3") %>%
-  add_text("Intercept", x = 1.2, y = 0.5, size = 1.2, hjust = 0, color = "deeppink4") %>%
-  add_text("Level effect", x = 10.7, y = 6, color = "deeppink4", size = 1.2, hjust = 0) %>%
-  add_text("Slope effect\n(difference in slope between red and blue line)", x = 16, y = 11.2, color = "deeppink4", size = 1.2, hjust = 1) %>%
-  add_text("Trend effect", x = 7, y = 2, color = "deeppink4", size = 1.2) %>%
-  set_casenames(" ") %>%
+scplot(ex) |>
+  set_theme("minimal") |>
+  add_statline("trend", color = "red") |>
+  add_statline("trendA", color = "steelblue3") |>
+  add_arrow(x0 = 10.5, y0 = 7, x1 = 10.5, y1 = 5, ends = "both", color = "blue3") |>
+  add_arrow(x0 = 1, y0 = 0, x1 = 1, y1 = 1.8, color = "blue3") |>
+  add_arrow(x0 = 14, y0 = 10, x1 = 15, y1 = 9.2, color = "blue3") |>
+  add_arrow(x0 = 13.8, y0 = 10, x1 = 15.5, y1 = 6.2, color = "blue3") |>
+  add_arrow(x0 = 7, y0 = 2.2, x1 = 8, y1 = 3.5, color = "blue3") |>
+  add_text("Intercept", x = 1.2, y = 0.5, size = 1.2, hjust = 0, color = "deeppink4") |>
+  add_text("Level effect", x = 10.7, y = 6, color = "deeppink4", size = 1.2, hjust = 0) |>
+  add_text("Slope effect\n(difference in slope between red and blue line)", x = 16, y = 11.2, color = "deeppink4", size = 1.2, hjust = 1) |>
+  add_text("Trend effect", x = 7, y = 2, color = "deeppink4", size = 1.2) |>
+  set_casenames(" ") |>
   set_yaxis(limits = c(0,14))
 
 ```
@@ -459,7 +459,7 @@ res <- data.frame(
   "level B" = c(0,0,0,0,1,1,1,1,1),
   check.names = FALSE
 )
-kable(res, align = "c") %>%
+kable(res, align = "c") |>
   kable_classic(full_width = FALSE)
 ```
 
@@ -478,8 +478,8 @@ res <- data.frame(
   "model B&L-M" = c(0,0,0,0,1,2,3,4,5), 
   "model H-M" = c(0,0,0,0,0,1,2,3,4), 
   check.names = FALSE )
-kable(res, align = "c") %>%
-  kable_classic(full_width = FALSE) %>%
+kable(res, align = "c") |>
+  kable_classic(full_width = FALSE) |>
   add_header_above(c(" " = 4, "slope B" = 2))
 ```
 
@@ -500,8 +500,8 @@ res <- data.frame(
   "B&L-M" = c(0,0,0,0,1,2,3,4,5), 
   "H-M and W" = c(0,0,0,0,0,1,2,3,4), 
   check.names = FALSE )
-kable(res, align = "c") %>%
-  kable_classic(full_width = FALSE) %>%
+kable(res, align = "c") |>
+  kable_classic(full_width = FALSE) |>
   add_header_above(c(" " = 3, "mt" = 2, "slope" = 2))
 ```
 
@@ -552,7 +552,7 @@ The example *scdf* is the case *Marie* from the *exampleABC* scdf (`exampleABC$M
 #| label: fig-marie
 #| fig-cap: Example dataset
 
-scplot(exampleABC$Marie) %>% 
+scplot(exampleABC$Marie) |> 
   add_statline("trend", color = "darkred")
   
 ```
@@ -563,11 +563,11 @@ The dark-red lines indicate the intercept and slopes when calculated separately 
 #| echo: false
 #| label: tbl-contrasts-ex-2
 #| tbl-cap: Intercept, slope, and number of measurements calculated separately for each phase
-res <- trend(exampleABC$Marie)$trend[2:4, 1:2] %>% round(3)
+res <- trend(exampleABC$Marie)$trend[2:4, 1:2] |> round(3)
 res$n <- 10
 row.names(res) <- paste0("phase ", c("A","B", "C"))
 colnames(res) <- c("intercept", "slope", "n")
-kable(res, align = "c") %>%
+kable(res, align = "c") |>
   kable_classic(full_width = TRUE)
 ```
 
@@ -582,15 +582,15 @@ df <- rbind(
   coef(plm(exampleABC$Marie, contrast_level = "preceding", contrast_slope = "preceding"))[,"Estimate"],
   coef(plm(exampleABC$Marie, contrast_level = "first", contrast_slope = "preceding"))[,"Estimate"],
   coef(plm(exampleABC$Marie, contrast_level = "preceding", contrast_slope = "first"))[,"Estimate"]
-) %>% 
-  round(3) %>% as.data.frame()
+) |> 
+  round(3) |> as.data.frame()
 names(df) <- c("intercept", "trend", "level B", "level C", "slope B", "slope C")
 data.frame(
   "Contrast level" = c("first", "preceding", "first", "preceding"), 
   "Contrast slope" = c("first", "preceding", "preceding", "first"),
   df, 
-  check.names = FALSE) %>%
-  kable(align = "c") %>%
+  check.names = FALSE) |>
+  kable(align = "c") |>
   kable_classic(full_width = FALSE)
 ```
 

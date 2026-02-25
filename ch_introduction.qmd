@@ -10,7 +10,9 @@ Single case research has become an important and widely accepted method for gain
 
 Before going into the details of how `scan` works, I would like to give you an example of what you can do with `scan`. It is meant as a teaser to get you motivated to tackle the steep learning curve associated with using `R` (but there is a land of milk and honey behind that curve!). So, do not worry if you do not understand every detail of this example, it will all be explained and obvious to you once you become familiar with `scan`.
 
-Let us set a fictional context. Suppose you are researching a method to improve the arithmetic skills of struggling fourth-grade students. You have developed an intervention programme called KUNO. In a pilot study, you want to get some evidence about the effectiveness of this new method, and you set up a multi-baseline single-case study with three students who participated in the KUNO programme over a period of ten weeks. during the course, you regularly measured each student's numeracy skills 20 times using a reliable test. You also carried out a follow-up after eight weeks with five additional measures. I am now going to make up some data for this fictitious KUNO study, because it would be too difficult to carry out a real study and actually develop a real intervention method.
+Let us set a fictional context. Suppose you are researching a method to improve the arithmetic skills of struggling fourth-grade students. You have developed an intervention programme called KUNO[^ch_introduction-1]. In a pilot study, you want to get some evidence about the effectiveness of this new method, and you set up a multi-baseline single-case study with three students who participated in the KUNO programme over a period of ten weeks. during the course, you regularly measured each student's numeracy skills 20 times using a reliable test. You also carried out a follow-up after eight weeks with five additional measures.
+
+[^ch_introduction-1]: I am now going to make up some data for this fictitious KUNO study, because it would be too difficult to carry out a real study and actually develop a real intervention method.
 
 We use the `scan` package to code the data. Each case has 25 measurements. We have three phases: before the intervention (A), during the intervention (B), and a follow-up (C). Phases A and B are of different lengths. The cases are named and combined into a single object called `strange_study`.
 
@@ -45,18 +47,16 @@ Now we visualize the cases:
 #| label: plot-strange-study
 #| fig-width: 5
 
-scplot(strange_study) %>%
-  set_ylabel("Correct") %>%
-  set_xlabel ("Days") %>%
-  add_statline("lowess", color = "red") %>%
-  set_phasenames(c("Baseline", "Intervention", "Follow-up")) %>%
-  set_yaxis(limits = c(0, 30)) %>%
-  set_xaxis(increment = 2) %>%
-  add_ridge(color = "lightblue") %>%
+scplot(strange_study) |>
+  set_ylabel("Correct") |>
+  set_xlabel ("Days") |>
+  add_statline("lowess", color = "red") |>
+  set_phasenames(c("Baseline", "Intervention", "Follow-up")) |>
+  set_yaxis(limits = c(0, 30)) |>
+  set_xaxis(increment = 2) |>
+  add_ridge(color = "lightblue") |>
   set_theme("basic")
-
 ```
-
 
 Now we need some descriptive statistics:
 
@@ -109,3 +109,5 @@ export(res)
 res <- plm(strange_study$Will)
 export(res)
 ```
+
+This is just a teaser, but it should give you an idea of what you can do with `scan`. In the next chapters, we will go into more detail about how to use `scan` and how to interpret the results.

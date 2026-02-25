@@ -124,8 +124,8 @@ Analyzing the data with `hplm` could look like this:
 
 ```{r}
 #| label: hplm-l2
-exampleAB_50 %>%
-  add_l2(exampleAB_50.l2) %>%
+exampleAB_50 |>
+  add_l2(exampleAB_50.l2) |>
   hplm(update.fixed = .~. + sex + age)
 
 # Alternatively:
@@ -135,8 +135,8 @@ exampleAB_50 %>%
 `sex` is a factor with the levels `f` and `m`. So `sexm` is the effect of being male on the overall performance. `age` does not seem to have any effect. So we drop `age` out of the equation and add an interaction of sex and phase to see whether the `sex` effect is due to a weaker impact of the intervention on males.
 
 ```{r}
-exampleAB_50 %>%
-  add_l2(exampleAB_50.l2) %>%
+exampleAB_50 |>
+  add_l2(exampleAB_50.l2) |>
   hplm(update.fixed = .~. + sex + sex:phaseB)
 ```
 

@@ -30,22 +30,22 @@ The `design` function sets up a single-case design. You can define various param
 #| echo: false
 #| label: tbl-design-arguments
 
-tab <- tribble(
-  ~Argument, ~"What it does ...",
-"n", "Number of cases to be created (Default is n = 1).",
-"phase_design", "A list defining the length and label of each phase. E.g., phase.length = list(A1 = 10, B1 = 10, A2 = 10, B2 = 10). Use vectors if you want to define different values for each case phase.length = list(A = c(10, 15), B = c(10, 15).",
-"trend", "Defines the effect size of a trend added incrementally to each measurement across the whole data-set. To assign different trends to several single-cases, use a vector of values (e.g. trend = c(.1, .3, .5)). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the trend parameters indicate effect size d changes. When using a binomial or poisson distribution, trend indicates an increase in points / counts per measurement.",
-"level","A list that defines the level increase (effect size d) at the beginning of each phase relative to the previous phase (e.g. list(A = 0, B = 1)). The first element must be zero as the first phase of a single-case has no level effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable level effects for each case (e.g. list(A = c(0, 0), B = c(1, 2))). When using a 'gaussian' distribution, the level parameters indicate effect size d changes. When using a binomial or poisson distribution, level indicates an increase in points / counts with the onset of each phase.",
-"slope", "A list that defines the increase per measurement for each phase compared to the previous phase. slope = list(A = 0, B = .1 generates an incremental increase of 0.1 per measurement starting at the B phase. The first list element must be zero as the first phase of a single-case has no slope effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable slope effects for each case (e.g. list(A = c(0, 0), B = c(0.1, 0.2))). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the slope parameters indicate effect size d changes per measurement. When using a binomial or poisson distribution, slope indicates an increase in points / counts per measurement.",
-"rtt", "Reliability of the underlying simulated measurements. Set rtt = .8 by default. To assign different reliabilities to several single-cases, use a vector of values (e.g. rtt = c(.6, .7, .8)). If the number of cases exceeds the length of the vector, values are repeated. rtt has no effect when you're using binomial or poisson distributed scores.",
-"start_value", "Starting value at the first measurement. Default is 50. To assign different start values to several single-cases, use a vector of values (e.g. c(50, 42, 56)). If the number of cases exceeds the length of the vector, values are recycled.",
-"s", "Standard deviation used to calculate absolute values from level, slope, trend effects and to calculate and error distribution from the rtt values. Set to 10 by default. To assign different variances to several single-cases, use a vector of values (e.g. s = c(5, 10, 15)). If the number of cases exceeds the length of the vector, values are recycled. if the distribution is 'poisson' or 'binomial' s is not applied.",
-"extreme_prop", "Probability of extreme values. extreme.p = .05 gives a five percent probability of an extreme value. A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.",
-"extreme_range", "Range for extreme values, expressed as effect size d. extreme.d = c(-7,-6) uses extreme values within a range of -7 and -6 standard deviations. In case of a binomial or poisson distribution, extreme.d indicates points / counts. Caution: the first value must be smaller than the second, otherwise the procedure will fail.",
-"missing_prop", "Portion of missing values. missing.p = 0.1 creates 10% of all values as missing). A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.",
-"distribution", "Distribution of the scores. Default is distribution = 'normal'. Possible values are 'normal' (or 'gaussian'), 'binomial', and 'poisson'.",
-"prob", "If distribution is set 'binomial', prob passes the probability of occurrence."
-)
+tab <- row_df("
+Argument      | What it does ...                                                                  
+n             | Number of cases to be created (Default is n = 1).      
+phase_design  | A list defining the length and label of each phase. E.g., phase.length = list(A1 = 10, B1 = 10, A2 = 10, B2 = 10). Use vectors if you want to define different values for each case phase.length = list(A = c(10, 15), B = c(10, 15).   
+trend         | Defines the effect size of a trend added incrementally to each measurement across the whole data-set. To assign different trends to several single-cases, use a vector of values (e.g. trend = c(.1, .3, .5)). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the trend parameters indicate effect size d changes. When using a binomial or poisson distribution, trend indicates an increase in points / counts per measurement.
+level         | A list that defines the level increase (effect size d) at the beginning of each phase relative to the previous phase (e.g. list(A = 0, B = 1)). The first element must be zero as the first phase of a single-case has no level effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable level effects for each case (e.g. list(A = c(0, 0), B = c(1, 2))). When using a 'gaussian' distribution, the level parameters indicate effect size d changes. When using a binomial or poisson distribution, level indicates an increase in points / counts with the onset of each phase.
+slope         | A list that defines the increase per measurement for each phase compared to the previous phase. slope = list(A = 0, B = .1 generates an incremental increase of 0.1 per measurement starting at the B phase. The first list element must be zero as the first phase of a single-case has no slope effect (if you have one less list element than the number of phases, scan will add a leading element with 0 values). Use vectors to define variable slope effects for each case (e.g. list(A = c(0, 0), B = c(0.1, 0.2))). If the number of cases exceeds the length of the vector, values are recycled. When using a 'gaussian' distribution, the slope parameters indicate effect size d changes per measurement. When using a binomial or poisson distribution, slope indicates an increase in points / counts per measurement.
+rtt           | Reliability of the underlying simulated measurements. Set rtt = .8 by default. To assign different reliabilities to several single-cases, use a vector of values (e.g. rtt = c(.6, .7, .8)). If the number of cases exceeds the length of the vector, values are repeated. rtt has no effect when you're using binomial or poisson distributed scores. 
+start_value   | Starting value at the first measurement. Default is 50. To assign different start values to several single-cases, use a vector of values (e.g. c(50, 42, 56)). If the number of cases exceeds the length of the vector, values are recycled.
+s             | Standard deviation used to calculate absolute values from level, slope, trend effects and to calculate and error distribution from the rtt values. Set to 10 by default. To assign different variances to several single-cases, use a vector of values (e.g. s = c(5, 10, 15)). If the number of cases exceeds the length of the vector, values are recycled. if the distribution is 'poisson' or 'binomial' s is not applied. 
+extreme_prop  | Probability of extreme values. extreme.p = .05 gives a five percent probability of an extreme value. A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.
+extreme_range | Range for extreme values, expressed as effect size d. extreme.d = c(-7,-6) uses extreme values within a range of -7 and -6 standard deviations. In case of a binomial or poisson distribution, extreme.d indicates points / counts. Caution: the first value must be smaller than the second, otherwise the procedure will fail.
+missing_prop  | Portion of missing values. missing.p = 0.1 creates 10% of all values as missing). A vector of values assigns different probabilities to multiple cases. If the number of cases exceeds the length of the vector, values are repeated.
+distribution  | Distribution of the scores. Default is distribution = 'normal'. Possible values are 'normal' (or 'gaussian'), 'binomial', and 'poisson'.
+prob          | If distribution is set 'binomial', prob passes the probability of occurrence.                                   
+")
 
 print_table(tab)
 
@@ -86,22 +86,21 @@ The `method` argument takes a list where each element depicts a statistical meth
 #| echo: false
 #| label: tbl-mc-func
 
-out <- tribble(
-  ~"Name", ~"Single/ multiple cases", ~"What it means ...",
-  "plm_level", "single", "A complete plm model for normal distributed dependent variables. It checks for the level effect.",
-  "plm_slope", "single", "A complete plm model for normal distributed dependent variables. It checks for the slope effect.",
-    "plm_poisson_level", "single", "Like plm_level but for poisson distributed dependent variables.",
-  "plm_poisson_slope", "single", "Like plm_slope but for poisson distributed dependent variables.",
-  "hplm_level", "multiple", "A complete hplm model for normal distributed dependent variables. It checks for the level effect.",
-  "hplm_slope", "multiple", "A complete hplm model for normal distributed dependent variables. It checks for the slope effect.",
-  "tauU", "sinlge", "A tauU test with method complete and taub estimations. It checks the 'A vs. B - Trend A' variation.",
-  "tauU_slope", "sinlge", "A tauU test with method complete and taub estimations. It checks the 'A vs. B - Trend A + Trend B' variation.",
-  "tauU_meta", "multiple", "Like 'TauU' but with the results from a meta analyses (fixed effects). Very slow.",
-  "tauU_slope_meta", "multiple", "Like 'TauU_slope' but with the results from a meta analyses (fixed effects). Very slow.",
-  "base_tau", "single", "A baseline corrected tau test.",
-  "rand", "single and multiple", "A randomization test for 'Mean B-A' with 100 permutations."
-  
-)
+out <- row_df("
+Name              | Single/ multiple cases | What it means ...                                                                                            
+plm_level         | single                 | A complete plm model for normal distributed dependent variables. It checks for the level effect.             
+plm_slope         | single                 | A complete plm model for normal distributed dependent variables. It checks for the slope effect.             
+plm_poisson_level | single                 | Like plm_level but for poisson distributed dependent variables.                                              
+plm_poisson_slope | single                 | Like plm_slope but for poisson distributed dependent variables.                                              
+hplm_level        | multiple               | A complete hplm model for normal distributed dependent variables. It checks for the level effect.            
+hplm_slope        | multiple               | A complete hplm model for normal distributed dependent variables. It checks for the slope effect.            
+tauU              | sinlge                 | A tauU test with method complete and taub estimations. It checks the 'A vs. B - Trend A' variation.          
+tauU_slope        | sinlge                 | A tauU test with method complete and taub estimations. It checks the 'A vs. B - Trend A + Trend B' variation.
+tauU_meta         | multiple               | Like 'TauU' but with the results from a meta analyses (fixed effects). Very slow.                            
+tauU_slope_meta   | multiple               | Like 'TauU_slope' but with the results from a meta analyses (fixed effects). Very slow.                      
+base_tau          | single                 | A baseline corrected tau test.                                                                               
+rand              | single and multiple    | A randomization test for 'Mean B-A' with 100 permutations.                                                   
+")
 
 print_table(out, width_cols = c("10em", "7em", "50em"))
 

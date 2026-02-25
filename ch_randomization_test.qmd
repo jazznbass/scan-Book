@@ -29,10 +29,10 @@ study <- c(df, df2, df3, df4, df5)
 d <- describe(study)$descriptives
 diff_m <- paste0("Difference B - A: ", round(d$m.B - d$m.A, 1))
 
-p <- scplot(study) %>% set_theme("basic")
+p <- scplot(study) |> set_theme("basic")
 
 for(i in 1:length(study)) 
-  p <- p %>% 
+  p <- p |> 
     add_text(diff_m[i], case = i, x = 9, y = 45, hjust = 0, color = "darkred")
 
 p

@@ -19,20 +19,18 @@ print(exampleAB)
 #| label: tbl-options
 #| tbl-cap: Scan Options
 
-out <- tribble(
-  ~`Option`, ~`Default`, ~`What it does ...`,
-  
-   "scan.print.cases", "", "Max number of cases printed for scdf objects",
-    "scan.print.rows",  "", "Max number of rows printed for scdf objects",
-    "scan.print.cols", "", "Max number of columns printed for scdf objects",
-    "scan.print.digits", "", "Max number of digits printed for scdf objects",
-    "scan.print.long", "", "If TRUE, prints scdf objects in long format",
-    "scan.print.scdf.name", "","If TRUE, prints case names of scdf",
-    "scan.deprecated.warning", "","When TRUE returns information on deprecated functions",
-    "scan.export.kable", "", "List with default arguments for the kable argument of the export function",
-    "scan.export.kable_styling", "", "List with default arguments for the kable_styling argument of the export function",
-    )  
-
+out <- row_df("
+Option                    | Default | What it does ...
+scan.print.cases          |         | Max number of cases printed for scdf objects
+scan.print.rows           |         | Max number of rows printed for scdf objects
+scan.print.cols           |         | Max number of columns printed for scdf objects
+scan.print.digits         |         | Max number of digits printed for scdf objects
+scan.print.long           |         | If TRUE, prints scdf objects in long format
+scan.print.scdf.name      |         | If TRUE, prints case names of scdf
+scan.deprecated.warning   |         | When TRUE returns information on deprecated functions
+scan.export.kable         |         | List with default arguments for the kable argument of the export function
+scan.export.kable_styling |         | List with default arguments for the kable_styling argument of the export function
+")
 
 op <- names(options())
 op <- op[which(startsWith(op, "scan."))]

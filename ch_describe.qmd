@@ -15,17 +15,17 @@ function_structure("describe")
 #| label: table-describe
 #| tbl-cap: Statistics of the describe command
 
-out <- tribble(
-  ~"Parameter", ~"What it means ...",
-  "n", "Number of measurements.",
-  "mis", "Number of missing values.",
-  "m", "Mean values.",
-  "md", "Median of values.",
-  "sd", "Standard deviation of values.",
-  "mad", "Median average deviation of values.",
-  "min/max", "Min and max of values.",
-  "trend", "Slope of a regression line through values by time."
-)
+out <- row_df("
+Parameter | What it means ...                                 
+n         | Number of measurements.                           
+mis       | Number of missing values.                         
+m         | Mean values.                                      
+md        | Median of values.                                 
+sd        | Standard deviation of values.                     
+mad       | Median average deviation of values.               
+min/max   | Min and max of values.                            
+trend     | Slope of a regression line through values by time.
+")
 
 print_table(out)
 ```

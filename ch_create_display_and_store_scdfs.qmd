@@ -73,20 +73,20 @@ scdf(
 #| label: tbl-scdf
 #| tbl-cap: Arguments of the scdf function
 
-out <- tribble(
-  ~Argument, ~"What it does ...",
-  "values", "The default vector with values for the dependent variable. It can be changed with the dvar argument.",
-  "phase", "Usually, this variable is not defined manually and will be created by the function. It is the default vector with values for the phase variable. It can be changed with the pvar argument.",
-  "mt", "The default vector with values for the measurement-time variable. It can be changed with the mvar argument.",
-  "phase_design", "A named vector defining the length and label of each phase.",
-  "phase_starts", "A named vector defining the startpoint of each phase with respect to the measurement-time.",
-  "(deprecated) B_start", "The first measurement of phase B (simple coding if design is strictly AB).",
-  "name", "A name for the case.",
-  "dvar", "The name of the dependent variable. By default this is 'values'.",
-  "pvar", "The name of the variable containing the phase information. By default this is 'phase'.",
-  "mvar", "The name of the variable with the measurement-time. The default is 'mt'.",
-  "...", "Any number of variables with a vector asigned to them."
-)
+out <- row_df("
+Argument             | What it does ...
+values               | The default vector with values for the dependent variable. It can be changed with the dvar argument.    
+phase                | Usually, this variable is not defined manually and will be created by the function. It is the default vector with values for the phase variable. It can be changed with the pvar argument.
+mt                   | The default vector with values for the measurement-time variable. It can be changed with the mvar argument.
+phase_design         | A named vector defining the length and label of each phase. 
+phase_starts         | A named vector defining the startpoint of each phase with respect to the measurement-time.                                                    
+(deprecated) B_start | The first measurement of phase B (simple coding if design is strictly AB).                     
+name                 | A name for the case. 
+dvar                 | The name of the dependent variable. By default this is 'values'.
+pvar                 | The name of the variable containing the phase information. By default this is 'phase'.       
+mvar                 | The name of the variable with the measurement-time. The default is 'mt'.
+...                  | Any number of variables with a vector asigned to them.
+")
 
 print_table(out)
 ```

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -34,14 +34,15 @@ ul.task-list li input[type="checkbox"] {
 <link href="./ch_introduction.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-66a9e47bf13faa10686a838cfc5a4f89.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4b670b43c39165ebd99c74de5d376732.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -98,7 +99,8 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./cover.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./cover.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Analyzing Single-Case Data with R and scan</a> 
@@ -374,7 +376,7 @@ ul.task-list li input[type="checkbox"] {
 <p>To activate a package, you need the <code>library</code> function. In this case, <code>library(scan)</code>. You should get something like</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>scan 0.67.0 (2025-09-11)</code></pre>
+<pre><code>scan 0.67.1 (2025-11-26)</code></pre>
 </div>
 </div>
 <p>indicating that everything went smoothly and <em>scan</em> is ready for work.</p>
@@ -384,10 +386,23 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="2.2" class="anchored" data-anchor-id="development-version-of-scan"><span class="header-section-number">2.2</span> Development version of scan</h2>
 <p>Alternatively, you can compile the development version of <em>scan</em> yourself. This may be necessary if the stable version has some bugs or missing features that have been fixed.</p>
 <p>You may need some computer knowledge to get the development version running. It is hosted on gitHub at <a href="https://github.com/jazznbass/scan" class="uri">&lt;https://github.com/jazznbass/scan&gt;</a>.</p>
-<p>For installation, you can apply the <code>install_github</code> function from the <code>devtools</code> package (make sure you have installed the <code>devtools</code> package before):</p>
-<p><code>devtools::install_github("jazznbass/scan", dependencies = TRUE)</code></p>
-<p>If you are using a Windows operating system, you will probably need to install Rtools first. Rtools contains additional programs (e.g.&nbsp;compilers) needed to compile R source packages.</p>
-<p>You can find Rtools here: <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">&lt;https://cran.r-project.org/bin/windows/Rtools/&gt;</a></p>
+<p>For installing this version directly from within R, you can apply the <code>pak</code> function from the <code>pak</code> package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> with</p>
+<p><code>pak::pak("jazznbass/scan")</code></p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Rtools for Windows
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When installing <code>scan</code> from GitHub, packages are installed from source. <code>scan</code> itself does not contain compiled code, so it does not require Rtools. However, some <em>dependencies</em> may need compilation on Windows (e.g., when no suitable CRAN binary is available), and in that case Rtools is required.</p>
+<p>To minimize the chance of needing Rtools, prefer installing/updating packages from CRAN binaries (answer “no” when asked to install “source packages” or “compile from source”, unless you know you need the newer source version).</p>
+<p>If installation fails with messages about missing compilers/build tools, install Rtools for your R version: <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a></p>
+</div>
+</div>
 </section>
 <section id="reporting-issues-with-scan-and-suggesting-enhancements" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="reporting-issues-with-scan-and-suggesting-enhancements"><span class="header-section-number">2.3</span> Reporting issues with <em>scan</em> and suggesting enhancements</h2>
@@ -916,6 +931,12 @@ Table&nbsp;2.5: Functions for data simulation
 
 </section>
 </section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Make sure you have installed the <code>pak</code> package before with <code>install.packages("pak")</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -969,13 +990,14 @@ Table&nbsp;2.5: Functions for data simulation
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

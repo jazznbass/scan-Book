@@ -37,7 +37,7 @@ function_structure("select_cases")
 ```
 
 ::: callout-note
-Since version 0.53, scan includes functions to work with pipe-operators. `scan` imports the pipe operator `%>%` from the magrittr package. Alternatively, you can use R's native pipe operator `|>.`
+Since version 0.53, scan includes functions to work with pipe-operators. `scan` imports the pipe operator `|>` from the magrittr package. Alternatively, you can use R's native pipe operator `|>.`
 :::
 
 The `select_cases()` function takes case names and/or numbers for selecting cases:
@@ -45,8 +45,8 @@ The `select_cases()` function takes case names and/or numbers for selecting case
 ```{r}
 #| label: select-cases-1
 # With pipes:
-Huber2014 %>%
-  select_cases(Adam, Berta, 4) %>%
+Huber2014 |>
+  select_cases(Adam, Berta, 4) |>
   summary()
 
 # 1. Take the scdf Huber2014,
@@ -58,8 +58,8 @@ Case names can also be defined within a specific range by the colon operator:
 
 ```{r}
 #| label: select-cases-2
-Huber2014 %>%
-  select_cases(Berta:David) %>%
+Huber2014 |>
+  select_cases(Berta:David) |>
   summary()
 ```
 
@@ -82,16 +82,16 @@ Subset takes an scdf as the first argument and a logical expression (`filter`) a
 For example, the scdf `Huber2014` has a variable `compliance` and we want to keep measurements where `compliance` is greater than 10 because we assume the others are outliers:
 
 ```{r}
-Huber2014 %>%
-  subset(compliance > 10) %>%
+Huber2014 |>
+  subset(compliance > 10) |>
   summary()
 ```
 
 In a more complex example, we want to keep only values less than 60 when they are in phase A, or values equal to or greater than 60 when they are in phase B:
 
 ```{r}
-exampleAB %>%
-  subset((values < 60 & phase == "A") | (values >= 60 & phase == "B")) %>%
+exampleAB |>
+  subset((values < 60 & phase == "A") | (values >= 60 & phase == "B")) |>
   summary()
 ```
 
@@ -129,7 +129,7 @@ exampleAB_z <- transform(
 Here is an example where a new percentage variable is added and the measurement times shifted to start with `0`:
 
 ```{r}
-exampleAB_score %>%
+exampleAB_score |>
   transform(
     percentage = values / trials * 100,
     mt = mt - mt[1]
@@ -141,12 +141,12 @@ exampleAB_score %>%
 The `all_cases` helper function returns the values of a variable across all cases. This allows for calculations where you need values within a case and values across cases, for example when you want to standardize a variable based on all cases:
 
 ```{r}
-exampleAB %>%
+exampleAB |>
   transform(
     values = (values - mean(all_cases(values))) / sd(all_cases(values))
-  ) %>%
-  setNames(paste0(names(exampleAB), "_z")) %>%
-  c(exampleAB) %>%
+  ) |>
+  setNames(paste0(names(exampleAB), "_z")) |>
+  c(exampleAB) |>
   smd()
 
 # 1. Take the exampleAB scdf,
@@ -181,7 +181,7 @@ The `first_of` helper function is specifically designed to replace values at or 
 Here is an example that replaces the values at the beginning of phase A and the value after that to missing (NA), and also replaces the values at the beginning of phase B and the value before that to NA: 
 
 ```{r}
-byHeart2011 %>%
+byHeart2011 |>
   transform(
     values = replace(values, first_of(phase == "A", 0:1), NA),
     values = replace(values, first_of(phase == "B", -1:0), NA)

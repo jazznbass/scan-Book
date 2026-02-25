@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./ch_export.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-66a9e47bf13faa10686a838cfc5a4f89.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4b670b43c39165ebd99c74de5d376732.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -137,7 +138,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./cover.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./cover.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Analyzing Single-Case Data with R and scan</a> 
@@ -423,7 +425,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="17.1" class="anchored" data-anchor-id="start-shinyscan"><span class="header-section-number">17.1</span> Start Shinyscan</h2>
 <p>To run the shiny app, you need to install two additional packages: <em>shiny</em> and <em>scplot</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"shiny"</span>, <span class="st">"scplot"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"shiny"</span>, <span class="st">"scplot"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can start the app by executing the function <code>shinyscan()</code> from the <em>scan</em> package. Based on your system settings, the app will immediately be opened within your standard browser or in R-Studios <em>internal viewer pane</em>. In case the app starts within the internal viewer pane, I recommend that you click <em>Open in Browser</em>.<br>
 </p>
@@ -433,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tutorial Video
+<span class="screen-reader-only">Tip</span>Tutorial Video
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -510,16 +512,16 @@ C --&gt; Ex
 </ul>
 <p><strong>Values</strong></p>
 <p>Provide the central dependent variable and phase structure of the <em>scdfs</em> with the values of a named vector. For example, <code>A = 1,2,3,4, B = 8,7,8,9,8,7, C = 8,7,6,7,6,5</code>. You can use line breaks to structure your data entry (you can remove the comma at the end of each line if you wish):</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">=</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">8</span>,<span class="dv">7</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>C <span class="ot">=</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>C <span class="ot">=</span> <span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Measurement times</strong></p>
 <p>Here you can optionally enter measurement times. If no measurement times are specified, they are automatically set to <code>1, 2, 3, ..., n</code>.</p>
 <p><strong>Additional variables</strong></p>
 <p>Add additional variables in the style: <code>[varname] = value, value, value, value, ...</code>.</p>
 <p>If you want to add several variables, use line breaks:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>engagement <span class="ot">=</span> <span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">5</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>support <span class="ot">=</span> <span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>engagement <span class="ot">=</span> <span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">5</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>support <span class="ot">=</span> <span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Case name</strong></p>
 <p>You may provide an optional name for the case. If left empty, a random name will be generated.</p>
 <p>A set of buttons is located below the input fields:</p>
@@ -543,7 +545,7 @@ C --&gt; Ex
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tutorial Video
+<span class="screen-reader-only">Tip</span>Tutorial Video
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -571,10 +573,10 @@ Tutorial Video
 <li><p>An <code>.rds</code> file containing an <em>scdf</em> (e.g., created with <strong>save scdf</strong> within the shiny app). See <a href="ch_create_display_and_store_scdfs.html#sec-save-scdf" class="quarto-xref"><span>Section 3.3</span></a>.</p></li>
 <li><p>An <code>.R</code> file containing a syntax for creating an <em>scdf</em>. This text file must create an object called <strong>study</strong> which contains an <em>scdf</em>. Here is an example:</p></li>
 </ol>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="at">A =</span> <span class="dv">58</span>, <span class="dv">56</span>, <span class="dv">60</span>, <span class="dv">63</span>, <span class="at">B =</span> <span class="dv">51</span>, <span class="dv">45</span>, <span class="dv">44</span>, <span class="dv">59</span>, <span class="dv">45</span>, <span class="dv">39</span>, <span class="dv">83</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>case1 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="at">A =</span> <span class="dv">58</span>, <span class="dv">56</span>, <span class="dv">60</span>, <span class="dv">63</span>, <span class="at">B =</span> <span class="dv">51</span>, <span class="dv">45</span>, <span class="dv">44</span>, <span class="dv">59</span>, <span class="dv">45</span>, <span class="dv">39</span>, <span class="dv">83</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>case2 <span class="ot">&lt;-</span> <span class="fu">scdf</span>(<span class="fu">c</span>(<span class="at">A =</span> <span class="dv">47</span>, <span class="dv">41</span>, <span class="dv">47</span>, <span class="dv">52</span>, <span class="dv">54</span>, <span class="dv">65</span>, <span class="at">B =</span> <span class="dv">55</span>, <span class="dv">37</span>, <span class="dv">51</span>, <span class="dv">60</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">55</span>, <span class="dv">46</span>))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">c</span>(case1, case2) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>study <span class="ot">&lt;-</span> <span class="fu">c</span>(case1, case2) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If your data file already contains a valid <em>scdf</em> object (e.g.&nbsp;for rds or R files), the output pane will give you specific information about the data file. Click <strong>Import scdf</strong> if you want to import the data file.</p>
 <p>If your data file contains a data frame, it will be displayed in the output area on the right. <em>shinyscan</em> will attempt to assign the columns to the corresponding elements of an <em>scdf</em>. Review these assignments and, if necessary, correct them using the drop-down menus.</p>
 <ul>
@@ -594,7 +596,7 @@ Tutorial Video
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tutorial Video
+<span class="screen-reader-only">Tip</span>Tutorial Video
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -756,13 +758,14 @@ For example set <code>flip = TRUE</code> here to switch columns and rows:</p>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

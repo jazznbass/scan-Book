@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./ch_working_with_scdfs.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-66a9e47bf13faa10686a838cfc5a4f89.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4b670b43c39165ebd99c74de5d376732.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -135,7 +136,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./cover.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./cover.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Analyzing Single-Case Data with R and scan</a> 
@@ -437,13 +439,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.1" class="anchored" data-anchor-id="install-scplot"><span class="header-section-number">5.1</span> Install <code>scplot</code></h2>
 <p><code>splot</code> is available from the CRAN repository. Execute <code>install.packages("scplot")</code> to install it.</p>
 <p>If you are more adventures you can install the developmental version of <em>scplot</em> from github.The project is hosted at <a href="https://github.com/jazznbass/scplot" class="uri">https://github.com/jazznbass/scplot</a>. You can install it with <code>devtools::install_github("jazznbass/scplot")</code> from your R console. Make sure you have the package <code>devtools</code> installed before. The <em>scplot</em> package has to be compiled. When you are running R on a Windows machine you also have to install Rtools. Rtools is not an R package and can be downloaded from CRAN at <a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a>.</p>
-<p>The following chapter has been written with <em>scplot</em> version 0.6.0. If you have problems replicating the examples, please update to this version.</p>
+<p>The following chapter has been written with <em>scplot</em> version 0.6.1. If you have problems replicating the examples, please update to this version.</p>
 </section>
 <section id="basic-principal" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="basic-principal"><span class="header-section-number">5.2</span> Basic principal</h2>
 <p>You start by providing an <em>scdf</em> object (see <a href="ch_create_display_and_store_scdfs.html#sec-scdf" class="quarto-xref"><span>Section 3.2</span></a>) to the <code>scplot()</code> function (e.g.&nbsp;<code>scplot(exampleAB)</code>). This already creates a default plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -452,11 +454,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Now you use a series of pipe-operators (<code>%&gt;%</code> or <code>|&gt;</code>) to apply functions that add elements and change characteristics of the resulting plot. For example:</p>
+<p>Now you use a series of pipe-operators (<code>|&gt;</code>) to apply functions that add elements and change characteristics of the resulting plot. For example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"My plot"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Days"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">1.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Days"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="fl">1.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here is an overview of possible functions:</p>
 <div class="cell">
@@ -467,7 +469,7 @@ Table&nbsp;5.1: scplot functions
 </figcaption>
 <div aria-describedby="tbl-functions-scplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Function</th>
@@ -585,7 +587,7 @@ Table&nbsp;5.2: Arguments for text elements
 </figcaption>
 <div aria-describedby="tbl-arguments-text-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
@@ -607,7 +609,7 @@ Table&nbsp;5.2: Arguments for text elements
 </tr>
 <tr class="even">
 <td style="text-align: left; font-weight: bold; width: 15em;">face</td>
-<td style="text-align: left; width: 30em;">The font face ("plain","bold","italic","bold.italic")</td>
+<td style="text-align: left; width: 30em;">The font face ('plain', 'bold', 'italic', 'bold.italic')</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; font-weight: bold; width: 15em;">hjust</td>
@@ -633,7 +635,7 @@ Table&nbsp;5.3: Arguments for line elements
 </figcaption>
 <div aria-describedby="tbl-arguments-line-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
@@ -669,11 +671,11 @@ Table&nbsp;5.4: Arguments for point elements
 </figcaption>
 <div aria-describedby="tbl-arguments-point-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="lightable-classic do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Argument</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">What it does ...</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">What.it.does....</th>
 </tr>
 </thead>
 <tbody>
@@ -682,12 +684,12 @@ Table&nbsp;5.4: Arguments for point elements
 <td style="text-align: left; width: 30em;">Either a color name or a color code (e.g. 'red' or '#110044').</td>
 </tr>
 <tr class="even">
-<td style="text-align: left; font-weight: bold; width: 15em;">size</td>
-<td style="text-align: left; width: 30em;">Relative size.</td>
+<td style="text-align: left; font-weight: bold; width: 15em;">linewidth</td>
+<td style="text-align: left; width: 30em;">Relativ width of the line.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; font-weight: bold; width: 15em;">shpae</td>
-<td style="text-align: left; width: 30em;">Point shape.</td>
+<td style="text-align: left; font-weight: bold; width: 15em;">linetype</td>
+<td style="text-align: left; width: 30em;">Linetype ('solid', 'dashed', 'dotted')</td>
 </tr>
 </tbody>
 </table>
@@ -719,7 +721,7 @@ Figure&nbsp;5.1: Some possible shapes
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The set_dataline function call:
+<span class="screen-reader-only">Tip</span>The set_dataline function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -728,8 +730,8 @@ The set_dataline function call:
 </div>
 <p>By default, the single-case plot will depict the main dependent variable as defined in the scdf object. For changing this default behaviour or adding a second data line, use the <code>set_dataline()</code> function. The function takes the argument <code>variable</code> (with the main dependent variable as a default) which must correspond to a variable name within the applied scdf.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"depression"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"depression"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -740,11 +742,11 @@ The set_dataline function call:
 </div>
 <p>Styling parameters like line and point colour will be set automatically based on the applied graphic theme. We will learn later about how to change and modify these themes. If you want to directly change the styling parameters, you can use the <code>line</code> and <code>point</code> arguments which take lists with styling parameters. For <code>line</code>, the parameters are <code>colour</code>, <code>linewidth</code>, <code>linetype</code>, <code>lineend</code>, and <code>arrow</code>. For <code>point</code> the parameters are <code>colour</code>, <code>size</code>, and <code>shape</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">line =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"darkred"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>), </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">point =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">15</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -762,7 +764,7 @@ The set_dataline function call:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The add_statline function call:
+<span class="screen-reader-only">Tip</span>The add_statline function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -783,11 +785,11 @@ The add_statline function call:
 <h3 data-number="5.4.1" class="anchored" data-anchor-id="lines-indicating-a-constant-for-each-phase"><span class="header-section-number">5.4.1</span> Lines indicating a constant for each phase</h3>
 <p>Possible values for the <code>stat</code> argument are <code>mean</code>, <code>min</code>, <code>max</code>, <code>median</code>, <code>sd</code>, <code>quantile</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"max"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"median"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"median"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -801,11 +803,11 @@ The add_statline function call:
 <h3 data-number="5.4.2" class="anchored" data-anchor-id="lines-indicating-a-constant-for-a-specific-phase"><span class="header-section-number">5.4.2</span> Lines indicating a constant for a specific phase</h3>
 <p>Set the <code>phase</code> argument with one or multiple phase-names or phase-numbers to specifiy which phase the statistic is based on. The following example sets a line with the mean of phase A, the maximum of phases B and C and the minimum of phases 2 and 3:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">phase =</span> <span class="st">"A"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"max"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="st">"B"</span>, <span class="st">"C"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -819,9 +821,9 @@ The add_statline function call:
 <h3 data-number="5.4.3" class="anchored" data-anchor-id="trend-lines"><span class="header-section-number">5.4.3</span> Trend-lines</h3>
 <p>The <code>trend</code> statistic adds separate trend-line for each phase and <code>trendA</code> adds an extrapolated trend-line of the first phase:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trendA"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trendA"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -832,12 +834,12 @@ The add_statline function call:
 </div>
 <p>You scan specify various methods with the <code>method</code> argument for the <code>trendA</code> statistic:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trendA"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trendA"</span>, <span class="at">method =</span> <span class="st">"theil-sen"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trendA"</span>, <span class="at">method =</span> <span class="st">"bisplit"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trendA"</span>, <span class="at">method =</span> <span class="st">"trisplit"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -852,9 +854,9 @@ The add_statline function call:
 <h3 data-number="5.4.4" class="anchored" data-anchor-id="smoothed-curves"><span class="header-section-number">5.4.4</span> Smoothed curves</h3>
 <p>Possible values for the <code>stat</code> argument are <code>moving mean</code>, <code>moving median</code>, <code>loess</code>, <code>lowess</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"loess"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"moving mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"moving mean"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -909,9 +911,9 @@ The add_statline function call:
 </tbody>
 </table>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"moving mean"</span>, <span class="at">lag =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"quantile"</span>, <span class="at">probs =</span> <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"quantile"</span>, <span class="at">probs =</span> <span class="fl">0.75</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -925,10 +927,10 @@ The add_statline function call:
 <h3 data-number="5.4.6" class="anchored" data-anchor-id="specify-data-line"><span class="header-section-number">5.4.6</span> Specify data-line</h3>
 <p>If you do not specify the <code>variable</code> argument, the default first data-line is addressed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"cigarrets"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -945,9 +947,9 @@ The add_statline function call:
 <h3 data-number="5.5.1" class="anchored" data-anchor-id="add-marks"><span class="header-section-number">5.5.1</span> Add marks</h3>
 <p>The positions argument can take a numeric vector:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">12</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">17</span>), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">17</span>), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -958,7 +960,7 @@ The add_statline function call:
 </div>
 <p>The positions argument can also be a string containing a logical expression. This will be evaluated and the respective positions will be marked.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">positions =</span> <span class="st">"mt &gt; 15"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">2</span>, <span class="at">positions =</span> <span class="st">'phase == "B"'</span>, <span class="at">color =</span> <span class="st">"green"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">positions =</span> <span class="st">"values &gt; quantile(values, probs = 0.80)"</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">7</span>) <span class="sc">|&gt;</span></span>
@@ -966,7 +968,7 @@ The add_statline function call:
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"red: mt &gt; 15 in case 1; </span></span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="st">green: phase 'B' in case 2; </span></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="st">blue: values &gt; 80% quantile of case 3; </span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">yellow: values &lt; 20% quantile of all cases"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="st">yellow: values &lt; 20% quantile of all cases"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -977,8 +979,8 @@ The add_statline function call:
 </div>
 <p>And the positions argument can take the results from a scan outlier analyses and mark the positions of the outliers of each case:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC_outlier) <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">outlier</span>(exampleABC_outlier), <span class="at">size =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC_outlier) <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">outlier</span>(exampleABC_outlier), <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -991,8 +993,8 @@ The add_statline function call:
 <section id="add-text" class="level3" data-number="5.5.2">
 <h3 data-number="5.5.2" class="anchored" data-anchor-id="add-text"><span class="header-section-number">5.5.2</span> Add text</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="st">"Here!"</span>, <span class="at">case =</span> <span class="dv">2</span>, <span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> <span class="dv">80</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="st">"Here!"</span>, <span class="at">case =</span> <span class="dv">2</span>, <span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> <span class="dv">80</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1006,10 +1008,10 @@ The add_statline function call:
 <h3 data-number="5.5.3" class="anchored" data-anchor-id="add-line"><span class="header-section-number">5.5.3</span> Add line</h3>
 <p>Draw lines either by providing starting (x0 and y0) an end coordinates (x1 and y1) or a horizontal (hline) or vertical (vline) position:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_line</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">x0 =</span> <span class="dv">6</span>, <span class="at">y0 =</span> <span class="dv">90</span>, <span class="at">x1 =</span> <span class="dv">3</span>, <span class="at">y1 =</span> <span class="dv">63</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_line</span>(<span class="at">case =</span> <span class="dv">2</span>, <span class="at">hline =</span> <span class="dv">80</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_line</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">vline =</span> <span class="dv">15</span>, <span class="at">color =</span> <span class="st">"darkgreen"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_line</span>(<span class="at">case =</span> <span class="dv">3</span>, <span class="at">vline =</span> <span class="dv">15</span>, <span class="at">color =</span> <span class="st">"darkgreen"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1020,9 +1022,9 @@ The add_statline function call:
 </div>
 <p>Draw an arrow:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_arrow</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">x0 =</span> <span class="dv">6</span>, <span class="at">y0 =</span> <span class="dv">90</span>, <span class="at">x1 =</span> <span class="dv">3</span>, <span class="at">y1 =</span> <span class="dv">63</span>) <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="st">"Problem"</span>, <span class="at">case =</span> <span class="dv">1</span>, <span class="at">x =</span> <span class="dv">6</span>, <span class="at">y =</span> <span class="dv">94</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">0</span> ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="st">"Problem"</span>, <span class="at">case =</span> <span class="dv">1</span>, <span class="at">x =</span> <span class="dv">6</span>, <span class="at">y =</span> <span class="dv">94</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">0</span> ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1038,9 +1040,9 @@ The add_statline function call:
 <section id="data-line" class="level3" data-number="5.6.1">
 <h3 data-number="5.6.1" class="anchored" data-anchor-id="data-line"><span class="header-section-number">5.6.1</span> Data line</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>, </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">point =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">shape =</span> <span class="dv">2</span>) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">point =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">shape =</span> <span class="dv">2</span>) )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1048,24 +1050,18 @@ The add_statline function call:
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivalent_</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Equivalent_</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># scplot(exampleABC) |&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   set_dataline(line = list(colour = "blue", size = 1, linetype = "dotted"), </span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                point = list(colour = "red", size = 1, shape = 2)) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   set_dataline(line = list(colour = "blue", linewidth = 1, linetype = "dotted"), </span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                point = list(colour = "red", size = 1, shape = 2)) </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="background" class="level3" data-number="5.6.2">
 <h3 data-number="5.6.2" class="anchored" data-anchor-id="background"><span class="header-section-number">5.6.2</span> Background</h3>
 <p>The <em>background</em> ist the complete area of the plot including a frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_background</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
-ℹ Please use the `linewidth` argument instead.
-ℹ The deprecated feature was likely used in the scplot package.
-  Please report the issue to the authors.</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_background</span>(<span class="at">fill =</span> <span class="st">"grey90"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1079,8 +1075,8 @@ The add_statline function call:
 <h3 data-number="5.6.3" class="anchored" data-anchor-id="panel"><span class="header-section-number">5.6.3</span> Panel</h3>
 <p>The <em>panel</em> refers to the coordinate system.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="st">"tan1"</span>, <span class="at">color =</span> <span class="st">"palevioletred"</span>, <span class="at">size =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="st">"tan1"</span>, <span class="at">color =</span> <span class="st">"palevioletred"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1091,8 +1087,8 @@ The add_statline function call:
 </div>
 <p>You can specify a different panel color for each phase by providing a vector to the <code>fill</code> argument:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"grey80"</span>, <span class="st">"white"</span>, <span class="st">"blue4"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"grey80"</span>, <span class="st">"white"</span>, <span class="st">"blue4"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1127,8 +1123,8 @@ The add_statline function call:
 <h3 data-number="5.7.2" class="anchored" data-anchor-id="combine-themes"><span class="header-section-number">5.7.2</span> Combine themes</h3>
 <p>When providing multiple themes the order is important as the latter overwrites styles of the former.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"sienna"</span>, <span class="st">"minimal"</span>, <span class="st">"small"</span>, <span class="st">"phase_color"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"sienna"</span>, <span class="st">"minimal"</span>, <span class="st">"small"</span>, <span class="st">"phase_color"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1142,12 +1138,12 @@ The add_statline function call:
 <h3 data-number="5.7.3" class="anchored" data-anchor-id="create-custom-themes"><span class="header-section-number">5.7.3</span> Create custom themes</h3>
 <p>For creating a custom theme, start with the <code>new_theme()</code> function and add all styling parameters like described above. The resulting new object can now be applied to the <code>set_theme()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>my_theme <span class="ot">&lt;-</span> <span class="fu">new_theme</span>() <span class="sc">|&gt;</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">color =</span> <span class="st">"red"</span>)  <span class="sc">|&gt;</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_base_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"blue"</span>)  <span class="sc">|&gt;</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC)  <span class="sc">|&gt;</span> <span class="fu">set_theme</span>(my_theme)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>my_theme <span class="ot">&lt;-</span> <span class="fu">new_theme</span>() <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">color =</span> <span class="st">"red"</span>)  <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_base_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"blue"</span>)  <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC)  <span class="sc">|&gt;</span> <span class="fu">set_theme</span>(my_theme)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1162,8 +1158,8 @@ The add_statline function call:
 <h2 data-number="5.8" class="anchored" data-anchor-id="set-base-text"><span class="header-section-number">5.8</span> Set base text</h2>
 <p>The base text size is the absolute size. All other text sizes are relative to this base text size.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_decreasing<span class="sc">$</span>Peter) <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_base_text</span>(<span class="at">colour =</span> <span class="st">"blue"</span>, <span class="at">family =</span> <span class="st">"serif"</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">size =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_decreasing<span class="sc">$</span>Peter) <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_base_text</span>(<span class="at">colour =</span> <span class="st">"blue"</span>, <span class="at">family =</span> <span class="st">"serif"</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">size =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1176,9 +1172,9 @@ The add_statline function call:
 <section id="add-title-and-caption" class="level2" data-number="5.9">
 <h2 data-number="5.9" class="anchored" data-anchor-id="add-title-and-caption"><span class="header-section-number">5.9</span> Add title and caption</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_decreasing) <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"A new plot"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="fl">1.3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note. What a nice plot!"</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_decreasing) <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"A new plot"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="fl">1.3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note. What a nice plot!"</span>, <span class="at">face =</span> <span class="st">"italic"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1193,10 +1189,10 @@ The add_statline function call:
 <p>The <code>add_legend()</code> function adds a predefined legend that includes all datalines and statlines you have added. The labels for these lines are set automatically if you did not set the <code>label</code> argument in the corresponding <code>set_dataline()</code> and <code>add_statline()</code> functions.</p>
 <p>Here is a simple example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="st">"B"</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"min"</span>, <span class="at">phase =</span> <span class="st">"B"</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1207,20 +1203,20 @@ The add_statline function call:
 </div>
 <p>And here is a more advanced example that uses several arguments to defines the style of the legend:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">label =</span> <span class="st">"Pychological Wellbeing"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">variable =</span> <span class="st">"depression"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">label =</span> <span class="st">"Depression"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="at">stat =</span> <span class="st">"mean"</span>, <span class="at">label =</span> <span class="st">"Wellbeing mean"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="at">stat =</span> <span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"depression"</span>, <span class="at">label =</span> <span class="st">"Depression mean"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="at">position =</span> <span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"grey80"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"left"</span>,</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">section_labels =</span> <span class="fu">c</span>(<span class="st">"Variables"</span>, <span class="st">"Section"</span>),</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"brown"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="dv">2</span>),</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="dv">2</span>),</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">background =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"lightgrey"</span>)</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">label =</span> <span class="st">"Pychological Wellbeing"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">variable =</span> <span class="st">"depression"</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">label =</span> <span class="st">"Depression"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="at">stat =</span> <span class="st">"mean"</span>, <span class="at">label =</span> <span class="st">"Wellbeing mean"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="at">stat =</span> <span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"depression"</span>, <span class="at">label =</span> <span class="st">"Depression mean"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="at">position =</span> <span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"grey80"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"left"</span>,</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">section_labels =</span> <span class="fu">c</span>(<span class="st">"Variables"</span>, <span class="st">"Section"</span>),</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"brown"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="dv">2</span>),</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="dv">2</span>),</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">background =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"lightgrey"</span>)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1234,10 +1230,10 @@ The add_statline function call:
 <h2 data-number="5.11" class="anchored" data-anchor-id="axis-settings"><span class="header-section-number">5.11</span> Axis settings</h2>
 <p>When axis ticks are to close together set the increment argument to leave additional space (e.g.&nbsp;<code>increment = 2</code> will annotate every other value). When you set <code>increment_from = 0</code> an additional tick will be set at 1 although counting of the increments will start at 0.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment_from =</span> <span class="dv">0</span>, <span class="at">increment =</span> <span class="dv">5</span>, </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">size =</span> <span class="fl">0.7</span>, <span class="at">angle =</span> <span class="sc">-</span><span class="dv">90</span>) <span class="sc">|&gt;</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_yaxis</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>), <span class="at">size =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment_from =</span> <span class="dv">0</span>, <span class="at">increment =</span> <span class="dv">5</span>, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">size =</span> <span class="fl">0.7</span>, <span class="at">angle =</span> <span class="sc">-</span><span class="dv">90</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_yaxis</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>), <span class="at">size =</span> <span class="fl">0.7</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1250,9 +1246,9 @@ The add_statline function call:
 <section id="axis-labels" class="level2" data-number="5.12">
 <h2 data-number="5.12" class="anchored" data-anchor-id="axis-labels"><span class="header-section-number">5.12</span> Axis labels</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_ylabel</span>(<span class="st">"Score"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">angle =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Session"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_ylabel</span>(<span class="st">"Score"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">angle =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Session"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1265,8 +1261,8 @@ The add_statline function call:
 <section id="change-casenames" class="level2" data-number="5.13">
 <h2 data-number="5.13" class="anchored" data-anchor-id="change-casenames"><span class="header-section-number">5.13</span> Change Casenames</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1277,9 +1273,9 @@ The add_statline function call:
 </div>
 <p>Casenames as strips:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>, </span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>, </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1292,9 +1288,9 @@ The add_statline function call:
 <section id="add-value-labels" class="level2" data-number="5.14">
 <h2 data-number="5.14" class="anchored" data-anchor-id="add-value-labels"><span class="header-section-number">5.14</span> Add value labels</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey98"</span>), <span class="at">nudge_y =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey98"</span>), <span class="at">nudge_y =</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
 (`geom_label()`).</code></pre>
@@ -1309,9 +1305,9 @@ The add_statline function call:
 </div>
 <p>If you set the <code>nudge_y</code> argument to 0, the label will be set on-top the datapoints:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span> </span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey98"</span>), <span class="at">nudge_y =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleABC) <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"grey98"</span>), <span class="at">nudge_y =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1324,8 +1320,8 @@ The add_statline function call:
 <section id="add-a-ridge" class="level2" data-number="5.15">
 <h2 data-number="5.15" class="anchored" data-anchor-id="add-a-ridge"><span class="header-section-number">5.15</span> Add a ridge</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_mpd) <span class="sc">|&gt;</span> </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="st">"grey50"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_mpd) <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="st">"grey50"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1339,21 +1335,21 @@ The add_statline function call:
 <h2 data-number="5.16" class="anchored" data-anchor-id="extending-scplot-with-ggplot2"><span class="header-section-number">5.16</span> Extending scplot with ggplot2</h2>
 <p><code>scplot()</code> generates ggplot2 objects. You can keep the ggplot2 object and assign it into a new object with the <code>as_ggplot()</code> function. Thereby, you can use many ggplot2 functions to rework your graphics:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Lisa (Turkish)</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Patrick (Spanish)</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Anna (Twi)</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Melanie (Swedish)</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"a"</span>, <span class="at">tag_suffix =</span>  <span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Lisa (Turkish)</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Patrick (Spanish)</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Anna (Twi)</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">scplot</span>(byHeart2011<span class="sc">$</span><span class="st">`</span><span class="at">Melanie (Swedish)</span><span class="st">`</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">set_theme</span>(<span class="st">"minimal"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">as_ggplot</span>()</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3 <span class="sc">+</span> p4 <span class="sc">+</span> <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"a"</span>, <span class="at">tag_suffix =</span>  <span class="st">")"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1367,19 +1363,19 @@ The add_statline function call:
 <h2 data-number="5.17" class="anchored" data-anchor-id="complexs-examples"><span class="header-section-number">5.17</span> Complexs examples</h2>
 <p>Here are some more complex examples</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(example_A24) <span class="sc">|&gt;</span> </span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"lowess"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"loess"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"moving mean"</span>, <span class="at">lag =</span> <span class="dv">3</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">angle =</span> <span class="dv">35</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">point =</span> <span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.75</span>), <span class="at">background =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"grey50"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="fu">c</span>(<span class="st">"no speedlimit"</span>, <span class="st">"with speedlimit"</span>), </span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">position =</span> <span class="st">"left"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"Effect of a speedlimit on the A24"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note: Moving mean calculated with lag three"</span>, <span class="at">face =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="at">color =</span> <span class="st">"lightblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(example_A24) <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"lowess"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"loess"</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"moving mean"</span>, <span class="at">lag =</span> <span class="dv">3</span>, <span class="at">linewidth =</span> <span class="fl">1.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">angle =</span> <span class="dv">35</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">point =</span> <span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.75</span>), <span class="at">background =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"grey50"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="fu">c</span>(<span class="st">"no speedlimit"</span>, <span class="st">"with speedlimit"</span>), </span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">position =</span> <span class="st">"left"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"Effect of a speedlimit on the A24"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note: Moving mean calculated with lag three"</span>, <span class="at">face =</span> <span class="dv">3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="at">color =</span> <span class="st">"lightblue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1389,25 +1385,25 @@ The add_statline function call:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"cigarrets"</span>, <span class="at">point =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">label =</span> <span class="st">"Trend of wellbeing"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">label =</span> <span class="st">"Mean of cigarrets"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">14</span>,<span class="dv">20</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>)<span class="sc">|&gt;</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="st">"cigarrets &gt; quantile(cigarrets, 0.75)"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">|&gt;</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">section_labels =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">""</span>),</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">list</span>(<span class="at">face =</span> <span class="dv">3</span>)</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"grey80"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="at">color =</span> <span class="st">"snow"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">nudge_y =</span> <span class="dv">2</span>, </span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="fl">0.5</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">nudge_y =</span> <span class="dv">2</span>, <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>),</span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"white"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"cigarrets"</span>, <span class="at">point =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">label =</span> <span class="st">"Trend of wellbeing"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>, <span class="at">label =</span> <span class="st">"Mean of cigarrets"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">c</span>(<span class="dv">14</span>,<span class="dv">20</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>)<span class="sc">|&gt;</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="st">"cigarrets &gt; quantile(cigarrets, 0.75)"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>(</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">section_labels =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">""</span>),</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">list</span>(<span class="at">face =</span> <span class="dv">3</span>)</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"grey80"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(<span class="at">color =</span> <span class="st">"snow"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">nudge_y =</span> <span class="dv">2</span>, </span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="fl">0.5</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">nudge_y =</span> <span class="dv">2</span>, <span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>),</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">background =</span> <span class="fu">list</span>(<span class="at">fill =</span> <span class="st">"white"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
 (`geom_label()`).</code></pre>
@@ -1421,43 +1417,37 @@ The add_statline function call:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span> </span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_yaxis</span>(<span class="at">color =</span> <span class="st">"sienna3"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_ylabel</span>(<span class="st">"Points"</span>, <span class="at">color =</span> <span class="st">"sienna3"</span>, <span class="at">angle =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Weeks"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"brown"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"Points by week"</span>, <span class="at">color =</span> <span class="st">"sienna4"</span>, <span class="at">face =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note: An extensive Example."</span>,</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">face =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"Intervention"</span>, <span class="st">"Fall-Back"</span>, <span class="st">"Intervention_2"</span>), </span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(scales<span class="sc">::</span><span class="fu">alpha</span>(<span class="st">"lightblue"</span>, <span class="fl">0.5</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">labels =</span> <span class="fu">sample_names</span>(<span class="dv">3</span>), <span class="at">color =</span> <span class="st">"steelblue4"</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"grey80"</span>, <span class="st">"grey95"</span>), <span class="at">color =</span> <span class="st">"sienna4"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_grid</span>(<span class="at">color =</span> <span class="st">"grey85"</span>, <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>, </span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">point =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"sienna4"</span>, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="dv">18</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"sienna"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), <span class="at">nudge_y =</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_separator</span>(<span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>, <span class="at">color =</span> <span class="st">"sienna"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="at">stat =</span> <span class="st">"trendA"</span>, <span class="at">color =</span> <span class="st">"tomato2"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="at">stat =</span> <span class="st">"max"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">positions =</span> <span class="dv">14</span>, <span class="at">color =</span> <span class="st">"red3"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">shape =</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="st">"all"</span>, <span class="at">positions =</span> <span class="st">"values &lt; quantile(values, 0.1)"</span>, </span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"blue3"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">outlier</span>(exampleABAB), <span class="at">color =</span> <span class="st">"brown"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">x =</span> <span class="dv">5</span>, <span class="at">y =</span> <span class="dv">35</span>, <span class="at">label =</span> <span class="st">"Interesting"</span>, </span>
-<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">angle =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_arrow</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">5</span>, <span class="dv">22</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_background</span>(<span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>() <span class="sc">|&gt;</span></span>
-<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"basic"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme_element</span>(<span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">"points"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
-ℹ Please use the `linewidth` argument instead.
-ℹ The deprecated feature was likely used in the scplot package.
-  Please report the issue to the authors.</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleA1B1A2B2) <span class="sc">|&gt;</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">increment =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_yaxis</span>(<span class="at">color =</span> <span class="st">"sienna3"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_ylabel</span>(<span class="st">"Points"</span>, <span class="at">color =</span> <span class="st">"sienna3"</span>, <span class="at">angle =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xlabel</span>(<span class="st">"Weeks"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"brown"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_title</span>(<span class="st">"Points by week"</span>, <span class="at">color =</span> <span class="st">"sienna4"</span>, <span class="at">face =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_caption</span>(<span class="st">"Note: An extensive Example."</span>,</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">face =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_phasenames</span>(<span class="fu">c</span>(<span class="st">"Baseline"</span>, <span class="st">"Intervention"</span>, <span class="st">"Fall-Back"</span>, <span class="st">"Intervention_2"</span>), </span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_ridge</span>(scales<span class="sc">::</span><span class="fu">alpha</span>(<span class="st">"lightblue"</span>, <span class="fl">0.5</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">labels =</span> <span class="fu">sample_names</span>(<span class="dv">3</span>), <span class="at">color =</span> <span class="st">"steelblue4"</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_panel</span>(<span class="at">fill =</span> <span class="fu">c</span>(<span class="st">"grey80"</span>, <span class="st">"grey95"</span>), <span class="at">color =</span> <span class="st">"sienna4"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_grid</span>(<span class="at">color =</span> <span class="st">"grey85"</span>, <span class="at">linewidth =</span> <span class="fl">0.1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>, </span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>               <span class="at">point =</span> <span class="fu">list</span>(<span class="at">colour =</span> <span class="st">"sienna4"</span>, <span class="at">size =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="dv">18</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_labels</span>(<span class="at">text =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">"sienna"</span>, <span class="at">size =</span> <span class="fl">0.7</span>), <span class="at">nudge_y =</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_separator</span>(<span class="at">linewidth =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">"solid"</span>, <span class="at">color =</span> <span class="st">"sienna"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="at">stat =</span> <span class="st">"trendA"</span>, <span class="at">color =</span> <span class="st">"tomato2"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="at">stat =</span> <span class="st">"max"</span>, <span class="at">phase =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">positions =</span> <span class="dv">14</span>, <span class="at">color =</span> <span class="st">"red3"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">shape =</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">case =</span> <span class="st">"all"</span>, <span class="at">positions =</span> <span class="st">"values &lt; quantile(values, 0.1)"</span>, </span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">"blue3"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_marks</span>(<span class="at">positions =</span> <span class="fu">outlier</span>(exampleABAB), <span class="at">color =</span> <span class="st">"brown"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_text</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="at">x =</span> <span class="dv">5</span>, <span class="at">y =</span> <span class="dv">35</span>, <span class="at">label =</span> <span class="st">"Interesting"</span>, </span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">angle =</span> <span class="dv">20</span>, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_arrow</span>(<span class="at">case =</span> <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">5</span>, <span class="dv">22</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_background</span>(<span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_legend</span>() <span class="sc">|&gt;</span></span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme</span>(<span class="st">"basic"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_theme_element</span>(<span class="at">panel.spacing.y =</span> <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">"points"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 6 rows containing missing values or values outside the scale range
 (`geom_text()`).</code></pre>
@@ -1479,12 +1469,12 @@ The add_statline function call:
 <li>Set the left margin of the x-axis to <code>0</code> with the <code>expand</code> argument.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">41</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"cigarrets"</span>, <span class="at">type =</span> <span class="st">"bar"</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>, <span class="at">point =</span> <span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scplot</span>(exampleAB_add) <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_xaxis</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">41</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_dataline</span>(<span class="st">"cigarrets"</span>, <span class="at">type =</span> <span class="st">"bar"</span>, <span class="at">linewidth =</span> <span class="fl">0.6</span>, <span class="at">point =</span> <span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"mean"</span>, <span class="at">variable =</span> <span class="st">"cigarrets"</span>, <span class="at">color =</span> <span class="st">"darkred"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_statline</span>(<span class="st">"trend"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_casenames</span>(<span class="at">position =</span> <span class="st">"strip"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1549,13 +1539,14 @@ The add_statline function call:
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -10,7 +10,7 @@ Sometimes it is necessary to combine single-cases with different phase-designs i
 
 ### Piping
 
-The concept of piping is great for writing clean and intelligible code that is easier to debug. We imported the pipe function `%>%` from the `magrittr` package. Since version 4.1, R has its own pipe operator implementation `|>`. This is great and works fine with the `scan` package. But since the `|>` Operator is not backwards compatible for R prior versions 4.1, we will stick with the `%>%` for a while.
+The concept of piping is great for writing clean and intelligible code that is easier to debug. We imported the pipe function `%>%` from the `magrittr` package. Since version 4.1, R has its own pipe operator implementation `|>`. This is great and works fine with the `scan` package. But since the `|>` Operator is not backwards compatible for R prior versions 4.1, we will import `%>%` into the scan package for a while.
 
 To allow for smooth "piping" we began adding some functions `select_phases`, `subset`, `select_cases`, `set_var`, `set_dvar`, `set_mvar`, `set_pvar`, and `add_l2`.
 
@@ -27,25 +27,25 @@ With version 0.50 scan introduced new names for its functions. The old function 
 #| echo: false
 #| label: tbl-aliases
 
-out <- tribble(
-  ~"Current function name", ~"Previous function name",
-  "autocorr", "autocorrSC",
-  "corrected_tau", "corrected_tauSC",
-  "describe [since v0.52]", "describeSC",
-  "fill_missing", "fillmissingSC",
-  "outlier", "outlierSC",
-  "overlap", "overlapSC",
-  "power_test", "power_testSC",
-  "rand_test", "randSC; rand.test",
-  "ranks", "rankSC",
-  "rci", "rCi; rciSC",
-  "shift", "shiftSC",
-  "smooth_cases", "smoothSC",
-  "style_plot", "style.plotSC; style_plotSC",
-  "tau_u", "tauUSC",
-  "trend", "trendSC",
-  "truncate_phase", "truncateSC"
-)
+out <- row_df("
+Current function name  | Previous function name    
+autocorr               | autocorrSC                
+corrected_tau          | corrected_tauSC           
+describe [since v0.52] | describeSC                
+fill_missing           | fillmissingSC             
+outlier                | outlierSC                 
+overlap                | overlapSC                 
+power_test             | power_testSC              
+rand_test              | randSC; rand.test         
+ranks                  | rankSC                    
+rci                    | rCi; rciSC                
+shift                  | shiftSC                   
+smooth_cases           | smoothSC                  
+style_plot             | style.plotSC; style_plotSC
+tau_u                  | tauUSC                    
+trend                  | trendSC                   
+truncate_phase         | truncateSC                
+")
 
 print_table(out)
 

@@ -34,21 +34,21 @@ plot(
 #| echo: false
 #| label: tbl-plot-arguments
 
-out <- tribble(
-  ~`Argument`, ~`What it does ...`,
-  "data", "A single-case data frame.",
-  "ylim","Lower and upper limits of the y-axis",
-  "xlim","Lower and upper limits of the x-axis.",
-  "style","A specific design for displaying the plot.",
-  "lines","A character or list defining one or more lines or curves to be plotted.",
-  "marks","A list of parameters defining markings of certain data points.",
-  "main","A figure title",
-  "phase.names","By default phases are labeled as given in the phase variable. Use this argument to specify different labels: `phase.names = c('Baseline', 'Intervention')`.",
-  "case.names", "Case names. If not provided, names are taken from the scdf or left blank if the scdf does not contain case names.",
-  "xlab","The label of the x-axis. The default is taken from the name of the measurement variable as provided by the scdf.",
-  "ylab","The labels of the y-axis. The default is taken from the name of the dependent variable as provided by the scdf.",
-  "xinc", "An integer. Increment of the x-axis. 1 : each mt value will be printed, 2 : every other value, 3 : every third values etc."
-)
+out <- row_df("
+Argument    | What it does ...                                            
+data        | A single-case data frame.                                     
+ylim        | Lower and upper limits of the y-axis                            
+xlim        | Lower and upper limits of the x-axis.                           
+style       | A specific design for displaying the plot.                      
+lines       | A character or list defining one or more lines or curves to be plotted.
+marks       | A list of parameters defining markings of certain data points.  
+main        | A figure title                                                  
+phase.names | By default phases are labeled as given in the phase variable. Use this argument to specify different labels: `phase.names = c('Baseline', 'Intervention')`.
+case.names  | Case names. If not provided, names are taken from the scdf or left blank if the scdf does not contain case names.                                          
+xlab        | The label of the x-axis. The default is taken from the name of the measurement variable as provided by the scdf.                                           
+ylab        | The labels of the y-axis. The default is taken from the name of the dependent variable as provided by the scdf.                                            
+xinc        | An integer. Increment of the x-axis. 1 : each mt value will be printed, 2 : every other value, 3 : every third values etc.                                 
+")
 
 print_table(out)
 ```
@@ -62,22 +62,23 @@ Extra lines can be added to the plot using the `lines` argument. The lines argum
 #| echo: false
 #| label: tbl-lines-arguments
 
-out <- tribble(
-  ~`Argument`, ~`What it does ...`,
-  "median","separate lines for the medians of each phase",
-  "mean","separate lines for the means of each phase. By default it is 10%-trimmed. Other trims can be set using a second parameter (e.g., `lines = list(type = 'mean', trim = 0.2)` draws a 20%-trimmed mean line).",
-  "trend","Separate lines for the trend of each phase.",
-  "trendA","Trend line for phase A, extrapolated throughout the other phases",
-  "maxA","Line at the level of the highest phase A score.",
-  "minA", "Line at the level of the lowest phase A score.",
-  "medianA","Line at the phase A median score.",
-  "meanA","Line at the phase A 10%-trimmed mean score. Apply a different trim, by using the additional argument (e.g., `lines = list(type = 'meanA', trim = 0.2)`).",
-  "movingMean","Draws a moving mean curve, with a specified lag: `lines = list(type = 'movingMean', lag = 2)`. Default is a lag 1 curve.",
-  "movingMedian","Draws a moving median curve, with a specified lag: `lines = list(type = 'movingMedian', lag = 3).` Default is a lag 1 curve.",
-  "loreg","Draws a non-parametric local regression line. The proportion of data influencing each data point can be specified using `lines = list(type = 'loreg', f = 0.66)`. The default is 0.5.",
-  "lty","Line type. Examples are: 'solid','dashed', 'dotted'.",
-  "lwd","Line thickness, e.g., `lwd = 4`.",
-  "col","Line colour, e.g., `col = 'red'`.")
+out <- row_df("
+Argument     | What it does ...           
+median       | separate lines for the medians of each phase        
+mean         | separate lines for the means of each phase. By default it is 10%-trimmed. Other trims can be set using a second parameter (e.g., `lines = list(type = 'mean', trim = 0.2)` draws a 20%-trimmed mean line).
+trend        | Separate lines for the trend of each phase.               
+trendA       | Trend line for phase A, extrapolated throughout the other phases   
+maxA         | Line at the level of the highest phase A score.   
+minA         | Line at the level of the lowest phase A score. 
+medianA      | Line at the phase A median score.    
+meanA        | Line at the phase A 10%-trimmed mean score. Apply a different trim, by using the additional argument (e.g., `lines = list(type = 'meanA', trim = 0.2)`). 
+movingMean   | Draws a moving mean curve, with a specified lag: `lines = list(type = 'movingMean', lag = 2)`. Default is a lag 1 curve.                      
+movingMedian | Draws a moving median curve, with a specified lag: `lines = list(type = 'movingMedian', lag = 3).` Default is a lag 1 curve.             
+loreg        | Draws a non-parametric local regression line. The proportion of data influencing each data point can be specified using `lines = list(type = 'loreg', f = 0.66)`. The default is 0.5.                     
+lty          | Line type. Examples are: 'solid','dashed', 'dotted'.  
+lwd          | Line thickness, e.g., `lwd = 4`.             
+col          | Line colour, e.g., `col = 'red'`.       
+")
 
 print_table(out)
 
@@ -124,24 +125,24 @@ To define a new style, first create a list containing a plain design. The `style
 #| echo: false
 #| label: tbl-style
 
-out <- tribble(
-  ~`Argument`, ~`What it does ...`,
-  "fill", "If TRUE area under the line is filled.", 
-  "col.fill", "Sets the color of the area under the line.",
-  "grid", "If TRUE a grid is included.",
-  "col.grid", "Sets the color of the grid.",
-  "lty.grid", "Sets the line type of the grid.",
-  "lwd.grid", "Sets the line thikness of the grid.",
-  "fill.bg", "If not NA the backgorund of the plot is filled with the given color. If multiple colours are provided, the colours change with phases (e.g., `fill.bg = c('aliceblue', 'mistyrose1', 'honeydew')`",
-  "annotations", "A list of parameters defining annotations to each data point. This adds the score of each MT to your plot. `'pos'` Position of the annotations: 1 = below, 2 = left, 3 = above, 4 = right. `'col'` Color of the annotations. `'cex'` Size of the annotations. `'round'` rounds the values to the specified decimal. `annotations = list(pos = 3, col = 'brown', round = 1)` adds scores rounded to one decimal above the data point in brown color to the plot.",
-  "text.ABlag","By default a vertical line separates phases A and B in the plot. Alternatively, you could print a character string between the two phases using this argument: `text.ABlag = 'Start'`.",
-  "lwd", "Width of the plot line. Default is `lwd = 2`.",
-  "pch",  "Point type. Default is `pch = 17` (triangles). Other options are for example: 16 (filled circles) or 'A' (uses the letter A).",
-  "col.lines",  "The color of the lines. If set to an empty string no lines are drawn.",
-  "col.dots",  "The color of the dots. If set to an empty string no dots are drawn.",
-  "mai", "Sets the margins of the plot.",
-  "...", "Further arguments passed to the plot command."
-)
+out <- row_df("
+Argument    | What it does ...
+fill        | If TRUE area under the line is filled.
+col.fill    | Sets the color of the area under the line.
+grid        | If TRUE a grid is included.
+col.grid    | Sets the color of the grid.
+lty.grid    | Sets the line type of the grid.
+lwd.grid    | Sets the line thikness of the grid.
+fill.bg     | If not NA the backgorund of the plot is filled with the given color. If multiple colours are provided, the colours change with phases (e.g., `fill.bg = c('aliceblue', 'mistyrose1', 'honeydew')`
+annotations | A list of parameters defining annotations to each data point. This adds the score of each MT to your plot. `'pos'` Position of the annotations: 1 = below, 2 = left, 3 = above, 4 = right. `'col'` Color of the annotations. `'cex'` Size of the annotations. `'round'` rounds the values to the specified decimal. `annotations = list(pos = 3, col = 'brown', round = 1)` adds scores rounded to one decimal above the data point in brown color to the plot.
+text.ABlag  | By default a vertical line separates phases A and B in the plot. Alternatively, you could print a character string between the two phases using this argument: `text.ABlag = 'Start'`.
+lwd         | Width of the plot line. Default is `lwd = 2`.
+pch         | Point type. Default is `pch = 17` (triangles). Other options are for example: 16 (filled circles) or 'A' (uses the letter A).
+col.lines   | The color of the lines. If set to an empty string no lines are drawn.
+col.dots    | The color of the dots. If set to an empty string no dots are drawn.
+mai         | Sets the margins of the plot.
+...         | Further arguments passed to the plot command.
+")
 
 print_table(out)
 ```
@@ -214,5 +215,5 @@ Here is the syntax for the upcoming `scplot()` function (see @sec-scplot):
 
 ```{r fig.width=5, fig.height=5}
 
-scplot(new_study) %>% add_ridge()
+scplot(new_study) |> add_ridge()
 ```

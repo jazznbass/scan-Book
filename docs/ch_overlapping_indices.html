@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -89,14 +89,15 @@ div.csl-indent {
 <link href="./ch_describe.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-66a9e47bf13faa10686a838cfc5a4f89.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-4b670b43c39165ebd99c74de5d376732.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -139,7 +140,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -182,7 +183,8 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./cover.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./cover.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./cover.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Analyzing Single-Case Data with R and scan</a> 
@@ -466,7 +468,7 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The overlap function call:
+<span class="screen-reader-only">Tip</span>The overlap function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -475,7 +477,7 @@ The overlap function call:
 </div>
 <p><code>overlap</code> provides a table with some of the most important overlap indices for each case of an <em>scdf</em>. For calculating overlap indicators it is important to know if a decrease or an increase of values is expected between phases. By default <code>overlap</code> assumes an increase in values. If the argument <code>decreasing = TRUE</code> is set, calculation will be based on the assumption of decreasing values.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">overlap</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">overlap</span>(exampleAB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Overlap Indices
 
@@ -494,7 +496,7 @@ Tau_U(A)        0.59     0.55  0.62
 Tau_U(BA)       0.77     0.78  0.64
 Base_Tau        0.63     0.59  0.61
 Diff_mean      19.53    21.67 20.47
-Diff_trend      1.53     0.54  2.50
+Diff_trend      1.52     0.54  2.50
 SMD             8.11     3.17  6.71
 Hedges_g        2.35     2.26  2.87</code></pre>
 </div>
@@ -508,7 +510,7 @@ Hedges_g        2.35     2.26  2.87</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The select_phases function call:
+<span class="screen-reader-only">Tip</span>The select_phases function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -517,14 +519,14 @@ The select_phases function call:
 </div>
 <p>The <code>select_phases()</code> function is needed if you like to compare specific phases or even like to combine several phases. <code>select_phases()</code> is designed to work within a pipe structure. So the first argument is an <em>scdf</em> and it returns an <em>scdf</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scdf <span class="sc">|&gt;</span> <span class="fu">select_phases</span>(<span class="at">A =</span> <span class="dv">1</span>, <span class="at">B =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scdf <span class="sc">|&gt;</span> <span class="fu">select_phases</span>(<span class="at">A =</span> <span class="dv">1</span>, <span class="at">B =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><code>select_phases()</code> has the arguments <code>A</code> and <code>B</code>. Each argument takes a vector with the names or the numbers of the phases to be selected. If you want to compare the first to the third phase you can set <code>select_phases(scdf, 1,3)</code>. If the phases of your case are named ‘A’, ‘B’, and ‘C’ you could alternatively set <code>select_phases(scdf, "A","C")</code>. It is also possible to compare a combination of several cases against a combination of other phases. Each of the two list-elements could contain more than one phase which are concatenated with the <code>c</code> command. For example if you have an ABAB-Design and like to compare the two A-phases against the two B-phases <code>select_phases(scdf, c(1,3), c(2,4) )</code> will do the trick.</p>
 <p>(As an alternative approach you can set the <code>phases</code> argument within the <code>overlap()</code> function. This argument takes a list with two elements where the first element defines the phases for the A-phase and the second argument the phases for the B-phase.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>exampleA1B1A2B2 <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>exampleA1B1A2B2 <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_phases</span>(<span class="fu">c</span>(<span class="st">"A1"</span>,<span class="st">"A2"</span>), <span class="fu">c</span>(<span class="st">"B1"</span>,<span class="st">"B2"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">overlap</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">overlap</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Overlap Indices
 
@@ -547,8 +549,8 @@ Diff_trend       -0.05      0.00     -0.54
 SMD               2.68      3.27      3.62
 Hedges_g          2.07      2.72      2.98</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># overlap(exampleA1B1A2B2, phases = list( c("A1","A2"), c("B1","B2")))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># overlap(exampleA1B1A2B2, phases = list( c("A1","A2"), c("B1","B2")))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -560,7 +562,7 @@ Hedges_g          2.07      2.72      2.98</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The pnd function call:
+<span class="screen-reader-only">Tip</span>The pnd function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -580,7 +582,7 @@ The pnd function call:
 </div>
 <p>The function <code>pnd</code> provides the PND for each case as well as the mean of all PNDs of that <em>scdf</em>. When you expect decreasing values set <code>decreasing = TRUE</code>. When there are more than two phases or phases are not named A and B, use the <code>phases</code> argument as described at the beginning of this chapter.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnd</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnd</span>(exampleAB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Percent Non-Overlapping Data
 
@@ -601,7 +603,7 @@ Mean  : 93.33 %</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The pem function call:
+<span class="screen-reader-only">Tip</span>The pem function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -630,7 +632,7 @@ The pem function call:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pem</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pem</span>(exampleAB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Percent Exceeding the Median
 
@@ -651,7 +653,7 @@ Alternative hypothesis: true probability &gt; 50%</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The pet function call:
+<span class="screen-reader-only">Tip</span>The pet function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -660,7 +662,7 @@ The pet function call:
 </div>
 <p>The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent (default) confidence interval of the predicted progress is computed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pet</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pet</span>(exampleAB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Percent Exceeding the Trend
 
@@ -692,7 +694,7 @@ PET CI: Percent of values greater than upper 95% confidence threshold (single si
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The pand function call:
+<span class="screen-reader-only">Tip</span>The pand function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -706,7 +708,7 @@ The pand function call:
 <p>This formulation provides accurate results for PAND, but the original definition has the drawback of an unknown distribution under the null hypothesis, making a statistical test difficult.</p>
 <p>The <code>pand()</code> function enables the calculation of PAND using both methods. The first approach (<code>method = "sort"</code>) follows the algorithm described above, with the exclusion of randomization before sorting to avoid ambiguity. It calculates a phi measure and provides the results of a chi-squared test and a Fisher exact test. The second approach (<code>method = "minimum"</code>) applies the aforementioned formula. For a multiple case design, overlaps are calculated for each case, summed, and then divided by the total number of measurements. No statistical test is conducted for this method.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pand</span>(Parker2007)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pand</span>(Parker2007)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Percentage of all non-overlapping data
 
@@ -739,7 +741,7 @@ Odds ratio = 29.007, p = 0.000 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pand</span>(Parker2007, <span class="at">method =</span> <span class="st">"minimum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pand</span>(Parker2007, <span class="at">method =</span> <span class="st">"minimum"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Percentage of all non-overlapping data
 
@@ -760,7 +762,7 @@ Overlapping data: n = 4 ; percentage = 14.3 </code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The nap function call:
+<span class="screen-reader-only">Tip</span>The nap function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -769,7 +771,7 @@ The nap function call:
 </div>
 <p>The <code>nap</code> function calculates the nonoverlap of all pairs <span class="citation" data-cites="parker_improved_2009">(<a href="references.html#ref-parker_improved_2009" role="doc-biblioref">Richard I. Parker &amp; Vannest, 2009</a>)</span>. NAP summarizes the overlap between all pairs of phase A and phase B data points. Therefore, every single measurement of phase A is compared to all measurements in phase B, resuting in <span class="math inline">\(n_{Phase A} \times n_{Phase B}\)</span> pairs. If an increase in phase B values is expected, a non-overlapping pair will have a higher phase B data point. The NAP is equal to the number of pairs showing no overlap / number of pairs. Since NAP has values between 0 and 100% where 50% is no effect, a rescaled NAP (ranging between -100 and 100%, where 0% is no effect) has been proposed. NAP is equivalent to the U-test and the Wilcoxon rank sum test. Therefore, a Wilcoxon signed rank sum test is conducted and reported for each case. Additionally, effect sizes d and R-squared are reported according to Parker and colleagues.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nap</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nap</span>(exampleAB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Nonoverlap of All Pairs
 
@@ -788,7 +790,7 @@ The nap function call:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The ird function call:
+<span class="screen-reader-only">Tip</span>The ird function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -797,7 +799,7 @@ The ird function call:
 </div>
 <p>The adaptation of the improvement rate difference for single-case phase comparisons was developed by <span class="citation" data-cites="parker2009">Richard I. Parker, Vannest, &amp; Brown (<a href="references.html#ref-parker2009" role="doc-biblioref">2009</a>)</span>. A variation called robust improvement rate difference was proposed by <span class="citation" data-cites="parker_effect_2011">Richard I. Parker et al. (<a href="references.html#ref-parker_effect_2011" role="doc-biblioref">2011a</a>)</span>. The <code>ird()</code> function calculates the robust improvement rate difference. It follows the formula suggested by <span class="citation" data-cites="pustejovsky2019">Pustejovsky (<a href="references.html#ref-pustejovsky2019" role="doc-biblioref">2019</a>)</span>. For a multiple case design, IRD is based on the overall improvement rate of all cases which is the average of the IRDs for each case.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ird</span>(exampleAB)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ird</span>(exampleAB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Improvement rate difference = 0.867</code></pre>
 </div>
@@ -811,7 +813,7 @@ The ird function call:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The tau_u function call:
+<span class="screen-reader-only">Tip</span>The tau_u function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -839,7 +841,7 @@ The tau_u function call:
 <p><br>
 Here is an example with setting that reconstruct the values from the original example in <span class="citation" data-cites="parker2011">Richard I. Parker, Vannest, Davis, &amp; Sauber (<a href="references.html#ref-parker2011" role="doc-biblioref">2011c</a>)</span> :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(Parker2011, <span class="at">method =</span> <span class="st">"parker"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(Parker2011, <span class="at">method =</span> <span class="st">"parker"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: parker 
@@ -857,7 +859,7 @@ A vs. B + Trend B - Trend A 0.56    -0.17     0.89 9.35 2.14 &lt;.05</code></pre
 </div>
 <p>A different implementation of the method (provided at <a href="http://www.singlecaseresearch.org/calculators/tau-u">http://www.singlecaseresearch.org/calculators/tau-u)</a>) uses Kendall’s Tau B:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">method =</span> <span class="st">"parker"</span>, <span class="at">tau_method =</span> <span class="st">"b"</span>, <span class="at">continuity_correction =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">method =</span> <span class="st">"parker"</span>, <span class="at">tau_method =</span> <span class="st">"b"</span>, <span class="at">continuity_correction =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: parker 
@@ -875,7 +877,7 @@ A vs. B + Trend B - Trend A 0.76     0.48     0.90 30.81 4.71 &lt;.001</code></p
 </div>
 <p>Another online calculator created by Rumen Manolov is available at <a href="https://manolov.shinyapps.io/Overlap/" class="uri">https://manolov.shinyapps.io/Overlap/</a>. It uses an R code developed by Kevin Tarlow to calculate Tau-U. This setting will replicate the results of this approach:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">method =</span> <span class="st">"tarlow"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">method =</span> <span class="st">"tarlow"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: tarlow 
@@ -893,7 +895,7 @@ A vs. B + Trend B - Trend A 0.76     0.48     0.90 30.81 4.67 &lt;.001</code></p
 </div>
 <p>The standard return of the <code>tau_u</code> function does not display all calculations. If you like to have more details, apply the <code>print</code> function with the additional argument <code>complete = TRUE</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">complete =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB<span class="sc">$</span>Johanna) <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">complete =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: complete 
@@ -941,7 +943,7 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Calculating a Tau-U meta analysis
+<span class="screen-reader-only">Note</span>Calculating a Tau-U meta analysis
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -977,7 +979,7 @@ Note
 </div>
 <p>By default, 95% confidence intervals are calculated for each tau value. You can specify a different interval with the <code>ci</code> argument (<code>ci = 0.90</code> will calculate a 90% interval). There are three alternative methods for calculating the confidence intervals. When <code>ci_method = "z"</code> is set (the default), a general formula for calculating the standard-error of Fisher-Z values is used <span class="citation" data-cites="hotelling1953">(<a href="references.html#ref-hotelling1953" role="doc-biblioref">Hotelling, 1953</a>)</span>. If <code>ci_method = "tau",</code> a specific formula for Fisher-Z transformed tau values is applied <span class="citation" data-cites="fieller1957">(<a href="references.html#ref-fieller1957" role="doc-biblioref">Fieller et al., 1957</a>)</span>. Both approaches give similar results. A third approach is derived from the standard deviation of the S statistic<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. For this method, set <code>ci_method = "s"</code>. The S method can give implausible values less than -1 or greater than 1. I recommend using the general “z” method or the accurate “tau” method.å</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB, <span class="at">ci =</span> <span class="fl">0.90</span>, <span class="at">ci_method =</span> <span class="st">"tau"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tau_u</span>(exampleAB, <span class="at">ci =</span> <span class="fl">0.90</span>, <span class="at">ci_method =</span> <span class="st">"tau"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Tau-U
 Method: complete 
@@ -1027,7 +1029,7 @@ A vs. B + Trend B - Trend A 0.64     0.45     0.78 30.71 3.91 &lt;.001</code></p
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The corrected_tau function call:
+<span class="screen-reader-only">Tip</span>The corrected_tau function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1056,12 +1058,12 @@ The corrected_tau function call:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>case <span class="ot">&lt;-</span> <span class="fu">scdf</span>(</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="at">A =</span> <span class="dv">33</span>, <span class="dv">25</span>, <span class="dv">17</span>, <span class="dv">25</span>, <span class="dv">14</span>, <span class="dv">13</span>,<span class="dv">14</span>, </span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">B =</span> <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">5</span> ,<span class="dv">4</span> ,<span class="dv">2</span> ,<span class="dv">2</span> ,<span class="dv">8</span>, <span class="dv">11</span> ,<span class="dv">7</span>)</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrected_tau</span>(case)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrected_tau</span>(case)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Baseline corrected tau
 
@@ -1087,7 +1089,7 @@ Baseline correction should be applied.</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The smd function call:
+<span class="screen-reader-only">Tip</span>The smd function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1096,7 +1098,7 @@ The smd function call:
 </div>
 <p>Standardized mean differences between two phases within a single-case can be calculated in various ways. They refer to the difference in the means of two phases divided by a (within case) standard deviation. The <code>smd</code> function provides an overview of the most common parameters for each single-case:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">smd</span>(exampleAB_score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">smd</span>(exampleAB_score)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Standardized mean differences
 
@@ -1124,7 +1126,7 @@ Cohen's d                         6.98   7.67   7.10</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The between_smd function call:
+<span class="screen-reader-only">Tip</span>The between_smd function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1144,7 +1146,7 @@ The between_smd function call:
 </ul>
 <p>This basic procedure and some extensions to it are provided with the <code>between_smd()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">between_smd</span>(Leidig2018)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">between_smd</span>(Leidig2018)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Between-Case Standardized Mean Difference
 
@@ -1163,7 +1165,7 @@ Full plm model
 <p>The <em>Base</em> model provides the <em>BC-SMD</em> as originally proposed. The <em>Full plm</em> model adds trend and slope effects to the regression model for a more precise estimation.</p>
 <p>By setting the argument <code>include_residuals = FALSE</code>, the residuals are not counted towards the between case standard deviation. This leads two are more precise estimation of the standard deviations based on the between case variance but at the cost that the <em>BC-SMD</em> is conceptually less accurately reflecting Cohen’s <em>d</em>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">between_smd</span>(Leidig2018, <span class="at">include_residuals =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">between_smd</span>(Leidig2018, <span class="at">include_residuals =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Between-Case Standardized Mean Difference
 
@@ -1182,7 +1184,7 @@ Full plm model
 <p>The <code>method</code> argument allows to define whether the analyses is based on a REML Estimation (<code>method = "REML"</code>) or a bayesian (<code>method = "MCMCglmm"</code>) regression model.</p>
 <p>It is also possible to first calculate a <em>hierarchichal piecewise regression model</em> (hplm, see <a href="ch_multilevel_plm.html" class="quarto-xref"><span>Chapter 11</span></a>) and then base the <em>BC-SMD</em> calculation on that model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(Leidig2018, <span class="at">slope =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> <span class="fu">between_smd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hplm</span>(Leidig2018, <span class="at">slope =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> <span class="fu">between_smd</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Between-Case Standardized Mean Difference
 
@@ -1202,7 +1204,7 @@ Provided
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The rci function call:
+<span class="screen-reader-only">Tip</span>The rci function call:
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1212,7 +1214,7 @@ The rci function call:
 <p>Basically, the reliable change index (rci) shows whether a post-test is above a pre-test value. Based on the reliability of the measurements and the standard deviation, the standard error is calculated. The mean difference between phase A and phase B is divided by the standard error. Several authors have proposed refined methods for calculating the rci.</p>
 <p>The <code>rci</code> function calculates two indices of reliable change <span class="citation" data-cites="wise_methods_2004">(<a href="references.html#ref-wise_methods_2004" role="doc-biblioref">Wise, 2004</a>)</span> and corresponding descriptive statistics.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rci</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">rel =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rci</span>(exampleAB<span class="sc">$</span>Johanna, <span class="at">rel =</span> <span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reliable Change Index
 
@@ -1355,13 +1357,14 @@ Wise, E. A. (2004). Methods for analyzing psychotherapy outcomes: <span>A</span>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

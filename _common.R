@@ -1,6 +1,6 @@
 
 
-pkg <- c("scan", "scplot", "tibble")
+pkg <- c("scan", "scplot")
 
 suppressPackageStartupMessages(
   lapply(pkg, 
@@ -23,6 +23,21 @@ knitr::write_bib(c(
 ), 'packages.bib')
 
 # helper functions --------
+
+row_df <- function(x, sep = "|") {
+  x <- trimws(x)
+  read.table(
+    text = x,
+    sep = sep,
+    header = TRUE,
+    quote = "",
+    stringsAsFactors = FALSE,
+    fill = TRUE,
+    strip.white = TRUE,
+    comment.char = "",
+    check.names = FALSE
+  )
+}
 
 print_table <- function(data, caption = NULL, width_cols = c("15em", "30em"), ...) {
   

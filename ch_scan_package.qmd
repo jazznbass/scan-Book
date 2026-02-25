@@ -30,13 +30,21 @@ Alternatively, you can compile the development version of *scan* yourself. This 
 
 You may need some computer knowledge to get the development version running. It is hosted on gitHub at [\<https://github.com/jazznbass/scan\>](https://github.com/jazznbass/scan){.uri}.
 
-For installation, you can apply the `install_github` function from the `devtools` package (make sure you have installed the `devtools` package before):
+For installing this version directly from within R, you can apply the `pak` function from the `pak` package[^ch_scan_package-1] with
 
-`devtools::install_github("jazznbass/scan", dependencies = TRUE)`
+[^ch_scan_package-1]:  Make sure you have installed the `pak` package before with `install.packages("pak")`.
 
-If you are using a Windows operating system, you will probably need to install Rtools first. Rtools contains additional programs (e.g. compilers) needed to compile R source packages.
+`pak::pak("jazznbass/scan")`
 
-You can find Rtools here: [\<https://cran.r-project.org/bin/windows/Rtools/\>](https://cran.r-project.org/bin/windows/Rtools/){.uri}
+::: callout-caution
+## Rtools for Windows
+
+When installing `scan` from GitHub, packages are installed from source. `scan` itself does not contain compiled code, so it does not require Rtools. However, some *dependencies* may need compilation on Windows (e.g., when no suitable CRAN binary is available), and in that case Rtools is required.
+
+To minimize the chance of needing Rtools, prefer installing/updating packages from CRAN binaries (answer “no” when asked to install “source packages” or “compile from source”, unless you know you need the newer source version).
+
+If installation fails with messages about missing compilers/build tools, install Rtools for your R version: <https://cran.r-project.org/bin/windows/Rtools/>
+:::
 
 ## Reporting issues with *scan* and suggesting enhancements
 
@@ -59,21 +67,20 @@ The following tables give an overview of the central functions. Furthermore, you
 #| tbl-cap: Functions for data management
 #| results: asis
 
-out <- tribble(
-  ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
-  #
-  "scdf", "Creates a single-case data-frame", "Stable", "@sec-scdf",
-  "select_cases", "Selects specific cases of an scdf", "Stable", "@sec-select-cases",
-  "select_phases", "Selects and/or recombines phases", "Stable", "@sec-select-phases",
-  "subset", "Selects specific measurements or variables of an scdf", "stable", "@sec-subset",
-  "read_scdf", "Loads external data into an scdf", "Stable", "@sec-read-scdf",
-  "write_scdf", "Writes scdf into an external file", "Stable", "@sec-write-scdf",
-  "convert", "Converts an scdf object into R syntax", "Stable", "@sec-convert",
-  "set_var", "(Re)sets dependent, measurement, and phase variable of an scdf", "Stable", "@sec-setvars",
-  "add_l2", "Adds level-two data to an scdf", "Stable", "@sec-add-l2",
-  "as_scdf", "Transforms a data.frame into an scdf", "Stable", "-",
-  "as.data.frame/as.data.frame.scdf", "Transforms an scdf into a data frame", "Stable", "-"
-)
+out <- row_df("
+Function                         | What it does ...                                               | Lifecycle stage | Chapter           
+scdf                             | Creates a single-case data-frame                               | Stable          | @sec-scdf         
+select_cases                     | Selects specific cases of an scdf                              | Stable          | @sec-select-cases 
+select_phases                    | Selects and/or recombines phases                               | Stable          | @sec-select-phases
+subset                           | Selects specific measurements or variables of an scdf          | stable          | @sec-subset       
+read_scdf                        | Loads external data into an scdf                               | Stable          | @sec-read-scdf    
+write_scdf                       | Writes scdf into an external file                              | Stable          | @sec-write-scdf   
+convert                          | Converts an scdf object into R syntax                          | Stable          | @sec-convert      
+set_var                          | (Re)sets dependent, measurement, and phase variable of an scdf | Stable          | @sec-setvars      
+add_l2                           | Adds level-two data to an scdf                                 | Stable          | @sec-add-l2       
+as_scdf                          | Transforms a data.frame into an scdf                           | Stable          | -                 
+as.data.frame/as.data.frame.scdf | Transforms an scdf into a data frame                           | Stable          | -                 
+")
 
 print_table_simple(out)
 
@@ -87,17 +94,16 @@ print_table_simple(out)
 #| label: tbl-functions-depiction
 #| tbl-cap: Functions for data depiction/visualisation
 
-out <- tribble(
-  ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
-  #
-  "scplot", "Add-on package `scplot`. Creates advanced ggplot2 plots", "Stable", "@sec-scplot",
-  "print/print.scdf", "Prints an scdf", "Stable", "@sec-print",
-  "summary/summary.scdf", "Summaizes an scdf", "Stable", "@sec-summary",
-  "export", "Creates html or latex tables from the output of various scan functions", "Stable", "@sec-export",
-  "plot/plot.scdf", "Creates plots of single cases", "Superseded", "-",
-  "style_plot", "Defines single-case plot graphical styles", "Superseded", "-",
-  "plot_rand", "Create a distribution plot from a randomization test obejct", "Superseded", "-",
-)
+out <- row_df("
+Function             | What it does ...                                                       | Lifecycle stage | Chapter     
+scplot               | Add-on package `scplot`. Creates advanced ggplot2 plots                | Stable          | @sec-scplot 
+print/print.scdf     | Prints an scdf                                                         | Stable          | @sec-print  
+summary/summary.scdf | Summaizes an scdf                                                      | Stable          | @sec-summary
+export               | Creates html or latex tables from the output of various scan functions | Stable          | @sec-export 
+plot/plot.scdf       | Creates plots of single cases                                          | Superseded      | -           
+style_plot           | Defines single-case plot graphical styles                              | Superseded      | -           
+plot_rand            | Create a distribution plot from a randomization test obejct            | Superseded      | -           
+")
 
 print_table_simple(out)
 
@@ -110,33 +116,32 @@ print_table_simple(out)
 #| label: tbl-functions-analysis
 #| tbl-cap: Functions for data analysis
 
-out <- tribble(
-  ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
-  #
-  "autocorr", "Autocorrelations for each phase of each case", "Stable", "@sec-autocorr",
-  "describe", "Descriptive statistics for each phase of each case", "Stable", "@sec-describe",
-  "ird", "Improvement rate difference", "Stable", "@sec-ird",
-  "overlap", "An overview of overlap indeces for each case", "Stable", "@sec-overlap",
-  "smd", "Various standardized mean differences between phase A and B", "Stable", "@sec-smd",
-  "rci", "Reliable change index", "Stable", "@sec-rci",
-  "rand_test", "Randomization test", "Stable", "@sec-rand",
-  "trend", "Trend analyses for each case", "Stable", "@sec-trend",
-  "plm", "Piecewise linear regression model", "Stable", "@sec-plm",
-  "mplm", "Multivariate piecewise linear regression model",  "Experimental", "@sec-mplm",
-  "hplm", "Hierarchical piecewise linear regression model",  "Stable", "@sec-hplm",
-  "bplm", "Bayesian (multilevel) piecewise linear regression model",  "Experimental", "@sec-bplm",
-  "between_smd", "Between case standardized mean difference", "Stable", "@sec-bcsmd",
-  "anova", "Modelcomparison via likelihood ratio test for plm and hplm", "Stable", "@sec-anova",
-  "tau_u", "Tau-U for each case and all cases", "Stable", "@sec-tauu",
-  "corrected_tau", "Baseline corrected tau", "Stable", "@sec-bctau",
-  "nap", "Non-overlap of all pairs for each case", "Stable", "@sec-nap",
-  "pnd", "Percentage of non overlapping data for each case",  "Stable", "@sec-pnd",
-  "pand", "Percentage of all non overlapping data for all cases",  "Stable", "@sec-pand",
-  "pem", "Percantage exceeding the mean for each case",  "Stable", "@sec-pem",
-  "pet", "Percentage exceeding the trend for each case",  "Stable", "@sec-pet",
-  "cdc", "Conservative dual-criterion test",  "Stable", "@sec-cdc",
-  "outlier", "Detect outliers for all cases", "Stable", "@sec-outlier"
-)
+out <- row_df("
+Function      | What it does ...                                            | Lifecycle stage | Chapter      
+autocorr      | Autocorrelations for each phase of each case                | Stable          | @sec-autocorr
+describe      | Descriptive statistics for each phase of each case          | Stable          | @sec-describe
+ird           | Improvement rate difference                                 | Stable          | @sec-ird     
+overlap       | An overview of overlap indeces for each case                | Stable          | @sec-overlap 
+smd           | Various standardized mean differences between phase A and B | Stable          | @sec-smd     
+rci           | Reliable change index                                       | Stable          | @sec-rci     
+rand_test     | Randomization test                                          | Stable          | @sec-rand    
+trend         | Trend analyses for each case                                | Stable          | @sec-trend   
+plm           | Piecewise linear regression model                           | Stable          | @sec-plm     
+mplm          | Multivariate piecewise linear regression model              | Experimental    | @sec-mplm    
+hplm          | Hierarchical piecewise linear regression model              | Stable          | @sec-hplm    
+bplm          | Bayesian (multilevel) piecewise linear regression model     | Experimental    | @sec-bplm    
+between_smd   | Between case standardized mean difference                   | Stable          | @sec-bcsmd   
+anova         | Modelcomparison via likelihood ratio test for plm and hplm  | Stable          | @sec-anova   
+tau_u         | Tau-U for each case and all cases                           | Stable          | @sec-tauu    
+corrected_tau | Baseline corrected tau                                      | Stable          | @sec-bctau   
+nap           | Non-overlap of all pairs for each case                      | Stable          | @sec-nap     
+pnd           | Percentage of non overlapping data for each case            | Stable          | @sec-pnd     
+pand          | Percentage of all non overlapping data for all cases        | Stable          | @sec-pand    
+pem           | Percantage exceeding the mean for each case                 | Stable          | @sec-pem     
+pet           | Percentage exceeding the trend for each case                | Stable          | @sec-pet     
+cdc           | Conservative dual-criterion test                            | Stable          | @sec-cdc     
+outlier       | Detect outliers for all cases                               | Stable          | @sec-outlier 
+")
 
 print_table_simple(out)
 
@@ -149,23 +154,22 @@ print_table_simple(out)
 #| label: tbl-functions-manipulation
 #| tbl-cap: Functions for data manipulation
 
-out <- tribble(
-  ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
-  #
-  "transform", "Calculate new and change existing variables", "Stable", "@sec-transform",
-  "all_cases", "Helper function for 'transform()' that executes an expression across all cases of an scdf", "Stable", "@sec-all-cases",
-  "across_cases", "Helper function for 'transform()' that calculates a variable for all cases of an scdf", "Stable", "-",
-  "rowwise", "Helper function for 'transform()' that calculates a variable rowwise", "Stable", "-",
-  "moving_mean", "Helper function for 'transform()' to smooth with moving means", "Stable", "@sec-smooth",
-  "moving_media", "Helper function for 'transform()' to smooth with moving medians", "Stable", "@sec-smooth",
-  "local_regression", "Helper function for 'transform()' to smooth with local regressions", "Stable", "@sec-smooth",
-  "fill_missing", "Interpolate missign values or missing measurement times", "Stable", "@sec-fill-missing",
-  "rescale", "Standardizes variables across cases", "Stable", "@sec-rescale",
-  "ranks", "Covert data into ranked data across all cases", "Superseded", "-",
-  "smooth_cases", "Smoothes time series data", "Superseded", "-",
-  "truncate_phase", "Deletes measurements of phases", "Superseded", "-",
-  "standardize", "Standardizes or centers variables across cases", "Superseded", "-"
-)
+out <- row_df("
+Function         | What it does ...                                                                          | Lifecycle stage | Chapter          
+transform        | Calculate new and change existing variables                                               | Stable          | @sec-transform   
+all_cases        | Helper function for 'transform()' that executes an expression across all cases of an scdf | Stable          | @sec-all-cases   
+across_cases     | Helper function for 'transform()' that calculates a variable for all cases of an scdf     | Stable          | -                
+rowwise          | Helper function for 'transform()' that calculates a variable rowwise                      | Stable          | -                
+moving_mean      | Helper function for 'transform()' to smooth with moving means                             | Stable          | @sec-smooth      
+moving_media     | Helper function for 'transform()' to smooth with moving medians                           | Stable          | @sec-smooth      
+local_regression | Helper function for 'transform()' to smooth with local regressions                        | Stable          | @sec-smooth      
+fill_missing     | Interpolate missign values or missing measurement times                                   | Stable          | @sec-fill-missing
+rescale          | Standardizes variables across cases                                                       | Stable          | @sec-rescale     
+ranks            | Covert data into ranked data across all cases                                             | Superseded      | -                
+smooth_cases     | Smoothes time series data                                                                 | Superseded      | -                
+truncate_phase   | Deletes measurements of phases                                                            | Superseded      | -                
+standardize      | Standardizes or centers variables across cases                                            | Superseded      | -                
+")
 
 print_table_simple(out)
 
@@ -178,15 +182,13 @@ print_table_simple(out)
 #| label: tbl-functions-simulation
 #| tbl-cap: Functions for data simulation
 
-out <- tribble(
-  ~"Function", ~"What it does ...", ~"Lifecycle stage", ~"Chapter",
-  #
-  "design", "Defines a design of one or multiple single-cases", "Stable", "-",
-  "power_test", "Calculates power and alpha error of a specific analyzes for a specific single-case design", "Stable", "@sec-power",
-  "random_scdf", "Creats random single-case studies from a single-case design", "Stable", "-",
-  "estimate_design", "Extraxt a deisgn template from an existing scdf", "Experimental", "-"
-  #,"mcscan", "Add-on package `mcscan`. Create Monte-Carlo designs and analyses with `scan`"
-)
+out <- row_df("
+Function        | What it does ...                                                                          | Lifecycle stage | Chapter   
+design          | Defines a design of one or multiple single-cases                                          | Stable          | -         
+power_test      | Calculates power and alpha error of a specific analyzes for a specific single-case design | Stable          | @sec-power
+random_scdf     | Creats random single-case studies from a single-case design                               | Stable          | -         
+estimate_design | Extraxt a deisgn template from an existing scdf                                           | Experimental    | -         
+")
 
 print_table_simple(out)
 
