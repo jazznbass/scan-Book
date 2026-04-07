@@ -395,7 +395,9 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setting-priors" id="toc-setting-priors" class="nav-link active" data-scroll-target="#setting-priors"><span class="header-section-number">13.1</span> Setting priors</a></li>
+  <li><a href="#a-one-case-analysis" id="toc-a-one-case-analysis" class="nav-link active" data-scroll-target="#a-one-case-analysis"><span class="header-section-number">13.1</span> A one case analysis</a></li>
+  <li><a href="#multiple-case-analysis" id="toc-multiple-case-analysis" class="nav-link" data-scroll-target="#multiple-case-analysis"><span class="header-section-number">13.2</span> Multiple case analysis</a></li>
+  <li><a href="#setting-priors" id="toc-setting-priors" class="nav-link" data-scroll-target="#setting-priors"><span class="header-section-number">13.3</span> Setting priors</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/jazznbass/scan-Book/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -470,31 +472,70 @@ window.Quarto = {
 )</p>
 </div>
 </div>
-<p>The <code>bplm()</code> function comuputes a piecewise regression analysis. The syntax is quite similar to the <code>plm()</code> and <code>hplm()</code> functions. There you can find details about the general piecewise regression model, the interpretation of regression estimations, and the setting of contrast in models with more that two phases.</p>
-<p>The <code>bplm()</code> works for datasets with one case or multiple cases.</p>
-<p>Her is an example of a one-case dataset:</p>
+<p>The <code>bplm()</code> function computes a piecewise regression analysis. The syntax is quite similar to the <code>plm()</code> and <code>hplm()</code> functions. There you can find details about the general piecewise regression model, the interpretation of regression estimations, and the setting of contrast in models with more that two phases.</p>
+<p><code>bplm()</code> works for single-case dataframes with one case or multiple cases.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>bplm()</code> uses the <a href="https://cran.r-project.org/web/packages/MCMCglmm/index.html">MCMCglmm</a> package and function to compute the models. Parameters can be directly passed to that function with the arguments that are provided with bplm(). E.g., <code>niter</code> for setting the number of iterations or <code>prior</code> to set the priors.</p>
+</div>
+</div>
+<section id="a-one-case-analysis" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="a-one-case-analysis"><span class="header-section-number">13.1</span> A one case analysis</h2>
+<p>Her is an example analyses of a one-case dataset:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(exampleAB<span class="sc">$</span>Johanna)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Bayesian Piecewise Linear Regression
 
 Contrast model: W (level: first, slope: first)
-Deviance Information Criterion: 127.2913 
+Deviance Information Criterion: 127.1139 
 
 B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                             B lower 95% CI upper 95% CI sample size     p
-Intercept              54.440       45.617       62.504    1000.000 0.001
-Trend (mt)              0.087       -3.905        3.146    1000.000 0.932
-Level phase B (phaseB)  8.054       -4.376       20.702     879.561 0.192
-Slope phase B (interB)  1.527       -2.113        4.872    1000.000 0.360
+Intercept              54.162       46.493       62.597     1000.00 0.001
+Trend (mt)              0.158       -2.973        3.593     1000.00 0.936
+Level phase B (phaseB)  7.793       -5.467       19.349      978.81 0.196
+Slope phase B (interB)  1.472       -2.026        4.688     1000.00 0.378
 
 R-Structure - Residuals
 
           SD lower 95% CI upper 95% CI 
-       5.404        3.583        7.249 </code></pre>
+       5.371        3.413        7.031 </code></pre>
 </div>
 </div>
+<p>In Bayesian terminology, the B-structure describes the fixed effects in a regression model and the R-structure the residuals of a model.</p>
+<p>Let us take a closer look at the B-structure. As in any regression model, the coefficients represent the expected effects of the predictors on the outcome variable. In the present model, the intercept reflects the expected level of the outcome at time point zero in Phase A. The <strong>trend</strong> coefficient represents the expected change in the outcome for each additional measurement point within Phase A. The <strong>level</strong> coefficient (level effect) represents the change when Phase B begins. The <strong>slope</strong> coefficient (slope effect) represents the change in slope in Phase B compared to Phase A. Thus, the Phase B slope is given by the sum of the coefficients for <strong>trend</strong> and <strong>slope</strong>.</p>
+<p>The CI values (here, CI stands for <em>credible interval</em>, not <em>confidence interval</em>) indicate how precisely the regression coefficients are estimated. The p value indicates how likely it is that the corresponding regression coefficient is on the opposite side of zero.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Methodological details
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We have to keep in mind that the Bayesian computational approach works somewhat differently from a linear mixed-effects regression estimated with maximum likelihood. The MCMC algorithm repeatedly generates new parameter values (i.e., iterations of parameter estimates) and evaluates how plausible these values are given the data and the prior assumptions. Over many iterations, this produces a sample from the posterior distribution of the model parameters. This <em>posterior sample</em> forms the basis for estimating the regression parameters and their uncertainty.</p>
+<p>For this analysis, the maximum number of iterations was set to 13,000 (<code>nitt = 13000</code>). The first 3,000 iterations are discarded (<code>burnin = 3000</code>), because during this initial phase the Markov chain moves from its starting values toward the posterior distribution. From the remaining 10,000 iterations, only every tenth draw is stored (<code>thin = 10</code>) in order to reduce autocorrelation between consecutive samples.</p>
+<p>The effective sample size (here the column <em>sample size</em>) indicates how many independent samples these draws correspond to after accounting for autocorrelation in the MCMC chain.</p>
+<p>The <em>B</em> column shows the mean of a parameter from the posterior sample. The <em>CI</em> columns show the credible interval, which contains the central 95% of the posterior distribution after excluding the lowest 2.5% and the highest 2.5% of the sampled values.</p>
+<p>The <em>p</em> column depicts two times the proportion of the posterior sample that are below zero (or for negative <em>B</em> values above zero). So the p-value is conceptually different from the probability statistics of a regression analysis that tests for the null-hypothesis. It is conceptually more similar to the p-value derived from a randomization test.</p>
+</div>
+</div>
+</section>
+<section id="multiple-case-analysis" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="multiple-case-analysis"><span class="header-section-number">13.2</span> Multiple case analysis</h2>
+<p>For multilevel designs (i.e., multiple cases) a G-structure is reported which describes the between case effects (similar to the random effects of a linear mixed effect model but without the residual effects).</p>
 <p>Here is an example of a multi-case dataset:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(exampleAB_50)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -504,29 +545,30 @@ R-Structure - Residuals
 Contrast model: W (level: first, slope: first)
 50 Cases
 
-Deviance Information Criterion: 8574.552 
+Deviance Information Criterion: 8574.766 
 
 B-structure - Fixed effects (values ~ 1 + mt + phaseB + interB)
 
                             B lower 95% CI upper 95% CI sample size     p
-Intercept              48.401       45.430       51.287    1171.895 0.001
-Trend (mt)              0.582        0.376        0.830     958.818 0.001
-Level phase B (phaseB) 14.023       12.882       15.329    1000.000 0.001
-Slope phase B (interB)  0.899        0.637        1.115     873.247 0.001
+Intercept              48.393       45.617       51.261    1000.000 0.001
+Trend (mt)              0.574        0.379        0.818    1098.214 0.001
+Level phase B (phaseB) 14.054       12.874       15.345    1000.000 0.001
+Slope phase B (interB)  0.908        0.685        1.128    1000.000 0.001
 
 G-Structure - Random effects (~case)
 
  Parameter     SD lower 95% CI upper 95% CI
- Intercept 10.318        8.238       12.237
+ Intercept 10.249        8.379       12.559
 
 R-Structure - Residuals
 
           SD lower 95% CI upper 95% CI 
-       5.291        5.091        5.481 </code></pre>
+       5.299        5.081        5.478 </code></pre>
 </div>
 </div>
-<section id="setting-priors" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="setting-priors"><span class="header-section-number">13.1</span> Setting priors</h2>
+</section>
+<section id="setting-priors" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="setting-priors"><span class="header-section-number">13.3</span> Setting priors</h2>
 <p>The following example show the influence of priors on paramameter estimation. Firstly, we create a random case from previously defined parameters:<br>
 The starting value (intercept) is 50 (the standard deviation is 10). The level effect for Phase B is one standard deviation (that is, 10 points) and there is neither a slope nor a trend effect. Random noise is introduced with 20% measurment error (reliability is 0.8).</p>
 <div class="cell">
@@ -544,7 +586,7 @@ The starting value (intercept) is 50 (the standard deviation is 10). The level e
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ch_bayesian_plm_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ch_bayesian_plm_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -572,12 +614,15 @@ R-Structure - Residuals
        5.599        3.457        7.517 </code></pre>
 </div>
 </div>
-<p>Now we introduce our prior knowledge: an intercept of 50, a trend and slope effect of 0, and a level effect of 10. We also assume that our prior is quite uncertain (i.e., a weakly informative prior). <code>mu</code> sets the prior values for the four parameters in the order they appear in the regression model. <code>V</code> is a diagonal matrix of the variances of these estimates. The V matrix sets the strength of the prior. Here we set values of 100, which is one standard deviation (<span class="math inline">\(SD^2 = 10^2 = 100\)</span>):</p>
+<p>Now we introduce our prior knowledge: an intercept of 50, a trend and slope effect of 0, and a level effect of 10. We also assume that our prior is quite uncertain (i.e., a weakly informative prior). <code>mu</code> sets the prior values for the four parameters in the order they appear in the regression model. <code>V</code> is a diagonal matrix of the variances of these estimates. The V matrix sets the strength of the prior. Here we set values of 100, which is one standard deviation (<span class="math inline">\(SD^2 = 10^2 = 100\)</span>).</p>
+<p>As we are setting the fixed parameters (B-structure) of the model, we enclose these settings in a list with the name <code>B</code>. The argument <code>prior</code> takes a list of lists, so we need to enclose the B-structure in a list as well.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">list</span>(<span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>), <span class="at">V =</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>)))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(scdf, <span class="at">prior =</span> prior)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">B =</span> <span class="fu">list</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">0</span>), </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">V =</span> <span class="fu">diag</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="dv">100</span>)))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">bplm</span>(scdf, <span class="at">prior =</span> prior)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Bayesian Piecewise Linear Regression
 

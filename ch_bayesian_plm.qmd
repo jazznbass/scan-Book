@@ -8,7 +8,7 @@ This feature is still in an experimental state. This means that the syntax struc
 
 Starting with version 0.63.0 scan included Bayesian regression analyses through the `bplm()` function (**B**ayesian **P**iecewise **L**inear **M**odel).
 
-In inferential statistics, a distinction is made between frequentist and Bayesian approaches. Frequentist statistics assess the probability of observing the data under the assumption that a null hypothesis (there is no effect or association) is true. 
+In inferential statistics, a distinction is made between frequentist and Bayesian approaches. Frequentist statistics assess the probability of observing the data under the assumption that a null hypothesis (there is no effect or association) is true.
 
 Bayesian statistics, on the other hand, begins with prior distributions that represent initial beliefs (priors) about the parameters of interest. These priors are then updated using observed data through Bayes’ theorem, which means that the initial beliefs about the parameters are adjusted in proportion to how well they explain the data, producing a posterior distribution that reflects both prior knowledge and new evidence. The Bayesian approach evaluates how well the data fit different parameter values by computing the likelihood of the data given these parameter estimates, rather than testing against a fixed null hypothesis.
 
@@ -22,17 +22,46 @@ These advantages make it worthwhile to use a Bayesian approach for single-case d
 function_structure("bplm")
 ```
 
-The `bplm()` function comuputes a piecewise regression analysis. The syntax is quite similar to the `plm()` and `hplm()` functions. There you can find details about the general piecewise regression model, the interpretation of regression estimations, and the setting of contrast in models with more that two phases.
+The `bplm()` function computes a piecewise regression analysis. The syntax is quite similar to the `plm()` and `hplm()` functions. There you can find details about the general piecewise regression model, the interpretation of regression estimations, and the setting of contrast in models with more that two phases.
 
-The `bplm()` works for datasets with one case or multiple cases.
+`bplm()` works for single-case dataframes with one case or multiple cases.
 
-Her is an example of a one-case dataset:
+::: callout-note
+`bplm()` uses the [MCMCglmm](https://cran.r-project.org/web/packages/MCMCglmm/index.html) package and function to compute the models. Parameters can be directly passed to that function with the arguments that are provided with bplm(). E.g., `niter` for setting the number of iterations or `prior` to set the priors.
+:::
+
+## A one case analysis
+
+Her is an example analyses of a one-case dataset:
 
 ```{r}
 #| label: bplm-ex-one-case
 bplm(exampleAB$Johanna)
 ```
 
+In Bayesian terminology, the B-structure describes the fixed effects in a regression model and the R-structure the residuals of a model.
+
+Let us take a closer look at the B-structure. As in any regression model, the coefficients represent the expected effects of the predictors on the outcome variable. In the present model, the intercept reflects the expected level of the outcome at time point zero in Phase A. The **trend** coefficient represents the expected change in the outcome for each additional measurement point within Phase A. The **level** coefficient (level effect) represents the change when Phase B begins. The **slope** coefficient (slope effect) represents the change in slope in Phase B compared to Phase A. Thus, the Phase B slope is given by the sum of the coefficients for **trend** and **slope**.
+
+The CI values (here, CI stands for *credible interval*, not *confidence interval*) indicate how precisely the regression coefficients are estimated. The p value indicates how likely it is that the corresponding regression coefficient is on the opposite side of zero.
+
+::: callout-note
+## Methodological details
+
+We have to keep in mind that the Bayesian computational approach works somewhat differently from a linear mixed-effects regression estimated with maximum likelihood. The MCMC algorithm repeatedly generates new parameter values (i.e., iterations of parameter estimates) and evaluates how plausible these values are given the data and the prior assumptions. Over many iterations, this produces a sample from the posterior distribution of the model parameters. This *posterior sample* forms the basis for estimating the regression parameters and their uncertainty.
+
+For this analysis, the maximum number of iterations was set to 13,000 (`nitt = 13000`). The first 3,000 iterations are discarded (`burnin = 3000`), because during this initial phase the Markov chain moves from its starting values toward the posterior distribution. From the remaining 10,000 iterations, only every tenth draw is stored (`thin = 10`) in order to reduce autocorrelation between consecutive samples.
+
+The effective sample size (here the column *sample size*) indicates how many independent samples these draws correspond to after accounting for autocorrelation in the MCMC chain.
+
+The *B* column shows the mean of a parameter from the posterior sample. The *CI* columns show the credible interval, which contains the central 95% of the posterior distribution after excluding the lowest 2.5% and the highest 2.5% of the sampled values.
+
+The *p* column depicts two times the proportion of the posterior sample that are below zero (or for negative *B* values above zero). So the p-value is conceptually different from the probability statistics of a regression analysis that tests for the null-hypothesis. It is conceptually more similar to the p-value derived from a randomization test.
+:::
+
+## Multiple case analysis
+
+For multilevel designs (i.e., multiple cases) a G-structure is reported which describes the between case effects (similar to the random effects of a linear mixed effect model but without the residual effects).
 
 Here is an example of a multi-case dataset:
 
@@ -43,10 +72,12 @@ bplm(exampleAB_50)
 
 ## Setting priors
 
-The following example show the influence of priors on paramameter estimation. Firstly, we create a random case from previously defined parameters:  
+The following example show the influence of priors on paramameter estimation. Firstly, we create a random case from previously defined parameters:\
 The starting value (intercept) is 50 (the standard deviation is 10). The level effect for Phase B is one standard deviation (that is, 10 points) and there is neither a slope nor a trend effect. Random noise is introduced with 20% measurment error (reliability is 0.8).
 
 ```{r}
+#| fig-height: 5
+#| fig-width: 10
 set.seed(123) #set random seed for replicability of the example
 des <- design(
   start_value = 50, 
@@ -66,17 +97,20 @@ Here are the estimations from a Bayesian model without informative priors:
 bplm(scdf)
 ```
 
-Now we introduce our prior knowledge: an intercept of 50, a trend and slope effect of 0, and a level effect of 10. We also assume that our prior is quite uncertain (i.e., a weakly informative prior). `mu` sets the prior values for the four parameters in the order they appear in the regression model. `V` is a diagonal matrix of the variances of these estimates. The V matrix sets the strength of the prior. Here we set values of 100, which is one standard deviation ($SD^2 = 10^2 = 100$):
+Now we introduce our prior knowledge: an intercept of 50, a trend and slope effect of 0, and a level effect of 10. We also assume that our prior is quite uncertain (i.e., a weakly informative prior). `mu` sets the prior values for the four parameters in the order they appear in the regression model. `V` is a diagonal matrix of the variances of these estimates. The V matrix sets the strength of the prior. Here we set values of 100, which is one standard deviation ($SD^2 = 10^2 = 100$).
 
+As we are setting the fixed parameters (B-structure) of the model, we enclose these settings in a list with the name `B`. The argument `prior` takes a list of lists, so we need to enclose the B-structure in a list as well.
 
 ```{r}
 prior <- list(
-  B = list(mu = c(50, 0, 10, 0), V = diag(c(100, 100, 100, 100)))
+  B = list(
+    mu = c(50, 0, 10, 0), 
+     V = diag(c(100, 100, 100, 100)))
 )
 bplm(scdf, prior = prior)
 ```
 
-Now we assume that we have some certainty (i.e. a prior of medium strength) by setting the variances to 10 (SD ~ 3.2):
+Now we assume that we have some certainty (i.e. a prior of medium strength) by setting the variances to 10 (SD \~ 3.2):
 
 ```{r}
 prior <- list(
