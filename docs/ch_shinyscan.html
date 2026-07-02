@@ -453,7 +453,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre class="mermaid mermaid-js">flowchart LR
 A("`🔢 **Data**
 New
-Load`") --&gt; B("`🧮 **Stats**
+Load
+Examples`") --&gt; B("`🧮 **Stats**
 Descriptives
 Overlap indices
 Regression analysis
@@ -469,10 +470,9 @@ Set dependent variables`")
 T --&gt; B
 T --&gt; C
 A --&gt; C("`📈 **Plot**
-Arguments
-Stat templates
-Deisgn templates
-Anotate templates
+Theme 
+Axis design
+Line statistics
 `")
 B --&gt; Ex("`💾 **Export**
 Html
@@ -488,7 +488,7 @@ C --&gt; Ex
 </div>
 </div>
 </div>
-<p><img src="images/clipboard-2503352791.png" class="img-fluid"></p>
+<p><img src="images/clipboard-2890108982.png" class="img-fluid"></p>
 <p>The app is organized into seven main menus (tabs), each serving a specific function:</p>
 <ul>
 <li><p><strong>Data</strong>: Create new datasets, load and save existing ones, and access example datasets.</p></li>
@@ -555,16 +555,16 @@ C --&gt; Ex
 </section>
 <section id="load-an-example-data-file" class="level3" data-number="18.1.2">
 <h3 data-number="18.1.2" class="anchored" data-anchor-id="load-an-example-data-file"><span class="header-section-number">18.1.2</span> Load an example data file</h3>
-<p>Go to <strong>Data -&gt; Load</strong> and select an example from <strong>Choose example</strong>:</p>
-<p><img src="images/clipboard-542845103.png" class="img-fluid" width="244"></p>
+<p>Go to <strong>Data -&gt; Examples</strong> and select an example from <strong>Choose example</strong>:</p>
+<p><img src="images/clipboard-2619148172.png" class="img-fluid" width="310"></p>
 <p>A summary of the selected <em>scdf</em> is displayed in the output pane</p>
 <p>Now, if you want to import that file, click <strong>Import scdf</strong> below. Caution: This will also replace a previously generated or loaded <em>scdf</em> file.</p>
 <p>You can now continue with the example <em>scdf</em> or go to <strong>Data -&gt; New /Edit</strong> to modify the dataset.</p>
 </section>
 <section id="load-existing-data-files" class="level3" data-number="18.1.3">
 <h3 data-number="18.1.3" class="anchored" data-anchor-id="load-existing-data-files"><span class="header-section-number">18.1.3</span> Load existing data files</h3>
-<p>Switch to <strong>Data -&gt; Load</strong>:</p>
-<p><img src="images/clipboard-2673762050.png" class="img-fluid" width="162"></p>
+<p>Switch to <strong>Data -&gt; Import</strong>:</p>
+<p><img src="images/clipboard-3979993811.png" class="img-fluid" width="183"></p>
 <p>Click <strong>Choose file</strong> and select a file from your hard disk.</p>
 <p>Four file types are accepted:</p>
 <ol type="1">
@@ -610,7 +610,7 @@ C --&gt; Ex
 <p>The Transform tab allows you to modify, create, recalculate etc. new variables from your <em>scdf</em>.</p>
 <p>If you make any changes here, all operations in other tabs (<em>stats</em>, <em>plot</em> etc.) will be based on the transformed <em>scdf</em>.</p>
 <p>This tab also displays the raw-data contained in the <em>scdf</em>.</p>
-<p><img src="images/clipboard-1363910042.png" class="img-fluid" width="601"></p>
+<p><img src="images/clipboard-1591328150.png" class="img-fluid"></p>
 <p><strong>Select cases</strong></p>
 <p>Select cases either by case number or by case name. Use commas to select multiple cases and a colon to select ranges of cases (e.g.&nbsp;<code>1, 7:9, 10</code>).</p>
 <p><strong>Combine phases</strong></p>
@@ -627,52 +627,56 @@ C --&gt; Ex
 <h2 data-number="18.3" class="anchored" data-anchor-id="stats"><span class="header-section-number">18.3</span> Stats</h2>
 <p>This tab is used to select and refine analysis procedures. The following section explains the functionality of the GUI. For detailed descriptions of the statistical methods, refer to the corresponding sections of this book.</p>
 <p>The <strong>Statistic</strong> field provides access to a range of procedures. By default, the descriptives of the <em>scdf</em> are displayed.</p>
-<p><img src="images/clipboard-313604891.png" class="img-fluid"></p>
-<p>For most procedures, specific output arguments can be defined. These arguments apply to the corresponding <code>print()</code> function (text output) or <code>export()</code> function (HTML output). The default arguments for each function are shown in the <strong>Output arguments</strong> field. You can adjust these settings, and the output below will update immediately.<br>
+<p><img src="images/clipboard-3749441867.png" class="img-fluid"></p>
+<p>For most procedures, specific <em>output arguments</em> can be defined. These arguments apply to the corresponding <code>print()</code> function (text output) or <code>export()</code> function (HTML output). The default arguments for each function are shown in the <strong>Output arguments</strong> field. You can adjust these settings, and the output below will update immediately.<br>
 For example set <code>flip = TRUE</code> here to switch columns and rows:</p>
-<p><img src="images/clipboard-3893398766.png" class="img-fluid"></p>
+<p><img src="images/clipboard-3997639710.png" class="img-fluid"></p>
 <p>Click <strong>Save</strong> to export the output content. The save format (text, html, or docx) is based on the settings of the HTML switch and the <strong>Settings</strong> tab.</p>
 <section id="function-arguments" class="level3" data-number="18.3.1">
 <h3 data-number="18.3.1" class="anchored" data-anchor-id="function-arguments"><span class="header-section-number">18.3.1</span> Function arguments</h3>
-<p>If you choose a statistical procedure which takes additional arguments, a list of the available arguments will be provided on the left pane. Here is an example for the <em>hierarchical piecewise regression</em> function. All arguments are provided with their respective default settings (please refer to the respective section in this book or the help files for detailed explanations of the arguments):</p>
-<p><img src="images/clipboard-2036346249.png" class="img-fluid"></p>
+<p>If you choose a statistical procedure which takes additional arguments, a list of the available arguments will be provided in the Arguments tab. Here is an example for the <em>hierarchical piecewise regression</em> function. All arguments are provided with their respective default settings (please refer to the respective section in this book or the help files for detailed explanations of the arguments):</p>
+<p><img src="images/clipboard-3717613138.png" class="img-fluid"></p>
 </section>
 </section>
 <section id="plots" class="level2" data-number="18.4">
 <h2 data-number="18.4" class="anchored" data-anchor-id="plots"><span class="header-section-number">18.4</span> Plots</h2>
 <p>The Plot tab lets you create graphs using the scplot function (see <a href="ch_scplot.html" class="quarto-xref"><span>Chapter 5</span></a> for details).</p>
 <p>If a valid scdf is loaded or created, a standard scplot appears by default.</p>
-<p><img src="images/clipboard-4163873391.png" class="img-fluid"></p>
-<p>On the left of the plot are two cards that show a few options that can be applied to the plot.</p>
-<p>On the left side of the plot, two option cards allow you to adjust the graph:</p>
+<p><img src="images/clipboard-2812784627.png" class="img-fluid"></p>
+<p>On the left of the plot are four tabs that allow to set several options that can be applied to the plot.</p>
+<p>The <em>Theme</em> tab:</p>
 <ul>
 <li><strong>Select case</strong>: Plot all cases or a specific case.<br>
 </li>
 <li><strong>Themes</strong>: Use three drop-down menus to apply full visual themes or selected theme elements.<br>
 </li>
-<li><strong>Add legend</strong>: Adds a legend to the right of the plot.<br>
+<li><strong>Legend position</strong>: Adds a legend to the right of the plot.<br>
 </li>
-<li><strong>Text size</strong>: Sets the base size of all text elements.<br>
-</li>
-<li><strong>Y Axis</strong>: Define the minimum and maximum of the y-axis.<br>
-</li>
-<li><strong>X Axis</strong>: Set the increment of x-axis values. If labels overlap, choose a larger increment (e.g., 5 prints x-axis values 1, 6, 11, 16, 21…).<br>
-</li>
-<li><strong>Export</strong>: Specify width, height, and DPI. Click <strong>Save plot</strong> to export the plot as a PNG file. Filename and size can also be set in the <strong>Settings</strong> tab.<br>
-</li>
-<li><strong>Baseline</strong>: Adds baseline statistics to the graph and extrapolates them to all other phases.<br>
-</li>
-<li><strong>Phases</strong>: Adds statistics for each phase separately to the plot.<br>
-</li>
-<li><strong>Curves</strong>: Adds a smoothed curve to the data.<br>
-</li>
+<li><strong>Text size</strong>: Sets the base size of all text elements.</li>
+</ul>
+<p>The <em>Axis</em> tab:</p>
+<ul>
+<li><strong>x increment</strong>: Set the increment of x-axis values. If labels overlap, choose a larger increment (e.g., 5 prints x-axis values 1, 6, 11, 16, 21…).</li>
+<li><strong>y min and y max</strong>: Define the minimum and maximum of the y-axis.</li>
+<li><strong>x label and y label</strong>: Change labels for the rspective axis.</li>
+<li><strong>Phasenames</strong>: Change phasenames (e.g.&nbsp;<code>Baseline, Intervention, Follow-up</code>).</li>
+<li><strong>Casenames</strong>: Chane casenames (e.g.&nbsp;<code>Herb, Charles, Chris</code>).</li>
+<li>Footnote: Adds automatic footnote if the scdf file containes added information.</li>
+</ul>
+<p>The <em>Lines</em> tab:</p>
+<ul>
+<li><strong>Baseline</strong>: Adds baseline statistics to the graph and extrapolates them to all other phases.</li>
+<li><strong>Phases</strong>: Adds statistics for each phase separately to the plot.</li>
+<li><strong>Curves</strong>: Adds a smoothed curve to the data.</li>
 <li><strong>Add variable</strong>: Adds a second variable from the <code>scdf</code> to the plot.</li>
 </ul>
+<p>The <em>Save</em> tab:</p>
+<p>This allows you to define the size and resolution of the graph, and then export it as a PNG file.</p>
 </section>
 <section id="settings" class="level2" data-number="18.5">
 <h2 data-number="18.5" class="anchored" data-anchor-id="settings"><span class="header-section-number">18.5</span> Settings</h2>
 <p>The <strong>Settings</strong> tab allows users to customize various aspects of <em>shinyscan</em>’s behavior. The available options are grouped by functional area:</p>
-<p><img src="images/clipboard-3648603097.png" class="img-fluid"></p>
+<p><img src="images/clipboard-3508750661.png" class="img-fluid"></p>
 <section id="data" class="level3" data-number="18.5.1">
 <h3 data-number="18.5.1" class="anchored" data-anchor-id="data"><span class="header-section-number">18.5.1</span> Data</h3>
 <p><strong>Show scdf syntax</strong> defines whether the output in the <strong>Data</strong> tab is shown as R syntax (<code>convert(scdf)</code>) or as a summary (<code>summary(scdf)</code>).</p>
@@ -687,11 +691,10 @@ For example set <code>flip = TRUE</code> here to switch columns and rows:</p>
 </section>
 <section id="stats-1" class="level3" data-number="18.5.3">
 <h3 data-number="18.5.3" class="anchored" data-anchor-id="stats-1"><span class="header-section-number">18.5.3</span> Stats</h3>
-<p><strong>Show short description</strong> gives a short description of the selected statistical function when switched on.</p>
 <p><strong>Show defaults</strong> If switched on, the generated R syntax includes all function arguments, including those set to their default values. This can be useful for teaching and documentation.</p>
 <p><strong>Rename predictors</strong> allows choosing among three naming conventions for predictors in the regression output.</p>
+<p><strong>Save html as docx</strong> saves the output as a word docx files if you choose html as the output format.</p>
 <p><strong>Prefix save filename</strong> defines a prefix filenames generated when exporting statistical results.</p>
-<p><strong>Save format</strong> sets the export format.</p>
 </section>
 <section id="plot" class="level3" data-number="18.5.4">
 <h3 data-number="18.5.4" class="anchored" data-anchor-id="plot"><span class="header-section-number">18.5.4</span> Plot</h3>

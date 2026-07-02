@@ -37,7 +37,8 @@ You can start the app by executing the function `shinyscan()` from the *scan* pa
 flowchart LR
 A("`🔢 **Data**
 New
-Load`") --> B("`🧮 **Stats**
+Load
+Examples`") --> B("`🧮 **Stats**
 Descriptives
 Overlap indices
 Regression analysis
@@ -53,10 +54,9 @@ Set dependent variables`")
 T --> B
 T --> C
 A --> C("`📈 **Plot**
-Arguments
-Stat templates
-Deisgn templates
-Anotate templates
+Theme 
+Axis design
+Line statistics
 `")
 B --> Ex("`💾 **Export**
 Html
@@ -68,23 +68,23 @@ C --> Ex
 
 ```
 
-![](images/clipboard-2503352791.png)
+![](images/clipboard-2890108982.png)
 
 The app is organized into seven main menus (tabs), each serving a specific function:
 
--   **Data**: Create new datasets, load and save existing ones, and access example datasets.
+- **Data**: Create new datasets, load and save existing ones, and access example datasets.
 
--   **Transform**: Perform data selection, filtering, and other transformations.
+- **Transform**: Perform data selection, filtering, and other transformations.
 
--   **Stats**: Conduct statistical analyses using various single-case methods.
+- **Stats**: Conduct statistical analyses using various single-case methods.
 
--   **Plot**: Generate and export single-case design plots.
+- **Plot**: Generate and export single-case design plots.
 
--   **Power-test**: Perform power analyses tailored to single-case designs.
+- **Power-test**: Perform power analyses tailored to single-case designs.
 
--   **Settings**: Modify the default behavior and preferences of the application.
+- **Settings**: Modify the default behavior and preferences of the application.
 
--   **Help**: Access additional documentation and external resources.
+- **Help**: Access additional documentation and external resources.
 
 By default, **shinyscan** opens with the **Data** tab selected.
 
@@ -96,9 +96,9 @@ The **Data** tab in *shinyscan* allows you to manually create single-case datase
 
 **Select case**
 
--   To add a new case, choose New case.
+- To add a new case, choose New case.
 
--   To edit an existing case, select the case from the list. The corresponding data will then be loaded into the input fields below.
+- To edit an existing case, select the case from the list. The corresponding data will then be loaded into the input fields below.
 
 **Values**
 
@@ -131,13 +131,13 @@ You may provide an optional name for the case. If left empty, a random name will
 
 A set of buttons is located below the input fields:
 
--   **Save case:** Adds the new case to the existing scdf when *-new case-* is selected under **Select case**. If an existing case is selected, it will be overwritten.
+- **Save case:** Adds the new case to the existing scdf when *-new case-* is selected under **Select case**. If an existing case is selected, it will be overwritten.
 
--   **Remove case:** Deletes the selected case.
+- **Remove case:** Deletes the selected case.
 
--   **Clear all cases:** Deletes the entire scdf.
+- **Clear all cases:** Deletes the entire scdf.
 
--   **Clear input fields:** Clears all entries from the input fields above.
+- **Clear input fields:** Clears all entries from the input fields above.
 
 After clicking **Save case**, a summary of the current *scdf* appears in the output area on the right.
 
@@ -161,12 +161,11 @@ Go back to **Data –\> New / Edit** and the output will show R syntax:
 {{< video https://youtu.be/ENldZM-PQHE>}}
 :::
 
-
 ### Load an example data file
 
-Go to **Data -\> Load** and select an example from **Choose example**:
+Go to **Data -\> Examples** and select an example from **Choose example**:
 
-![](images/clipboard-542845103.png){width="244"}
+![](images/clipboard-2619148172.png){width="310"}
 
 A summary of the selected *scdf* is displayed in the output pane
 
@@ -176,9 +175,9 @@ You can now continue with the example *scdf* or go to **Data -\> New /Edit** to 
 
 ### Load existing data files
 
-Switch to **Data -\> Load**:
+Switch to **Data -\> Import**:
 
-![](images/clipboard-2673762050.png){width="162"}
+![](images/clipboard-3979993811.png){width="183"}
 
 Click **Choose file** and select a file from your hard disk.
 
@@ -203,9 +202,9 @@ If your data file already contains a valid *scdf* object (e.g. for rds or R file
 
 If your data file contains a data frame, it will be displayed in the output area on the right. *shinyscan* will attempt to assign the columns to the corresponding elements of an *scdf*. Review these assignments and, if necessary, correct them using the drop-down menus.
 
--   **Missing values:** Define which values in the data frame should be treated as missing during import (default: empty values and NA).
+- **Missing values:** Define which values in the data frame should be treated as missing during import (default: empty values and NA).
 
--   **Separator:** For .csv files, specify the character that separates values. By default, this is a comma. Adjust this setting if your file uses a different separator.
+- **Separator:** For .csv files, specify the character that separates values. By default, this is a comma. Adjust this setting if your file uses a different separator.
 
 ![Assign columns to corresponding scdf elements](images/clipboard-2469950403.png){width="324"}
 
@@ -217,7 +216,6 @@ Click **Import scdf** to create and import an *scdf* from the data. The resultin
 {{< video https://youtu.be/sLDuA8KXghw>}}
 :::
 
-
 ## Transform
 
 The Transform tab allows you to modify, create, recalculate etc. new variables from your *scdf*.
@@ -226,7 +224,7 @@ If you make any changes here, all operations in other tabs (*stats*, *plot* etc.
 
 This tab also displays the raw-data contained in the *scdf*.
 
-![](images/clipboard-1363910042.png){width="601"}
+![](images/clipboard-1591328150.png)
 
 **Select cases**
 
@@ -256,20 +254,20 @@ This tab is used to select and refine analysis procedures. The following section
 
 The **Statistic** field provides access to a range of procedures. By default, the descriptives of the *scdf* are displayed.
 
-![](images/clipboard-313604891.png)
+![](images/clipboard-3749441867.png)
 
-For most procedures, specific output arguments can be defined. These arguments apply to the corresponding `print()` function (text output) or `export()` function (HTML output). The default arguments for each function are shown in the **Output arguments** field. You can adjust these settings, and the output below will update immediately.\
+For most procedures, specific *output arguments* can be defined. These arguments apply to the corresponding `print()` function (text output) or `export()` function (HTML output). The default arguments for each function are shown in the **Output arguments** field. You can adjust these settings, and the output below will update immediately.\
 For example set `flip = TRUE` here to switch columns and rows:
 
-![](images/clipboard-3893398766.png)
+![](images/clipboard-3997639710.png)
 
 Click **Save** to export the output content. The save format (text, html, or docx) is based on the settings of the HTML switch and the **Settings** tab.
 
 ### Function arguments
 
-If you choose a statistical procedure which takes additional arguments, a list of the available arguments will be provided on the left pane. Here is an example for the *hierarchical piecewise regression* function. All arguments are provided with their respective default settings (please refer to the respective section in this book or the help files for detailed explanations of the arguments):
+If you choose a statistical procedure which takes additional arguments, a list of the available arguments will be provided in the Arguments tab. Here is an example for the *hierarchical piecewise regression* function. All arguments are provided with their respective default settings (please refer to the respective section in this book or the help files for detailed explanations of the arguments):
 
-![](images/clipboard-2036346249.png)
+![](images/clipboard-3717613138.png)
 
 ## Plots
 
@@ -277,29 +275,42 @@ The Plot tab lets you create graphs using the scplot function (see @sec-scplot f
 
 If a valid scdf is loaded or created, a standard scplot appears by default.
 
-![](images/clipboard-4163873391.png)
+![](images/clipboard-2812784627.png)
 
-On the left of the plot are two cards that show a few options that can be applied to the plot.
+On the left of the plot are four tabs that allow to set several options that can be applied to the plot.
 
-On the left side of the plot, two option cards allow you to adjust the graph:
+The *Theme* tab:
 
--   **Select case**: Plot all cases or a specific case.\
--   **Themes**: Use three drop-down menus to apply full visual themes or selected theme elements.\
--   **Add legend**: Adds a legend to the right of the plot.\
--   **Text size**: Sets the base size of all text elements.\
--   **Y Axis**: Define the minimum and maximum of the y-axis.\
--   **X Axis**: Set the increment of x-axis values. If labels overlap, choose a larger increment (e.g., 5 prints x-axis values 1, 6, 11, 16, 21…).\
--   **Export**: Specify width, height, and DPI. Click **Save plot** to export the plot as a PNG file. Filename and size can also be set in the **Settings** tab.\
--   **Baseline**: Adds baseline statistics to the graph and extrapolates them to all other phases.\
--   **Phases**: Adds statistics for each phase separately to the plot.\
--   **Curves**: Adds a smoothed curve to the data.\
--   **Add variable**: Adds a second variable from the `scdf` to the plot.
+- **Select case**: Plot all cases or a specific case.\
+- **Themes**: Use three drop-down menus to apply full visual themes or selected theme elements.\
+- **Legend position**: Adds a legend to the right of the plot.\
+- **Text size**: Sets the base size of all text elements.
+
+The *Axis* tab:
+
+- **x increment**: Set the increment of x-axis values. If labels overlap, choose a larger increment (e.g., 5 prints x-axis values 1, 6, 11, 16, 21…).
+- **y min and y max**: Define the minimum and maximum of the y-axis.
+- **x label and y label**: Change labels for the rspective axis.
+- **Phasenames**: Change phasenames (e.g. `Baseline, Intervention, Follow-up`).
+- **Casenames**: Chane casenames (e.g. `Herb, Charles, Chris`).
+- Footnote: Adds automatic footnote if the scdf file containes added information.
+
+The *Lines* tab:
+
+- **Baseline**: Adds baseline statistics to the graph and extrapolates them to all other phases.
+- **Phases**: Adds statistics for each phase separately to the plot.
+- **Curves**: Adds a smoothed curve to the data.
+- **Add variable**: Adds a second variable from the `scdf` to the plot.
+
+The *Save* tab:
+
+This allows you to define the size and resolution of the graph, and then export it as a PNG file.
 
 ## Settings
 
 The **Settings** tab allows users to customize various aspects of *shinyscan*’s behavior. The available options are grouped by functional area:
 
-![](images/clipboard-3648603097.png)
+![](images/clipboard-3508750661.png)
 
 ### Data
 
@@ -319,15 +330,13 @@ The **Settings** tab allows users to customize various aspects of *shinyscan*’
 
 ### Stats
 
-**Show short description** gives a short description of the selected statistical function when switched on.
-
 **Show defaults** If switched on, the generated R syntax includes all function arguments, including those set to their default values. This can be useful for teaching and documentation.
 
 **Rename predictors** allows choosing among three naming conventions for predictors in the regression output.
 
-**Prefix save filename** defines a prefix filenames generated when exporting statistical results.
+**Save html as docx** saves the output as a word docx files if you choose html as the output format.
 
-**Save format** sets the export format.
+**Prefix save filename** defines a prefix filenames generated when exporting statistical results.
 
 ### Plot
 
