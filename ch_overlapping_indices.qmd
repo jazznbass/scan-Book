@@ -45,7 +45,6 @@ exampleA1B1A2B2 |>
 # overlap(exampleA1B1A2B2, phases = list( c("A1","A2"), c("B1","B2")))
 ```
 
-
 ## Percentage non-overlapping data (PND) {#sec-pnd}
 
 ```{r}
@@ -54,11 +53,11 @@ exampleA1B1A2B2 |>
 function_structure("pnd")
 ```
 
-The percentage of non-overlapping data (PND) effect size measure was described by @scruggs_quantitative_1987 . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.
+The percentage of non-overlapping data (PND) effect size measure was described by @scruggs_quantitative_1987 . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase.
 
 ```{r}
 #| echo: false
-#| fig-width: 4
+#| fig-width: 5
 #| fig-height: 3
 #| fig-cap: Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A
 
@@ -71,11 +70,30 @@ random_scdf(design(1, level = 1.0),round = 0, seed = 1212) |>
   set_casenames(position = "none")
 ```
 
-The function `pnd` provides the PND for each case as well as the mean of all PNDs of that *scdf*. When you expect decreasing values set `decreasing = TRUE`. When there are more than two phases or phases are not named A and B, use the `phases` argument as described at the beginning of this chapter.
+The function `pnd` provides the PND for each case as well as the mean PND of all cases.
 
 ```{r}
 pnd(exampleAB)
 ```
+
+When you expect decreasing values set `decreasing = TRUE`. In that case, PND will be the percentage of values below the minimum of the first phase.
+
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 3
+#| fig-cap: Illustration of PND for expected decreasing values. PND is 73% as 11 out of 15 datapoints of phase B are lower than the minimum of phase A
+
+random_scdf(design(1, level = -1.0),round = 0, seed = 1212) |>
+  scplot() |> 
+  add_statline("min", phase = "A", color = "red") |>
+  add_text("Minimum of A", x = 1, y = 42, hjust = 0, color = "darkblue", size = 1) |>
+  add_marks(positions = "values < min(values[phase == 'A'])", size = 2, shape = 16) |> 
+  set_theme("basic") |> 
+  set_casenames(position = "none")
+```
+
+When there are more than two phases, use the `phases` argument as described in @sec-select-phases.
 
 ## Percentage exceeding the median (PEM) {#sec-pem}
 
@@ -89,7 +107,7 @@ The pem function returns the percentage of phase B data exceeding the phase A me
 
 ```{r}
 #| echo: false
-#| fig-width: 4
+#| fig-width: 5
 #| fig-height: 3
 #| fig-cap: Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A
 
@@ -105,6 +123,8 @@ random_scdf(design(1, level = 1.0),round = 0, seed = 1212) |>
 pem(exampleAB)
 ```
 
+When you expect decreasing values set `decreasing = TRUE`. In that case, the percentage of values below the median of the first phase is reported.
+
 ## Percentage exceeding the regression trend (PET) {#sec-pet}
 
 ```{r}
@@ -113,7 +133,7 @@ pem(exampleAB)
 function_structure("pet")
 ```
 
-The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent (default) confidence interval of the predicted progress is computed.
+The pet function provides the percentage of phase B data points that are larger than the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper 95 percent (default) confidence interval of the predicted progress is computed.
 
 ```{r}
 pet(exampleAB)
@@ -121,7 +141,7 @@ pet(exampleAB)
 
 ```{r}
 #| echo: false
-#| fig-width: 4
+#| fig-width: 5
 #| fig-height: 3
 #| fig-cap: Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A
 
@@ -132,6 +152,8 @@ random_scdf(design(1, phase_design = list(A = 10, B = 15), level = 0.4),round = 
   set_theme("basic") |> 
   set_casenames(position = "none")
 ```
+
+When you expect decreasing values set `decreasing = TRUE`. In that case, the percentage of data points below the predicted values and below the lower 95% confidence intervall of the predicted values are reported.
 
 ## Percentage of all non-overlapping data (PAND) {#sec-pand}
 
@@ -161,6 +183,9 @@ pand(Parker2007)
 pand(Parker2007, method = "minimum")
 ```
 
+If values are expected to decrease in the second phase, set `decreasing = TRUE`. For the *sort* method, PAND is then based on increasingly sorted values. For the *minimum* method, all values of the dependent variable are multiplied by -1.
+
+\
 The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power [@parker_effect_2011].
 
 ## Nonoverlap of all pairs (NAP) {#sec-nap}
@@ -177,6 +202,8 @@ The `nap` function calculates the nonoverlap of all pairs [@parker_improved_2009
 nap(exampleAB)
 ```
 
+If values are expected to decrease in the second phase, set `decreasing = TRUE`. A non-overlapping pair is then defined by a lower phase B data point.
+
 ## Improvement rate difference (IRD) {#sec-ird}
 
 ```{r}
@@ -190,6 +217,8 @@ The adaptation of the improvement rate difference for single-case phase comparis
 ```{r}
 ird(exampleAB)
 ```
+
+If values are expected to decrease in the second phase, set `decreasing = TRUE`. Improvement will then reference lower values in phase B.
 
 ## Tau-U {#sec-tauu}
 
@@ -349,10 +378,7 @@ The previous section described the calculation of standardized mean differences 
 
 The estimated regression weight of the phase predictor (here: the mean differences between the phases) is divided by the variance the random intercept and the residuals to give the *BC-SMD* (between case standardised mean difference):
 
-$$
-\text{BC-SMD} = \frac{\hat{\beta}_1}{\sqrt{\hat{\sigma}^2_\varepsilon + \hat{\sigma}^2_u}}
-$$
-where:
+$$\text{BC-SMD} = \frac{\hat{\beta}_1}{\sqrt{\hat{\sigma}^2_\varepsilon + \hat{\sigma}^2_u}}$$ where:
 
 - $\hat{\beta}_1$ is the estimated fixed effect of the phase (i.e., mean difference between phase A and B),
 - $\hat{\sigma}^2_\epsilon$ is the within-case residual variance (level-1),
@@ -381,7 +407,6 @@ It is also possible to first calculate a *hierarchichal piecewise regression mod
 hplm(Leidig2018, slope = FALSE) |> between_smd()
 ```
 
-
 ## Reliable change index {#sec-rci}
 
 ```{r}
@@ -397,4 +422,3 @@ The `rci` function calculates two indices of reliable change [@wise_methods_2004
 ```{r}
 rci(exampleAB$Johanna, rel = 0.8)
 ```
-

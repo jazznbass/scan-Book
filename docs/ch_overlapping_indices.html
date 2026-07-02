@@ -569,18 +569,18 @@ Hedges_g          2.07      2.72      2.98</code></pre>
 <p><strong>pnd</strong>(<em>data</em>, <em>dvar</em>, <em>pvar</em>, <em>decreasing</em> = FALSE, <em>phases</em> = c(1, 2))</p>
 </div>
 </div>
-<p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation" data-cites="scruggs_quantitative_1987">Scruggs, Mastropieri, &amp; Casto (<a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase. In case you have a study where you expect a decrease of values in the second phase, PND is calculated as the percentage of data-point of the second phase below the minimum of the first phase.</p>
+<p>The percentage of non-overlapping data (PND) effect size measure was described by <span class="citation" data-cites="scruggs_quantitative_1987">Scruggs, Mastropieri, &amp; Casto (<a href="references.html#ref-scruggs_quantitative_1987" role="doc-biblioref">1987</a>)</span> . It is the percentage of all data-points of the second phase of a single-case study exceeding the maximum value of the first phase.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="480"></p>
 <figcaption>Illustration of PND. PND is 60% as 9 out of 15 datapoints of phase B are higher than the maximum of phase A</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The function <code>pnd</code> provides the PND for each case as well as the mean of all PNDs of that <em>scdf</em>. When you expect decreasing values set <code>decreasing = TRUE</code>. When there are more than two phases or phases are not named A and B, use the <code>phases</code> argument as described at the beginning of this chapter.</p>
+<p>The function <code>pnd</code> provides the PND for each case as well as the mean PND of all cases.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnd</span>(exampleAB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -594,6 +594,18 @@ Hedges_g          2.07      2.72      2.98</code></pre>
 Mean  : 93.33 %</code></pre>
 </div>
 </div>
+<p>When you expect decreasing values set <code>decreasing = TRUE</code>. In that case, PND will be the percentage of values below the minimum of the first phase.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="480"></p>
+<figcaption>Illustration of PND for expected decreasing values. PND is 73% as 11 out of 15 datapoints of phase B are lower than the minimum of phase A</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>When there are more than two phases, use the <code>phases</code> argument as described in <a href="#sec-select-phases" class="quarto-xref"><span>Section 9.1.1</span></a>.</p>
 </section>
 <section id="sec-pem" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="sec-pem"><span class="header-section-number">9.3</span> Percentage exceeding the median (PEM)</h2>
@@ -625,7 +637,7 @@ Mean  : 93.33 %</code></pre>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="480"></p>
 <figcaption>Illustration of PEM. PEM is 75% as 13 out of 15 datapoints of phase B are higher than the median of phase A</figcaption>
 </figure>
 </div>
@@ -644,6 +656,7 @@ Mean  : 93.33 %</code></pre>
 Alternative hypothesis: true probability &gt; 50%</code></pre>
 </div>
 </div>
+<p>When you expect decreasing values set <code>decreasing = TRUE</code>. In that case, the percentage of values below the median of the first phase is reported.</p>
 </section>
 <section id="sec-pet" class="level2" data-number="9.4">
 <h2 data-number="9.4" class="anchored" data-anchor-id="sec-pet"><span class="header-section-number">9.4</span> Percentage exceeding the regression trend (PET)</h2>
@@ -660,7 +673,7 @@ Alternative hypothesis: true probability &gt; 50%</code></pre>
 <p><strong>pet</strong>(<em>data</em>, <em>dvar</em>, <em>pvar</em>, <em>mvar</em>, <em>ci</em> = 0.95, <em>decreasing</em> = FALSE, <em>phases</em> = c(1, 2))</p>
 </div>
 </div>
-<p>The pet function provides the percentage of phase B data points exceeding the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper (or lower) 95 percent (default) confidence interval of the predicted progress is computed.</p>
+<p>The pet function provides the percentage of phase B data points that are larger than the prediction based on the phase A trend. A binomial test against a 50/50 distribution is computed. Furthermore, the percentage of phase B data points exceeding the upper 95 percent (default) confidence interval of the predicted progress is computed.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pet</span>(exampleAB)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -679,12 +692,13 @@ PET CI: Percent of values greater than upper 95% confidence threshold (single si
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="ch_overlapping_indices_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="480"></p>
 <figcaption>Illustration of PET. PET is 66.7% as 10 out of 15 datapoints of phase B are higher than the projected trend-line of phase A</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>When you expect decreasing values set <code>decreasing = TRUE</code>. In that case, the percentage of data points below the predicted values and below the lower 95% confidence intervall of the predicted values are reported.</p>
 </section>
 <section id="sec-pand" class="level2" data-number="9.5">
 <h2 data-number="9.5" class="anchored" data-anchor-id="sec-pand"><span class="header-section-number">9.5</span> Percentage of all non-overlapping data (PAND)</h2>
@@ -752,7 +766,9 @@ PAND = 85.7%
 Overlapping data: n = 4 ; percentage = 14.3 </code></pre>
 </div>
 </div>
-<p>The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power <span class="citation" data-cites="parker_effect_2011">(<a href="references.html#ref-parker_effect_2011" role="doc-biblioref">Richard I. Parker, Vannest, &amp; Davis, 2011a</a>)</span>.</p>
+<p>If values are expected to decrease in the second phase, set <code>decreasing = TRUE</code>. For the <em>sort</em> method, PAND is then based on increasingly sorted values. For the <em>minimum</em> method, all values of the dependent variable are multiplied by -1.</p>
+<p><br>
+The original procedure for computing PAND does not account for ambivalent datapoints (ties). The newer NAP overcomes this problem and has better precision-power <span class="citation" data-cites="parker_effect_2011">(<a href="references.html#ref-parker_effect_2011" role="doc-biblioref">Richard I. Parker, Vannest, &amp; Davis, 2011a</a>)</span>.</p>
 </section>
 <section id="sec-nap" class="level2" data-number="9.6">
 <h2 data-number="9.6" class="anchored" data-anchor-id="sec-nap"><span class="header-section-number">9.6</span> Nonoverlap of all pairs (NAP)</h2>
@@ -781,6 +797,7 @@ Overlapping data: n = 4 ; percentage = 14.3 </code></pre>
      Anja  98           96 1.5 &lt;.001 2.8 0.66</code></pre>
 </div>
 </div>
+<p>If values are expected to decrease in the second phase, set <code>decreasing = TRUE</code>. A non-overlapping pair is then defined by a lower phase B data point.</p>
 </section>
 <section id="sec-ird" class="level2" data-number="9.7">
 <h2 data-number="9.7" class="anchored" data-anchor-id="sec-ird"><span class="header-section-number">9.7</span> Improvement rate difference (IRD)</h2>
@@ -804,6 +821,7 @@ Overlapping data: n = 4 ; percentage = 14.3 </code></pre>
 <pre><code>Improvement rate difference = 0.867</code></pre>
 </div>
 </div>
+<p>If values are expected to decrease in the second phase, set <code>decreasing = TRUE</code>. Improvement will then reference lower values in phase B.</p>
 </section>
 <section id="sec-tauu" class="level2" data-number="9.8">
 <h2 data-number="9.8" class="anchored" data-anchor-id="sec-tauu"><span class="header-section-number">9.8</span> Tau-U</h2>
@@ -1135,9 +1153,7 @@ Cohen's d                         6.98   7.67   7.10</code></pre>
 <p>The previous section described the calculation of standardized mean differences <em>within</em> a subject (here: between two phases of one single case). An inherent problem with this calculations is, that the idea and measures of standardized mean differences (e.g.&nbsp;Cohen’s <em>d</em>) have been developed to characterize the differences between groups. That is, a difference is standardized by the variation <em>between</em> subjects in a group. These are two fundamentally different things. Variations <em>within</em> a subject might be due to measurement errors or individual fluctuations in the strength of an attribute across time. Whereas the variations <em>between</em> subjects indicate a social frame of reference for what is large or small. Accordingly, it is not sensible to apply the well known standards to classify standardizes mean differences (e.g., Cohen’s cut-off values for the interpretation of <em>d</em>) to within case standardized mean differences. Within case standardized mean differences are usually much larger compared to these cut-offs as variations within a subject across time are (mostly) much smaller that differences between subjects.</p>
 <p><span class="citation" data-cites="hedges2012">Hedges, Pustejovsky, &amp; Shadish (<a href="references.html#ref-hedges2012" role="doc-biblioref">2012</a>)</span> proposed an approach to calculate the between case standardized mean difference, that is conceptually equivalent to Cohen’s <em>d.</em> This approach is applicable when we have a study with multiple single-cases (here: not just two or three but, depending on the actual data structure, maybe fifteen, or more). The basic idea is, to calculate a multi-level regression model (measurements nested in subjects) with a random intercept (here: between case standard deviation of the intercept) and the <em>phase</em> variable as a dummy coded fixed predictor (see <a href="ch_multilevel_plm.html" class="quarto-xref"><span>Chapter 11</span></a> for details on the calculation of multilevel single case regression models).</p>
 <p>The estimated regression weight of the phase predictor (here: the mean differences between the phases) is divided by the variance the random intercept and the residuals to give the <em>BC-SMD</em> (between case standardised mean difference):</p>
-<p><span class="math display">\[
-\text{BC-SMD} = \frac{\hat{\beta}_1}{\sqrt{\hat{\sigma}^2_\varepsilon + \hat{\sigma}^2_u}}
-\]</span> where:</p>
+<p><span class="math display">\[\text{BC-SMD} = \frac{\hat{\beta}_1}{\sqrt{\hat{\sigma}^2_\varepsilon + \hat{\sigma}^2_u}}\]</span> where:</p>
 <ul>
 <li><span class="math inline">\(\hat{\beta}_1\)</span> is the estimated fixed effect of the phase (i.e., mean difference between phase A and B),</li>
 <li><span class="math inline">\(\hat{\sigma}^2_\epsilon\)</span> is the within-case residual variance (level-1),</li>
